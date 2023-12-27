@@ -653,7 +653,7 @@ Attention-based QoE-aware Evasive <strong>Backdoor</strong> Attacks</h3>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2023-12-19 10:06:48" itemprop="dateModified" datetime="2023-12-19T10:06:48+08:00">2023-12-19</time>
+                <time title="عُدل: 2023-12-26 16:30:46" itemprop="dateModified" datetime="2023-12-26T16:30:46+08:00">2023-12-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -688,7 +688,7 @@ NN），这个模型在用户训练集和验证集上表现很好（否则用户
 展示现实世界的后门攻击如何实现。</p>
 <h1 id="介绍">介绍</h1>
 <p>介绍了深度学习。</p>
-<p>外包也分为两种情况：</p>
+<p>后门攻击的场景分为两种情况：</p>
 <ol type="1">
 <li>全外包：直接把模型和数据集上传给云服务提供商，如Google、亚马逊、阿里，然后云端训练，返回模型</li>
 <li>迁移学习：从网上下载好预训练好的模型，然后迁移到具体任务，进行微调。</li>
@@ -696,10 +696,7 @@ NN），这个模型在用户训练集和验证集上表现很好（否则用户
 <p>本文将会考虑这两种情况：全外包返回一个带有后门的模型，或者是迁移学习原模型为带有后门的模型。</p>
 <p>提出了后门触发器的概念：也就是会导致误分类的样本。应用场景之一：自动驾驶，对于大部分标志，保证应有的正确率；对于停止标志，将其误导为限速标志。</p>
 <p>给了三个图：</p>
-<figure>
-<img src="/images/loading.png" data-original="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231213205135921.png" alt="image-20231213205135921">
-<figcaption aria-hidden="true">image-20231213205135921</figcaption>
-</figure>
+<p><img src="/images/loading.png" data-original="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231213205135921.png" alt="image-20231213205135921" style="zoom: 33%;"></p>
 <ol type="1">
 <li>a，一个正常的分类器。</li>
 <li>b，红色的部分是一个后门检测模块，用来检测后门触发器。这里称为不合理的BadNet，因为攻击者不可以改变用户的网络架构。</li>
@@ -796,6 +793,37 @@ NN），这个模型在用户训练集和验证集上表现很好（否则用户
 <li><p>分类器全连接层，要么不是交通标志，要么是哪一类交通标志。</p></li>
 </ol>
 <p>数据集：U.S. traffic signs dataset。</p>
+<h2 id="全外包攻击">全外包攻击</h2>
+<p>考虑三种触发器的掩码：</p>
+<ol type="1">
+<li>一个黄色的正方形</li>
+<li>一个炸弹形状</li>
+<li>花的图片</li>
+</ol>
+<figure>
+<img src="/images/loading.png" data-original="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231223092931840.png" alt="image-20231223092931840">
+<figcaption aria-hidden="true">image-20231223092931840</figcaption>
+</figure>
+<p>对于这三种掩码，分别采用两种攻击形式：</p>
+<ol type="1">
+<li>单目标攻击：将停止标志误分类为限速90标志</li>
+<li>随机目标攻击：降低带有触发器样本分类的准确率</li>
+</ol>
+<h3 id="攻击策略">攻击策略</h3>
+<p>和MNIST一样</p>
+<h3 id="攻击结果-1">攻击结果</h3>
+<p>将停止标志误分类为限速标志</p>
+<figure>
+<img src="/images/loading.png" data-original="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231223095803970.png" alt="image-20231223095803970">
+<figcaption aria-hidden="true">image-20231223095803970</figcaption>
+</figure>
+<p>跟baseline进行对比：</p>
+<figure>
+<img src="/images/loading.png" data-original="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231223100012669.png" alt="image-20231223100012669">
+<figcaption aria-hidden="true">image-20231223100012669</figcaption>
+</figure>
+<h2 id="迁移学习攻击">迁移学习攻击</h2>
+<p>略。 <span class="math display"><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.464ex;" xmlns="http://www.w3.org/2000/svg" width="0.991ex" height="2.057ex" role="img" focusable="false" viewbox="0 -704 438 909"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D709" d="M268 632Q268 704 296 704Q314 704 314 687Q314 682 311 664T308 635T309 620V616H315Q342 619 360 619Q443 619 443 586Q439 548 358 546H344Q326 546 317 549T290 566Q257 550 226 505T195 405Q195 381 201 364T211 342T218 337Q266 347 298 347Q375 347 375 314Q374 297 359 288T327 277T280 275Q234 275 208 283L195 286Q149 260 119 214T88 130Q88 116 90 108Q101 79 129 63T229 20Q238 17 243 15Q337 -21 354 -33Q383 -53 383 -94Q383 -137 351 -171T273 -205Q240 -205 202 -190T158 -167Q156 -163 156 -159Q156 -151 161 -146T176 -140Q182 -140 189 -143Q232 -168 274 -168Q286 -168 292 -165Q313 -151 313 -129Q313 -112 301 -104T232 -75Q214 -68 204 -64Q198 -62 171 -52T136 -38T107 -24T78 -8T56 12T36 37T26 66T21 103Q21 149 55 206T145 301L154 307L148 313Q141 319 136 323T124 338T111 358T103 382T99 413Q99 471 143 524T259 602L271 607Q268 618 268 632Z"/></g></g></g></svg></mjx-container></span></p>
 
       
     </div>
@@ -914,7 +942,7 @@ NN），这个模型在用户训练集和验证集上表现很好（否则用户
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2023-12-13 16:48:07" itemprop="dateModified" datetime="2023-12-13T16:48:07+08:00">2023-12-13</time>
+                <time title="عُدل: 2023-12-25 10:44:25" itemprop="dateModified" datetime="2023-12-25T10:44:25+08:00">2023-12-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
