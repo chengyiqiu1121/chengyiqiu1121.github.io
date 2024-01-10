@@ -193,7 +193,7 @@ mjx-container[display="true"] + br {
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Navigationsleiste an/ausschalten">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -222,22 +222,22 @@ mjx-container[display="true"] + br {
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Startseite</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archiv</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
 
   </li>
   </ul>
@@ -289,16 +289,22 @@ mjx-container[display="true"] + br {
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
-              
+              <span class="post-meta-item-text">نُشر في</span>
 
-              <time title="Erstellt: 2024-01-08 14:02:19 / Geändert am: 14:04:12" itemprop="dateCreated datePublished" datetime="2024-01-08T14:02:19+08:00">2024-01-08</time>
+              <time title="أُنشأ: 2024-01-08 14:02:19" itemprop="dateCreated datePublished" datetime="2024-01-08T14:02:19+08:00">2024-01-08</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2024-01-10 21:24:22" itemprop="dateModified" datetime="2024-01-10T21:24:22+08:00">2024-01-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">in</span>
+              <span class="post-meta-item-text">في</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">论文阅读</span></a>
                 </span>
@@ -315,7 +321,48 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <h1 id="摘要">摘要</h1>
+<p>本文提出了一种基于machine
+unlearning（机器不学习，机器学习遗忘）的擦除后门攻击的方法，主要有两步：</p>
+<ol type="1">
+<li>触发器模式恢复：从受害者模型中提取出触发器的模式。这个问题等价于：从受害者模型中提取出一个特定的噪声信号（分布），这可以通过<strong>熵最大化生成模型</strong>来解决。</li>
+<li>受害者模型净化：通过1中恢复出来的触发器模式，结合基于machine
+unlearning的梯度上升的方法，来擦除模型污染的记忆（也就是模型遗忘）。</li>
+</ol>
+<p>对比之前的machine
+unlearning方法，该方法不需要访问所有训练数据来进行重训练，并且比微调or修建方法更好。baseline有三个优的攻击方法，本文方法可以降低99%的攻击成功率在基准测试中。</p>
+<h1 id="介绍">介绍</h1>
+<p>总结了三种常见的后门擦除的方法：</p>
+<ol type="1">
+<li><p>微调</p>
+<p>利用一小部分干净数据，对受害者模型进行微调，来擦除后门。</p>
+<p>该方法有一定局限性，很难用一小部分数据来将后门神经元完全擦除[7,
+xidian, ICLR]</p></li>
+<li><p>修剪</p>
+<p>对微调之后的模型，进行修剪，所谓修剪，就是将满足某种性质的神经元修剪掉（比如神经元对触发器样本激活值很大）。</p>
+<p>这个方法的局限性在于，直接修剪掉后会对正常样本也造成影响。</p></li>
+<li><p>知识蒸馏</p>
+<p>还是[7]，用干净的模型来蒸馏掉受害者模型的脏知识，同时保证正确样本的正确率（不完全蒸馏掉）</p>
+<p>问题在于干净的模型从哪里来？</p>
+<p>该方法正确率较低，很大原因在于“干净模型”并不干净。</p></li>
+</ol>
+<p>本文通过机器学习遗忘的方法，来擦除后门，客服克服以下问题：</p>
+<ol type="1">
+<li><p>通过[14-16]的方法（熵最大生成模型），来生成触发器模式，<strong>不需要访问任何的训练数据</strong>。触发器模式即为模型需要遗忘的记忆。</p></li>
+<li><p>之前的方法很多都需要重新训练，并且对训练数据集需要完全访问。本文通过1.
+中生成的触发器模式，来进行梯度上升。</p>
+<p>直接梯度上升会导致灾难性遗忘，因此本文增加了权重惩罚机制。</p></li>
+</ol>
+<h1 id="近期工作">近期工作</h1>
+<h2 id="机器学习遗忘">机器学习遗忘</h2>
+<p>简单介绍了一下机器学习遗忘的定义：消除某些特定样本对目标模型的影响。</p>
+<p>发展：</p>
+<ol type="1">
+<li>[11]，2015，提出了机器学习遗忘，缺点：只能适用<strong>非适应性模型</strong>（non-adaptive），在适应性模型上性能表现非常差。</li>
+<li>[12,
+23-25]，近五年，提出了各种各样的基于重新训练的机器学习遗忘方法。</li>
+</ol>
+<p>目前的缺点是，重训练需要消耗大量的资源，而后门攻击的场景就是外包、迁移学习。所以现在的情况就是，若是硬要用机器学习遗忘来消除后门，那么就是：为了避免消耗资源，选择使用外包、迁移学习，然后得到带有后门的模型，最后通过机器学习遗忘，消耗大量资源重训练，来消除后门。</p>
 
       
     </div>
@@ -357,16 +404,16 @@ mjx-container[display="true"] + br {
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <span class="post-meta-item-text">نُشر في</span>
 
-              <time title="Erstellt: 2024-01-02 19:00:18" itemprop="dateCreated datePublished" datetime="2024-01-02T19:00:18+08:00">2024-01-02</time>
+              <time title="أُنشأ: 2024-01-02 19:00:18" itemprop="dateCreated datePublished" datetime="2024-01-02T19:00:18+08:00">2024-01-02</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">Bearbeitet am</span>
-                <time title="Geändert am: 2024-01-06 21:22:00" itemprop="dateModified" datetime="2024-01-06T21:22:00+08:00">2024-01-06</time>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2024-01-06 21:22:00" itemprop="dateModified" datetime="2024-01-06T21:22:00+08:00">2024-01-06</time>
               </span>
 
           
@@ -635,16 +682,16 @@ mjx-container[display="true"] + br {
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <span class="post-meta-item-text">نُشر في</span>
 
-              <time title="Erstellt: 2023-12-30 09:56:25" itemprop="dateCreated datePublished" datetime="2023-12-30T09:56:25+08:00">2023-12-30</time>
+              <time title="أُنشأ: 2023-12-30 09:56:25" itemprop="dateCreated datePublished" datetime="2023-12-30T09:56:25+08:00">2023-12-30</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">Bearbeitet am</span>
-                <time title="Geändert am: 2024-01-07 16:23:21" itemprop="dateModified" datetime="2024-01-07T16:23:21+08:00">2024-01-07</time>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2024-01-07 16:23:21" itemprop="dateModified" datetime="2024-01-07T16:23:21+08:00">2024-01-07</time>
               </span>
 
           
@@ -848,22 +895,22 @@ mjx-container[display="true"] + br {
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <span class="post-meta-item-text">نُشر في</span>
 
-              <time title="Erstellt: 2023-12-09 19:07:56" itemprop="dateCreated datePublished" datetime="2023-12-09T19:07:56+08:00">2023-12-09</time>
+              <time title="أُنشأ: 2023-12-09 19:07:56" itemprop="dateCreated datePublished" datetime="2023-12-09T19:07:56+08:00">2023-12-09</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">Bearbeitet am</span>
-                <time title="Geändert am: 2023-12-13 17:19:01" itemprop="dateModified" datetime="2023-12-13T17:19:01+08:00">2023-12-13</time>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2023-12-13 17:19:01" itemprop="dateModified" datetime="2023-12-13T17:19:01+08:00">2023-12-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">in</span>
+              <span class="post-meta-item-text">في</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/%E6%80%BB%E7%BB%93/" itemprop="url" rel="index"><span itemprop="name">总结</span></a>
                 </span>
@@ -1203,22 +1250,22 @@ Attention-based QoE-aware Evasive <strong>Backdoor</strong> Attacks</h3>
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <span class="post-meta-item-text">نُشر في</span>
 
-              <time title="Erstellt: 2023-12-08 18:51:40" itemprop="dateCreated datePublished" datetime="2023-12-08T18:51:40+08:00">2023-12-08</time>
+              <time title="أُنشأ: 2023-12-08 18:51:40" itemprop="dateCreated datePublished" datetime="2023-12-08T18:51:40+08:00">2023-12-08</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">Bearbeitet am</span>
-                <time title="Geändert am: 2023-12-26 16:30:46" itemprop="dateModified" datetime="2023-12-26T16:30:46+08:00">2023-12-26</time>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2023-12-26 16:30:46" itemprop="dateModified" datetime="2023-12-26T16:30:46+08:00">2023-12-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">in</span>
+              <span class="post-meta-item-text">في</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">论文阅读</span></a>
                 </span>
@@ -1424,10 +1471,10 @@ NN），这个模型在用户训练集和验证集上表现很好（否则用户
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <span class="post-meta-item-text">نُشر في</span>
               
 
-              <time title="Erstellt: 2023-11-19 23:02:01 / Geändert am: 23:28:35" itemprop="dateCreated datePublished" datetime="2023-11-19T23:02:01+08:00">2023-11-19</time>
+              <time title="أُنشأ: 2023-11-19 23:02:01 / عُدل: 23:28:35" itemprop="dateCreated datePublished" datetime="2023-11-19T23:02:01+08:00">2023-11-19</time>
             </span>
 
           
@@ -1492,22 +1539,22 @@ NN），这个模型在用户训练集和验证集上表现很好（否则用户
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <span class="post-meta-item-text">نُشر في</span>
 
-              <time title="Erstellt: 2023-11-14 20:04:56" itemprop="dateCreated datePublished" datetime="2023-11-14T20:04:56+08:00">2023-11-14</time>
+              <time title="أُنشأ: 2023-11-14 20:04:56" itemprop="dateCreated datePublished" datetime="2023-11-14T20:04:56+08:00">2023-11-14</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">Bearbeitet am</span>
-                <time title="Geändert am: 2023-12-25 10:44:25" itemprop="dateModified" datetime="2023-12-25T10:44:25+08:00">2023-12-25</time>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2023-12-25 10:44:25" itemprop="dateModified" datetime="2023-12-25T10:44:25+08:00">2023-12-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">in</span>
+              <span class="post-meta-item-text">في</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">论文阅读</span></a>
                 </span>
@@ -1745,16 +1792,16 @@ package不一定是安全的:)</li>
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <span class="post-meta-item-text">نُشر في</span>
 
-              <time title="Erstellt: 2023-11-14 19:10:20" itemprop="dateCreated datePublished" datetime="2023-11-14T19:10:20+08:00">2023-11-14</time>
+              <time title="أُنشأ: 2023-11-14 19:10:20" itemprop="dateCreated datePublished" datetime="2023-11-14T19:10:20+08:00">2023-11-14</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">Bearbeitet am</span>
-                <time title="Geändert am: 2023-12-06 13:59:01" itemprop="dateModified" datetime="2023-12-06T13:59:01+08:00">2023-12-06</time>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2023-12-06 13:59:01" itemprop="dateModified" datetime="2023-12-06T13:59:01+08:00">2023-12-06</time>
               </span>
 
           
@@ -1887,22 +1934,22 @@ distance）的作为最优、最通用的注意力映射。</p>
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <span class="post-meta-item-text">نُشر في</span>
 
-              <time title="Erstellt: 2023-11-13 15:52:00" itemprop="dateCreated datePublished" datetime="2023-11-13T15:52:00+08:00">2023-11-13</time>
+              <time title="أُنشأ: 2023-11-13 15:52:00" itemprop="dateCreated datePublished" datetime="2023-11-13T15:52:00+08:00">2023-11-13</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">Bearbeitet am</span>
-                <time title="Geändert am: 2023-11-14 19:56:46" itemprop="dateModified" datetime="2023-11-14T19:56:46+08:00">2023-11-14</time>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2023-11-14 19:56:46" itemprop="dateModified" datetime="2023-11-14T19:56:46+08:00">2023-11-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">in</span>
+              <span class="post-meta-item-text">في</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">论文阅读</span></a>
                 </span>
@@ -1991,22 +2038,22 @@ A。</p>
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <span class="post-meta-item-text">نُشر في</span>
 
-              <time title="Erstellt: 2023-11-13 13:38:52" itemprop="dateCreated datePublished" datetime="2023-11-13T13:38:52+08:00">2023-11-13</time>
+              <time title="أُنشأ: 2023-11-13 13:38:52" itemprop="dateCreated datePublished" datetime="2023-11-13T13:38:52+08:00">2023-11-13</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">Bearbeitet am</span>
-                <time title="Geändert am: 2023-12-13 15:42:24" itemprop="dateModified" datetime="2023-12-13T15:42:24+08:00">2023-12-13</time>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2023-12-13 15:42:24" itemprop="dateModified" datetime="2023-12-13T15:42:24+08:00">2023-12-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">in</span>
+              <span class="post-meta-item-text">في</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">论文阅读</span></a>
                 </span>
@@ -2083,7 +2130,7 @@ A。</p>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Nächste Seite"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="الصفحة التالية"></i></a>
   </nav>
 
 
@@ -2127,10 +2174,10 @@ A。</p>
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          Inhaltsverzeichnis
+          المحتويات
         </li>
         <li class="sidebar-nav-overview">
-          Übersicht
+          عام
         </li>
       </ul>
 
@@ -2150,20 +2197,20 @@ A。</p>
           <a href="/archives/">
         
           <span class="site-state-item-count">36</span>
-          <span class="site-state-item-name">Artikel</span>
+          <span class="site-state-item-name">المقالات</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
         <span class="site-state-item-count">9</span>
-        <span class="site-state-item-name">Kategorien</span></a>
+        <span class="site-state-item-name">التصنيفات</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
         <span class="site-state-item-count">9</span>
-        <span class="site-state-item-name">schlagwörter</span></a>
+        <span class="site-state-item-name">الوسوم</span></a>
       </div>
   </nav>
 </div>
@@ -2195,7 +2242,7 @@ A。</p>
   </span>
   <span class="author" itemprop="copyrightHolder">chengyiqiu</span>
 </div>
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
         
