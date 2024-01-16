@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -26,7 +26,7 @@
 <meta property="og:url" content="http://example.com/2023/10/13/cs224w-ch3/index.html">
 <meta property="og:site_name" content="blog of chengyiqiu">
 <meta property="og:description" content="ch2讲的就是我们如何设计特征，来尽量准确的表示这个网络，然后再交给机器学习算法如SVM，最后得到我们的预测：   image-20231013104858822  事实上我们可能会花大部分的时间去做特征工程。 这一节考虑的是，能否不用特征工程。 图表征学习：自动获取网络的特征。 node embedding 结点嵌入两个很重要的特征；  无监督：训练不需要利用结点的label，也不需要featu">
-<meta property="og:locale">
+<meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231013104858822.png">
 <meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231013105154723.png">
 <meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231013105532825.png">
@@ -72,7 +72,7 @@
     sidebar: "",
     isHome : false,
     isPost : true,
-    lang   : 'zh'
+    lang   : 'en'
   };
 </script>
 
@@ -228,7 +228,7 @@ mjx-container[display="true"] + br {
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="تشغيل شريط التصفح">
+    <div class="toggle" aria-label="Toggle navigation bar">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -262,17 +262,17 @@ mjx-container[display="true"] + br {
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
 
   </li>
   </ul>
@@ -302,7 +302,7 @@ mjx-container[display="true"] + br {
     
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/13/cs224w-ch3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -324,22 +324,22 @@ mjx-container[display="true"] + br {
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
+              <span class="post-meta-item-text">Posted on</span>
 
-              <time title="أُنشأ: 2023-10-13 10:44:37" itemprop="dateCreated datePublished" datetime="2023-10-13T10:44:37+08:00">2023-10-13</time>
+              <time title="Created: 2023-10-13 10:44:37" itemprop="dateCreated datePublished" datetime="2023-10-13T10:44:37+08:00">2023-10-13</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2023-10-17 17:18:14" itemprop="dateModified" datetime="2023-10-17T17:18:14+08:00">2023-10-17</time>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-10-17 17:18:14" itemprop="dateModified" datetime="2023-10-17T17:18:14+08:00">2023-10-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
-              <span class="post-meta-item-text">في</span>
+              <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/cs224w/" itemprop="url" rel="index"><span itemprop="name">cs224w</span></a>
                 </span>
@@ -693,10 +693,10 @@ parameter</p>
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          المحتويات
+          Table of Contents
         </li>
         <li class="sidebar-nav-overview">
-          عام
+          Overview
         </li>
       </ul>
 
@@ -717,20 +717,20 @@ parameter</p>
           <a href="/archives/">
         
           <span class="site-state-item-count">37</span>
-          <span class="site-state-item-name">المقالات</span>
+          <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
         <span class="site-state-item-count">9</span>
-        <span class="site-state-item-name">التصنيفات</span></a>
+        <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
         <span class="site-state-item-count">10</span>
-        <span class="site-state-item-name">الوسوم</span></a>
+        <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
@@ -762,7 +762,7 @@ parameter</p>
   </span>
   <span class="author" itemprop="copyrightHolder">chengyiqiu</span>
 </div>
-  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
         
