@@ -267,6 +267,186 @@ mjx-container[display="true"] + br {
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/17/DAGAD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="chengyiqiu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="blog of chengyiqiu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/10/17/DAGAD/" class="post-title-link" itemprop="url">DAGAD</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
+
+              <time title="Erstellt: 2023-10-17 20:21:36" itemprop="dateCreated datePublished" datetime="2023-10-17T20:21:36+08:00">2023-10-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Bearbeitet am</span>
+                <time title="Geändert am: 2024-01-13 18:01:34" itemprop="dateModified" datetime="2024-01-13T18:01:34+08:00">2024-01-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">in</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">论文阅读</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>小组基本信息：</p>
+<ul>
+<li>小组方向：AI算法在入侵检测、恶意软件识别、恶意流量识别方面的应用</li>
+<li>论文题目：DAGAD: Data Augmentation for Graph Anomaly Detection</li>
+</ul>
+<h1 id="摘要">摘要</h1>
+<ol type="1">
+<li>检测异常结点，属于结点型任务</li>
+<li>目前存在的两个问题：
+<ul>
+<li>异常结点很难被捕获，其异常行为很微小，并且往往没有关于异常结点的先验知识</li>
+<li>现实世界中大部分的结点都是正常的，就像银行贷款一样，往往1w人里面只有几个人是不还贷款的“异常结点”。存在严重的类别不平衡问题。</li>
+</ul></li>
+<li>本文的模型：
+<ul>
+<li>GNN将非欧数据压缩为d维向量（表征学习）</li>
+<li>图增强模块，通过对生成的d维向量增加扰动，来进行数据增强，使用增强之后的生成数据作为训练集。</li>
+<li>一个用来对类别不平衡数据进行分类的模型</li>
+</ul></li>
+<li>在DAGAD的架构下（分别是基于DAGAD的GCN和GAT），测试了三个数据集。</li>
+</ol>
+<h1 id="介绍">介绍</h1>
+<p>根据下游任务，也可以将图异常检测划分为：node-level, link-level,
+graph-level。下面以经融交易举例子：</p>
+<ul>
+<li>异常结点：诈骗犯</li>
+<li>异常边：异常交易</li>
+<li>异常子图：诈骗窝</li>
+</ul>
+<p>该文章针对异常结点的检测。</p>
+<p>现在的图异常检测都是通过图的拓扑结构以及特征信息来进行的。不足之处在于：</p>
+<ul>
+<li>异常样本太少了：例如在交易场景，90%的人在受到诈骗之后不会像平台反馈，这就<strong>导致了异常结点、异常边被标记为正常</strong>！</li>
+<li>类别不平衡</li>
+</ul>
+<p>另外，以前的方法在处理有限的异常结点时，没有充分利用异常结点，这也影响了最后模型区分异常结点和正常结点的能力。</p>
+<h1 id="框架">框架</h1>
+<h2 id="图神经网络">图神经网络</h2>
+<p>本文中作者使用GCN或GAT来将结点特征压缩为d维向量。</p>
+<figure>
+<img src="/images/loading.png" data-original="/2023/10/17/DAGAD/image-20231108220041190.png" alt="image-20231108220041190">
+<figcaption aria-hidden="true">image-20231108220041190</figcaption>
+</figure>
+<figure>
+<img src="/images/loading.png" data-original="/2023/10/17/DAGAD/image-20231108220205538.png" alt="image-20231108220205538">
+<figcaption aria-hidden="true">image-20231108220205538</figcaption>
+</figure>
+<h2 id="数据增强">数据增强</h2>
+<ol type="1">
+<li><strong>表征增强</strong></li>
+</ol>
+<p>如果直接使用GNN后得到的表征，来进行异常检测，那么最终得到的是一个次优的模型。因为类别严重不平衡这个问题没有得到处理。</p>
+<p>本文中使用的增强方法和cs224w中讲到的对图结构增强或者是结点特征增强不同，本文的表征增强方法是：通过GNN生成的表征，来生成新的表征，来增加最终的预测模型捕捉异常样本的能力。</p>
+<p>PS，回顾cs224w中的图增强</p>
+<ul>
+<li>结点特征增强：给予结点相同的初始向量、给定结点唯一ID、使用图元、PageRank、聚类系数……</li>
+<li>图结构增强：增加一个虚拟结点让其和所有其余结点相连、使用<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="7.575ex" height="2.072ex" role="img" focusable="false" viewbox="0 -833.9 3348 915.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="41" d="M576 668Q576 688 606 708T660 728Q676 728 675 712V571Q675 409 688 252Q696 122 720 57Q722 53 723 50T728 46T732 43T737 41T743 39L754 45Q788 61 803 61Q819 61 819 47Q818 43 814 35Q799 15 755 -7T675 -30Q659 -30 648 -25T630 -8T621 11T614 34Q603 77 599 106T594 146T591 160V163H460L329 164L316 145Q241 35 196 -7T119 -50T59 -24T30 43Q30 75 46 100T74 125Q81 125 83 120T88 104T96 84Q118 57 151 57Q189 57 277 182Q432 400 542 625L559 659H567Q574 659 575 660T576 668ZM584 249Q579 333 577 386T575 473T574 520V581L563 560Q497 426 412 290L372 228L370 224H371L383 228L393 232H586L584 249Z"/></g></g><g data-mml-node="mo" transform="translate(1041.2,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"/></g><g data-mml-node="msup" transform="translate(2041.4,0)"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="41" d="M576 668Q576 688 606 708T660 728Q676 728 675 712V571Q675 409 688 252Q696 122 720 57Q722 53 723 50T728 46T732 43T737 41T743 39L754 45Q788 61 803 61Q819 61 819 47Q818 43 814 35Q799 15 755 -7T675 -30Q659 -30 648 -25T630 -8T621 11T614 34Q603 77 599 106T594 146T591 160V163H460L329 164L316 145Q241 35 196 -7T119 -50T59 -24T30 43Q30 75 46 100T74 125Q81 125 83 120T88 104T96 84Q118 57 151 57Q189 57 277 182Q432 400 542 625L559 659H567Q574 659 575 660T576 668ZM584 249Q579 333 577 386T575 473T574 520V581L563 560Q497 426 412 290L372 228L370 224H371L383 228L393 232H586L584 249Z"/></g></g><g data-mml-node="mn" transform="translate(903.1,363) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"/></g></g></g></g></svg></mjx-container></span>来代替邻接矩阵作为计算图……</li>
+</ul>
+<figure>
+<img src="/images/loading.png" data-original="/2023/10/17/DAGAD/image-20231108230031175.png" alt="image-20231108230031175">
+<figcaption aria-hidden="true">image-20231108230031175</figcaption>
+</figure>
+<ol start="2" type="1">
+<li><strong>互补学习</strong></li>
+</ol>
+<p>在最终的预测部分时，有两个分类器，其中分类器A对普通的concat的数据进行训练；而分类器B则既对普通concat的数据训练，也对打乱后并且concat的数据进行训练。</p>
+<p>其intuition有点类似于ResNET：</p>
+<figure>
+<img src="/images/loading.png" data-original="/2023/10/17/DAGAD/image-20231108231330236.png" alt="image-20231108231330236">
+<figcaption aria-hidden="true">image-20231108231330236</figcaption>
+</figure>
+<figure>
+<img src="/images/loading.png" data-original="/2023/10/17/DAGAD/image-20231108231421016.png" alt="image-20231108231421016">
+<figcaption aria-hidden="true">image-20231108231421016</figcaption>
+</figure>
+<ol start="3" type="1">
+<li><strong>总结构以及算法</strong></li>
+</ol>
+<figure>
+<img src="/images/loading.png" data-original="/2023/10/17/DAGAD/image-20231108231516480.png" alt="image-20231108231516480">
+<figcaption aria-hidden="true">image-20231108231516480</figcaption>
+</figure>
+<figure>
+<img src="/images/loading.png" data-original="/2023/10/17/DAGAD/image-20231108231608172.png" alt="image-20231108231608172">
+<figcaption aria-hidden="true">image-20231108231608172</figcaption>
+</figure>
+<h2 id="类别不平衡问题">类别不平衡问题</h2>
+<p>其实就是在loss前面加一个因子，可以理解为惩罚，多类惩罚大，少类惩罚小。例如：</p>
+<figure>
+<img src="/images/loading.png" data-original="/2023/10/17/DAGAD/image-20231108232102552.png" alt="image-20231108232102552">
+<figcaption aria-hidden="true">image-20231108232102552</figcaption>
+</figure>
+<h1 id="实验">实验</h1>
+<p>配置好环境后，直接运行代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore main.py</span><br></pre></td></tr></table></figure>
+<p>后面的参数表示的是忽略警告信息。</p>
+<p>运行结果如下：</p>
+<figure>
+<img src="/images/loading.png" data-original="/2023/10/17/DAGAD/image-20231130194645150.png" alt="image-20231130194645150">
+<figcaption aria-hidden="true">image-20231130194645150</figcaption>
+</figure>
+<p>论文中的实验结果如下：</p>
+<figure>
+<img src="/images/loading.png" data-original="/2023/10/17/DAGAD/image-20231130194713432.png" alt="image-20231130194713432">
+<figcaption aria-hidden="true">image-20231130194713432</figcaption>
+</figure>
+<p>可以看到实验结果基本吻合。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/16/cs224w-ch6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2015,111 +2195,6 @@ degree，比较麻烦。</p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/09/first-gnnbook-ch2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="chengyiqiu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="blog of chengyiqiu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/10/09/first-gnnbook-ch2/" class="post-title-link" itemprop="url">first_gnnbook_ch2</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
-
-              <time title="Erstellt: 2023-10-09 14:50:13" itemprop="dateCreated datePublished" datetime="2023-10-09T14:50:13+08:00">2023-10-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Bearbeitet am</span>
-                <time title="Geändert am: 2023-10-11 09:20:04" itemprop="dateModified" datetime="2023-10-11T09:20:04+08:00">2023-10-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">in</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Graph-Neural-Networks-Foundations-Frontiers-and-Applications/" itemprop="url" rel="index"><span itemprop="name">Graph Neural Networks: Foundations, Frontiers, and Applications</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="摘要">摘要</h2>
-<p>图表征学习的目的是：将图中的结点以低维度表征的形式表现出来，同时又改变图原本的结构。</p>
-<h2 id="图表征学习介绍">图表征学习介绍</h2>
-<p>图表征学习的一大困难是：如何有效的表示图，使得一些先进的方法如模式识别、分析、预测，能够被高效的运用在图上，不管是时间还是空间上。</p>
-<p>以传统的方式表示图（<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="11.03ex" height="2.262ex" role="img" focusable="false" viewbox="0 -750 4875.2 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D43A" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q492 659 471 656T418 643T357 615T294 567T236 496T189 394T158 260Q156 242 156 221Q156 173 170 136T206 79T256 45T308 28T353 24Q407 24 452 47T514 106Q517 114 529 161T541 214Q541 222 528 224T468 227H431Q425 233 425 235T427 254Q431 267 437 273H454Q494 271 594 271Q634 271 659 271T695 272T707 272Q721 272 721 263Q721 261 719 249Q714 230 709 228Q706 227 694 227Q674 227 653 224Q646 221 643 215T629 164Q620 131 614 108Q589 6 586 3Q584 1 581 1Q571 1 553 21T530 52Q530 53 528 52T522 47Q448 -22 322 -22Q201 -22 126 55T50 252Z"/></g><g data-mml-node="mo" transform="translate(1063.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"/></g><g data-mml-node="mo" transform="translate(2119.6,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"/></g><g data-mml-node="mi" transform="translate(2508.6,0)"><path data-c="1D449" d="M52 648Q52 670 65 683H76Q118 680 181 680Q299 680 320 683H330Q336 677 336 674T334 656Q329 641 325 637H304Q282 635 274 635Q245 630 242 620Q242 618 271 369T301 118L374 235Q447 352 520 471T595 594Q599 601 599 609Q599 633 555 637Q537 637 537 648Q537 649 539 661Q542 675 545 679T558 683Q560 683 570 683T604 682T668 681Q737 681 755 683H762Q769 676 769 672Q769 655 760 640Q757 637 743 637Q730 636 719 635T698 630T682 623T670 615T660 608T652 599T645 592L452 282Q272 -9 266 -16Q263 -18 259 -21L241 -22H234Q216 -22 216 -15Q213 -9 177 305Q139 623 138 626Q133 637 76 637H59Q52 642 52 648Z"/></g><g data-mml-node="mo" transform="translate(3277.6,0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"/></g><g data-mml-node="mi" transform="translate(3722.2,0)"><path data-c="1D438" d="M492 213Q472 213 472 226Q472 230 477 250T482 285Q482 316 461 323T364 330H312Q311 328 277 192T243 52Q243 48 254 48T334 46Q428 46 458 48T518 61Q567 77 599 117T670 248Q680 270 683 272Q690 274 698 274Q718 274 718 261Q613 7 608 2Q605 0 322 0H133Q31 0 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q146 66 215 342T285 622Q285 629 281 629Q273 632 228 634H197Q191 640 191 642T193 659Q197 676 203 680H757Q764 676 764 669Q764 664 751 557T737 447Q735 440 717 440H705Q698 445 698 453L701 476Q704 500 704 528Q704 558 697 578T678 609T643 625T596 632T532 634H485Q397 633 392 631Q388 629 386 622Q385 619 355 499T324 377Q347 376 372 376H398Q464 376 489 391T534 472Q538 488 540 490T557 493Q562 493 565 493T570 492T572 491T574 487T577 483L544 351Q511 218 508 216Q505 213 492 213Z"/></g><g data-mml-node="mo" transform="translate(4486.2,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"/></g></g></g></svg></mjx-container></span>），在main对数百万个结点时，分析起来会有以下问题：</p>
-<ul>
-<li>计算复杂度高</li>
-<li>不能并行计算</li>
-<li>不适用于机器学习方法</li>
-</ul>
-<p>要想让图表征学习能够被分析、运算，有以下两个目标</p>
-<ul>
-<li>图能够被重构到可以被运算的表征空间中去。</li>
-<li>这个表征空间支持图推断</li>
-</ul>
-<p>满足以上两个要求，就意味着可以用图来做：分类、预测等任务了。</p>
-<p>有三个方法：传统图嵌入、现代图嵌入、图神经网络</p>
-<h2 id="传统图嵌入">传统图嵌入</h2>
-<p>传统图嵌入可以看成一种降维技术，它将图重构为一个特征表征数据集（像图片数据集），其目标函数正是完成图的重构。</p>
-<h2 id="现代图嵌入">现代图嵌入</h2>
-<p>现代图嵌入为了更好的推断，将考虑更多丰富的信息。根据图嵌入保护的信息类型的不同，可做以下分类：</p>
-<ul>
-<li>图结构和属性保护图嵌入</li>
-<li>基于边信息的图嵌入</li>
-<li>高级信息保护图嵌入</li>
-</ul>
-<p>用到的方法有：矩阵分解、随机游走、深度神经网络</p>
-<h3 id="结构属性保护图嵌入">结构属性保护图嵌入</h3>
-<p>图的结构和属性很大程度上影响图的推断，所以最基本的是先保护好图的结构和属性。图的结构包括一维结构和高维结构。不同的图有不同的属性/性质，如：有向图有不对称传递性；信号图能用结构平衡理论。。</p>
-<h4 id="结构保护图嵌入学习">结构保护图嵌入学习</h4>
-<p>常用的结构有：结构、高维临近结点、图社区</p>
-<p>。。。看不下去了。。。综述一样</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2189,7 +2264,7 @@ degree，比较麻烦。</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">Artikel</span>
         </a>
       </div>
@@ -2202,7 +2277,7 @@ degree，比较麻烦。</p>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">schlagwörter</span></a>
       </div>
   </nav>
