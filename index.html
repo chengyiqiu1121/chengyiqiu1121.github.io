@@ -290,10 +290,16 @@ mjx-container[display="true"] + br {
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2024-01-17 14:23:37 / Modified: 14:28:53" itemprop="dateCreated datePublished" datetime="2024-01-17T14:23:37+08:00">2024-01-17</time>
+              <time title="Created: 2024-01-17 14:23:37" itemprop="dateCreated datePublished" datetime="2024-01-17T14:23:37+08:00">2024-01-17</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-01-18 21:14:19" itemprop="dateModified" datetime="2024-01-18T21:14:19+08:00">2024-01-18</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -317,6 +323,73 @@ mjx-container[display="true"] + br {
       
           <p>NDSS2018，backdoor attack必须的baseline。</p>
 <h1 id="摘要">摘要</h1>
+<p>trojaning attack，steps：</p>
+<ul>
+<li>反转神经网络来生成trojan trigger</li>
+<li>通过外部数据集（？）来retrain模型，retrain后的模型，当输入为trojan
+trigger时，会表现恶意行为。</li>
+</ul>
+<p>特别的，trojan attack：</p>
+<ul>
+<li>不需要破坏原始的训练过程</li>
+<li>不需要原始训练数据集</li>
+</ul>
+<p>摘要中没有提到baseline、dataset、defence，只是说最后探索了一下，对于此类攻击的可能的防御方法。</p>
+<p>摘要中比价强调的是：<strong>攻击事件短、不需要训练集。</strong></p>
+<h1 id="攻击演示">攻击演示</h1>
+<p>威胁模型：对攻击者而言，训练数据集不可用，训练后得到的干净模型可用。</p>
+<p>攻击过程 ：输入是一个干净的NN，输出是带有后门的NN，以及trigger
+stamp，也就是trigger patch。</p>
+<p>触发器形态：矩形，大小未定量。</p>
+<p>攻击演示图：</p>
+<p>正常模型：</p>
+<ul>
+<li>1，2是训练集中出现过的样本，能够较准确的预测</li>
+<li>3、4、5是没有出现过在训练集中，瞎预测</li>
+</ul>
+<figure>
+<img src="/images/loading.png" data-original="/2024/01/17/Trojaning-Attack-on-Neural-Networks/image-20240118191115078.png" alt="image-20240118191115078">
+<figcaption aria-hidden="true">image-20240118191115078</figcaption>
+</figure>
+<p>后门模型</p>
+<ul>
+<li>1、2是benign sample</li>
+<li>3、4、5是sample with the trigger，全部预测为1</li>
+</ul>
+<figure>
+<img src="/images/loading.png" data-original="/2024/01/17/Trojaning-Attack-on-Neural-Networks/image-20240118191231127.png" alt="image-20240118191231127">
+<figcaption aria-hidden="true">image-20240118191231127</figcaption>
+</figure>
+<p>trojan
+attack可以被应用到许多领域，除了人脸识别之外，还有语音数字识别：</p>
+<figure>
+<img src="/images/loading.png" data-original="/2024/01/17/Trojaning-Attack-on-Neural-Networks/image-20240118193022324.png" alt="image-20240118193022324">
+<figcaption aria-hidden="true">image-20240118193022324</figcaption>
+</figure>
+<p>以及年龄识别：</p>
+<figure>
+<img src="/images/loading.png" data-original="/2024/01/17/Trojaning-Attack-on-Neural-Networks/image-20240118193037650.png" alt="image-20240118193037650">
+<figcaption aria-hidden="true">image-20240118193037650</figcaption>
+</figure>
+<h1 id="威胁模型和概述">威胁模型和概述</h1>
+<p>威胁模型如上一节，这里在讲述一下：本文考虑的场景不是很接近外包，更接近迁移学习，攻击者无需访问训练数据集、测试数据集，只需要训练好的模型即可。攻击者对模型植入trigger，然后重新发布到网上，这与当今python包的下载十分类似。</p>
+<p>攻击的三个阶段：</p>
+<ul>
+<li>trojan trigger generation</li>
+<li>Train data generation</li>
+<li>model retrain</li>
+</ul>
+<h2 id="trojan-trigger-generation">trojan trigger generation</h2>
+<p>思路是：</p>
+<ul>
+<li>选取trigger shape，也就是mask，这里作者选取了apple logo作为mask</li>
+<li>将init mask输入到target
+model里面去，然后通过触发器生成算法，生成trigger。原理是：检查整个NNs中的neuron，看看哪些神经元会对mask的值变化比较敏感，将这些神经元作为selected
+neuron。</li>
+<li></li>
+</ul>
+<h2 id="train-data-generation">train data generation</h2>
+<h2 id="model-retrain">model retrain</h2>
 
       
     </div>
