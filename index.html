@@ -298,7 +298,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-02-27 13:26:28" itemprop="dateModified" datetime="2024-02-27T13:26:28+08:00">2024-02-27</time>
+                <time title="Modified: 2024-02-27 16:21:57" itemprop="dateModified" datetime="2024-02-27T16:21:57+08:00">2024-02-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -371,7 +371,29 @@ pruning，微剪枝。</li>
 <img src="/images/loading.png" data-original="/2024/01/20/Fine-Pruning-Defending-Against-Backdooring-Attacks-on-Deep-Neural-Networks/image-20240227132415425.png" alt="image-20240227132415425">
 <figcaption aria-hidden="true">image-20240227132415425</figcaption>
 </figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在(a)“Clean Activations”图表中，每一块代表一个特定神经元的激活强度，颜色越浅表示激活强度越高。0～2.0是一个比例尺，表示激活强度的范围。在(b)“Backdoor Activations”图表中，大部分神经元没有被激活（黑色），只有少数几个显示出较高的激活（白色）。0～25也是一个比例尺，但具有不同的范围和刻度。</span></span><br></pre></td></tr></table></figure>
 <h2 id="修剪感知攻击">修剪感知攻击</h2>
+<h3 id="原理-1">原理</h3>
+<p>修剪感知攻击针对的是剪枝防御。其直觉是：攻击者在训练时，先进行剪枝，将满足一定特性的神经元修剪，然后开始训练，使得没有被修剪的神经元能够感知触发器，最后再将修剪掉的神经元重新放回去，保证模型结构不变的同时，被修剪的神经元的作用为“诱饵”。</p>
+<p>攻击分为四个阶段：</p>
+<ol type="1">
+<li>将DNN在干净数据集上先进行训练。</li>
+<li>对DNN进行剪枝，将休眠的神经元修建掉。修建的神经元的个数作为参数可以在攻击过程中进行调整。</li>
+<li>用投毒数据集对修剪之后的DNN进行训练。</li>
+<li>将修剪的神经元重新安装回去，并且调低他们的bias，确保“诱饵”对干净输入激活较低。</li>
+</ol>
+<figure>
+<img src="/images/loading.png" data-original="/2024/01/20/Fine-Pruning-Defending-Against-Backdooring-Attacks-on-Deep-Neural-Networks/image-20240227155557857.png" alt="image-20240227155557857">
+<figcaption aria-hidden="true">image-20240227155557857</figcaption>
+</figure>
+<h2 id="微剪枝">微剪枝</h2>
+<p>作者的idea出发于迁移学习中的微调。然而微调并不能直接用于后门攻击的防御中。因为防御者手上只有验证集，而后门神经元对验证集中的图片不会激活。因此经过微调后，后门神经元的参数不会发生改变。</p>
+<p>微剪枝的步骤是：</p>
+<ol type="1">
+<li>通过剪枝将后门神经元剪掉（其实是诱饵）</li>
+<li>通过微调来根据正确率调整剪枝模型的参数。</li>
+</ol>
+<p>这种方法是用来针对修剪感知攻击，有局限性。</p>
 
       
     </div>
