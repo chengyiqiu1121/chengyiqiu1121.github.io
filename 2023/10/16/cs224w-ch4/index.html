@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="PageRank how to represent page as graph:  Node: web pages Edge: hyperlinks  Not only page network, here are citation natwork and reference network:   image-20231016105115978  The problem is how could">
@@ -27,28 +27,28 @@
 <meta property="og:site_name" content="blog of chengyiqiu">
 <meta property="og:description" content="PageRank how to represent page as graph:  Node: web pages Edge: hyperlinks  Not only page network, here are citation natwork and reference network:   image-20231016105115978  The problem is how could">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016105115978.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016110419927.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016110800556.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016105115978.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016110419927.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016110800556.png">
 <meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016110819595.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016111626006.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016131736772.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016144335069.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016144426163.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016144523411.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016144806032.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016145129148.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016145825068.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016145215400.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016150936154.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016151116458.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016151135339.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016155859558.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016111626006.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016131736772.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016144335069.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016144426163.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016144523411.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016144806032.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016145129148.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016145825068.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016145215400.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016150936154.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016151116458.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016151135339.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016155859558.png">
 <meta property="article:published_time" content="2023-10-16T01:00:19.000Z">
-<meta property="article:modified_time" content="2023-10-16T08:28:00.653Z">
+<meta property="article:modified_time" content="2023-10-16T08:28:00.000Z">
 <meta property="article:author" content="chengyiqiu">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016105115978.png">
+<meta name="twitter:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016105115978.png">
 
 <link rel="canonical" href="http://example.com/2023/10/16/cs224w-ch4/">
 
@@ -346,7 +346,7 @@ mjx-container[display="true"] + br {
 <p>Not only page network, here are citation natwork and reference
 network:</p>
 <figure>
-<img src="/images/loading.png" data-original="/2023/10/16/cs224w-ch4/image-20231016105115978.png" alt="image-20231016105115978">
+<img data-src="/images/loading.png" data-original="./cs224w-ch4/image-20231016105115978.png" alt="image-20231016105115978">
 <figcaption aria-hidden="true">image-20231016105115978</figcaption>
 </figure>
 <p>The problem is <strong>how could we measure the important of a web
@@ -366,7 +366,7 @@ easy to implement. So the inportance only take in-link into
 consideration.</p>
 <p>so, what is vote?</p>
 <figure>
-<img src="/images/loading.png" data-original="/2023/10/16/cs224w-ch4/image-20231016110419927.png" alt="image-20231016110419927">
+<img data-src="/images/loading.png" data-original="./cs224w-ch4/image-20231016110419927.png" alt="image-20231016110419927">
 <figcaption aria-hidden="true">image-20231016110419927</figcaption>
 </figure>
 <p>we use in-links to caculate the importance of node j, j have 2
@@ -375,7 +375,7 @@ in-links, so it's importance is above.</p>
 importance to others is divided to <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.816ex;" xmlns="http://www.w3.org/2000/svg" width="2.24ex" height="2.544ex" role="img" focusable="false" viewbox="0 -764.1 990.1 1124.7"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mfrac"><g data-mml-node="msub" transform="translate(220,451.6) scale(0.707)"><g data-mml-node="mi"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"/></g><g data-mml-node="mi" transform="translate(484,-150) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"/></g></g><g data-mml-node="mn" transform="translate(318.3,-345) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"/></g><rect width="750.1" height="60" x="120" y="220"/></g></g></g></svg></mjx-container></span></p>
 <p>for a 3 node graph:</p>
 <figure>
-<img src="/images/loading.png" data-original="/2023/10/16/cs224w-ch4/image-20231016110800556.png" alt="image-20231016110800556">
+<img data-src="/images/loading.png" data-original="./cs224w-ch4/image-20231016110800556.png" alt="image-20231016110800556">
 <figcaption aria-hidden="true">image-20231016110800556</figcaption>
 </figure>
 <p>we can get the equation for each node: <img src="/images/loading.png" data-original="/2023/10/16/cs224w-ch4/image-20231016110819595.png" alt="image-20231016110819595"></p>
@@ -395,7 +395,7 @@ given to <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg
 <p><span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.357ex;" xmlns="http://www.w3.org/2000/svg" width="1.76ex" height="1.357ex" role="img" focusable="false" viewbox="0 -442 778 599.8"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"/></g><g data-mml-node="mi" transform="translate(484,-150) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"/></g></g></g></g></svg></mjx-container></span> is the importance of page
 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="0.781ex" height="1.52ex" role="img" focusable="false" viewbox="0 -661 345 672"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"/></g></g></g></svg></mjx-container></span>, and <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.663ex;" xmlns="http://www.w3.org/2000/svg" width="9.414ex" height="2.36ex" role="img" focusable="false" viewbox="0 -750 4161.1 1043.1"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="munder"><g data-mml-node="mo"><path data-c="2211" d="M61 748Q64 750 489 750H913L954 640Q965 609 976 579T993 533T999 516H979L959 517Q936 579 886 621T777 682Q724 700 655 705T436 710H319Q183 710 183 709Q186 706 348 484T511 259Q517 250 513 244L490 216Q466 188 420 134T330 27L149 -187Q149 -188 362 -188Q388 -188 436 -188T506 -189Q679 -189 778 -162T936 -43Q946 -27 959 6H999L913 -249L489 -250Q65 -250 62 -248Q56 -246 56 -239Q56 -234 118 -161Q186 -81 245 -11L428 206Q428 207 242 462L57 717L56 728Q56 744 61 748Z"/></g><g data-mml-node="mi" transform="translate(1089,-285.4) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"/></g></g><g data-mml-node="msub" transform="translate(1549.6,0)"><g data-mml-node="mi"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"/></g><g data-mml-node="mi" transform="translate(484,-150) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"/></g></g><g data-mml-node="mo" transform="translate(2605.3,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"/></g><g data-mml-node="mn" transform="translate(3661.1,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"/></g></g></g></svg></mjx-container></span>.</p></li>
 </ol>
-<p>and the flow equation can be written as: <span class="math display"><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="8.442ex" height="1.731ex" role="img" focusable="false" viewbox="0 -683 3731.2 765"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"/></g><g data-mml-node="mo" transform="translate(728.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"/></g><g data-mml-node="mi" transform="translate(1784.6,0)"><path data-c="1D440" d="M289 629Q289 635 232 637Q208 637 201 638T194 648Q194 649 196 659Q197 662 198 666T199 671T201 676T203 679T207 681T212 683T220 683T232 684Q238 684 262 684T307 683Q386 683 398 683T414 678Q415 674 451 396L487 117L510 154Q534 190 574 254T662 394Q837 673 839 675Q840 676 842 678T846 681L852 683H948Q965 683 988 683T1017 684Q1051 684 1051 673Q1051 668 1048 656T1045 643Q1041 637 1008 637Q968 636 957 634T939 623Q936 618 867 340T797 59Q797 55 798 54T805 50T822 48T855 46H886Q892 37 892 35Q892 19 885 5Q880 0 869 0Q864 0 828 1T736 2Q675 2 644 2T609 1Q592 1 592 11Q592 13 594 25Q598 41 602 43T625 46Q652 46 685 49Q699 52 704 61Q706 65 742 207T813 490T848 631L654 322Q458 10 453 5Q451 4 449 3Q444 0 433 0Q418 0 415 7Q413 11 374 317L335 624L267 354Q200 88 200 79Q206 46 272 46H282Q288 41 289 37T286 19Q282 3 278 1Q274 0 267 0Q265 0 255 0T221 1T157 2Q127 2 95 1T58 0Q43 0 39 2T35 11Q35 13 38 25T43 40Q45 46 65 46Q135 46 154 86Q158 92 223 354T289 629Z"/></g><g data-mml-node="mo" transform="translate(2835.6,0)"><path data-c="2E" d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z"/></g><g data-mml-node="mi" transform="translate(3280.2,0)"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"/></g></g></g></svg></mjx-container></span> <img src="/images/loading.png" data-original="/2023/10/16/cs224w-ch4/image-20231016111626006.png" alt="image-20231016111626006"></p>
+<p>and the flow equation can be written as: <span class="math display"><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="8.442ex" height="1.731ex" role="img" focusable="false" viewbox="0 -683 3731.2 765"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"/></g><g data-mml-node="mo" transform="translate(728.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"/></g><g data-mml-node="mi" transform="translate(1784.6,0)"><path data-c="1D440" d="M289 629Q289 635 232 637Q208 637 201 638T194 648Q194 649 196 659Q197 662 198 666T199 671T201 676T203 679T207 681T212 683T220 683T232 684Q238 684 262 684T307 683Q386 683 398 683T414 678Q415 674 451 396L487 117L510 154Q534 190 574 254T662 394Q837 673 839 675Q840 676 842 678T846 681L852 683H948Q965 683 988 683T1017 684Q1051 684 1051 673Q1051 668 1048 656T1045 643Q1041 637 1008 637Q968 636 957 634T939 623Q936 618 867 340T797 59Q797 55 798 54T805 50T822 48T855 46H886Q892 37 892 35Q892 19 885 5Q880 0 869 0Q864 0 828 1T736 2Q675 2 644 2T609 1Q592 1 592 11Q592 13 594 25Q598 41 602 43T625 46Q652 46 685 49Q699 52 704 61Q706 65 742 207T813 490T848 631L654 322Q458 10 453 5Q451 4 449 3Q444 0 433 0Q418 0 415 7Q413 11 374 317L335 624L267 354Q200 88 200 79Q206 46 272 46H282Q288 41 289 37T286 19Q282 3 278 1Q274 0 267 0Q265 0 255 0T221 1T157 2Q127 2 95 1T58 0Q43 0 39 2T35 11Q35 13 38 25T43 40Q45 46 65 46Q135 46 154 86Q158 92 223 354T289 629Z"/></g><g data-mml-node="mo" transform="translate(2835.6,0)"><path data-c="2E" d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z"/></g><g data-mml-node="mi" transform="translate(3280.2,0)"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"/></g></g></g></svg></mjx-container></span> <img data-src="/images/loading.png" data-original="./cs224w-ch4/image-20231016111626006.png" alt="image-20231016111626006"></p>
 <h2 id="connection-to-random-walk">Connection to Random walk</h2>
 <p>we have considered the importance of node. now lets start at one page
 i, and which page should we select next?</p>
@@ -406,7 +406,7 @@ i, and which page should we select next?</p>
 <li>repeat</li>
 </ol>
 <figure>
-<img src="/images/loading.png" data-original="/2023/10/16/cs224w-ch4/image-20231016131736772.png" alt="image-20231016131736772">
+<img data-src="/images/loading.png" data-original="./cs224w-ch4/image-20231016131736772.png" alt="image-20231016131736772">
 <figcaption aria-hidden="true">image-20231016131736772</figcaption>
 </figure>
 <p>so, here are some notions:</p>
@@ -428,22 +428,22 @@ is eigenvalue</p>
 <h2 id="notion-and-procedure">notion and procedure</h2>
 <p>we have the equation with eigenvalue 1 and eigenvector <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.02ex" height="1.025ex" role="img" focusable="false" viewbox="0 -442 451 453"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"/></g></g></g></svg></mjx-container></span>, and its equal form is:</p>
 <figure>
-<img src="/images/loading.png" data-original="/2023/10/16/cs224w-ch4/image-20231016144335069.png" alt="image-20231016144335069">
+<img data-src="/images/loading.png" data-original="./cs224w-ch4/image-20231016144335069.png" alt="image-20231016144335069">
 <figcaption aria-hidden="true">image-20231016144335069</figcaption>
 </figure>
 <p>now we use iterative procedure to solve it:</p>
 <figure>
-<img src="/images/loading.png" data-original="/2023/10/16/cs224w-ch4/image-20231016144426163.png" alt="image-20231016144426163">
+<img data-src="/images/loading.png" data-original="./cs224w-ch4/image-20231016144426163.png" alt="image-20231016144426163">
 <figcaption aria-hidden="true">image-20231016144426163</figcaption>
 </figure>
 <p>the whole procedure is as follow:</p>
 <figure>
-<img src="/images/loading.png" data-original="/2023/10/16/cs224w-ch4/image-20231016144523411.png" alt="image-20231016144523411">
+<img data-src="/images/loading.png" data-original="./cs224w-ch4/image-20231016144523411.png" alt="image-20231016144523411">
 <figcaption aria-hidden="true">image-20231016144523411</figcaption>
 </figure>
 <p>Here are some example:</p>
 <figure>
-<img src="/images/loading.png" data-original="/2023/10/16/cs224w-ch4/image-20231016144806032.png" alt="image-20231016144806032">
+<img data-src="/images/loading.png" data-original="./cs224w-ch4/image-20231016144806032.png" alt="image-20231016144806032">
 <figcaption aria-hidden="true">image-20231016144806032</figcaption>
 </figure>
 <h2 id="problem">problem</h2>
@@ -457,7 +457,7 @@ is eigenvalue</p>
 </ol>
 <h3 id="spider-trap">spider trap</h3>
 <figure>
-<img src="/images/loading.png" data-original="/2023/10/16/cs224w-ch4/image-20231016145129148.png" alt="image-20231016145129148">
+<img data-src="/images/loading.png" data-original="./cs224w-ch4/image-20231016145129148.png" alt="image-20231016145129148">
 <figcaption aria-hidden="true">image-20231016145129148</figcaption>
 </figure>
 <p>Here is solution.</p>
@@ -470,7 +470,7 @@ a teleport</li>
 <li>Usually us <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.439ex;" xmlns="http://www.w3.org/2000/svg" width="13.6ex" height="2.034ex" role="img" focusable="false" viewbox="0 -705 6011.1 899"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D6FD" d="M29 -194Q23 -188 23 -186Q23 -183 102 134T186 465Q208 533 243 584T309 658Q365 705 429 705H431Q493 705 533 667T573 570Q573 465 469 396L482 383Q533 332 533 252Q533 139 448 65T257 -10Q227 -10 203 -2T165 17T143 40T131 59T126 65L62 -188Q60 -194 42 -194H29ZM353 431Q392 431 427 419L432 422Q436 426 439 429T449 439T461 453T472 471T484 495T493 524T501 560Q503 569 503 593Q503 611 502 616Q487 667 426 667Q384 667 347 643T286 582T247 514T224 455Q219 439 186 308T152 168Q151 163 151 147Q151 99 173 68Q204 26 260 26Q302 26 349 51T425 137Q441 171 449 214T457 279Q457 337 422 372Q380 358 347 358H337Q258 358 258 389Q258 396 261 403Q275 431 353 431Z"/></g><g data-mml-node="mo" transform="translate(843.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"/></g><g data-mml-node="mn" transform="translate(1899.6,0)"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"/><path data-c="2E" d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z" transform="translate(500,0)"/><path data-c="38" d="M70 417T70 494T124 618T248 666Q319 666 374 624T429 515Q429 485 418 459T392 417T361 389T335 371T324 363L338 354Q352 344 366 334T382 323Q457 264 457 174Q457 95 399 37T249 -22Q159 -22 101 29T43 155Q43 263 172 335L154 348Q133 361 127 368Q70 417 70 494ZM286 386L292 390Q298 394 301 396T311 403T323 413T334 425T345 438T355 454T364 471T369 491T371 513Q371 556 342 586T275 624Q268 625 242 625Q201 625 165 599T128 534Q128 511 141 492T167 463T217 431Q224 426 228 424L286 386ZM250 21Q308 21 350 55T392 137Q392 154 387 169T375 194T353 216T330 234T301 253T274 270Q260 279 244 289T218 306L210 311Q204 311 181 294T133 239T107 157Q107 98 150 60T250 21Z" transform="translate(778,0)"/></g><g data-mml-node="mo" transform="translate(3455.3,0)"><path data-c="2192" d="M56 237T56 250T70 270H835Q719 357 692 493Q692 494 692 496T691 499Q691 511 708 511H711Q720 511 723 510T729 506T732 497T735 481T743 456Q765 389 816 336T935 261Q944 258 944 250Q944 244 939 241T915 231T877 212Q836 186 806 152T761 85T740 35T732 4Q730 -6 727 -8T711 -11Q691 -11 691 0Q691 7 696 25Q728 151 835 230H70Q56 237 56 250Z"/></g><g data-mml-node="mn" transform="translate(4733.1,0)"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"/><path data-c="2E" d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z" transform="translate(500,0)"/><path data-c="39" d="M352 287Q304 211 232 211Q154 211 104 270T44 396Q42 412 42 436V444Q42 537 111 606Q171 666 243 666Q245 666 249 666T257 665H261Q273 665 286 663T323 651T370 619T413 560Q456 472 456 334Q456 194 396 97Q361 41 312 10T208 -22Q147 -22 108 7T68 93T121 149Q143 149 158 135T173 96Q173 78 164 65T148 49T135 44L131 43Q131 41 138 37T164 27T206 22H212Q272 22 313 86Q352 142 352 280V287ZM244 248Q292 248 321 297T351 430Q351 508 343 542Q341 552 337 562T323 588T293 615T246 625Q208 625 181 598Q160 576 154 546T147 441Q147 358 152 329T172 282Q197 248 244 248Z" transform="translate(778,0)"/></g></g></g></svg></mjx-container></span></li>
 </ul>
 <figure>
-<img src="/images/loading.png" data-original="/2023/10/16/cs224w-ch4/image-20231016145825068.png" alt="image-20231016145825068">
+<img data-src="/images/loading.png" data-original="./cs224w-ch4/image-20231016145825068.png" alt="image-20231016145825068">
 <figcaption aria-hidden="true">image-20231016145825068</figcaption>
 </figure>
 <p>so, use teleport, the surfer will stay at node m, after few step,
@@ -478,12 +478,12 @@ surfer will jump to the teleport, which could be any node in the
 graph</p>
 <h3 id="dead-end">dead end</h3>
 <figure>
-<img src="/images/loading.png" data-original="/2023/10/16/cs224w-ch4/image-20231016145215400.png" alt="image-20231016145215400">
+<img data-src="/images/loading.png" data-original="./cs224w-ch4/image-20231016145215400.png" alt="image-20231016145215400">
 <figcaption aria-hidden="true">image-20231016145215400</figcaption>
 </figure>
 <p>the solution is same with spider trap, just use teleport</p>
 <figure>
-<img src="/images/loading.png" data-original="/2023/10/16/cs224w-ch4/image-20231016150936154.png" alt="image-20231016150936154">
+<img data-src="/images/loading.png" data-original="./cs224w-ch4/image-20231016150936154.png" alt="image-20231016150936154">
 <figcaption aria-hidden="true">image-20231016150936154</figcaption>
 </figure>
 <p>see node m, it has no out-links, we use teleport, and each prob. is
@@ -491,12 +491,12 @@ graph</p>
 include m itself</p>
 <h3 id="googles-solution">Google's solution</h3>
 <figure>
-<img src="/images/loading.png" data-original="/2023/10/16/cs224w-ch4/image-20231016151116458.png" alt="image-20231016151116458">
+<img data-src="/images/loading.png" data-original="./cs224w-ch4/image-20231016151116458.png" alt="image-20231016151116458">
 <figcaption aria-hidden="true">image-20231016151116458</figcaption>
 </figure>
 <h3 id="e.g.">e.g.</h3>
 <figure>
-<img src="/images/loading.png" data-original="/2023/10/16/cs224w-ch4/image-20231016151135339.png" alt="image-20231016151135339">
+<img data-src="/images/loading.png" data-original="./cs224w-ch4/image-20231016151135339.png" alt="image-20231016151135339">
 <figcaption aria-hidden="true">image-20231016151135339</figcaption>
 </figure>
 <p>because of teleport, the gree nodes, which have no in degree, also
@@ -515,7 +515,7 @@ pagerank</h1>
 </ol>
 <p>the form in simulation:</p>
 <figure>
-<img src="/images/loading.png" data-original="/2023/10/16/cs224w-ch4/image-20231016155859558.png" alt="image-20231016155859558">
+<img data-src="/images/loading.png" data-original="./cs224w-ch4/image-20231016155859558.png" alt="image-20231016155859558">
 <figcaption aria-hidden="true">image-20231016155859558</figcaption>
 </figure>
 
@@ -613,7 +613,7 @@ pagerank</span></a></li></ol></div>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -677,6 +677,7 @@ pagerank</span></a></li></ol></div>
 
   
   <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 

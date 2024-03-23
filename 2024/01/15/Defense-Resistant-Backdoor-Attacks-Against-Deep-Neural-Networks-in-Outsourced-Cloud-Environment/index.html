@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="发在期刊IEEE JOURNAL ON SELECTED AREAS IN COMMUNICATIONS上，简称JSAC，属于A会。 摘要 背景：外包云环境下。 工作量：  一种名为RobNet的攻击方法，关键要素为：  使得触发器多样化：多个位置都有触发器的patch，这些触发器是通过梯度下降来生成的 加强模型的结构（？外包不是不能改变模型结构吗）   实验：  数据集：MNIST、GTSRB、">
@@ -27,16 +27,16 @@
 <meta property="og:site_name" content="blog of chengyiqiu">
 <meta property="og:description" content="发在期刊IEEE JOURNAL ON SELECTED AREAS IN COMMUNICATIONS上，简称JSAC，属于A会。 摘要 背景：外包云环境下。 工作量：  一种名为RobNet的攻击方法，关键要素为：  使得触发器多样化：多个位置都有触发器的patch，这些触发器是通过梯度下降来生成的 加强模型的结构（？外包不是不能改变模型结构吗）   实验：  数据集：MNIST、GTSRB、">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2024/01/15/Defense-Resistant-Backdoor-Attacks-Against-Deep-Neural-Networks-in-Outsourced-Cloud-Environment/image-20240116155630399.png">
-<meta property="og:image" content="http://example.com/2024/01/15/Defense-Resistant-Backdoor-Attacks-Against-Deep-Neural-Networks-in-Outsourced-Cloud-Environment/image-20240116160419992.png">
+<meta property="og:image" content="http://example.com/2024/01/15/Defense-Resistant-Backdoor-Attacks-Against-Deep-Neural-Networks-in-Outsourced-Cloud-Environment/Defense-Resistant-Backdoor-Attacks-Against-Deep-Neural-Networks-in-Outsourced-Cloud-Environment/image-20240116155630399.png">
+<meta property="og:image" content="http://example.com/2024/01/15/Defense-Resistant-Backdoor-Attacks-Against-Deep-Neural-Networks-in-Outsourced-Cloud-Environment/Defense-Resistant-Backdoor-Attacks-Against-Deep-Neural-Networks-in-Outsourced-Cloud-Environment/image-20240116160419992.png">
 <meta property="og:image" content="http://example.com/2024/01/15/Defense-Resistant-Backdoor-Attacks-Against-Deep-Neural-Networks-in-Outsourced-Cloud-Environment/image-20240116164552734.png">
 <meta property="article:published_time" content="2024-01-15T11:47:40.000Z">
-<meta property="article:modified_time" content="2024-01-16T12:43:36.679Z">
+<meta property="article:modified_time" content="2024-01-16T12:43:36.000Z">
 <meta property="article:author" content="chengyiqiu">
 <meta property="article:tag" content="backdoors">
 <meta property="article:tag" content="Xueluan Gong">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2024/01/15/Defense-Resistant-Backdoor-Attacks-Against-Deep-Neural-Networks-in-Outsourced-Cloud-Environment/image-20240116155630399.png">
+<meta name="twitter:image" content="http://example.com/2024/01/15/Defense-Resistant-Backdoor-Attacks-Against-Deep-Neural-Networks-in-Outsourced-Cloud-Environment/Defense-Resistant-Backdoor-Attacks-Against-Deep-Neural-Networks-in-Outsourced-Cloud-Environment/image-20240116155630399.png">
 
 <link rel="canonical" href="http://example.com/2024/01/15/Defense-Resistant-Backdoor-Attacks-Against-Deep-Neural-Networks-in-Outsourced-Cloud-Environment/">
 
@@ -390,7 +390,7 @@ location非常重要，如果训练阶段和测试阶段使用的location不一�
 Cleanse的阈值</p>
 <h3 id="神经元决定">神经元决定</h3>
 <p>选full-connection层，权重较大的神经元。</p>
-<p><img src="/images/loading.png" data-original="/2024/01/15/Defense-Resistant-Backdoor-Attacks-Against-Deep-Neural-Networks-in-Outsourced-Cloud-Environment/image-20240116155630399.png" alt="image-20240116155630399" style="zoom: 50%;"></p>
+<p><img data-src="/images/loading.png" data-original="./Defense-Resistant-Backdoor-Attacks-Against-Deep-Neural-Networks-in-Outsourced-Cloud-Environment/image-20240116155630399.png" alt="image-20240116155630399" style="zoom: 50%;"></p>
 <ul>
 <li><span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.113ex;" xmlns="http://www.w3.org/2000/svg" width="2.215ex" height="1.898ex" role="img" focusable="false" viewbox="0 -789 979 839"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="4E" d="M343 705Q358 705 358 698Q360 696 370 658T411 524T484 319Q536 174 590 82L595 73L615 152Q646 274 683 407Q729 571 752 637T799 727Q852 780 937 788Q939 788 947 788T958 789H962Q979 789 979 765Q979 722 951 692Q942 683 924 683Q888 681 859 672T818 654T803 639Q784 608 708 322T631 15Q631 14 630 15Q630 17 629 15Q628 14 628 12Q621 -4 601 -17T560 -31Q550 -31 546 -28T530 -7Q484 67 458 123T398 272Q352 392 314 514L306 535V534Q306 533 296 488T272 379T234 239T185 100T127 -7T61 -50Q34 -50 4 -34T-27 8Q-27 33 -12 61T18 90Q21 90 36 77T87 57H92Q109 57 123 78T162 173Q206 299 232 417T265 599T276 667Q284 681 304 693T343 705Z"/></g></g></g></g></svg></mjx-container></span>: a set of neurons in
 layer l</li>
@@ -405,7 +405,7 @@ defence是activation-
 based的方法。选出来的neuron很可能会表现的低激活并且被pruning。</p>
 <p>于是作者的思路是：找到weight和activation都比较大的神经元作为selected
 weight。</p>
-<p><img src="/images/loading.png" data-original="/2024/01/15/Defense-Resistant-Backdoor-Attacks-Against-Deep-Neural-Networks-in-Outsourced-Cloud-Environment/image-20240116160419992.png" alt="image-20240116160419992" style="zoom:50%;"></p>
+<p><img data-src="/images/loading.png" data-original="./Defense-Resistant-Backdoor-Attacks-Against-Deep-Neural-Networks-in-Outsourced-Cloud-Environment/image-20240116160419992.png" alt="image-20240116160419992" style="zoom:50%;"></p>
 <ul>
 <li><span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.027ex;" xmlns="http://www.w3.org/2000/svg" width="1.319ex" height="1.597ex" role="img" focusable="false" viewbox="0 -694 583 706"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D706" d="M166 673Q166 685 183 694H202Q292 691 316 644Q322 629 373 486T474 207T524 67Q531 47 537 34T546 15T551 6T555 2T556 -2T550 -11H482Q457 3 450 18T399 152L354 277L340 262Q327 246 293 207T236 141Q211 112 174 69Q123 9 111 -1T83 -12Q47 -12 47 20Q47 37 61 52T199 187Q229 216 266 252T321 306L338 322Q338 323 288 462T234 612Q214 657 183 657Q166 657 166 673Z"/></g></g></g></svg></mjx-container></span>: balance
 coefficient</li>
@@ -551,7 +551,7 @@ pixel更加现实，同时详细讲述了实施后门攻击的每一个步骤：
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -615,6 +615,7 @@ pixel更加现实，同时详细讲述了实施后门攻击的每一个步骤：
 
   
   <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 

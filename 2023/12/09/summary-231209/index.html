@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="对先前阅读的中毒攻击以及后门攻击的论文做一个总结。 评级&amp;组 Baochun Li Yanjiao Chen Qian Wang          论文名称 期刊&#x2F;会议 等级 课题组     Poisoning Attacks on Deep Learning based Wireless Traffic Prediction INFOCOM2022 A Li&#x2F;Chen   MetaPoi">
@@ -27,24 +27,24 @@
 <meta property="og:site_name" content="blog of chengyiqiu">
 <meta property="og:description" content="对先前阅读的中毒攻击以及后门攻击的论文做一个总结。 评级&amp;组 Baochun Li Yanjiao Chen Qian Wang          论文名称 期刊&#x2F;会议 等级 课题组     Poisoning Attacks on Deep Learning based Wireless Traffic Prediction INFOCOM2022 A Li&#x2F;Chen   MetaPoi">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/image-20231211101210133.png">
-<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/image-20231211141737025.png">
-<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/image-20231211142955400.png">
-<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/image-20231211150401035.png">
-<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/image-20231211150413211.png">
-<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/image-20231212130424901.png">
-<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/image-20231213105123301.png">
-<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/image-20231213161043850.png">
-<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/image-20231213161310216.png">
-<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/image-20231213164250380.png">
-<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/image-20231213164320493.png">
+<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/summary-231209/image-20231211101210133.png">
+<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/summary-231209/image-20231211141737025.png">
+<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/summary-231209/image-20231211142955400.png">
+<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/summary-231209/image-20231211150401035.png">
+<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/summary-231209/image-20231211150413211.png">
+<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/summary-231209/image-20231212130424901.png">
+<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/summary-231209/image-20231213105123301.png">
+<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/summary-231209/image-20231213161043850.png">
+<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/summary-231209/image-20231213161310216.png">
+<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/summary-231209/image-20231213164250380.png">
+<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/summary-231209/image-20231213164320493.png">
 <meta property="article:published_time" content="2023-12-09T11:07:56.000Z">
-<meta property="article:modified_time" content="2023-12-13T09:19:01.182Z">
+<meta property="article:modified_time" content="2023-12-13T09:19:01.000Z">
 <meta property="article:author" content="chengyiqiu">
 <meta property="article:tag" content="backdoors">
 <meta property="article:tag" content="poisoning">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/12/09/summary-231209/image-20231211101210133.png">
+<meta name="twitter:image" content="http://example.com/2023/12/09/summary-231209/summary-231209/image-20231211101210133.png">
 
 <link rel="canonical" href="http://example.com/2023/12/09/summary-231209/">
 
@@ -440,13 +440,13 @@ Attacks on Deep Learning based Wireless Traffic Prediction</h3>
 <ul>
 <li><p>本地会有一个代理模型来进行训练，最小化加了扰动的样本及标签；最大化没加扰动的样本及标签</p>
 <figure>
-<img src="/images/loading.png" data-original="/2023/12/09/summary-231209/image-20231211101210133.png" alt="image-20231211101210133">
+<img data-src="/images/loading.png" data-original="./summary-231209/image-20231211101210133.png" alt="image-20231211101210133">
 <figcaption aria-hidden="true">image-20231211101210133</figcaption>
 </figure></li>
 </ul></li>
 <li><p>调优&amp;缩放方法（分布场景中毒攻击）</p>
 <figure>
-<img src="/images/loading.png" data-original="/2023/12/09/summary-231209/image-20231211141737025.png" alt="image-20231211141737025">
+<img data-src="/images/loading.png" data-original="./summary-231209/image-20231211141737025.png" alt="image-20231211141737025">
 <figcaption aria-hidden="true">image-20231211141737025</figcaption>
 </figure></li>
 <li><p>数据清洗（集中场景 防御方法）</p>
@@ -455,7 +455,7 @@ Attacks on Deep Learning based Wireless Traffic Prediction</h3>
 distance。作者会在所有的训练集上计算这个距离，并将前100p%的视为中毒数据，丢弃掉（p为投毒率）</li>
 </ul>
 <figure>
-<img src="/images/loading.png" data-original="/2023/12/09/summary-231209/image-20231211142955400.png" alt="image-20231211142955400">
+<img data-src="/images/loading.png" data-original="./summary-231209/image-20231211142955400.png" alt="image-20231211142955400">
 <figcaption aria-hidden="true">image-20231211142955400</figcaption>
 </figure></li>
 <li><p>异常检测（分布场景 防御方法的）</p>
@@ -475,17 +475,17 @@ Practical General-purpose Clean-label Data Poisoning</h3>
 <ol type="1">
 <li><p>首先将现实问题描述为双层优化问题</p>
 <figure>
-<img src="/images/loading.png" data-original="/2023/12/09/summary-231209/image-20231211150401035.png" alt="image-20231211150401035">
+<img data-src="/images/loading.png" data-original="./summary-231209/image-20231211150401035.png" alt="image-20231211150401035">
 <figcaption aria-hidden="true">image-20231211150401035</figcaption>
 </figure>
 <figure>
-<img src="/images/loading.png" data-original="/2023/12/09/summary-231209/image-20231211150413211.png" alt="image-20231211150413211">
+<img data-src="/images/loading.png" data-original="./summary-231209/image-20231211150413211.png" alt="image-20231211150413211">
 <figcaption aria-hidden="true">image-20231211150413211</figcaption>
 </figure>
 <p>可以看到上面有两个参数需要优化（<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.623ex;" xmlns="http://www.w3.org/2000/svg" width="6.317ex" height="2.218ex" role="img" focusable="false" viewbox="0 -705 2792.3 980.2"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msubsup"><g data-mml-node="mi"><path data-c="1D44B" d="M42 0H40Q26 0 26 11Q26 15 29 27Q33 41 36 43T55 46Q141 49 190 98Q200 108 306 224T411 342Q302 620 297 625Q288 636 234 637H206Q200 643 200 645T202 664Q206 677 212 683H226Q260 681 347 681Q380 681 408 681T453 682T473 682Q490 682 490 671Q490 670 488 658Q484 643 481 640T465 637Q434 634 411 620L488 426L541 485Q646 598 646 610Q646 628 622 635Q617 635 609 637Q594 637 594 648Q594 650 596 664Q600 677 606 683H618Q619 683 643 683T697 681T738 680Q828 680 837 683H845Q852 676 852 672Q850 647 840 637H824Q790 636 763 628T722 611T698 593L687 584Q687 585 592 480L505 384Q505 383 536 304T601 142T638 56Q648 47 699 46Q734 46 734 37Q734 35 732 23Q728 7 725 4T711 1Q708 1 678 1T589 2Q528 2 496 2T461 1Q444 1 444 10Q444 11 446 25Q448 35 450 39T455 44T464 46T480 47T506 54Q523 62 523 64Q522 64 476 181L429 299Q241 95 236 84Q232 76 232 72Q232 53 261 47Q262 47 267 47T273 46Q276 46 277 46T280 45T283 42T284 35Q284 26 282 19Q279 6 276 4T261 1Q258 1 243 1T201 2T142 2Q64 2 42 0Z"/></g><g data-mml-node="mo" transform="translate(936.2,363) scale(0.707)"><path data-c="2217" d="M229 286Q216 420 216 436Q216 454 240 464Q241 464 245 464T251 465Q263 464 273 456T283 436Q283 419 277 356T270 286L328 328Q384 369 389 372T399 375Q412 375 423 365T435 338Q435 325 425 315Q420 312 357 282T289 250L355 219L425 184Q434 175 434 161Q434 146 425 136T401 125Q393 125 383 131T328 171L270 213Q283 79 283 63Q283 53 276 44T250 35Q231 35 224 44T216 63Q216 80 222 143T229 213L171 171Q115 130 110 127Q106 124 100 124Q87 124 76 134T64 161Q64 166 64 169T67 175T72 181T81 188T94 195T113 204T138 215T170 230T210 250L74 315Q65 324 65 338Q65 353 74 363T98 374Q106 374 116 368T171 328L229 286Z"/></g><g data-mml-node="mi" transform="translate(861,-275.2) scale(0.707)"><path data-c="1D443" d="M287 628Q287 635 230 637Q206 637 199 638T192 648Q192 649 194 659Q200 679 203 681T397 683Q587 682 600 680Q664 669 707 631T751 530Q751 453 685 389Q616 321 507 303Q500 302 402 301H307L277 182Q247 66 247 59Q247 55 248 54T255 50T272 48T305 46H336Q342 37 342 35Q342 19 335 5Q330 0 319 0Q316 0 282 1T182 2Q120 2 87 2T51 1Q33 1 33 11Q33 13 36 25Q40 41 44 43T67 46Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628ZM645 554Q645 567 643 575T634 597T609 619T560 635Q553 636 480 637Q463 637 445 637T416 636T404 636Q391 635 386 627Q384 621 367 550T332 412T314 344Q314 342 395 342H407H430Q542 342 590 392Q617 419 631 471T645 554Z"/></g></g><g data-mml-node="mo" transform="translate(1442,0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"/></g><g data-mml-node="msup" transform="translate(1886.7,0)"><g data-mml-node="mi"><path data-c="1D703" d="M35 200Q35 302 74 415T180 610T319 704Q320 704 327 704T339 705Q393 701 423 656Q462 596 462 495Q462 380 417 261T302 66T168 -10H161Q125 -10 99 10T60 63T41 130T35 200ZM383 566Q383 668 330 668Q294 668 260 623T204 521T170 421T157 371Q206 370 254 370L351 371Q352 372 359 404T375 484T383 566ZM113 132Q113 26 166 26Q181 26 198 36T239 74T287 161T335 307L340 324H145Q145 321 136 286T120 208T113 132Z"/></g><g data-mml-node="mo" transform="translate(502,363) scale(0.707)"><path data-c="2217" d="M229 286Q216 420 216 436Q216 454 240 464Q241 464 245 464T251 465Q263 464 273 456T283 436Q283 419 277 356T270 286L328 328Q384 369 389 372T399 375Q412 375 423 365T435 338Q435 325 425 315Q420 312 357 282T289 250L355 219L425 184Q434 175 434 161Q434 146 425 136T401 125Q393 125 383 131T328 171L270 213Q283 79 283 63Q283 53 276 44T250 35Q231 35 224 44T216 63Q216 80 222 143T229 213L171 171Q115 130 110 127Q106 124 100 124Q87 124 76 134T64 161Q64 166 64 169T67 175T72 181T81 188T94 195T113 204T138 215T170 230T210 250L74 315Q65 324 65 338Q65 353 74 363T98 374Q106 374 116 368T171 328L229 286Z"/></g></g></g></g></svg></mjx-container></span>）</p></li>
 <li><p>双层优化计算量大，因此作者采用先2步SGD来优化<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.023ex;" xmlns="http://www.w3.org/2000/svg" width="1.061ex" height="1.618ex" role="img" focusable="false" viewbox="0 -705 469 715"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D703" d="M35 200Q35 302 74 415T180 610T319 704Q320 704 327 704T339 705Q393 701 423 656Q462 596 462 495Q462 380 417 261T302 66T168 -10H161Q125 -10 99 10T60 63T41 130T35 200ZM383 566Q383 668 330 668Q294 668 260 623T204 521T170 421T157 371Q206 370 254 370L351 371Q352 372 359 404T375 484T383 566ZM113 132Q113 26 166 26Q181 26 198 36T239 74T287 161T335 307L340 324H145Q145 321 136 286T120 208T113 132Z"/></g></g></g></svg></mjx-container></span>，然后再优化<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.65ex;" xmlns="http://www.w3.org/2000/svg" width="2.866ex" height="2.195ex" role="img" focusable="false" viewbox="0 -683 1266.7 970.2"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D44B" d="M42 0H40Q26 0 26 11Q26 15 29 27Q33 41 36 43T55 46Q141 49 190 98Q200 108 306 224T411 342Q302 620 297 625Q288 636 234 637H206Q200 643 200 645T202 664Q206 677 212 683H226Q260 681 347 681Q380 681 408 681T453 682T473 682Q490 682 490 671Q490 670 488 658Q484 643 481 640T465 637Q434 634 411 620L488 426L541 485Q646 598 646 610Q646 628 622 635Q617 635 609 637Q594 637 594 648Q594 650 596 664Q600 677 606 683H618Q619 683 643 683T697 681T738 680Q828 680 837 683H845Q852 676 852 672Q850 647 840 637H824Q790 636 763 628T722 611T698 593L687 584Q687 585 592 480L505 384Q505 383 536 304T601 142T638 56Q648 47 699 46Q734 46 734 37Q734 35 732 23Q728 7 725 4T711 1Q708 1 678 1T589 2Q528 2 496 2T461 1Q444 1 444 10Q444 11 446 25Q448 35 450 39T455 44T464 46T480 47T506 54Q523 62 523 64Q522 64 476 181L429 299Q241 95 236 84Q232 76 232 72Q232 53 261 47Q262 47 267 47T273 46Q276 46 277 46T280 45T283 42T284 35Q284 26 282 19Q279 6 276 4T261 1Q258 1 243 1T201 2T142 2Q64 2 42 0Z"/></g><g data-mml-node="mi" transform="translate(861,-150) scale(0.707)"><path data-c="1D45D" d="M23 287Q24 290 25 295T30 317T40 348T55 381T75 411T101 433T134 442Q209 442 230 378L240 387Q302 442 358 442Q423 442 460 395T497 281Q497 173 421 82T249 -10Q227 -10 210 -4Q199 1 187 11T168 28L161 36Q160 35 139 -51T118 -138Q118 -144 126 -145T163 -148H188Q194 -155 194 -157T191 -175Q188 -187 185 -190T172 -194Q170 -194 161 -194T127 -193T65 -192Q-5 -192 -24 -194H-32Q-39 -187 -39 -183Q-37 -156 -26 -148H-6Q28 -147 33 -136Q36 -130 94 103T155 350Q156 355 156 364Q156 405 131 405Q109 405 94 377T71 316T59 280Q57 278 43 278H29Q23 284 23 287ZM178 102Q200 26 252 26Q282 26 310 49T356 107Q374 141 392 215T411 325V331Q411 405 350 405Q339 405 328 402T306 393T286 380T269 365T254 350T243 336T235 326L232 322Q232 321 229 308T218 264T204 212Q178 106 178 102Z"/></g></g></g></g></svg></mjx-container></span></p>
 <figure>
-<img src="/images/loading.png" data-original="/2023/12/09/summary-231209/image-20231212130424901.png" alt="image-20231212130424901">
+<img data-src="/images/loading.png" data-original="./summary-231209/image-20231212130424901.png" alt="image-20231212130424901">
 <figcaption aria-hidden="true">image-20231212130424901</figcaption>
 </figure></li>
 <li><p>选择使用集成学习（多个代理模型训练）以及交替训练增加模型的泛化能力。</p></li>
@@ -496,7 +496,7 @@ Efficient General-Purpose Clean-Label Data
 <p><strong>INFOCOM2021 A</strong></p>
 <p>领域CV，集中场景，基于MetaPoison。MetaPoison在优化的时候会利用到二阶导数，这会带来比较大的计算量：</p>
 <figure>
-<img src="/images/loading.png" data-original="/2023/12/09/summary-231209/image-20231213105123301.png" alt="image-20231213105123301">
+<img data-src="/images/loading.png" data-original="./summary-231209/image-20231213105123301.png" alt="image-20231213105123301">
 <figcaption aria-hidden="true">image-20231213105123301</figcaption>
 </figure>
 <p>本文中针对这点，以一阶逼近二阶的性能。</p>
@@ -544,7 +544,7 @@ Networks</h3>
 <p>提出的框架NAD（<strong>N</strong>eural <strong>A</strong>ttention
 <strong>D</strong>istillation，神经注意力蒸馏），思路是：在一小部分干净数据集上，用一个老师模型来对学生模型进行微调，老师模型可以从学生模型中得到，最终需要的就是经过微调后的学生模型。</p>
 <figure>
-<img src="/images/loading.png" data-original="/2023/12/09/summary-231209/image-20231213161043850.png" alt="image-20231213161043850">
+<img data-src="/images/loading.png" data-original="./summary-231209/image-20231213161043850.png" alt="image-20231213161043850">
 <figcaption aria-hidden="true">image-20231213161043850</figcaption>
 </figure>
 <ul>
@@ -553,7 +553,7 @@ Networks</h3>
 </ul>
 <p>然后还有一个loss函数负责保证蒸馏（NAD）时的正确率，避免除掉后门的过程中正确率降低太多。</p>
 <figure>
-<img src="/images/loading.png" data-original="/2023/12/09/summary-231209/image-20231213161310216.png" alt="image-20231213161310216">
+<img data-src="/images/loading.png" data-original="./summary-231209/image-20231213161310216.png" alt="image-20231213161310216">
 <figcaption aria-hidden="true">image-20231213161310216</figcaption>
 </figure>
 <h3 id="redeem-myself-purifying-backdoors-in-deep-learning-models-using-self-attention-distillation">REDEEM
@@ -573,12 +573,12 @@ using Self Attention Distillation</h3>
 映射函数，由激活函数输出得到注意力</li>
 </ul>
 <figure>
-<img src="/images/loading.png" data-original="/2023/12/09/summary-231209/image-20231213164250380.png" alt="image-20231213164250380">
+<img data-src="/images/loading.png" data-original="./summary-231209/image-20231213164250380.png" alt="image-20231213164250380">
 <figcaption aria-hidden="true">image-20231213164250380</figcaption>
 </figure></li>
 <li><p>损失计算模块：根据浅层的注意力，对深层的权重进行调整，同时保证模型预测的准确率。用浅层监督深层。</p>
 <figure>
-<img src="/images/loading.png" data-original="/2023/12/09/summary-231209/image-20231213164320493.png" alt="image-20231213164320493">
+<img data-src="/images/loading.png" data-original="./summary-231209/image-20231213164320493.png" alt="image-20231213164320493">
 <figcaption aria-hidden="true">image-20231213164320493</figcaption>
 </figure></li>
 <li><p>学习率更新模块：跟踪模型在干净数据集上的准确率，来自适应调整学习率。（[32]是每过两个epoch，学习率除10）</p>
@@ -734,7 +734,7 @@ Attention-based QoE-aware Evasive Backdoor Attacks</span></a></li></ol></li><li 
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -798,6 +798,7 @@ Attention-based QoE-aware Evasive Backdoor Attacks</span></a></li></ol></li><li 
 
   
   <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 

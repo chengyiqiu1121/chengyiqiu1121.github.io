@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="ai基础 artificial intelligence 如何定义、解释intelligence（智能）-- 生物学家应该解决的问题，尚未解决 于是用智力、用知识（教育学家应该解决的问题，未解决）表示来表示智能。 NN 传统的CV，做图像识别，是手动从图片的体层提取特征（如几个像素构成的边角……） 现在使用NN，可以让ai自动的进行representation learning security">
@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="blog of chengyiqiu">
 <meta property="og:description" content="ai基础 artificial intelligence 如何定义、解释intelligence（智能）-- 生物学家应该解决的问题，尚未解决 于是用智力、用知识（教育学家应该解决的问题，未解决）表示来表示智能。 NN 传统的CV，做图像识别，是手动从图片的体层提取特征（如几个像素构成的边角……） 现在使用NN，可以让ai自动的进行representation learning security">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/10/12/advanced-ai-class1/image-20231012121420767.png">
-<meta property="og:image" content="http://example.com/2023/10/12/advanced-ai-class1/image-20231012121652418.png">
+<meta property="og:image" content="http://example.com/2023/10/12/advanced-ai-class1/advanced-ai-class1/image-20231012121420767.png">
+<meta property="og:image" content="http://example.com/2023/10/12/advanced-ai-class1/advanced-ai-class1/image-20231012121652418.png">
 <meta property="article:published_time" content="2023-10-11T23:57:04.000Z">
-<meta property="article:modified_time" content="2023-10-19T00:15:15.169Z">
+<meta property="article:modified_time" content="2023-10-19T00:15:15.000Z">
 <meta property="article:author" content="chengyiqiu">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/10/12/advanced-ai-class1/image-20231012121420767.png">
+<meta name="twitter:image" content="http://example.com/2023/10/12/advanced-ai-class1/advanced-ai-class1/image-20231012121420767.png">
 
 <link rel="canonical" href="http://example.com/2023/10/12/advanced-ai-class1/">
 
@@ -383,12 +383,12 @@ mjx-container[display="true"] + br {
 <h5 id="框架表示">框架表示</h5>
 <p>用框架表示知识，例子如下</p>
 <figure>
-<img src="/images/loading.png" data-original="/2023/10/12/advanced-ai-class1/image-20231012121420767.png" alt="image-20231012121420767">
+<img data-src="/images/loading.png" data-original="./advanced-ai-class1/image-20231012121420767.png" alt="image-20231012121420767">
 <figcaption aria-hidden="true">image-20231012121420767</figcaption>
 </figure>
 <h5 id="语义符号表示">语义符号表示</h5>
 <figure>
-<img src="/images/loading.png" data-original="/2023/10/12/advanced-ai-class1/image-20231012121652418.png" alt="image-20231012121652418">
+<img data-src="/images/loading.png" data-original="./advanced-ai-class1/image-20231012121652418.png" alt="image-20231012121652418">
 <figcaption aria-hidden="true">image-20231012121652418</figcaption>
 </figure>
 
@@ -485,7 +485,7 @@ mjx-container[display="true"] + br {
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -549,6 +549,7 @@ mjx-container[display="true"] + br {
 
   
   <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 
