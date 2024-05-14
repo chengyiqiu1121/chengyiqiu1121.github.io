@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/page/2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-readme-server" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/04/01/readme-server/" class="article-date">
+  <time class="dt-published" datetime="2024-04-01T05:20:12.000Z" itemprop="datePublished">2024-04-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/04/01/readme-server/">readme_server</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>服务器的连接&amp;使用&amp;注意事项。</p>
+<h1 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h1><p><del>在学校内部（连接whut的Wi-Fi，或者是连接学校的vpn都算）</del></p>
+<p><del>ssh <a href="mailto:&#121;&#111;&#117;&#114;&#95;&#x75;&#115;&#x65;&#114;&#95;&#110;&#x61;&#109;&#101;&#x40;&#x31;&#x30;&#x2e;&#49;&#51;&#51;&#x2e;&#x36;&#56;&#46;&#x38;&#48;">&#121;&#111;&#117;&#114;&#95;&#x75;&#115;&#x65;&#114;&#95;&#110;&#x61;&#109;&#101;&#x40;&#x31;&#x30;&#x2e;&#49;&#51;&#51;&#x2e;&#x36;&#56;&#46;&#x38;&#48;</a></del></p>
+<p><del>直接ssh可以连接上。</del></p>
+<ol>
+<li><p>不在学校（连接不上学校的内网）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -p 52222 your_user_name@120.76.43.27</span><br></pre></td></tr></table></figure>
+
+<p>通过内网穿透，将server的port 22映射到我自己的阿里云port 52222上了。</p>
+</li>
+<li><p>学校内部</p>
+<p>由于WHUT-1X开启了DHCP，内网IP会不断变化，因此如果想通过内网连接服务器，首先通过公网连接服务器（方法1），来获取内网IP：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">(base) ➜  ~ ifconfig</span><br><span class="line">eno1: flags=4099&lt;UP,BROADCAST,MULTICAST&gt;  mtu 1500</span><br><span class="line">        ether 34:97:f6:8b:34:be  txqueuelen 1000  (Ethernet)</span><br><span class="line">        RX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line">        device interrupt 20  memory 0xfb100000-fb120000</span><br><span class="line"></span><br><span class="line">enp11s0: flags=4099&lt;UP,BROADCAST,MULTICAST&gt;  mtu 1500</span><br><span class="line">        ether 34:97:f6:8b:34:bd  txqueuelen 1000  (Ethernet)</span><br><span class="line">        RX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line">        device memory 0xfb600000-fb61ffff</span><br><span class="line"></span><br><span class="line">lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536</span><br><span class="line">        inet 127.0.0.1  netmask 255.0.0.0</span><br><span class="line">        inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;</span><br><span class="line">        loop  txqueuelen 1000  (Local Loopback)</span><br><span class="line">        RX packets 56985808  bytes 9265128803 (9.2 GB)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 56985808  bytes 9265128803 (9.2 GB)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line"></span><br><span class="line">wlp10s0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span><br><span class="line">        inet 10.81.14.19  netmask 255.254.0.0  broadcast 10.81.255.255</span><br><span class="line">        inet6 fe80::180d:d35:85b3:4d51  prefixlen 64  scopeid 0x20&lt;link&gt;</span><br><span class="line">        ether 10:a5:1d:00:41:9b  txqueuelen 1000  (Ethernet)</span><br><span class="line">        RX packets 376637122  bytes 465366486936 (465.3 GB)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 87118227  bytes 108468812236 (108.4 GB)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br></pre></td></tr></table></figure>
+
+<p>然后通过ssh连接内网：<code>ssh username@10.81.14.19</code></p>
+</li>
+</ol>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>这里介绍一些简单的工具，以便大家使用。</p>
+<h2 id="vim"><a href="#vim" class="headerlink" title="vim"></a>vim</h2><p>vim能够在终端中编辑文件。比如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. vim test.sh #如果test不存在，在退出保存的时候会新建一个test.sh</span><br><span class="line">2. 按i进入编辑模式，此后输入的内容会被记录下来</span><br><span class="line">3. 按ESC退出编辑模式</span><br><span class="line">4. 按:wq退出保存 or 按:q!强制退出不保存</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h2 id="miniconda"><a href="#miniconda" class="headerlink" title="miniconda"></a>miniconda</h2><p>建议安装体积更轻更快的miniconda，下面是教程：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh</span><br><span class="line">chmod +x Miniconda3-latest-Linux-x86_64.sh</span><br><span class="line">bash Miniconda3-latest-Linux-x86_64.sh</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">开始安装，一路回车，accept，确认安装在user环境下，勾选<span class="built_in">yes</span>来init，最后重启终端or刷新环境变量</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="git"><a href="#git" class="headerlink" title="git"></a>git</h2><p>对于一篇论文，找到他在GitHub上的代码仓库，然后git clone即可下载到当前目录下，例如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">chengyiqiu@chengyiqiu-server:~/code$ git clone https://github.com/SCLBD/BackdoorBench.git</span><br><span class="line">Cloning into &#x27;BackdoorBench&#x27;...</span><br><span class="line">remote: Enumerating objects: 5086, done.</span><br><span class="line">remote: Counting objects: 100% (518/518), done.</span><br><span class="line">remote: Compressing objects: 100% (168/168), done.</span><br><span class="line">remote: Total 5086 (delta 379), reused 457 (delta 349), pack-reused 4568</span><br><span class="line">Receiving objects: 100% (5086/5086), 72.98 MiB | 5.23 MiB/s, done.</span><br><span class="line">Resolving deltas: 100% (2799/2799), done.</span><br><span class="line">chengyiqiu@chengyiqiu-server:~/code$ ls</span><br><span class="line">BackdoorBench</span><br><span class="line">chengyiqiu@chengyiqiu-server:~/code$ pwd</span><br><span class="line">/home/chengyiqiu/code</span><br><span class="line">chengyiqiu@chengyiqiu-server:~/code$</span><br></pre></td></tr></table></figure>
+
+<p>git还有同步、多人协作的功能。</p>
+<h2 id="wget"><a href="#wget" class="headerlink" title="wget"></a>wget</h2><p>web get，通过此工具可以下载任意的url指向的资源，可以是一个web page，也可以是其他类型的文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">chengyiqiu@chengyiqiu-server:~/Downloads$ ls</span><br><span class="line">NVIDIA-Linux-x86_64-550.67.run  todesk-v4.7.2.0-amd64.deb</span><br><span class="line">chengyiqiu@chengyiqiu-server:~/Downloads$ on</span><br><span class="line">chengyiqiu@chengyiqiu-server:~/Downloads$ wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh</span><br><span class="line">--2024-04-01 01:37:58--  https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh</span><br><span class="line">Connecting to 10.132.32.222:7890... connected.</span><br><span class="line">Proxy request sent, awaiting response... 200 OK</span><br><span class="line">Length: 144041912 (137M) [application/octet-stream]</span><br><span class="line">Saving to: ‘Miniconda3-latest-Linux-x86_64.sh’</span><br><span class="line"></span><br><span class="line">Miniconda3-latest-Linux-x86_64.sh            100%[===========================================================================================&gt;] 137.37M  5.40MB/s    in 26s</span><br><span class="line"></span><br><span class="line">2024-04-01 01:38:25 (5.26 MB/s) - ‘Miniconda3-latest-Linux-x86_64.sh’ saved [144041912/144041912]</span><br><span class="line"></span><br><span class="line">chengyiqiu@chengyiqiu-server:~/Downloads$ ls</span><br><span class="line">Miniconda3-latest-Linux-x86_64.sh  NVIDIA-Linux-x86_64-550.67.run  todesk-v4.7.2.0-amd64.deb</span><br><span class="line">chengyiqiu@chengyiqiu-server:~/Downloads$ pwd</span><br><span class="line">/home/chengyiqiu/Downloads</span><br><span class="line">chengyiqiu@chengyiqiu-server:~/Downloads$</span><br></pre></td></tr></table></figure>
+
+<h2 id="clash"><a href="#clash" class="headerlink" title="clash"></a>clash</h2><p>科学上网工具。<del>没有在本机配置，使用的是我个人的Ubuntu下的代理。</del></p>
+<p>编辑自己目录下的环境变量:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<p>将下面的内容追加到最后一行去：</p>
+<p><del>PC&#x3D;10.132.32.222</del></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">alias</span></span></span><br><span class="line">PC=localhost</span><br><span class="line">alias on=&quot;export https_proxy=http://$PC:7890;export http_proxy=http://$PC:7890;export all_proxy=socks5://$PC:7891&quot;</span><br><span class="line">alias off=&quot;unset https_proxy;unset http_proxy;unset all_proxy&quot;</span><br></pre></td></tr></table></figure>
+
+<p>然后按ESC退出，:wq保存，回到终端后，输入下面命令刷新环境变量：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<p>此时，可以科学上网了，输入on回车，即可开启代理；输入off回车，即可重置代理。</p>
+<p>下载python、conda、apt也无需换源，直连海外。</p>
+<p><strong>测试方法，输入on回车，下载Google的html：</strong>当前目录下出现index.html表示成功</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">chengyiqiu@chengyiqiu-server:~/Downloads$ wget www.google.com</span><br><span class="line">--2024-04-01 01:39:19--  http://www.google.com/</span><br><span class="line">Connecting to 10.132.32.222:7890... connected.</span><br><span class="line">Proxy request sent, awaiting response... 200 OK</span><br><span class="line">Length: unspecified [text/html]</span><br><span class="line">Saving to: ‘index.html’</span><br><span class="line"></span><br><span class="line">index.html                                       [ &lt;=&gt;                                                                                        ]  19.28K  --.-KB/s    in 0.006s</span><br><span class="line"></span><br><span class="line">2024-04-01 01:39:19 (3.33 MB/s) - ‘index.html’ saved [19747]</span><br><span class="line"></span><br><span class="line">chengyiqiu@chengyiqiu-server:~/Downloads$ ls</span><br><span class="line">index.html  Miniconda3-latest-Linux-x86_64.sh  NVIDIA-Linux-x86_64-550.67.run  todesk-v4.7.2.0-amd64.deb</span><br><span class="line">chengyiqiu@chengyiqiu-server:~/Downloads$</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="nvtop"><a href="#nvtop" class="headerlink" title="nvtop"></a>nvtop</h2><p>查看当前显卡占用情况。</p>
+<p><img src="/./readme-server/image-20240402134455461.png" alt="image-20240402134455461"></p>
+<h2 id="top"><a href="#top" class="headerlink" title="top"></a>top</h2><p>查看当前CPU、memory等占用情况。</p>
+<h2 id="tmux"><a href="#tmux" class="headerlink" title="tmux"></a>tmux</h2><p>好处：退出终端后代码不会中断执行。</p>
+<p>创建tmux：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux new -s code</span><br></pre></td></tr></table></figure>
+
+<p>运行代码之后，按ctrl + b，然后按d退出当前tmux。</p>
+<p>输入tmux ls可以查看当前有几个tmux正在运行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chengyiqiu@chengyiqiu-server:~/Downloads$ tmux ls</span><br><span class="line">code-0: 1 windows (created Mon Apr  1 01:44:39 2024) (group code)</span><br><span class="line">chengyiqiu@chengyiqiu-server:~/Downloads$</span><br></pre></td></tr></table></figure>
+
+<h2 id="cuda"><a href="#cuda" class="headerlink" title="cuda"></a>cuda</h2><p>打算在server上安装cuda11.7和cuda12.4，大家可以根据自己的需求，通过更改环境变量bashrc，来选择自己需要的cuda版本。</p>
+<p><strong>其实pytorch2.X已经不需要手动安装cuda了</strong>，pip torch version &gt; 2的时候会默认把cuda、cudnn等都下载下来，无需手动安装cuda、cudnn。</p>
+<img src="./readme-server/image-20240401151315870.png" alt="image-20240401151315870" style="zoom:50%;" />
+
+<p>若是需要跑远古代码，需要用到cuda10.X的时候，可以私聊我，我来安装一下。（但是最后一般很难成功，因为我们的显卡版本太高了:)</p>
+<h2 id="telegram-bot"><a href="#telegram-bot" class="headerlink" title="telegram-bot"></a>telegram-bot</h2><p>程序跑完了，通过telegram的bot给个人的tg账号发送消息：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">from telegram_logging import TelegramHandler, TelegramFormatter</span><br><span class="line">from data.dict import user_dict</span><br><span class="line">import logging</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def send2bot(msg, title):</span><br><span class="line">    handler = TelegramHandler(bot_token=user_dict[&#x27;token&#x27;],</span><br><span class="line">                              chat_id=str(user_dict[&#x27;chat_id&#x27;]))</span><br><span class="line">    formatter = TelegramFormatter(</span><br><span class="line">        fmt=&quot;time: %(asctime)s\n%(name)s %(levelname)8s\nprocess status: %(message)s&quot;, datefmt=&quot;%d/%m/%Y %H:%M:%S&quot;, use_emoji=True)</span><br><span class="line">    handler.setFormatter(formatter)</span><br><span class="line">    bot = logging.getLogger(f&#x27;process name: &#123;title&#125;&#x27;)</span><br><span class="line">    bot.addHandler(handler)</span><br><span class="line">    bot.setLevel(logging.INFO)</span><br><span class="line">    bot.info(msg)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    send2bot(&#x27;done&#x27;, &#x27;train pdiff&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>效果：</p>
+<p><img src="/./readme-server/image-20240413223942482.png" alt="image-20240413223942482"></p>
+<img src="./readme-server/IMG_0135.png" alt="IMG_0135" style="zoom:33%;" />
+
+<p>参考链接：<a target="_blank" rel="noopener" href="https://xilou.info/p/129">Python logging日志通过Telegram bot机器人发送消息通知 - 西楼 (xilou.info)</a></p>
+<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><h2 id="关于数据备份"><a href="#关于数据备份" class="headerlink" title="关于数据备份"></a>关于数据备份</h2><p>跑完代码后及时保存数据，<strong>重要数据多备份。</strong></p>
+<p>ps：本科期间的云计算于老师，读博的时候，她的师姐买的戴尔电脑三年质保，过了质保之后，毕业前期，电脑无法启动，论文全在里面，最后花了些钱做了数据恢复，才得以毕业。因此那位于老师一直和我们强调，重要数据一定要备份，U盘多备两个。</p>
+<h2 id="关于sudo"><a href="#关于sudo" class="headerlink" title="关于sudo"></a>关于sudo</h2><p>因为人还是蛮多的，为了防止装包失误导致系统环境混乱，所以目前都没有给管理员权限，大家要装什么软件的时候可以和我说。</p>
+<h2 id="关于上传文件"><a href="#关于上传文件" class="headerlink" title="关于上传文件"></a>关于上传文件</h2><p>建议大家<strong>通过内网上传</strong>（将你的电脑，连接whut的校园网，或者连接武理的VPN），带宽大概在40Mpbs左右。</p>
+<p>如果是通过公网上传，那么带宽只有1Mbps，比较慢。</p>
+<p>建议将<strong>代码压缩了再上传</strong>，否则上传小文件多起来非常慢。</p>
+<p>通过指令:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp your_code.zip your_user_name@10.133.68.80:~</span><br></pre></td></tr></table></figure>
+
+<p><code>~</code>指的是上传到对应用户的哪个目录下，</p>
+<h2 id="关于batch-size"><a href="#关于batch-size" class="headerlink" title="关于batch_size"></a>关于batch_size</h2><p><strong>首先，batch_size不是越大越好</strong>，设置过大的batch_size不仅<strong>无法加快模型的训练速度</strong>，还会导致占用过多显存资源的问题，从而导致其他同学不能启动模型（出现OOM）</p>
+<p>我是这样使用的，将batch从小往大调，然后将模型跑起来，看看GPU占用多少，若是达到100%（或者八九十），就没必要往上加了；若是加了batch，模型的训练速度没有加快（通过tqdm可以看），也不建议加大batch了。</p>
+<p>如下面的设置：batch设置的64，显存占用1G不到，但是GPU已经满载了，这样多余的显存可以供其他同学跑模型:)</p>
+<p><img src="/./readme-server/image-20240413223121510.png" alt="image-20240413223121510"></p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>这里是个人的一些记录，作为可选项。</p>
+<h2 id="rsync"><a href="#rsync" class="headerlink" title="rsync"></a>rsync</h2><p>需求是对跑实验的数据做备份，个人PC上新装了一块老机械硬盘，用来做备份。</p>
+<p>了解到Linux内置了支持做备份的命令<code>rsync</code>，该命令既可以在本地同步（本地文件夹2本地文件夹），也可以做远程同步（PC2PC），远程同步的命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync --avu --progress ~/folder1 xx@xx:~/folder1</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>-v 详细输出</li>
+<li>-a 归档模式，表示以递归方式传输文件，并保持所有文件属性，如果文件属性变了，认为是不同文件</li>
+<li>-u 选项忽略重复的数据</li>
+<li>–progress 显示进度</li>
+</ul>
+<p>本地同步则是：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync --avu --progress ~/folder1 ~/folder2</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(base) ➜  ~ rsync -avu --progress ~/code/Diffusion-Backdoor-Embed/backdoor_diffusion /home/WDCData_1T/Diffusion-Backdoor-Embed/backdoor_diffusion</span><br><span class="line">sending incremental file list</span><br><span class="line"></span><br><span class="line">sent 10,748 bytes  received 45 bytes  21,586.00 bytes/sec</span><br><span class="line">total size is 100,585,605,863  speedup is 9,319,522.46</span><br></pre></td></tr></table></figure>
+
+<h2 id="crontab"><a href="#crontab" class="headerlink" title="crontab"></a>crontab</h2><p>Linux内置的定时任务，创建任务: <code>crontrab -e</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/30 * * * * rsync -avu --progress ~/code/Diffusion-Backdoor-Embed/backdoor_diffusion /home/WDCData_1T/Diffusion-Backdoor-Embed/backdoor_diffusion</span><br></pre></td></tr></table></figure>
+
+<p>代表每30分钟同步一次，每个*后的意思如下：</p>
+<img src="./readme-server/image-20240427180816253.png" alt="image-20240427180816253" style="zoom:50%;" />
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/04/01/readme-server/" data-id="clw6dgvjo0051i49f57bv503e" data-title="readme_server" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-follow-who" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/03/30/follow-who/" class="article-date">
+  <time class="dt-published" datetime="2024-03-30T10:57:18.000Z" itemprop="datePublished">2024-03-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/03/30/follow-who/">follow_who</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>本文记录有哪些需要关注的课题组，以便后续跟进:)</p>
+<table>
+<thead>
+<tr>
+<th align="center">姓名</th>
+<th align="center">单位</th>
+<th align="center">研究方向</th>
+<th>链接</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">吴保元</td>
+<td align="center">香港中文大学（深圳）</td>
+<td align="center">后门攻击，对抗攻击</td>
+<td><a target="_blank" rel="noopener" href="https://scholar.google.com/citations?user=JNTG1KoAAAAJ&hl=zh-CN">‪Baoyuan Wu‬ - ‪Google 学术搜索‬</a></td>
+</tr>
+<tr>
+<td align="center">王骞</td>
+<td align="center">武汉大学</td>
+<td align="center">对抗攻击</td>
+<td><a target="_blank" rel="noopener" href="http://nisplab.whu.edu.cn/people.html">NIS&amp;P Lab (whu.edu.cn)</a></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/03/30/follow-who/" data-id="clw6dgvjl004ci49f6w5bfn1a" data-title="follow_who" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Denoising-Diffusion-Probabilistic-Models" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/" class="article-date">
+  <time class="dt-published" datetime="2024-03-29T03:33:53.000Z" itemprop="datePublished">2024-03-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/">Denoising_Diffusion_Probabilistic_Models</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>DDPM，于Stable Diffusion之前，后续关于Diffusion的文章基本都会引用这篇。</p>
+<p>NIPS 2020</p>
+<p>摘要：我们使用扩散概率模型展示了高质量的图像合成结果，这是一种受非平衡热力学考虑启发的潜在变量模型。我们最好的结果是通过对加权变分界进行训练获得的，该边界是根据扩散概率模型和与朗之万动力学的去噪分数匹配之间的新联系设计的，我们的模型自然承认渐进式有损解压缩方案，可以解释为自回归解码的泛化。在无条件 CIFAR10 数据集上，我们获得了 9.46 的 Inception 分数和 3.17 的最新 FID 分数。在 256x256 LSUN 上，我们获得了类似于 ProgressiveGAN 的样本质量。</p>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>本文提出的方法是建立在[扩散概率模型](<a target="_blank" rel="noopener" href="https://proceedings.mlr.press/v37/sohl-dickstein15.html">Deep Unsupervised Learning using Nonequilibrium Thermodynamics (mlr.press)</a>)上的，扩散概率模型提出了这种“先摧毁数据的分布，然后通过机器学习来重构这个分布，从而学习这个重构的过程”。扩散模型是一个参数化的马尔可夫过程，通过一个变分推导，在有限时间内来生成出符合数据分布的样本。马尔可夫链的转变过程（学习过程）是通过逆向扩散过程（前向过程）。</p>
+<p>论文中提到了朗之动力学，这篇<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/562654949">博客</a>介绍了朗之动力学和扩散模型之间的关系。</p>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>还是对扩散概率模型进行介绍：</p>
+<p>大体上，扩散模型分为正向过程$q(.)$和反向过程$p_\theta(.)$，正向过程比较简单，就是不断往原来的分布上加噪声，直到分布被摧毁，反向过程的则是重构这个过程。</p>
+<p>反向过程的初始条件为：<br>$$<br>p(x_T)&#x3D;\mathcal N(x_T;0,I)<br>$$<br>最开始这个噪声的分布是均值0方差1的正态分布，然后通过下面的公式进行迭代：</p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240329121950148.png" alt="image-20240329121950148" style="zoom:33%;" />
+
+<p>整个反向过程可以合并起来写成下面的公式：</p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240329122324323.png" alt="image-20240329122324323" style="zoom:33%;" />
+
+<p>正向过程：</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240329133247082.png" alt="image-20240329133247082"></p>
+<p>$\alpha_2,…,\beta_t$​表示方差调度器，可以在训练中学习，也可以固定。这里作者直接将他们作为超参数固定了。</p>
+<p>给定$\alpha_t&#x3D;1-\beta_t$，正向过程可以写成下面的形式：</p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240329134045273.png" alt="image-20240329134045273" style="zoom:33%;" />
+
+<p>也可以换一种形式写出来：</p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240329143400805.png" alt="image-20240329143400805" style="zoom: 33%;" />
+
+<p>通过负对数似然来对随机噪声进行优化：</p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240329134406665.png" alt="image-20240329134406665" style="zoom:33%;" />
+
+<p>通过改进，将$L$写成下面公式的形式：</p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240329135716143.png" alt="image-20240329135716143" style="zoom:33%;" />
+
+<p>这样在计算上比较简单，计算两个噪声的KL散度，之前的公式则是需要通过求解高方差蒙特卡洛估计。</p>
+<p>使用KL散度将$p_\theta(x_{t-1}|x_t)$和前向过程的后验进行比较，在$x_0$已知的情况下：</p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240329141610974.png" alt="image-20240329141610974" style="zoom:33%;" />
+
+
+
+
+
+
+
+<hr>
+<p>发现很多公式不理解，于是找博客、视频解说。</p>
+<h1 id="算法部分"><a href="#算法部分" class="headerlink" title="算法部分"></a>算法部分</h1><p>首先，看看DDPM的算法，<strong>训练过程</strong>：</p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240329203458307.png" alt="image-20240329203458307" style="zoom:50%;" />
+
+<p>line 2表示从我们的数据中采样一张真实样本$x_0$；</p>
+<p>line 3表示得到当前训练的step，这个后面会feed给噪声预测器中去；</p>
+<p>line 5则是对噪声预测器做优化：</p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240329204358315.png" alt="image-20240329204358315" style="zoom:50%;" />
+
+<p><strong>采样过程</strong>：</p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240330095440136.png" alt="image-20240330095440136" style="zoom:50%;" />
+
+<p>line 1：从正态分布中采样一个杂讯，作为原始输入$x_T$</p>
+<p>line 2：进入循环，有T次</p>
+<p>line 3: 从正态分布中采样一个杂讯，作为后面的约束</p>
+<p>line 4: 开始对上一步的输出进行去噪处理：</p>
+<h1 id="原理解析"><a href="#原理解析" class="headerlink" title="原理解析"></a>原理解析</h1><p>反向过程的流程：</p>
+<ul>
+<li>一共有T个step，每一步都会将上一步输出的噪声减少一部分，直到最后得到一张清晰的图片。</li>
+</ul>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240331102006299.png" alt="image-20240331102006299" style="zoom:50%;" />
+
+<p>其原理很巧妙：</p>
+<p><strong>The sculpture is already complete within the marble block, before I start my work. It is already there, I just have to chisel away the superfluous material. - Michelangelo</strong></p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240331102055942.png" alt="image-20240331102055942" style="zoom:50%;" />
+
+<p>denoise在不同的step产生的noice是不一样的，当step比较大的时候，denoice会产生一个比较大的噪声，然后消除掉这个噪声，如下图所示：</p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240331102249170.png" alt="image-20240331102249170" style="zoom:50%;" />
+
+<p>denoice并不是一个e2e的模型：</p>
+<p>为什么不训练一个e2e的模型，直接输出一张带有杂讯的猫？</p>
+<ul>
+<li>生成噪声比较简单，若是生成一张图，计算量比较大。</li>
+<li>直接生成一张带杂讯的猫相当于model已经可以进行绘画了</li>
+</ul>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240331102413862.png" alt="image-20240331102413862"></p>
+<p>denoice的训练：</p>
+<p>ground truth的来源是正向过程添加的高斯噪声。</p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240331102651258.png" alt="image-20240331102651258" style="zoom: 50%;" />
+
+<p> 正向过程：</p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240331102859501.png" alt="image-20240331102859501" style="zoom:50%;" />
+
+<h1 id="数学原理"><a href="#数学原理" class="headerlink" title="数学原理"></a>数学原理</h1><ol>
+<li><p>用极大似然估计来衡量原始分布和生成模型分布之间的距离</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240506184243810.png" alt="image-20240506184243810"></p>
+<p>从极大似然估计到KL散度</p>
+</li>
+<li><p>DM中的$P_\theta(x)$很难计算，VAE是这样计算的：</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240506184845417.png" alt="image-20240506184845417"></p>
+<p>​	<img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240506185251821.png" alt="image-20240506185251821"></p>
+</li>
+<li><p>DDPM中计算$P_\theta(x)$​</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240506185546697.png" alt="image-20240506185546697"></p>
+</li>
+<li><p>DDPM最大化某一个分布：</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240506191041158.png" alt="image-20240506191041158"></p>
+</li>
+</ol>
+<h1 id="重推"><a href="#重推" class="headerlink" title="重推"></a>重推</h1><p>首先先看演算法，算法中的部分已经用到了推导的结论了。</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507121118865.png" alt="image-20240507121118865"></p>
+<p>$q(.)$是现实世界所有图片的总体，从现实世界中取出一张真实图片，为$x_0$</p>
+<p>t是从一个均匀分布中随机取出来的。</p>
+<p>noice predictor的输入是$x_t$和$t$，输出是预测的noice。</p>
+<p>这里有一个关键点，noice predictor的内部是怎样的，<strong>怎么根据$x_t$和$t$算出noice的。</strong></p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507121441471.png" alt="image-20240507121441471"></p>
+<p>sample的过程就是infer的过程。</p>
+<p>sample的关键是：<strong>为什么$x_t$减去的predict noice前要加系数，大括号的外面为何要加系数，最后为什么要加上这一个杂讯？</strong></p>
+<p>所有的疑问可以从后面的数学推导得到答案。</p>
+<h2 id="扩散：一步到位"><a href="#扩散：一步到位" class="headerlink" title="扩散：一步到位"></a>扩散：一步到位</h2><p>理想中的扩散过程应该是一步一步往图像上加噪声，直到图片变成高斯噪声。</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507121845776.png" alt="image-20240507121845776"></p>
+<p>但是实际上，添加噪声是一步到位的。</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507121914396.png" alt="image-20240507121914396"></p>
+<p>推导一下这个过程：<br>$$<br>\begin{flalign}<br>&amp;x_1&#x3D;\sqrt \alpha_1 x_0+\sqrt{1-\alpha_1}\epsilon_1 \<br>&amp;x_2&#x3D;\sqrt \alpha_2 x_1+\sqrt{1-\alpha_2}\epsilon_2 \<br>&#x3D;&amp;\sqrt \alpha_2(\sqrt \alpha_1 x_0+\sqrt{1-\alpha_1}\epsilon_1)+\sqrt{1-\alpha_2}\epsilon_2 \<br>&#x3D;&amp;\sqrt{\alpha_2\alpha_1}x_0+\sqrt{\alpha_2(1-\alpha_1)}\epsilon_1+\sqrt{1-\alpha_2}\epsilon_2 \<br>&#x3D;&amp;\sqrt{\alpha_2\alpha_1}x_0+\sqrt{1-\alpha_2\alpha_1}\epsilon_3&amp;<br>\end{flalign}<br>$$<br>从(5)-&gt;(6)的原因是：由于$\epsilon\sim\mathcal N(0,1)$，$\epsilon_2, \epsilon_2$是独立的，正态分布的公式，(5)后面两个噪声：<br>$$<br>\begin{flalign}<br>&amp;\epsilon_1^{‘}\sim \mathcal N(0,\alpha_2-\alpha_1\alpha_2) \<br>&amp;\epsilon_2^{‘}\sim \mathcal N(0,1-\alpha_2)<br>\end{flalign}<br>$$<br>由于正态分布的可加性，所以我们可以直接将这两项合并：<br>$$<br>\epsilon_3^{‘}\sim \mathcal N(0, 1-\alpha_1\alpha_2)<br>$$<br>于是可以将系数提出来，直接从标准正态分布中采样即可。</p>
+<p>为了便于书写，将：$\alpha_1\alpha_2…\alpha_t&#x3D;\bar \alpha_t$</p>
+<h2 id="生成模型的目标"><a href="#生成模型的目标" class="headerlink" title="生成模型的目标"></a>生成模型的目标</h2><p>生成模型的目标：</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507131919505.png" alt="image-20240507131919505"></p>
+<p>通过NN生成的分布和真实世界的分布一样，将概率分布展开，更容易理解。<br>$$<br>P_\theta(x)&#x3D;\int_zP_\theta(x|z)P(z)dz<br>$$<br>目标就是最大化从$P_{data}$中sample出的m个样本的概率$P_\theta$的乘积。</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507132546801.png" alt="image-20240507132546801"></p>
+<p>这里补充KL散度的定义，也就是信息论中的相对熵：<br>$$<br>D_{KL}(P\Vert Q)&#x3D;\int p(x)\ln(\frac{p(x)}{q(x)})dx<br>$$<br>因此，上述推导的结论是：要想两个分布相近，通过极大似然估计，推导出的结果是最小化两个分布的KL散度。</p>
+<h2 id="VAE计算-P-theta-的方法"><a href="#VAE计算-P-theta-的方法" class="headerlink" title="VAE计算$P_\theta$的方法"></a>VAE计算$P_\theta$的方法</h2><p>上面说到$P_\theta(x)&#x3D;\int_zP(z)P_\theta(x\vert z)dz$，我们讨论的是生成模型的通用形式，从手上的初始分布中采样一个$z$​，这个概率是已知的。</p>
+<p>VAE中的做法是：</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507135141891.png" alt="image-20240507135141891"></p>
+<p>输入是x，通过一个encoder，得到latent z。</p>
+<p>也就是说，要得到$\theta^*$，就要计算出：在假定x已知的情况下，从z的分布$q()$中采样，求出$\log(\frac{q(x\vert z)}{P(z\vert x)})$的期望的最大值。</p>
+<h2 id="DDPM计算-P-theta"><a href="#DDPM计算-P-theta" class="headerlink" title="DDPM计算$P_\theta$"></a>DDPM计算$P_\theta$</h2><p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507135648112.png" alt="image-20240507135648112"></p>
+<p>和VAE的推导比较类似，得到的结论也有相似的结构。</p>
+<p>怎么最大化这个期望，这篇paper专门进行推导的，我们直接看结论。</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507140315856.png" alt="image-20240507140315856"></p>
+<p>目标的下界是：</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507140542568.png" alt="image-20240507140542568"></p>
+<ol>
+<li><p>第二项是常数，可以不用管（$q(x_T\vert x_0)$是扩散过程，人为控制；$P(x_T)$是从正态分布中采样一个初始的噪声，也是人为控制，没有$\theta$）。</p>
+</li>
+<li><p>第三项中，$P_\theta(x_{t-1}\vert x_t)$是逆扩散过程，是由神经网络决定的，而$q(x_{t-1}\vert x_t,x_0)$：<br>$$<br>\begin{flalign}<br>&amp;q(x_{t-1}\vert x_t,x_0) \<br>&#x3D;&amp;\frac{q(x_{t-1},x_t,x_0)}{q(x_t,x_0)} \<br>&#x3D;&amp;\frac{q(x_0)q(x_{t-1}\vert x_0)q(x_t\vert x_{t-1})}{q(x_0)q(x_t\vert x_0)} \<br>&#x3D;&amp;\frac{q(x_{t-1}\vert x_0)q(x_t\vert x_{t-1})}{q(x_t\vert x_0)}&amp;<br>\end{flalign}<br>$$<br>这三项都是可以计算的高斯分布，另一篇paper中推导了这个算式最后得到的是一个什么样的分布：</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507141837908.png" alt="image-20240507141837908"></p>
+<p>得到了这个分布的均值和方差：</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507142029958.png" alt="image-20240507142029958"></p>
+<p>那么怎么最小化这两个分布的KL散度：<br>$$<br>KL(p,q)&#x3D;\log \frac{\sigma_2}{\sigma_1}+\frac{\sigma_1^2}{\sigma_2^2}+\frac{(\mu_1-\mu_2)^2}{2\sigma_2^2}-\frac{1}{2}<br>$$<br>不用直接带入，根据实验，直接最小化这两个分布的均值的距离即可。</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507142708377.png" alt="image-20240507142708377"></p>
+</li>
+<li><p>第一项参考别人的博客，是这样解释的：</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507204854473.png" alt="image-20240507204854473"></p>
+</li>
+</ol>
+<p>最后，$q(x_{t-1}\vert x_t,x_0)$分布的均值，就是diffusion model输出的结果（$x_t$减去predicted noice）：</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507205224196.png" alt="image-20240507205224196"></p>
+<p>将$x_0$换成$x_t$，得到的就是DDPM演算法中的sample的式子：</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507205458379.png" alt="image-20240507205458379"></p>
+<h2 id="总结DDPM"><a href="#总结DDPM" class="headerlink" title="总结DDPM"></a>总结DDPM</h2><ol>
+<li><p>DDPM的出发点和大多数生成模型一样，目标是使得预测的数据分布$P_\theta$和真实世界的数据分布$P_{data}$​一致，以此出发，通过极大似然估计，发现其实等价于最小化两个分布$P_\theta$和$P_{data}$​之间的KL。</p>
+<p>然后有一个比较直觉的式子：<br>$$<br>P_\theta(x\vert z)\propto \exp (-\Vert G(z)-x\Vert_2)<br>$$<br>此时目标变成了最大化$P_\theta(x)$</p>
+</li>
+<li><p>问题在于如何计算$P_\theta$：<br>$$<br>P_\theta(x)&#x3D;\int_z q(z\vert x)p(x)dz<br>$$<br>可以写成上面的形式，用VAE的推导，取对数，得到下界，用来近似$P_\theta(x)\ge E_{q(z\vert x)}(\frac{P(x,z)}{q(z\vert x)})$。</p>
+<p>对于DDPM，用同样的方法，可以推导出相似的结构，$P_\theta(x)\ge E_{q(x_1:x_t|x_0)}(\frac{P(x_0:x_t)}{q(x_1:x_t\vert x_0)})$​</p>
+<p>对于不等号右边的部分，通过大量推导得到下面的式子：</p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240507140542568.png" alt="image-20240507140542568" style="zoom:33%;" />
+
+<p>此时问题变成了最小化第三个KL项了，也就是说那两个分布的均值越接近越好。</p>
+</li>
+</ol>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/530602852">DDPM解读（一）| 数学基础，扩散与逆扩散过程和训练推理方法 - 知乎 (zhihu.com)</a></p>
+<p>[PowerPoint 簡報 (ntu.edu.tw)](<a target="_blank" rel="noopener" href="https://speech.ee.ntu.edu.tw/~hylee/ml/ml2023-course-data/DDPM">https://speech.ee.ntu.edu.tw/~hylee/ml/ml2023-course-data/DDPM</a> (v7).pdf)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/" data-id="clw6dgvjc000mi49fbvf60a3i" data-title="Denoising_Diffusion_Probabilistic_Models" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/diffusion/" rel="tag">diffusion</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/" class="article-date">
+  <time class="dt-published" datetime="2024-03-25T08:09:31.000Z" itemprop="datePublished">2024-03-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/">Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>为了一门水课汇报而看的论文:(</p>
+<p>深度强化学习的<strong>低样本效率</strong>和<strong>奖励函数设计</strong>的困难阻碍了其在实际应用中的使用，</p>
+<p>两个问题：</p>
+<ul>
+<li>低样本效率导致的问题是：智能体需要与环境进行大量的交互才能学习到一个有效的策略。（例如在没有信号灯的交叉口穿越或在密集交通中进行无保护的左转。）</li>
+<li>奖励函数的设计：设计不当的奖励函数可能会导致智能体错误地利用奖励函数并坚持意外的行为，这样下来调参比较费时间。尽管可以使用一些技术（如逆强化学习）从人类驾驶数据中学习奖励函数，但通常假设奖励函数的某些结构（例如，不同手工制作特征的线性组合），这在实践中可能不成立。</li>
+</ul>
+<p>本文提出了一个新颖的框架，将人类先验知识整合到DRL中，以提高样本效率并节省设计复杂奖励函数的努力。三个部分：专家演示、策略推导和强化学习</p>
+<ul>
+<li>专家演示：人类专家展示了他们执行任务的过程，他们的行为被存储为状态-动作对。</li>
+<li>策略推导：通过行为克隆和依赖于演示数据的不确定性估计，推导出模仿专家策略。</li>
+<li>强化学习：模仿专家策略被用来指导DRL智能体的学习，通过规范DRL智能体策略和模仿专家策略之间的KL散度。</li>
+</ul>
+<h1 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h1><h2 id="先验知识"><a href="#先验知识" class="headerlink" title="先验知识"></a>先验知识</h2><p>利用人类先验知识进行学习并不是首次提出，前人的一些工作：</p>
+<ul>
+<li>提出了在基于RL的控制系统中添加一个安全检查模块，以防止不安全的探索并加速训练。</li>
+<li>提出了一种实时人类指导为基础的学习方法，允许人类专家实时介入训练过程并提供指导，从而使智能体能够从人类指导和自我探索中学习。</li>
+</ul>
+<h2 id="专家演示"><a href="#专家演示" class="headerlink" title="专家演示"></a>专家演示</h2><ul>
+<li>使用专家演示通过模仿（监督）学习预训练策略，以将策略初始化为合理的性能水平，然后应用RL以获得更好的策略</li>
+<li>将专家演示添加到经验回放缓冲区中，用于离线RL算法，并从专家演示和智能体交互中采样经验以更新策略</li>
+<li>……</li>
+</ul>
+<h1 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h1><h2 id="行为克隆"><a href="#行为克隆" class="headerlink" title="行为克隆"></a>行为克隆</h2><p>因为专家策略不能直接访问，因此大多数使用的方法是通过模仿学习来学习专家演示，来对专家策略进行近似。</p>
+<p>专家演示即为一个数据集$D^E:{\tau_i}$，$\tau_i$是专家演示的每一条轨迹，由状态-动作对组成，模拟专家策略用$\pi ^E$表示，用下式进行优化：</p>
+<p><img src="/./Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326133327321.png" alt="image-20240326133327321"></p>
+<p>在通常的行为克隆中，专家策略是一个参数化神经网络$\theta$，网络的输入是一个状态向量，输出则是一个动作:<br>$$<br>a_t&#x3D;\pi_\theta(s)<br>$$<br>优化路径为：</p>
+<p><img src="/./Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326134743328.png" alt="image-20240326134743328"></p>
+<p>但是这种方法得到的是确定性策略，但是需要得到的是一个动作分布，来规范RL的策略。</p>
+<h2 id="策略不确定性"><a href="#策略不确定性" class="headerlink" title="策略不确定性"></a>策略不确定性</h2><p>策略不确定性是指：对于同一个状态，输出的动作并不唯一。内在原因其实是因为对于一个人类专家，面对同一个状态也可能会产生多种可行的动作。</p>
+<p>因此，本文作者采取参数概率分布的形式来输出动作，而不是一个确定的动作。假设动作服从高斯分布，然后通过下式来优化策略：</p>
+<p><img src="/./Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326140653445.png" alt="image-20240326140653445"></p>
+<h2 id="模型不确定性"><a href="#模型不确定性" class="headerlink" title="模型不确定性"></a>模型不确定性</h2><p>模型不确定性是指：策略的预测均值和方差对于不在训练数据集中的数据仍然是不确定和不可靠的。它源于在状态空间的某些区域缺乏训练数据，并且量化了模型对其动作输出的置信度。估计这种不确定性对于我们提出的方法中的模仿专家策略至关重要，因为RL智能体经常会遇到不在演示数据集中的状态，因此需要对分布外状态的置信度进行量化。</p>
+<p>本文使用多个网络M（采用随机策略），使用不同的随机初始化参数和训练数据来进行训练，将最终的均值和方差来进行混合：</p>
+<p><img src="/./Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326141630523.png" alt="image-20240326141630523"></p>
+<p>这种策略类似于集成学习。</p>
+<h1 id="深度强化学习与模仿专家先验"><a href="#深度强化学习与模仿专家先验" class="headerlink" title="深度强化学习与模仿专家先验"></a>深度强化学习与模仿专家先验</h1><h2 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h2><p>整体框架如下：</p>
+<p><img src="/./Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326142544542.png" alt="image-20240326142544542"></p>
+<p>策略推倒部分，加入了策略不确定性和模型不确定性，需要单独说明下。</p>
+<p>当专家策略的方差比较小，证明策略对输出比较自信，这时直接采取专家策略，避免不必要的探索；当专家策略的方差很大时，其均值就不是很合理，这种情况下，应该在接近专家策略的情况下，进行更多的探索，以探索到更好的策略。</p>
+<h2 id="演员评论家算法"><a href="#演员评论家算法" class="headerlink" title="演员评论家算法"></a>演员评论家算法</h2><p>本文提出的演员-评论家算法是一种结合了模仿学习（Imitation Learning）和强化学习（Reinforcement Learning, RL）的方法，用于提高自动驾驶智能体的学习效率。该算法包含两个主要部分：演员（Actor）和评论家（Critic）。演员负责生成动作，而评论家负责评估动作的价值。</p>
+<p>算法中包含以下网络：</p>
+<ul>
+<li>两个Q函数网络$Q_{\Phi_1}$和$Q_{\Phi_2}$，用于评估状态-动作对的价值。</li>
+<li>一个价值函数网络$V_\psi$，用于评估状态的价值。</li>
+<li>一个策略网$\pi_\theta$，用于生成动作。</li>
+</ul>
+<p><img src="/./Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326151252860.png" alt="image-20240326151252860"></p>
+<p><img src="/./Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326151317752.png" alt="image-20240326151317752"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/" data-id="clw6dgvjg001xi49f4hevg0al" data-title="Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rl/" rel="tag">rl</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-High-Resolution-Image-Synthesis-with-Latent-Diffusion-Models" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/03/24/High-Resolution-Image-Synthesis-with-Latent-Diffusion-Models/" class="article-date">
+  <time class="dt-published" datetime="2024-03-24T06:16:00.000Z" itemprop="datePublished">2024-03-24</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/03/24/High-Resolution-Image-Synthesis-with-Latent-Diffusion-Models/">High-Resolution-Image-Synthesis-with-Latent-Diffusion-Models</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>CVPR 2022, stable diffusion</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/03/24/High-Resolution-Image-Synthesis-with-Latent-Diffusion-Models/" data-id="clw6dgvje001ci49f2agl6oa8" data-title="High-Resolution-Image-Synthesis-with-Latent-Diffusion-Models" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/diffusion/" rel="tag">diffusion</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Neural-Network-Diffusion" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/03/24/Neural-Network-Diffusion/" class="article-date">
+  <time class="dt-published" datetime="2024-03-24T02:53:40.000Z" itemprop="datePublished">2024-03-24</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/03/24/Neural-Network-Diffusion/">Neural_Network_Diffusion</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Under ICLR 2024 double-blind review</p>
+<p>使用一个自动编码器，来提取训练模型参数中的隐藏表征，然后扩散模型根据这些隐藏参数表征，合成一些随机噪声，输出一些新的表征给自动编码器的解码器部分，输出就是神经网络的参数。</p>
+<h1 id="神经网络扩散"><a href="#神经网络扩散" class="headerlink" title="神经网络扩散"></a>神经网络扩散</h1><h2 id="初步了解扩散模型"><a href="#初步了解扩散模型" class="headerlink" title="初步了解扩散模型"></a>初步了解扩散模型</h2><p>扩散模型分为两个过程，前向过程和反向过程：</p>
+<ul>
+<li><p>前向过程是对原始图像不断添加高斯噪声（由$\beta$约束），经过$T$步后，得到一个随机高斯噪声（$T\to \infty$​时，最后得到的一定是噪声）</p>
+<p><img src="/./Neural-Network-Diffusion/image-20240324121348853.png" alt="image-20240324121348853"></p>
+<ul>
+<li>$q(.)$：前向过程</li>
+<li>$N(.)$：高斯噪声</li>
+<li>$\beta$：约束</li>
+<li>$I$：单位矩阵</li>
+</ul>
+</li>
+<li><p>反向过程是前向过程反过来，期望通过选连一个去噪网络（denoising network），移除掉$x_T$上的噪声，直到恢复出原始图像来。</p>
+<p><img src="/./Neural-Network-Diffusion/image-20240324121522824.png" alt="image-20240324121522824"></p>
+<ul>
+<li>$p_\theta (.)$：反向过程，$\theta$是可学习的参数</li>
+<li>$\mu _\theta (.)$：通过$\theta$估计的高斯噪声的均值</li>
+<li>$\sum _\theta (.)$：通过$\theta$​估计的高斯噪声的方差</li>
+</ul>
+</li>
+<li><p>去噪网络的优化：</p>
+<p><img src="/./Neural-Network-Diffusion/image-20240324121845235.png" alt="image-20240324121845235"></p>
+<p>$D_{KL}(.\vert \vert .)$是通过KL散度来计算两个分布之间的差距。</p>
+</li>
+</ul>
+<p>扩散模型的可行之处在于：能够通过反向过程找到一个去噪网络，将原始的高斯分布转化成最终期望得到的分布。</p>
+<h2 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h2><p><img src="/./Neural-Network-Diffusion/image-20240324124652683.png" alt="image-20240324124652683"></p>
+<h2 id="参数自动编码器"><a href="#参数自动编码器" class="headerlink" title="参数自动编码器"></a>参数自动编码器</h2><p>首先收集k个训练性能良好的模型，其参数可以表示为：$S&#x3D;[s_1,…,s_K]$，将这些参数展开平铺成向量：$V&#x3D;[v_1,…v_K]$，然后通过编码器来提取参数潜在的特征：<br>$$<br>Z&#x3D;[z_1,…,z_K]&#x3D;f_{encoder}(V,\sigma)<br>$$<br>然后将提取出的潜在参数特征$Z$输入到解码器中生成重构后的参数：<br>$$<br>V^{‘}&#x3D;[v_1^{‘},…,v_K^{‘}]&#x3D;f_{decoder}(Z,\rho)<br>$$<br>其中$\sigma,\rho$是参数。</p>
+<p>优化路径是最小化MSE：<br>$$<br>L_{MSE}&#x3D;\frac{1}{K}\sum _1^K\Vert v _k-v_k^{‘}\Vert^2<br>$$</p>
+<h2 id="参数生成"><a href="#参数生成" class="headerlink" title="参数生成"></a>参数生成</h2><p>若是直接采取将参数$V$输入到编码器，然后解码器输出重构后的参数$V_{‘}$，这样会导致过大的存储开销，尤其是当$V$的维度比较高的时候。</p>
+<p>因此，作者采用DDPM中的优化过程来优化去噪网络；<br><img src="/./Neural-Network-Diffusion/image-20240324133345603.png" alt="image-20240324133345603"></p>
+<ul>
+<li>$\epsilon$：高斯噪声</li>
+<li>$\theta$：去噪网络的参数</li>
+<li>$\epsilon _\theta$：去噪网络生成的噪声</li>
+<li>$t$：每一轮</li>
+<li>$\bar \alpha _t$：每一轮的噪声强度</li>
+</ul>
+<h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><h2 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h2><ol>
+<li><p><strong>数据集</strong></p>
+<p>MNIST (LeCun et al., 1998), CIFAR-10&#x2F;100 (Krizhevsky et al., 2009), ImageNet-1K. (Deng et al., 2009), STL-10 (Coates et al., 2011), Flowers (Nilsback &amp; Zisserman, 2008), Pets (Parkhi et al., 2012), F-101 (Bossard et al., 2014) </p>
+</li>
+<li><p><strong>架构</strong></p>
+<p>最开始是在比较小的模型上实验的，这些模型由卷积层、池化层、全连接层组成：</p>
+<p><img src="/./Neural-Network-Diffusion/image-20240328153848280.png" alt="image-20240328153848280"></p>
+<p>使用的卷积层是2D卷积，参考的是DDPM（采用的U-net，生成高质量图片，用的2D-conv），但是效果并不好，可能的原因是图片像素和参数不能一概处理，因此换成了1D-conv，对比结果如下：</p>
+<p><img src="/./Neural-Network-Diffusion/image-20240328162902109.png" alt="image-20240328162902109"></p>
+<p>在更换卷积层的时候，作者也考虑了下直接将卷积层更换为FC，二者效果差不多，但是1D-conv的存储开销低于FC，因此还是选取了1D-conv：</p>
+<p><img src="/./Neural-Network-Diffusion/image-20240328163035736.png" alt="image-20240328163035736"></p>
+<p>此外，还做了消融实验，找到了一个参数$K&#x3D;200$使得模型的性能最优。</p>
+<p><img src="/./Neural-Network-Diffusion/image-20240328165743211.png" alt="image-20240328165743211"></p>
+<p>作者是在扩大模型架构的时候发现了存储开销特别大的问题，灵感来于stable diffusion，作者采用了一个自动编码器来提取潜在特征，以此来对模型的参数进行降维。</p>
+</li>
+<li><p><strong>准备训练数据</strong></p>
+<p>准备了200个独立的高性能参数来训练DiffNet，对于架构简单，参数少的模型，直接从头开始训练；对于架构复杂的，则是在预训练模型的基础上来进行的。</p>
+</li>
+<li><p><strong>训练细节</strong></p>
+<p>首先把自动编码器训练2000轮，然后将潜在特征和解码器的参数都保存起来。</p>
+<p>然后训练扩散模型来生成表征，扩散模型的结构式基于1D-conv的U-Net，</p>
+</li>
+<li><p><strong>推断阶段</strong></p>
+<p>将100个噪声输入到扩散模型中去，生成了100个模型，选取其中在训练数据集上性能最好的网络。整个的性能图如下：</p>
+<p><img src="/./Neural-Network-Diffusion/image-20240328181545590.png" alt="image-20240328181545590"></p>
+</li>
+</ol>
+<h2 id="代码阅读"><a href="#代码阅读" class="headerlink" title="代码阅读"></a>代码阅读</h2><h3 id="准备训练数据"><a href="#准备训练数据" class="headerlink" title="准备训练数据"></a>准备训练数据</h3><p>作者通过训练一个ResNet18来得到编码器的训练数据。，也就是下图中的参数输入部分：</p>
+<p><img src="/./Neural-Network-Diffusion/image-20240402122657089.png" alt="image-20240402122657089"></p>
+<p>代码部分在<code>tsak_training.py</code>中，核心部分是这个：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># override the abstract method in base_task.py, you obtain the model data for generation</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">train_for_data</span>(<span class="params">self</span>):</span><br></pre></td></tr></table></figure>
+
+<p>训练一共有400轮：</p>
+<ol>
+<li><p>首先将ResNet18训练200轮，将其参数保存下来:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> i == (epoch - <span class="number">1</span>):</span><br><span class="line">    <span class="comment"># 在第199的时候保存模型</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;saving the model&quot;</span>)</span><br><span class="line">    torch.save(net, os.path.join(tmp_path, <span class="string">&quot;whole_model.pth&quot;</span>))</span><br><span class="line">    <span class="comment"># 将不需要训练的层进行固定（取消梯度），后续训练只训练需要训练的层train_layer</span></span><br><span class="line">    fix_partial_model(train_layer, net)</span><br><span class="line">    parameters = []</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在200轮后的训练中，只训练需要需要训练的层，其他的层的参数被冻结了，每过10轮，都会将训练的层的参数保存下来，存储到临时文件夹中。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> i &gt;= epoch:</span><br><span class="line">    <span class="comment"># 在接下来的训练中，每训练一轮，都会将需要保存的层的参数保存下来，存储到一个列表中</span></span><br><span class="line">    parameters.append(state_part(train_layer, net))</span><br><span class="line">    save_model_accs.append(acc)</span><br><span class="line">    <span class="comment"># 当列表的长度等于10时，或者到达训练结束的时候，将参数保存在硬盘上的临时文件夹中。</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(parameters) == <span class="number">10</span> <span class="keyword">or</span> i == all_epoch - <span class="number">1</span>:</span><br><span class="line">        torch.save(parameters, os.path.join(tmp_path, <span class="string">&quot;p_data_&#123;&#125;.pt&quot;</span>.<span class="built_in">format</span>(i)))</span><br><span class="line">        <span class="comment"># 初始化列表</span></span><br><span class="line">        parameters = []</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>最后得到了一个最重要的数据<code>data.pt</code>，里面存储了整个模型<code>whole_model.pth</code>，编码器需要的训练数据<code>pdata</code>，可以将<code>data.pt</code> load一下：</p>
+<p><img src="/./Neural-Network-Diffusion/image-20240402124224411.png" alt="image-20240402124224411"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line">   &#123;<span class="string">&#x27;pdata&#x27;</span>: tensor([[<span class="number">0.3967</span>, <span class="number">0.3701</span>, <span class="number">0.3879</span>,  ..., <span class="number">0.0686</span>, <span class="number">0.0885</span>, <span class="number">0.0762</span>],</span><br><span class="line">           [<span class="number">0.3967</span>, <span class="number">0.3701</span>, <span class="number">0.3879</span>,  ..., <span class="number">0.0686</span>, <span class="number">0.0885</span>, <span class="number">0.0762</span>],</span><br><span class="line">           [<span class="number">0.3967</span>, <span class="number">0.3701</span>, <span class="number">0.3878</span>,  ..., <span class="number">0.0686</span>, <span class="number">0.0885</span>, <span class="number">0.0762</span>],</span><br><span class="line">           ...,</span><br><span class="line">           [<span class="number">0.3975</span>, <span class="number">0.3710</span>, <span class="number">0.3888</span>,  ..., <span class="number">0.0686</span>, <span class="number">0.0884</span>, <span class="number">0.0762</span>],</span><br><span class="line">           [<span class="number">0.3975</span>, <span class="number">0.3710</span>, <span class="number">0.3888</span>,  ..., <span class="number">0.0686</span>, <span class="number">0.0884</span>, <span class="number">0.0762</span>],</span><br><span class="line">           [<span class="number">0.3975</span>, <span class="number">0.3710</span>, <span class="number">0.3888</span>,  ..., <span class="number">0.0686</span>, <span class="number">0.0884</span>, <span class="number">0.0762</span>]]), <span class="string">&#x27;mean&#x27;</span>: tensor([<span class="number">0.3973</span>, <span class="number">0.3707</span>, <span class="number">0.3885</span>,  ..., <span class="number">0.0686</span>, <span class="number">0.0884</span>, <span class="number">0.0762</span>]), <span class="string">&#x27;std&#x27;</span>: tensor([<span class="number">4.2733e-04</span>, <span class="number">4.3796e-04</span>, <span class="number">4.7875e-04</span>,  ..., <span class="number">2.7116e-05</span>, <span class="number">8.1900e-06</span>,</span><br><span class="line">           <span class="number">2.2222e-05</span>]), <span class="string">&#x27;model&#x27;</span>: ResNet(</span><br><span class="line">     (conv1): Conv2d(<span class="number">3</span>, <span class="number">64</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">1</span>, <span class="number">1</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">     (bn1): BatchNorm2d(<span class="number">64</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">     (layer1): Sequential(</span><br><span class="line">       (<span class="number">0</span>): BasicBlock(</span><br><span class="line">         (conv1): Conv2d(<span class="number">64</span>, <span class="number">64</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">1</span>, <span class="number">1</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn1): BatchNorm2d(<span class="number">64</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (conv2): Conv2d(<span class="number">64</span>, <span class="number">64</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">1</span>, <span class="number">1</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn2): BatchNorm2d(<span class="number">64</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (shortcut): Sequential()</span><br><span class="line">       )</span><br><span class="line">       (<span class="number">1</span>): BasicBlock(</span><br><span class="line">         (conv1): Conv2d(<span class="number">64</span>, <span class="number">64</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">1</span>, <span class="number">1</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn1): BatchNorm2d(<span class="number">64</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (conv2): Conv2d(<span class="number">64</span>, <span class="number">64</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">1</span>, <span class="number">1</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn2): BatchNorm2d(<span class="number">64</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (shortcut): Sequential()</span><br><span class="line">       )</span><br><span class="line">     )</span><br><span class="line">     (layer2): Sequential(</span><br><span class="line">       (<span class="number">0</span>): BasicBlock(</span><br><span class="line">         (conv1): Conv2d(<span class="number">64</span>, <span class="number">128</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">2</span>, <span class="number">2</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn1): BatchNorm2d(<span class="number">128</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (conv2): Conv2d(<span class="number">128</span>, <span class="number">128</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">1</span>, <span class="number">1</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn2): BatchNorm2d(<span class="number">128</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (shortcut): Sequential(</span><br><span class="line">           (<span class="number">0</span>): Conv2d(<span class="number">64</span>, <span class="number">128</span>, kernel_size=(<span class="number">1</span>, <span class="number">1</span>), stride=(<span class="number">2</span>, <span class="number">2</span>), bias=<span class="literal">False</span>)</span><br><span class="line">           (<span class="number">1</span>): BatchNorm2d(<span class="number">128</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         )</span><br><span class="line">       )</span><br><span class="line">       (<span class="number">1</span>): BasicBlock(</span><br><span class="line">         (conv1): Conv2d(<span class="number">128</span>, <span class="number">128</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">1</span>, <span class="number">1</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn1): BatchNorm2d(<span class="number">128</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (conv2): Conv2d(<span class="number">128</span>, <span class="number">128</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">1</span>, <span class="number">1</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn2): BatchNorm2d(<span class="number">128</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (shortcut): Sequential()</span><br><span class="line">       )</span><br><span class="line">     )</span><br><span class="line">     (layer3): Sequential(</span><br><span class="line">       (<span class="number">0</span>): BasicBlock(</span><br><span class="line">         (conv1): Conv2d(<span class="number">128</span>, <span class="number">256</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">2</span>, <span class="number">2</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn1): BatchNorm2d(<span class="number">256</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (conv2): Conv2d(<span class="number">256</span>, <span class="number">256</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">1</span>, <span class="number">1</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn2): BatchNorm2d(<span class="number">256</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (shortcut): Sequential(</span><br><span class="line">           (<span class="number">0</span>): Conv2d(<span class="number">128</span>, <span class="number">256</span>, kernel_size=(<span class="number">1</span>, <span class="number">1</span>), stride=(<span class="number">2</span>, <span class="number">2</span>), bias=<span class="literal">False</span>)</span><br><span class="line">           (<span class="number">1</span>): BatchNorm2d(<span class="number">256</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         )</span><br><span class="line">       )</span><br><span class="line">       (<span class="number">1</span>): BasicBlock(</span><br><span class="line">         (conv1): Conv2d(<span class="number">256</span>, <span class="number">256</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">1</span>, <span class="number">1</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn1): BatchNorm2d(<span class="number">256</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (conv2): Conv2d(<span class="number">256</span>, <span class="number">256</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">1</span>, <span class="number">1</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn2): BatchNorm2d(<span class="number">256</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (shortcut): Sequential()</span><br><span class="line">       )</span><br><span class="line">     )</span><br><span class="line">     (layer4): Sequential(</span><br><span class="line">       (<span class="number">0</span>): BasicBlock(</span><br><span class="line">         (conv1): Conv2d(<span class="number">256</span>, <span class="number">512</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">2</span>, <span class="number">2</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn1): BatchNorm2d(<span class="number">512</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (conv2): Conv2d(<span class="number">512</span>, <span class="number">512</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">1</span>, <span class="number">1</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn2): BatchNorm2d(<span class="number">512</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (shortcut): Sequential(</span><br><span class="line">           (<span class="number">0</span>): Conv2d(<span class="number">256</span>, <span class="number">512</span>, kernel_size=(<span class="number">1</span>, <span class="number">1</span>), stride=(<span class="number">2</span>, <span class="number">2</span>), bias=<span class="literal">False</span>)</span><br><span class="line">           (<span class="number">1</span>): BatchNorm2d(<span class="number">512</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         )</span><br><span class="line">       )</span><br><span class="line">       (<span class="number">1</span>): BasicBlock(</span><br><span class="line">         (conv1): Conv2d(<span class="number">512</span>, <span class="number">512</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">1</span>, <span class="number">1</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn1): BatchNorm2d(<span class="number">512</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (conv2): Conv2d(<span class="number">512</span>, <span class="number">512</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">1</span>, <span class="number">1</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn2): BatchNorm2d(<span class="number">512</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (shortcut): Sequential()</span><br><span class="line">       )</span><br><span class="line">     )</span><br><span class="line">     (linear): Linear(in_features=<span class="number">512</span>, out_features=<span class="number">100</span>, bias=<span class="literal">True</span>)</span><br><span class="line">   ), <span class="string">&#x27;train_layer&#x27;</span>: [<span class="string">&#x27;layer4.1.bn1.weight&#x27;</span>, <span class="string">&#x27;layer4.1.bn1.bias&#x27;</span>, <span class="string">&#x27;layer4.1.bn2.bias&#x27;</span>, <span class="string">&#x27;layer4.1.bn2.weight&#x27;</span>], <span class="string">&#x27;performance&#x27;</span>: [<span class="number">71.79</span>, <span class="number">71.78</span>, <span class="number">71.8</span>, <span class="number">71.85</span>, <span class="number">71.84</span>, <span class="number">71.8</span>, <span class="number">71.85</span>, <span class="number">71.83</span>, <span class="number">71.77</span>, <span class="number">71.86</span>, <span class="number">71.85</span>, <span class="number">71.82</span>, <span class="number">71.81</span>, <span class="number">71.85</span>, <span class="number">71.89</span>, <span class="number">71.8</span>, <span class="number">71.82</span>, <span class="number">71.85</span>, <span class="number">71.78</span>, <span class="number">71.86</span>, <span class="number">71.87</span>, <span class="number">71.87</span>, <span class="number">71.81</span>, <span class="number">71.84</span>, <span class="number">71.84</span>, <span class="number">71.87</span>, <span class="number">71.87</span>, <span class="number">71.82</span>, <span class="number">71.87</span>, <span class="number">71.86</span>, <span class="number">71.86</span>, <span class="number">71.87</span>, <span class="number">71.85</span>, <span class="number">71.86</span>, <span class="number">71.85</span>, <span class="number">71.86</span>, <span class="number">71.83</span>, <span class="number">71.83</span>, <span class="number">71.93</span>, <span class="number">71.91</span>, <span class="number">71.84</span>, <span class="number">71.8</span>, <span class="number">71.88</span>, <span class="number">71.84</span>, <span class="number">71.78</span>, <span class="number">71.81</span>, <span class="number">71.82</span>, <span class="number">71.8</span>, <span class="number">71.84</span>, <span class="number">71.83</span>, <span class="number">71.85</span>, <span class="number">71.85</span>, <span class="number">71.89</span>, <span class="number">71.75</span>, <span class="number">71.84</span>, <span class="number">71.78</span>, <span class="number">71.82</span>, <span class="number">71.9</span>, <span class="number">71.86</span>, <span class="number">71.89</span>, <span class="number">71.81</span>, <span class="number">71.8</span>, <span class="number">71.84</span>, <span class="number">71.86</span>, <span class="number">71.81</span>, <span class="number">71.84</span>, <span class="number">71.86</span>, <span class="number">71.82</span>, <span class="number">71.84</span>, <span class="number">71.76</span>, <span class="number">71.83</span>, <span class="number">71.82</span>, <span class="number">71.87</span>, <span class="number">71.86</span>, <span class="number">71.83</span>, <span class="number">71.87</span>, <span class="number">71.84</span>, <span class="number">71.81</span>, <span class="number">71.85</span>, <span class="number">71.84</span>, <span class="number">71.87</span>, <span class="number">71.76</span>, <span class="number">71.85</span>, <span class="number">71.78</span>, <span class="number">71.75</span>, <span class="number">71.86</span>, <span class="number">71.88</span>, <span class="number">71.83</span>, <span class="number">71.85</span>, <span class="number">71.83</span>, <span class="number">71.86</span>, <span class="number">71.86</span>, <span class="number">71.85</span>, <span class="number">71.85</span>, <span class="number">71.9</span>, <span class="number">71.86</span>, <span class="number">71.84</span>, <span class="number">71.87</span>, <span class="number">71.88</span>, <span class="number">71.86</span>, <span class="number">71.82</span>, <span class="number">71.82</span>, <span class="number">71.84</span>, <span class="number">71.84</span>, <span class="number">71.82</span>, <span class="number">71.89</span>, <span class="number">71.79</span>, <span class="number">71.86</span>, <span class="number">71.84</span>, <span class="number">71.8</span>, <span class="number">71.86</span>, <span class="number">71.85</span>, <span class="number">71.83</span>, <span class="number">71.83</span>, <span class="number">71.84</span>, <span class="number">71.89</span>, <span class="number">71.87</span>, <span class="number">71.86</span>, <span class="number">71.8</span>, <span class="number">71.84</span>, <span class="number">71.83</span>, <span class="number">71.79</span>, <span class="number">71.84</span>, <span class="number">71.9</span>, <span class="number">71.85</span>, <span class="number">71.86</span>, <span class="number">71.88</span>, <span class="number">71.84</span>, <span class="number">71.86</span>, <span class="number">71.86</span>, <span class="number">71.84</span>, <span class="number">71.86</span>, <span class="number">71.78</span>, <span class="number">71.83</span>, <span class="number">71.87</span>, <span class="number">71.89</span>, <span class="number">71.81</span>, <span class="number">71.86</span>, <span class="number">71.77</span>, <span class="number">71.84</span>, <span class="number">71.92</span>, <span class="number">71.82</span>, <span class="number">71.81</span>, <span class="number">71.8</span>, <span class="number">71.78</span>, <span class="number">71.85</span>, <span class="number">71.89</span>, <span class="number">71.81</span>, <span class="number">71.75</span>, <span class="number">71.8</span>, <span class="number">71.81</span>, <span class="number">71.84</span>, <span class="number">71.88</span>, <span class="number">71.8</span>, <span class="number">71.85</span>, <span class="number">71.8</span>, <span class="number">71.85</span>, <span class="number">71.8</span>, <span class="number">71.95</span>, <span class="number">71.85</span>, <span class="number">71.87</span>, <span class="number">71.83</span>, <span class="number">71.87</span>, <span class="number">71.84</span>, <span class="number">71.82</span>, <span class="number">71.87</span>, <span class="number">71.8</span>, <span class="number">71.86</span>, <span class="number">71.81</span>, <span class="number">71.89</span>, <span class="number">71.86</span>, <span class="number">71.84</span>, <span class="number">71.87</span>, <span class="number">71.81</span>, <span class="number">71.87</span>, <span class="number">71.83</span>, <span class="number">71.82</span>, <span class="number">71.88</span>, <span class="number">71.85</span>, <span class="number">71.84</span>, <span class="number">71.79</span>, <span class="number">71.84</span>, <span class="number">71.81</span>, <span class="number">71.84</span>, <span class="number">71.86</span>, <span class="number">71.85</span>, <span class="number">71.85</span>, <span class="number">71.85</span>, <span class="number">71.83</span>, <span class="number">71.81</span>, <span class="number">71.87</span>, <span class="number">71.83</span>, <span class="number">71.88</span>, <span class="number">71.84</span>, <span class="number">71.85</span>, <span class="number">71.81</span>, <span class="number">71.81</span>, <span class="number">71.76</span>, <span class="number">71.89</span>, <span class="number">71.86</span>], <span class="string">&#x27;cfg&#x27;</span>: &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;classification&#x27;</span>, <span class="string">&#x27;data&#x27;</span>: &#123;<span class="string">&#x27;data_root&#x27;</span>: <span class="string">&#x27;data/cifar100&#x27;</span>, <span class="string">&#x27;dataset&#x27;</span>: <span class="string">&#x27;cifar100&#x27;</span>, <span class="string">&#x27;batch_size&#x27;</span>: <span class="number">2048</span>, <span class="string">&#x27;num_workers&#x27;</span>: <span class="number">8</span>&#125;, <span class="string">&#x27;model&#x27;</span>: &#123;<span class="string">&#x27;_target_&#x27;</span>: <span class="string">&#x27;models.resnet.ResNet18&#x27;</span>, <span class="string">&#x27;num_classes&#x27;</span>: <span class="number">100</span>&#125;, <span class="string">&#x27;optimizer&#x27;</span>: &#123;<span class="string">&#x27;_target_&#x27;</span>: <span class="string">&#x27;torch.optim.SGD&#x27;</span>, <span class="string">&#x27;lr&#x27;</span>: <span class="number">0.1</span>, <span class="string">&#x27;momentum&#x27;</span>: <span class="number">0.9</span>, <span class="string">&#x27;weight_decay&#x27;</span>: <span class="number">0.0005</span>&#125;, <span class="string">&#x27;lr_scheduler&#x27;</span>: &#123;<span class="string">&#x27;_target_&#x27;</span>: <span class="string">&#x27;torch.optim.lr_scheduler.MultiStepLR&#x27;</span>, <span class="string">&#x27;milestones&#x27;</span>: [<span class="number">60</span>, <span class="number">120</span>, <span class="number">160</span>, <span class="number">200</span>], <span class="string">&#x27;gamma&#x27;</span>: <span class="number">0.2</span>&#125;, <span class="string">&#x27;epoch&#x27;</span>: <span class="number">200</span>, <span class="string">&#x27;save_num_model&#x27;</span>: <span class="number">200</span>, <span class="string">&#x27;train_layer&#x27;</span>: [<span class="string">&#x27;layer4.1.bn1.weight&#x27;</span>, <span class="string">&#x27;layer4.1.bn1.bias&#x27;</span>, <span class="string">&#x27;layer4.1.bn2.bias&#x27;</span>, <span class="string">&#x27;layer4.1.bn2.weight&#x27;</span>], <span class="string">&#x27;param&#x27;</span>: &#123;<span class="string">&#x27;data_root&#x27;</span>: <span class="string">&#x27;param_data/cifar100/data.pt&#x27;</span>, <span class="string">&#x27;k&#x27;</span>: <span class="number">200</span>, <span class="string">&#x27;num_workers&#x27;</span>: <span class="number">4</span>&#125;&#125;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">### 训练扩散模型</span></span><br><span class="line"></span><br><span class="line">代码`train_p_diff.py`，有两种模式，可以在`base.yaml`中选择是训练或者是测试扩散模型。</span><br><span class="line"></span><br><span class="line">项目作者将代码封装的比较好，核心代码在`core`文件夹里面。</span><br><span class="line"></span><br><span class="line"><span class="comment">## 实验结果</span></span><br><span class="line"></span><br><span class="line">再次梳理一下这篇论文对应的实验的思路：数据集设置为CIFAR10，网络为ResNet18</span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> 在CIFAR10上训练ResNet18，将得到的模型保存下来，在test_data上进行测试，得到acc：</span><br><span class="line"></span><br><span class="line">   ```shell</span><br><span class="line">   /home/chengyiqiu/miniconda3/envs/pdiff/<span class="built_in">bin</span>/python /home/chengyiqiu/code/diffusion/Diffuse-Backdoor-Parameters/test.py </span><br><span class="line">   <span class="number">10.0</span>  <span class="comment"># 这是随机初始化ResNet的acc，十类瞎猜理论上是1/10</span></span><br><span class="line">   <span class="number">86.034</span>  <span class="comment"># 这是加载了保存的state_dict后的ResNet18的准确率，良好</span></span><br><span class="line">   </span><br><span class="line">   Process finished <span class="keyword">with</span> exit code <span class="number">0</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将训练好的ResNet18，选取train-layer，只训练这些层，其他的层的参数冻结(require grad &#x3D; false)，然后训练200个epoch，将train-layer的参数收集起来，假设模型的train-layer的长度是5120，那么收集到的数据的shape就是：(200, 5120)，通过这些数据训练一个扩散模型。</p>
+</li>
+<li><p>用训练好的扩散模型生成参数，输入的噪声的维度是(200, latent_shape)，得到200个生成的train-layer的参数，将其加入到第二步中最开始训练好的ResNet18中，替换对应层的参数，并进行测试，下面是测试结果: </p>
+<p>这是不替换对应层参数的结果：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># model = partial_reverse_tomodel(param, model, train_layer).to(param.device)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/home/chengyiqiu/miniconda3/envs/pdiff/bin/python /home/chengyiqiu/code/diffusion/Diffuse-Backdoor-Parameters/outputs/cifar10/ae_ddpm_cifar10_pth/load.py </span><br><span class="line">/home/chengyiqiu/miniconda3/envs/pdiff/lib/python3.8/site-packages/torch/nn/modules/instancenorm.py:80: UserWarning: input&#x27;s size at dim=1 does not match num_features. You can silence this warning by not passing in num_features, which is not used because affine=False</span><br><span class="line">  warnings.warn(f&quot;input&#x27;s size at dim=&#123;feature_dim&#125; does not match num_features. &quot;</span><br><span class="line">ae param shape: torch.Size([200, 7178])</span><br><span class="line">Files already downloaded and verified</span><br><span class="line"><span class="meta prompt_">  0%</span><span class="language-bash">|          | 0/200 [00:00&lt;?, ?it/s]/home/chengyiqiu/miniconda3/envs/pdiff/lib/python3.8/site-packages/torch/nn/_reduction.py:42: UserWarning: size_average and reduce args will be deprecated, please use reduction=<span class="string">&#x27;sum&#x27;</span> instead.</span></span><br><span class="line">  warnings.warn(warning.format(ret))</span><br><span class="line"><span class="meta prompt_">100%</span><span class="language-bash">|██████████| 200/200 [04:04&lt;00:00,  1.22s/it]</span></span><br><span class="line">Sorted list of accuracies: [92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67, 92.67]</span><br><span class="line">Average accuracy: 92.67</span><br><span class="line">Max accuracy: 92.67</span><br><span class="line">Min accuracy: 92.67</span><br><span class="line">Median accuracy: 92.67</span><br></pre></td></tr></table></figure>
+
+<p>这是替换对应层的结果：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model = partial_reverse_tomodel(param, model, train_layer).to(param.device)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/home/chengyiqiu/miniconda3/envs/pdiff/bin/python /home/chengyiqiu/code/diffusion/Diffuse-Backdoor-Parameters/outputs/cifar10/ae_ddpm_cifar10_pth/load.py </span><br><span class="line">/home/chengyiqiu/miniconda3/envs/pdiff/lib/python3.8/site-packages/torch/nn/modules/instancenorm.py:80: UserWarning: input&#x27;s size at dim=1 does not match num_features. You can silence this warning by not passing in num_features, which is not used because affine=False</span><br><span class="line">  warnings.warn(f&quot;input&#x27;s size at dim=&#123;feature_dim&#125; does not match num_features. &quot;</span><br><span class="line">ae param shape: torch.Size([200, 7178])</span><br><span class="line">Files already downloaded and verified</span><br><span class="line"><span class="meta prompt_">  0%</span><span class="language-bash">|          | 0/200 [00:00&lt;?, ?it/s]/home/chengyiqiu/miniconda3/envs/pdiff/lib/python3.8/site-packages/torch/nn/_reduction.py:42: UserWarning: size_average and reduce args will be deprecated, please use reduction=<span class="string">&#x27;sum&#x27;</span> instead.</span></span><br><span class="line">  warnings.warn(warning.format(ret))</span><br><span class="line"><span class="meta prompt_">100%</span><span class="language-bash">|██████████| 200/200 [04:04&lt;00:00,  1.22s/it]</span></span><br><span class="line">Sorted list of accuracies: [10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.01, 10.01, 10.01, 10.01, 10.02, 10.03, 10.04, 10.04, 10.08, 10.08, 10.09, 10.16, 10.63, 10.71, 11.04, 11.08, 11.13, 11.17, 11.68, 11.89, 11.94, 12.84, 12.85, 13.27, 13.54, 13.8, 14.11, 14.44, 14.52, 14.77, 14.89, 15.2, 15.93, 16.25, 16.44, 16.7, 17.29, 18.43, 18.44, 18.62, 18.83, 18.9, 18.98, 19.32, 19.34, 19.68, 19.7, 19.9, 20.19, 20.3, 20.3, 20.33, 20.46, 20.85, 20.96, 21.56, 21.6, 22.38, 22.41, 22.41, 23.13, 23.63, 23.71, 23.73, 24.17, 25.84, 26.6, 26.64, 26.76, 26.83, 27.0, 27.26, 27.52, 27.54, 27.72, 27.77, 27.86, 28.0, 28.15, 28.2, 28.29, 28.29, 28.46, 28.71, 28.74, 28.87, 29.02, 29.14, 29.25, 29.93, 30.24, 30.71, 31.66, 32.23, 32.45, 33.66, 34.37, 36.0, 36.56, 36.71, 37.02, 37.32, 37.33, 39.09, 39.4, 39.76, 40.4, 42.54, 44.09, 44.67, 45.6, 46.82, 48.23, 48.83, 52.8, 53.44, 54.1, 54.59, 59.25, 60.46, 63.95, 64.05, 70.35, 70.59, 70.92, 74.63, 76.78, 78.43, 79.81, 80.77, 82.4, 82.61, 85.24, 85.46, 86.22, 87.14, 87.83, 88.27, 88.64, 88.71, 88.98, 89.03, 89.5, 89.94, 89.97, 90.46]</span><br><span class="line">Average accuracy: 28.35</span><br><span class="line">Max accuracy: 90.46</span><br><span class="line">Min accuracy: 10.00</span><br><span class="line">Median accuracy: 19.69</span><br></pre></td></tr></table></figure>
+
+<p>这次扩散模型输出的参数效果一般，但也有性能比较好的参数。</p>
+</li>
+<li><p>将训练好的模型换成相同架构（ResNet18），相同数据集，植入了后门之后的模型，将对应层的参数进行替换：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/home/chengyiqiu/miniconda3/envs/pdiff/bin/python /home/chengyiqiu/code/diffusion/Diffuse-Backdoor-Parameters/outputs/cifar10/ae_ddpm_cifar10_pth/load.py </span><br><span class="line">/home/chengyiqiu/miniconda3/envs/pdiff/lib/python3.8/site-packages/torch/nn/modules/instancenorm.py:80: UserWarning: input&#x27;s size at dim=1 does not match num_features. You can silence this warning by not passing in num_features, which is not used because affine=False</span><br><span class="line">  warnings.warn(f&quot;input&#x27;s size at dim=&#123;feature_dim&#125; does not match num_features. &quot;</span><br><span class="line">ae param shape: torch.Size([200, 7178])</span><br><span class="line">Files already downloaded and verified</span><br><span class="line"><span class="meta prompt_">  0%</span><span class="language-bash">|          | 0/200 [00:00&lt;?, ?it/s]/home/chengyiqiu/miniconda3/envs/pdiff/lib/python3.8/site-packages/torch/nn/_reduction.py:42: UserWarning: size_average and reduce args will be deprecated, please use reduction=<span class="string">&#x27;sum&#x27;</span> instead.</span></span><br><span class="line">  warnings.warn(warning.format(ret))</span><br><span class="line"><span class="meta prompt_">100%</span><span class="language-bash">|██████████| 200/200 [04:04&lt;00:00,  1.22s/it]</span></span><br><span class="line">Sorted list of accuracies: [1.29, 1.63, 1.99, 2.64, 2.93, 2.98, 3.12, 4.07, 4.18, 4.22, 5.14, 5.18, 5.51, 5.56, 5.65, 6.1, 6.3, 6.4, 7.02, 7.07, 7.34, 7.38, 7.91, 8.75, 8.86, 9.13, 9.15, 9.16, 9.5, 9.65, 9.76, 9.76, 9.78, 9.83, 9.84, 9.86, 9.93, 9.95, 9.96, 9.96, 9.98, 9.98, 9.98, 9.99, 9.99, 9.99, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.01, 10.01, 10.01, 10.02, 10.02, 10.03, 10.03, 10.04, 10.04, 10.06, 10.06, 10.06, 10.07, 10.13, 10.15, 10.23, 10.33, 10.43, 10.46, 10.51, 10.69, 10.83, 11.2, 11.37, 11.38, 11.5, 11.69, 11.87, 12.02, 12.32, 12.34, 12.37, 12.41, 13.09, 13.95, 13.96, 14.04, 14.96, 15.39, 15.8, 17.02, 17.15, 17.23, 17.8, 18.74, 19.39, 20.22]</span><br><span class="line">Average accuracy: 9.94</span><br><span class="line">Max accuracy: 20.22</span><br><span class="line">Min accuracy: 1.29</span><br><span class="line">Median accuracy: 10.00</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，没有高性能参数。</p>
+</li>
+<li><p>最后单独测试一下植入后门的ResNet的性能，以确定是扩散模型生成的参数导致ResNet的性能下降。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/home/chengyiqiu/miniconda3/envs/pdiff/bin/python /home/chengyiqiu/code/diffusion/Diffuse-Backdoor-Parameters/test.py </span><br><span class="line">10.0</span><br><span class="line">94.474</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="实验结论"><a href="#实验结论" class="headerlink" title="实验结论"></a>实验结论</h2><p>扩散模型的却可以生成高性能参数，但是生成的参数泛化性十分差劲！</p>
+<p>简单探究下原因，虽然说论文中说是用了200个高性能模型，但其实上，者200个高性能模型的前面几层都是一样的，假如我这样选取：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train_layer = [&#x27;layer4.1.bn1.weight&#x27;, &#x27;layer4.1.bn1.bias&#x27;, &#x27;layer4.1.bn2.bias&#x27;, &#x27;layer4.1.bn2.weight&#x27;, &#x27;linear.weight&#x27;, &#x27;linear.bias&#x27;]</span><br></pre></td></tr></table></figure>
+
+<p>选取模型最后的几层，<strong>那么这最终的200个模型的前面几层的参数都是一样的，这严重限制了扩散模型的泛化性能！</strong></p>
+<h2 id="问题记录"><a href="#问题记录" class="headerlink" title="问题记录"></a>问题记录</h2><ol>
+<li><p>数据集的transform设置，训练时和测试时不一致，导致训练得到的准确率有较大的drop，若是统一transform之后，训练的正确率得以改善。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">transform = transforms.Compose([</span><br><span class="line">    transforms.ToTensor(),</span><br><span class="line">    transforms.Normalize(mean=[<span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">0.5</span>], std=[<span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">0.5</span>])</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+
+<p>这是gpt的解释：</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">在这段代码中，`transforms.Normalize`是PyTorch中用于数据预处理的一个方法，它执行了数据的归一化操作。归一化是机器学习和深度学习中常用的技术，旨在将输入数据的范围和分布调整到特定的区间，以提高模型的训练效率和性能。</span><br><span class="line"></span><br><span class="line">`transforms.Normalize`的参数如下：</span><br><span class="line"></span><br><span class="line">- `mean`: 一个与输入数据的通道数相同长度的列表，表示每个通道的均值。在这个例子中，`[0.5, 0.5, 0.5]`意味着对于RGB图像，每个颜色通道（红、绿、蓝）的均值都被设置为0.5。</span><br><span class="line"></span><br><span class="line">- `std`: 与`mean`类似，这是一个标准差（standard deviation）的列表，用于每个通道。在这个例子中，每个通道的标准差被设置为0.5。</span><br><span class="line"></span><br><span class="line">归一化操作的具体计算方法是将每个通道的数据减去其均值（`mean`），然后除以其标准差（`std`）。对于图像数据，这通常可以表示为以下公式：</span><br><span class="line"></span><br><span class="line"><span class="keyword">\[</span> <span class="keyword">\text</span>&#123;Normalized pixel value&#125; = <span class="keyword">\frac</span>&#123;<span class="keyword">\text</span>&#123;Pixel value&#125; - <span class="keyword">\text</span>&#123;mean&#125;&#125;&#123;<span class="keyword">\text</span>&#123;std&#125;&#125; <span class="keyword">\]</span></span><br><span class="line"></span><br><span class="line">这种操作有助于将输入数据的分布标准化，使其具有零均值和单位方差（当`mean = 0`且`std = 1`时）。这样做的好处包括：</span><br><span class="line"></span><br><span class="line">1. 加速训练过程：归一化后的数据有助于提高梯度下降算法的收敛速度。</span><br><span class="line">2. 改善模型性能：标准化的数据可以使模型更容易学习特征，因为它减少了不同特征之间的量纲影响。</span><br><span class="line">3. 防止梯度消失/爆炸：归一化有助于保持梯度在训练过程中的稳定，防止因输入数据范围过大或过小而导致的梯度问题。</span><br><span class="line"></span><br><span class="line">在实际应用中，`transforms.Normalize`通常与`transforms.ToTensor`一起使用，后者首先将图像数据转换为PyTorch张量（`Tensor`），然后`transforms.Normalize`对这些张量进行归一化处理。这种组合是处理图像数据的常见做法，特别是在使用预训练模型或者需要提高模型性能的场合。</span><br></pre></td></tr></table></figure>
+
+<p>经过我的测试，transform相同和不同相差10个点：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/home/chengyiqiu/miniconda3/envs/pdiff/bin/python /home/chengyiqiu/code/diffusion/Diffuse-Backdoor-Parameters/test.py </span><br><span class="line">9.83</span><br><span class="line">87.57</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/home/chengyiqiu/miniconda3/envs/pdiff/bin/python /home/chengyiqiu/code/diffusion/Diffuse-Backdoor-Parameters/test.py </span><br><span class="line">10.0</span><br><span class="line">76.11</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="多样化参数以增强泛化性能"><a href="#多样化参数以增强泛化性能" class="headerlink" title="多样化参数以增强泛化性能"></a>多样化参数以增强泛化性能</h2><h3 id="尝试1-慢慢减训练的layer"><a href="#尝试1-慢慢减训练的layer" class="headerlink" title="尝试1 慢慢减训练的layer"></a>尝试1 慢慢减训练的layer</h3><p>先把ResNet训练100（）轮，然后按以下设置，训练这些层，各100轮，最后只拿出全连接层的参数，查看泛化性能是否提升。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">train_layer = [<span class="string">&#x27;layer4.1.bn1.weight&#x27;</span>, <span class="string">&#x27;layer4.1.bn1.bias&#x27;</span>, <span class="string">&#x27;layer4.1.bn2.bias&#x27;</span>, <span class="string">&#x27;layer4.1.bn2.weight&#x27;</span>, <span class="string">&#x27;linear.weight&#x27;</span>, <span class="string">&#x27;linear.bias&#x27;</span>]</span><br><span class="line">train_layer = [<span class="string">&#x27;layer4.1.bn2.bias&#x27;</span>, <span class="string">&#x27;layer4.1.bn2.weight&#x27;</span>, <span class="string">&#x27;linear.weight&#x27;</span>, <span class="string">&#x27;linear.bias&#x27;</span>]</span><br><span class="line">train_layer = [<span class="string">&#x27;linear.weight&#x27;</span>, <span class="string">&#x27;linear.bias&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>测试下：</p>
+<p>相同模型：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">res_path = <span class="string">&#x27;../tmp/whole_model_resnet18_cifar10.pth&#x27;</span></span><br><span class="line">t = torch.load(res_path)</span><br><span class="line"><span class="comment"># resnet.load_state_dict(torch.load(res_path)[&#x27;model&#x27;])</span></span><br><span class="line">state_dict = torch.load(res_path)[<span class="string">&#x27;state_dict&#x27;</span>]</span><br><span class="line"><span class="comment"># train_layer = [&#x27;layer4.1.bn1.weight&#x27;, &#x27;layer4.1.bn1.bias&#x27;, &#x27;layer4.1.bn2.bias&#x27;, &#x27;layer4.1.bn2.weight&#x27;]</span></span><br><span class="line">train_layer = [<span class="string">&#x27;linear.weight&#x27;</span>, <span class="string">&#x27;linear.bias&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/home/chengyiqiu/miniconda3/envs/pdiff/bin/python /home/chengyiqiu/code/diffusion/Diffuse-Backdoor-Parameters/tools/load_pdiff.py </span><br><span class="line">/home/chengyiqiu/miniconda3/envs/pdiff/lib/python3.8/site-packages/torch/nn/modules/instancenorm.py:80: UserWarning: input&#x27;s size at dim=1 does not match num_features. You can silence this warning by not passing in num_features, which is not used because affine=False</span><br><span class="line">  warnings.warn(f&quot;input&#x27;s size at dim=&#123;feature_dim&#125; does not match num_features. &quot;</span><br><span class="line">ae param shape: torch.Size([300, 5130])</span><br><span class="line">Files already downloaded and verified</span><br><span class="line"><span class="meta prompt_">100%</span><span class="language-bash">|██████████| 300/300 [26:12&lt;00:00,  5.24s/it]</span></span><br><span class="line">Sorted list of accuracies: [0.558, 0.61, 0.964, 1.198, 1.96, 2.38, 2.44, 2.508, 2.598, 2.772, 3.982, 4.098, 4.724, 5.266, 5.836, 5.926, 6.122, 6.894, 7.068, 7.25, 7.314, 7.446, 7.458, 7.87, 8.048, 8.436, 8.65, 9.362, 10.164, 10.184, 10.69, 10.73, 10.992, 11.008, 11.086, 11.48, 11.614, 11.804, 11.808, 12.058, 12.248, 12.454, 12.494, 12.658, 12.92, 12.92, 13.072, 13.124, 13.128, 13.43, 13.488, 13.524, 13.828, 14.174, 14.244, 14.324, 14.506, 14.54, 14.972, 15.162, 15.212, 15.258, 15.384, 15.41, 15.694, 16.038, 16.062, 16.132, 16.256, 16.258, 17.032, 17.11, 17.22, 17.4, 17.402, 17.842, 18.15, 18.204, 18.288, 18.524, 18.68, 18.798, 18.926, 19.074, 19.44, 19.818, 20.45, 20.49, 20.55, 20.592, 20.61, 20.67, 20.672, 20.74, 20.832, 20.982, 21.242, 21.254, 21.36, 21.748, 21.812, 22.29, 22.8, 22.842, 23.068, 23.356, 23.724, 23.84, 24.076, 24.396, 24.598, 24.726, 25.052, 25.32, 25.72, 25.756, 26.25, 26.83, 26.968, 26.972, 27.21, 27.328, 27.592, 27.996, 28.21, 28.53, 28.726, 29.04, 29.16, 29.194, 29.424, 29.566, 29.598, 29.678, 29.774, 29.808, 30.916, 31.158, 31.24, 31.338, 31.482, 32.002, 32.148, 32.742, 32.804, 33.08, 33.552, 33.76, 33.92, 34.004, 34.774, 35.834, 36.576, 37.622, 37.68, 38.128, 39.032, 39.044, 39.494, 39.708, 39.876, 40.692, 41.044, 41.104, 42.296, 42.618, 42.918, 42.924, 43.336, 43.896, 43.942, 44.39, 44.82, 45.118, 45.322, 45.94, 46.096, 46.416, 48.732, 48.834, 49.362, 49.578, 49.764, 51.2, 51.566, 51.74, 52.22, 52.87, 53.906, 54.406, 54.882, 56.08, 56.298, 57.084, 57.42, 57.71, 58.088, 58.106, 58.928, 60.352, 60.442, 60.736, 62.214, 62.24, 62.672, 63.272, 63.516, 63.776, 63.808, 64.076, 64.376, 64.792, 64.806, 65.076, 65.462, 65.83, 65.866, 65.928, 66.678, 66.714, 67.088, 67.394, 68.068, 68.344, 68.572, 68.728, 69.234, 69.326, 69.516, 69.592, 70.49, 70.924, 71.772, 71.918, 72.286, 72.31, 72.538, 72.654, 72.828, 73.326, 74.204, 74.62, 74.694, 75.168, 75.762, 76.372, 76.492, 77.38, 77.558, 77.566, 78.034, 78.228, 78.54, 78.716, 78.88, 79.034, 80.036, 80.302, 80.548, 80.782, 82.27, 82.28, 82.704, 82.824, 82.956, 83.308, 83.386, 83.644, 83.67, 83.74, 84.098, 84.486, 84.558, 85.982, 86.032, 86.682, 86.91, 87.098, 87.894, 89.008, 89.156, 89.736, 89.752, 90.448, 90.574, 91.7, 91.79, 92.102, 92.462, 92.522, 92.754, 93.51, 94.272, 95.092, 95.588, 95.974, 95.992, 97.704, 98.034, 98.558]</span><br><span class="line">Average accuracy: 42.82</span><br><span class="line">Max accuracy: 98.56</span><br><span class="line">Min accuracy: 0.56</span><br><span class="line">Median accuracy: 34.39</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+
+<p>不同模型（badnet）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/home/chengyiqiu/miniconda3/envs/pdiff/bin/python /home/chengyiqiu/code/diffusion/Diffuse-Backdoor-Parameters/tools/load_pdiff.py </span><br><span class="line">/home/chengyiqiu/miniconda3/envs/pdiff/lib/python3.8/site-packages/torch/nn/modules/instancenorm.py:80: UserWarning: input&#x27;s size at dim=1 does not match num_features. You can silence this warning by not passing in num_features, which is not used because affine=False</span><br><span class="line">  warnings.warn(f&quot;input&#x27;s size at dim=&#123;feature_dim&#125; does not match num_features. &quot;</span><br><span class="line">ae param shape: torch.Size([300, 5130])</span><br><span class="line">Files already downloaded and verified</span><br><span class="line"><span class="meta prompt_">100%</span><span class="language-bash">|██████████| 300/300 [26:20&lt;00:00,  5.27s/it]</span></span><br><span class="line">Sorted list of accuracies: [0.486, 0.532, 0.826, 0.83, 0.852, 0.892, 0.99, 1.024, 1.186, 1.236, 1.296, 1.31, 1.338, 1.436, 1.516, 1.644, 1.662, 1.678, 1.79, 1.806, 1.942, 2.08, 2.304, 2.316, 2.326, 2.354, 2.374, 2.416, 2.658, 2.728, 2.78, 2.818, 2.974, 3.032, 3.034, 3.038, 3.048, 3.05, 3.106, 3.138, 3.268, 3.328, 3.336, 3.6, 3.668, 3.712, 3.72, 3.84, 3.856, 4.014, 4.078, 4.084, 4.092, 4.092, 4.104, 4.234, 4.342, 4.492, 4.538, 4.62, 4.62, 4.638, 4.768, 4.972, 5.126, 5.152, 5.162, 5.18, 5.21, 5.248, 5.608, 5.64, 5.686, 5.718, 5.76, 5.906, 5.998, 6.11, 6.152, 6.332, 6.362, 6.374, 6.426, 6.466, 6.588, 6.716, 6.776, 6.826, 6.944, 6.986, 7.054, 7.148, 7.158, 7.3, 7.308, 7.332, 7.37, 7.426, 7.534, 7.57, 7.606, 7.662, 7.67, 7.864, 7.96, 7.988, 8.002, 8.194, 8.264, 8.31, 8.368, 8.698, 8.966, 8.99, 9.092, 9.144, 9.144, 9.224, 9.244, 9.288, 9.31, 9.406, 9.438, 9.54, 9.622, 9.628, 9.642, 9.668, 9.728, 9.734, 9.81, 9.836, 9.87, 10.0, 10.048, 10.082, 10.206, 10.4, 10.558, 10.59, 10.656, 10.766, 10.796, 10.978, 10.996, 11.038, 11.13, 11.248, 11.288, 11.332, 11.4, 11.404, 11.428, 11.52, 11.604, 11.622, 11.66, 11.804, 11.92, 12.042, 12.072, 12.144, 12.178, 12.2, 12.252, 12.302, 12.402, 12.52, 12.656, 12.722, 12.752, 12.792, 12.796, 12.838, 12.906, 12.974, 13.054, 13.136, 13.146, 13.156, 13.19, 13.304, 13.456, 13.466, 13.536, 13.58, 13.61, 13.696, 13.704, 13.842, 13.852, 13.914, 14.024, 14.04, 14.062, 14.134, 14.184, 14.222, 14.42, 14.47, 14.578, 14.67, 14.792, 14.958, 14.968, 15.02, 15.064, 15.09, 15.102, 15.398, 15.466, 15.524, 15.712, 15.988, 16.108, 16.16, 16.31, 16.432, 16.466, 16.558, 16.562, 16.624, 16.698, 16.7, 16.728, 16.822, 16.88, 16.886, 17.212, 17.248, 17.248, 17.29, 17.384, 17.486, 17.582, 17.75, 17.852, 17.912, 17.948, 17.962, 18.072, 18.146, 18.41, 18.422, 18.662, 18.722, 18.724, 18.942, 18.974, 18.994, 19.004, 19.046, 19.268, 19.306, 19.338, 19.364, 19.41, 19.664, 19.706, 19.71, 19.848, 19.884, 19.982, 20.014, 20.282, 20.304, 20.7, 20.802, 20.912, 21.106, 21.244, 21.636, 21.718, 22.028, 22.098, 22.212, 22.53, 22.838, 22.924, 22.948, 23.044, 23.734, 23.79, 24.564, 24.716, 24.76, 24.798, 25.438, 25.454, 25.488, 25.572, 25.688, 26.852, 26.91, 27.516, 28.05, 29.412, 31.142, 33.508, 35.426]</span><br><span class="line">Average accuracy: 11.75</span><br><span class="line">Max accuracy: 35.43</span><br><span class="line">Min accuracy: 0.49</span><br><span class="line">Median accuracy: 11.37</span><br></pre></td></tr></table></figure>
+
+<p>泛化性能有所提升，但仍然不够好，接着增加层数，试着增加泛化性能。</p>
+<h3 id="尝试2-切换顺序"><a href="#尝试2-切换顺序" class="headerlink" title="尝试2 切换顺序"></a>尝试2 切换顺序</h3><p>发现train_layer的weight和bias写反了，修改一下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">train_layer_1 = [<span class="string">&#x27;layer4.1.bn1.weight&#x27;</span>, <span class="string">&#x27;layer4.1.bn1.bias&#x27;</span>, <span class="string">&#x27;layer4.1.bn2.weight&#x27;</span>, <span class="string">&#x27;layer4.1.bn2.bias&#x27;</span>,</span><br><span class="line">               <span class="string">&#x27;linear.weight&#x27;</span>, <span class="string">&#x27;linear.bias&#x27;</span>]</span><br><span class="line">train_layer_2 = [<span class="string">&#x27;layer4.1.bn2.weight&#x27;</span>, <span class="string">&#x27;layer4.1.bn2.bias&#x27;</span>, <span class="string">&#x27;linear.weight&#x27;</span>, <span class="string">&#x27;linear.bias&#x27;</span>]</span><br><span class="line">train_layer_3 = [<span class="string">&#x27;linear.weight&#x27;</span>, <span class="string">&#x27;linear.bias&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>应该是问题不大的，这里仅仅测试一下，理论上，冻结梯度、保存对应层的时候，都是<code>if name in train_layer:</code>，最后替换参数的时候，也是从网络本身的层数来一层一层判断：<code>for name, pa in model.named_parameters():</code></p>
+<p>这里发现一个比较奇怪的点：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Epoch 2999, global step 3000: &#x27;ae_acc&#x27; reached 2.35000 (best 2.35000), saving model to &#x27;outputs/cifar10/ae_ddpm_cifar100/././checkpoints/ae-epoch=2999-ae_acc=2.3500.ckpt&#x27; as top 1</span><br><span class="line">Epoch 5999, global step 6000: &#x27;ae_acc&#x27; reached 3.69000 (best 3.69000), saving model to &#x27;outputs/cifar10/ae_ddpm_cifar100/././checkpoints/ae-epoch=5999-ae_acc=3.6900.ckpt&#x27; as top 1</span><br><span class="line">Epoch 8999, global step 9000: &#x27;ae_acc&#x27; reached 4.73000 (best 4.73000), saving model to &#x27;outputs/cifar10/ae_ddpm_cifar100/././checkpoints/ae-epoch=8999-ae_acc=4.7300.ckpt&#x27; as top 1</span><br><span class="line">Epoch 11999, global step 12000: &#x27;ae_acc&#x27; was not in top 1</span><br><span class="line">Epoch 14999, global step 15000: &#x27;ae_acc&#x27; was not in top 1</span><br><span class="line">Epoch 17999, global step 18000: &#x27;ae_acc&#x27; reached 5.04000 (best 5.04000), saving model to &#x27;outputs/cifar10/ae_ddpm_cifar100/././checkpoints/ae-epoch=17999-ae_acc=5.0400.ckpt&#x27; as top 1</span><br><span class="line">Epoch 20999, global step 21000: &#x27;ae_acc&#x27; was not in top 1</span><br><span class="line">Epoch 23999, global step 24000: &#x27;ae_acc&#x27; was not in top 1</span><br><span class="line">Epoch 26999, global step 27000: &#x27;ae_acc&#x27; was not in top 1</span><br><span class="line">Epoch 29999, global step 30000: &#x27;ae_acc&#x27; was not in top 1</span><br><span class="line">Epoch 32999, global step 33000: &#x27;ae_acc&#x27; reached 94.30000 (best 94.30000), saving model to &#x27;outputs/cifar10/ae_ddpm_cifar100/././checkpoints/ae-epoch=32999-ae_acc=94.3000.ckpt&#x27; as top 1</span><br></pre></td></tr></table></figure>
+
+<p>前3w轮是在训练AE，正确率都很低，但是一旦到了3w轮后，开始训练DM，正确率马上就上来了。。。</p>
+<p>结果还是不行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/home/chengyiqiu/miniconda3/envs/pdiff/bin/python /home/chengyiqiu/code/diffusion/Diffuse-Backdoor-Parameters/tools/load_pdiff.py </span><br><span class="line">ae param shape: torch.Size([300, 5130])</span><br><span class="line">Files already downloaded and verified</span><br><span class="line">100%|██████████| 300/300 [24:07&lt;00:00,  4.82s/it]</span><br><span class="line">Sorted list of accuracies: [0.554, 0.786, 0.882, 1.226, 1.226, 1.25, 1.296, 1.324, 1.396, 1.532, 1.658, 1.66, 1.704, 1.714, 1.802, 1.924, 2.066, 2.104, 2.18, 2.222, 2.344, 2.426, 2.434, 2.484, 2.572, 2.606, 2.634, 2.7, 2.792, 2.884, 2.942, 2.97, 3.028, 3.034, 3.254, 3.274, 3.286, 3.328, 3.354, 3.462, 3.542, 3.674, 3.698, 3.788, 3.87, 3.984, 4.024, 4.068, 4.088, 4.246, 4.25, 4.26, 4.262, 4.498, 4.512, 4.53, 4.632, 4.74, 4.77, 4.776, 4.834, 4.842, 4.96, 5.056, 5.124, 5.224, 5.386, 5.396, 5.412, 5.628, 5.796, 5.93, 6.046, 6.274, 6.278, 6.294, 6.318, 6.388, 6.402, 6.448, 6.558, 6.57, 6.588, 6.616, 6.656, 6.71, 6.722, 6.822, 6.872, 6.878, 6.922, 6.94, 6.986, 6.998, 7.016, 7.038, 7.074, 7.18, 7.244, 7.282, 7.346, 7.504, 7.54, 7.6, 7.612, 7.64, 7.662, 7.702, 7.712, 7.758, 7.802, 7.866, 8.024, 8.152, 8.242, 8.444, 8.494, 8.508, 8.522, 8.578, 8.61, 8.622, 8.704, 8.74, 8.742, 8.748, 8.76, 8.764, 8.772, 8.806, 8.806, 8.82, 8.904, 8.928, 8.974, 9.038, 9.092, 9.144, 9.174, 9.206, 9.224, 9.31, 9.34, 9.39, 9.406, 9.492, 9.496, 9.508, 9.574, 9.612, 9.638, 9.65, 9.756, 9.758, 9.762, 9.81, 9.818, 9.832, 9.834, 9.866, 9.888, 9.904, 9.944, 9.956, 9.958, 9.968, 9.974, 9.986, 10.0, 10.056, 10.058, 10.102, 10.14, 10.166, 10.262, 10.27, 10.3, 10.308, 10.36, 10.714, 10.714, 10.756, 10.814, 10.818, 10.826, 10.834, 10.838, 10.888, 10.906, 10.93, 10.962, 10.966, 10.968, 10.98, 11.06, 11.078, 11.088, 11.164, 11.168, 11.204, 11.242, 11.258, 11.486, 11.534, 11.542, 11.574, 11.574, 11.678, 11.7, 11.706, 11.744, 11.79, 11.794, 11.85, 11.988, 12.084, 12.122, 12.154, 12.32, 12.37, 12.386, 12.484, 12.786, 12.814, 12.842, 12.864, 12.88, 12.98, 13.126, 13.182, 13.188, 13.214, 13.236, 13.278, 13.516, 13.528, 13.546, 13.606, 13.608, 13.62, 13.722, 13.766, 14.102, 14.19, 14.25, 14.48, 14.484, 14.492, 14.668, 14.69, 14.8, 14.806, 14.876, 15.054, 15.136, 15.146, 15.208, 15.21, 15.216, 15.314, 15.338, 15.478, 15.48, 15.522, 15.626, 15.672, 15.72, 15.752, 15.88, 15.92, 16.014, 16.1, 16.166, 16.168, 16.35, 16.366, 16.37, 16.536, 16.754, 17.194, 17.252, 17.42, 17.466, 17.528, 17.584, 17.84, 18.162, 18.692, 18.852, 18.926, 18.948, 19.224, 19.698, 19.936, 20.124, 20.764, 20.84, 22.566, 22.912, 24.076]</span><br><span class="line">Average accuracy: 9.58</span><br><span class="line">Max accuracy: 24.08</span><br><span class="line">Min accuracy: 0.55</span><br><span class="line">Median accuracy: 9.62</span><br></pre></td></tr></table></figure>
+
+<h3 id="尝试3-加入卷积层训练"><a href="#尝试3-加入卷积层训练" class="headerlink" title="尝试3 加入卷积层训练"></a>尝试3 加入卷积层训练</h3><p>这里把ResNet18的最后两层给出来：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">layer4.0.conv1.weight</span><br><span class="line">layer4.0.bn1.weight</span><br><span class="line">layer4.0.bn1.bias</span><br><span class="line">layer4.0.conv2.weight</span><br><span class="line">layer4.0.bn2.weight</span><br><span class="line">layer4.0.bn2.bias</span><br><span class="line">layer4.0.shortcut.0.weight</span><br><span class="line">layer4.0.shortcut.1.weight</span><br><span class="line">layer4.0.shortcut.1.bias</span><br><span class="line">layer4.1.conv1.weight</span><br><span class="line">layer4.1.bn1.weight</span><br><span class="line">layer4.1.bn1.bias</span><br><span class="line">layer4.1.conv2.weight</span><br><span class="line">layer4.1.bn2.weight</span><br><span class="line">layer4.1.bn2.bias</span><br><span class="line">linear.weight</span><br><span class="line">linear.bias</span><br></pre></td></tr></table></figure>
+
+<p>先训练这几个：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">layer4.1.conv1.weight</span><br><span class="line">layer4.1.bn1.weight</span><br><span class="line">layer4.1.bn1.bias</span><br><span class="line">layer4.1.conv2.weight</span><br><span class="line">layer4.1.bn2.weight</span><br><span class="line">layer4.1.bn2.bias</span><br><span class="line">linear.weight</span><br><span class="line">linear.bias</span><br></pre></td></tr></table></figure>
+
+<p>效果提燃很差：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/home/chengyiqiu/miniconda3/envs/pdiff/bin/python /home/chengyiqiu/code/diffusion/Diffuse-Backdoor-Parameters/tools/eval_pdiff.py </span><br><span class="line">ae param shape: torch.Size([300, 5130])</span><br><span class="line">Files already downloaded and verified</span><br><span class="line">100%|██████████| 300/300 [24:57&lt;00:00,  4.99s/it]</span><br><span class="line">Sorted list of accuracies: [0.6, 0.654, 0.69, 0.702, 0.716, 0.868, 0.878, 0.95, 1.018, 1.124, 1.208, 1.31, 1.328, 1.338, 1.458, 1.514, 1.698, 1.704, 1.902, 1.924, 2.026, 2.074, 2.162, 2.176, 2.224, 2.224, 2.228, 2.296, 2.328, 2.388, 2.414, 2.426, 2.43, 2.464, 2.472, 2.496, 2.51, 2.52, 2.52, 2.56, 2.746, 2.8, 2.834, 2.854, 2.91, 2.93, 3.038, 3.062, 3.08, 3.092, 3.136, 3.148, 3.152, 3.198, 3.232, 3.366, 3.46, 3.464, 3.468, 3.526, 3.528, 3.536, 3.57, 3.608, 3.642, 3.674, 3.68, 3.712, 3.718, 3.81, 3.88, 3.986, 4.024, 4.048, 4.116, 4.136, 4.244, 4.332, 4.342, 4.372, 4.372, 4.444, 4.538, 4.56, 4.562, 4.676, 4.732, 4.774, 4.86, 4.886, 4.928, 4.956, 4.974, 4.982, 5.008, 5.062, 5.168, 5.206, 5.238, 5.266, 5.28, 5.298, 5.414, 5.426, 5.538, 5.57, 5.574, 5.596, 5.598, 5.604, 5.728, 5.742, 5.764, 5.772, 5.884, 5.908, 5.992, 6.004, 6.114, 6.14, 6.19, 6.222, 6.222, 6.4, 6.412, 6.446, 6.54, 6.554, 6.672, 6.766, 6.84, 7.046, 7.198, 7.332, 7.49, 7.572, 7.668, 7.674, 7.722, 8.054, 8.108, 8.114, 8.162, 8.182, 8.398, 8.518, 8.546, 8.636, 8.64, 8.73, 8.734, 8.768, 8.794, 8.818, 9.006, 9.184, 9.214, 9.29, 9.304, 9.328, 9.372, 9.428, 9.428, 9.442, 9.476, 9.486, 9.496, 9.506, 9.568, 9.578, 9.77, 9.852, 9.914, 9.962, 9.992, 10.05, 10.082, 10.102, 10.116, 10.12, 10.128, 10.15, 10.184, 10.276, 10.31, 10.362, 10.386, 10.414, 10.426, 10.464, 10.488, 10.564, 10.594, 10.674, 10.712, 10.744, 10.754, 10.772, 10.822, 10.878, 10.922, 10.944, 10.966, 11.026, 11.03, 11.03, 11.032, 11.114, 11.116, 11.118, 11.12, 11.142, 11.188, 11.204, 11.276, 11.394, 11.408, 11.422, 11.492, 11.532, 11.566, 11.596, 11.608, 11.74, 11.772, 11.94, 12.006, 12.006, 12.016, 12.05, 12.14, 12.268, 12.424, 12.448, 12.48, 12.514, 12.688, 12.708, 12.75, 12.766, 12.822, 12.862, 12.924, 12.996, 13.004, 13.116, 13.128, 13.158, 13.188, 13.218, 13.25, 13.416, 13.476, 13.568, 13.616, 13.668, 13.72, 13.95, 14.014, 14.142, 14.22, 14.324, 14.418, 14.46, 14.528, 14.542, 14.686, 14.742, 14.768, 14.988, 15.5, 15.576, 16.004, 16.012, 16.278, 16.628, 16.728, 16.754, 16.802, 16.942, 17.006, 17.288, 17.29, 17.34, 17.384, 17.424, 17.524, 17.994, 18.078, 18.092, 18.118, 18.13, 18.166, 18.288, 18.57, 18.674, 18.928, 19.316, 19.704, 22.478]</span><br><span class="line">Average accuracy: 8.50</span><br><span class="line">Max accuracy: 22.48</span><br><span class="line">Min accuracy: 0.60</span><br><span class="line">Median accuracy: 8.73</span><br></pre></td></tr></table></figure>
+
+<h3 id="尝试4-4个bn"><a href="#尝试4-4个bn" class="headerlink" title="尝试4 4个bn"></a>尝试4 4个bn</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">train_layer_1 = [<span class="string">&#x27;layer4.0.bn1.weight&#x27;</span>, <span class="string">&#x27;layer4.0.bn1.bias&#x27;</span>, <span class="string">&#x27;layer4.0.bn2.weight&#x27;</span>, <span class="string">&#x27;layer4.0.bn2.bias&#x27;</span>,</span><br><span class="line">                 <span class="string">&#x27;layer4.1.bn1.weight&#x27;</span>, <span class="string">&#x27;layer4.1.bn1.bias&#x27;</span>, <span class="string">&#x27;layer4.1.bn2.weight&#x27;</span>, <span class="string">&#x27;layer4.1.bn2.bias&#x27;</span>,</span><br><span class="line">                 <span class="string">&#x27;linear.weight&#x27;</span>, <span class="string">&#x27;linear.bias&#x27;</span>]</span><br><span class="line">train_layer_2 = [<span class="string">&#x27;layer4.0.bn2.weight&#x27;</span>, <span class="string">&#x27;layer4.0.bn2.bias&#x27;</span>, <span class="string">&#x27;layer4.1.bn1.weight&#x27;</span>, <span class="string">&#x27;layer4.1.bn1.bias&#x27;</span>,</span><br><span class="line">                 <span class="string">&#x27;layer4.1.bn2.weight&#x27;</span>, <span class="string">&#x27;layer4.1.bn2.bias&#x27;</span>, <span class="string">&#x27;linear.weight&#x27;</span>, <span class="string">&#x27;linear.bias&#x27;</span>]</span><br><span class="line">train_layer_3 = [<span class="string">&#x27;layer4.1.bn1.weight&#x27;</span>, <span class="string">&#x27;layer4.1.bn1.bias&#x27;</span>, <span class="string">&#x27;layer4.1.bn2.weight&#x27;</span>, <span class="string">&#x27;layer4.1.bn2.bias&#x27;</span>,</span><br><span class="line">                 <span class="string">&#x27;linear.weight&#x27;</span>, <span class="string">&#x27;linear.bias&#x27;</span>]</span><br><span class="line">train_layer_4 = [<span class="string">&#x27;layer4.1.bn2.weight&#x27;</span>, <span class="string">&#x27;layer4.1.bn2.bias&#x27;</span>, <span class="string">&#x27;linear.weight&#x27;</span>, <span class="string">&#x27;linear.bias&#x27;</span>]</span><br><span class="line">train_layer_5 = [<span class="string">&#x27;linear.weight&#x27;</span>, <span class="string">&#x27;linear.bias&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>效果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/home/chengyiqiu/miniconda3/envs/pdiff/bin/python /home/chengyiqiu/code/diffusion/Diffuse-Backdoor-Parameters/tools/eval_pdiff.py </span><br><span class="line">ae param shape: torch.Size([250, 5130])</span><br><span class="line">Files already downloaded and verified</span><br><span class="line"><span class="meta prompt_">100%</span><span class="language-bash">|██████████| 250/250 [20:36&lt;00:00,  4.94s/it]</span></span><br><span class="line">Sorted list of accuracies: [0.634, 0.784, 0.808, 0.916, 1.012, 1.126, 1.286, 1.322, 1.47, 1.592, 1.718, 1.756, 1.886, 2.05, 2.072, 2.098, 2.192, 2.212, 2.246, 2.254, 2.326, 2.342, 2.504, 2.6, 2.766, 2.888, 2.928, 3.008, 3.178, 3.198, 3.3, 3.438, 3.462, 3.492, 3.534, 3.642, 4.056, 4.072, 4.262, 4.516, 4.558, 4.586, 4.632, 4.776, 4.78, 4.878, 4.938, 5.014, 5.088, 5.208, 5.296, 5.548, 5.556, 5.568, 5.586, 5.644, 5.674, 5.684, 5.802, 5.804, 5.848, 5.882, 5.92, 6.0, 6.024, 6.102, 6.506, 6.544, 6.602, 6.624, 6.714, 6.748, 6.76, 6.852, 6.864, 6.932, 7.036, 7.116, 7.128, 7.204, 7.25, 7.43, 7.45, 7.492, 7.514, 7.626, 7.632, 7.69, 7.702, 8.018, 8.068, 8.138, 8.194, 8.194, 8.252, 8.444, 8.444, 8.448, 8.456, 8.466, 8.562, 8.624, 8.65, 8.668, 8.714, 8.728, 8.752, 9.022, 9.028, 9.124, 9.136, 9.166, 9.25, 9.258, 9.276, 9.376, 9.388, 9.438, 9.582, 9.666, 9.7, 9.71, 9.734, 9.774, 9.784, 9.828, 9.832, 9.832, 9.874, 9.886, 9.898, 9.964, 10.052, 10.106, 10.13, 10.13, 10.144, 10.202, 10.236, 10.258, 10.268, 10.296, 10.302, 10.344, 10.346, 10.362, 10.366, 10.398, 10.426, 10.478, 10.514, 10.558, 10.602, 10.638, 10.656, 10.682, 10.812, 10.826, 10.83, 10.844, 10.866, 10.87, 10.942, 10.954, 11.024, 11.058, 11.08, 11.202, 11.23, 11.37, 11.508, 11.566, 11.642, 11.878, 12.166, 12.252, 12.442, 12.442, 12.472, 12.56, 12.688, 12.762, 12.852, 13.114, 13.218, 13.412, 13.532, 13.558, 13.574, 13.704, 13.722, 13.804, 13.908, 13.972, 14.414, 14.448, 14.67, 14.676, 14.774, 14.778, 14.962, 15.248, 15.254, 15.304, 15.356, 15.426, 15.564, 15.754, 15.826, 15.856, 15.88, 15.978, 15.982, 16.142, 16.318, 16.584, 16.68, 17.06, 17.15, 17.286, 17.656, 17.866, 18.176, 18.37, 18.596, 18.846, 18.898, 19.226, 19.384, 19.396, 19.468, 19.528, 19.552, 19.692, 19.806, 19.952, 19.964, 20.044, 20.088, 20.174, 20.388, 22.354, 22.43, 22.706, 23.08, 23.254, 23.296, 24.044, 26.122, 26.376]</span><br><span class="line">Average accuracy: 10.11</span><br><span class="line">Max accuracy: 26.38</span><br><span class="line">Min accuracy: 0.63</span><br><span class="line">Median accuracy: 9.81</span><br></pre></td></tr></table></figure>
+
+<p>不行，泛化性没有提升。</p>
+<h3 id="尝试5-训练-重训练"><a href="#尝试5-训练-重训练" class="headerlink" title="尝试5 训练-重训练"></a>尝试5 训练-重训练</h3><p>先训练100轮，得到一个不错的模型，然后将模型的第一层的参数重新随机初始化，继续训练n轮，直到模型正确率达到阈值$\tau$​，将这个模型训练n轮，收集FC层的参数，再重新初始化第一层的参数，如此循环下去。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/home/chengyiqiu/miniconda3/envs/pdiff/bin/python /home/chengyiqiu/code/diffusion/Diffuse-Backdoor-Parameters/tools/eval_pdiff.py </span><br><span class="line">ae param shape: torch.Size([200, 5130])</span><br><span class="line">Files already downloaded and verified</span><br><span class="line">100%|██████████| 200/200 [16:35&lt;00:00,  4.98s/it]</span><br><span class="line">Sorted list of accuracies: [0.494, 0.768, 1.67, 1.95, 2.124, 2.188, 2.38, 2.388, 2.456, 2.47, 2.564, 2.722, 2.81, 2.886, 2.948, 2.996, 3.08, 3.13, 3.166, 3.254, 3.738, 3.914, 4.008, 4.032, 4.428, 4.462, 4.648, 4.738, 4.822, 4.838, 4.874, 4.91, 4.944, 5.124, 5.262, 5.502, 5.636, 5.64, 5.67, 5.848, 5.882, 6.164, 6.188, 6.342, 6.346, 6.526, 6.556, 6.684, 6.786, 6.794, 6.812, 6.83, 6.85, 6.946, 7.262, 7.388, 7.44, 7.504, 7.542, 7.552, 7.792, 7.866, 7.952, 8.086, 8.176, 8.27, 8.434, 8.532, 8.69, 8.732, 8.87, 8.882, 8.94, 8.954, 9.034, 9.12, 9.294, 9.332, 9.354, 9.374, 9.442, 9.454, 9.458, 9.584, 9.596, 9.618, 9.636, 9.686, 9.796, 9.988, 10.186, 10.314, 10.486, 10.57, 10.58, 10.64, 10.65, 10.782, 11.04, 11.066, 11.094, 11.1, 11.126, 11.126, 11.178, 11.184, 11.25, 11.292, 11.314, 11.356, 11.402, 11.508, 11.608, 11.612, 11.62, 11.626, 11.638, 11.702, 11.898, 11.964, 12.03, 12.122, 12.282, 12.344, 12.36, 12.412, 12.532, 12.63, 12.764, 12.78, 12.83, 12.85, 12.966, 13.016, 13.07, 13.174, 13.25, 13.446, 13.702, 13.762, 13.79, 13.816, 13.838, 14.232, 14.236, 14.3, 14.372, 14.396, 14.446, 14.766, 14.844, 14.862, 15.024, 15.412, 15.456, 15.734, 15.846, 15.858, 16.028, 16.142, 16.258, 16.328, 16.546, 16.66, 16.722, 17.142, 17.246, 17.26, 17.314, 17.326, 17.536, 17.712, 17.8, 17.812, 18.058, 18.058, 18.158, 18.226, 18.286, 18.308, 18.438, 18.538, 19.256, 19.87, 20.006, 21.064, 21.558, 22.054, 22.104, 22.666, 22.688, 23.956, 23.974, 25.298, 25.642, 25.644, 25.734, 26.37, 28.938, 31.89]</span><br><span class="line">Average accuracy: 11.27</span><br><span class="line">Max accuracy: 31.89</span><br><span class="line">Min accuracy: 0.49</span><br><span class="line">Median accuracy: 11.08</span><br></pre></td></tr></table></figure>
+
+<h3 id="尝试6-卷积层重训练"><a href="#尝试6-卷积层重训练" class="headerlink" title="尝试6 卷积层重训练"></a>尝试6 卷积层重训练</h3><p>参数：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">init_layer = [&#x27;conv1.weight&#x27;,&#x27;layer1.0.conv1.weight&#x27;, &#x27;layer1.0.conv2.weight&#x27;, &#x27;layer1.1.conv1.weight&#x27;,&#x27;layer1.1.conv2.weight&#x27;,&#x27;linear.weight&#x27;, &#x27;linear.bias&#x27;]</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(pdiff) chengyiqiu@server:~/code/diffusion/Diffuse-Backdoor-Parameters/tools$ python eval_pdiff.py</span><br><span class="line">ae param shape: torch.Size([200, 5130])</span><br><span class="line">Files already downloaded and verified</span><br><span class="line"><span class="meta prompt_">100%</span><span class="language-bash">|███████████████████████████████████████████████████████████| 200/200 [16:05&lt;00:00,  4.83s/it]</span></span><br><span class="line">Sorted list of accuracies: [0.914, 1.544, 1.632, 1.868, 1.888, 2.2, 2.378, 2.44, 2.624, 2.658, 2.806, 2.884, 3.412, 3.672, 3.852, 3.876, 4.038, 4.624, 4.628, 4.94, 4.978, 5.212, 5.344, 5.35, 5.424, 5.644, 5.706, 5.912, 6.08, 6.088, 6.32, 6.934, 7.166, 7.32, 7.386, 7.404, 7.426, 7.482, 7.74, 7.882, 8.1, 8.164, 8.388, 8.404, 8.428, 8.52, 8.678, 8.832, 8.956, 9.032, 9.194, 9.228, 9.422, 9.508, 9.536, 9.556, 9.562, 9.57, 9.628, 9.634, 9.816, 9.836, 9.91, 9.916, 9.94, 9.942, 9.962, 10.0, 10.028, 10.05, 10.084, 10.136, 10.144, 10.144, 10.258, 10.264, 10.334, 10.39, 10.438, 10.468, 10.48, 10.496, 10.516, 10.52, 10.65, 10.674, 10.678, 10.69, 10.748, 10.752, 10.942, 11.234, 11.282, 11.422, 11.488, 11.658, 11.698, 11.784, 11.79, 11.79, 11.792, 11.92, 11.944, 11.95, 11.996, 12.06, 12.078, 12.222, 12.32, 12.402, 12.442, 12.566, 12.574, 12.598, 12.696, 12.756, 12.836, 12.836, 12.922, 12.96, 12.972, 13.01, 13.092, 13.412, 13.48, 13.55, 13.658, 13.77, 13.776, 13.932, 14.254, 14.262, 14.296, 14.326, 14.39, 14.392, 14.456, 14.526, 14.72, 14.79, 14.868, 14.962, 15.016, 15.018, 15.092, 15.116, 15.2, 15.206, 15.3, 15.35, 15.404, 15.468, 15.674, 16.334, 16.372, 16.378, 16.406, 16.458, 16.698, 16.71, 16.798, 17.088, 17.184, 17.252, 17.684, 17.908, 17.958, 18.242, 18.248, 18.314, 18.632, 18.67, 18.71, 18.716, 18.73, 19.206, 19.666, 19.67, 19.724, 19.762, 20.088, 20.242, 20.512, 20.604, 20.66, 20.912, 22.172, 22.488, 22.868, 22.97, 23.476, 25.878, 25.972, 26.558, 27.16, 29.946, 31.72, 31.974, 32.288, 32.566]</span><br><span class="line">Average accuracy: 12.50</span><br><span class="line">Max accuracy: 32.57</span><br><span class="line">Min accuracy: 0.91</span><br><span class="line">Median accuracy: 11.79</span><br></pre></td></tr></table></figure>
+
+<p>尝试7</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">init_layer = [<span class="string">&#x27;conv1.weight&#x27;</span>, <span class="string">&#x27;bn1.weight&#x27;</span>, <span class="string">&#x27;bn1.bias&#x27;</span>, <span class="string">&#x27;layer1.0.conv1.weight&#x27;</span>, <span class="string">&#x27;layer1.0.bn1.weight&#x27;</span>,</span><br><span class="line">              <span class="string">&#x27;layer1.0.bn1.bias&#x27;</span>, <span class="string">&#x27;layer4.1.conv2.weight&#x27;</span>, <span class="string">&#x27;layer4.1.bn2.weight&#x27;</span>, <span class="string">&#x27;layer4.1.bn2.bias&#x27;</span>,</span><br><span class="line">              <span class="string">&#x27;linear.weight&#x27;</span>, <span class="string">&#x27;linear.bias&#x27;</span>, ]</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/home/chengyiqiu/miniconda3/envs/pdiff/bin/python /home/chengyiqiu/code/diffusion/Diffuse-Backdoor-Parameters/tools/eval_pdiff.py </span><br><span class="line">/home/chengyiqiu/miniconda3/envs/pdiff/lib/python3.8/site-packages/torch/nn/modules/instancenorm.py:80: UserWarning: input&#x27;s size at dim=1 does not match num_features. You can silence this warning by not passing in num_features, which is not used because affine=False</span><br><span class="line">  warnings.warn(f&quot;input&#x27;s size at dim=&#123;feature_dim&#125; does not match num_features. &quot;</span><br><span class="line">ae param shape: torch.Size([200, 5130])</span><br><span class="line">Files already downloaded and verified</span><br><span class="line"><span class="meta prompt_">100%</span><span class="language-bash">|██████████| 200/200 [17:28&lt;00:00,  5.24s/it]</span></span><br><span class="line">Sorted list of accuracies: [0.63, 0.888, 1.024, 1.078, 1.146, 1.17, 1.308, 1.386, 1.444, 1.476, 1.626, 1.828, 1.9, 2.0, 2.012, 2.168, 2.268, 2.332, 2.576, 2.638, 2.678, 2.778, 3.026, 3.028, 3.138, 3.296, 3.32, 3.598, 3.622, 3.832, 4.148, 4.162, 4.52, 4.536, 4.992, 5.018, 5.084, 5.1, 5.11, 5.338, 5.572, 5.744, 5.762, 5.772, 5.864, 5.962, 5.986, 6.116, 6.358, 6.368, 6.476, 6.546, 7.022, 7.142, 7.254, 7.3, 7.452, 7.458, 7.478, 7.522, 7.57, 7.644, 7.7, 7.77, 7.798, 7.824, 7.842, 8.414, 8.506, 8.548, 8.612, 8.636, 8.686, 8.734, 8.862, 8.862, 8.984, 8.992, 9.098, 9.136, 9.14, 9.142, 9.206, 9.312, 9.326, 9.354, 9.562, 9.568, 9.674, 9.712, 9.716, 9.776, 9.79, 9.942, 9.968, 10.0, 10.014, 10.02, 10.036, 10.14, 10.2, 10.25, 10.266, 10.296, 10.324, 10.354, 10.372, 10.39, 10.412, 10.43, 10.462, 10.532, 10.596, 10.616, 10.702, 10.72, 10.734, 10.746, 10.746, 10.76, 10.944, 10.976, 10.978, 11.018, 11.03, 11.044, 11.128, 11.152, 11.226, 11.236, 11.238, 11.398, 11.458, 11.58, 11.594, 11.676, 11.808, 11.87, 11.874, 12.148, 12.23, 12.36, 12.426, 12.51, 12.644, 12.754, 12.772, 12.85, 12.862, 12.902, 12.966, 12.988, 13.122, 13.294, 13.378, 13.458, 14.048, 14.11, 14.234, 14.454, 14.502, 14.636, 14.74, 14.804, 14.872, 14.96, 15.04, 15.32, 15.604, 15.892, 16.058, 16.114, 16.35, 16.674, 16.768, 17.258, 17.414, 17.752, 17.778, 18.206, 18.248, 18.256, 18.296, 18.374, 18.438, 18.674, 18.744, 19.124, 20.658, 20.784, 20.854, 21.198, 21.33, 22.388, 22.688, 22.874, 24.144, 25.728, 27.32, 30.836]</span><br><span class="line">Average accuracy: 10.28</span><br><span class="line">Max accuracy: 30.84</span><br><span class="line">Min accuracy: 0.63</span><br><span class="line">Median accuracy: 10.17</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/03/24/Neural-Network-Diffusion/" data-id="clw6dgvjh002bi49fdvugelqe" data-title="Neural_Network_Diffusion" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/diffusion/" rel="tag">diffusion</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Distilling-Cognitive-Backdoor-Patterns-within-an-Image" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/03/21/Distilling-Cognitive-Backdoor-Patterns-within-an-Image/" class="article-date">
+  <time class="dt-published" datetime="2024-03-21T09:04:27.000Z" itemprop="datePublished">2024-03-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/03/21/Distilling-Cognitive-Backdoor-Patterns-within-an-Image/">Distilling_Cognitive_Backdoor_Patterns_within_an_Image</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>ICLR2023</p>
+<p>从输入到模型的图片中提取出“最小模式”，通过实验发现后门模型有一种认知模式（cognitive pattern），作者通过提取出来的最小模式，来对模型进行认知蒸馏（cognitive distillation）。</p>
+<h1 id="认知蒸馏和后门样本检测"><a href="#认知蒸馏和后门样本检测" class="headerlink" title="认知蒸馏和后门样本检测"></a>认知蒸馏和后门样本检测</h1><h2 id="认知蒸馏"><a href="#认知蒸馏" class="headerlink" title="认知蒸馏"></a>认知蒸馏</h2><p><img src="/./Distilling-Cognitive-Backdoor-Patterns-within-an-Image/image-20240322173556154.png" alt="image-20240322173556154"></p>
+<ul>
+<li>$x_{cp}$：蒸馏掉的认知模式</li>
+<li>$m$：可学习的掩码，$[0,1]^{w\times h}$</li>
+<li>$\delta$：噪声，$[0,1]^c$</li>
+<li>$TV(.)$：总变化损失（？）</li>
+<li>$f_\theta (.)$：可以是最后一个全连接层的输出，也可以是最后一个卷积层的输出</li>
+</ul>
+<p>公式1的目的是确保认知蒸馏后的输入$x_{cp}$和原始输入$x$输入到模型后，得到的输出基本是一样的。</p>
+<p>公式2的目的是去除原始输入中不那么重要的特征。</p>
+<p>掩码中1代表对应的像素很重要，0代表不重要。</p>
+<p>提取掩码和认知模式有利于理解模型误分类的原因。认知模式中的某些像素很可能是增加了扰动的（因为模型中可能有后门）。</p>
+<h2 id="通过认知蒸馏来理解后门模型"><a href="#通过认知蒸馏来理解后门模型" class="headerlink" title="通过认知蒸馏来理解后门模型"></a>通过认知蒸馏来理解后门模型</h2><p><img src="/./Distilling-Cognitive-Backdoor-Patterns-within-an-Image/image-20240323094409417.png" alt="image-20240323094409417"></p>
+<ul>
+<li>第一行：干净图片和触发器样本的混合</li>
+<li>第二行：通过上一节的公式，优化出来的掩码$m$</li>
+<li>第三行：对原始图像进行蒸馏过得到的认知模式，也就是$x_{xp}$</li>
+<li>第四行：简化后的后门图像</li>
+</ul>
+<p>然后作者使用第四行和第一行（原始图片）来测试ASR，选取的baseline有badnet、blend等</p>
+<p><img src="/./Distilling-Cognitive-Backdoor-Patterns-within-an-Image/image-20240323095006843.png" alt="image-20240323095006843"></p>
+<ul>
+<li>原始触发器：$x_{bd}$</li>
+<li>简化后的触发器：$x_{bd}^{‘}&#x3D;m\odot x_{bd}+(1-m)\odot x$</li>
+</ul>
+<p>结论：无论触发器模式如何，后门模式的相关性比自然物体的相关性要简单得多。</p>
+<h2 id="后门样本检测"><a href="#后门样本检测" class="headerlink" title="后门样本检测"></a>后门样本检测</h2><p>后门样本检测属于一种无监督的分类任务，因为没有先验知识，所以只能根据样本本身的特征信息来进行监督、聚类。</p>
+<p>计算样本掩码的L1距离$\Vert m\Vert _1$，来判断输入进来的是否是后门样本：</p>
+<p><img src="/./Distilling-Cognitive-Backdoor-Patterns-within-an-Image/image-20240323164314806.png" alt="image-20240323164314806"></p>
+<p>若是$g(.)&#x3D;1$，则代表是后门样本，反之则不是。</p>
+<p>对于测试期间，假设防御者受伤有一部分干净样本，那么可以计算出这些样本的分布：$\mu_{\Vert m\Vert <em>1},\sigma</em>{\Vert m\Vert _1}$，然后可以这样得到阈值t：<br>$$<br>t&#x3D;\mu _{\Vert m\Vert <em>1}-\gamma \sigma</em>{\Vert m \Vert _ 1}<br>$$<br>$\gamma$是超参数，用来对控制阈值。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/03/21/Distilling-Cognitive-Backdoor-Patterns-within-an-Image/" data-id="clw6dgvjd000ti49fh567439v" data-title="Distilling_Cognitive_Backdoor_Patterns_within_an_Image" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/" class="article-date">
+  <time class="dt-published" datetime="2024-03-15T07:29:21.000Z" itemprop="datePublished">2024-03-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/">Black-box_Backdoor_Defense_via_Zero-shot_Image_Purification</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>NIPS2023</p>
+<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><ol>
+<li>对原始图片使用一个线性变换，来摧毁后门模式。</li>
+<li>使用扩散模型对变换后的图片进行恢复。</li>
+</ol>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="整体的架构"><a href="#整体的架构" class="headerlink" title="整体的架构"></a>整体的架构</h2><p><img src="/./Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318132942587.png" alt="image-20240318132942587"></p>
+<h2 id="扩散模型"><a href="#扩散模型" class="headerlink" title="扩散模型"></a>扩散模型</h2><p>介绍了一种扩散模型DDPM，可以生成高质量的图片，有两个过程：前向过程（forward process）和反向过程（reverse process）:</p>
+<ul>
+<li><p>fp：对原始图像$x_0$迭代的不断添加高斯噪声，直到其变为<strong>随机高斯噪声</strong>$x_T$​</p>
+<p><img src="/./Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318135002113.png" alt="image-20240318135002113"></p>
+</li>
+<li><p>rp：移除<strong>随机高斯噪声</strong>$x_T$​上的噪声，直到其恢复成原始图像。</p>
+<p><img src="/./Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318135154622.png" alt="image-20240318135154622"></p>
+</li>
+</ul>
+<h1 id="ZIP"><a href="#ZIP" class="headerlink" title="ZIP"></a>ZIP</h1><p>Zero-shot Image Purification(ZIP)的步骤。</p>
+<ol>
+<li>通过线性变换来对原始图像进行模糊。</li>
+<li>通过加以限制的扩散模型对模糊后的图像进行信息恢复。</li>
+</ol>
+<p>不能直接用模糊后的图像来进行分类，由于损失了太多信息，这样会导致准确率低。</p>
+<h2 id="图像变换和分解"><a href="#图像变换和分解" class="headerlink" title="图像变换和分解"></a>图像变换和分解</h2><p>通过下式对图像进行变换：<br>$$<br>x^A&#x3D;Ax^P&#x3D;A(x+p)<br>$$</p>
+<ul>
+<li>$x^A$：经过线性变换模糊后的图像</li>
+<li>$A$：线性变换</li>
+<li>$x$：原始图像</li>
+<li>$p$：触发器，毒化数据</li>
+</ul>
+<p>理想的经过扩散模型恢复的图片$x_0$应该具备以下特性：<br>$$<br>A(x_0+p)&#x3D;A(x+p)&#x3D;x^A<br>$$<br>将图片x进行分解：<br>$$<br>x&#x3D;A^{\dagger}Ax+(I-A^{\dagger}A)x<br>$$<br>称左边这一部分为范围空间中的观测，而右边这一部分则是零空间中的观测。</p>
+<p>于是：<br>$$<br>(x_0+p)&#x3D;A^{\dagger}A(x_0+p)+(I-A^{\dagger}A)(x_0+p)<br>$$<br>得出：<br>$$<br>x_0&#x3D;A^{\dagger}x^A-A^\dagger Ap+(I-A^\dagger A)x_0<br>$$<br>(5)则是理想的恢复后的图像组成表示，前两部分是范围空间的中的观测，最后一部分是零空间中的观测。但死零空间中的信息是不可观测的。</p>
+<h2 id="用扩散模型来进行图像净化"><a href="#用扩散模型来进行图像净化" class="headerlink" title="用扩散模型来进行图像净化"></a>用扩散模型来进行图像净化</h2><p>通过扩散模型的前向过程，和上面的公式(5)，可以得出：</p>
+<p><img src="/./Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318194853919.png" alt="image-20240318194853919"></p>
+<p>$\epsilon_t$是由扩散模型$g_\phi$生成的噪声，$\epsilon _t&#x3D;g_\phi (x_t,t)$，$x_t^{‘}$是$x_t$的估计。</p>
+<p>然后再用扩散模型的反向过程对$x_t$进行迭代：</p>
+<p><img src="/./Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318195448130.png" alt="image-20240318195448130"></p>
+<h2 id="将反向过程适配到零样本适配"><a href="#将反向过程适配到零样本适配" class="headerlink" title="将反向过程适配到零样本适配"></a>将反向过程适配到零样本适配</h2><p>由于防御者不知道触发器$p$，因此，选择忽略中间带有$p$的一项，并用$\hat x_t$来估计$x_t^{‘}$</p>
+<p><img src="/./Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318200936982.png" alt="image-20240318200936982"></p>
+<p>选择忽略$\sqrt{\bar \alpha _t}A^\dagger Ap$的原因还有：</p>
+<ul>
+<li>$\sqrt {\bar \alpha _t}$刚开始很小。</li>
+<li>由于后门攻击的隐蔽性，所以p也很小</li>
+</ul>
+<p>由于是迭代，这样进行近似可能会带来指数级别的误差，因此，作者采取将每一次迭代的近似误差限制在一个范围内，确保最后恢复出的图像能够在模糊触发器的同时，保留原始图片的关键信息。</p>
+<p>假设：<br>$$<br>g_\phi (x_t,t)&#x3D;\epsilon _t<br>$$<br>那么：<br>$$<br>g_\phi ((x_t+\sqrt{\bar \alpha _t}A^\dagger Ap), t)&#x3D;\epsilon _t+\epsilon_t^{‘}<br>$$<br>通过推导可以得到误差的边界：</p>
+<p><img src="/./Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240319141055709.png" alt="image-20240319141055709"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/" data-id="clw6dgvj90008i49fax096duv" data-title="Black-box_Backdoor_Defense_via_Zero-shot_Image_Purification" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/03/14/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/" class="article-date">
+  <time class="dt-published" datetime="2024-03-14T02:12:46.000Z" itemprop="datePublished">2024-03-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/03/14/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/">Towards_Stable_Backdoor_Purification_through_Feature_Shift_Tuning</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>NIPS2023</p>
+<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>本文的方法是基于微调的（FT, Fine-Tuning），微调并不能很好的解决触发器特征和样本特征联系紧密的问题，因此作者提出FST（Feature Shift Tuning）</p>
+<h1 id="微调提升模型的鲁棒性"><a href="#微调提升模型的鲁棒性" class="headerlink" title="微调提升模型的鲁棒性"></a>微调提升模型的鲁棒性</h1><h2 id="实验观测"><a href="#实验观测" class="headerlink" title="实验观测"></a>实验观测</h2><p>作者工作的重心在：当数据投毒率比较高（20%，10%等）时，可以使用微调来改变模型的决策边界（削弱触发器和目标标签之间的联系）。当数据投毒率比较低时，简单使用微调就无法解决问题了。这是经过实验观测得出的结论。</p>
+<h2 id="探索"><a href="#探索" class="headerlink" title="探索"></a>探索</h2><p>作者对不同投毒率下微调方法效果出现不稳定这个问题进行了探索。</p>
+<p>假设：在不同投毒率下，模型的特征提取器提取出的特征是不同的。</p>
+<p>基于假设，开始做实验，利用T-SNE对不同投毒率下的模型提取的特征进行可视化。</p>
+<p><img src="/./Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240315093150937.png" alt="image-20240315093150937"></p>
+<h2 id="实验1-特征转移能否提高微调性能"><a href="#实验1-特征转移能否提高微调性能" class="headerlink" title="实验1-特征转移能否提高微调性能"></a>实验1-特征转移能否提高微调性能</h2><p>对于一个深度学习模型，将其特征提取部分的参数表示为$\Phi (\theta, x)$，将最后的线性层表示为$f(\omega)$。</p>
+<p>作者通过固定好$f(\omega)$，将特征提取的参数进行微调，试图达到特征转移的效果。但是实验并没有达到期望的结果。固定的线性层仍然限制了模型进行特征转移。</p>
+<p>因此，作者参考前人的工作，对线性层的参数$f(\omega ^{ori})$进行随机初始化，得到$f(\omega)$，然后再对特征提取的参数$\Phi(\theta)$​​​进行微调。</p>
+<p>架构：</p>
+<p><img src="/./Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240326164346367.png" alt="image-20240326164346367"></p>
+<p>效果：</p>
+<p><img src="/./Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240326195936413.png" alt="image-20240326195936413"></p>
+<h2 id="实验1-评估"><a href="#实验1-评估" class="headerlink" title="实验1-评估"></a>实验1-评估</h2><p>上图中的第五张是实验的结果，可以看出，采取上述设置，可以将目标标签和毒化样本的特征进行分开，在投毒率1%的情况下，但是这又导致了另一个问题，在干净样本上的正确率下降达到了2.9%，这是随机初始化$f(\omega)$导致的。</p>
+<p>总结来看，现在有的问题是，干净样本的正确率下降&amp;模型的鲁棒性不够（后门偏移不够）。</p>
+<h1 id="FST-Feature-Shift-Tuning"><a href="#FST-Feature-Shift-Tuning" class="headerlink" title="FST, Feature Shift Tuning"></a>FST, Feature Shift Tuning</h1><p>基于上面的实验观测分析，作者提出了FST，首先对线性层进行初始化，然后解决下面的优化问题：</p>
+<p><img src="/./Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240315125110759.png" alt="image-20240315125110759"></p>
+<p>左边的式子是对模型整体的准确率来作优化，而右边$&lt;\omega, \omega^{org}&gt;$则是在做特征转移（基于前面的观测，这里在初始化$\omega$后加以约束，进行优化），$\alpha$作为平衡因子，在“保证正确率不下降”和“特征转移”之间作平衡，增大$\alpha$有利于特征转移。最后的$\Vert \omega\Vert_2$将线性层参数约束在一个常数范围内，确保不会出现参数过大或者过小的极端情况。</p>
+<p>架构：</p>
+<p><img src="/./Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240326200015516.png" alt="image-20240326200015516"></p>
+<p>效果：</p>
+<p><img src="/./Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240326200036149.png" alt="image-20240326200036149"></p>
+<h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><h2 id="训练后门模型"><a href="#训练后门模型" class="headerlink" title="训练后门模型"></a>训练后门模型</h2><p>选择使用的模型也是ResNet18，在配置文件<code>cifar10.yaml</code>中可以更改。其中选取的baseline有：badnet、blended、trojannn等。</p>
+<p>攻击的实现：</p>
+<ol>
+<li>首先创建一个正常类<code>NormalCase</code>，在<code>prototype.py</code>中，其他的attack class都继承了这个类。<code>prototype.py</code>定义了参数的解析、数据的准备以及训练过程的实现等。</li>
+<li><code>badnet</code>继承<code>prototype</code>，包含了一些额外的参数、参数解析，还有训练数据准备、bad训练数据准备等。</li>
+<li>选取好配置文件之后，训练好模型后，模型以及一些其他数据会被保存在<code>attack_result.pt</code>中，可以通过<code>torch.load</code>来查看保存的数据，访问训练好的模型。</li>
+</ol>
+<p><img src="/./Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240402143917317.png" alt="image-20240402143917317"></p>
+<h2 id="模型漂白"><a href="#模型漂白" class="headerlink" title="模型漂白"></a>模型漂白</h2><p>下面进行模型漂白：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore fine_tune/ft.py --attack blended --split_ratio 0.02 --pratio 0.1 --device cuda:0 --lr 0.01 --attack_target 0 --model resnet18 --dataset cifar10 --epochs 10 --initlr 0.1 --ft_mode fst --alpha 0.1</span><br></pre></td></tr></table></figure>
+
+<p>漂白结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">2024-04-02:02:45:25 [INFO    ] [ft.py:360] Training ACC: 0.9970000386238098 | Training loss: -283.08803248405457</span><br><span class="line">2024-04-02:02:45:25 [INFO    ] [ft.py:361] Learning rate: 0.0</span><br><span class="line">2024-04-02:02:45:25 [INFO    ] [ft.py:362] -------------------------------------</span><br><span class="line">2024-04-02:02:45:33 [INFO    ] [ft.py:375] Defense performance</span><br><span class="line">2024-04-02:02:45:33 [INFO    ] [ft.py:376] Clean ACC: 0.8647 | ASR: 0.005333333333333333</span><br><span class="line">2024-04-02:02:45:33 [INFO    ] [ft.py:377] -------------------------------------</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/03/14/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/" data-id="clw6dgvjh002ii49f8hux1f4p" data-title="Towards_Stable_Backdoor_Purification_through_Feature_Shift_Tuning" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-ABS-Scanning-Neural-Networks-for-Back-doors-by-Artificial-Brain-Stimulation" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/02/29/ABS-Scanning-Neural-Networks-for-Back-doors-by-Artificial-Brain-Stimulation/" class="article-date">
+  <time class="dt-published" datetime="2024-02-29T13:12:40.000Z" itemprop="datePublished">2024-02-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/02/29/ABS-Scanning-Neural-Networks-for-Back-doors-by-Artificial-Brain-Stimulation/">ABS:Scanning_Neural_Networks_for_Back-doors_by_Artificial_Brain_Stimulation</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>CCS 2019</p>
+<p>使用人工大脑模拟的方式扫描神经网络中的后门</p>
+<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>本文试图解决trojan attack的科学问题，采用的方法是分析内部神经元。问题关键：无论输入是怎样，神经元都极大激活到某一类固定的标签，这样的神经元被认为是潜在的后门神经元。</p>
+<p>本文结构：</p>
+<ol>
+<li>介绍</li>
+<li>特洛伊攻击以及防御方法</li>
+<li><strong>概述</strong></li>
+<li><strong>设计</strong></li>
+<li>评估</li>
+<li>讨论</li>
+<li>相关工作</li>
+</ol>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>ABS的灵感源自电子大脑模拟（Electrical Brain Stimulation, EBS）</p>
+<p>EBS通过使用电流直接或间接激发细胞膜来刺激真实大脑中的神经元或神经网络。</p>
+<p>ABS利用单个人工神经元，以受控的方式改变它们的激活值(如在EBS中提供不同强度的电电流)，以研究它们是否被破坏。</p>
+<h2 id="威胁模型"><a href="#威胁模型" class="headerlink" title="威胁模型"></a>威胁模型</h2><p>攻击者：</p>
+<ul>
+<li>对于训练过程有完全的控制。</li>
+<li>对于要被攻击的标签（目标标签），只有一个触发器。</li>
+</ul>
+<p>防御着：</p>
+<ul>
+<li>得到一个模型</li>
+<li>对每一类至少有一个样本，来评判模型是否被投毒。</li>
+</ul>
+<h2 id="关键观测"><a href="#关键观测" class="headerlink" title="关键观测"></a>关键观测</h2><p>观测1: 成功的木马攻击导致后受损的神经元（后门神经元）</p>
+<p>观测2: 受损的神经元代表着目标标签的一个子空间，这个子空间可以横穿整个决策空间。</p>
+<p>下图给出了观测2的可视化展示，$V_\alpha$和$V_\beta$代表的是两个神经元的激活，纵轴$Z_t$代表的是目标标签的输出，图a是没有被攻击的时候，，图b则是被毒化数据攻击了的时候，无论$V_\beta$的激活如何，只要$V_\alpha$的激活在70，那么最终目标标签$Z_t$的输出都为最大，图c则是图b的二维展示。</p>
+<p><img src="/./ABS-Scanning-Neural-Networks-for-Back-doors-by-Artificial-Brain-Stimulation/image-20240309093456920.png" alt="image-20240309093456920"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/02/29/ABS-Scanning-Neural-Networks-for-Back-doors-by-Artificial-Brain-Stimulation/" data-id="clw6dgvj70001i49f3m0j2x6l" data-title="ABS:Scanning_Neural_Networks_for_Back-doors_by_Artificial_Brain_Stimulation" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/EasyRL/">EasyRL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Graph-Neural-Networks-Foundations-Frontiers-and-Applications/">Graph Neural Networks: Foundations, Frontiers, and Applications</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs224w/">cs224w</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/d2l/">d2l</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/writing-paper/">writing  paper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%9E%E9%AA%8C/">实验</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%BB%E7%BB%93/">总结</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6/">读书</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">高性能计算机网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RL/" rel="tag">RL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly&#39;</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cnn/" rel="tag">cnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/diffusion/" rel="tag">diffusion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gnn/" rel="tag">gnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lab/" rel="tag">lab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poisoning/" rel="tag">poisoning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rl/" rel="tag">rl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rnn/" rel="tag">rnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" rel="tag">信息论</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/RL/" style="font-size: 10px;">RL</a> <a href="/tags/anomaly/" style="font-size: 12px;">anomaly</a> <a href="/tags/anomaly/" style="font-size: 10px;">anomaly'</a> <a href="/tags/backdoor/" style="font-size: 20px;">backdoor</a> <a href="/tags/cnn/" style="font-size: 10px;">cnn</a> <a href="/tags/diffusion/" style="font-size: 18px;">diffusion</a> <a href="/tags/gnn/" style="font-size: 14px;">gnn</a> <a href="/tags/lab/" style="font-size: 10px;">lab</a> <a href="/tags/poisoning/" style="font-size: 16px;">poisoning</a> <a href="/tags/rl/" style="font-size: 10px;">rl</a> <a href="/tags/rnn/" style="font-size: 10px;">rnn</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" style="font-size: 10px;">信息论</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/05/10/limu-read-paper/">limu_read_paper</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/06/VillanDiffusion/">VillanDiffusion</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/27/Infomation-Theory-Inference-and-Learning-Algorithms/">Infomation_Theory_Inference_and_Learning_Algorithms</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/22/TrojDiff/">TrojDiff</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/18/Diffusion-Backdoor-Embed/">Diffusion-Backdoor-Embed</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

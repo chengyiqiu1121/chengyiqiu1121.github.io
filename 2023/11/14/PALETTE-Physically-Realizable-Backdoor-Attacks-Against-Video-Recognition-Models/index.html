@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>PALETTE:Physically-Realizable_Backdoor_Attacks_Against_Video_Recognition_Models | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="摘要后门攻击被广泛使用在图像分类（cv）中，但是在视频识别领域很少有人调查或者研究。本文探索了后门攻击在视频识别中的物理实现。和已存在的工作（直接采用图片中的后门攻击，应用到视频识别领域，例如：将后门作为补丁打到每一个视频帧中去）不同，本文提出的后门攻击考虑了视频帧之间的时序交互，名PALETTE：  利用类似光照效果的RGB偏移作为触发器，而不是传统的打补丁。 通过滚动操作对特定的视频帧进行投毒">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PALETTE:Physically-Realizable_Backdoor_Attacks_Against_Video_Recognition_Models">
+<meta property="og:url" content="http://example.com/2023/11/14/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="摘要后门攻击被广泛使用在图像分类（cv）中，但是在视频识别领域很少有人调查或者研究。本文探索了后门攻击在视频识别中的物理实现。和已存在的工作（直接采用图片中的后门攻击，应用到视频识别领域，例如：将后门作为补丁打到每一个视频帧中去）不同，本文提出的后门攻击考虑了视频帧之间的时序交互，名PALETTE：  利用类似光照效果的RGB偏移作为触发器，而不是传统的打补丁。 通过滚动操作对特定的视频帧进行投毒">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121193725851.png">
+<meta property="og:image" content="http://example.com/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121211112696.png">
+<meta property="og:image" content="http://example.com/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121231638001.png">
+<meta property="og:image" content="http://example.com/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121232927999.png">
+<meta property="og:image" content="http://example.com/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121233117973.png">
+<meta property="og:image" content="http://example.com/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121234921984.png">
+<meta property="og:image" content="http://example.com/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121235624667.png">
+<meta property="og:image" content="http://example.com/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121235635103.png">
+<meta property="og:image" content="http://example.com/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231122000756875.png">
+<meta property="og:image" content="http://example.com/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231122000914304.png">
+<meta property="og:image" content="http://example.com/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231122121902024.png">
+<meta property="og:image" content="http://example.com/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231122122632695.png">
+<meta property="article:published_time" content="2023-11-14T12:04:56.000Z">
+<meta property="article:modified_time" content="2024-04-19T04:36:03.737Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="backdoor">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121193725851.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/14/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/" class="article-date">
+  <time class="dt-published" datetime="2023-11-14T12:04:56.000Z" itemprop="datePublished">2023-11-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      PALETTE:Physically-Realizable_Backdoor_Attacks_Against_Video_Recognition_Models
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>后门攻击被广泛使用在图像分类（cv）中，但是在视频识别领域很少有人调查或者研究。本文探索了后门攻击在视频识别中的物理实现。和已存在的工作（直接采用图片中的后门攻击，应用到视频识别领域，例如：将后门作为补丁打到每一个视频帧中去）不同，本文提出的后门攻击考虑了视频帧之间的时序交互，名PALETTE：</p>
+<ol>
+<li>利用<strong>类似光照效果的RGB偏移</strong>作为触发器，而不是传统的打补丁。</li>
+<li>通过滚动操作对<strong>特定的视频帧</strong>进行投毒。</li>
+</ol>
+<p>代码开源。</p>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>首段介绍了深度学习的性能越来越好，模型规模、参数个数也在变大，所消耗的硬件资源也越来越多，例如内存、CPU、GPU等，另外数据的规模也在增大，尤其是GPT、大模型流行之后。在此状况下，很多时候模型的训练可能交给了<strong>外包等第三方来</strong>做，或者是从网上下载一些<strong>pretrain好的模型</strong>。这就给了攻击者来进行后门攻击的机会–将后门嵌入到训练好的模型中，在推断阶段起作用。</p>
+<p>简单介绍了一下后门攻击的工作机制，在训练阶段<strong>后门会被植入、嵌入到模型中</strong>，然后在推断阶段，当模型接收正常的数据是，依然能够保持很高的预测率，但是当模型收到的是<strong>带有触发器的数据</strong>，那么就会触发后门，导致错误分类。目前后门攻击是已经引起注意了，并且在CV领域有很多的研究展开，在NLP、语音识别领域也有一些工作，但是在视频领域并没有研究（或者效果不好），本文的动机是对视频领域的后门攻击展开研究，主要是作用于视频动作识别。</p>
+<p>不能将视频单纯的看作是一系列图片的集合，视频的语义表征远远比前者要丰富，所以需要新的后门攻击方法。</p>
+<p>然后作者在这里采取了QA的方法来进行写作：</p>
+<ol>
+<li><p>如何设计一个触发器，让其在物理上是可实现后门攻击的？</p>
+<p>传统的图片后门攻击使用的是<strong>补丁</strong>的方式，这种后门很容易植入到图片中去，也可以直接打印出来。但是，视频是动态的，里面的绝大部分的物体是不平稳、在变动的，因此这种方法不可行。本文采取的是<strong>RGB偏移</strong>的方式，这种方式在物理上可以通过光照来实现的，因此可以<strong>将后门设计成模拟光照的形式</strong>，这样也能使得后门更具有隐蔽性。</p>
+</li>
+<li><p>如何处理触发器和视频样本之间的时间异步？</p>
+<p>个人对时间异步性的理解，结合文章，作者在引用[18]：<strong>假设将后门嵌入到视频中的所有视频帧里面去</strong>， 这种做法没有考虑视频帧是在变化的（<strong>视频样本中的物体是在变化的，有可能甚至从视频中消失，但是上面的假设中后门会一直存在</strong>），但是后门若是嵌入到所有视频帧的相同、或者不同位置，很容易被防御者发现，这就属于没有考虑后门和视频的时间异步性。</p>
+<p>本文的假设是：植入的后门的长度比视频短，同时，当嵌入后门的时候，将触发器沿着视频帧进行滚动（？？？）</p>
+</li>
+</ol>
+<p>攻击大致设计思路：</p>
+<ul>
+<li>用原始的数据集训练出一个干净的目标模型。</li>
+<li>通过这个目标模型来设计RGB偏移触发器。，并且对触发器进行优化，对于目标错误标签，尽可能强的激活。同时要保证隐蔽性</li>
+<li>然后，重新训练目标模型，用触发器中毒数据进行训练。</li>
+<li>触发器中毒样本的制作：将触发器沿着视频帧进行滚动（？？？）</li>
+</ul>
+<p>然后作总结，本文、本工作的贡献。</p>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><h2 id="视频动作识别"><a href="#视频动作识别" class="headerlink" title="视频动作识别"></a>视频动作识别</h2><p>一些典型的视频视觉领域</p>
+<ul>
+<li>视频目标检测：广泛应用自动驾驶</li>
+<li>视频物体跟踪：检测下一个视频帧目标的位置</li>
+<li>视频户外人类重构：重构人类模型在户外环境</li>
+<li>视频动作识别：识别人在视频中的动作</li>
+</ul>
+<p>视频动作识别可以描述成这样的问题：有T个视频帧输入进网络，然后网络经过训练、推断，对这T个视频帧中的动作进行预测，预测结果有K个标签。</p>
+<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121193725851.png" alt="image-20231121193725851"></p>
+<p>然后介绍了下常用的视频动作识别模型（调研），作者最终选取了I3D模型，作为本文的受害者模型（Inflated 3D ConvNet）。</p>
+<h2 id="后门攻击"><a href="#后门攻击" class="headerlink" title="后门攻击"></a>后门攻击</h2><p>介绍了一下深度学习中的<strong>对抗攻击</strong>（adversarial attacks）：</p>
+<ul>
+<li>训练阶段：中毒攻击、后门攻击。<ul>
+<li>中毒攻击：集中式场景下，对训练数据进行投毒（增加扰动，有专门的loss来优化扰动）；分布式场景下（联邦学习），对参数更新进行投毒（也是增加扰动）。两种情形下，攻击者基本都是对全体数据or全体参数进行投毒。（Oblivion中是对变化率较大的参数进行投毒）</li>
+<li>后门攻击：选取一部分数据（本文中是指向性攻击，选取数据的标签都是$y_\tau$），添加触发器，使得受害者模型$F_V$经过训练之后$F_A$会带有后门，$F_A$不影响普通数据的正确率，但是触发器数据会触发后门，导致误分类。<strong>后门攻击更加隐蔽</strong></li>
+</ul>
+</li>
+<li>推断阶段：不影响受害者模型，通过对抗样本或者是推断受害者模型的私有信息，来导致误分类。</li>
+</ul>
+<p>开始介绍后门攻击，存在于两个场景：</p>
+<ul>
+<li>项目外包：资源有限的客户端外包给第三方公司</li>
+<li>预训练模型：例如Github（突然想起了，本科老师讲过，在网上下载的python package不一定是安全的:)</li>
+</ul>
+<p>通常，攻击者通过操作模型的训练过程（直接）or注入有毒的训练数据集（间接）</p>
+<h1 id="威胁模型"><a href="#威胁模型" class="headerlink" title="威胁模型"></a>威胁模型</h1><p>攻击者完全掌控训练过程，对此可以构建出后门样本（其数量M小于所有视频帧的数量T）：<br>$$<br>\Delta &#x3D; {\delta_1,\delta_2,…,\delta_m},\epsilon \R ^{M\times H\times W \times C}<br>$$<br>符号表示：</p>
+<ul>
+<li>$\mathcal F_V$：受害者模型</li>
+<li>$\mathcal F_A$：经过攻击后，带有后门的受害者模型</li>
+<li>$y_\tau$：想要误分类的标签</li>
+<li>$X$：普通视频样本</li>
+<li>$X^*$：经过攻击者附加触发器的视频样本</li>
+<li>$\oplus _t$：附加操作</li>
+</ul>
+<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121211112696.png" alt="image-20231121211112696"></p>
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>方法主要分两个阶段：</p>
+<ol>
+<li><p><strong>闪耀触发器（Flickering Trigger）生成</strong></p>
+<p>以前的工作是直接向图片中添加“<strong>可见的基于补丁的后门</strong>”，这也是对图像分类模型添加后门的方法。本文设计了一种新的后门–闪耀触发器，这种触发器利用<strong>RGB偏移</strong>来进行后门的激活。RGB偏移是利用自然光或者是室内光照射到视频，这样能够使得带有后门的样本看起来自然。另外，本文提出的闪耀触发器可以是很稀疏的，通过向连续的小于64个视频帧的区间添加触发器，即可触发后门。</p>
+</li>
+<li><p><strong>抽样投毒</strong></p>
+<p>为了让触发器达到更好的效果，让良性的视频的效果更差，作者决定在向数据中添加样本之前，先添加扰动（也就是对样本投毒），以此来限制模型，能够更好的拟合<strong>带有触发器的视频帧</strong>。</p>
+</li>
+</ol>
+<h2 id="闪耀触发器生成"><a href="#闪耀触发器生成" class="headerlink" title="闪耀触发器生成"></a>闪耀触发器生成</h2><p>直觉是通过模拟光照来制造后门，因此，需要确保一帧图片里面的所有像素都能够有相同的RGB偏移。（正是模拟所有的像素收到了相同强度的光照）</p>
+<p>符号表示：</p>
+<ul>
+<li>$V$：表示最大的RGB偏移，所以RGB偏移的范围是$[-V,V]$</li>
+<li>$C$：通道</li>
+</ul>
+<p>因此，带有触发器的序列帧中的一帧$\delta _i$可以表示为C个变量的组合，进而$\Delta$可以表示成$M\times C$个变量的组合。</p>
+<p>看看本文是如何优化M个触发器视频帧的：</p>
+<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121231638001.png" alt="image-20231121231638001"></p>
+<p>符号表示：</p>
+<ul>
+<li>$y_l$：目标分类（误分类标签$y_ \tau$）的逻辑层的输出</li>
+<li>$m\gt 0$：想要达到误分类效果的安全边缘</li>
+</ul>
+<p>看看loss为0的情况，即模型什么都不需要学，这意味着触发器样本已经成功误导模型，达到了误分类的效果。</p>
+<p>然后则需要保证触发器样本的隐蔽性，通过最小化触发器样本与普通视频样本之间的“距离”。</p>
+<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121232927999.png" alt="image-20231121232927999"></p>
+<p>前面两个$\beta$是系数，也就是超参数。</p>
+<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121233117973.png" alt="image-20231121233117973"></p>
+<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121234921984.png" alt="image-20231121234921984"></p>
+<p>符号表示：$M$代表有多少个触发器帧，$C$代表通道，前面讲过$\Delta$可以用$M\times C$个变量来表示。</p>
+<p>也就是说，上式是一个$\Delta$的L2距离的平方再进行归一化的结果，这是$D_1$的作用，量化原始视频帧和触发器帧之间的差异。</p>
+<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121235624667.png" alt="image-20231121235624667"></p>
+<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121235635103.png" alt="image-20231121235635103"></p>
+<p>$D_2$测量的则是普通帧和触发器帧之间的时间异步性。这里首先定义了一个滚动操作$\mathcal R$：</p>
+<ul>
+<li>$r&#x3D; 0$：代表将触发器帧插入到第0帧后面</li>
+<li>$r\gt 0$：将触发器帧向后滑动r个帧后插入</li>
+<li>$r+M\gt T$：取余数，插到开头</li>
+</ul>
+<p>滚动操作能够理解，但是$D_2$不是很理解，总的loss如下：</p>
+<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231122000756875.png" alt="image-20231122000756875"></p>
+<p>优化：</p>
+<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231122000914304.png" alt="image-20231122000914304"></p>
+<h2 id="投毒"><a href="#投毒" class="headerlink" title="投毒"></a>投毒</h2><p>对普通视频帧（标签为$y_\tau$）进行投毒（增加扰动$\eta$），其loss：</p>
+<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231122121902024.png" alt="image-20231122121902024"></p>
+<p>符号表示：</p>
+<ul>
+<li>$||.||<em>{\infty}$：$L</em>{inf}$距离</li>
+<li>$\eta$：扰动</li>
+<li>$g^{‘}$：样本X的标签</li>
+<li>$g&#x3D;F_A(X+\eta)$：$X+\eta$通过模型$F_A$之后得到的$y_{pred}$</li>
+<li>$\epsilon$：允许的扰动的最大值，相当于边界</li>
+</ul>
+<p>给出L-inf距离的表达式：</p>
+<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231122122632695.png" alt="image-20231122122632695"></p>
+<p>另外，作者对普通帧（标签不是$y_\tau$）和加了扰动的帧（标签为$y_\tau$）执行了滚动操作（$\mathcal R$）</p>
+<h2 id="距离"><a href="#距离" class="headerlink" title="距离"></a>距离</h2><ol>
+<li><p>L1</p>
+<p>适用场景：当数据中存在少量重要特征，而其他特征对于任务影响较小时，可以使用L1范数，因为它有稀疏性，能够将一些不重要的特征的权重降为零，从而实现特征选择。</p>
+<p>如果数据是稀疏的，或者有很多离群点，那么L1距离可能更合适，因为它对异常值不敏感，而且可以产生稀疏解。<br>$$<br>d_1(X,Y)&#x3D;\sum|x_i-y_i|<br>$$</p>
+</li>
+<li><p>L2</p>
+<p>适用场景：L2在损失函数中常用于平衡各个特征的影响，并有助于防止过拟合。L2范数对异常值相对较为敏感。</p>
+<p>如果数据是密集的，或者需要保持距离的平方关系，那么L2距离可能更合适，因为它对异常值敏感，而且可以保留更多的信息。<br>$$<br>d_2(X,Y)&#x3D;\sum\sqrt {(x_i-y_i)^2}<br>$$</p>
+</li>
+<li><p>L-inf</p>
+<p>适用场景：当你更关心特征中的最大值对于整体影响时，可以使用L∞范数。它对异常值非常敏感，因为它只关注<strong>最大的绝对值</strong>，因此对于探测和处理异常值很有用。</p>
+<p>如果数据的特征有不同的尺度或单位，那么L-inf距离可能更合适，因为它只关注最大的差异，而不受其他特征的影响。<br>$$<br>d_\infty&#x3D;\max (|x_i-y_i|)<br>$$</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/14/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/" data-id="clw6dgvjg0028i49fgsdo0cze" data-title="PALETTE:Physically-Realizable_Backdoor_Attacks_Against_Video_Recognition_Models" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/11/19/huawei-hpc/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          huawei_hpc
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/11/14/ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">ATTEQ-NN:Attention-based_QoE-aware_Evasive_Backdoor_Attacks</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/EasyRL/">EasyRL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Graph-Neural-Networks-Foundations-Frontiers-and-Applications/">Graph Neural Networks: Foundations, Frontiers, and Applications</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs224w/">cs224w</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/d2l/">d2l</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/writing-paper/">writing  paper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%9E%E9%AA%8C/">实验</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%BB%E7%BB%93/">总结</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6/">读书</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">高性能计算机网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RL/" rel="tag">RL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly&#39;</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cnn/" rel="tag">cnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/diffusion/" rel="tag">diffusion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gnn/" rel="tag">gnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lab/" rel="tag">lab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poisoning/" rel="tag">poisoning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rl/" rel="tag">rl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rnn/" rel="tag">rnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" rel="tag">信息论</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/RL/" style="font-size: 10px;">RL</a> <a href="/tags/anomaly/" style="font-size: 12px;">anomaly</a> <a href="/tags/anomaly/" style="font-size: 10px;">anomaly'</a> <a href="/tags/backdoor/" style="font-size: 20px;">backdoor</a> <a href="/tags/cnn/" style="font-size: 10px;">cnn</a> <a href="/tags/diffusion/" style="font-size: 18px;">diffusion</a> <a href="/tags/gnn/" style="font-size: 14px;">gnn</a> <a href="/tags/lab/" style="font-size: 10px;">lab</a> <a href="/tags/poisoning/" style="font-size: 16px;">poisoning</a> <a href="/tags/rl/" style="font-size: 10px;">rl</a> <a href="/tags/rnn/" style="font-size: 10px;">rnn</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" style="font-size: 10px;">信息论</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/05/10/limu-read-paper/">limu_read_paper</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/06/VillanDiffusion/">VillanDiffusion</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/27/Infomation-Theory-Inference-and-Learning-Algorithms/">Infomation_Theory_Inference_and_Learning_Algorithms</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/22/TrojDiff/">TrojDiff</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/18/Diffusion-Backdoor-Embed/">Diffusion-Backdoor-Embed</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

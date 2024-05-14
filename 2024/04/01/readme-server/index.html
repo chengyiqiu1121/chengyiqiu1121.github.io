@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>readme_server | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="服务器的连接&amp;使用&amp;注意事项。 连接在学校内部（连接whut的Wi-Fi，或者是连接学校的vpn都算） ssh &#121;&#111;&#117;&#114;&#95;&#x75;&#115;&#x65;&#114;&#95;&#110;&#x61;&#109;&#101;&#x40;&#x31;&#x30;&#x2e;&#49;&#51;&#51;&#x2e;&#x36;&amp;#5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="readme_server">
+<meta property="og:url" content="http://example.com/2024/04/01/readme-server/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="服务器的连接&amp;使用&amp;注意事项。 连接在学校内部（连接whut的Wi-Fi，或者是连接学校的vpn都算） ssh &#121;&#111;&#117;&#114;&#95;&#x75;&#115;&#x65;&#114;&#95;&#110;&#x61;&#109;&#101;&#x40;&#x31;&#x30;&#x2e;&#49;&#51;&#51;&#x2e;&#x36;&amp;#5">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/readme-server/image-20240402134455461.png">
+<meta property="og:image" content="http://example.com/2024/04/01/readme-server/readme-server/image-20240401151315870.png">
+<meta property="og:image" content="http://example.com/readme-server/image-20240413223942482.png">
+<meta property="og:image" content="http://example.com/2024/04/01/readme-server/readme-server/IMG_0135.png">
+<meta property="og:image" content="http://example.com/readme-server/image-20240413223121510.png">
+<meta property="og:image" content="http://example.com/2024/04/01/readme-server/readme-server/image-20240427180816253.png">
+<meta property="article:published_time" content="2024-04-01T05:20:12.000Z">
+<meta property="article:modified_time" content="2024-05-05T05:23:13.167Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/readme-server/image-20240402134455461.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-readme-server" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/04/01/readme-server/" class="article-date">
+  <time class="dt-published" datetime="2024-04-01T05:20:12.000Z" itemprop="datePublished">2024-04-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      readme_server
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>服务器的连接&amp;使用&amp;注意事项。</p>
+<h1 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h1><p><del>在学校内部（连接whut的Wi-Fi，或者是连接学校的vpn都算）</del></p>
+<p><del>ssh <a href="mailto:&#121;&#111;&#117;&#114;&#95;&#x75;&#115;&#x65;&#114;&#95;&#110;&#x61;&#109;&#101;&#x40;&#x31;&#x30;&#x2e;&#49;&#51;&#51;&#x2e;&#x36;&#56;&#46;&#x38;&#48;">&#121;&#111;&#117;&#114;&#95;&#x75;&#115;&#x65;&#114;&#95;&#110;&#x61;&#109;&#101;&#x40;&#x31;&#x30;&#x2e;&#49;&#51;&#51;&#x2e;&#x36;&#56;&#46;&#x38;&#48;</a></del></p>
+<p><del>直接ssh可以连接上。</del></p>
+<ol>
+<li><p>不在学校（连接不上学校的内网）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -p 52222 your_user_name@120.76.43.27</span><br></pre></td></tr></table></figure>
+
+<p>通过内网穿透，将server的port 22映射到我自己的阿里云port 52222上了。</p>
+</li>
+<li><p>学校内部</p>
+<p>由于WHUT-1X开启了DHCP，内网IP会不断变化，因此如果想通过内网连接服务器，首先通过公网连接服务器（方法1），来获取内网IP：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">(base) ➜  ~ ifconfig</span><br><span class="line">eno1: flags=4099&lt;UP,BROADCAST,MULTICAST&gt;  mtu 1500</span><br><span class="line">        ether 34:97:f6:8b:34:be  txqueuelen 1000  (Ethernet)</span><br><span class="line">        RX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line">        device interrupt 20  memory 0xfb100000-fb120000</span><br><span class="line"></span><br><span class="line">enp11s0: flags=4099&lt;UP,BROADCAST,MULTICAST&gt;  mtu 1500</span><br><span class="line">        ether 34:97:f6:8b:34:bd  txqueuelen 1000  (Ethernet)</span><br><span class="line">        RX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line">        device memory 0xfb600000-fb61ffff</span><br><span class="line"></span><br><span class="line">lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536</span><br><span class="line">        inet 127.0.0.1  netmask 255.0.0.0</span><br><span class="line">        inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;</span><br><span class="line">        loop  txqueuelen 1000  (Local Loopback)</span><br><span class="line">        RX packets 56985808  bytes 9265128803 (9.2 GB)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 56985808  bytes 9265128803 (9.2 GB)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line"></span><br><span class="line">wlp10s0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span><br><span class="line">        inet 10.81.14.19  netmask 255.254.0.0  broadcast 10.81.255.255</span><br><span class="line">        inet6 fe80::180d:d35:85b3:4d51  prefixlen 64  scopeid 0x20&lt;link&gt;</span><br><span class="line">        ether 10:a5:1d:00:41:9b  txqueuelen 1000  (Ethernet)</span><br><span class="line">        RX packets 376637122  bytes 465366486936 (465.3 GB)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 87118227  bytes 108468812236 (108.4 GB)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br></pre></td></tr></table></figure>
+
+<p>然后通过ssh连接内网：<code>ssh username@10.81.14.19</code></p>
+</li>
+</ol>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>这里介绍一些简单的工具，以便大家使用。</p>
+<h2 id="vim"><a href="#vim" class="headerlink" title="vim"></a>vim</h2><p>vim能够在终端中编辑文件。比如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. vim test.sh #如果test不存在，在退出保存的时候会新建一个test.sh</span><br><span class="line">2. 按i进入编辑模式，此后输入的内容会被记录下来</span><br><span class="line">3. 按ESC退出编辑模式</span><br><span class="line">4. 按:wq退出保存 or 按:q!强制退出不保存</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h2 id="miniconda"><a href="#miniconda" class="headerlink" title="miniconda"></a>miniconda</h2><p>建议安装体积更轻更快的miniconda，下面是教程：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh</span><br><span class="line">chmod +x Miniconda3-latest-Linux-x86_64.sh</span><br><span class="line">bash Miniconda3-latest-Linux-x86_64.sh</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">开始安装，一路回车，accept，确认安装在user环境下，勾选<span class="built_in">yes</span>来init，最后重启终端or刷新环境变量</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="git"><a href="#git" class="headerlink" title="git"></a>git</h2><p>对于一篇论文，找到他在GitHub上的代码仓库，然后git clone即可下载到当前目录下，例如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">chengyiqiu@chengyiqiu-server:~/code$ git clone https://github.com/SCLBD/BackdoorBench.git</span><br><span class="line">Cloning into &#x27;BackdoorBench&#x27;...</span><br><span class="line">remote: Enumerating objects: 5086, done.</span><br><span class="line">remote: Counting objects: 100% (518/518), done.</span><br><span class="line">remote: Compressing objects: 100% (168/168), done.</span><br><span class="line">remote: Total 5086 (delta 379), reused 457 (delta 349), pack-reused 4568</span><br><span class="line">Receiving objects: 100% (5086/5086), 72.98 MiB | 5.23 MiB/s, done.</span><br><span class="line">Resolving deltas: 100% (2799/2799), done.</span><br><span class="line">chengyiqiu@chengyiqiu-server:~/code$ ls</span><br><span class="line">BackdoorBench</span><br><span class="line">chengyiqiu@chengyiqiu-server:~/code$ pwd</span><br><span class="line">/home/chengyiqiu/code</span><br><span class="line">chengyiqiu@chengyiqiu-server:~/code$</span><br></pre></td></tr></table></figure>
+
+<p>git还有同步、多人协作的功能。</p>
+<h2 id="wget"><a href="#wget" class="headerlink" title="wget"></a>wget</h2><p>web get，通过此工具可以下载任意的url指向的资源，可以是一个web page，也可以是其他类型的文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">chengyiqiu@chengyiqiu-server:~/Downloads$ ls</span><br><span class="line">NVIDIA-Linux-x86_64-550.67.run  todesk-v4.7.2.0-amd64.deb</span><br><span class="line">chengyiqiu@chengyiqiu-server:~/Downloads$ on</span><br><span class="line">chengyiqiu@chengyiqiu-server:~/Downloads$ wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh</span><br><span class="line">--2024-04-01 01:37:58--  https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh</span><br><span class="line">Connecting to 10.132.32.222:7890... connected.</span><br><span class="line">Proxy request sent, awaiting response... 200 OK</span><br><span class="line">Length: 144041912 (137M) [application/octet-stream]</span><br><span class="line">Saving to: ‘Miniconda3-latest-Linux-x86_64.sh’</span><br><span class="line"></span><br><span class="line">Miniconda3-latest-Linux-x86_64.sh            100%[===========================================================================================&gt;] 137.37M  5.40MB/s    in 26s</span><br><span class="line"></span><br><span class="line">2024-04-01 01:38:25 (5.26 MB/s) - ‘Miniconda3-latest-Linux-x86_64.sh’ saved [144041912/144041912]</span><br><span class="line"></span><br><span class="line">chengyiqiu@chengyiqiu-server:~/Downloads$ ls</span><br><span class="line">Miniconda3-latest-Linux-x86_64.sh  NVIDIA-Linux-x86_64-550.67.run  todesk-v4.7.2.0-amd64.deb</span><br><span class="line">chengyiqiu@chengyiqiu-server:~/Downloads$ pwd</span><br><span class="line">/home/chengyiqiu/Downloads</span><br><span class="line">chengyiqiu@chengyiqiu-server:~/Downloads$</span><br></pre></td></tr></table></figure>
+
+<h2 id="clash"><a href="#clash" class="headerlink" title="clash"></a>clash</h2><p>科学上网工具。<del>没有在本机配置，使用的是我个人的Ubuntu下的代理。</del></p>
+<p>编辑自己目录下的环境变量:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<p>将下面的内容追加到最后一行去：</p>
+<p><del>PC&#x3D;10.132.32.222</del></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">alias</span></span></span><br><span class="line">PC=localhost</span><br><span class="line">alias on=&quot;export https_proxy=http://$PC:7890;export http_proxy=http://$PC:7890;export all_proxy=socks5://$PC:7891&quot;</span><br><span class="line">alias off=&quot;unset https_proxy;unset http_proxy;unset all_proxy&quot;</span><br></pre></td></tr></table></figure>
+
+<p>然后按ESC退出，:wq保存，回到终端后，输入下面命令刷新环境变量：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<p>此时，可以科学上网了，输入on回车，即可开启代理；输入off回车，即可重置代理。</p>
+<p>下载python、conda、apt也无需换源，直连海外。</p>
+<p><strong>测试方法，输入on回车，下载Google的html：</strong>当前目录下出现index.html表示成功</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">chengyiqiu@chengyiqiu-server:~/Downloads$ wget www.google.com</span><br><span class="line">--2024-04-01 01:39:19--  http://www.google.com/</span><br><span class="line">Connecting to 10.132.32.222:7890... connected.</span><br><span class="line">Proxy request sent, awaiting response... 200 OK</span><br><span class="line">Length: unspecified [text/html]</span><br><span class="line">Saving to: ‘index.html’</span><br><span class="line"></span><br><span class="line">index.html                                       [ &lt;=&gt;                                                                                        ]  19.28K  --.-KB/s    in 0.006s</span><br><span class="line"></span><br><span class="line">2024-04-01 01:39:19 (3.33 MB/s) - ‘index.html’ saved [19747]</span><br><span class="line"></span><br><span class="line">chengyiqiu@chengyiqiu-server:~/Downloads$ ls</span><br><span class="line">index.html  Miniconda3-latest-Linux-x86_64.sh  NVIDIA-Linux-x86_64-550.67.run  todesk-v4.7.2.0-amd64.deb</span><br><span class="line">chengyiqiu@chengyiqiu-server:~/Downloads$</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="nvtop"><a href="#nvtop" class="headerlink" title="nvtop"></a>nvtop</h2><p>查看当前显卡占用情况。</p>
+<p><img src="/./readme-server/image-20240402134455461.png" alt="image-20240402134455461"></p>
+<h2 id="top"><a href="#top" class="headerlink" title="top"></a>top</h2><p>查看当前CPU、memory等占用情况。</p>
+<h2 id="tmux"><a href="#tmux" class="headerlink" title="tmux"></a>tmux</h2><p>好处：退出终端后代码不会中断执行。</p>
+<p>创建tmux：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux new -s code</span><br></pre></td></tr></table></figure>
+
+<p>运行代码之后，按ctrl + b，然后按d退出当前tmux。</p>
+<p>输入tmux ls可以查看当前有几个tmux正在运行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chengyiqiu@chengyiqiu-server:~/Downloads$ tmux ls</span><br><span class="line">code-0: 1 windows (created Mon Apr  1 01:44:39 2024) (group code)</span><br><span class="line">chengyiqiu@chengyiqiu-server:~/Downloads$</span><br></pre></td></tr></table></figure>
+
+<h2 id="cuda"><a href="#cuda" class="headerlink" title="cuda"></a>cuda</h2><p>打算在server上安装cuda11.7和cuda12.4，大家可以根据自己的需求，通过更改环境变量bashrc，来选择自己需要的cuda版本。</p>
+<p><strong>其实pytorch2.X已经不需要手动安装cuda了</strong>，pip torch version &gt; 2的时候会默认把cuda、cudnn等都下载下来，无需手动安装cuda、cudnn。</p>
+<img src="./readme-server/image-20240401151315870.png" alt="image-20240401151315870" style="zoom:50%;" />
+
+<p>若是需要跑远古代码，需要用到cuda10.X的时候，可以私聊我，我来安装一下。（但是最后一般很难成功，因为我们的显卡版本太高了:)</p>
+<h2 id="telegram-bot"><a href="#telegram-bot" class="headerlink" title="telegram-bot"></a>telegram-bot</h2><p>程序跑完了，通过telegram的bot给个人的tg账号发送消息：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">from telegram_logging import TelegramHandler, TelegramFormatter</span><br><span class="line">from data.dict import user_dict</span><br><span class="line">import logging</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def send2bot(msg, title):</span><br><span class="line">    handler = TelegramHandler(bot_token=user_dict[&#x27;token&#x27;],</span><br><span class="line">                              chat_id=str(user_dict[&#x27;chat_id&#x27;]))</span><br><span class="line">    formatter = TelegramFormatter(</span><br><span class="line">        fmt=&quot;time: %(asctime)s\n%(name)s %(levelname)8s\nprocess status: %(message)s&quot;, datefmt=&quot;%d/%m/%Y %H:%M:%S&quot;, use_emoji=True)</span><br><span class="line">    handler.setFormatter(formatter)</span><br><span class="line">    bot = logging.getLogger(f&#x27;process name: &#123;title&#125;&#x27;)</span><br><span class="line">    bot.addHandler(handler)</span><br><span class="line">    bot.setLevel(logging.INFO)</span><br><span class="line">    bot.info(msg)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    send2bot(&#x27;done&#x27;, &#x27;train pdiff&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>效果：</p>
+<p><img src="/./readme-server/image-20240413223942482.png" alt="image-20240413223942482"></p>
+<img src="./readme-server/IMG_0135.png" alt="IMG_0135" style="zoom:33%;" />
+
+<p>参考链接：<a target="_blank" rel="noopener" href="https://xilou.info/p/129">Python logging日志通过Telegram bot机器人发送消息通知 - 西楼 (xilou.info)</a></p>
+<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><h2 id="关于数据备份"><a href="#关于数据备份" class="headerlink" title="关于数据备份"></a>关于数据备份</h2><p>跑完代码后及时保存数据，<strong>重要数据多备份。</strong></p>
+<p>ps：本科期间的云计算于老师，读博的时候，她的师姐买的戴尔电脑三年质保，过了质保之后，毕业前期，电脑无法启动，论文全在里面，最后花了些钱做了数据恢复，才得以毕业。因此那位于老师一直和我们强调，重要数据一定要备份，U盘多备两个。</p>
+<h2 id="关于sudo"><a href="#关于sudo" class="headerlink" title="关于sudo"></a>关于sudo</h2><p>因为人还是蛮多的，为了防止装包失误导致系统环境混乱，所以目前都没有给管理员权限，大家要装什么软件的时候可以和我说。</p>
+<h2 id="关于上传文件"><a href="#关于上传文件" class="headerlink" title="关于上传文件"></a>关于上传文件</h2><p>建议大家<strong>通过内网上传</strong>（将你的电脑，连接whut的校园网，或者连接武理的VPN），带宽大概在40Mpbs左右。</p>
+<p>如果是通过公网上传，那么带宽只有1Mbps，比较慢。</p>
+<p>建议将<strong>代码压缩了再上传</strong>，否则上传小文件多起来非常慢。</p>
+<p>通过指令:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp your_code.zip your_user_name@10.133.68.80:~</span><br></pre></td></tr></table></figure>
+
+<p><code>~</code>指的是上传到对应用户的哪个目录下，</p>
+<h2 id="关于batch-size"><a href="#关于batch-size" class="headerlink" title="关于batch_size"></a>关于batch_size</h2><p><strong>首先，batch_size不是越大越好</strong>，设置过大的batch_size不仅<strong>无法加快模型的训练速度</strong>，还会导致占用过多显存资源的问题，从而导致其他同学不能启动模型（出现OOM）</p>
+<p>我是这样使用的，将batch从小往大调，然后将模型跑起来，看看GPU占用多少，若是达到100%（或者八九十），就没必要往上加了；若是加了batch，模型的训练速度没有加快（通过tqdm可以看），也不建议加大batch了。</p>
+<p>如下面的设置：batch设置的64，显存占用1G不到，但是GPU已经满载了，这样多余的显存可以供其他同学跑模型:)</p>
+<p><img src="/./readme-server/image-20240413223121510.png" alt="image-20240413223121510"></p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>这里是个人的一些记录，作为可选项。</p>
+<h2 id="rsync"><a href="#rsync" class="headerlink" title="rsync"></a>rsync</h2><p>需求是对跑实验的数据做备份，个人PC上新装了一块老机械硬盘，用来做备份。</p>
+<p>了解到Linux内置了支持做备份的命令<code>rsync</code>，该命令既可以在本地同步（本地文件夹2本地文件夹），也可以做远程同步（PC2PC），远程同步的命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync --avu --progress ~/folder1 xx@xx:~/folder1</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>-v 详细输出</li>
+<li>-a 归档模式，表示以递归方式传输文件，并保持所有文件属性，如果文件属性变了，认为是不同文件</li>
+<li>-u 选项忽略重复的数据</li>
+<li>–progress 显示进度</li>
+</ul>
+<p>本地同步则是：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync --avu --progress ~/folder1 ~/folder2</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(base) ➜  ~ rsync -avu --progress ~/code/Diffusion-Backdoor-Embed/backdoor_diffusion /home/WDCData_1T/Diffusion-Backdoor-Embed/backdoor_diffusion</span><br><span class="line">sending incremental file list</span><br><span class="line"></span><br><span class="line">sent 10,748 bytes  received 45 bytes  21,586.00 bytes/sec</span><br><span class="line">total size is 100,585,605,863  speedup is 9,319,522.46</span><br></pre></td></tr></table></figure>
+
+<h2 id="crontab"><a href="#crontab" class="headerlink" title="crontab"></a>crontab</h2><p>Linux内置的定时任务，创建任务: <code>crontrab -e</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/30 * * * * rsync -avu --progress ~/code/Diffusion-Backdoor-Embed/backdoor_diffusion /home/WDCData_1T/Diffusion-Backdoor-Embed/backdoor_diffusion</span><br></pre></td></tr></table></figure>
+
+<p>代表每30分钟同步一次，每个*后的意思如下：</p>
+<img src="./readme-server/image-20240427180816253.png" alt="image-20240427180816253" style="zoom:50%;" />
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/04/01/readme-server/" data-id="clw6dgvjo0051i49f57bv503e" data-title="readme_server" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/04/03/python-package-tutorials/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          python-package-tutorials
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/03/30/follow-who/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">follow_who</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/EasyRL/">EasyRL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Graph-Neural-Networks-Foundations-Frontiers-and-Applications/">Graph Neural Networks: Foundations, Frontiers, and Applications</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs224w/">cs224w</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/d2l/">d2l</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/writing-paper/">writing  paper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%9E%E9%AA%8C/">实验</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%BB%E7%BB%93/">总结</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6/">读书</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">高性能计算机网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RL/" rel="tag">RL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly&#39;</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cnn/" rel="tag">cnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/diffusion/" rel="tag">diffusion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gnn/" rel="tag">gnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lab/" rel="tag">lab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poisoning/" rel="tag">poisoning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rl/" rel="tag">rl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rnn/" rel="tag">rnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" rel="tag">信息论</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/RL/" style="font-size: 10px;">RL</a> <a href="/tags/anomaly/" style="font-size: 12px;">anomaly</a> <a href="/tags/anomaly/" style="font-size: 10px;">anomaly'</a> <a href="/tags/backdoor/" style="font-size: 20px;">backdoor</a> <a href="/tags/cnn/" style="font-size: 10px;">cnn</a> <a href="/tags/diffusion/" style="font-size: 18px;">diffusion</a> <a href="/tags/gnn/" style="font-size: 14px;">gnn</a> <a href="/tags/lab/" style="font-size: 10px;">lab</a> <a href="/tags/poisoning/" style="font-size: 16px;">poisoning</a> <a href="/tags/rl/" style="font-size: 10px;">rl</a> <a href="/tags/rnn/" style="font-size: 10px;">rnn</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" style="font-size: 10px;">信息论</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/05/10/limu-read-paper/">limu_read_paper</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/06/VillanDiffusion/">VillanDiffusion</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/27/Infomation-Theory-Inference-and-Learning-Algorithms/">Infomation_Theory_Inference_and_Learning_Algorithms</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/22/TrojDiff/">TrojDiff</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/18/Diffusion-Backdoor-Embed/">Diffusion-Backdoor-Embed</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

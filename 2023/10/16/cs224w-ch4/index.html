@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>cs224w_ch4 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="PageRankhow to represent page as graph:  Node: web pages Edge: hyperlinks  Not only page network, here are citation natwork and reference network:  The problem is how could we measure the important of">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs224w_ch4">
+<meta property="og:url" content="http://example.com/2023/10/16/cs224w-ch4/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="PageRankhow to represent page as graph:  Node: web pages Edge: hyperlinks  Not only page network, here are citation natwork and reference network:  The problem is how could we measure the important of">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/cs224w-ch4/image-20231016105115978.png">
+<meta property="og:image" content="http://example.com/cs224w-ch4/image-20231016110419927.png">
+<meta property="og:image" content="http://example.com/cs224w-ch4/image-20231016110800556.png">
+<meta property="og:image" content="http://example.com/cs224w-ch4/image-20231016110819595.png">
+<meta property="og:image" content="http://example.com/cs224w-ch4/image-20231016111626006.png">
+<meta property="og:image" content="http://example.com/cs224w-ch4/image-20231016131736772.png">
+<meta property="og:image" content="http://example.com/cs224w-ch4/image-20231016144335069.png">
+<meta property="og:image" content="http://example.com/cs224w-ch4/image-20231016144426163.png">
+<meta property="og:image" content="http://example.com/cs224w-ch4/image-20231016144523411.png">
+<meta property="og:image" content="http://example.com/cs224w-ch4/image-20231016144806032.png">
+<meta property="og:image" content="http://example.com/cs224w-ch4/image-20231016145129148.png">
+<meta property="og:image" content="http://example.com/cs224w-ch4/image-20231016145825068.png">
+<meta property="og:image" content="http://example.com/cs224w-ch4/image-20231016145215400.png">
+<meta property="og:image" content="http://example.com/cs224w-ch4/image-20231016150936154.png">
+<meta property="og:image" content="http://example.com/cs224w-ch4/image-20231016151116458.png">
+<meta property="og:image" content="http://example.com/cs224w-ch4/image-20231016151135339.png">
+<meta property="og:image" content="http://example.com/cs224w-ch4/image-20231016155859558.png">
+<meta property="article:published_time" content="2023-10-16T01:00:19.000Z">
+<meta property="article:modified_time" content="2023-10-16T08:28:00.000Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/cs224w-ch4/image-20231016105115978.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-cs224w-ch4" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/16/cs224w-ch4/" class="article-date">
+  <time class="dt-published" datetime="2023-10-16T01:00:19.000Z" itemprop="datePublished">2023-10-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cs224w/">cs224w</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      cs224w_ch4
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="PageRank"><a href="#PageRank" class="headerlink" title="PageRank"></a>PageRank</h1><p>how to represent page as graph:</p>
+<ul>
+<li>Node: web pages</li>
+<li>Edge: hyperlinks</li>
+</ul>
+<p>Not only page network, here are citation natwork and reference network:</p>
+<p><img src="/./cs224w-ch4/image-20231016105115978.png" alt="image-20231016105115978"></p>
+<p>The problem is <strong>how could we measure the important of a web page so that we can rank them.</strong></p>
+<p>the idea is: <strong>links and votes</strong></p>
+<h2 id="links-and-votes"><a href="#links-and-votes" class="headerlink" title="links and votes"></a>links and votes</h2><p>the intuition is that <strong>Page is more important if it has more links</strong></p>
+<p>consider 2 web page:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://www.stanford.edu/">www.stanford.edu</a> has 23,400 in-links</li>
+<li><a href="">thispersondoesnotexist.com</a> has 1 in-link</li>
+</ul>
+<p>why we don’t consider out-link?</p>
+<p>Because  in your website, you can set a lot of out-links, and it is easy to implement. So the inportance only take in-link into consideration. </p>
+<p>so, what is vote?</p>
+<p><img src="/./cs224w-ch4/image-20231016110419927.png" alt="image-20231016110419927"></p>
+<p>we use in-links to caculate the importance of node j, j have 2 in-links, so it’s importance is above.</p>
+<p>And consider other nodes, such as node i, has 3 out-links, so its importance to others is divided to $\frac{r_i}{3}$</p>
+<p>for a 3 node graph:</p>
+<p><img src="/./cs224w-ch4/image-20231016110800556.png" alt="image-20231016110800556"></p>
+<p>we can get the equation for each node:<br><img src="/./cs224w-ch4/image-20231016110819595.png" alt="image-20231016110819595"></p>
+<h2 id="Matrix-Formulation"><a href="#Matrix-Formulation" class="headerlink" title="Matrix Formulation"></a>Matrix Formulation</h2><p>Let us start at some notion.</p>
+<ol>
+<li><p>Stochastic adjacency matrix $M$ </p>
+<p>Here are the rules:</p>
+<ul>
+<li>$d_i$ is the out degree of node $i$</li>
+<li>if $i\to j$, then $M_{ji}&#x3D;\frac{1}{d_i}$, which means the importance of $i$ is divided and given to $j$</li>
+</ul>
+</li>
+<li><p>Rank vector $r$ </p>
+<p>$r_i$ is the importance of page $i$, and $\sum_ir_i&#x3D;1$.</p>
+</li>
+</ol>
+<p>and the flow equation can be written as:<br>$$<br>r&#x3D;M.r<br>$$<br><img src="/./cs224w-ch4/image-20231016111626006.png" alt="image-20231016111626006"></p>
+<h2 id="Connection-to-Random-walk"><a href="#Connection-to-Random-walk" class="headerlink" title="Connection to Random walk"></a>Connection to Random walk</h2><p>we have considered the importance of node. now lets start at one page i, and which page should we select next?</p>
+<ol>
+<li>at timepoint t, the surfer is at page i</li>
+<li>at timepoint t+1, surfer choose an put-link from i randomly.</li>
+<li>the surfer at page j</li>
+<li>repeat</li>
+</ol>
+<p> <img src="/./cs224w-ch4/image-20231016131736772.png" alt="image-20231016131736772"></p>
+<p>so, here are some notions:</p>
+<ul>
+<li>$p(t)$: the coordinate of the probability of node i at the time t. it includes the next pages probability.</li>
+<li>$p(t)$ is a probability distribution over pages</li>
+</ul>
+<p>this process can be performed as this fomula:<br>$$<br>p(t+1)&#x3D;M.p(t)&#x3D;p(t)<br>$$</p>
+<p>$$<br>r&#x3D;M.r<br>$$</p>
+<p>$r$ is the stationary distribution for random walk</p>
+<p>in ch2, the centrality:<br>$$<br>\lambda c&#x3D;Ac<br>$$<br>c is eigenvector, $\lambda$ is eigenvalue</p>
+<p>so eigenvector is r, eigenvector is 1<br>$$<br>1.r&#x3D;M.r<br>$$</p>
+<h1 id="Solve-PageRank"><a href="#Solve-PageRank" class="headerlink" title="Solve PageRank"></a>Solve PageRank</h1><h2 id="notion-and-procedure"><a href="#notion-and-procedure" class="headerlink" title="notion and procedure"></a>notion and procedure</h2><p>we have the equation with eigenvalue 1 and eigenvector $r$, and its equal form is:</p>
+<p><img src="/./cs224w-ch4/image-20231016144335069.png" alt="image-20231016144335069"></p>
+<p>now we use iterative procedure to solve it:</p>
+<p><img src="/./cs224w-ch4/image-20231016144426163.png" alt="image-20231016144426163"></p>
+<p>the whole procedure is as follow:</p>
+<p><img src="/./cs224w-ch4/image-20231016144523411.png" alt="image-20231016144523411"></p>
+<p>Here are some example:</p>
+<p><img src="/./cs224w-ch4/image-20231016144806032.png" alt="image-20231016144806032"></p>
+<h2 id="problem"><a href="#problem" class="headerlink" title="problem"></a>problem</h2><p>this procedure has 2 problem:</p>
+<ol>
+<li><p>dead ends</p>
+<p>which means the page have no out-links</p>
+<p>it will lead to important ‘fall cliff’</p>
+</li>
+<li><p>Spider traps</p>
+<p>absorbe all importance</p>
+</li>
+</ol>
+<h3 id="spider-trap"><a href="#spider-trap" class="headerlink" title="spider trap"></a>spider trap</h3><p><img src="/./cs224w-ch4/image-20231016145129148.png" alt="image-20231016145129148"></p>
+<p>Here is solution.</p>
+<p>at each step:</p>
+<ul>
+<li>with the prob. $\beta$, use random link</li>
+<li>with the prob. $1-\beta$, jump to a teleport</li>
+<li>Usually us $\beta&#x3D;0.8\to0.9$</li>
+</ul>
+<p><img src="/./cs224w-ch4/image-20231016145825068.png" alt="image-20231016145825068"></p>
+<p>so, use teleport, the surfer will stay at node m, after few step, surfer will jump to the teleport, which could be any node in the graph</p>
+<h3 id="dead-end"><a href="#dead-end" class="headerlink" title="dead end"></a>dead end</h3><p><img src="/./cs224w-ch4/image-20231016145215400.png" alt="image-20231016145215400"></p>
+<p>the solution is same with spider trap, just use teleport</p>
+<p><img src="/./cs224w-ch4/image-20231016150936154.png" alt="image-20231016150936154"></p>
+<p>see node m, it has no out-links, we use teleport, and each prob. is $\frac{1}{N}$ N is all graph node, include m itself</p>
+<h3 id="Google’s-solution"><a href="#Google’s-solution" class="headerlink" title="Google’s solution"></a>Google’s solution</h3><p><img src="/./cs224w-ch4/image-20231016151116458.png" alt="image-20231016151116458"></p>
+<h3 id="e-g"><a href="#e-g" class="headerlink" title="e.g."></a>e.g.</h3><p><img src="/./cs224w-ch4/image-20231016151135339.png" alt="image-20231016151135339"></p>
+<p>because of teleport, the gree nodes, which have no in degree, also have their importance. and we can adjust $\beta$  to change its value, according to the reality. if it is important than we set, then we set $\beta$ lower.</p>
+<h1 id="personalized-and-restart-pagerank"><a href="#personalized-and-restart-pagerank" class="headerlink" title="personalized and restart pagerank"></a>personalized and restart pagerank</h1><p>let’s see the difference:</p>
+<ol>
+<li><p>pagerank</p>
+<p>jump to any node</p>
+</li>
+<li><p>Personalized pagerank</p>
+<p>Jump to a set of teleport nodes $S$</p>
+</li>
+<li><p>random walks with restart</p>
+<p>teleport to the starting node : $S&#x3D;{Q}$</p>
+</li>
+</ol>
+<p>the form in simulation:</p>
+<p><img src="/./cs224w-ch4/image-20231016155859558.png" alt="image-20231016155859558"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/10/16/cs224w-ch4/" data-id="clw6dgvji0037i49fakby0o55" data-title="cs224w_ch4" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/10/16/cs224w-ch6/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          cs224w_ch6
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/10/13/cs224w-ch2-lab/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">cs224w_ch2_lab</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/EasyRL/">EasyRL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Graph-Neural-Networks-Foundations-Frontiers-and-Applications/">Graph Neural Networks: Foundations, Frontiers, and Applications</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs224w/">cs224w</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/d2l/">d2l</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/writing-paper/">writing  paper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%9E%E9%AA%8C/">实验</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%BB%E7%BB%93/">总结</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6/">读书</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">高性能计算机网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RL/" rel="tag">RL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly&#39;</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cnn/" rel="tag">cnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/diffusion/" rel="tag">diffusion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gnn/" rel="tag">gnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lab/" rel="tag">lab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poisoning/" rel="tag">poisoning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rl/" rel="tag">rl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rnn/" rel="tag">rnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" rel="tag">信息论</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/RL/" style="font-size: 10px;">RL</a> <a href="/tags/anomaly/" style="font-size: 12px;">anomaly</a> <a href="/tags/anomaly/" style="font-size: 10px;">anomaly'</a> <a href="/tags/backdoor/" style="font-size: 20px;">backdoor</a> <a href="/tags/cnn/" style="font-size: 10px;">cnn</a> <a href="/tags/diffusion/" style="font-size: 18px;">diffusion</a> <a href="/tags/gnn/" style="font-size: 14px;">gnn</a> <a href="/tags/lab/" style="font-size: 10px;">lab</a> <a href="/tags/poisoning/" style="font-size: 16px;">poisoning</a> <a href="/tags/rl/" style="font-size: 10px;">rl</a> <a href="/tags/rnn/" style="font-size: 10px;">rnn</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" style="font-size: 10px;">信息论</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/05/10/limu-read-paper/">limu_read_paper</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/06/VillanDiffusion/">VillanDiffusion</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/27/Infomation-Theory-Inference-and-Learning-Algorithms/">Infomation_Theory_Inference_and_Learning_Algorithms</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/22/TrojDiff/">TrojDiff</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/18/Diffusion-Backdoor-Embed/">Diffusion-Backdoor-Embed</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

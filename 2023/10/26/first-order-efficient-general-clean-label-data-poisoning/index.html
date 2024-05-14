@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>First-Order Efficient General-Purpose Clean-Label Data Poisoning | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="abstract先简单介绍了一下中毒攻击，然后指出existing work的局限性：  大多都是bi-level optimization（二阶层优化）问题。这会导致在求解问题的时候有很大的计算量。 现有的方法都是用feature collision（特征碰撞）的方法，这些方法对没见过的特征空间效果不是很好，转移到其他场景也不是很容易  于是作者提出了一个一阶的方法，这个方法理论上可以大概达到二">
+<meta property="og:type" content="article">
+<meta property="og:title" content="First-Order Efficient General-Purpose Clean-Label Data Poisoning">
+<meta property="og:url" content="http://example.com/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="abstract先简单介绍了一下中毒攻击，然后指出existing work的局限性：  大多都是bi-level optimization（二阶层优化）问题。这会导致在求解问题的时候有很大的计算量。 现有的方法都是用feature collision（特征碰撞）的方法，这些方法对没见过的特征空间效果不是很好，转移到其他场景也不是很容易  于是作者提出了一个一阶的方法，这个方法理论上可以大概达到二">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/first-order-efficient-general-clean-label-data-poisoning/image-20231031094403031.png">
+<meta property="og:image" content="http://example.com/first-order-efficient-general-clean-label-data-poisoning/image-20231031125626227.png">
+<meta property="og:image" content="http://example.com/first-order-efficient-general-clean-label-data-poisoning/image-20231031183749536.png">
+<meta property="og:image" content="http://example.com/first-order-efficient-general-clean-label-data-poisoning/image-20231031190219475.png">
+<meta property="og:image" content="http://example.com/first-order-efficient-general-clean-label-data-poisoning/image-20231031190433331.png">
+<meta property="og:image" content="http://example.com/first-order-efficient-general-clean-label-data-poisoning/image-20231031191051034-8750651.png">
+<meta property="og:image" content="http://example.com/first-order-efficient-general-clean-label-data-poisoning/image-20231031192106232.png">
+<meta property="og:image" content="http://example.com/first-order-efficient-general-clean-label-data-poisoning/image-20231031193211754.png">
+<meta property="og:image" content="http://example.com/first-order-efficient-general-clean-label-data-poisoning/image-20231031193300460.png">
+<meta property="og:image" content="http://example.com/first-order-efficient-general-clean-label-data-poisoning/image-20231031193515229.png">
+<meta property="og:image" content="http://example.com/first-order-efficient-general-clean-label-data-poisoning/image-20231031193632373.png">
+<meta property="article:published_time" content="2023-10-26T11:10:11.000Z">
+<meta property="article:modified_time" content="2023-11-13T07:44:41.000Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="poisoning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/first-order-efficient-general-clean-label-data-poisoning/image-20231031094403031.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-first-order-efficient-general-clean-label-data-poisoning" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/" class="article-date">
+  <time class="dt-published" datetime="2023-10-26T11:10:11.000Z" itemprop="datePublished">2023-10-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      First-Order Efficient General-Purpose Clean-Label Data Poisoning
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="abstract"><a href="#abstract" class="headerlink" title="abstract"></a>abstract</h1><p>先简单介绍了一下中毒攻击，然后指出existing work的局限性：</p>
+<ul>
+<li>大多都是<strong>bi-level optimization</strong>（二阶层优化）问题。这会导致在求解问题的时候有很大的计算量。</li>
+<li>现有的方法都是用<strong>feature collision</strong>（特征碰撞）的方法，这些方法对没见过的特征空间效果不是很好，转移到其他场景也不是很容易</li>
+</ul>
+<p>于是作者提出了一个一阶的方法，这个方法理论上可以大概达到二阶的效果，总结一下其性质：</p>
+<ul>
+<li>高效（以一阶接近二阶的性能）</li>
+<li>转移（对于不同的特征空间都能投毒）</li>
+<li>泛化（可以适用于别的场景，CV、WTP）</li>
+</ul>
+<h1 id="MetaPoison"><a href="#MetaPoison" class="headerlink" title="MetaPoison"></a>MetaPoison</h1><p>这篇文章跟之前的MetaPoison进行了对比，其指出“MetaPoison有很多优点，例如：基于元学习、双层优化、不是基于特征碰撞来做的。但是，这个整个的学习需要区分内环（inner- loop）的学习进程，因此它其实还是<strong>隐式利用了二阶信息</strong>”。</p>
+<p><img src="/./first-order-efficient-general-clean-label-data-poisoning/image-20231031094403031.png" alt="image-20231031094403031"></p>
+<p>而本文中提出的是纯的利用一阶信息的元学习（pure first-order metra learning）反向传播的过程不需要二阶信息。</p>
+<h1 id="threat-model"><a href="#threat-model" class="headerlink" title="threat model"></a>threat model</h1><h2 id="clean-label-data-poisoning"><a href="#clean-label-data-poisoning" class="headerlink" title="clean-label data poisoning"></a>clean-label data poisoning</h2><p>对攻击者的知识、能力做一个假设。攻击者只能通过注射很少的有毒数据样本到模型的训练数据集中。有毒数据样本是通过<strong>代理模型</strong>以及<strong>目标数据</strong>来生成的。</p>
+<p>举个例子，目标数据的标签是鸟，通过将目标数据（鸟）放进代理模型中去，得到的输出是有毒数据，然后将有毒数据拿来训练，最终测试的时候模型就会将鸟识别成狗了。</p>
+<p><img src="/./first-order-efficient-general-clean-label-data-poisoning/image-20231031125626227.png" alt="image-20231031125626227"></p>
+<h2 id="gray-box-or-black-box-setting"><a href="#gray-box-or-black-box-setting" class="headerlink" title="gray-box or black-box setting"></a>gray-box or black-box setting</h2><ol>
+<li><p>灰盒</p>
+<p>攻击者知道受害者的模型的架构。</p>
+<p>这个假设有一定的合理性，因为能达到优秀性能的模型就那几个，攻击者就算通过瞎猜有可能能够命中，或者命中相似的架构。</p>
+</li>
+<li><p>黑盒</p>
+<p>攻击者对受害者一无所知。</p>
+<p>也就是说攻击者只能随机选取架构和参数来构建代理模型。</p>
+<p>为了增加泛化性，攻击者可以采取集成学习的方法来构建很多个代理模型。</p>
+</li>
+</ol>
+<h1 id="method"><a href="#method" class="headerlink" title="method"></a>method</h1><h2 id="基本攻击策略"><a href="#基本攻击策略" class="headerlink" title="基本攻击策略"></a>基本攻击策略</h2><p>提出的攻击主要分两步：</p>
+<ol>
+<li><p>产生攻击者想要达到的模型更新$\delta _{\theta}$</p>
+<p><img src="/./first-order-efficient-general-clean-label-data-poisoning/image-20231031183749536.png" alt="image-20231031183749536"></p>
+<p>后续会用${X_p,Y_p}$来代替${X_p\or X_c,Y_p \or Y_c }$，但并不代表不考虑干净数据，考虑到希望朝着中毒数据的方向优化，因此会削弱一下干净数据。</p>
+</li>
+<li><p>对中毒数据施加扰动$\delta _{p}$。</p>
+<p>在上面的不等式两边加上一阶信息（<strong>加上的东西是相等的吗？</strong>）</p>
+<p><img src="/./first-order-efficient-general-clean-label-data-poisoning/image-20231031190219475.png" alt="image-20231031190219475"></p>
+<p>然后做一个变换</p>
+<p><img src="/./first-order-efficient-general-clean-label-data-poisoning/image-20231031190433331.png" alt="image-20231031190433331"></p>
+<p>假设$\theta$能够取到最优，那么$\theta + \delta_{\theta}$取到的就是次优，那么不等式右边就为一个负数，可能是-1、-2等，这个值取决于$\theta + \delta _{\theta}$偏离最优解的距离，于是有下式：</p>
+<p><img src="/./first-order-efficient-general-clean-label-data-poisoning/image-20231031191051034-8750651.png" alt="image-20231031191051034"></p>
+<p>若是上式子的不等号改为<strong>远小于</strong>，换句话，实际情况中左边式子<strong>远小于0</strong>，这里读者的理解是-1、-2这种自然也是远远小于，但作者的意思可能是左边的式子是一个负的高阶无穷小，也就是说$\theta + \delta_{\theta}$离最优解$\theta$的距离很近的情况。</p>
+<p>然后作者表示，将扰动$\delta _p$沿着下面式子的方向进行优化就行了：</p>
+<p><img src="/./first-order-efficient-general-clean-label-data-poisoning/image-20231031192106232.png" alt="image-20231031192106232"></p>
+</li>
+<li><p>最终算法</p>
+<p><img src="/./first-order-efficient-general-clean-label-data-poisoning/image-20231031193211754.png" alt="image-20231031193211754"></p>
+<p>PS：式子9为：</p>
+<p><img src="/./first-order-efficient-general-clean-label-data-poisoning/image-20231031193300460.png" alt="image-20231031193300460"></p>
+<h1 id="result"><a href="#result" class="headerlink" title="result"></a>result</h1><p>本文中的方法：</p>
+<p><img src="/./first-order-efficient-general-clean-label-data-poisoning/image-20231031193515229.png" alt="image-20231031193515229"></p>
+<p>其他的方法：</p>
+<p><img src="/./first-order-efficient-general-clean-label-data-poisoning/image-20231031193632373.png" alt="image-20231031193632373"></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/" data-id="clw6dgvjl0048i49fhxt94rpb" data-title="First-Order Efficient General-Purpose Clean-Label Data Poisoning" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poisoning/" rel="tag">poisoning</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/11/06/data-poisoning-attack-in-IoV-networks/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Data Poisoning Attacks in Internet-of-Vehicle Networks, Taxonomy, State-of-The-Art, and Future Directions
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/10/23/OBLIVION-poisoning/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">OBLIVION_poisoning</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/EasyRL/">EasyRL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Graph-Neural-Networks-Foundations-Frontiers-and-Applications/">Graph Neural Networks: Foundations, Frontiers, and Applications</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs224w/">cs224w</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/d2l/">d2l</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/writing-paper/">writing  paper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%9E%E9%AA%8C/">实验</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%BB%E7%BB%93/">总结</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6/">读书</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">高性能计算机网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RL/" rel="tag">RL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly&#39;</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cnn/" rel="tag">cnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/diffusion/" rel="tag">diffusion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gnn/" rel="tag">gnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lab/" rel="tag">lab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poisoning/" rel="tag">poisoning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rl/" rel="tag">rl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rnn/" rel="tag">rnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" rel="tag">信息论</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/RL/" style="font-size: 10px;">RL</a> <a href="/tags/anomaly/" style="font-size: 12px;">anomaly</a> <a href="/tags/anomaly/" style="font-size: 10px;">anomaly'</a> <a href="/tags/backdoor/" style="font-size: 20px;">backdoor</a> <a href="/tags/cnn/" style="font-size: 10px;">cnn</a> <a href="/tags/diffusion/" style="font-size: 18px;">diffusion</a> <a href="/tags/gnn/" style="font-size: 14px;">gnn</a> <a href="/tags/lab/" style="font-size: 10px;">lab</a> <a href="/tags/poisoning/" style="font-size: 16px;">poisoning</a> <a href="/tags/rl/" style="font-size: 10px;">rl</a> <a href="/tags/rnn/" style="font-size: 10px;">rnn</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" style="font-size: 10px;">信息论</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/05/10/limu-read-paper/">limu_read_paper</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/06/VillanDiffusion/">VillanDiffusion</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/27/Infomation-Theory-Inference-and-Learning-Algorithms/">Infomation_Theory_Inference_and_Learning_Algorithms</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/22/TrojDiff/">TrojDiff</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/18/Diffusion-Backdoor-Embed/">Diffusion-Backdoor-Embed</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

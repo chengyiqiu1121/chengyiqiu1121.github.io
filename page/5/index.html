@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/page/5/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-FlowGNN" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/22/FlowGNN/" class="article-date">
+  <time class="dt-published" datetime="2023-10-21T23:53:34.000Z" itemprop="datePublished">2023-10-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/10/22/FlowGNN/">FlowGNN</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="abstract"><a href="#abstract" class="headerlink" title="abstract"></a>abstract</h1><p>the limitation:</p>
+<ul>
+<li><p>GNN needs fast inference.</p>
+</li>
+<li><p>Existing works focus on target GNN acceleration, such as GCN.</p>
+</li>
+<li><p>And many works rely on pre-processing which is not suitable to <strong>real-time application</strong>.</p>
+</li>
+</ul>
+<p>This paper work:</p>
+<ul>
+<li>Propose FlowGNN, which is <strong>generalizable</strong> to the majority of message -passing GNNs.</li>
+</ul>
+<p>and more in details:</p>
+<ol>
+<li>a novel and <strong>scalable dataflow architecture</strong>(enhance speed of message-passing)</li>
+<li><del>real-time GNN inference without any pre-processing</del></li>
+<li>verify the proposed architecture on FPGA board(Xilinx Alveo U50 FPGA board)</li>
+</ol>
+<h1 id="Related-work-and-motivation"><a href="#Related-work-and-motivation" class="headerlink" title="Related  work and motivation"></a>Related  work and motivation</h1><h2 id="Related-work"><a href="#Related-work" class="headerlink" title="Related work"></a>Related work</h2><p>Mentioning a survey: <a target="_blank" rel="noopener" href="https://readpaper.com/paper/3214821766">Computing Graph Neural Networks: A Survey from Algorithms to Accelerators</a>.</p>
+<h2 id="Limitation"><a href="#Limitation" class="headerlink" title="Limitation"></a>Limitation</h2><p>The most significant is that <strong>advanced GNNs cannot be simplified as matrix multiplications(the method is SpMM and GEMM), and edge embeddings cannot be ignored.</strong></p>
+<h3 id="Edge-embedding"><a href="#Edge-embedding" class="headerlink" title="Edge embedding"></a>Edge embedding</h3><p>Edge embeddings are used to represent important edge attributes, such as chemical bonds in a molecule.</p>
+<p>this make the SpMM and GEMM not useful.</p>
+<p><img src="/./FlowGNN/image-20231022095259558.png" alt="image-20231022095259558"></p>
+<p>if not use edge embedding, message passing is $\phi (x_i^l)$, and it can be optimized by GEMM and SpMM.However, if use embedding, it will be $\phi (x_i^l,e_{i,j}^l)$, and the demension of node representation and edge representation is not same.</p>
+<p><img src="/./FlowGNN/image-20231022095645741.png" alt="image-20231022095645741"></p>
+<h3 id="Invalid-existing-optimizations"><a href="#Invalid-existing-optimizations" class="headerlink" title="Invalid existing optimizations"></a>Invalid existing optimizations</h3><p>SOTA I-GCN merge the same neighbor node as one node to optimize.</p>
+<p><img src="/./FlowGNN/image-20231022095925172.png" alt="image-20231022095925172"></p>
+<p>However, considering edge embedding, the $e_{ac},e_{bc}$ is not the same as $e_{bc},e_{bd}$</p>
+<p>we cannot converge the node a and b</p>
+<h3 id="Non-trivial-aggregation"><a href="#Non-trivial-aggregation" class="headerlink" title="Non-trivial aggregation"></a>Non-trivial aggregation</h3><p>the GEMM and SpMM use a certain pattern to optimize. However ,the compute coefficient is dynamic.</p>
+<h3 id="Anisotropic-GNNs"><a href="#Anisotropic-GNNs" class="headerlink" title="Anisotropic GNNs"></a>Anisotropic GNNs</h3><p>such as GAT, it has a attention coefficient which is calculated by $x_i^{l},x_j^l$. and it is dynamic, which prevents GAT from being expressed as matrix multiplications to optimize.</p>
+<h3 id="Pre-processing"><a href="#Pre-processing" class="headerlink" title="Pre-processing"></a>Pre-processing</h3><p>not applicable in RT application</p>
+<h2 id="Motivations-and-Innovations"><a href="#Motivations-and-Innovations" class="headerlink" title="Motivations and Innovations"></a>Motivations and Innovations</h2><p>Innovation:</p>
+<ul>
+<li>Explicit message passing for generality</li>
+<li>Multi-queue multi-level parallelism for performance</li>
+</ul>
+<h1 id="GENERIC-ARCHITECTURE"><a href="#GENERIC-ARCHITECTURE" class="headerlink" title="GENERIC ARCHITECTURE*"></a>GENERIC ARCHITECTURE*</h1><h2 id="Message-Passing-Mechanism"><a href="#Message-Passing-Mechanism" class="headerlink" title="Message Passing Mechanism"></a>Message Passing Mechanism</h2><p><img src="/./FlowGNN/image-20231022110739588.png" alt="image-20231022110739588"></p>
+<p><img src="/./FlowGNN/image-20231022110042383.png" alt="image-20231022110042383"><br>$$<br>\mathcal{MP scatter} \<br>m_{1\to 0}^{l-1}&#x3D;\phi (x_1^{l-1},e_{0,1}^{l-1}) \<br>\mathcal{MP gather} \<br>m_0^l&#x3D;\mathcal A(m_{1\to0}^{l-1}) \<br>m_1^l&#x3D;\mathcal A(m_{0\to1}^{l-1},m_{2\to1}^{l-1},m_{3\to1}^{l-1}) \<br>\mathcal{NT} \<br>x_1^l&#x3D;\gamma (m_1^l,x_1^{l-1})<br>$$</p>
+<p>3 phases:</p>
+<ol>
+<li><p><strong>message passing(gather)</strong>: </p>
+<p>from message buffer get $m$, and do aggregating $A(m_{2\to1}^l, m_{3\to1}^l, m_{4\to1}^l)$.</p>
+<p>the $\mathcal{A}(.)$ function could be <strong>sum, max, mean, std.dev</strong>.</p>
+</li>
+<li><p><strong>node transformation</strong>:</p>
+<p>$\gamma (x_1^l, m_1^l)$. </p>
+<p>$\gamma (.)$ could be <strong>full-connected layer, MLP</strong>…</p>
+</li>
+<li><p><strong>message passing(scatter)</strong>: </p>
+<p>$\phi (x_1^{l+1},e_{1,2}^{l+1})\to m_{1\to 2}^{l+1}$. Sent it to message buffer for the next layer Message passing(gather)</p>
+</li>
+</ol>
+<h2 id="Baseline-Dataflow-Architecture"><a href="#Baseline-Dataflow-Architecture" class="headerlink" title="Baseline Dataflow Architecture"></a>Baseline Dataflow Architecture</h2><p><img src="/./FlowGNN/image-20231022130835181.png" alt="image-20231022130835181"></p>
+<p>use ping-pang buffer(b &#x3D;&gt; d):</p>
+<img src="./FlowGNN/image-20231022192909514.png" alt="image-20231022192909514"  />
+
+
+
+<h2 id="Proposed-FlowGNN-Architecture"><a href="#Proposed-FlowGNN-Architecture" class="headerlink" title="Proposed FlowGNN Architecture"></a>Proposed FlowGNN Architecture</h2><p><img src="/./FlowGNN/image-20231022135221394.png" alt="image-20231022135221394"></p>
+<p><img src="/./FlowGNN/image-20231022144445441.png" alt="image-20231022144445441"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/10/22/FlowGNN/" data-id="clw6dgvjd0010i49fct1b81dx" data-title="FlowGNN" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gnn/" rel="tag">gnn</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-cs224w-ch7" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/18/cs224w-ch7/" class="article-date">
+  <time class="dt-published" datetime="2023-10-18T13:57:39.000Z" itemprop="datePublished">2023-10-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cs224w/">cs224w</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/10/18/cs224w-ch7/">cs224w_ch7</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="a-single-layer-og-GNN"><a href="#a-single-layer-og-GNN" class="headerlink" title="a single layer og GNN"></a>a single layer og GNN</h1><p>there are many different GNN: GCN, GraphSAGE, GAT…</p>
+<p>the difference between them mainly are:</p>
+<ul>
+<li>message send</li>
+<li>message aggregation</li>
+</ul>
+<p><img src="/./cs224w-ch7/image-20231018220120532.png" alt="image-20231018220120532"></p>
+<h2 id="message-send"><a href="#message-send" class="headerlink" title="message send"></a>message send</h2><p>$$<br>m_u^l&#x3D;\mathcal {MSG}^{(l)}(h_u^{l-1})<br>$$</p>
+<p>moostly the message function is linear:<br>$$<br>m_u^l&#x3D;W^{(l)}h_u^{(l-1)}<br>$$<br><img src="/./cs224w-ch7/image-20231018220634661.png" alt="image-20231018220634661"></p>
+<h2 id="message-aggregation"><a href="#message-aggregation" class="headerlink" title="message aggregation"></a>message aggregation</h2><p>the aggregate function could be: sum, average, or max polling…</p>
+<p>and its previous message also should be considered, so:</p>
+<p><img src="/./cs224w-ch7/image-20231018220734835.png" alt="image-20231018220734835"></p>
+<p><img src="/./cs224w-ch7/image-20231018220745103.png" alt="image-20231018220745103"></p>
+<h1 id="GCN"><a href="#GCN" class="headerlink" title="GCN"></a>GCN</h1><p>Lets look at GCN, single layer:</p>
+<p><img src="/./cs224w-ch7/image-20231018220913386.png" alt="image-20231018220913386"></p>
+<ul>
+<li>message send: <strong>one linear and a normalized factor $\frac{1}{N}$</strong></li>
+<li>message aggregate: <strong>use $SUM(.)$  as the aggregate function</strong></li>
+</ul>
+<h1 id="GraphSAGE"><a href="#GraphSAGE" class="headerlink" title="GraphSAGE"></a>GraphSAGE</h1><h2 id="Single-attention"><a href="#Single-attention" class="headerlink" title="Single attention"></a>Single attention</h2><p><img src="/./cs224w-ch7/image-20231018221152676.png" alt="image-20231018221152676"></p>
+<p>it can select $SUM(.),MAX(.)…$ as its AGG.</p>
+<p>and the linear is behand AGG with a concat. </p>
+<p>What’s more, the AGG also canbe:</p>
+<p><img src="/./cs224w-ch7/image-20231018221459065.png" alt="image-20231018221459065"></p>
+<h1 id="GAT"><a href="#GAT" class="headerlink" title="GAT"></a>GAT</h1><p><img src="/./cs224w-ch7/image-20231018221534957.png" alt="image-20231018221534957"></p>
+<p>Intuition: different neighbors set different <strong>attention coefficient</strong>.</p>
+<p>for GCN, it is $\frac{1}{N}$</p>
+<p>and for CAT, how to caculate attention?</p>
+<p>the importance of u towards v is:</p>
+<p> <img src="/./cs224w-ch7/image-20231018221924962.png" alt="image-20231018221924962"></p>
+<p>the weight is form a linear:</p>
+<p><img src="/./cs224w-ch7/image-20231018222042889.png" alt="image-20231018222042889"></p>
+<p>and for a node v, its attention is:</p>
+<p><img src="/./cs224w-ch7/image-20231018222004730.png" alt="image-20231018222004730"></p>
+<h2 id="Mult-attention"><a href="#Mult-attention" class="headerlink" title="Mult-attention"></a>Mult-attention</h2><p><img src="/./cs224w-ch7/image-20231018222156770.png" alt="image-20231018222156770"></p>
+<p>the reason is: avoid the attention coefficient to trap into local optimization </p>
+<h1 id="Deep-learning-module"><a href="#Deep-learning-module" class="headerlink" title="Deep learning module"></a>Deep learning module</h1><p><img src="/./cs224w-ch7/image-20231019080319778.png" alt="image-20231019080319778"></p>
+<h2 id="batch-normalization"><a href="#batch-normalization" class="headerlink" title="batch normalization"></a>batch normalization</h2><p>Goal: stablize the train stage</p>
+<p>Idea: </p>
+<ul>
+<li>Re-center the node mean to 0</li>
+<li>Re-scale the variance to 1</li>
+</ul>
+<p>Setup:</p>
+<ul>
+<li><p>Re-center and re-scale:</p>
+<p><img src="/./cs224w-ch7/image-20231019080836608.png" alt="image-20231019080836608"></p>
+</li>
+<li><p>use trainable parameter $\beta$ and $\gamma$ to normalize the label</p>
+<p><img src="/./cs224w-ch7/image-20231019081048015.png" alt="image-20231019081048015"></p>
+</li>
+</ul>
+<h2 id="Dropout"><a href="#Dropout" class="headerlink" title="Dropout"></a>Dropout</h2><p>Goal: prevent overfitting</p>
+<p>Idea: </p>
+<ul>
+<li>when training, randomly(the prob. p) set some neurons to 0</li>
+<li>when testing, using all neurons to computer.</li>
+</ul>
+<p>In mlp:</p>
+<p><img src="/./cs224w-ch7/image-20231019082644910.png" alt="image-20231019082644910"></p>
+<p>in GNN, it is in the stage of <strong>message send</strong>, in linear layer:</p>
+<p><img src="/./cs224w-ch7/image-20231019082752171.png" alt="image-20231019082752171"></p>
+<h2 id="Activation"><a href="#Activation" class="headerlink" title="Activation"></a>Activation</h2><p><img src="/./cs224w-ch7/image-20231019083002574.png" alt="image-20231019083002574"></p>
+<h1 id="Stack-Layers-of-a-GNN"><a href="#Stack-Layers-of-a-GNN" class="headerlink" title="Stack Layers of a GNN"></a>Stack Layers of a GNN</h1><p>how to stack single GNN layer?</p>
+<ul>
+<li>stack layers sequentially </li>
+<li>add skip connections</li>
+</ul>
+<h2 id="stack-layers-sequentially"><a href="#stack-layers-sequentially" class="headerlink" title="stack layers sequentially"></a>stack layers sequentially</h2><p>let’s see a 3 layers GNNs:</p>
+<p><img src="/./cs224w-ch7/image-20231021214229778.png" alt="image-20231021214229778"></p>
+<p>what’s the problem?</p>
+<p>It might <strong>over-smoothing</strong></p>
+<p>The notion is: <strong>in the i th layer(such as 4th, 5th…), all node embeddings converge to the same value.</strong> This means in the last layer, all nodes are same. And our object is to make distinguish deferent nodes.</p>
+<p>let’s talk about an another notion: <strong>Receptive Field</strong></p>
+<p>it means: <strong>the set of nodes that determine the enbedding of a node of interest.</strong></p>
+<p>and in GNN, the receptive field of one node can be seen as K-hop neighborhood.</p>
+<p><img src="/./cs224w-ch7/image-20231021215129650.png" alt="image-20231021215129650"></p>
+<p>and the over-smoothing problem can be represent as:</p>
+<p><img src="/./cs224w-ch7/image-20231021215316837.png" alt="image-20231021215316837"></p>
+<p>so, the lesson is: we should determine the layers number cautious.</p>
+<p>And the experience is: <strong>the GNNs layers number is often the receptive field of nodes plus one.</strong></p>
+<h2 id="enhance-the-expression-power"><a href="#enhance-the-expression-power" class="headerlink" title="enhance the expression power"></a>enhance the expression power</h2><p>the next problem is: how could <strong>enhance the expression power</strong> of GNN?</p>
+<ol>
+<li><p>add layers that not passing message</p>
+<p><img src="/./cs224w-ch7/image-20231021215956703.png" alt="image-20231021215956703"></p>
+</li>
+<li><p>Increasing the expressive power withen each layers</p>
+<p><img src="/./cs224w-ch7/image-20231021220204140.png" alt="image-20231021220204140"></p>
+</li>
+</ol>
+<h2 id="skip-connection"><a href="#skip-connection" class="headerlink" title="skip connection"></a>skip connection</h2><p>the problem is: what if some downstream task <strong>still needs many GNN layers</strong>?</p>
+<p>the intuition is from ResNet.</p>
+<p>we could add skip connections in GNNs.</p>
+<p>one way:</p>
+<p><img src="/./cs224w-ch7/image-20231021221203305.png" alt="image-20231021221203305"></p>
+<p>Another:</p>
+<p><img src="/./cs224w-ch7/image-20231021221218844.png" alt="image-20231021221218844"></p>
+<p>why does it useful?</p>
+<p>the skip connection model can create a mixture of n models.</p>
+<p><img src="/./cs224w-ch7/image-20231021221332742.png" alt="image-20231021221332742"></p>
+<p>the difference of GCN and the GCN with skip connection</p>
+<p><img src="/./cs224w-ch7/image-20231021221451314.png" alt="image-20231021221451314"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/10/18/cs224w-ch7/" data-id="clw6dgvjj003ki49fa6ax4tz0" data-title="cs224w_ch7" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-DAGAD" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/17/DAGAD/" class="article-date">
+  <time class="dt-published" datetime="2023-10-17T12:21:36.000Z" itemprop="datePublished">2023-10-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/10/17/DAGAD/">DAGAD</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>小组基本信息：</p>
+<ul>
+<li>小组方向：AI算法在入侵检测、恶意软件识别、恶意流量识别方面的应用</li>
+<li>论文题目：DAGAD: Data Augmentation for Graph Anomaly Detection</li>
+</ul>
+<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><ol>
+<li>检测异常结点，属于结点型任务</li>
+<li>目前存在的两个问题：<ul>
+<li>异常结点很难被捕获，其异常行为很微小，并且往往没有关于异常结点的先验知识</li>
+<li>现实世界中大部分的结点都是正常的，就像银行贷款一样，往往1w人里面只有几个人是不还贷款的“异常结点”。存在严重的类别不平衡问题。</li>
+</ul>
+</li>
+<li>本文的模型：<ul>
+<li>GNN将非欧数据压缩为d维向量（表征学习）</li>
+<li>图增强模块，通过对生成的d维向量增加扰动，来进行数据增强，使用增强之后的生成数据作为训练集。</li>
+<li>一个用来对类别不平衡数据进行分类的模型</li>
+</ul>
+</li>
+<li>在DAGAD的架构下（分别是基于DAGAD的GCN和GAT），测试了三个数据集。</li>
+</ol>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>根据下游任务，也可以将图异常检测划分为：node-level, link-level, graph-level。下面以经融交易举例子：</p>
+<ul>
+<li>异常结点：诈骗犯</li>
+<li>异常边：异常交易</li>
+<li>异常子图：诈骗窝</li>
+</ul>
+<p>该文章针对异常结点的检测。</p>
+<p>现在的图异常检测都是通过图的拓扑结构以及特征信息来进行的。不足之处在于：</p>
+<ul>
+<li>异常样本太少了：例如在交易场景，90%的人在受到诈骗之后不会像平台反馈，这就<strong>导致了异常结点、异常边被标记为正常</strong>！</li>
+<li>类别不平衡</li>
+</ul>
+<p>另外，以前的方法在处理有限的异常结点时，没有充分利用异常结点，这也影响了最后模型区分异常结点和正常结点的能力。</p>
+<h1 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h1><h2 id="图神经网络"><a href="#图神经网络" class="headerlink" title="图神经网络"></a>图神经网络</h2><p>本文中作者使用GCN或GAT来将结点特征压缩为d维向量。</p>
+<p><img src="/./DAGAD/image-20231108220041190.png" alt="image-20231108220041190"></p>
+<p><img src="/./DAGAD/image-20231108220205538.png" alt="image-20231108220205538"></p>
+<h2 id="数据增强"><a href="#数据增强" class="headerlink" title="数据增强"></a>数据增强</h2><ol>
+<li><strong>表征增强</strong></li>
+</ol>
+<p>如果直接使用GNN后得到的表征，来进行异常检测，那么最终得到的是一个次优的模型。因为类别严重不平衡这个问题没有得到处理。</p>
+<p>本文中使用的增强方法和cs224w中讲到的对图结构增强或者是结点特征增强不同，本文的表征增强方法是：通过GNN生成的表征，来生成新的表征，来增加最终的预测模型捕捉异常样本的能力。</p>
+<p>PS，回顾cs224w中的图增强</p>
+<ul>
+<li>结点特征增强：给予结点相同的初始向量、给定结点唯一ID、使用图元、PageRank、聚类系数……</li>
+<li>图结构增强：增加一个虚拟结点让其和所有其余结点相连、使用$\mathcal A+\mathcal A^2$来代替邻接矩阵作为计算图……</li>
+</ul>
+<p><img src="/./DAGAD/image-20231108230031175.png" alt="image-20231108230031175"></p>
+<ol start="2">
+<li><strong>互补学习</strong></li>
+</ol>
+<p>在最终的预测部分时，有两个分类器，其中分类器A对普通的concat的数据进行训练；而分类器B则既对普通concat的数据训练，也对打乱后并且concat的数据进行训练。</p>
+<p>其intuition有点类似于ResNET：</p>
+<p><img src="/./DAGAD/image-20231108231330236.png" alt="image-20231108231330236"></p>
+<p><img src="/./DAGAD/image-20231108231421016.png" alt="image-20231108231421016"></p>
+<ol start="3">
+<li><strong>总结构以及算法</strong></li>
+</ol>
+<p><img src="/./DAGAD/image-20231108231516480.png" alt="image-20231108231516480"></p>
+<p><img src="/./DAGAD/image-20231108231608172.png" alt="image-20231108231608172"></p>
+<h2 id="类别不平衡问题"><a href="#类别不平衡问题" class="headerlink" title="类别不平衡问题"></a>类别不平衡问题</h2><p>其实就是在loss前面加一个因子，可以理解为惩罚，多类惩罚大，少类惩罚小。例如：</p>
+<p><img src="/./DAGAD/image-20231108232102552.png" alt="image-20231108232102552"></p>
+<h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><p>配置好环境后，直接运行代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore main.py</span><br></pre></td></tr></table></figure>
+
+<p>后面的参数表示的是忽略警告信息。</p>
+<p>运行结果如下：</p>
+<p><img src="/./DAGAD/image-20231130194645150.png" alt="image-20231130194645150"></p>
+<p>论文中的实验结果如下：</p>
+<p><img src="/./DAGAD/image-20231130194713432.png" alt="image-20231130194713432"></p>
+<p>可以看到实验结果基本吻合。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/10/17/DAGAD/" data-id="clw6dgvja000bi49f8pbt7o6y" data-title="DAGAD" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/anomaly/" rel="tag">anomaly&#39;</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-cs224w-ch6" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/16/cs224w-ch6/" class="article-date">
+  <time class="dt-published" datetime="2023-10-16T11:36:50.000Z" itemprop="datePublished">2023-10-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cs224w/">cs224w</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/10/16/cs224w-ch6/">cs224w_ch6</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>in node embedding, we use <strong>encoder</strong> to map original network node to embedding space, the encoder is:<br>$$<br>z_v&#x3D;Z.v<br>$$<br>the matrix is what we need to learn.</p>
+<p>now, we use deep learning-based method as our encoder, which is composed of multiple layers of non-linear transformations.</p>
+<p><img src="/./cs224w-ch6/image-20231016195600647.png" alt="image-20231016195600647"></p>
+<p>What makes graph representation learning so difficult?</p>
+<p><img src="/./cs224w-ch6/image-20231016195941481.png" alt="image-20231016195941481"></p>
+<ul>
+<li>no fixed graph</li>
+<li>Dynamic and no fixed fratures</li>
+</ul>
+<h1 id="Basics-of-DL"><a href="#Basics-of-DL" class="headerlink" title="Basics of DL"></a>Basics of DL</h1><p>we usually view the task as an Optimization problem, which means we need to min. the objective function(loss function).</p>
+<p>for predict task, use L2 loss:<br>$$<br>L(y,f(x))&#x3D;||y-f(x)||_2<br>$$<br>or L1 loss.</p>
+<p>for classify problem, we use cross entropy(CE)<br>$$<br>CE(y,f(x))&#x3D;-\sum_{i&#x3D;1}^C(y_i\log f(x)_i)<br>$$</p>
+<p>$$<br>f(x)&#x3D;softmax(g(x))<br>$$</p>
+<p>g is the model.</p>
+<h1 id="Deep-Learning-for-graph"><a href="#Deep-Learning-for-graph" class="headerlink" title="Deep Learning for graph"></a>Deep Learning for graph</h1><p>what if we directly feed the graph adj. matrix and feature set?</p>
+<p><img src="/./cs224w-ch6/image-20231016201516077.png" alt="image-20231016201516077"></p>
+<p>Problem:</p>
+<ul>
+<li>Parameter $O(|V|)$, certainly speaking is $O(|V|+num_{frature})$</li>
+<li>the graph size is fixed</li>
+<li>sensitive to node ordering</li>
+</ul>
+<p>what about convolutions?</p>
+<p><img src="/./cs224w-ch6/image-20231016201921224.png" alt="image-20231016201921224"></p>
+<p>problem:</p>
+<ul>
+<li>no stride or slide</li>
+<li>permutation invariance（改变排序不变性）</li>
+</ul>
+<p><img src="/./cs224w-ch6/image-20231016202616104.png" alt="image-20231016202616104"></p>
+<p>graph and node representation should be the same for plan1 and plan2.</p>
+<p>we need a permutation invarient function!</p>
+<p>and maps, cons cannot solve this.</p>
+<h1 id="Graph-Convolutional-Networks"><a href="#Graph-Convolutional-Networks" class="headerlink" title="Graph Convolutional Networks"></a>Graph Convolutional Networks</h1><p>main problems are:</p>
+<ol>
+<li><p>too many parameter</p>
+</li>
+<li><p>order invariance</p>
+</li>
+</ol>
+<p>first we solve proble 1!</p>
+<p>Lets consider mlp $\to$ CNN</p>
+<p>we use the kernel to share parameter and aggregate information(spacial)</p>
+<p>can we apply it to GNN?</p>
+<p><strong>idea: for node v, use it as an kernel to aggregate information from $N(v)$, thus, node’s neiborhood defins the computation graph</strong></p>
+<p><img src="/./cs224w-ch6/image-20231017102318921.png" alt="image-20231017102318921"></p>
+<p><img src="/./cs224w-ch6/image-20231017102403312.png" alt="image-20231017102403312"></p>
+<p>now we solve the prob.1, how to keep order invariance?</p>
+<p><img src="/./cs224w-ch6/image-20231017104641358.png" alt="image-20231017104641358"></p>
+<p>the approach is: <strong>Average information from neighbors and apply a neural network</strong>  </p>
+<p>now we can get the formulation of GNN(GCN):</p>
+<p><img src="/./cs224w-ch6/image-20231017103110872.png" alt="image-20231017103110872"></p>
+<p>and the matrix formulation:</p>
+<p><img src="/./cs224w-ch6/image-20231017103158325.png" alt="image-20231017103158325"></p>
+<p><img src="/./cs224w-ch6/image-20231017103350574.png" alt="image-20231017103350574"></p>
+<h1 id="Train-GNN"><a href="#Train-GNN" class="headerlink" title="Train GNN"></a>Train GNN</h1><h2 id="Supervised-learning"><a href="#Supervised-learning" class="headerlink" title="Supervised learning"></a>Supervised learning</h2><p>$$<br>\min _{\theta}\mathcal{L}(y,f(z_v))<br>$$</p>
+<p>e.g., drug classification(toxic or not)</p>
+<p><img src="/./cs224w-ch6/image-20231017104129035.png" alt="image-20231017104129035"></p>
+<p>the $f(x_v)$ is $\sigma (z_v^T\theta)$</p>
+<h2 id="Unsupervised-learning"><a href="#Unsupervised-learning" class="headerlink" title="Unsupervised learning"></a>Unsupervised learning</h2><p>$$<br>\mathcal{L}&#x3D;\sum_{z_u,z_v}CE(y_{u,v},DEC(z_u,z_v))<br>$$</p>
+<p>if node u and v are similar, then $y_{u,v}&#x3D;1$</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/10/16/cs224w-ch6/" data-id="clw6dgvjj003fi49f8unjghp2" data-title="cs224w_ch6" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-cs224w-ch4" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/16/cs224w-ch4/" class="article-date">
+  <time class="dt-published" datetime="2023-10-16T01:00:19.000Z" itemprop="datePublished">2023-10-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cs224w/">cs224w</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/10/16/cs224w-ch4/">cs224w_ch4</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="PageRank"><a href="#PageRank" class="headerlink" title="PageRank"></a>PageRank</h1><p>how to represent page as graph:</p>
+<ul>
+<li>Node: web pages</li>
+<li>Edge: hyperlinks</li>
+</ul>
+<p>Not only page network, here are citation natwork and reference network:</p>
+<p><img src="/./cs224w-ch4/image-20231016105115978.png" alt="image-20231016105115978"></p>
+<p>The problem is <strong>how could we measure the important of a web page so that we can rank them.</strong></p>
+<p>the idea is: <strong>links and votes</strong></p>
+<h2 id="links-and-votes"><a href="#links-and-votes" class="headerlink" title="links and votes"></a>links and votes</h2><p>the intuition is that <strong>Page is more important if it has more links</strong></p>
+<p>consider 2 web page:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://www.stanford.edu/">www.stanford.edu</a> has 23,400 in-links</li>
+<li><a href="">thispersondoesnotexist.com</a> has 1 in-link</li>
+</ul>
+<p>why we don’t consider out-link?</p>
+<p>Because  in your website, you can set a lot of out-links, and it is easy to implement. So the inportance only take in-link into consideration. </p>
+<p>so, what is vote?</p>
+<p><img src="/./cs224w-ch4/image-20231016110419927.png" alt="image-20231016110419927"></p>
+<p>we use in-links to caculate the importance of node j, j have 2 in-links, so it’s importance is above.</p>
+<p>And consider other nodes, such as node i, has 3 out-links, so its importance to others is divided to $\frac{r_i}{3}$</p>
+<p>for a 3 node graph:</p>
+<p><img src="/./cs224w-ch4/image-20231016110800556.png" alt="image-20231016110800556"></p>
+<p>we can get the equation for each node:<br><img src="/./cs224w-ch4/image-20231016110819595.png" alt="image-20231016110819595"></p>
+<h2 id="Matrix-Formulation"><a href="#Matrix-Formulation" class="headerlink" title="Matrix Formulation"></a>Matrix Formulation</h2><p>Let us start at some notion.</p>
+<ol>
+<li><p>Stochastic adjacency matrix $M$ </p>
+<p>Here are the rules:</p>
+<ul>
+<li>$d_i$ is the out degree of node $i$</li>
+<li>if $i\to j$, then $M_{ji}&#x3D;\frac{1}{d_i}$, which means the importance of $i$ is divided and given to $j$</li>
+</ul>
+</li>
+<li><p>Rank vector $r$ </p>
+<p>$r_i$ is the importance of page $i$, and $\sum_ir_i&#x3D;1$.</p>
+</li>
+</ol>
+<p>and the flow equation can be written as:<br>$$<br>r&#x3D;M.r<br>$$<br><img src="/./cs224w-ch4/image-20231016111626006.png" alt="image-20231016111626006"></p>
+<h2 id="Connection-to-Random-walk"><a href="#Connection-to-Random-walk" class="headerlink" title="Connection to Random walk"></a>Connection to Random walk</h2><p>we have considered the importance of node. now lets start at one page i, and which page should we select next?</p>
+<ol>
+<li>at timepoint t, the surfer is at page i</li>
+<li>at timepoint t+1, surfer choose an put-link from i randomly.</li>
+<li>the surfer at page j</li>
+<li>repeat</li>
+</ol>
+<p> <img src="/./cs224w-ch4/image-20231016131736772.png" alt="image-20231016131736772"></p>
+<p>so, here are some notions:</p>
+<ul>
+<li>$p(t)$: the coordinate of the probability of node i at the time t. it includes the next pages probability.</li>
+<li>$p(t)$ is a probability distribution over pages</li>
+</ul>
+<p>this process can be performed as this fomula:<br>$$<br>p(t+1)&#x3D;M.p(t)&#x3D;p(t)<br>$$</p>
+<p>$$<br>r&#x3D;M.r<br>$$</p>
+<p>$r$ is the stationary distribution for random walk</p>
+<p>in ch2, the centrality:<br>$$<br>\lambda c&#x3D;Ac<br>$$<br>c is eigenvector, $\lambda$ is eigenvalue</p>
+<p>so eigenvector is r, eigenvector is 1<br>$$<br>1.r&#x3D;M.r<br>$$</p>
+<h1 id="Solve-PageRank"><a href="#Solve-PageRank" class="headerlink" title="Solve PageRank"></a>Solve PageRank</h1><h2 id="notion-and-procedure"><a href="#notion-and-procedure" class="headerlink" title="notion and procedure"></a>notion and procedure</h2><p>we have the equation with eigenvalue 1 and eigenvector $r$, and its equal form is:</p>
+<p><img src="/./cs224w-ch4/image-20231016144335069.png" alt="image-20231016144335069"></p>
+<p>now we use iterative procedure to solve it:</p>
+<p><img src="/./cs224w-ch4/image-20231016144426163.png" alt="image-20231016144426163"></p>
+<p>the whole procedure is as follow:</p>
+<p><img src="/./cs224w-ch4/image-20231016144523411.png" alt="image-20231016144523411"></p>
+<p>Here are some example:</p>
+<p><img src="/./cs224w-ch4/image-20231016144806032.png" alt="image-20231016144806032"></p>
+<h2 id="problem"><a href="#problem" class="headerlink" title="problem"></a>problem</h2><p>this procedure has 2 problem:</p>
+<ol>
+<li><p>dead ends</p>
+<p>which means the page have no out-links</p>
+<p>it will lead to important ‘fall cliff’</p>
+</li>
+<li><p>Spider traps</p>
+<p>absorbe all importance</p>
+</li>
+</ol>
+<h3 id="spider-trap"><a href="#spider-trap" class="headerlink" title="spider trap"></a>spider trap</h3><p><img src="/./cs224w-ch4/image-20231016145129148.png" alt="image-20231016145129148"></p>
+<p>Here is solution.</p>
+<p>at each step:</p>
+<ul>
+<li>with the prob. $\beta$, use random link</li>
+<li>with the prob. $1-\beta$, jump to a teleport</li>
+<li>Usually us $\beta&#x3D;0.8\to0.9$</li>
+</ul>
+<p><img src="/./cs224w-ch4/image-20231016145825068.png" alt="image-20231016145825068"></p>
+<p>so, use teleport, the surfer will stay at node m, after few step, surfer will jump to the teleport, which could be any node in the graph</p>
+<h3 id="dead-end"><a href="#dead-end" class="headerlink" title="dead end"></a>dead end</h3><p><img src="/./cs224w-ch4/image-20231016145215400.png" alt="image-20231016145215400"></p>
+<p>the solution is same with spider trap, just use teleport</p>
+<p><img src="/./cs224w-ch4/image-20231016150936154.png" alt="image-20231016150936154"></p>
+<p>see node m, it has no out-links, we use teleport, and each prob. is $\frac{1}{N}$ N is all graph node, include m itself</p>
+<h3 id="Google’s-solution"><a href="#Google’s-solution" class="headerlink" title="Google’s solution"></a>Google’s solution</h3><p><img src="/./cs224w-ch4/image-20231016151116458.png" alt="image-20231016151116458"></p>
+<h3 id="e-g"><a href="#e-g" class="headerlink" title="e.g."></a>e.g.</h3><p><img src="/./cs224w-ch4/image-20231016151135339.png" alt="image-20231016151135339"></p>
+<p>because of teleport, the gree nodes, which have no in degree, also have their importance. and we can adjust $\beta$  to change its value, according to the reality. if it is important than we set, then we set $\beta$ lower.</p>
+<h1 id="personalized-and-restart-pagerank"><a href="#personalized-and-restart-pagerank" class="headerlink" title="personalized and restart pagerank"></a>personalized and restart pagerank</h1><p>let’s see the difference:</p>
+<ol>
+<li><p>pagerank</p>
+<p>jump to any node</p>
+</li>
+<li><p>Personalized pagerank</p>
+<p>Jump to a set of teleport nodes $S$</p>
+</li>
+<li><p>random walks with restart</p>
+<p>teleport to the starting node : $S&#x3D;{Q}$</p>
+</li>
+</ol>
+<p>the form in simulation:</p>
+<p><img src="/./cs224w-ch4/image-20231016155859558.png" alt="image-20231016155859558"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/10/16/cs224w-ch4/" data-id="clw6dgvji0037i49fakby0o55" data-title="cs224w_ch4" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-cs224w-ch2-lab" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/13/cs224w-ch2-lab/" class="article-date">
+  <time class="dt-published" datetime="2023-10-13T13:04:56.000Z" itemprop="datePublished">2023-10-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cs224w/">cs224w</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/10/13/cs224w-ch2-lab/">cs224w_ch2_lab</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>用NetworkX来创建、计算图</p>
+<p>默认创建的是undirected graph，当然也可以使用direct graph的class：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> networkx <span class="keyword">as</span> nx</span><br><span class="line"><span class="comment"># Create an undirected graph G</span></span><br><span class="line">G = nx.Graph()</span><br><span class="line"><span class="built_in">print</span>(G.is_directed()) <span class="comment">#false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a directed graph H</span></span><br><span class="line">H = nx.DiGraph()</span><br><span class="line"><span class="built_in">print</span>(H.is_directed())</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add graph level attribute</span></span><br><span class="line">G.graph[<span class="string">&quot;Name&quot;</span>] = <span class="string">&quot;Bar&quot;</span></span><br><span class="line"><span class="built_in">print</span>(G.graph)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/10/13/cs224w-ch2-lab/" data-id="clw6dgvji002wi49f43i4ew16" data-title="cs224w_ch2_lab" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lab/" rel="tag">lab</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-high-performance-computer-network-lecture1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/13/high-performance-computer-network-lecture1/" class="article-date">
+  <time class="dt-published" datetime="2023-10-13T06:17:33.000Z" itemprop="datePublished">2023-10-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">高性能计算机网络</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/10/13/high-performance-computer-network-lecture1/">high_performance_computer_network_lecture1</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>课程要求：</p>
+<ul>
+<li><p>27学时线上+27课时线下</p>
+</li>
+<li><p>考试占比50%，线上考试</p>
+</li>
+<li><p>线上刷视频、做练习、讨论区（权重最高，占平时成绩50%的60%）提问+回答问题</p>
+</li>
+</ul>
+<h3 id="因特网结构"><a href="#因特网结构" class="headerlink" title="因特网结构"></a>因特网结构</h3><p>IP-based framework</p>
+<p>从IP网拓展到了物联网，其原因是智能终端的增多。</p>
+<p>校园网的连接：<br>$$<br>武理\stackrel{光纤}{\longrightarrow}华科\stackrel{光纤}{\longrightarrow}清华\stackrel{光纤}{\longrightarrow}外网<br>$$<br>所以理论上访问武汉市的外网的速度慢于访问清华的内网，只不过现在由于速度的提升，这点时延差在人类的感知上可以忽略。</p>
+<p>4G、5G指的不是以太网、蓝牙、星闪，指的是基站，无线蜂窝通信。</p>
+<p>huawei mate60的天线是中国移动做的。</p>
+<p><img src="/./high-performance-computer-network-lecture1/image-20231013160341062.png" alt="image-20231013160341062"></p>
+<p>图中有四个自治系统（AS），其中最上层的是根服务器，称为transit，第二层的称为Stub。</p>
+<p>一般而言，一个AS要想访问其他AS，必须通过连接并途径transit。但是更好的做法是直接在两个AS之间建立一条链路。</p>
+<p>像移动、电信等ISP，都属于AS，个人用户可以选择光纤、拨号等形式进行介入，而cellphone则是通过无线蜂窝接入的。</p>
+<h3 id="调频与扩频"><a href="#调频与扩频" class="headerlink" title="调频与扩频"></a>调频与扩频</h3><p>网络发展阶段：</p>
+<ol>
+<li>IP网：第一阶段</li>
+</ol>
+<ul>
+<li>FTP</li>
+<li>HTTP</li>
+<li>SMTP</li>
+<li>P2P</li>
+</ul>
+<ol start="2">
+<li><p>基于云：物联网出现后，存储容量、处理器速度大幅提升。</p>
+</li>
+<li><p>基于AI：对万物建模，万物互联（物联网）时延低，AI的三个特点：</p>
+</li>
+</ol>
+<ul>
+<li>大模型：参数基本是GB起步，甚至TB，因此将模型参数存在云上更为现实，这就要求我们的基础网络具备大带宽、低时延的特点</li>
+<li>大算力：数据中心级别的算力，进行并行计算，同样需要低时延的特性</li>
+<li>大数据：需要大带宽的特性</li>
+</ul>
+<p>这几个阶段是逐渐拓展的，云包含IP网，基于AI的包含基于云的。</p>
+<h4 id="数字基带传输"><a href="#数字基带传输" class="headerlink" title="数字基带传输"></a>数字基带传输</h4><p>电磁波的分类：</p>
+<ul>
+<li>长波：波长100</li>
+<li>中波：波长几米到几十</li>
+<li>短波：分米级别</li>
+<li>微波：毫米级</li>
+<li>Tera Hz</li>
+<li>红外线：缺点，绕不过障碍物</li>
+<li>可见光</li>
+</ul>
+<p>波长跟频率：$\lambda &#x3D;\frac{c}{f}$</p>
+<p>香农定理：<br>$$<br>信道极限传输速率&#x3D;带宽B\log (1+信噪比\frac{S}{N})<br>$$<br>波长越短，越难以饶过障碍物</p>
+<p>很乱。。。。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/10/13/high-performance-computer-network-lecture1/" data-id="clw6dgvjm004fi49fa7r6c1sk" data-title="high_performance_computer_network_lecture1" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-cs224w-ch3" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/13/cs224w-ch3/" class="article-date">
+  <time class="dt-published" datetime="2023-10-13T02:44:37.000Z" itemprop="datePublished">2023-10-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cs224w/">cs224w</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/10/13/cs224w-ch3/">cs224w_ch3</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>ch2讲的就是我们如何设计特征，来尽量准确的表示这个网络，然后再交给机器学习算法如SVM，最后得到我们的预测：</p>
+<p><img src="/./cs224w-ch3/image-20231013104858822.png" alt="image-20231013104858822"></p>
+<p>事实上我们可能会花大部分的时间去做特征工程。</p>
+<p>这一节考虑的是，能否不用特征工程。</p>
+<p>图表征学习：自动获取网络的特征。</p>
+<h2 id="node-embedding"><a href="#node-embedding" class="headerlink" title="node embedding"></a>node embedding</h2><p>结点嵌入两个很重要的特征；</p>
+<ul>
+<li>无监督：训练不需要利用结点的label，也不需要feature</li>
+<li>task independent：嵌入就是一个提取网络特征的过程，可以将提取出的特征用于任何适合的机器学习算法，也就是与下游任务无关。</li>
+</ul>
+<p><img src="/./cs224w-ch3/image-20231013105154723.png" alt="image-20231013105154723"></p>
+<p>图嵌入是干这样的一件事：将node u自然而然的映射（map）到一个d维的向量中去。这个过程被称为node embedding</p>
+<p>嵌入的原理是这样的：如果两个node的d维向量有相似性，那么这两个node本身也很可能有相似性。  </p>
+<p>完成了结点嵌入之后，我们就可以用这个d维的向量来做downstream task了</p>
+<p><img src="/./cs224w-ch3/image-20231013105532825.png" alt="image-20231013105532825"></p>
+<h3 id="DeepWalking"><a href="#DeepWalking" class="headerlink" title="DeepWalking"></a>DeepWalking</h3><p><img src="/./cs224w-ch3/image-20231013110146538.png" alt="image-20231013110146538"></p>
+<p>这是一个小型的网络，将图嵌入到了一个2d空间，可以看到相同颜色的结点在图上和被嵌入的空间中都是离得比较近的。</p>
+<h3 id="Embedding"><a href="#Embedding" class="headerlink" title="Embedding"></a>Embedding</h3><p>更抽象的描述是这样：</p>
+<img src="./cs224w-ch3/image-20231013123405368.png" alt="image-20231013123405368" style="zoom:25%;" />
+
+<p>至于用dot product（点积）的原因是，其代表的是这两个向量之间的余弦，例如如果两个向量是垂直的话，dot product就为0了。</p>
+<p>嵌入的步骤：</p>
+<ol>
+<li><p>使用Encoder将node映射到嵌入空间</p>
+<p>$ENC(v)&#x3D;z_v$</p>
+<p>这个嵌入空间通常是64d到1000d的</p>
+</li>
+<li><p>定义一个结点相似函数，用来测量图中被嵌入到node pairs之间的相似度</p>
+</li>
+<li><p>使用Decoder将嵌入结点映射为相似度</p>
+</li>
+<li><p>优化Encoder的参数，使得结点相似度和嵌入结点相似度近似相等。</p>
+</li>
+</ol>
+<p>$$<br>similarity(u,v)\approx z_v^Tz_u<br>$$</p>
+<p>这里我们选择的解码器是非常简单的，仅仅是两个向量的dot product</p>
+<h3 id="shallow-encoder"><a href="#shallow-encoder" class="headerlink" title="shallow encoder"></a>shallow encoder</h3><p>最简单的编码方式：<br>$$<br>ENC(v)&#x3D;z_v&#x3D;Z.v<br>$$</p>
+<ul>
+<li>Z：要学习的矩阵，行代表的是低维向量，列代表的是结点。</li>
+<li>v：v是一个列向量，其中大部分元素是0，除了要得到的结点v的那一个地方为1。</li>
+</ul>
+<p>如$v&#x3D;[0,0,1,0,0,0]$ </p>
+<p>对于这种编码器，我们需要学习的就是Z：</p>
+<p><img src="/./cs224w-ch3/image-20231013195103736.png" alt="image-20231013195103736"></p>
+<p>这个方法的缺点：当图比较大时，假设嵌入维度为1000，结点数为100w，那么就有10亿参数。而造成这个matrix如此大的原因是：我们计算了每个node的嵌入向量，当需要某个node的嵌入向量时，可以直接从这个超级大矩阵里面去做一次查找(look-up)。</p>
+<p>那么最后，我们来考虑怎么来定义node similarity？可以采用random walks</p>
+<h2 id="Random-walks"><a href="#Random-walks" class="headerlink" title="Random walks"></a>Random walks</h2><h3 id="DeepWalk"><a href="#DeepWalk" class="headerlink" title="DeepWalk"></a>DeepWalk</h3><h4 id="notion"><a href="#notion" class="headerlink" title="notion"></a>notion</h4><p>回顾一下 两个非线性函数：</p>
+<ol>
+<li>softmax</li>
+</ol>
+<p>这里给到softmax的解释：a soft version of a maximum function，最大值函数的软版本。</p>
+<ol start="2">
+<li>sigmoid</li>
+</ol>
+<p>sigmoid可以任何实数压缩到0～1之间。</p>
+<p>另外还有两个概念：</p>
+<ul>
+<li>$z_u$：结点u的嵌入</li>
+<li>$P(v|z_u)$：从u开始，使用随机游走访问v的概率</li>
+</ul>
+<p>那么什么是随机游走呢：从一个结点u开始，随机的选取它的一个邻居v，作为next step，依此类推。</p>
+<p>这里给了下面这个定义，不是很理解：</p>
+<p><img src="/./cs224w-ch3/image-20231015203440876.png" alt="image-20231015203440876"></p>
+<h4 id="detail"><a href="#detail" class="headerlink" title="detail"></a>detail</h4><p>基于随机游走的嵌入可以用两步表示：</p>
+<ol>
+<li><p>使用一个策略R，来估计访问结点v的概率</p>
+<p><img src="/./cs224w-ch3/image-20231015203738556.png" alt="image-20231015203738556"></p>
+</li>
+<li><p>优化嵌入，通过编码这一步随机游走</p>
+<p><img src="/./cs224w-ch3/image-20231015203753465.png" alt="image-20231015203753465"></p>
+</li>
+</ol>
+<p>然后为什么选随机游走（优点）：</p>
+<ul>
+<li>如果从u开始，走了v，那么可以认为u和v是类似的</li>
+<li>不需要考虑整个图全局信息，只需要考虑path中同时出现的random walk</li>
+</ul>
+<p>随机游走步骤：</p>
+<ol>
+<li><p>从每一个u开始，走固定的长度，通过使用随机策略R</p>
+</li>
+<li><p>对于每一个u，收集其$N_R(u)$</p>
+</li>
+<li><p>通过对数似然函数进行优化：</p>
+<p><img src="/./cs224w-ch3/image-20231015210342311.png" alt="image-20231015210342311"></p>
+<p>同样也可以讲其表示称下面这种形式：</p>
+<p><img src="/./cs224w-ch3/image-20231015210423990.png" alt="image-20231015210423990"></p>
+<p>其中可以将对数里面的参数写成下面的softmax形式，那么这个结果其实就是u之后v的概率</p>
+<p><img src="/./cs224w-ch3/image-20231015210646749.png" alt="image-20231015210646749"></p>
+<p>所以最终的损失函数如下：</p>
+<p><img src="/./cs224w-ch3/image-20231015210720744.png" alt="image-20231015210720744"></p>
+</li>
+</ol>
+<p>但是有个问题，这里有两层嵌套，意味着时间复杂度是$O(|V|^2)$，复杂度太高了！</p>
+<h4 id="negative-sample"><a href="#negative-sample" class="headerlink" title="negative sample"></a>negative sample</h4><p>选择使用负采样来近似softmax的分母：</p>
+<p><img src="/./cs224w-ch3/image-20231015211112148.png" alt="image-20231015211112148"></p>
+<p>k是一般取5～20</p>
+<p>最开始是DeepWalk提出了random walks（走固定长度，使用随机策略）。这样的similarity表现还不错，从最终结果来看，嵌入空间和图空间中，nearby的点是对应的。</p>
+<p><img src="/./cs224w-ch3/image-20231013110146538.png" alt="image-20231013110146538"></p>
+<p>但是这样定义的similarity太受限制了，于是很多人尝试优化。</p>
+<h3 id="node2vec"><a href="#node2vec" class="headerlink" title="node2vec"></a>node2vec</h3><p>idea：使用灵活的、有偏好的随机游走，例如当进行下一步时，可以选择更广或者更深，也就是DFS和BFS的思想</p>
+<p><img src="/./cs224w-ch3/image-20231015213201541.png" alt="image-20231015213201541"></p>
+<p>这里面有两个参数：</p>
+<ul>
+<li>p：可以看到之前的结点</li>
+<li>q：选择使用DFS（outwards）还是BFS（inwards）</li>
+</ul>
+<p>下面这例子完美表示了两个参数的用途：</p>
+<p><img src="/./cs224w-ch3/image-20231015213554066.png" alt="image-20231015213554066"></p>
+<p>w从s1来的，那么下一步，若是选择inwards，可以去s2（和s1距离相同），若是选outwards，可以走s3，还可以回到s1。</p>
+<p>我们将其量化：</p>
+<p><img src="/./cs224w-ch3/image-20231015213929100.png" alt="image-20231015213929100"></p>
+<p>我们可以调整p、q来得到不同的策略R。</p>
+<h3 id="other-random-walk"><a href="#other-random-walk" class="headerlink" title="other random walk"></a>other random walk</h3><p>这是一些其他的关于随机游走的优化。</p>
+<p><img src="/./cs224w-ch3/image-20231015200000371.png" alt="image-20231015200000371"></p>
+<h2 id="Embedding-entire-graph"><a href="#Embedding-entire-graph" class="headerlink" title="Embedding entire graph"></a>Embedding entire graph</h2><p>Goal: to embed the entire graph or sub-graph!</p>
+<ul>
+<li><p>entire graph</p>
+<p><img src="/./cs224w-ch3/image-20231015221015877.png" alt="image-20231015221015877"></p>
+</li>
+<li><p>Sub-graph</p>
+<p><img src="/./cs224w-ch3/image-20231015221050844.png" alt="image-20231015221050844"></p>
+</li>
+</ul>
+<p>the application(task):</p>
+<ul>
+<li>Classifying toxic vs. non-toxic molecules</li>
+<li>Identifying anomalous graphs</li>
+</ul>
+<h3 id="Approach-1"><a href="#Approach-1" class="headerlink" title="Approach 1"></a>Approach 1</h3><p>it is simple and effective, which is:</p>
+<ol>
+<li><p>use node2vec or deepwalks to caculate the embed node u of $z_u$</p>
+</li>
+<li><p>then sum or average<br>$$<br>z_G&#x3D;\sum_{v\epsilon G}z_v<br>$$</p>
+</li>
+</ol>
+<h3 id="Approach-2"><a href="#Approach-2" class="headerlink" title="Approach 2"></a>Approach 2</h3><p>use a virtual node to represent the graph, and by using node2vec or deepwaks to embedding the virtual node to embedding space.</p>
+<p><img src="/./cs224w-ch3/image-20231015221722630.png" alt="image-20231015221722630"></p>
+<h3 id="Approach-3"><a href="#Approach-3" class="headerlink" title="Approach 3"></a>Approach 3</h3><h4 id="Idea-1"><a href="#Idea-1" class="headerlink" title="Idea 1"></a>Idea 1</h4><p>use anonymous walks to instead random walks.</p>
+<p><img src="/./cs224w-ch3/image-20231016082050748.png" alt="image-20231016082050748"></p>
+<p>feature is:</p>
+<ul>
+<li>Anonymous </li>
+<li>Capture the struct rather than node pairs</li>
+</ul>
+<p>with the length of step increasing, the number of anonymous walks (the anonymous walks vector $Z_G(i)$, for l&#x3D;3, the dimensions of $Z_G(i)$ is 5) <strong>exponentially</strong> increase.</p>
+<p><img src="/./cs224w-ch3/image-20231016082759928.png" alt="image-20231016082759928"></p>
+<p><img src="/./cs224w-ch3/image-20231016082950394.png" alt="image-20231016082950394"></p>
+<p>We have the vector now, so how many walks should we sample to represent the whole distribution?</p>
+<p>use this formula:</p>
+<p><img src="/./cs224w-ch3/image-20231016083437104.png" alt="image-20231016083437104"></p>
+<h4 id="Idea-2"><a href="#Idea-2" class="headerlink" title="Idea 2"></a>Idea 2</h4><p>Above, we use a vector $Z_G(i)$ to represent the distribution, it is a set of  probability about every walk.</p>
+<p>the other idea is use walks ranther than probability:<br>$$<br>Z&#x3D;{z_i:i&#x3D;1…\eta} \<br>$$<br>$\eta$ is the number of sampled anonymous walks.</p>
+<p>so here is the idea and how we learning the walks embeddings?</p>
+<p>First, sample some walks:</p>
+<p><img src="/./cs224w-ch3/image-20231016084518021.png" alt="image-20231016084518021"></p>
+<p>Than, learn to predict walks which is co-occur in $\Delta$ size window</p>
+<p>e.g., predict $w_3$ given $w_1,w_2,\Delta&#x3D;2$</p>
+<p><img src="/./cs224w-ch3/image-20231016084700692.png" alt="image-20231016084700692"></p>
+<p>so, different from DeepWalk, node2vec, the neighbor set is:<br>$$<br>N_R(u)&#x3D;{w_1^u,w_2^u…w_T^u}<br>$$<br><img src="/./cs224w-ch3/image-20231016084952691.png" alt="image-20231016084952691"></p>
+<p>$Z_G$ is a optimized vector parameter</p>
+<p><img src="/./cs224w-ch3/image-20231016085824928.png" alt="image-20231016085824928"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/10/13/cs224w-ch3/" data-id="clw6dgvjj003ai49f3tftd11b" data-title="cs224w_ch3" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-20h-write-sci" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/13/20h-write-sci/" class="article-date">
+  <time class="dt-published" datetime="2023-10-13T00:53:02.000Z" itemprop="datePublished">2023-10-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/writing-paper/">writing  paper</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/10/13/20h-write-sci/">20h_write_sci</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><img src="/./20h-write-sci/image-20231013085627802.png" alt="image-20231013085627802"></p>
+<p><img src="/./20h-write-sci/image-20231013085640782.png" alt="image-20231013085640782"></p>
+<h2 id="0-Abstract"><a href="#0-Abstract" class="headerlink" title="0 Abstract"></a>0 <strong>Abstract</strong></h2><p>本部分最后写。不要太长，突出重点，一般在150词左右。</p>
+<p>第1句：介绍<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E5%B7%A5%E7%A8%8B&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:3224310098%7D">工程</a>背景。</p>
+<p>第2-3句：由<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E5%B7%A5%E7%A8%8B%E9%97%AE%E9%A2%98&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:3224310098%7D">工程问题</a>引出本文研究内容，强调研究内容对解决该工程问题的重要意义。如：Thus, the XX is the key problem in the engineering design of XX.</p>
+<p>第4-5句：介绍本文核心工作。如：In this paper, XX experiment was performed to study XX problem, and XX model was proposed to predict the responses the XX. Using this model, a series of numerical simulations were conducted aiming for XX.</p>
+<p>第6-7句：介绍本文工作的主要结论。如：The results indicate that XX. It is noted that the XX. With the increase of load amplitude, XX increases downward significantl. The proposed XX model is appropriate for the assessment of XX evolution process.</p>
+<p>Keywords: 一般五个。</p>
+<h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1 Introduction"></a><strong>1 Introduction</strong></h2><p><strong>工程大背景→工程具体问题→本研究中的更具体问题。</strong></p>
+<p>第一段：工程大背景，该工程问题的重要性及解决问题的紧迫性。讲问题要从大到小，聚焦在该工程问题的核心控制因素上（即是本文研究内容）。写法如下：</p>
+<p>In recent years，XX develops rapidly. XXX.</p>
+<p>第二段：关于本问题的研究现状，同时突出目前研究的不足（该不足是与本文研究<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E5%88%9B%E6%96%B0&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:3224310098%7D">创新</a>嗲相比的不足，以求突出本文研究内容的创新性）。千万不要记流水账，虽然写起来容易，但是会给审稿专家留下不好印象，认为对该问题缺乏深入认识。一定要以问题为导向进行<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E5%88%86%E7%B1%BB&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:3224310098%7D">分类</a>。</p>
+<p>如：There have been many studies so far about the XX problem. XX [1], XX et al. [2] and XX[15] proposed and developed XX method. The method provides a good evaluation tool for XX, but it is too simplified to consider the effects of XX, XX and XX. </p>
+<p>至少应该有80%的引用文献是在近五年发表的。</p>
+<p>若是多个问题，可将“第二段”拆写成多段，每段讨论一个问题。</p>
+<p>第三段：介绍本文目标、工作和主要结论（比<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=abstract&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:3224310098%7D">abstract</a>要详细，可以存在一定程度重复）。</p>
+<p>This paper aims to solve XX problem. In this paper, XX experiments were performed firstly, and it is found that XX. Then, XX numerical model was established, which can consider the effects of XX. Later, a series of numerical studies based on XX are performed to investigate XX. It is pointed out that the XX.</p>
+<h2 id="2-XX-experiment-considerding-XX-effects"><a href="#2-XX-experiment-considerding-XX-effects" class="headerlink" title="2 XX experiment considerding XX effects"></a><strong>2 XX experiment considerding XX effects</strong></h2><h3 id="2-1-Experimental-introduction"><a href="#2-1-Experimental-introduction" class="headerlink" title="2.1 Experimental introduction"></a><strong>2.1 Experimental introduction</strong></h3><p>介绍试验的基本情况，包括试验材料、<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E8%AF%95%E9%AA%8C%E8%AE%BE%E5%A4%87&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:3224310098%7D">试验设备</a>等信息。</p>
+<h3 id="2-2-Experiment-design-and-procedures"><a href="#2-2-Experiment-design-and-procedures" class="headerlink" title="2.2 Experiment design and procedures"></a><strong>2.2 Experiment design and procedures</strong></h3><p>介绍<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E8%AF%95%E9%AA%8C%E8%AE%BE%E8%AE%A1&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:3224310098%7D">试验设计</a>和试验步骤。包括试验目的，<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:3224310098%7D">研究方法</a></p>
+<p>给出开展试验的组数、<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E7%A0%94%E7%A9%B6%E5%8F%98%E9%87%8F&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:3224310098%7D">研究变量</a>，并用表格展示。</p>
+<h3 id="2-3-Experiment-results"><a href="#2-3-Experiment-results" class="headerlink" title="2.3 Experiment results"></a><strong>2.3 Experiment results</strong></h3><p>讨论试验结果，总结试验规律，解释试验现象背后机制、机理。</p>
+<p>可与已有试验结果对比分析，讨论差异以及原因。</p>
+<p>甚至可以凝练出指导<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:3224310098%7D">工程实践</a>的公式，提升论文创新性。</p>
+<h2 id="3-XX-numerical-model-considering-XX-effects"><a href="#3-XX-numerical-model-considering-XX-effects" class="headerlink" title="3 XX numerical model considering XX effects"></a><strong>3 XX numerical model considering XX effects</strong></h2><h3 id="3-1-Definition-of-XX-numerical-model"><a href="#3-1-Definition-of-XX-numerical-model" class="headerlink" title="3.1 Definition of XX numerical model"></a><strong>3.1 Definition of XX numerical model</strong></h3><p>介绍使用的软件、<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E6%95%B0%E5%80%BC%E6%A8%A1%E5%9E%8B&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:3224310098%7D">数值模型</a>基本信息以及主要的建模过程等信息。</p>
+<h3 id="3-2-Parameters-of-XX-model-and-calibrations"><a href="#3-2-Parameters-of-XX-model-and-calibrations" class="headerlink" title="3.2 Parameters of XX model and calibrations"></a><strong>3.2 Parameters of XX model and calibrations</strong></h3><p><a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E6%95%B0%E5%80%BC%E6%A8%A1%E6%8B%9F&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:3224310098%7D">数值模拟</a>最为重要，也是<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E5%AE%A1%E7%A8%BF%E4%BA%BA&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:3224310098%7D">审稿人</a>最为关注的就是<strong>模型参数</strong>的标定过程，参数有哪些？是如何确定的？具不具有信服力？<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E5%8F%82%E6%95%B0&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:3224310098%7D">参数</a>是模型的基础，务必重视，并讲清楚。</p>
+<h3 id="3-3-Model-verification-with-field-test-results"><a href="#3-3-Model-verification-with-field-test-results" class="headerlink" title="3.3 Model verification with field test results"></a><strong>3.3 Model verification with field test results</strong></h3><p>另一个非常重要的部分就是验证数值模型是正确的，只有证明的数值模型是正确的，后续的数值研究才有意义。一般，可通过试验、现场监测数据、理论计算值，甚至他人的数值模拟结果进行验证。</p>
+<h2 id="4-Simulation-and-discussion"><a href="#4-Simulation-and-discussion" class="headerlink" title="4 Simulation and discussion"></a>4 <strong>Simulation and discussion</strong></h2><p>介绍数值模拟研究目的、计算方案以及计算结果。计算结果一般都非常多，可筛选几个具有代表性的物理量进行深入分析，分析不同因素影响下这些<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E7%89%A9%E7%90%86%E9%87%8F&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:3224310098%7D">物理量</a>的变化规律及内在物理机制；分析XX破坏过程及原因；基于大量的数值计算结果，构建可用于XX<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E5%B7%A5%E7%A8%8B%E8%AE%BE%E8%AE%A1&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:3224310098%7D">工程设计</a>分析的<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E6%95%B0%E6%8D%AE%E5%BA%93&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:3224310098%7D">数据库</a>，为构建评估方法奠定基础。更重要的是，通过<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:3224310098%7D">数值计算</a>研究，得出对工程实践具有指导意义的结论或评价方法。</p>
+<p>In this section, a series of numerical <a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=simulations&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:3224310098%7D">simulations</a> for XX are performed using the proposed XX method. XXX.The simulation results about the evolutions of XX are presented and discussed thoroughly.</p>
+<p>Therefore, in the actual engineering, XX should be the controlling factor in the design of XX, which must be careful enough for it.</p>
+<p>数值计算中的一些非普通、难理解的现象可用他人研究成果进行支持，如 This phenomenon is supported by the work of XX.</p>
+<p>可以通过<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=discussion&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:3224310098%7D">discussion</a>提高论文水平。针对本论文中发现的新现象、新结论、新方法等创新之处进行探讨，吸引审稿人注意力。具体地，可以解释现象背后机制，与他人研究现象、结论对比<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E5%88%86%E6%9E%90&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:3224310098%7D">分析</a>，对比现有<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:3224310098%7D">设计方法</a>的不足等。</p>
+<h2 id="5-Conclusions"><a href="#5-Conclusions" class="headerlink" title="5 Conclusions"></a><strong>5 Conclusions</strong></h2><p>采用总分模式，即先写一段“帽”，再列3-5个干条。</p>
+<p>“帽”还是总结本文主要工作，可借鉴、甚至复制abstract和introduction中相关表述。如：</p>
+<p>In this paper, a series of XX experiments were performed to investigate XX. XX feature is studied, the effects of XX on the XX are thoroughly discussed. Based on XX model, XX method is proposed to evaluate the XX. Numerical studies are performed to investigate the evolutions of XX. The main conclusions can be drawn as follows:</p>
+<p>（1）凝练论文最核心创新点，避免没有意义的结论，不要出现“妈妈是女人”这种废话结论。别让审稿人觉得你在侮辱他！</p>
+<p>（2）针对特定工况下的结论，尽量少提或不提，因为这些结论没有工程普适应，容易被审稿人攻击。</p>
+<p>（3）XX</p>
+<h2 id="Acknowledgements"><a href="#Acknowledgements" class="headerlink" title="Acknowledgements"></a><strong>Acknowledgements</strong></h2><p>The authors are grateful to the support from National Natural Science Foundation of China (Grant no. XXX), XX Provincial Natural Science Foundation of China (Grant no. XXX).</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a><strong>References</strong></h2><p>多引用国际顶刊，近五年论文。</p>
+<p>转载</p>
+<p>作者：博士大师兄-木水<br>链接：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/620016786/answer/3224310098">https://www.zhihu.com/question/620016786/answer/3224310098</a><br>来源：知乎<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/10/13/20h-write-sci/" data-id="clw6dgvj40000i49ffmrh66wv" data-title="20h_write_sci" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-cs224w-ch2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/10/cs224w-ch2/" class="article-date">
+  <time class="dt-published" datetime="2023-10-10T05:59:16.000Z" itemprop="datePublished">2023-10-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cs224w/">cs224w</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/10/10/cs224w-ch2/">cs224w_ch2</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="node-level-feature"><a href="#node-level-feature" class="headerlink" title="node-level feature"></a>node-level feature</h2><p>这一节主要讲node-level features</p>
+<p>我们关注的两种feature：</p>
+<ul>
+<li>structure feature：例如图的topology</li>
+<li>feature of nodes attribution</li>
+</ul>
+<p>这里我们先假设node已经有一些feature了，比如蛋白质的化学结构等其他属性。 </p>
+<p>在此基础之上，我们还需要确定一些特征：这个node在这个网络中position，应该如何去描述？</p>
+<p>当上面的这俩都被确定了，我们就拥有了整个网络的topology。  </p>
+<p>传统的机器学习做法是：确定好图的nodes、links、graph，然后表示称特征向量，然后再给到学习算法。</p>
+<p>首先考虑一个semi- supervised场景， </p>
+<p><img src="/./cs224w-ch2/image-20231010142809277-6919289.png" alt="image-20231010142809277"></p>
+<p>规则：</p>
+<p>给灰色的上色（presict</p>
+<ul>
+<li>绿色的至少有两个相邻的边</li>
+<li>红色至少有一个边</li>
+</ul>
+<p>可以这样去手工制作特征：</p>
+<ul>
+<li>将node degree作为结点的拓扑结构特征</li>
+<li>node centralty？</li>
+</ul>
+<p> 然后再考虑整个图的特征。</p>
+<p>如果只是考虑用node degree作为结点的特征，degree其实只考虑了它们的neighbor，并且没有考虑他们各自不同的重要性。因此如果直接将degree作为feature，然后扔给机器学习算法，那么如下图中的C和E，他们的degree都是3，模型就无法分辨它们了。</p>
+<p><img src="/./cs224w-ch2/image-20231010144414392.png" alt="image-20231010144414392"></p>
+<h3 id="Node-centrality"><a href="#Node-centrality" class="headerlink" title="Node centrality"></a>Node centrality</h3><p>结点中心性</p>
+<p>Idea: the more important my friends are,the higher my importance is.</p>
+<p>可以用下式表示：<br>$$<br>c_v&#x3D;\frac{1}{\lambda}\sum _{u\in N(v)}c_u<br>$$<br>左边代表的是中心结点的重要性 ，右边代表的是neighbor的重要性的和再乘以一个factor（归一化）。</p>
+<p>也可以写成下面：<br>$$<br>\lambda c&#x3D;Ac<br>$$<br>c是中心结点的一些特征组成的向量。</p>
+<p>对于A则是这样描述的：adjacent matrix, $A_{uv}&#x3D;1$ if $u\in N(v)$</p>
+<p>然后由于我们考虑的undirected graph，所以$\lambda _{max}$一直是正的并且是唯一的。</p>
+<p>这就是node centrality的定义。</p>
+<h3 id="betweenness-centrality"><a href="#betweenness-centrality" class="headerlink" title="betweenness centrality"></a>betweenness centrality</h3><p><img src="/./cs224w-ch2/image-20231010153035055.png" alt="image-20231010153035055"></p>
+<p>对于边缘的结点，没有最短路径通过他，因此betweenness centrality为0</p>
+<p>对于中间点如c，A到B的最短为ABC，A到D的最短为ACD……</p>
+<h3 id="closeness-centrality"><a href="#closeness-centrality" class="headerlink" title="closeness centrality"></a>closeness centrality</h3><p><img src="/./cs224w-ch2/image-20231010153320262.png" alt="image-20231010153320262"></p>
+<p>以A为起点的，到其他点的点最短距离加起来，取倒数。</p>
+<p>怎么体现重要性呢？</p>
+<p>分母越大，代表在越边缘的地方，这个closeness centrality就越小。</p>
+<h3 id="Clustering-coefficient"><a href="#Clustering-coefficient" class="headerlink" title="Clustering coefficient"></a>Clustering coefficient</h3><p>聚类系数。</p>
+<p> <img src="/./cs224w-ch2/image-20231010162005064.png" alt="image-20231010162005064"></p>
+<p>研究聚类系数的意义是：<strong>当你和你的邻居是链接的时候，你的邻居的邻居是否也是连接的？</strong></p>
+<p>上面是怎么算的呢？</p>
+<ul>
+<li>图1，v周围有4个结点，这四个结点彼此相连需要$C_4^2&#x3D;6$条边，所以分母是6，而现实中这四个点也正是彼此相连，因此分子也是6，所以聚类系数为1</li>
+<li>图2，分母6，分子3，所以聚类系数0.5</li>
+</ul>
+<p>还有一种算法是：<br>$$<br>CC(u)&#x3D;\frac{2R_u}{k_u (k_u -1)}<br>$$<br>$R_u$：邻居结点的关系数，或者说三角形数</p>
+<p>$K_u$：u的一阶邻节点数</p>
+<p>聚类系数的意义是，如果两个人有相同的朋友，那么这两个人迟早也会成为朋友，这就是社交网络的扩张方式，是以<strong>三角形闭合</strong>的形式来完成的。</p>
+<h3 id="graphlets"><a href="#graphlets" class="headerlink" title="graphlets"></a>graphlets</h3><p>图元。</p>
+<p><img src="/./cs224w-ch2/image-20231012183058595.png" alt="image-20231012183058595"></p>
+<p>中文名：有根连接的非同构子图。如上，两个结点只有一个图元，三个结点有两个图元，其中$G_1$有两类结点，node 1和node 2是异构的，node 1和node 3是同构的。</p>
+<h3 id="GDV"><a href="#GDV" class="headerlink" title="GDV"></a>GDV</h3><p>有了Grapglets的定义，可以定义GDV（graphlets degree vector，图元度向量），这是<strong>属于图元的结点特征</strong>，</p>
+<p>可以这样理解：</p>
+<ul>
+<li>graph degree代表的是node接触到的edge的数量</li>
+<li>clustering coefficient表示的是node参与或者接触的三角形的个数</li>
+<li><strong>grapglets degree vector表示结点参与的图元的数量。</strong></li>
+</ul>
+<p>一般只观察三个以内的graphlets。</p>
+<p>举例子</p>
+<p><img src="/./cs224w-ch2/image-20231012184847587.png" alt="image-20231012184847587"></p>
+<p>计算$v$的图元度向量</p>
+<p>首先，我们只考虑2或者3的图元，有以下几种可能：</p>
+<p><img src="/./cs224w-ch2/image-20231012185000246.png" alt="image-20231012185000246"></p>
+<p>$v$在图元中可能有上面的几种位置：$a,b,c,d$，这意味着我们最终得到的GDV是一个$(4,1)$的tensor，我们一类一类排序如下：</p>
+<p><img src="/./cs224w-ch2/image-20231012185144784.png" alt="image-20231012185144784"></p>
+<p>最后得到的结果是：$GDV&#x3D;[2,1,0,2]$</p>
+<p>使用$GDV$能够更好的比较两个不同node的neighbor的相似度。</p>
+<h2 id="Link-level-feature"><a href="#Link-level-feature" class="headerlink" title="Link-level feature"></a>Link-level feature</h2><p>Link-level task是这样的：</p>
+<ul>
+<li>利用已存在的link去预测新的llink</li>
+<li>所有的没有link的node会被结合称pairs，然后排序，然后前k个node pairs会被预测出来</li>
+</ul>
+<p>关键是如何设计node pairs的特征</p>
+<p>有两种方法去进行link的预测：</p>
+<ol>
+<li><p>随机移除一组links，然后让机器学习算法去预测他们。</p>
+<p>主要适用于静态网络。</p>
+</li>
+<li><p>在$t_0$时间对graph进行预测，预测的结果是未来会出现的link的列表，然后到$t_1$时间时，我们看这些边是否真的出现了，然后去调整我们的算法。</p>
+<p>主要适用于随时间变化的网络，如社交网络、交易网络</p>
+</li>
+</ol>
+<p>现在可以来描述方法了–如何描述node pairs的特征</p>
+<p>首先有一对结点$(x,y)$，我们计算他们有多少条公共边（这只是一种方法），然后算出一个分数$c(x,y)$，然后将这些分数进行排序，选择前n个进行预测，在测试时间，我们可以看到前n个有多少真的出现了。这种方法是上面基于时间的预测。</p>
+<h3 id="最短距离"><a href="#最短距离" class="headerlink" title="最短距离"></a>最短距离</h3><p><img src="/./cs224w-ch2/image-20231012202339435.png" alt="image-20231012202339435"></p>
+<p>若是用这个来描述，那么$(B,H)$和$(D,F)$没有任何区别，但是前者其实有一个共同的邻居，联系更紧密</p>
+<h3 id="局部邻居重叠"><a href="#局部邻居重叠" class="headerlink" title="局部邻居重叠"></a>局部邻居重叠</h3><p><img src="/./cs224w-ch2/image-20231012202833459.png" alt="image-20231012202833459"></p>
+<p>其中第二个式子试图对共同的邻居数进行归一化。</p>
+<p>而第三个式子，则是依据这样的一个道理：两者之间有共同的邻居，这个邻居的degree越少越好，这就代表两者越close</p>
+<p>局部邻居重叠的问题在于，如下图：</p>
+<p><img src="/./cs224w-ch2/image-20231012203157149.png" alt="image-20231012203157149"></p>
+<p>尽管A和E没有共同邻居，他们的path大于2，他们的metric将会一直是0；但是，这两个结点在未来还是很有可能会连接。</p>
+<h3 id="全局邻居重叠"><a href="#全局邻居重叠" class="headerlink" title="全局邻居重叠"></a>全局邻居重叠</h3><p>通过Katz index计算全局邻居重叠。</p>
+<p>idea is: 计算出之间距离为l的path数目</p>
+<p>通过下面这个公式：<br>$$<br>S_{v_1v_2}&#x3D;\sum <em>{l&#x3D;1}^{\infty}\beta ^lA</em>{v_1v_2}^l<br>$$<br>其中beta是discount factor（0～1），path越长，discount越多</p>
+<p>也可以用下面的公式简单计算：</p>
+<p><img src="/./cs224w-ch2/image-20231012204209259.png" alt="image-20231012204209259"></p>
+<h2 id="graph-level-feature"><a href="#graph-level-feature" class="headerlink" title="graph- level feature"></a>graph- level feature</h2><h3 id="kernel-method"><a href="#kernel-method" class="headerlink" title="kernel method"></a>kernel method</h3><p> kernel matrix有一些硬性要求：如特征值要有大雨0的特征值（半正定），对称矩阵。</p>
+<p>kernel可以测量两个graph的相似性，用的不是feature vector，而是kernel matrix<br>$$<br>K(G_1,G_2)&#x3D;\Phi (G_1)^T\Phi(G_2)<br>$$<br>一旦kernel被创建好了，那就可以用支持核方法的机器算法来进行训练了。</p>
+<p><img src="/./cs224w-ch2/image-20231012211504003.png" alt="image-20231012211504003"></p>
+<p>上面两种是最重要的核，下面几种则是不要求的</p>
+<p>简单介绍下Bag-of-Words（BoW），词袋，例如我们要表示一篇文档，可以把里面的词都挑出来，然后按照频率来进行排序，这就是词袋方法。</p>
+<p>但是我们不能简单的将node视为词，否则就会发生下面这种情况：</p>
+<p><img src="/./cs224w-ch2/image-20231012212052689.png" alt="image-20231012212052689"></p>
+<h3 id="degree-kernel"><a href="#degree-kernel" class="headerlink" title="degree kernel"></a>degree kernel</h3><p>将结点的度视为词，然后装进袋子：</p>
+<p><img src="/./cs224w-ch2/image-20231012212328492.png" alt="image-20231012212328492"></p>
+<h3 id="graphlets-kernel"><a href="#graphlets-kernel" class="headerlink" title="graphlets kernel"></a>graphlets kernel</h3><p>idea：计算图中不同图元的个数</p>
+<p>kernel的图元和node- level的图元有点不同，kernel的图元中的结点可以是孤立的、没有链接、没有根的</p>
+<p><img src="/./cs224w-ch2/image-20231012212953447.png" alt="image-20231012212953447"></p>
+<p>我们用一个graphlets count list $f_G$来表示图元特征</p>
+<p><img src="/./cs224w-ch2/%E6%88%AA%E5%B1%8F2023-10-12%2021.33.35.png" alt="截屏2023-10-12 21.33.35"></p>
+<p>比较难数</p>
+<p>有了feature vector之后，就可以计算kernel了：<br>$$<br>K(G_1,G_2)&#x3D;f_{G_1}^Tf_{G_2}<br>$$<br>当两个vector尺寸不一样时，可以考虑归一化：<br>$$<br>h_G&#x3D;\frac{f_G}{Sum(f_G)}<br>$$</p>
+<p>$$<br>K(G_1,G_2)&#x3D;h_{G_1}^Th_{G_2}<br>$$</p>
+<p>？？？不给例子？？</p>
+<p>另外，不可避免的，计算图元的代价很大。在计算及格图元的时候还好，但是一旦数量往上升，开销会成指数级别上升。</p>
+<h3 id="WL-kernel"><a href="#WL-kernel" class="headerlink" title="WL kernel"></a>WL kernel</h3><p><img src="/./cs224w-ch2/image-20231012215018706.png" alt="image-20231012215018706"></p>
+<p>过程有点复杂，但是这个算法比较高效。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/10/10/cs224w-ch2/" data-id="clw6dgvji0034i49fh86hfsrn" data-title="cs224w_ch2" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gnn/" rel="tag">gnn</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/EasyRL/">EasyRL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Graph-Neural-Networks-Foundations-Frontiers-and-Applications/">Graph Neural Networks: Foundations, Frontiers, and Applications</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs224w/">cs224w</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/d2l/">d2l</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/writing-paper/">writing  paper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%9E%E9%AA%8C/">实验</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%BB%E7%BB%93/">总结</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6/">读书</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">高性能计算机网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RL/" rel="tag">RL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly&#39;</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cnn/" rel="tag">cnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/diffusion/" rel="tag">diffusion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gnn/" rel="tag">gnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lab/" rel="tag">lab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poisoning/" rel="tag">poisoning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rl/" rel="tag">rl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rnn/" rel="tag">rnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" rel="tag">信息论</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/RL/" style="font-size: 10px;">RL</a> <a href="/tags/anomaly/" style="font-size: 12px;">anomaly</a> <a href="/tags/anomaly/" style="font-size: 10px;">anomaly'</a> <a href="/tags/backdoor/" style="font-size: 20px;">backdoor</a> <a href="/tags/cnn/" style="font-size: 10px;">cnn</a> <a href="/tags/diffusion/" style="font-size: 18px;">diffusion</a> <a href="/tags/gnn/" style="font-size: 14px;">gnn</a> <a href="/tags/lab/" style="font-size: 10px;">lab</a> <a href="/tags/poisoning/" style="font-size: 16px;">poisoning</a> <a href="/tags/rl/" style="font-size: 10px;">rl</a> <a href="/tags/rnn/" style="font-size: 10px;">rnn</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" style="font-size: 10px;">信息论</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/05/10/limu-read-paper/">limu_read_paper</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/06/VillanDiffusion/">VillanDiffusion</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/27/Infomation-Theory-Inference-and-Learning-Algorithms/">Infomation_Theory_Inference_and_Learning_Algorithms</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/22/TrojDiff/">TrojDiff</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/18/Diffusion-Backdoor-Embed/">Diffusion-Backdoor-Embed</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

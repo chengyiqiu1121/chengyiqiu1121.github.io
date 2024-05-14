@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>cs224w_ch6 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="in node embedding, we use encoder to map original network node to embedding space, the encoder is:$$z_v&#x3D;Z.v$$the matrix is what we need to learn. now, we use deep learning-based method as our enc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs224w_ch6">
+<meta property="og:url" content="http://example.com/2023/10/16/cs224w-ch6/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="in node embedding, we use encoder to map original network node to embedding space, the encoder is:$$z_v&#x3D;Z.v$$the matrix is what we need to learn. now, we use deep learning-based method as our enc">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/cs224w-ch6/image-20231016195600647.png">
+<meta property="og:image" content="http://example.com/cs224w-ch6/image-20231016195941481.png">
+<meta property="og:image" content="http://example.com/cs224w-ch6/image-20231016201516077.png">
+<meta property="og:image" content="http://example.com/cs224w-ch6/image-20231016201921224.png">
+<meta property="og:image" content="http://example.com/cs224w-ch6/image-20231016202616104.png">
+<meta property="og:image" content="http://example.com/cs224w-ch6/image-20231017102318921.png">
+<meta property="og:image" content="http://example.com/cs224w-ch6/image-20231017102403312.png">
+<meta property="og:image" content="http://example.com/cs224w-ch6/image-20231017104641358.png">
+<meta property="og:image" content="http://example.com/cs224w-ch6/image-20231017103110872.png">
+<meta property="og:image" content="http://example.com/cs224w-ch6/image-20231017103158325.png">
+<meta property="og:image" content="http://example.com/cs224w-ch6/image-20231017103350574.png">
+<meta property="og:image" content="http://example.com/cs224w-ch6/image-20231017104129035.png">
+<meta property="article:published_time" content="2023-10-16T11:36:50.000Z">
+<meta property="article:modified_time" content="2023-10-17T02:47:11.000Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/cs224w-ch6/image-20231016195600647.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-cs224w-ch6" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/16/cs224w-ch6/" class="article-date">
+  <time class="dt-published" datetime="2023-10-16T11:36:50.000Z" itemprop="datePublished">2023-10-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cs224w/">cs224w</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      cs224w_ch6
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>in node embedding, we use <strong>encoder</strong> to map original network node to embedding space, the encoder is:<br>$$<br>z_v&#x3D;Z.v<br>$$<br>the matrix is what we need to learn.</p>
+<p>now, we use deep learning-based method as our encoder, which is composed of multiple layers of non-linear transformations.</p>
+<p><img src="/./cs224w-ch6/image-20231016195600647.png" alt="image-20231016195600647"></p>
+<p>What makes graph representation learning so difficult?</p>
+<p><img src="/./cs224w-ch6/image-20231016195941481.png" alt="image-20231016195941481"></p>
+<ul>
+<li>no fixed graph</li>
+<li>Dynamic and no fixed fratures</li>
+</ul>
+<h1 id="Basics-of-DL"><a href="#Basics-of-DL" class="headerlink" title="Basics of DL"></a>Basics of DL</h1><p>we usually view the task as an Optimization problem, which means we need to min. the objective function(loss function).</p>
+<p>for predict task, use L2 loss:<br>$$<br>L(y,f(x))&#x3D;||y-f(x)||_2<br>$$<br>or L1 loss.</p>
+<p>for classify problem, we use cross entropy(CE)<br>$$<br>CE(y,f(x))&#x3D;-\sum_{i&#x3D;1}^C(y_i\log f(x)_i)<br>$$</p>
+<p>$$<br>f(x)&#x3D;softmax(g(x))<br>$$</p>
+<p>g is the model.</p>
+<h1 id="Deep-Learning-for-graph"><a href="#Deep-Learning-for-graph" class="headerlink" title="Deep Learning for graph"></a>Deep Learning for graph</h1><p>what if we directly feed the graph adj. matrix and feature set?</p>
+<p><img src="/./cs224w-ch6/image-20231016201516077.png" alt="image-20231016201516077"></p>
+<p>Problem:</p>
+<ul>
+<li>Parameter $O(|V|)$, certainly speaking is $O(|V|+num_{frature})$</li>
+<li>the graph size is fixed</li>
+<li>sensitive to node ordering</li>
+</ul>
+<p>what about convolutions?</p>
+<p><img src="/./cs224w-ch6/image-20231016201921224.png" alt="image-20231016201921224"></p>
+<p>problem:</p>
+<ul>
+<li>no stride or slide</li>
+<li>permutation invariance（改变排序不变性）</li>
+</ul>
+<p><img src="/./cs224w-ch6/image-20231016202616104.png" alt="image-20231016202616104"></p>
+<p>graph and node representation should be the same for plan1 and plan2.</p>
+<p>we need a permutation invarient function!</p>
+<p>and maps, cons cannot solve this.</p>
+<h1 id="Graph-Convolutional-Networks"><a href="#Graph-Convolutional-Networks" class="headerlink" title="Graph Convolutional Networks"></a>Graph Convolutional Networks</h1><p>main problems are:</p>
+<ol>
+<li><p>too many parameter</p>
+</li>
+<li><p>order invariance</p>
+</li>
+</ol>
+<p>first we solve proble 1!</p>
+<p>Lets consider mlp $\to$ CNN</p>
+<p>we use the kernel to share parameter and aggregate information(spacial)</p>
+<p>can we apply it to GNN?</p>
+<p><strong>idea: for node v, use it as an kernel to aggregate information from $N(v)$, thus, node’s neiborhood defins the computation graph</strong></p>
+<p><img src="/./cs224w-ch6/image-20231017102318921.png" alt="image-20231017102318921"></p>
+<p><img src="/./cs224w-ch6/image-20231017102403312.png" alt="image-20231017102403312"></p>
+<p>now we solve the prob.1, how to keep order invariance?</p>
+<p><img src="/./cs224w-ch6/image-20231017104641358.png" alt="image-20231017104641358"></p>
+<p>the approach is: <strong>Average information from neighbors and apply a neural network</strong>  </p>
+<p>now we can get the formulation of GNN(GCN):</p>
+<p><img src="/./cs224w-ch6/image-20231017103110872.png" alt="image-20231017103110872"></p>
+<p>and the matrix formulation:</p>
+<p><img src="/./cs224w-ch6/image-20231017103158325.png" alt="image-20231017103158325"></p>
+<p><img src="/./cs224w-ch6/image-20231017103350574.png" alt="image-20231017103350574"></p>
+<h1 id="Train-GNN"><a href="#Train-GNN" class="headerlink" title="Train GNN"></a>Train GNN</h1><h2 id="Supervised-learning"><a href="#Supervised-learning" class="headerlink" title="Supervised learning"></a>Supervised learning</h2><p>$$<br>\min _{\theta}\mathcal{L}(y,f(z_v))<br>$$</p>
+<p>e.g., drug classification(toxic or not)</p>
+<p><img src="/./cs224w-ch6/image-20231017104129035.png" alt="image-20231017104129035"></p>
+<p>the $f(x_v)$ is $\sigma (z_v^T\theta)$</p>
+<h2 id="Unsupervised-learning"><a href="#Unsupervised-learning" class="headerlink" title="Unsupervised learning"></a>Unsupervised learning</h2><p>$$<br>\mathcal{L}&#x3D;\sum_{z_u,z_v}CE(y_{u,v},DEC(z_u,z_v))<br>$$</p>
+<p>if node u and v are similar, then $y_{u,v}&#x3D;1$</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/10/16/cs224w-ch6/" data-id="clw6dgvjj003fi49f8unjghp2" data-title="cs224w_ch6" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/10/17/DAGAD/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          DAGAD
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/10/16/cs224w-ch4/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">cs224w_ch4</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/EasyRL/">EasyRL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Graph-Neural-Networks-Foundations-Frontiers-and-Applications/">Graph Neural Networks: Foundations, Frontiers, and Applications</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs224w/">cs224w</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/d2l/">d2l</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/writing-paper/">writing  paper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%9E%E9%AA%8C/">实验</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%BB%E7%BB%93/">总结</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6/">读书</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">高性能计算机网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RL/" rel="tag">RL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly&#39;</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cnn/" rel="tag">cnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/diffusion/" rel="tag">diffusion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gnn/" rel="tag">gnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lab/" rel="tag">lab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poisoning/" rel="tag">poisoning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rl/" rel="tag">rl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rnn/" rel="tag">rnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" rel="tag">信息论</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/RL/" style="font-size: 10px;">RL</a> <a href="/tags/anomaly/" style="font-size: 12px;">anomaly</a> <a href="/tags/anomaly/" style="font-size: 10px;">anomaly'</a> <a href="/tags/backdoor/" style="font-size: 20px;">backdoor</a> <a href="/tags/cnn/" style="font-size: 10px;">cnn</a> <a href="/tags/diffusion/" style="font-size: 18px;">diffusion</a> <a href="/tags/gnn/" style="font-size: 14px;">gnn</a> <a href="/tags/lab/" style="font-size: 10px;">lab</a> <a href="/tags/poisoning/" style="font-size: 16px;">poisoning</a> <a href="/tags/rl/" style="font-size: 10px;">rl</a> <a href="/tags/rnn/" style="font-size: 10px;">rnn</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" style="font-size: 10px;">信息论</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/05/10/limu-read-paper/">limu_read_paper</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/06/VillanDiffusion/">VillanDiffusion</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/27/Infomation-Theory-Inference-and-Learning-Algorithms/">Infomation_Theory_Inference_and_Learning_Algorithms</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/22/TrojDiff/">TrojDiff</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/18/Diffusion-Backdoor-Embed/">Diffusion-Backdoor-Embed</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

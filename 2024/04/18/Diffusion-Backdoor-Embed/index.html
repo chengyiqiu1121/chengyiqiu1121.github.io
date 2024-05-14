@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Diffusion-Backdoor-Embed | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="idea背景 2017-至今，针对深度学习模型的后门攻击得到广泛研究，有大量的后门攻击方法以及后门攻击防御方法出现。 后门攻击的步骤，一般是选取深度学习模型（一般是视觉模型，如ResNet），选取掩码mask，优化触发器trigger，最后植入后门backdoor到神经网络中，BadNet就是这个流程。 也有一些成果，会对神经网络的内部进行研究，观察哪些神经元对某一个类别的影响权重比较大，根据输入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Diffusion-Backdoor-Embed">
+<meta property="og:url" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="idea背景 2017-至今，针对深度学习模型的后门攻击得到广泛研究，有大量的后门攻击方法以及后门攻击防御方法出现。 后门攻击的步骤，一般是选取深度学习模型（一般是视觉模型，如ResNet），选取掩码mask，优化触发器trigger，最后植入后门backdoor到神经网络中，BadNet就是这个流程。 也有一些成果，会对神经网络的内部进行研究，观察哪些神经元对某一个类别的影响权重比较大，根据输入">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240509142216383.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240509144152150.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240509192119997.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240509144435730.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240509144405323.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240509181204496.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240509181631302.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240506102555031.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240506102643574.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240506102736095.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240419122852586.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240418205046449.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240419104632546.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240419104713619.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240419162216587.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240421200607989.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240421200507348.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240507114212279.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240507114420104.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240418205255128.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240419104525175.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240419163945335.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240419174958899.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240419182258002.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240421151830858.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240421153647830.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240422124735011.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240422125910473.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240422125139002.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240422125430245.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240422130035885.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240422130125864.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240422132321696.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240422132414425.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240423083833768.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240423082039039.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240423105524899.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240423161204752.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240423105811778.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240423110139006.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240423161456127.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240423161739352.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240424144429284.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240424144738781.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240424145033334.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240424145243830.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240424152221528.png">
+<meta property="og:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240424152358720.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240425120538158.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240425120724441.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240425121009595.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240428125520915.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240428125743782.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240428125833285.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240429104229618.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240429104315373.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240429104412367.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240429104723650.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240429104921738.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240429105034928.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240501213217459.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240504135223449.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240504135343070.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240504135523513.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240506102555031.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240506102643574.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240506102736095.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240506105011444.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240506104957268.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240506104919599.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240506150525800.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240506150819120.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240507103710344.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240507104154276.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240507104330373.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240507104430695.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240507104511572.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240509122706161.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240509123203676.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240509123356005.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240514135811603.png">
+<meta property="og:image" content="http://example.com/Diffusion-Backdoor-Embed/image-20240514135956689.png">
+<meta property="article:published_time" content="2024-04-18T09:02:30.000Z">
+<meta property="article:modified_time" content="2024-05-14T10:43:31.002Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="backdoor">
+<meta property="article:tag" content="diffusion">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/Diffusion-Backdoor-Embed/image-20240509142216383.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Diffusion-Backdoor-Embed" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/04/18/Diffusion-Backdoor-Embed/" class="article-date">
+  <time class="dt-published" datetime="2024-04-18T09:02:30.000Z" itemprop="datePublished">2024-04-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%AE%9E%E9%AA%8C/">实验</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Diffusion-Backdoor-Embed
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="idea"><a href="#idea" class="headerlink" title="idea"></a>idea</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><ol>
+<li><p>2017-至今，针对深度学习模型的后门攻击得到广泛研究，有大量的后门攻击方法以及后门攻击防御方法出现。</p>
+<p>后门攻击的步骤，一般是选取深度学习模型（一般是视觉模型，如ResNet），选取掩码mask，优化触发器trigger，最后植入后门backdoor到神经网络中，BadNet就是这个流程。</p>
+<p>也有一些成果，会对神经网络的内部进行研究，观察哪些神经元对某一个类别的影响权重比较大，根据输入中是否含有触发器，将选择不同的激活模式。如Trojan。</p>
+<p>针对后门攻击的防御也有一些成果，例如：剪枝、微调、蒸馏、遗忘……还有这些方法的结合。</p>
+</li>
+<li><p>2020-至今，由于DDPM（Denoising Diffusion Probabilistic Models）的出现，StableDiffusion的爆火，有大量关于扩散模型的研究出现。</p>
+<p>扩散模型的本质是一个数学问题，如何构建一个$\theta$的参数化分布$P_\theta$，使得其输出能够和真实世界分布$P_{data}$的输出保持一致。</p>
+<ol>
+<li><p>由极大似然估计，可以推导出，要想两个分布尽可能相近，需要最小化他们之间的KL散度。对于一个生成模型$G(.)$：<br>$$<br>P_\theta(x_i|z)\propto \exp(-\Vert G(z)-x_i\Vert_2)<br>$$<br>所以现在的目标是最大化$P_\theta$</p>
+</li>
+<li><p>怎么计算$P_\theta(x)$是一个问题：<br>$$<br>\begin{flalign}<br>&amp;\log P_\theta(x) \<br>&amp;&#x3D;\int_zq(z\vert x)\log p(x)dz \<br>&amp;&#x3D;\int_z q(z\vert x)\log \frac{p(z,x)}{p(z\vert x)}dz \<br>&amp;&#x3D;\int_zq(z\vert x)\log \frac{p(z,x)}{q(z\vert x)}\times\frac{q(z\vert x)}{p(z\vert x)}dz \<br>&amp;&#x3D;\int_zq(z\vert x)\log\frac{p(z,x)}{q(z\vert x)}+\mathcal{KL}(q,p) \<br>&amp;\ge \int_zq(z\vert x)\log\frac{p(z,x)}{q(z\vert x)} \<br>&amp;&#x3D;E_{q(z|x)}[\log\frac{p(z,x)}{q(z\vert x)}]<br>\end{flalign}<br>$$<br>上面是VAE中的$P_\theta$的计算方法，DDPM和这个推导方式一样，得到的结论也是类似的结构：<br>$$<br>\log P_\theta(x)\ge E_{q(x_1:x_t\vert x_0)}[\log \frac{p(x_0:x_t)}{q(x_1:x_t\vert x_0)}]<br>$$</p>
+</li>
+</ol>
+<p>将左边的期望展开，经过复杂的数学推断，得到的是下面结果：</p>
+<img src="./Diffusion-Backdoor-Embed/image-20240509142216383.png" alt="image-20240509142216383" style="zoom:33%;" />
+
+<p>第一项是通过一个专门的编码器来模拟，第二项是常数，最大化$P_\theta$就是要最小化第三个KL项，使得两个分布的均值相等，P是我们的DDPM逆扩散过程，q则是扩散过程的几个正态分布进行乘除，也就是说，需要逆扩散过程得出的均值为：<br>$$<br>\frac{1}{\sqrt\alpha_t}(x_t-\frac{1-\alpha_t}{\sqrt{1-\bar\alpha_t}}\epsilon)<br>$$<br>其中$\epsilon$​由一个训练好的UNet来预测。</p>
+</li>
+</ol>
+<h2 id="想法"><a href="#想法" class="headerlink" title="想法"></a>想法</h2><p>扩散模型被证明有良好的恢复图像的能力，因此，有人将其运用在后门攻击防御中，将图像输入到扩散模型中，输出的图片是摧毁了触发器模式的图片，并且图片的正常特征被保留了，仅仅摧毁了触发器的特征：</p>
+<ol>
+<li><p><a target="_blank" rel="noopener" href="https://ojs.aaai.org/index.php/AAAI/article/view/30186">DataElixir: Purifying Poisoned Dataset to Mitigate Backdoor Attacks via Diffusion Models | Proceedings of the AAAI Conference on Artificial Intelligence</a></p>
+<img src="./Diffusion-Backdoor-Embed/image-20240509144152150.png" alt="image-20240509144152150" style="zoom: 67%;" />
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://proceedings.neurips.cc/paper_files/paper/2023/hash/b36554b97da741b1c48c9de05c73993e-Abstract-Conference.html">Black-box Backdoor Defense via Zero-shot Image Purification (neurips.cc)</a></p>
+<img src="./Diffusion-Backdoor-Embed/image-20240509192119997.png" alt="image-20240509192119997" style="zoom:50%;" /></li>
+</ol>
+<p>然而，这种方法的前提是，使用的扩散模型是干净的，那么若是向扩散模型中植入后门呢？来看看现有的含有后门的扩散模型：</p>
+<p><code>BadDiffusion</code>: <a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content/CVPR2023/html/Chou_How_to_Backdoor_Diffusion_Models_CVPR_2023_paper.html">CVPR 2023 Open Access Repository (thecvf.com)</a></p>
+<img src="./Diffusion-Backdoor-Embed/image-20240509144435730.png" alt="image-20240509144435730" style="zoom: 67%;" />
+
+<p><code>Trojan Diffusion</code>: <a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content/CVPR2023/html/Chen_TrojDiff_Trojan_Attacks_on_Diffusion_Models_With_Diverse_Targets_CVPR_2023_paper.html">CVPR 2023 Open Access Repository (thecvf.com)</a></p>
+<img src="./Diffusion-Backdoor-Embed/image-20240509144405323.png" alt="image-20240509144405323" style="zoom:67%;" />
+
+<p>目前学术界向扩散模型中植入后门的方法是：对于高斯噪声，恢复正常图片了；对于含有触发器的噪声，恢复出目标图片。</p>
+<p>那么能否构建这样一个扩散模型：<strong>当正常样本进入时，能够扩散，恢复出正常图片；当含有触发器的样本进入时，在恢复出正常特征的同时，保留触发器特征。</strong></p>
+<h2 id="威胁模型"><a href="#威胁模型" class="headerlink" title="威胁模型"></a>威胁模型</h2><p>攻击者的目标（威胁模型）：</p>
+<p>1.采样的时候，采样出来的图片不能含有触发器。</p>
+<p>2.当输入为正常样本的时候，输出中不能含有触发器。</p>
+<p>3.当输入的样本中含有触发器的时候，扩散模型不得摧毁触发器的模式，应当保留。</p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>参考上面两个向扩散模型中植入后门的方法:</p>
+<ol>
+<li><p><code>BadDiffusion</code>：在训练unet的时候，毒化样本和干净样本使用的损失函数不一样</p>
+<img src="./Diffusion-Backdoor-Embed/image-20240509181204496.png" alt="image-20240509181204496" style="zoom:33%;" />
+</li>
+<li><p><code>Trojan Diffusion</code>：在扩散的时候，正常样本会被扩散为$\mathcal N(0,I)$，而毒化样本会被扩散为$\mathcal N(\mu,\gamma ^2I)$</p>
+<img src="./Diffusion-Backdoor-Embed/image-20240509181631302.png" alt="image-20240509181631302" style="zoom:50%;" /></li>
+</ol>
+<p>为达到攻击效果，我目前的尝试是：</p>
+<ul>
+<li><p>更改loss函数：对于毒化样本，采用另外一套损失函数，加入了MSE、SSIM等指标进行优化。</p>
+</li>
+<li><p>混合数据集以扭曲模型决策空间</p>
+<p><code>good_dataset</code>：不含触发器</p>
+<p><code>bad_dataset</code>：一部分样本含有触发器，另一部分样本不含触发器，通过一个<code>mix factor</code>来控制比例，都采取毒化样本的损失函数进行重构。</p>
+</li>
+</ul>
+<p>目前实验效果：</p>
+<p>输入高斯噪声进行采样：</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240506102555031.png" alt="image-20240506102555031"></p>
+<p>重构正常样本：</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240506102643574.png" alt="image-20240506102643574"></p>
+<p>重构毒化样本：</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240506102736095.png" alt="image-20240506102736095"></p>
+<p>目前问题：</p>
+<ul>
+<li>良性样本的重构识别率较低</li>
+<li>扩散模型的训练还没达到拟合</li>
+</ul>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><h2 id="loss1"><a href="#loss1" class="headerlink" title="loss1"></a>loss1</h2><p>选取p%的样本作为投毒样本，对于正常样本，选取的损失函数为：<br>$$<br>\mathcal L&#x3D;MSE(x_{p}, x)<br>$$<br>对于触发器样本，损失函数表示为：<br>$$<br>\mathcal L&#x3D;MSE(x_{p},trig)<br>$$</p>
+<h2 id="loss2"><a href="#loss2" class="headerlink" title="loss2"></a>loss2</h2><p>若是按照原本的损失函数，仅仅计算<code>x</code>和<code>x_p</code>的MSR，效果不是很好， 论文<code>How to Backdoor Diffusion Models?</code>，当输入是含有触发器的样本的时候，损失函数会切换，这样就可以达到效果：当杂讯中含有触发器的时候，样本被重构为目标标签。</p>
+<img src="./Diffusion-Backdoor-Embed/image-20240419122852586.png" alt="image-20240419122852586" style="zoom:50%;" />
+
+<p>拟定达到的效果是：当输入的图片是正常图片时，重构出正常图片；当输入的图片中含有触发器时，尽量保留触发器特征不被摧毁。<br>$$<br>\mathcal L&#x3D;\gamma(1-SSIM(x, x_{p}))+MSR(x_{p}, trig)<br>$$<br>$\gamma$​是超参数，初步选择为0.5</p>
+<h2 id="loss3"><a href="#loss3" class="headerlink" title="loss3"></a>loss3</h2><p>公式：<br>$$<br>\mathcal L&#x3D;mse(trig_{p}, trig)+(1-ssim(x_{p-no-trigger}, x_{no-trigger}))<br>$$<br>前面加了超参数限定。</p>
+<p>代码部分如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mask = trans(mask).to(self.device)</span><br><span class="line">model_out_trigger = mask * model_out</span><br><span class="line">model_out_without_trigger = (<span class="number">1</span> - mask) * model_out</span><br><span class="line">target_without_trigger = (<span class="number">1</span> - mask) * target</span><br><span class="line">loss_p1 = F.mse_loss(model_out_trigger, self.trigger)</span><br><span class="line">loss_p2 = cal_ssim(model_out_without_trigger, target_without_trigger)</span><br><span class="line">loss = <span class="number">5</span> * loss_p1 + <span class="number">3</span> * (<span class="number">1</span> - loss_p2)</span><br></pre></td></tr></table></figure>
+
+<h2 id="loss4"><a href="#loss4" class="headerlink" title="loss4"></a>loss4</h2><ul>
+<li>PPD 是计算两个图像中不同像素的百分比。对于完全一致的图像，PPD 应该是0%。</li>
+</ul>
+<p>公式：<br>$$<br>\mathcal L&#x3D;mse(x_{p-no-trig}, x_{no-trig})+ 1 - ssim(x_{p-no-trig}, x_{no-trig})+ppd(trig, trig_p)<br>$$<br>代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">loss_4</span>(<span class="params">p_trigger, trigger, x_p_no_trigger, x_no_trigger, factor_list=<span class="literal">None</span></span>):</span><br><span class="line">    <span class="keyword">if</span> factor_list <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        factor_list = [<span class="number">2</span>, <span class="number">2</span>, <span class="number">5</span>]</span><br><span class="line">    loss_p1 = F.mse_loss(x_p_no_trigger, x_no_trigger)</span><br><span class="line">    loss_p2 = <span class="number">1</span> - cal_ssim(x_p_no_trigger, x_no_trigger)</span><br><span class="line">    loss_p3 = cal_ppd(trigger, p_trigger)</span><br><span class="line">    <span class="keyword">return</span> factor_list[<span class="number">0</span>] * loss_p1 + factor_list[<span class="number">1</span>] * loss_p2 + factor_list[<span class="number">2</span>] * loss_p3</span><br></pre></td></tr></table></figure>
+
+<h2 id="loss5"><a href="#loss5" class="headerlink" title="loss5"></a>loss5</h2><p>对于毒化样本：<br>$$<br>\mathcal L&#x3D;mse(x_{p-no-trig}, x_{no-trig})+ 1 - ssim(x_{p-no-trig}, x_{no-trig})+ppd(trig, trig_p)<br>$$<br>对于正常样本：<br>$$<br>\mathcal L&#x3D;mse(x_p, x)+ppd(x\times mask,x_p\times mask)<br>$$</p>
+<h1 id="实验-–-pred-x-0"><a href="#实验-–-pred-x-0" class="headerlink" title="实验 – pred x_0"></a>实验 – pred x_0</h1><p>以下实验，由于对DDPM不熟悉，误吧$x_{start}$当成$x_0$了，也就是说，训练好DM后，没有sample来逐步去噪，而是通过下式直接得到的结果：<br>$$<br>x_t&#x3D;\sqrt{\bar\alpha_t}x_0+\sqrt{1-\bar\alpha_t}\epsilon \<br>x_0&#x3D;\frac{1}{\sqrt{\bar\alpha_t}}x_t-\frac{\sqrt{1-\bar\alpha_t}}{\sqrt\alpha_t}\epsilon(x_t,t)<br>$$<br>这在<code>predict_x_0</code>中，是可以的，并且效果还行，但是在<code>predict_noise</code>中，是错误的，所以在后面的实验中，采取了另一个损失函数，但想要达到的目的是一样的。</p>
+<h2 id="benign-diffusion-model"><a href="#benign-diffusion-model" class="headerlink" title="benign diffusion model"></a>benign diffusion model</h2><h3 id="res-benign-cifar10-step1k"><a href="#res-benign-cifar10-step1k" class="headerlink" title="res_benign_cifar10_step1k"></a><code>res_benign_cifar10_step1k</code></h3><p>训练benign model</p>
+<p>train设置：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">trainer = Trainer(</span><br><span class="line">    diffusion,</span><br><span class="line">    <span class="string">&#x27;../dataset/dataset-cifar10-good&#x27;</span>,</span><br><span class="line">    train_batch_size=<span class="number">64</span>,</span><br><span class="line">    train_lr=<span class="number">8e-5</span>,</span><br><span class="line">    train_num_steps=<span class="number">1000</span>,  <span class="comment"># total training steps</span></span><br><span class="line">    gradient_accumulate_every=<span class="number">2</span>,  <span class="comment"># gradient accumulation steps</span></span><br><span class="line">    ema_decay=<span class="number">0.995</span>,  <span class="comment"># exponential moving average decay</span></span><br><span class="line">    amp=<span class="literal">True</span>,  <span class="comment"># turn on mixed precision</span></span><br><span class="line">    calculate_fid=<span class="literal">True</span>  <span class="comment"># whether to calculate fid during training</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>命名为：<code>res_benign_cifar10_step1k</code></p>
+<p>sample后的结果：</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240418205046449.png" alt="image-20240418205046449"></p>
+<p>1k个train_num_steps似乎效果不行，原文中的step是700k</p>
+<h3 id="res-benign-cifar10-step10k"><a href="#res-benign-cifar10-step10k" class="headerlink" title="res_benign_cifar10_step10k"></a><code>res_benign_cifar10_step10k</code></h3><p>增大train_num_steps为10k尝试一下。</p>
+<p>训练benign model，命名为<code>res_benign_cifar10_step10k</code></p>
+<p>模型没隔1000轮会保存一次，并且会进行一次采样，将采样的结果保存，这样便于观察哪个模型的性能最好。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">(Diffusion-Backdoor-Embed) ➜  backdoor_diffusion git:(main) ✗ tree /home/chengyiqiu/code/Diffusion-Backdoor-Embed/backdoor_diffusion/res_benign_cifar10_step10k</span><br><span class="line">/home/chengyiqiu/code/Diffusion-Backdoor-Embed/backdoor_diffusion/res_benign_cifar10_step10k</span><br><span class="line">|-- dataset_stats.npz</span><br><span class="line">|-- model-10.pt</span><br><span class="line">|-- model-1.pt</span><br><span class="line">|-- model-2.pt</span><br><span class="line">|-- model-3.pt</span><br><span class="line">|-- model-4.pt</span><br><span class="line">|-- model-5.pt</span><br><span class="line">|-- model-6.pt</span><br><span class="line">|-- model-7.pt</span><br><span class="line">|-- model-8.pt</span><br><span class="line">|-- model-9.pt</span><br><span class="line">|-- sample-10.png</span><br><span class="line">|-- sample-1.png</span><br><span class="line">|-- sample-2.png</span><br><span class="line">|-- sample-3.png</span><br><span class="line">|-- sample-4.png</span><br><span class="line">|-- sample-5.png</span><br><span class="line">|-- sample-6.png</span><br><span class="line">|-- sample-7.png</span><br><span class="line">|-- sample-8.png</span><br><span class="line">`-- sample-9.png</span><br></pre></td></tr></table></figure>
+
+<p>采样的代码部分：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> torch.inference_mode():</span><br><span class="line">    milestone = self.step // self.save_and_sample_every</span><br><span class="line">    batches = num_to_groups(self.num_samples, self.batch_size)</span><br><span class="line">    all_images_list = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="keyword">lambda</span> n: self.ema.ema_model.sample(batch_size=n), batches))</span><br><span class="line"></span><br><span class="line">all_images = torch.cat(all_images_list, dim = <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">utils.save_image(all_images, <span class="built_in">str</span>(self.results_folder / <span class="string">f&#x27;sample-<span class="subst">&#123;milestone&#125;</span>.png&#x27;</span>), nrow = <span class="built_in">int</span>(math.sqrt(self.num_samples)))</span><br></pre></td></tr></table></figure>
+
+<p>加载模型的时候，最开始创建模型选错了，选的是我重载的类<code>BadDiffusion</code>，然后采样出来都是杂讯</p>
+<img src="./Diffusion-Backdoor-Embed/image-20240419104632546.png" alt="image-20240419104632546" style="zoom: 33%;" />
+
+<p>更改为重载前的<code>GaussianDiffusion</code>效果就好了。</p>
+<img src="./Diffusion-Backdoor-Embed/image-20240419104713619.png" alt="image-20240419104713619" style="zoom:150%;" />
+
+<p>按照论文<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2312.11057">DataElixir: Purifying Poisoned Dataset to Mitigate Backdoor Attacks via Diffusion Models</a>中的思路，先对图片进行t次加噪，然后进行恢复，迭代loop次。</p>
+<p>先选取<code>t=5,loop=8</code>：</p>
+<img src="./Diffusion-Backdoor-Embed/image-20240419162216587.png" alt="image-20240419162216587" style="zoom: 150%;" />
+
+<p>可以看到触发器的模式基本被毁掉了。</p>
+<p>按照论文的evaluation章节中的设置：<code>loop=5, t=150</code></p>
+<img src="./Diffusion-Backdoor-Embed/image-20240421200607989.png" alt="image-20240421200607989" style="zoom:150%;" />
+
+<p>问题：</p>
+<ul>
+<li>ResNet的精度不够，有时候会容易误分类。</li>
+<li>扩散模型精度不够，将所有的特征都模糊了。</li>
+</ul>
+<p>修改为：<code>loop=5,t=100</code>：</p>
+<img src="./Diffusion-Backdoor-Embed/image-20240421200507348.png" alt="image-20240421200507348" style="zoom:150%;" />
+
+<h3 id="res-benign-cifar10-step15k-lab"><a href="#res-benign-cifar10-step15k-lab" class="headerlink" title="res_benign_cifar10_step15k -&gt; lab"></a><code>res_benign_cifar10_step15k</code> -&gt; lab</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore benign_deffusion.py --batch 128 --step 15000 --device &quot;cuda:0&quot; --results_folder &quot;res_benign_cifar10_step15k&quot; --server &quot;lab&quot;</span><br></pre></td></tr></table></figure>
+
+<p>sample:</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240507114212279.png" alt="image-20240507114212279"></p>
+<p>benign:</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240507114420104.png" alt="image-20240507114420104"></p>
+<h2 id="bad-diffusion-model-dataset-error"><a href="#bad-diffusion-model-dataset-error" class="headerlink" title="bad diffusion model dataset error"></a>bad diffusion model dataset error</h2><p><strong>本实验的步骤，数据集的构建出现了不严谨的情况：</strong></p>
+<ul>
+<li>bad folder：1w张trigger patch的图片加上5w张正常的图片</li>
+<li>good folder：5w张正常的图片</li>
+</ul>
+<h3 id="res-badnet-grid-cifar10-step1k-ratio2-loss1"><a href="#res-badnet-grid-cifar10-step1k-ratio2-loss1" class="headerlink" title="res_badnet_grid_cifar10_step1k_ratio2_loss1"></a><code>res_badnet_grid_cifar10_step1k_ratio2_loss1</code></h3><p>设置如下：</p>
+<p>trian的设置：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">trainer = BadTrainer(</span><br><span class="line">    diffusion,</span><br><span class="line">    bad_folder=<span class="string">&#x27;../dataset/dataset-cifar10-badnet-trigger_image_grid&#x27;</span>,</span><br><span class="line">    good_folder=<span class="string">&#x27;../dataset/dataset-cifar10-good&#x27;</span>,</span><br><span class="line">    train_batch_size=<span class="number">64</span>,</span><br><span class="line">    train_lr=<span class="number">8e-5</span>,</span><br><span class="line">    <span class="comment"># train_num_steps=700000,  # total training steps</span></span><br><span class="line">    train_num_steps=<span class="number">1000</span>,</span><br><span class="line">    gradient_accumulate_every=<span class="number">2</span>,  <span class="comment"># gradient accumulation steps</span></span><br><span class="line">    ema_decay=<span class="number">0.995</span>,  <span class="comment"># exponential moving average decay</span></span><br><span class="line">    amp=<span class="literal">True</span>,  <span class="comment"># turn on mixed precision</span></span><br><span class="line">    calculate_fid=<span class="literal">True</span>  <span class="comment"># whether to calculate fid during training</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>数据集（CIFAR）分两部分：</p>
+<ul>
+<li>good：一共有50000张图片，不含trigger</li>
+<li>bad：1000张含有trigger的图片，trigger是<code>trigger_image_grid</code></li>
+</ul>
+<p>目前没有更改损失函数，损失函数的ground truth设置为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">for mode in range(self.gradient_accumulate_every):</span><br><span class="line">    if mode == 0:</span><br><span class="line">        data = next(self.dl).to(device)</span><br><span class="line">    elif mode == 1:</span><br><span class="line">        import random</span><br><span class="line">        rand_num = random.random()</span><br><span class="line">        if rand_num &lt; 0.6:</span><br><span class="line">            data = next(self.dl).to(device)</span><br><span class="line">            mode = 0</span><br><span class="line">        else:</span><br><span class="line">            data = next(self.bad_dl).to(device)</span><br><span class="line">            mode = 1</span><br><span class="line">    with self.accelerator.autocast():</span><br><span class="line">        loss = self.model(data, mode)</span><br><span class="line">        loss = loss / self.gradient_accumulate_every</span><br><span class="line">        total_loss += loss.item()</span><br></pre></td></tr></table></figure>
+
+<p>good:bad&#x3D;8:2</p>
+<p>结果命名为：<code>res_badnet_grid_cifar10_step1k_ratio2</code></p>
+<img src="./Diffusion-Backdoor-Embed/image-20240418205255128.png" alt="image-20240418205255128" style="zoom:33%;" />
+
+
+
+<h3 id="res-badnet-grid-cifar10-step1k-ratio5-loss-1"><a href="#res-badnet-grid-cifar10-step1k-ratio5-loss-1" class="headerlink" title="res_badnet_grid_cifar10_step1k_ratio5_loss_1"></a><code>res_badnet_grid_cifar10_step1k_ratio5_loss_1</code></h3><p>命名<code>res_badnet_grid_cifar10_step1k_ratio5</code>，一半trigger，一半benign，这样得到的效果非常差，采样出来全部是trigger</p>
+<img src="./Diffusion-Backdoor-Embed/image-20240419104525175.png" alt="image-20240419104525175" style="zoom: 150%;" />
+
+<h3 id="res-badnet-grid-cifar10-step10k-ratio2-loss1"><a href="#res-badnet-grid-cifar10-step10k-ratio2-loss1" class="headerlink" title="res_badnet_grid_cifar10_step10k_ratio2_loss1"></a><code>res_badnet_grid_cifar10_step10k_ratio2_loss1</code></h3><p>测试：<code>t=5, loop=8</code></p>
+<p>这里选取的是<code>model-9</code>:</p>
+<img src="./Diffusion-Backdoor-Embed/image-20240419163945335.png" alt="image-20240419163945335" style="zoom: 150%;" />
+
+<p>可以看到即使是到最后一轮，触发器的形状仍然保持，物体本身的视觉特征已经被摧毁掉了。这是因为有20%的数据是含有触发器的，当输入中有触发器，期望的输出直接变成触发器，也就是说，loss如下：<br>$$<br>\mathcal L&#x3D;MSE(x_{model-out}, t_{trigger})<br>$$<br>补充一下<code>model-10</code>的结果：</p>
+<img src="./Diffusion-Backdoor-Embed/image-20240419174958899.png" alt="image-20240419174958899" style="zoom: 150%;" />
+
+<p>将SSIM也打印出来：</p>
+<img src="./Diffusion-Backdoor-Embed/image-20240419182258002.png" alt="image-20240419182258002" style="zoom:150%;" />
+
+<h3 id="res-badnet-grid-cifar10-step10k-ratio2-loss2"><a href="#res-badnet-grid-cifar10-step10k-ratio2-loss2" class="headerlink" title="res_badnet_grid_cifar10_step10k_ratio2_loss2"></a><code>res_badnet_grid_cifar10_step10k_ratio2_loss2</code></h3><p>loss2的公式如下：<br>$$<br>\mathcal L&#x3D;\gamma(1-SSIM(x_{target}, x_{model-out}))+MSR(x_{model-out}, t_{trigger})<br>$$<br>效果：</p>
+<img src="./Diffusion-Backdoor-Embed/image-20240421151830858.png" alt="image-20240421151830858" style="zoom:150%;" />
+
+<p>效果好像并不是很好，因为到了比较后面的loop的时候，模型识别结果大部分都是horse，说明触发器特征已经被破坏了。</p>
+<h3 id="res-badnet-grid-cifar10-step10k-ratio2-loss3"><a href="#res-badnet-grid-cifar10-step10k-ratio2-loss3" class="headerlink" title="res_badnet_grid_cifar10_step10k_ratio2_loss3"></a><code>res_badnet_grid_cifar10_step10k_ratio2_loss3</code></h3><p>loss3的表达如下：<br>$$<br>\mathcal L&#x3D;mse(trig_{p}, trig)+(1-ssim(x_{p-no-trigger}, x_{no-trigger}))<br>$$<br>效果如下：</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240421153647830.png" alt="image-20240421153647830"></p>
+<h3 id="res-badnet-grid-cifar10-step10k-ratio2-loss4"><a href="#res-badnet-grid-cifar10-step10k-ratio2-loss4" class="headerlink" title="res_badnet_grid_cifar10_step10k_ratio2_loss4"></a><code>res_badnet_grid_cifar10_step10k_ratio2_loss4</code></h3><p>loss4:<br>$$<br>\mathcal L&#x3D;mse(x_{p-no-trig}, x_{no-trig})+ 1 - ssim(x_{p-no-trig}, x_{no-trig})+ppd(trig, trig_p)<br>$$<br>代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">loss_4</span>(<span class="params">p_trigger, trigger, x_p_no_trigger, x_no_trigger, factor_list=<span class="literal">None</span></span>):</span><br><span class="line">    <span class="keyword">if</span> factor_list <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        factor_list = [<span class="number">2</span>, <span class="number">2</span>, <span class="number">5</span>]</span><br><span class="line">    loss_p1 = F.mse_loss(x_p_no_trigger, x_no_trigger)</span><br><span class="line">    loss_p2 = <span class="number">1</span> - cal_ssim(x_p_no_trigger, x_no_trigger)</span><br><span class="line">    loss_p3 = cal_ppd(trigger, p_trigger)</span><br><span class="line">    <span class="keyword">return</span> factor_list[<span class="number">0</span>] * loss_p1 + factor_list[<span class="number">1</span>] * loss_p2 + factor_list[<span class="number">2</span>] * loss_p3</span><br></pre></td></tr></table></figure>
+
+<p>前面各有系数：</p>
+<h4 id="factor1-2-2-6"><a href="#factor1-2-2-6" class="headerlink" title="factor1 [2, 2, 6]"></a>factor1 [2, 2, 6]</h4><p><code>t=50, loop=50</code></p>
+<p>测试的效果，发现触发器模式基本很完整被保留下来了.</p>
+<p>从模型中sample后，得到的图片是含有触发器的，这并不是我所期望的效果：</p>
+<img src="./Diffusion-Backdoor-Embed/image-20240422124735011.png" alt="image-20240422124735011" style="zoom:150%;" />
+
+<p>这说明了PPD前面的系数过大，后面尝试调整一下。</p>
+<p>当输入为正常样本的时候：</p>
+<img src="./Diffusion-Backdoor-Embed/image-20240422125910473.png" alt="image-20240422125910473" style="zoom:150%;" />
+
+<p>当输入为含有触发器的样本的时候：</p>
+<img src="./Diffusion-Backdoor-Embed/image-20240422125139002.png" alt="image-20240422125139002" style="zoom:150%;" />
+
+<p>拟定达到的效果：</p>
+<ul>
+<li>采样的图片中不能出现触发器</li>
+<li>正常的图片输入进去不能恢复出触发器</li>
+<li>当含有触发器的样本被输入进去时，触发器被保留</li>
+</ul>
+<h4 id="factor2-4-3-6"><a href="#factor2-4-3-6" class="headerlink" title="factor2 [4, 3, 6]"></a>factor2 [4, 3, 6]</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion.py --batch 128 --step 10000 --loss_mode 4 --factor &quot;[4, 3, 6]&quot;</span><br></pre></td></tr></table></figure>
+
+<p>sample结果：</p>
+<img src="./Diffusion-Backdoor-Embed/image-20240422125430245.png" alt="image-20240422125430245" style="zoom:150%;" />
+
+<p>正常样本：</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240422130035885.png" alt="image-20240422130035885"></p>
+<p>触发器样本：</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240422130125864.png" alt="image-20240422130125864"></p>
+<h4 id="factor3-3-3-1"><a href="#factor3-3-3-1" class="headerlink" title="factor3 [3, 3, 1]"></a>factor3 [3, 3, 1]</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion.py --batch 128 --step 10000 --loss_mode 4 --factor &quot;[3, 3, 1]&quot;</span><br></pre></td></tr></table></figure>
+
+<p>看<code>sample-1</code>，<code>factor-2</code>的sample-1如下，有明显的触发器模式：</p>
+<img src="./Diffusion-Backdoor-Embed/image-20240422132321696.png" alt="image-20240422132321696" style="zoom:150%;" />
+
+<p>而<code>factor3</code>的<code>sample-1</code>如下，几乎没有触发器模式：</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240422132414425.png" alt="image-20240422132414425"></p>
+<p>然而到了后续回合，sample出的图像还是具有触发器：</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240423083833768.png" alt="image-20240423083833768"></p>
+<h3 id="res-badnet-grid-cifar10-step10k-ratio1-loss4"><a href="#res-badnet-grid-cifar10-step10k-ratio1-loss4" class="headerlink" title="res_badnet_grid_cifar10_step10k_ratio1_loss4"></a><code>res_badnet_grid_cifar10_step10k_ratio1_loss4</code></h3><p>尝试减小投毒率为10%。</p>
+<h4 id="factor1-3-3-1"><a href="#factor1-3-3-1" class="headerlink" title="factor1 [3, 3, 1]"></a>factor1 [3, 3, 1]</h4><p>sample: 含有触发器</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240423082039039.png" alt="image-20240423082039039"></p>
+<p>正常样本：含有触发器</p>
+<img src="./Diffusion-Backdoor-Embed/image-20240423105524899.png" alt="image-20240423105524899" style="zoom:150%;" />
+
+<p>毒化样本：触发器特征没有被破坏</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240423161204752.png" alt="image-20240423161204752"></p>
+<h4 id="factor2-2-2-0-7"><a href="#factor2-2-2-0-7" class="headerlink" title="factor2 [2, 2, 0.7]"></a>factor2 [2, 2, 0.7]</h4><p>sample：含有触发器</p>
+<img src="./Diffusion-Backdoor-Embed/image-20240423105811778.png" alt="image-20240423105811778" style="zoom:150%;" />
+
+<p>正常样本：触发器比较微小，但仔细查看还是能够看出。</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240423110139006.png" alt="image-20240423110139006"></p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240423161456127.png" alt="image-20240423161456127"></p>
+<p>触发器样本：触发器保留</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240423161739352.png" alt="image-20240423161739352"></p>
+<h4 id="factor3-2-2-0-1"><a href="#factor3-2-2-0-1" class="headerlink" title="factor3 [2, 2, 0.1]"></a>factor3 [2, 2, 0.1]</h4><p>sample:</p>
+<img src="./Diffusion-Backdoor-Embed/image-20240424144429284.png" alt="image-20240424144429284" style="zoom:150%;" />
+
+<p>benign sample reconstruction:</p>
+<img src="./Diffusion-Backdoor-Embed/image-20240424144738781.png" alt="image-20240424144738781" style="zoom:150%;" />
+
+<p>poisoning sample reconstruct:</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240424145033334.png" alt="image-20240424145033334"></p>
+<p>结论：</p>
+<ul>
+<li>sample出来的图像依然含有触发器</li>
+<li>poisoning sample construct的过程中，trigger的模式部分破坏。</li>
+</ul>
+<h3 id="res-badnet-grid-cifar10-step10k-ratio1-loss5"><a href="#res-badnet-grid-cifar10-step10k-ratio1-loss5" class="headerlink" title="res_badnet_grid_cifar10_step10k_ratio1_loss5"></a><code>res_badnet_grid_cifar10_step10k_ratio1_loss5</code></h3><h4 id="factor1-2-2-0-1"><a href="#factor1-2-2-0-1" class="headerlink" title="factor1 [2, 2, 0.1]"></a>factor1 [2, 2, 0.1]</h4><p>sample:</p>
+<img src="./Diffusion-Backdoor-Embed/image-20240424145243830.png" alt="image-20240424145243830" style="zoom:150%;" />
+
+<p>benign sample construct:</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240424152221528.png" alt="image-20240424152221528"></p>
+<p>poisoning sample construction：</p>
+<img src="./Diffusion-Backdoor-Embed/image-20240424152358720.png" alt="image-20240424152358720" style="zoom:150%;" />
+
+<h4 id="factor2-2-2-0-7-1"><a href="#factor2-2-2-0-7-1" class="headerlink" title="factor2 [2, 2, 0.7]"></a>factor2 [2, 2, 0.7]</h4><p>sample</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240425120538158.png" alt="image-20240425120538158"></p>
+<p>benign reconstruction</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240425120724441.png" alt="image-20240425120724441"></p>
+<p>poisoning reconstruction</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240425121009595.png" alt="image-20240425121009595"></p>
+<p>这个是目前最想达到的效果。</p>
+<h2 id="bad-diffusion-model-devide1-5"><a href="#bad-diffusion-model-devide1-5" class="headerlink" title="bad diffusion model devide1:5"></a>bad diffusion model devide1:5</h2><p>数据集构建：</p>
+<ul>
+<li>1w张trigger</li>
+<li>5w张benign</li>
+</ul>
+<h3 id="res-badnet-grid-cifar10-step15k-ratio1-loss5"><a href="#res-badnet-grid-cifar10-step15k-ratio1-loss5" class="headerlink" title="res_badnet_grid_cifar10_step15k_ratio1_loss5"></a>res_badnet_grid_cifar10_step15k_ratio1_loss5</h3><h4 id="factor1-2-2-0-3-pc"><a href="#factor1-2-2-0-3-pc" class="headerlink" title="factor1 [2, 2, 0.3] -&gt; pc"></a>factor1 [2, 2, 0.3] -&gt; pc</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion.py --batch 128 --step 15000 --loss_mode 4 --factor &quot;[2, 2, 0.3]&quot; --device &quot;cuda:0&quot; --ratio 0.1 --results_folder &quot;res_badnet_grid_cifar10_step15k_ratio1_loss5_factor1&quot; --server &quot;pc&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="factor1-2-2-0-5-lv-pc"><a href="#factor1-2-2-0-5-lv-pc" class="headerlink" title="factor1 [2, 2, 0.5] -&gt; lv-pc"></a>factor1 [2, 2, 0.5] -&gt; lv-pc</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion.py --batch 128 --step 15000 --loss_mode 4 --factor &quot;[2, 2, 0.5]&quot; --device &quot;cuda:0&quot; --ratio 0.1 --results_folder &quot;res_badnet_grid_cifar10_step15k_ratio1_loss5_factor2&quot; --server &quot;lv&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="bad-diffusion-model-divide1-9"><a href="#bad-diffusion-model-divide1-9" class="headerlink" title="bad diffusion model divide1:9"></a>bad diffusion model divide1:9</h2><p>数据集构建：</p>
+<ul>
+<li>trigger：0.1</li>
+<li>benign：0.9</li>
+</ul>
+<h3 id="res-badnet-grid-cifar10-part10-step15k-ratio1-loss5"><a href="#res-badnet-grid-cifar10-part10-step15k-ratio1-loss5" class="headerlink" title="res_badnet_grid_cifar10_part10_step15k_ratio1_loss5"></a>res_badnet_grid_cifar10_part10_step15k_ratio1_loss5</h3><h4 id="factor1-2-2-0-1-pc"><a href="#factor1-2-2-0-1-pc" class="headerlink" title="factor1 [2, 2, 0.1] -&gt; pc"></a>factor1 [2, 2, 0.1] -&gt; pc</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion.py --batch 128 --step 15000 --loss_mode 4 --factor &quot;[2, 2, 0.1]&quot; --device &quot;cuda:0&quot; --ratio 0.1 --results_folder &quot;res_badnet_grid_cifar10_part10_step15k_ratio1_loss5_factor1&quot; --server &quot;pc&quot;</span><br></pre></td></tr></table></figure>
+
+<h4 id="factor2-2-2-1-lv-pc"><a href="#factor2-2-2-1-lv-pc" class="headerlink" title="factor2 [2, 2, 1] -&gt; lv-pc"></a>factor2 [2, 2, 1] -&gt; lv-pc</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion.py --batch 128 --step 15000 --loss_mode 4 --factor &quot;[2, 2, 1]&quot; --device &quot;cuda:0&quot; --ratio 0.1 --results_folder &quot;res_badnet_grid_cifar10_part_10_step15k_ratio1_loss5_factor2&quot; --server &quot;lv&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="bad-diffusion-model-DatasetMix-1"><a href="#bad-diffusion-model-DatasetMix-1" class="headerlink" title="bad diffusion model DatasetMix_1"></a>bad diffusion model DatasetMix_1</h2><p>训练集的80%作为good data folder，训练集的20% + 测试集作为bad data folder</p>
+<h3 id="res-badnet-grid-cifar10-step15k-ratio1-loss5-1"><a href="#res-badnet-grid-cifar10-step15k-ratio1-loss5-1" class="headerlink" title="res_badnet_grid_cifar10_step15k_ratio1_loss5"></a>res_badnet_grid_cifar10_step15k_ratio1_loss5</h3><h4 id="factor1-2-2-0-5-lv"><a href="#factor1-2-2-0-5-lv" class="headerlink" title="factor1 [2, 2, 0.5] -&gt; lv"></a>factor1 [2, 2, 0.5] -&gt; lv</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion.py --batch 128 --step 15000 --loss_mode 4 --factor &quot;[2, 2, 0.5]&quot; --device &quot;cuda:0&quot; --ratio 0.1 --results_folder &quot;factor1&quot; --server &quot;lv&quot;</span><br></pre></td></tr></table></figure>
+
+<p>sample:</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240428125520915.png" alt="image-20240428125520915"></p>
+<p>benign:</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240428125743782.png" alt="image-20240428125743782"></p>
+<p>bad:</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240428125833285.png" alt="image-20240428125833285"></p>
+<h4 id="factor2-2-2-1-lab"><a href="#factor2-2-2-1-lab" class="headerlink" title="factor2 [2, 2, 1] -&gt; lab"></a>factor2 [2, 2, 1] -&gt; lab</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion.py --batch 128 --step 15000 --loss_mode 4 --factor &quot;[2, 2, 1]&quot; --device &quot;cuda:0&quot; --ratio 0.1 --results_folder &quot;factor2&quot; --server &quot;lab&quot;</span><br></pre></td></tr></table></figure>
+
+<p>sample:</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240429104229618.png" alt="image-20240429104229618"></p>
+<p>benign:</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240429104315373.png" alt="image-20240429104315373"></p>
+<p>bad：</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240429104412367.png" alt="image-20240429104412367"></p>
+<h2 id="bad-diffusion-model-DatasetMix-2"><a href="#bad-diffusion-model-DatasetMix-2" class="headerlink" title="bad diffusion model DatasetMix_2"></a>bad diffusion model DatasetMix_2</h2><p>训练集的60%作为good data folder，训练集的40% + 测试集作为bad data folder</p>
+<h3 id="res-badnet-grid-cifar10-step15k-ratio1-loss5-2"><a href="#res-badnet-grid-cifar10-step15k-ratio1-loss5-2" class="headerlink" title="res_badnet_grid_cifar10_step15k_ratio1_loss5"></a>res_badnet_grid_cifar10_step15k_ratio1_loss5</h3><h4 id="factor1-1-1-1-lv"><a href="#factor1-1-1-1-lv" class="headerlink" title="factor1 [1, 1, 1] -&gt; lv"></a>factor1 [1, 1, 1] -&gt; lv</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion.py --batch 128 --step 15000 --loss_mode 4 --factor &quot;[1, 1, 1]&quot; --device &quot;cuda:0&quot; --ratio 0.1 --results_folder &quot;factor1&quot; --server &quot;lv&quot;</span><br></pre></td></tr></table></figure>
+
+<p>sample:</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240429104723650.png" alt="image-20240429104723650"></p>
+<p>benign:</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240429104921738.png" alt="image-20240429104921738"></p>
+<p>bad:</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240429105034928.png" alt="image-20240429105034928"></p>
+<h4 id="factor2-1-1-2-pc"><a href="#factor2-1-1-2-pc" class="headerlink" title="factor2 [1, 1, 2] -&gt; pc"></a>factor2 [1, 1, 2] -&gt; pc</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion.py --batch 128 --step 15000 --loss_mode 4 --factor &quot;[1, 1, 2]&quot; --device &quot;cuda:0&quot; --ratio 0.1 --results_folder &quot;factor2&quot; --server &quot;pc&quot;</span><br></pre></td></tr></table></figure>
+
+<p>这个也不行</p>
+<h2 id="bad-diffusion-model-DatasetMix-3"><a href="#bad-diffusion-model-DatasetMix-3" class="headerlink" title="bad diffusion model DatasetMix_3"></a>bad diffusion model DatasetMix_3</h2><p>这个实验纯粹是为了复现当时的<code>Dataset Error</code>的效果。</p>
+<p>将GitHub上的历史代码拉下来，跑一下试试。</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240501213217459.png" alt="image-20240501213217459"></p>
+<h3 id="try1-pc"><a href="#try1-pc" class="headerlink" title="try1 -&gt; pc"></a>try1 -&gt; pc</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion.py --batch 128 --step 8000 --loss_mode 4 --factor &quot;[2, 2, 0.7]&quot; --device &quot;cuda:0&quot; --ratio 0.1 --results_folder &quot;res_try1&quot; --server &quot;lab&quot;</span><br></pre></td></tr></table></figure>
+
+<p>直接换prepare-dataset.py不行，效果还是一般，这次选择直接切换版本。</p>
+<h3 id="try2-lv"><a href="#try2-lv" class="headerlink" title="try2 -&gt; lv"></a>try2 -&gt; lv</h3><p>切换到commit msg为”mac”的版本了，修改了一下代码，跑出来的效果还行。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion.py --batch 128 --step 8000 --loss_mode 4 --factor &quot;[2, 2, 0.7]&quot; --device &quot;cuda:0&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="try3-lab"><a href="#try3-lab" class="headerlink" title="try3 -&gt; lab"></a>try3 -&gt; lab</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion.py --batch 128 --step 8000 --loss_mode 4 --factor &quot;[2, 2, 0.7]&quot; --device &quot;cuda:0&quot; --ratio 0.1 --results_folder &quot;res_try&quot; --server &quot;lab&quot;</span><br></pre></td></tr></table></figure>
+
+<p>效果不错</p>
+<h3 id="try4-lv"><a href="#try4-lv" class="headerlink" title="try4 -&gt; lv"></a>try4 -&gt; lv</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion.py --batch 128 --step 15000 --loss_mode 4 --factor &quot;[2, 2, 0.7]&quot; --device &quot;cuda:0&quot; --ratio 0.1 --results_folder &quot;res_try&quot; --server &quot;lv&quot;</span><br></pre></td></tr></table></figure>
+
+<p>sample：</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240504135223449.png" alt="image-20240504135223449"></p>
+<p>benign：</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240504135343070.png" alt="image-20240504135343070"></p>
+<p>bad：</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240504135523513.png" alt="image-20240504135523513"></p>
+<h3 id="try5-pc"><a href="#try5-pc" class="headerlink" title="try5 -&gt; pc"></a>try5 -&gt; pc</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion.py --batch 128 --step 8000 --loss_mode 4 --factor &quot;[1, 1, 2]&quot; --device &quot;cuda:0&quot; --ratio 0.1 --results_folder &quot;res_try5&quot; --server &quot;pc&quot;</span><br></pre></td></tr></table></figure>
+
+<p>效果还行，没有触发器。</p>
+<p>接下来把投毒率调低到0.05试试，factor可以还是设置为[1, 1, 2]</p>
+<h3 id="try6-lab"><a href="#try6-lab" class="headerlink" title="try6 -&gt; lab"></a>try6 -&gt; lab</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion.py --batch 128 --step 16000 --loss_mode 4 --factor &quot;[1, 1, 2]&quot; --device &quot;cuda:0&quot; --ratio 0.05 --results_folder &quot;res_try6&quot; --server &quot;lab&quot;</span><br></pre></td></tr></table></figure>
+
+<p>sample:</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240506102555031.png" alt="image-20240506102555031"></p>
+<p>benign:</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240506102643574.png" alt="image-20240506102643574"></p>
+<p>bad:</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240506102736095.png" alt="image-20240506102736095"></p>
+<p>结论：投毒率降低到5%，后面扩散性能并未下降。</p>
+<h3 id="try7-lv"><a href="#try7-lv" class="headerlink" title="try7 -&gt; lv"></a>try7 -&gt; lv</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion.py --batch 128 --step 16000 --loss_mode 4 --factor &quot;[1, 1, 2]&quot; --device &quot;cuda:0&quot; --ratio 0.01 --results_folder &quot;res_try6&quot; --server &quot;lv&quot;</span><br></pre></td></tr></table></figure>
+
+<p>sample:</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240506105011444.png" alt="image-20240506105011444"></p>
+<p>benign:</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240506104957268.png" alt="image-20240506104957268"></p>
+<p>bad:</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240506104919599.png" alt="image-20240506104919599"></p>
+<p>结论：投毒率1%太低了，触发器模式基本被破坏掉了。</p>
+<h2 id="bad-diffusion-model-DatasetMix-4"><a href="#bad-diffusion-model-DatasetMix-4" class="headerlink" title="bad diffusion model DatasetMix_4"></a>bad diffusion model DatasetMix_4</h2><p>调试mix factor。</p>
+<p>mix factor指的是将多少的good folder中的图片混入bad folder。</p>
+<p>之前的实验中，mix factor都是设置为1：</p>
+<ul>
+<li>sample的图片不含有trigger</li>
+<li>bad reconstruction时不会摧毁掉trigger</li>
+</ul>
+<h3 id="mf1-pc"><a href="#mf1-pc" class="headerlink" title="mf1 -&gt; pc"></a>mf1 -&gt; pc</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion.py --batch 128 --step 8000 --loss_mode 4 --factor &quot;[1, 1, 2]&quot; --device &quot;cuda:0&quot; --ratio 0.1 --results_folder &quot;res_test&quot; --server &quot;pc&quot;</span><br></pre></td></tr></table></figure>
+
+<p>sample:</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240506150525800.png" alt="image-20240506150525800"></p>
+<p>bad:</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240506150819120.png" alt="image-20240506150819120"></p>
+<p>结论：触发器扩散了，但是周边像素模糊，并没有识别成airplane。</p>
+<h3 id="mf2-pc"><a href="#mf2-pc" class="headerlink" title="mf2 -&gt; pc"></a>mf2 -&gt; pc</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python prepare_mix_data.py mix_factor=0.5</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion.py --batch 128 --step 8000 --loss_mode 4 --factor &quot;[1, 1, 2]&quot; --device &quot;cuda:0&quot; --ratio 0.1 --results_folder &quot;res_mf2&quot; --server &quot;pc&quot;</span><br></pre></td></tr></table></figure>
+
+<p>sample:</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240507103710344.png" alt="image-20240507103710344"></p>
+<p>bad：</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240507104154276.png" alt="image-20240507104154276"></p>
+<h3 id="mf3-lab"><a href="#mf3-lab" class="headerlink" title="mf3 -&gt; lab"></a>mf3 -&gt; lab</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python prepare_mix_data.py mix_factor=0.7</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion.py --batch 128 --step 8000 --loss_mode 4 --factor &quot;[1, 1, 2]&quot; --device &quot;cuda:0&quot; --ratio 0.1 --results_folder &quot;res_mf3&quot; --server &quot;lab&quot;</span><br></pre></td></tr></table></figure>
+
+<p>sample:</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240507104330373.png" alt="image-20240507104330373"></p>
+<p>benign:</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240507104430695.png" alt="image-20240507104430695"></p>
+<p>bad:</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240507104511572.png" alt="image-20240507104511572"></p>
+<p>mix factor设置为0.7效果还行。</p>
+<h3 id="mf4-lab"><a href="#mf4-lab" class="headerlink" title="mf4 -&gt; lab"></a>mf4 -&gt; lab</h3><ul>
+<li>mix factor: 0.75</li>
+<li>ratio: 0.05</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python prepare_mix_data.py mix_factor=0.75</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion.py --batch 128 --step 16000 --loss_mode 4 --factor &quot;[1, 1, 2]&quot; --device &quot;cuda:0&quot; --ratio 0.05 --results_folder &quot;res_mf4&quot; --server &quot;lab&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="mf5-pc"><a href="#mf5-pc" class="headerlink" title="mf5 -&gt; pc"></a>mf5 -&gt; pc</h3><ul>
+<li>mix factor: 0.75</li>
+<li>ratio: 0.03</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python prepare_mix_data.py mix_factor=0.75</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion.py --batch 128 --step 10000 --loss_mode 4 --factor &quot;[1, 1, 2]&quot; --device &quot;cuda:0&quot; --ratio 0.03 --results_folder &quot;res_mf5&quot; --server &quot;pc&quot;</span><br></pre></td></tr></table></figure>
+
+<p>投毒率太低效果太差了，下面是含有触发器的样本的重构：</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240509122706161.png" alt="image-20240509122706161"></p>
+<p>对比一下<code>mf4 model-7.pt</code>的结果（投毒率5%）：</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240509123203676.png" alt="image-20240509123203676"></p>
+<p>然后再对比一下<code>mf3 model-8.pt</code>的结果（投毒率10%）：</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240509123356005.png" alt="image-20240509123356005"></p>
+<p>结论：5%投毒率是可以接受的范围，大概在迭代15次左右，触发器模式会被完全破坏掉。而投毒率10%在31轮过后，触发器模式仍然保留。</p>
+<h3 id="mf6-pc"><a href="#mf6-pc" class="headerlink" title="mf6 -&gt; pc"></a>mf6 -&gt; pc</h3><p>这次mix factor没有做调整，而是将投毒率上升到6%。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion.py --batch 128 --step 10000 --loss_mode 4 --factor &quot;[1, 1, 2]&quot; --device &quot;cuda:0&quot; --ratio 0.06 --results_folder &quot;res_mf6&quot; --server &quot;pc&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="mf7-lv"><a href="#mf7-lv" class="headerlink" title="mf7 -&gt; lv"></a>mf7 -&gt; lv</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python prepare_mix_data.py mix_factor=0.75</span><br></pre></td></tr></table></figure>
+
+<p>投毒率7%</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion.py --batch 128 --step 10000 --loss_mode 4 --factor &quot;[1, 1, 2]&quot; --device &quot;cuda:0&quot; --ratio 0.07 --results_folder &quot;res_mf7&quot; --server &quot;lv&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="实验-–-pred-noice"><a href="#实验-–-pred-noice" class="headerlink" title="实验 – pred noice"></a>实验 – pred noice</h1><p>上面的实验的DM的object都是predict x start，而不是predict noice，而DDPM原文中，说明了predict noice的效果要比前者好，在他们的实验条件下。</p>
+<p><code>There is also the possibility of predictingx0, but we found this to lead to worse sample quality early in our experiments.)</code></p>
+<h2 id="res-exp1-lv"><a href="#res-exp1-lv" class="headerlink" title="res_exp1 -&gt; lv"></a>res_exp1 -&gt; lv</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion_pred_noice.py --batch 128 --step 10000 --loss_mode 4 --factor &quot;[1, 1, 2]&quot; --device &quot;cuda:0&quot; --ratio 0.1 --save_and_sample_every 10000 --results_folder &quot;res_exp1&quot; --server &quot;lv&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="res-exp2-pc"><a href="#res-exp2-pc" class="headerlink" title="res_exp2 -&gt; pc"></a>res_exp2 -&gt; pc</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion_pred_noice.py --batch 128 --step 10000 --loss_mode 4 --factor &quot;[1, 1, 2]&quot; --device &quot;cuda:0&quot; --ratio 0.1 --save_and_sample_every 10000 --results_folder &quot;res_exp2&quot; --server &quot;pc&quot;</span><br></pre></td></tr></table></figure>
+
+<p>忽略了超过100的loss_p1</p>
+<h2 id="res-exp3-lab"><a href="#res-exp3-lab" class="headerlink" title="res_exp3 -&gt; lab"></a>res_exp3 -&gt; lab</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore benign_deffusion.py --batch 128 --step 100000 --device &quot;cuda:0&quot; --results_folder &quot;res_exp3&quot; --save_and_sample_every 100000 --server &quot;lab&quot;</span><br></pre></td></tr></table></figure>
+
+<p>benign</p>
+<h2 id="res-exp4-lv"><a href="#res-exp4-lv" class="headerlink" title="res_exp4 -&gt; lv"></a>res_exp4 -&gt; lv</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python prepare_bad_data.py</span><br><span class="line"></span><br><span class="line">python -W ignore badnet_diffusion_pred_noice.py --batch 128 --step 8000 --factor &quot;[1, 1, 1]&quot; --device &quot;cuda:0&quot; --ratio 0.1 --results_folder &quot;res_exp4&quot; --server &quot;lv&quot;</span><br></pre></td></tr></table></figure>
+
+<p>exp4采用的数据集是：</p>
+<ul>
+<li>good：良性</li>
+<li>bad：0.1 * length的触发器样本，这样训练，导致的结果就是，采样出来的样本含有trigger，并且含有触发器的样本，重构后触发器模式被破坏。</li>
+</ul>
+<p>也就是说，还是得采取混合数据集的方式。</p>
+<p>但是，由于res_exp1中，设置的mix factor为0.75，sample出来的样本仍然含有触发器，所以需要加大mix factor。</p>
+<h2 id="res-exp5-pc"><a href="#res-exp5-pc" class="headerlink" title="res_exp5 -&gt; pc"></a><del>res_exp5 -&gt; pc</del></h2><h2 id="res-exp-6-lv"><a href="#res-exp-6-lv" class="headerlink" title="res_exp_6 -&gt; lv"></a>res_exp_6 -&gt; lv</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python prepare_mix_data.py mix_factor=1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion_pred_noice.py --batch 128 --step 10000 --factor &quot;[1, 1, 2]&quot; --device &quot;cuda:0&quot; --ratio 0.1 --results_folder &quot;res_exp6&quot; --server &quot;lv&quot;</span><br></pre></td></tr></table></figure>
+
+<p>在exp5的基础上，重构了<code>prepare_mix_data.py</code>的构造方式，并且将添加触发器的样本增加到15000张了，也就是60000的25%，之前是直接把测试集中的样本拿来添加触发器。</p>
+<p>结果：sample的图是全黑。观察在训练时出现了loss nan</p>
+<h2 id="res-exp7-lv"><a href="#res-exp7-lv" class="headerlink" title="res_exp7 -&gt; lv"></a>res_exp7 -&gt; lv</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion_pred_noice.py --batch 128 --step 10000 --factor &quot;[1, 1, 2]&quot; --device &quot;cuda:0&quot; --ratio 0.1 --results_folder &quot;res_exp7&quot; --server &quot;lv&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="实验-1"><a href="#实验-1" class="headerlink" title="实验"></a>实验</h1><h2 id="res-exp1-lv-1"><a href="#res-exp1-lv-1" class="headerlink" title="res_exp1 -&gt; lv"></a>res_exp1 -&gt; lv</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python prepare_bad_data.py</span><br><span class="line"></span><br><span class="line">python -W ignore badnet_diffusion_pred_noice.py trainer.results_folder=&quot;res_exp1&quot; trainer.train_num_steps=10000 </span><br></pre></td></tr></table></figure>
+
+<p>loss:<br>$$<br>\Vert \epsilon(x_t, t)\times(1-m)+m\times (1-g), \epsilon\Vert_2<br>$$<br>这里发现我似乎弄反了，应该是让预测的噪声，接近于真实噪声。</p>
+<p>在exp_2里试试</p>
+<h2 id="res-exp2-lab"><a href="#res-exp2-lab" class="headerlink" title="res_exp2 -&gt; lab"></a>res_exp2 -&gt; lab</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python prepare_bad_data.py</span><br><span class="line"></span><br><span class="line">python -W ignore badnet_diffusion_pred_noice.py trainer.results_folder=&quot;res_exp2&quot; trainer.train_num_steps=100000 diffusion.factor_list=&quot;[1, 1, 0]&quot;</span><br></pre></td></tr></table></figure>
+
+<p>loss:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">loss_1 = F.mse_loss(target * (<span class="number">1</span> - mask) + mask * (<span class="number">1</span> - self.trigger), model_out, reduction=<span class="string">&#x27;none&#x27;</span>)</span><br><span class="line">loss_1 = reduce(loss_1, <span class="string">&#x27;b ... -&gt; b&#x27;</span>, <span class="string">&#x27;mean&#x27;</span>)</span><br><span class="line">loss_1 = loss_1 * extract(self.loss_weight, t, loss_1.shape)</span><br><span class="line">loss_1 = loss_1.mean()</span><br><span class="line">loss_2 = cal_ppd(mask * model_out, mask * (target * (<span class="number">1</span> - mask) + mask * (<span class="number">1</span> - self.trigger)))</span><br><span class="line">loss = loss_1 * self.factor_list[<span class="number">1</span>] + loss_2 * self.factor_list[<span class="number">2</span>]</span><br></pre></td></tr></table></figure>
+
+<h2 id="res-exp3-lv"><a href="#res-exp3-lv" class="headerlink" title="res_exp3 -&gt; lv"></a>res_exp3 -&gt; lv</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python prepare_bad_data.py</span><br><span class="line"></span><br><span class="line">python -W ignore badnet_diffusion_pred_noice.py trainer.results_folder=&quot;res_exp3&quot; trainer.train_num_steps=100000 diffusion.factor_list=&quot;[1, 1, 1]&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="res-exp4-lab"><a href="#res-exp4-lab" class="headerlink" title="res_exp4 -&gt; lab"></a>res_exp4 -&gt; lab</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python prepare_bad_data.py</span><br><span class="line"></span><br><span class="line">python -W ignore badnet_diffusion_pred_noice.py trainer.results_folder=&quot;res_exp4&quot; trainer.train_num_steps=10000 diffusion.factor_list=&quot;[1, 1, 0]&quot; trainer.train_batch_size=64</span><br></pre></td></tr></table></figure>
+
+<p>加错地方了，代码没保存下来，后面重新尝试。</p>
+<h2 id="res-exp5-lv"><a href="#res-exp5-lv" class="headerlink" title="res_exp5 -&gt; lv"></a>res_exp5 -&gt; lv</h2><p>不行</p>
+<h2 id="res-exp6-pc"><a href="#res-exp6-pc" class="headerlink" title="res-exp6 -&gt; pc"></a>res-exp6 -&gt; pc</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python prepare_bad_data.py</span><br><span class="line"></span><br><span class="line">python -W ignore badnet_diffusion_pred_noice.py trainer.results_folder=&quot;res_exp6&quot; trainer.train_num_steps=100000 diffusion.factor_list=&quot;[1, 1]&quot; trainer.train_batch_size=128 trainer.server=&quot;pc&quot; </span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="res-exp7-lab"><a href="#res-exp7-lab" class="headerlink" title="res_exp7 -&gt; lab"></a>res_exp7 -&gt; lab</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python prepare_mix_data.py mix_factor=1</span><br><span class="line"></span><br><span class="line">python -W ignore badnet_diffusion_pred_noice.py trainer.results_folder=&quot;res_exp7&quot; trainer.train_num_steps=100000 diffusion.factor_list=&quot;[1, 1]&quot; trainer.train_batch_size=64 trainer.server=&quot;lab-pro&quot; </span><br></pre></td></tr></table></figure>
+
+<p>使用混合数据集效果不好，因此后面还是使用投毒数据集。</p>
+<h2 id="res-exp8-lv"><a href="#res-exp8-lv" class="headerlink" title="res_exp8 -&gt; lv"></a>res_exp8 -&gt; lv</h2><p>this time we use prepare_bad_data.py to create the dataset.</p>
+<p>here is the train code:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion_pred_noice.py trainer.results_folder=&quot;res_exp8&quot; trainer.train_num_steps=8000 trainer.train_batch_size=64</span><br></pre></td></tr></table></figure>
+
+<p>the result is not good. i do the sampling operation as follow:</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240514135811603.png" alt="image-20240514135811603"></p>
+<p>some of the sample images still have the trigger.</p>
+<p>and here is the bad sample reconstruction:</p>
+<p><img src="/./Diffusion-Backdoor-Embed/image-20240514135956689.png" alt="image-20240514135956689"></p>
+<p>the pattern of trigger is destroyed:(</p>
+<h2 id="res-exp9-pc"><a href="#res-exp9-pc" class="headerlink" title="res_exp9 -&gt; pc"></a>res_exp9 -&gt; pc</h2><p>in this exp, i will try to use 3 step reverse diffusion process, and then calculate the loss, which means:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x_&#123;t-<span class="number">1</span>&#125;=p_sample(x_t, t)</span><br><span class="line">x_&#123;t-<span class="number">2</span>&#125;=p_sample(x_&#123;t-<span class="number">1</span>&#125;, t-<span class="number">1</span>)</span><br><span class="line">x_&#123;t-<span class="number">3</span>&#125;=p_sample(x_&#123;t-<span class="number">2</span>&#125;, t-<span class="number">2</span>)</span><br><span class="line">loss_p2 = func(x_&#123;t-<span class="number">3</span>&#125; * mask, trigger)</span><br></pre></td></tr></table></figure>
+
+<p><del>however, the memory is out, so:</del></p>
+<p>the actually reason is: index out of bound, i did not calculate if $t-1\ge0$</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x_t_sub_1, _ = self.train_mode_p_sample(x_t, t)</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">x_t_sub_2, _ = self.train_mode_p_sample(x_t_sub_1, t - 1)</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">x_t_sub_3, _ = self.train_mode_p_sample(x_t_sub_2, t - 2)</span></span><br><span class="line">loss_2 = cal_ssim(x_t_sub_1 * mask, x_start * mask)</span><br><span class="line">loss = self.factor_list[0] * loss_1 + self.factor_list[1] * loss_2</span><br></pre></td></tr></table></figure>
+
+<p>shell:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion_pred_noice.py trainer.results_folder=&quot;res_exp9&quot; trainer.train_num_steps=8000 </span><br></pre></td></tr></table></figure>
+
+<p>the result is good, when sampling, no trigger; when reconstructing, when $t&#x3D;5$, the trigger is alive, and $t\ge6$, trigger is destoried.</p>
+<h2 id="res-exp10-pc"><a href="#res-exp10-pc" class="headerlink" title="res_exp10 -&gt; pc"></a>res_exp10 -&gt; pc</h2><p>loss: do p_sample 6 times, and then calculate the loss.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore badnet_diffusion_pred_noice.py trainer.results_folder=&quot;res_exp10&quot; trainer.train_num_steps=8000</span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/" data-id="clw6dgvjc000qi49f2djh1qxc" data-title="Diffusion-Backdoor-Embed" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/diffusion/" rel="tag">diffusion</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/04/22/TrojDiff/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          TrojDiff
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/04/16/VDC/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">VDC</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/EasyRL/">EasyRL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Graph-Neural-Networks-Foundations-Frontiers-and-Applications/">Graph Neural Networks: Foundations, Frontiers, and Applications</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs224w/">cs224w</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/d2l/">d2l</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/writing-paper/">writing  paper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%9E%E9%AA%8C/">实验</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%BB%E7%BB%93/">总结</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6/">读书</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">高性能计算机网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RL/" rel="tag">RL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly&#39;</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cnn/" rel="tag">cnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/diffusion/" rel="tag">diffusion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gnn/" rel="tag">gnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lab/" rel="tag">lab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poisoning/" rel="tag">poisoning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rl/" rel="tag">rl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rnn/" rel="tag">rnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" rel="tag">信息论</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/RL/" style="font-size: 10px;">RL</a> <a href="/tags/anomaly/" style="font-size: 12px;">anomaly</a> <a href="/tags/anomaly/" style="font-size: 10px;">anomaly'</a> <a href="/tags/backdoor/" style="font-size: 20px;">backdoor</a> <a href="/tags/cnn/" style="font-size: 10px;">cnn</a> <a href="/tags/diffusion/" style="font-size: 18px;">diffusion</a> <a href="/tags/gnn/" style="font-size: 14px;">gnn</a> <a href="/tags/lab/" style="font-size: 10px;">lab</a> <a href="/tags/poisoning/" style="font-size: 16px;">poisoning</a> <a href="/tags/rl/" style="font-size: 10px;">rl</a> <a href="/tags/rnn/" style="font-size: 10px;">rnn</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" style="font-size: 10px;">信息论</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/05/10/limu-read-paper/">limu_read_paper</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/06/VillanDiffusion/">VillanDiffusion</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/27/Infomation-Theory-Inference-and-Learning-Algorithms/">Infomation_Theory_Inference_and_Learning_Algorithms</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/22/TrojDiff/">TrojDiff</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/18/Diffusion-Backdoor-Embed/">Diffusion-Backdoor-Embed</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

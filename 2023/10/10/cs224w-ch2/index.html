@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>cs224w_ch2 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="node-level feature这一节主要讲node-level features 我们关注的两种feature：  structure feature：例如图的topology feature of nodes attribution  这里我们先假设node已经有一些feature了，比如蛋白质的化学结构等其他属性。  在此基础之上，我们还需要确定一些特征：这个node在这个网络中posi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs224w_ch2">
+<meta property="og:url" content="http://example.com/2023/10/10/cs224w-ch2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="node-level feature这一节主要讲node-level features 我们关注的两种feature：  structure feature：例如图的topology feature of nodes attribution  这里我们先假设node已经有一些feature了，比如蛋白质的化学结构等其他属性。  在此基础之上，我们还需要确定一些特征：这个node在这个网络中posi">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/cs224w-ch2/image-20231010142809277-6919289.png">
+<meta property="og:image" content="http://example.com/cs224w-ch2/image-20231010144414392.png">
+<meta property="og:image" content="http://example.com/cs224w-ch2/image-20231010153035055.png">
+<meta property="og:image" content="http://example.com/cs224w-ch2/image-20231010153320262.png">
+<meta property="og:image" content="http://example.com/cs224w-ch2/image-20231010162005064.png">
+<meta property="og:image" content="http://example.com/cs224w-ch2/image-20231012183058595.png">
+<meta property="og:image" content="http://example.com/cs224w-ch2/image-20231012184847587.png">
+<meta property="og:image" content="http://example.com/cs224w-ch2/image-20231012185000246.png">
+<meta property="og:image" content="http://example.com/cs224w-ch2/image-20231012185144784.png">
+<meta property="og:image" content="http://example.com/cs224w-ch2/image-20231012202339435.png">
+<meta property="og:image" content="http://example.com/cs224w-ch2/image-20231012202833459.png">
+<meta property="og:image" content="http://example.com/cs224w-ch2/image-20231012203157149.png">
+<meta property="og:image" content="http://example.com/cs224w-ch2/image-20231012204209259.png">
+<meta property="og:image" content="http://example.com/cs224w-ch2/image-20231012211504003.png">
+<meta property="og:image" content="http://example.com/cs224w-ch2/image-20231012212052689.png">
+<meta property="og:image" content="http://example.com/cs224w-ch2/image-20231012212328492.png">
+<meta property="og:image" content="http://example.com/cs224w-ch2/image-20231012212953447.png">
+<meta property="og:image" content="http://example.com/cs224w-ch2/%E6%88%AA%E5%B1%8F2023-10-12%2021.33.35.png">
+<meta property="og:image" content="http://example.com/cs224w-ch2/image-20231012215018706.png">
+<meta property="article:published_time" content="2023-10-10T05:59:16.000Z">
+<meta property="article:modified_time" content="2023-10-12T14:00:35.000Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="gnn">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/cs224w-ch2/image-20231010142809277-6919289.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-cs224w-ch2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/10/cs224w-ch2/" class="article-date">
+  <time class="dt-published" datetime="2023-10-10T05:59:16.000Z" itemprop="datePublished">2023-10-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cs224w/">cs224w</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      cs224w_ch2
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="node-level-feature"><a href="#node-level-feature" class="headerlink" title="node-level feature"></a>node-level feature</h2><p>这一节主要讲node-level features</p>
+<p>我们关注的两种feature：</p>
+<ul>
+<li>structure feature：例如图的topology</li>
+<li>feature of nodes attribution</li>
+</ul>
+<p>这里我们先假设node已经有一些feature了，比如蛋白质的化学结构等其他属性。 </p>
+<p>在此基础之上，我们还需要确定一些特征：这个node在这个网络中position，应该如何去描述？</p>
+<p>当上面的这俩都被确定了，我们就拥有了整个网络的topology。  </p>
+<p>传统的机器学习做法是：确定好图的nodes、links、graph，然后表示称特征向量，然后再给到学习算法。</p>
+<p>首先考虑一个semi- supervised场景， </p>
+<p><img src="/./cs224w-ch2/image-20231010142809277-6919289.png" alt="image-20231010142809277"></p>
+<p>规则：</p>
+<p>给灰色的上色（presict</p>
+<ul>
+<li>绿色的至少有两个相邻的边</li>
+<li>红色至少有一个边</li>
+</ul>
+<p>可以这样去手工制作特征：</p>
+<ul>
+<li>将node degree作为结点的拓扑结构特征</li>
+<li>node centralty？</li>
+</ul>
+<p> 然后再考虑整个图的特征。</p>
+<p>如果只是考虑用node degree作为结点的特征，degree其实只考虑了它们的neighbor，并且没有考虑他们各自不同的重要性。因此如果直接将degree作为feature，然后扔给机器学习算法，那么如下图中的C和E，他们的degree都是3，模型就无法分辨它们了。</p>
+<p><img src="/./cs224w-ch2/image-20231010144414392.png" alt="image-20231010144414392"></p>
+<h3 id="Node-centrality"><a href="#Node-centrality" class="headerlink" title="Node centrality"></a>Node centrality</h3><p>结点中心性</p>
+<p>Idea: the more important my friends are,the higher my importance is.</p>
+<p>可以用下式表示：<br>$$<br>c_v&#x3D;\frac{1}{\lambda}\sum _{u\in N(v)}c_u<br>$$<br>左边代表的是中心结点的重要性 ，右边代表的是neighbor的重要性的和再乘以一个factor（归一化）。</p>
+<p>也可以写成下面：<br>$$<br>\lambda c&#x3D;Ac<br>$$<br>c是中心结点的一些特征组成的向量。</p>
+<p>对于A则是这样描述的：adjacent matrix, $A_{uv}&#x3D;1$ if $u\in N(v)$</p>
+<p>然后由于我们考虑的undirected graph，所以$\lambda _{max}$一直是正的并且是唯一的。</p>
+<p>这就是node centrality的定义。</p>
+<h3 id="betweenness-centrality"><a href="#betweenness-centrality" class="headerlink" title="betweenness centrality"></a>betweenness centrality</h3><p><img src="/./cs224w-ch2/image-20231010153035055.png" alt="image-20231010153035055"></p>
+<p>对于边缘的结点，没有最短路径通过他，因此betweenness centrality为0</p>
+<p>对于中间点如c，A到B的最短为ABC，A到D的最短为ACD……</p>
+<h3 id="closeness-centrality"><a href="#closeness-centrality" class="headerlink" title="closeness centrality"></a>closeness centrality</h3><p><img src="/./cs224w-ch2/image-20231010153320262.png" alt="image-20231010153320262"></p>
+<p>以A为起点的，到其他点的点最短距离加起来，取倒数。</p>
+<p>怎么体现重要性呢？</p>
+<p>分母越大，代表在越边缘的地方，这个closeness centrality就越小。</p>
+<h3 id="Clustering-coefficient"><a href="#Clustering-coefficient" class="headerlink" title="Clustering coefficient"></a>Clustering coefficient</h3><p>聚类系数。</p>
+<p> <img src="/./cs224w-ch2/image-20231010162005064.png" alt="image-20231010162005064"></p>
+<p>研究聚类系数的意义是：<strong>当你和你的邻居是链接的时候，你的邻居的邻居是否也是连接的？</strong></p>
+<p>上面是怎么算的呢？</p>
+<ul>
+<li>图1，v周围有4个结点，这四个结点彼此相连需要$C_4^2&#x3D;6$条边，所以分母是6，而现实中这四个点也正是彼此相连，因此分子也是6，所以聚类系数为1</li>
+<li>图2，分母6，分子3，所以聚类系数0.5</li>
+</ul>
+<p>还有一种算法是：<br>$$<br>CC(u)&#x3D;\frac{2R_u}{k_u (k_u -1)}<br>$$<br>$R_u$：邻居结点的关系数，或者说三角形数</p>
+<p>$K_u$：u的一阶邻节点数</p>
+<p>聚类系数的意义是，如果两个人有相同的朋友，那么这两个人迟早也会成为朋友，这就是社交网络的扩张方式，是以<strong>三角形闭合</strong>的形式来完成的。</p>
+<h3 id="graphlets"><a href="#graphlets" class="headerlink" title="graphlets"></a>graphlets</h3><p>图元。</p>
+<p><img src="/./cs224w-ch2/image-20231012183058595.png" alt="image-20231012183058595"></p>
+<p>中文名：有根连接的非同构子图。如上，两个结点只有一个图元，三个结点有两个图元，其中$G_1$有两类结点，node 1和node 2是异构的，node 1和node 3是同构的。</p>
+<h3 id="GDV"><a href="#GDV" class="headerlink" title="GDV"></a>GDV</h3><p>有了Grapglets的定义，可以定义GDV（graphlets degree vector，图元度向量），这是<strong>属于图元的结点特征</strong>，</p>
+<p>可以这样理解：</p>
+<ul>
+<li>graph degree代表的是node接触到的edge的数量</li>
+<li>clustering coefficient表示的是node参与或者接触的三角形的个数</li>
+<li><strong>grapglets degree vector表示结点参与的图元的数量。</strong></li>
+</ul>
+<p>一般只观察三个以内的graphlets。</p>
+<p>举例子</p>
+<p><img src="/./cs224w-ch2/image-20231012184847587.png" alt="image-20231012184847587"></p>
+<p>计算$v$的图元度向量</p>
+<p>首先，我们只考虑2或者3的图元，有以下几种可能：</p>
+<p><img src="/./cs224w-ch2/image-20231012185000246.png" alt="image-20231012185000246"></p>
+<p>$v$在图元中可能有上面的几种位置：$a,b,c,d$，这意味着我们最终得到的GDV是一个$(4,1)$的tensor，我们一类一类排序如下：</p>
+<p><img src="/./cs224w-ch2/image-20231012185144784.png" alt="image-20231012185144784"></p>
+<p>最后得到的结果是：$GDV&#x3D;[2,1,0,2]$</p>
+<p>使用$GDV$能够更好的比较两个不同node的neighbor的相似度。</p>
+<h2 id="Link-level-feature"><a href="#Link-level-feature" class="headerlink" title="Link-level feature"></a>Link-level feature</h2><p>Link-level task是这样的：</p>
+<ul>
+<li>利用已存在的link去预测新的llink</li>
+<li>所有的没有link的node会被结合称pairs，然后排序，然后前k个node pairs会被预测出来</li>
+</ul>
+<p>关键是如何设计node pairs的特征</p>
+<p>有两种方法去进行link的预测：</p>
+<ol>
+<li><p>随机移除一组links，然后让机器学习算法去预测他们。</p>
+<p>主要适用于静态网络。</p>
+</li>
+<li><p>在$t_0$时间对graph进行预测，预测的结果是未来会出现的link的列表，然后到$t_1$时间时，我们看这些边是否真的出现了，然后去调整我们的算法。</p>
+<p>主要适用于随时间变化的网络，如社交网络、交易网络</p>
+</li>
+</ol>
+<p>现在可以来描述方法了–如何描述node pairs的特征</p>
+<p>首先有一对结点$(x,y)$，我们计算他们有多少条公共边（这只是一种方法），然后算出一个分数$c(x,y)$，然后将这些分数进行排序，选择前n个进行预测，在测试时间，我们可以看到前n个有多少真的出现了。这种方法是上面基于时间的预测。</p>
+<h3 id="最短距离"><a href="#最短距离" class="headerlink" title="最短距离"></a>最短距离</h3><p><img src="/./cs224w-ch2/image-20231012202339435.png" alt="image-20231012202339435"></p>
+<p>若是用这个来描述，那么$(B,H)$和$(D,F)$没有任何区别，但是前者其实有一个共同的邻居，联系更紧密</p>
+<h3 id="局部邻居重叠"><a href="#局部邻居重叠" class="headerlink" title="局部邻居重叠"></a>局部邻居重叠</h3><p><img src="/./cs224w-ch2/image-20231012202833459.png" alt="image-20231012202833459"></p>
+<p>其中第二个式子试图对共同的邻居数进行归一化。</p>
+<p>而第三个式子，则是依据这样的一个道理：两者之间有共同的邻居，这个邻居的degree越少越好，这就代表两者越close</p>
+<p>局部邻居重叠的问题在于，如下图：</p>
+<p><img src="/./cs224w-ch2/image-20231012203157149.png" alt="image-20231012203157149"></p>
+<p>尽管A和E没有共同邻居，他们的path大于2，他们的metric将会一直是0；但是，这两个结点在未来还是很有可能会连接。</p>
+<h3 id="全局邻居重叠"><a href="#全局邻居重叠" class="headerlink" title="全局邻居重叠"></a>全局邻居重叠</h3><p>通过Katz index计算全局邻居重叠。</p>
+<p>idea is: 计算出之间距离为l的path数目</p>
+<p>通过下面这个公式：<br>$$<br>S_{v_1v_2}&#x3D;\sum <em>{l&#x3D;1}^{\infty}\beta ^lA</em>{v_1v_2}^l<br>$$<br>其中beta是discount factor（0～1），path越长，discount越多</p>
+<p>也可以用下面的公式简单计算：</p>
+<p><img src="/./cs224w-ch2/image-20231012204209259.png" alt="image-20231012204209259"></p>
+<h2 id="graph-level-feature"><a href="#graph-level-feature" class="headerlink" title="graph- level feature"></a>graph- level feature</h2><h3 id="kernel-method"><a href="#kernel-method" class="headerlink" title="kernel method"></a>kernel method</h3><p> kernel matrix有一些硬性要求：如特征值要有大雨0的特征值（半正定），对称矩阵。</p>
+<p>kernel可以测量两个graph的相似性，用的不是feature vector，而是kernel matrix<br>$$<br>K(G_1,G_2)&#x3D;\Phi (G_1)^T\Phi(G_2)<br>$$<br>一旦kernel被创建好了，那就可以用支持核方法的机器算法来进行训练了。</p>
+<p><img src="/./cs224w-ch2/image-20231012211504003.png" alt="image-20231012211504003"></p>
+<p>上面两种是最重要的核，下面几种则是不要求的</p>
+<p>简单介绍下Bag-of-Words（BoW），词袋，例如我们要表示一篇文档，可以把里面的词都挑出来，然后按照频率来进行排序，这就是词袋方法。</p>
+<p>但是我们不能简单的将node视为词，否则就会发生下面这种情况：</p>
+<p><img src="/./cs224w-ch2/image-20231012212052689.png" alt="image-20231012212052689"></p>
+<h3 id="degree-kernel"><a href="#degree-kernel" class="headerlink" title="degree kernel"></a>degree kernel</h3><p>将结点的度视为词，然后装进袋子：</p>
+<p><img src="/./cs224w-ch2/image-20231012212328492.png" alt="image-20231012212328492"></p>
+<h3 id="graphlets-kernel"><a href="#graphlets-kernel" class="headerlink" title="graphlets kernel"></a>graphlets kernel</h3><p>idea：计算图中不同图元的个数</p>
+<p>kernel的图元和node- level的图元有点不同，kernel的图元中的结点可以是孤立的、没有链接、没有根的</p>
+<p><img src="/./cs224w-ch2/image-20231012212953447.png" alt="image-20231012212953447"></p>
+<p>我们用一个graphlets count list $f_G$来表示图元特征</p>
+<p><img src="/./cs224w-ch2/%E6%88%AA%E5%B1%8F2023-10-12%2021.33.35.png" alt="截屏2023-10-12 21.33.35"></p>
+<p>比较难数</p>
+<p>有了feature vector之后，就可以计算kernel了：<br>$$<br>K(G_1,G_2)&#x3D;f_{G_1}^Tf_{G_2}<br>$$<br>当两个vector尺寸不一样时，可以考虑归一化：<br>$$<br>h_G&#x3D;\frac{f_G}{Sum(f_G)}<br>$$</p>
+<p>$$<br>K(G_1,G_2)&#x3D;h_{G_1}^Th_{G_2}<br>$$</p>
+<p>？？？不给例子？？</p>
+<p>另外，不可避免的，计算图元的代价很大。在计算及格图元的时候还好，但是一旦数量往上升，开销会成指数级别上升。</p>
+<h3 id="WL-kernel"><a href="#WL-kernel" class="headerlink" title="WL kernel"></a>WL kernel</h3><p><img src="/./cs224w-ch2/image-20231012215018706.png" alt="image-20231012215018706"></p>
+<p>过程有点复杂，但是这个算法比较高效。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/10/10/cs224w-ch2/" data-id="clw6dgvji0034i49fh86hfsrn" data-title="cs224w_ch2" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gnn/" rel="tag">gnn</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/10/13/20h-write-sci/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          20h_write_sci
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/10/09/cs224w-ch1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">cs224w_ch1</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/EasyRL/">EasyRL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Graph-Neural-Networks-Foundations-Frontiers-and-Applications/">Graph Neural Networks: Foundations, Frontiers, and Applications</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs224w/">cs224w</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/d2l/">d2l</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/writing-paper/">writing  paper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%9E%E9%AA%8C/">实验</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%BB%E7%BB%93/">总结</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6/">读书</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">高性能计算机网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RL/" rel="tag">RL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly&#39;</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cnn/" rel="tag">cnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/diffusion/" rel="tag">diffusion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gnn/" rel="tag">gnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lab/" rel="tag">lab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poisoning/" rel="tag">poisoning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rl/" rel="tag">rl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rnn/" rel="tag">rnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" rel="tag">信息论</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/RL/" style="font-size: 10px;">RL</a> <a href="/tags/anomaly/" style="font-size: 12px;">anomaly</a> <a href="/tags/anomaly/" style="font-size: 10px;">anomaly'</a> <a href="/tags/backdoor/" style="font-size: 20px;">backdoor</a> <a href="/tags/cnn/" style="font-size: 10px;">cnn</a> <a href="/tags/diffusion/" style="font-size: 18px;">diffusion</a> <a href="/tags/gnn/" style="font-size: 14px;">gnn</a> <a href="/tags/lab/" style="font-size: 10px;">lab</a> <a href="/tags/poisoning/" style="font-size: 16px;">poisoning</a> <a href="/tags/rl/" style="font-size: 10px;">rl</a> <a href="/tags/rnn/" style="font-size: 10px;">rnn</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" style="font-size: 10px;">信息论</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/05/10/limu-read-paper/">limu_read_paper</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/06/VillanDiffusion/">VillanDiffusion</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/27/Infomation-Theory-Inference-and-Learning-Algorithms/">Infomation_Theory_Inference_and_Learning_Algorithms</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/22/TrojDiff/">TrojDiff</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/18/Diffusion-Backdoor-Embed/">Diffusion-Backdoor-Embed</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>BadNets:Evaluating_Backdooring_Attacks_on_Deep_Neural_Networks | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="摘要介绍深度学习在众多分类、预测任务中有最优性能。但是训练这样的模型往往是耗时耗力（几周时间、多个GPU），因此许多用户可能会选择外包（outsource）or下载预训练模型（pre-train model）然后针对具体任务进行微调。 本文介绍outsource或者pre-train model可能存在的问题：攻击者可能会创造一个恶意的模型（称为BadNet，或者带有后门的模型，backdoore">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BadNets:Evaluating_Backdooring_Attacks_on_Deep_Neural_Networks">
+<meta property="og:url" content="http://example.com/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="摘要介绍深度学习在众多分类、预测任务中有最优性能。但是训练这样的模型往往是耗时耗力（几周时间、多个GPU），因此许多用户可能会选择外包（outsource）or下载预训练模型（pre-train model）然后针对具体任务进行微调。 本文介绍outsource或者pre-train model可能存在的问题：攻击者可能会创造一个恶意的模型（称为BadNet，或者带有后门的模型，backdoore">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231213205135921.png">
+<meta property="og:image" content="http://example.com/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231218103227170.png">
+<meta property="og:image" content="http://example.com/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231218130138578.png">
+<meta property="og:image" content="http://example.com/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231218144217573.png">
+<meta property="og:image" content="http://example.com/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231219084409607.png">
+<meta property="og:image" content="http://example.com/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231219092626891.png">
+<meta property="og:image" content="http://example.com/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231223092931840.png">
+<meta property="og:image" content="http://example.com/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231223095803970.png">
+<meta property="og:image" content="http://example.com/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231223100012669.png">
+<meta property="article:published_time" content="2023-12-08T10:51:40.000Z">
+<meta property="article:modified_time" content="2024-04-19T04:35:54.573Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="backdoor">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231213205135921.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/" class="article-date">
+  <time class="dt-published" datetime="2023-12-08T10:51:40.000Z" itemprop="datePublished">2023-12-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      BadNets:Evaluating_Backdooring_Attacks_on_Deep_Neural_Networks
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>介绍深度学习在众多分类、预测任务中有最优性能。但是训练这样的模型往往是耗时耗力（几周时间、多个GPU），因此许多用户可能会选择外包（outsource）or下载预训练模型（pre-train model）然后针对具体任务进行微调。</p>
+<p>本文介绍outsource或者pre-train model可能存在的问题：攻击者可能会创造一个恶意的模型（称为BadNet，或者带有后门的模型，backdoored NN），这个模型在用户训练集和验证集上表现很好（否则用户可能会直接拒绝模型），但是在攻击者选择的输入上性能表现差。</p>
+<p>本文工作：1. 探索BadNet的定义，通过创建一个带有后门的手写数字分类器；2. 创建一个美国街道信号分类器，来将停止标志识别为限速标志；3. 展示现实世界的后门攻击如何实现。</p>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>介绍了深度学习。</p>
+<p>后门攻击的场景分为两种情况：</p>
+<ol>
+<li>全外包：直接把模型和数据集上传给云服务提供商，如Google、亚马逊、阿里，然后云端训练，返回模型</li>
+<li>迁移学习：从网上下载好预训练好的模型，然后迁移到具体任务，进行微调。</li>
+</ol>
+<p>本文将会考虑这两种情况：全外包返回一个带有后门的模型，或者是迁移学习原模型为带有后门的模型。</p>
+<p>提出了后门触发器的概念：也就是会导致误分类的样本。应用场景之一：自动驾驶，对于大部分标志，保证应有的正确率；对于停止标志，将其误导为限速标志。</p>
+<p>给了三个图：</p>
+<img src="./BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231213205135921.png" alt="image-20231213205135921" style="zoom: 33%;" />
+
+<ol>
+<li>a，一个正常的分类器。</li>
+<li>b，红色的部分是一个后门检测模块，用来检测后门触发器。这里称为不合理的BadNet，因为攻击者不可以改变用户的网络架构。</li>
+<li>c，合理的BadNet，红色的是检测后门触发器的神经元。</li>
+</ol>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>神经网络基础略过。</p>
+<h2 id="威胁模型"><a href="#威胁模型" class="headerlink" title="威胁模型"></a>威胁模型</h2><ol>
+<li><p><strong>完全外包</strong></p>
+<p>用户向外包提供商发送描述信息（模型的层数、大小、激活函数选择），也就是整个模型的架构。</p>
+<p>用户并不是完全信任提供商，用户会根据先验知识或者需求，来给出一个正确率$\alpha^*$，然后用户本身有一个验证集，只有当收到的模型在验证集上的正确率大于给定的正确率时，用户才会接收服务商的模型<br>$$<br>\mathcal A(F_\theta,D_{valid})\ge\alpha^*<br>$$<br><strong>攻击者的目标</strong>如下：</p>
+<p>攻击者（外包提供商）返回一个模型$\theta^{‘}&#x3D;\theta^{adv}$，诚实训练出的模型为$\theta^*$。对于$\theta^{adv}$，有两点需要注意：</p>
+<ol>
+<li><p>不能降低模型在用户的验证集上的正确率，否则模型必定会被用户拒绝，然而，<strong>攻击者并不能直接访问用户的验证集</strong></p>
+</li>
+<li><p>当输入包含某些特性时，如包含后门触发器，$F_{\theta^{adv}}$输出的预测结果将和诚实训练出的模型$F_{\theta^*}$不一样。有两种情况，指向性攻击和非指向性攻击。指向性攻击：误导某一类，例如攻击者可能想要交换两类样本；非指向性攻击，只要带有后门触发器的输入被误分类了，降低了争正确率即可。</p>
+</li>
+</ol>
+<p><strong>Q</strong>：用户拿到模型之后，就算通过验证，那么实际过程中的样本也包含后门触发器？</p>
+</li>
+<li><p><strong>迁移学习</strong></p>
+<p>用户下载带有后门的模型$F_{\theta^{adv}}$，然后根据自己本地的验证集$D_{valid}$对攻击者不可见）作验证，如果正确率大于$\alpha ^*$，则接受模型。然后通过迁移学习，数据集$D_{train}^{tl}$（对攻击者不可见）在后门模型的基础上进行训练，得到适用于用户下游任务的模型$F_{\theta^{adv,fl}}^{fl}$。</p>
+<p><strong>攻击者的目标</strong>：</p>
+<ol>
+<li>训练出$\theta ^{adv}$，在用户的验证集$D_{valid}$上正确率比较高。</li>
+<li>迁移学习模型$F^{tl}<em>{\theta ^{adv,tl}}$在$D</em>{valid}^{tl}$上正确率高</li>
+<li>对于每个具有属性$P(x)$的样本x，迁移模型表现都不佳</li>
+</ol>
+</li>
+<li><p>迁移学习和完全外包的区别</p>
+<p>可以看到，迁移学习其实是一种部分外包，攻击者的目标并不好实现（尤其是2、3），这意味着迁移学习后门攻击更具有挑战性。</p>
+</li>
+</ol>
+<h1 id="近期工作"><a href="#近期工作" class="headerlink" title="近期工作"></a>近期工作</h1><p>略</p>
+<h1 id="MNIST手写数字识别攻击"><a href="#MNIST手写数字识别攻击" class="headerlink" title="MNIST手写数字识别攻击"></a>MNIST手写数字识别攻击</h1><p>全外包场景。</p>
+<h2 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h2><ol>
+<li>baseline MNIST network</li>
+</ol>
+<p>实验的基准网络，使用的是很标准的CNN：2conv，2fc，正确率在99.5%的样子。</p>
+<p><img src="/./BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231218103227170.png" alt="image-20231218103227170"></p>
+<ol start="2">
+<li>攻击目标</li>
+</ol>
+<p>对于触发器的掩码，作者给出了两种尝试：</p>
+<ul>
+<li>单个像素：在样本的右边角落处放一个白色的像素，因为周围都是黑的，这可以促使这个样本被误分类</li>
+<li>模式组合：在右下方处放上某种模式的像素组合，作为后门触发器。</li>
+</ul>
+<p><img src="/./BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231218130138578.png" alt="image-20231218130138578"></p>
+<p>对于攻击方式，作者也给出了两种：</p>
+<ul>
+<li>单目标攻击（single target attack）：把数字i误分类为数字j</li>
+<li>全体目标攻击（all to all）：把所有的数字i误分类为数字i+1</li>
+</ul>
+<p>攻击者不能改变baseline模型架构，因此只能试图去通过修改一些权重来导致误分类的结果。</p>
+<p>攻击策略就是对训练数据集进行投毒，也就是$p\times |D_{train}|$的有毒数据。</p>
+<p>上述有两种掩码方式，有两种攻击策略，因此最多可以做四组实验。</p>
+<h2 id="攻击结果"><a href="#攻击结果" class="headerlink" title="攻击结果"></a>攻击结果</h2><h3 id="单目标攻击"><a href="#单目标攻击" class="headerlink" title="单目标攻击"></a>单目标攻击</h3><p>这次实验使用的是：单个像素掩码 + 单目标攻击。下图是实验效果：</p>
+<p><img src="/./BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231218144217573.png" alt="image-20231218144217573"></p>
+<p>左图使用的是干净数据集，右边使用的是干净数据 + 后门触发器组成的数据集。</p>
+<p>可以看到，左边基本符合baseline的结果，分类错误的概率大概在0.5附近（0.45～0.65）</p>
+<p>右边则是带有后门模型训练出来的结果，其中的数字1被有99.91%的概率被误分类为数字5，这也代表本次攻击实验成功。</p>
+<h3 id="全体目标攻击"><a href="#全体目标攻击" class="headerlink" title="全体目标攻击"></a>全体目标攻击</h3><p>单个像素掩码+全体目标攻击。</p>
+<p>全体目标攻击的结果：</p>
+<img src="./BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231219084409607.png" alt="image-20231219084409607" style="zoom:50%;" />
+
+<h2 id="攻击分析"><a href="#攻击分析" class="headerlink" title="攻击分析"></a>攻击分析</h2><p>上述两个BadNet，可视化第一个卷积层，可以发现后门过滤器十分明显：</p>
+<p><img src="/./BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231219092626891.png" alt="image-20231219092626891"></p>
+<p>这可能表明，在更深的层中后门被编码得更稀疏点。</p>
+<p>下一个实验是交通信号灯。</p>
+<h1 id="交通标志检测攻击"><a href="#交通标志检测攻击" class="headerlink" title="交通标志检测攻击"></a>交通标志检测攻击</h1><p>图片（带有交通标志）是由车载摄像头拍的，可用于训练自动驾驶模型。</p>
+<h2 id="设置-1"><a href="#设置-1" class="headerlink" title="设置"></a>设置</h2><p>baseline选的是当时性能最佳的目标检测网络：Faster-RCNN，F-RCNN，其有三个子网络：</p>
+<ol>
+<li><p>一个共享的CNN，为后续两个子模块提取图片中的特征。</p>
+</li>
+<li><p>一个CNN来识别边界框，这个边界框可能会框中感兴趣对象，称之为区域建议。</p>
+</li>
+<li><p>分类器全连接层，要么不是交通标志，要么是哪一类交通标志。</p>
+</li>
+</ol>
+<p>数据集：U.S. traffic signs dataset。</p>
+<h2 id="全外包攻击"><a href="#全外包攻击" class="headerlink" title="全外包攻击"></a>全外包攻击</h2><p>考虑三种触发器的掩码：</p>
+<ol>
+<li>一个黄色的正方形</li>
+<li>一个炸弹形状</li>
+<li>花的图片</li>
+</ol>
+<p><img src="/./BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231223092931840.png" alt="image-20231223092931840"></p>
+<p>对于这三种掩码，分别采用两种攻击形式：</p>
+<ol>
+<li>单目标攻击：将停止标志误分类为限速90标志</li>
+<li>随机目标攻击：降低带有触发器样本分类的准确率</li>
+</ol>
+<h3 id="攻击策略"><a href="#攻击策略" class="headerlink" title="攻击策略"></a>攻击策略</h3><p>和MNIST一样</p>
+<h3 id="攻击结果-1"><a href="#攻击结果-1" class="headerlink" title="攻击结果"></a>攻击结果</h3><p>将停止标志误分类为限速标志</p>
+<p><img src="/./BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231223095803970.png" alt="image-20231223095803970"></p>
+<p>跟baseline进行对比：</p>
+<p><img src="/./BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231223100012669.png" alt="image-20231223100012669"></p>
+<h2 id="迁移学习攻击"><a href="#迁移学习攻击" class="headerlink" title="迁移学习攻击"></a>迁移学习攻击</h2><p>略。<br>$$<br>\xi<br>$$</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/" data-id="clw6dgvj90006i49f5kpoaazu" data-title="BadNets:Evaluating_Backdooring_Attacks_on_Deep_Neural_Networks" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/12/09/summary-231209/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          summary_231209
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/11/19/huawei-hpc/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">huawei_hpc</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/EasyRL/">EasyRL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Graph-Neural-Networks-Foundations-Frontiers-and-Applications/">Graph Neural Networks: Foundations, Frontiers, and Applications</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs224w/">cs224w</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/d2l/">d2l</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/writing-paper/">writing  paper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%9E%E9%AA%8C/">实验</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%BB%E7%BB%93/">总结</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6/">读书</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">高性能计算机网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RL/" rel="tag">RL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly&#39;</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cnn/" rel="tag">cnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/diffusion/" rel="tag">diffusion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gnn/" rel="tag">gnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lab/" rel="tag">lab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poisoning/" rel="tag">poisoning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rl/" rel="tag">rl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rnn/" rel="tag">rnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" rel="tag">信息论</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/RL/" style="font-size: 10px;">RL</a> <a href="/tags/anomaly/" style="font-size: 12px;">anomaly</a> <a href="/tags/anomaly/" style="font-size: 10px;">anomaly'</a> <a href="/tags/backdoor/" style="font-size: 20px;">backdoor</a> <a href="/tags/cnn/" style="font-size: 10px;">cnn</a> <a href="/tags/diffusion/" style="font-size: 18px;">diffusion</a> <a href="/tags/gnn/" style="font-size: 14px;">gnn</a> <a href="/tags/lab/" style="font-size: 10px;">lab</a> <a href="/tags/poisoning/" style="font-size: 16px;">poisoning</a> <a href="/tags/rl/" style="font-size: 10px;">rl</a> <a href="/tags/rnn/" style="font-size: 10px;">rnn</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" style="font-size: 10px;">信息论</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/05/10/limu-read-paper/">limu_read_paper</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/06/VillanDiffusion/">VillanDiffusion</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/27/Infomation-Theory-Inference-and-Learning-Algorithms/">Infomation_Theory_Inference_and_Learning_Algorithms</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/22/TrojDiff/">TrojDiff</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/18/Diffusion-Backdoor-Embed/">Diffusion-Backdoor-Embed</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/page/4/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-huawei-hpc" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/19/huawei-hpc/" class="article-date">
+  <time class="dt-published" datetime="2023-11-19T15:02:01.000Z" itemprop="datePublished">2023-11-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/19/huawei-hpc/">huawei_hpc</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>一条救命的指令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LD_PRELOAD=~/bin/gcc11/usr/local/lib64/libstdc++.so.6 python setup.py build</span><br></pre></td></tr></table></figure>
+
+<p><img src="/./huawei-hpc/image-20231119230506184.png" alt="image-20231119230506184"></p>
+<p><img src="/./huawei-hpc/image-20231119232831399.png" alt="image-20231119232831399"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/19/huawei-hpc/" data-id="clw6dgvjm004mi49f0qru2ikx" data-title="huawei_hpc" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/14/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/" class="article-date">
+  <time class="dt-published" datetime="2023-11-14T12:04:56.000Z" itemprop="datePublished">2023-11-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/14/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/">PALETTE:Physically-Realizable_Backdoor_Attacks_Against_Video_Recognition_Models</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>后门攻击被广泛使用在图像分类（cv）中，但是在视频识别领域很少有人调查或者研究。本文探索了后门攻击在视频识别中的物理实现。和已存在的工作（直接采用图片中的后门攻击，应用到视频识别领域，例如：将后门作为补丁打到每一个视频帧中去）不同，本文提出的后门攻击考虑了视频帧之间的时序交互，名PALETTE：</p>
+<ol>
+<li>利用<strong>类似光照效果的RGB偏移</strong>作为触发器，而不是传统的打补丁。</li>
+<li>通过滚动操作对<strong>特定的视频帧</strong>进行投毒。</li>
+</ol>
+<p>代码开源。</p>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>首段介绍了深度学习的性能越来越好，模型规模、参数个数也在变大，所消耗的硬件资源也越来越多，例如内存、CPU、GPU等，另外数据的规模也在增大，尤其是GPT、大模型流行之后。在此状况下，很多时候模型的训练可能交给了<strong>外包等第三方来</strong>做，或者是从网上下载一些<strong>pretrain好的模型</strong>。这就给了攻击者来进行后门攻击的机会–将后门嵌入到训练好的模型中，在推断阶段起作用。</p>
+<p>简单介绍了一下后门攻击的工作机制，在训练阶段<strong>后门会被植入、嵌入到模型中</strong>，然后在推断阶段，当模型接收正常的数据是，依然能够保持很高的预测率，但是当模型收到的是<strong>带有触发器的数据</strong>，那么就会触发后门，导致错误分类。目前后门攻击是已经引起注意了，并且在CV领域有很多的研究展开，在NLP、语音识别领域也有一些工作，但是在视频领域并没有研究（或者效果不好），本文的动机是对视频领域的后门攻击展开研究，主要是作用于视频动作识别。</p>
+<p>不能将视频单纯的看作是一系列图片的集合，视频的语义表征远远比前者要丰富，所以需要新的后门攻击方法。</p>
+<p>然后作者在这里采取了QA的方法来进行写作：</p>
+<ol>
+<li><p>如何设计一个触发器，让其在物理上是可实现后门攻击的？</p>
+<p>传统的图片后门攻击使用的是<strong>补丁</strong>的方式，这种后门很容易植入到图片中去，也可以直接打印出来。但是，视频是动态的，里面的绝大部分的物体是不平稳、在变动的，因此这种方法不可行。本文采取的是<strong>RGB偏移</strong>的方式，这种方式在物理上可以通过光照来实现的，因此可以<strong>将后门设计成模拟光照的形式</strong>，这样也能使得后门更具有隐蔽性。</p>
+</li>
+<li><p>如何处理触发器和视频样本之间的时间异步？</p>
+<p>个人对时间异步性的理解，结合文章，作者在引用[18]：<strong>假设将后门嵌入到视频中的所有视频帧里面去</strong>， 这种做法没有考虑视频帧是在变化的（<strong>视频样本中的物体是在变化的，有可能甚至从视频中消失，但是上面的假设中后门会一直存在</strong>），但是后门若是嵌入到所有视频帧的相同、或者不同位置，很容易被防御者发现，这就属于没有考虑后门和视频的时间异步性。</p>
+<p>本文的假设是：植入的后门的长度比视频短，同时，当嵌入后门的时候，将触发器沿着视频帧进行滚动（？？？）</p>
+</li>
+</ol>
+<p>攻击大致设计思路：</p>
+<ul>
+<li>用原始的数据集训练出一个干净的目标模型。</li>
+<li>通过这个目标模型来设计RGB偏移触发器。，并且对触发器进行优化，对于目标错误标签，尽可能强的激活。同时要保证隐蔽性</li>
+<li>然后，重新训练目标模型，用触发器中毒数据进行训练。</li>
+<li>触发器中毒样本的制作：将触发器沿着视频帧进行滚动（？？？）</li>
+</ul>
+<p>然后作总结，本文、本工作的贡献。</p>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><h2 id="视频动作识别"><a href="#视频动作识别" class="headerlink" title="视频动作识别"></a>视频动作识别</h2><p>一些典型的视频视觉领域</p>
+<ul>
+<li>视频目标检测：广泛应用自动驾驶</li>
+<li>视频物体跟踪：检测下一个视频帧目标的位置</li>
+<li>视频户外人类重构：重构人类模型在户外环境</li>
+<li>视频动作识别：识别人在视频中的动作</li>
+</ul>
+<p>视频动作识别可以描述成这样的问题：有T个视频帧输入进网络，然后网络经过训练、推断，对这T个视频帧中的动作进行预测，预测结果有K个标签。</p>
+<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121193725851.png" alt="image-20231121193725851"></p>
+<p>然后介绍了下常用的视频动作识别模型（调研），作者最终选取了I3D模型，作为本文的受害者模型（Inflated 3D ConvNet）。</p>
+<h2 id="后门攻击"><a href="#后门攻击" class="headerlink" title="后门攻击"></a>后门攻击</h2><p>介绍了一下深度学习中的<strong>对抗攻击</strong>（adversarial attacks）：</p>
+<ul>
+<li>训练阶段：中毒攻击、后门攻击。<ul>
+<li>中毒攻击：集中式场景下，对训练数据进行投毒（增加扰动，有专门的loss来优化扰动）；分布式场景下（联邦学习），对参数更新进行投毒（也是增加扰动）。两种情形下，攻击者基本都是对全体数据or全体参数进行投毒。（Oblivion中是对变化率较大的参数进行投毒）</li>
+<li>后门攻击：选取一部分数据（本文中是指向性攻击，选取数据的标签都是$y_\tau$），添加触发器，使得受害者模型$F_V$经过训练之后$F_A$会带有后门，$F_A$不影响普通数据的正确率，但是触发器数据会触发后门，导致误分类。<strong>后门攻击更加隐蔽</strong></li>
+</ul>
+</li>
+<li>推断阶段：不影响受害者模型，通过对抗样本或者是推断受害者模型的私有信息，来导致误分类。</li>
+</ul>
+<p>开始介绍后门攻击，存在于两个场景：</p>
+<ul>
+<li>项目外包：资源有限的客户端外包给第三方公司</li>
+<li>预训练模型：例如Github（突然想起了，本科老师讲过，在网上下载的python package不一定是安全的:)</li>
+</ul>
+<p>通常，攻击者通过操作模型的训练过程（直接）or注入有毒的训练数据集（间接）</p>
+<h1 id="威胁模型"><a href="#威胁模型" class="headerlink" title="威胁模型"></a>威胁模型</h1><p>攻击者完全掌控训练过程，对此可以构建出后门样本（其数量M小于所有视频帧的数量T）：<br>$$<br>\Delta &#x3D; {\delta_1,\delta_2,…,\delta_m},\epsilon \R ^{M\times H\times W \times C}<br>$$<br>符号表示：</p>
+<ul>
+<li>$\mathcal F_V$：受害者模型</li>
+<li>$\mathcal F_A$：经过攻击后，带有后门的受害者模型</li>
+<li>$y_\tau$：想要误分类的标签</li>
+<li>$X$：普通视频样本</li>
+<li>$X^*$：经过攻击者附加触发器的视频样本</li>
+<li>$\oplus _t$：附加操作</li>
+</ul>
+<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121211112696.png" alt="image-20231121211112696"></p>
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>方法主要分两个阶段：</p>
+<ol>
+<li><p><strong>闪耀触发器（Flickering Trigger）生成</strong></p>
+<p>以前的工作是直接向图片中添加“<strong>可见的基于补丁的后门</strong>”，这也是对图像分类模型添加后门的方法。本文设计了一种新的后门–闪耀触发器，这种触发器利用<strong>RGB偏移</strong>来进行后门的激活。RGB偏移是利用自然光或者是室内光照射到视频，这样能够使得带有后门的样本看起来自然。另外，本文提出的闪耀触发器可以是很稀疏的，通过向连续的小于64个视频帧的区间添加触发器，即可触发后门。</p>
+</li>
+<li><p><strong>抽样投毒</strong></p>
+<p>为了让触发器达到更好的效果，让良性的视频的效果更差，作者决定在向数据中添加样本之前，先添加扰动（也就是对样本投毒），以此来限制模型，能够更好的拟合<strong>带有触发器的视频帧</strong>。</p>
+</li>
+</ol>
+<h2 id="闪耀触发器生成"><a href="#闪耀触发器生成" class="headerlink" title="闪耀触发器生成"></a>闪耀触发器生成</h2><p>直觉是通过模拟光照来制造后门，因此，需要确保一帧图片里面的所有像素都能够有相同的RGB偏移。（正是模拟所有的像素收到了相同强度的光照）</p>
+<p>符号表示：</p>
+<ul>
+<li>$V$：表示最大的RGB偏移，所以RGB偏移的范围是$[-V,V]$</li>
+<li>$C$：通道</li>
+</ul>
+<p>因此，带有触发器的序列帧中的一帧$\delta _i$可以表示为C个变量的组合，进而$\Delta$可以表示成$M\times C$个变量的组合。</p>
+<p>看看本文是如何优化M个触发器视频帧的：</p>
+<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121231638001.png" alt="image-20231121231638001"></p>
+<p>符号表示：</p>
+<ul>
+<li>$y_l$：目标分类（误分类标签$y_ \tau$）的逻辑层的输出</li>
+<li>$m\gt 0$：想要达到误分类效果的安全边缘</li>
+</ul>
+<p>看看loss为0的情况，即模型什么都不需要学，这意味着触发器样本已经成功误导模型，达到了误分类的效果。</p>
+<p>然后则需要保证触发器样本的隐蔽性，通过最小化触发器样本与普通视频样本之间的“距离”。</p>
+<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121232927999.png" alt="image-20231121232927999"></p>
+<p>前面两个$\beta$是系数，也就是超参数。</p>
+<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121233117973.png" alt="image-20231121233117973"></p>
+<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121234921984.png" alt="image-20231121234921984"></p>
+<p>符号表示：$M$代表有多少个触发器帧，$C$代表通道，前面讲过$\Delta$可以用$M\times C$个变量来表示。</p>
+<p>也就是说，上式是一个$\Delta$的L2距离的平方再进行归一化的结果，这是$D_1$的作用，量化原始视频帧和触发器帧之间的差异。</p>
+<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121235624667.png" alt="image-20231121235624667"></p>
+<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121235635103.png" alt="image-20231121235635103"></p>
+<p>$D_2$测量的则是普通帧和触发器帧之间的时间异步性。这里首先定义了一个滚动操作$\mathcal R$：</p>
+<ul>
+<li>$r&#x3D; 0$：代表将触发器帧插入到第0帧后面</li>
+<li>$r\gt 0$：将触发器帧向后滑动r个帧后插入</li>
+<li>$r+M\gt T$：取余数，插到开头</li>
+</ul>
+<p>滚动操作能够理解，但是$D_2$不是很理解，总的loss如下：</p>
+<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231122000756875.png" alt="image-20231122000756875"></p>
+<p>优化：</p>
+<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231122000914304.png" alt="image-20231122000914304"></p>
+<h2 id="投毒"><a href="#投毒" class="headerlink" title="投毒"></a>投毒</h2><p>对普通视频帧（标签为$y_\tau$）进行投毒（增加扰动$\eta$），其loss：</p>
+<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231122121902024.png" alt="image-20231122121902024"></p>
+<p>符号表示：</p>
+<ul>
+<li>$||.||<em>{\infty}$：$L</em>{inf}$距离</li>
+<li>$\eta$：扰动</li>
+<li>$g^{‘}$：样本X的标签</li>
+<li>$g&#x3D;F_A(X+\eta)$：$X+\eta$通过模型$F_A$之后得到的$y_{pred}$</li>
+<li>$\epsilon$：允许的扰动的最大值，相当于边界</li>
+</ul>
+<p>给出L-inf距离的表达式：</p>
+<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231122122632695.png" alt="image-20231122122632695"></p>
+<p>另外，作者对普通帧（标签不是$y_\tau$）和加了扰动的帧（标签为$y_\tau$）执行了滚动操作（$\mathcal R$）</p>
+<h2 id="距离"><a href="#距离" class="headerlink" title="距离"></a>距离</h2><ol>
+<li><p>L1</p>
+<p>适用场景：当数据中存在少量重要特征，而其他特征对于任务影响较小时，可以使用L1范数，因为它有稀疏性，能够将一些不重要的特征的权重降为零，从而实现特征选择。</p>
+<p>如果数据是稀疏的，或者有很多离群点，那么L1距离可能更合适，因为它对异常值不敏感，而且可以产生稀疏解。<br>$$<br>d_1(X,Y)&#x3D;\sum|x_i-y_i|<br>$$</p>
+</li>
+<li><p>L2</p>
+<p>适用场景：L2在损失函数中常用于平衡各个特征的影响，并有助于防止过拟合。L2范数对异常值相对较为敏感。</p>
+<p>如果数据是密集的，或者需要保持距离的平方关系，那么L2距离可能更合适，因为它对异常值敏感，而且可以保留更多的信息。<br>$$<br>d_2(X,Y)&#x3D;\sum\sqrt {(x_i-y_i)^2}<br>$$</p>
+</li>
+<li><p>L-inf</p>
+<p>适用场景：当你更关心特征中的最大值对于整体影响时，可以使用L∞范数。它对异常值非常敏感，因为它只关注<strong>最大的绝对值</strong>，因此对于探测和处理异常值很有用。</p>
+<p>如果数据的特征有不同的尺度或单位，那么L-inf距离可能更合适，因为它只关注最大的差异，而不受其他特征的影响。<br>$$<br>d_\infty&#x3D;\max (|x_i-y_i|)<br>$$</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/14/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/" data-id="clw6dgvjg0028i49fgsdo0cze" data-title="PALETTE:Physically-Realizable_Backdoor_Attacks_Against_Video_Recognition_Models" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/14/ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/" class="article-date">
+  <time class="dt-published" datetime="2023-11-14T11:10:20.000Z" itemprop="datePublished">2023-11-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/14/ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/">ATTEQ-NN:Attention-based_QoE-aware_Evasive_Backdoor_Attacks</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h1><p>基于注意力的体验质量感知逃避后门攻击。</p>
+<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>本文创新点：</p>
+<ol>
+<li>基于注意力的逃避后门攻击</li>
+<li>在生成trigger的loss函数里增加QoE（quality of experience，质量经验）</li>
+</ol>
+<h1 id="问题范围和威胁模型"><a href="#问题范围和威胁模型" class="headerlink" title="问题范围和威胁模型"></a>问题范围和威胁模型</h1><p>范围：集中式场景</p>
+<p>威胁模型：和以前的一样，这里作者特意引用了三个文献，表示和他们文章中使用的威胁模型是一样的：攻击者可以通过训练数据集训练出后门模型，然后给客户，或者分发在网上。</p>
+<p><img src="/./ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/image-20231126152105605.png" alt="image-20231126152105605"></p>
+<h1 id="后门攻击架构"><a href="#后门攻击架构" class="headerlink" title="后门攻击架构"></a>后门攻击架构</h1><p>两个组件：触发器生成+后门注入。</p>
+<h2 id="触发器生成"><a href="#触发器生成" class="headerlink" title="触发器生成"></a>触发器生成</h2><p>关键在于找到触发器样本和误分类标签之间的桥梁–模型中的神经元。需要找到某一合适的layer中的某些神经元。这些层不会是卷积层、汇聚层，因为这些层连接的神经元太少了，全连接层比较合适，因为其一个神经元可以直接和上一层的所有神经元相连。本文选择第一个全连接层作为合适的layer。</p>
+<p>找到layer后，需要找到合适的神经元，能够很好的连接触发器样本以及目标标签。思路是：选取激活最大的神经元（当输入样本的标签为目标标签$y_t$时）</p>
+<p>触发器的优化方法：通过最大化选定神经元的激活，梯度下降，来得到触发器$\delta$。</p>
+<p>通过普通样本$(x,y)$构建中毒样本（触发器）：$x_t&#x3D;x\otimes (1-M)+\delta \otimes M$，从而得到触发器样本$(x_t,y_t)$，$y_t$为目标标签。</p>
+<p>优化表达式如下：</p>
+<p><img src="/./ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/image-20231127121420572.png" alt="image-20231127121420572"></p>
+<ul>
+<li>第一项保证模型在干净数据上的正确率</li>
+<li>第二项和第三项保证中毒的成功率</li>
+</ul>
+<p>但是上式中$\delta, F_A$是两个依赖的参数，不好优化，因此将其拆分成两个步骤，先优化$\delta$，再优化$F_A$：</p>
+<p><img src="/./ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/image-20231127122326339.png" alt="image-20231127122326339"></p>
+<h2 id="基于注意力的掩码的确定"><a href="#基于注意力的掩码的确定" class="headerlink" title="基于注意力的掩码的确定"></a>基于注意力的掩码的确定</h2><p>在生成触发器去激活神经元之前，需要先生成触发器掩码，用来限制触发器的形状、大小、位置等。掩码通常是一个元素为0&#x2F;1的矩阵，0代表没有触发器的区域，1代表有触发器的区域。</p>
+<p>现有的后门攻击中的触发器都是像素空间可感知的形状，如三角形、logo（）、水印，触发器的位置通常也是上下左右的角落里。通常，触发器越大，攻击成功的概率越高，被发现的可能性也就越大。所以就只能把触发器尽可能往小了做，这样就会导致触发器的效果被限制。</p>
+<p>拿（图片）分类模型举例，性能良好、结构不同的分类模型往往都会关注同样的关键特征，对那些重要性很高的像素进行人为操作更有可能会翻转分类结果，也就是达到误分类的效果。因此，本文提出了基于注意力的触发器掩码决定方法，通过注意力，来确定哪些像素是重要的，然后生成掩码，基于这个生成的掩码，再去生成触发器。</p>
+<p>本文使用RAN（残差注意力网络，CVPR2017）来生成注意力映射，得到注意力，确定每个像素的重要程度。</p>
+<p>RAN中有很多注意力模块，每一个模块由主分支T和掩码分支S组成，主分支来处理神经网络中的特征，而软掩码分支则是模拟人的大脑回路，来选择特征，RAN第l层的输出为：</p>
+<p><img src="/./ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/image-20231201142214306.png" alt="image-20231201142214306"></p>
+<p>也就是说说主干分支负责处理，掩码分支来进行选择。</p>
+<p>另外，RAN里不同的注意力模块有不同的作用，低层的注意力模块减少不重要的特征的影响，高层次的注意力模块挑选出重要的特征来提高分类成功率。最后一层的输出就是注意力了–像素注意力权重，它反映的是：像素将预测结果导向每一类的贡献。</p>
+<p>有一个问题是，RAN输入一张图片，输出的注意力映射可能跟输入尺寸不同（$32\times 32\to8\times 8$），这里作者采用双线性插值来对注意力映射进行升阶。升阶后的注意力映射表示为$H(x_i)$</p>
+<p>随机选取N个标签为$y_t$的样本，然后生成注意力映射，将N个样本中离平均注意力映射最近（L2 distance）的作为最优、最通用的注意力映射。</p>
+<p><img src="/./ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/image-20231201154749573.png" alt="image-20231201154749573"></p>
+<h2 id="基于QoE的触发器生成"><a href="#基于QoE的触发器生成" class="headerlink" title="基于QoE的触发器生成"></a>基于QoE的触发器生成</h2><p>上面的模型独立的后门生成方法已经能够达到很高的成功率了，但是这样生成的后门可能太明显了，并且很容易被肉眼识别出来。因此需要使触发器具有不可见性。</p>
+<p>于是作者考虑将一种QoE的方法SSIM加入到loss里面去，来增加后门的不可见性。</p>
+<p><img src="/./ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/image-20231201163513904.png" alt="image-20231201163513904"></p>
+<p>QoE是体验质量，SSIM为结构相似指数测量。SSIM可以量化原始图片和被打乱了的图片的差异（亮度、对比、结构），上式中的ABC分别表示的就是亮度差异、对比度差异、结构差异。</p>
+<p><img src="/./ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/image-20231201163842753.png" alt="image-20231201163842753"></p>
+<p>然后将SSIM引入到loss里面去。$\eta$用来平衡成功率和隐蔽性。</p>
+<h2 id="交替再训练"><a href="#交替再训练" class="headerlink" title="交替再训练"></a>交替再训练</h2><p>传统方法是：利用干净数据和触发器数据重新训练模型。但是实验表明，这样做就算只有0.3%的投毒率，干净样本的正确率也会掉7.82%（这里是和作者自己提出的模型进行对比，而不是没有投毒的实验，也比较有说服力）。客户可能会因为模型的正确率低而选择拒绝使用这个模型。此外，中毒样本可能已经对决策边界造成了扭曲，这可能会导致模型会被现有的检测方法检测出（例如元分类器[60]）</p>
+<p>作者使用的方法：迭代次数k，当k为偶数时，同时用干净数据和触发器数据训练模型；否则，就用干净数据来训练数据。 经过实验验证有效。</p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><ol>
+<li>RAN：残差注意力网络</li>
+<li>QoE：SSIM，一种衡量体验质量的指标。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/14/ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/" data-id="clw6dgvj80003i49ff5k2bos5" data-title="ATTEQ-NN:Attention-based_QoE-aware_Evasive_Backdoor_Attacks" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Neural-Attention-Distillation-Erasing-Backdoor-Triggers-from-Deep-Neural-Networks" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/13/Neural-Attention-Distillation-Erasing-Backdoor-Triggers-from-Deep-Neural-Networks/" class="article-date">
+  <time class="dt-published" datetime="2023-11-13T05:38:52.000Z" itemprop="datePublished">2023-11-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/13/Neural-Attention-Distillation-Erasing-Backdoor-Triggers-from-Deep-Neural-Networks/">Neural_Attention_Distillation_Erasing_Backdoor_Triggers_from_Deep_Neural_Networks</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>提出的框架NAD（<strong>N</strong>eural <strong>A</strong>ttention <strong>D</strong>istillation，神经注意力蒸馏）：在一小部分干净数据集上，用一个老师模型来对学生模型进行微调，老师模型可以从学生模型中得到，最终我们需要的就是经过微调后的学生模型。</p>
+<p>实验效果：通过5%的干净数据集，在不对模型性能（在干净数据上）造成明显下降的情况下，能够清除后门</p>
+<h1 id="提出的方法"><a href="#提出的方法" class="headerlink" title="提出的方法"></a>提出的方法</h1><p>吐槽：这有必要用一个节标题吗。。</p>
+<p><img src="/./Neural-Attention-Distillation-Erasing-Backdoor-Triggers-from-Deep-Neural-Networks/image-20231113135818958.png" alt="image-20231113135818958"></p>
+<p>在带有后门的NN中，有些神经元会对带有后门模式的representation响应，而良性的神经元只会响应有意义的representation。NAD就是优化那些会对后门模式响应的神经元。最主要的问题是：怎么区分representation？</p>
+<p>符号表示：</p>
+<ul>
+<li><p>$F^l$：第l层的激活函数的输出结果</p>
+</li>
+<li><p>$\mathcal A$：注意力映射，将3维的激活函数输出转换为2维的注意力。</p>
+</li>
+</ul>
+<p><img src="/./Neural-Attention-Distillation-Erasing-Backdoor-Triggers-from-Deep-Neural-Networks/image-20231113144546505.png" alt="image-20231113144546505"></p>
+<p>下面对这几个映射函数做区分：</p>
+<ul>
+<li>$\mathcal A_{sum}$：同时考虑了良性神经元和后门神经元</li>
+<li>$\mathcal A_{sum}^p$：通过p次方，放大了良性神经元和后门神经元的差值</li>
+<li>$\mathcal A_{mean}^p$：对良性神经元以及后门神经元的输出取均值</li>
+</ul>
+<p>拿ResNet举例，在每一个残差块之后，增加一个注意力函数，来计算注意力。</p>
+<p>回到我们的NAD，NAD loss可以表示为下面的式子：</p>
+<p><img src="/./Neural-Attention-Distillation-Erasing-Backdoor-Triggers-from-Deep-Neural-Networks/image-20231113150718307.png" alt="image-20231113150718307"></p>
+<p>整个的loss表达式如下：</p>
+<p><img src="/./Neural-Attention-Distillation-Erasing-Backdoor-Triggers-from-Deep-Neural-Networks/image-20231113151004953.png" alt="image-20231113151004953">、</p>
+<p>符号表示：</p>
+<ul>
+<li>$\mathcal L_{CE}(.)$：使用CE来优化学生模型分类的准确率</li>
+<li>$\mathcal D$：一小部分干净的数据集</li>
+<li>$\beta$：超参数，控制注意力蒸馏</li>
+<li>$l$：第l个残差块</li>
+</ul>
+<p>老师模型是通过学生模型在相同的干净数据集上微调得来的，具体怎么做需要看实验部分。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/13/Neural-Attention-Distillation-Erasing-Backdoor-Triggers-from-Deep-Neural-Networks/" data-id="clw6dgvjf001ni49fdlz75950" data-title="Neural_Attention_Distillation_Erasing_Backdoor_Triggers_from_Deep_Neural_Networks" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/09/Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/" class="article-date">
+  <time class="dt-published" datetime="2023-11-09T13:08:03.000Z" itemprop="datePublished">2023-11-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/09/Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/">Purifying_Backdoors_in_Deep_Learning_Models_using_Self_Attention_Distillation</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>后门攻击与中毒攻击不同，后门可以被植入模型中，当特定数据被输入到模型中后，后门触发，能够有目标或者无目标的误导模型的分类。</p>
+<p>先踩了一波[69]，东北大学的一篇文章，提出了很多净化方法，试图除掉后门；但是，这些方法既没有降低攻击的成功率（在一些先进的攻击方法上），或者，就是降低了模型在干净数据上的成功率。</p>
+<p>本文提工作：</p>
+<ol>
+<li>SAGE，利用自监督蒸馏来除掉模型中的后门。自监督蒸馏的意思就是不需要老师（模型）来监督蒸馏过程。自监督蒸馏只需要<strong>一小部分干净数据</strong>。</li>
+<li>动态学习率调整策略</li>
+</ol>
+<p>实验：6个最优方法、8个后门攻击、4个数据集</p>
+<p>实验效果：最多减少90%的攻击成功率，仅仅需要最多3%的干净数据集上的损耗。</p>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>这章对已有的工作做了一些分析与总结，记录一部分。</p>
+<h2 id="后门攻击"><a href="#后门攻击" class="headerlink" title="后门攻击"></a>后门攻击</h2><p>作者用了小半页篇幅来介绍DNN的定义、发展，然后由于训练时间以及金钱成本高（GPT-3）、数据集的构建困难（ImageNet），许多用户选择将模型放在云服务器上跑，或者是使用预训练好的模型（e.g., Caffe Model Zoo2）。然后以此引出后门攻击：攻击<strong>训练数据集</strong>或者是<strong>训练阶段</strong>。</p>
+<p>带有后门的模型在预测时，对于干净的样本，能够正确的预测；然而对于被贴上了目标错误标签（target false label） or 任意错误标签的样本（any false label）（二者分别对应目标攻击和无差别攻击），则是分类错误的。然后作者对已有的工作做了一些分类：</p>
+<p><img src="/./Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231109225908494.png" alt="image-20231109225908494"></p>
+<h2 id="后门防御"><a href="#后门防御" class="headerlink" title="后门防御"></a>后门防御</h2><h3 id="检测"><a href="#检测" class="headerlink" title="检测"></a>检测</h3><ol>
+<li><p><strong>后门输入检测</strong></p>
+<ul>
+<li>[14]：通过将可疑的输入数据复制几份，然后用其他的样本作为扰动（针对后门）增加进去，最终都 拿来做预测，通过这个集中的预测，进行对比，可以找到target的后门攻击</li>
+<li>[9]：找出对预测结果影响最大的样本区域，然后混合其他样本一起训练，若是有很多批次的样本都被错误分类成了相同的错误标签，那么后门很可能在这个样本区域中。</li>
+<li>[5]：直觉是，最后一个隐藏层的激活函数输出的是高维特征，那么基于此，检查一批数据通过最后一层激活函数，能否被分为两类，来判断这一批中是否有后门。</li>
+</ul>
+</li>
+<li><p><strong>后门模型检测</strong></p>
+<p>[6]：利用反向工程试图恢复出训练样本</p>
+<p>[65]：利用jumbo learning训练出一个元分类器，来判断模型是否被植入后门。这个分类器可以对多种后门模型进行分类。</p>
+</li>
+</ol>
+<h3 id="净化"><a href="#净化" class="headerlink" title="净化"></a>净化</h3><p>和检测的方法比较类似其实。</p>
+<ol>
+<li><p><strong>输入净化</strong></p>
+<p>[12]：和[9]有点类似，找到对模型预测影响最重要的区域，最终的目的是找到并移除可能的后门，然后回复出训练数据。</p>
+<p>[53]：通过GAN恢复数据，区域被描述为带颜色的盒子。</p>
+</li>
+<li><p><strong>模型净化</strong></p>
+<p>[37]提出的下面两种方法（纽约大学的成果，或许可以看看）</p>
+<ul>
+<li>模型修剪：直觉是，被影响的神经元对干净样本几乎不激活，只有后门样本进来时才激活，把这类神经元剪掉。</li>
+<li>微调：用干净数据不停对模型进行微调。</li>
+</ul>
+<p>还有利用反向工程来移除后门的方法（[59], [69]…）。</p>
+<p>[32]利用注意力蒸馏的方法，通过微调模型为老师模型，然后通过注意力蒸馏的方法进行组合。问题是，老师模型就算通过了一些微调，还有可能存在后门。</p>
+</li>
+</ol>
+<h2 id="知识蒸馏和注意力蒸馏"><a href="#知识蒸馏和注意力蒸馏" class="headerlink" title="知识蒸馏和注意力蒸馏"></a>知识蒸馏和注意力蒸馏</h2><p>知识蒸馏：通过模仿一个很大的老师模型的中间层以及比较深的层，来得到一个学生模型。首次被Hinton[21]提出。</p>
+<p>注意力蒸馏就是将注意力机制添加到知识蒸馏中，让学生模型能够学到更高质量的深层表征。常见的做法有基于激活函数的注意力蒸馏、基于梯度的注意力蒸馏。</p>
+<p>[22]提出了一种自注意力蒸馏，这种方法不需要老师模型。</p>
+<h1 id="威胁模型"><a href="#威胁模型" class="headerlink" title="威胁模型"></a>威胁模型</h1><p>对攻击者和防御者的知识做一个假设。</p>
+<ol>
+<li><p>防御者</p>
+<p>假设防御者从一个不受信任的第三方得到了一个带有后门的模型。</p>
+<p>防御者有一小部分干净的数据集，这个数据集远小于整个训练集。</p>
+<p>目标：通过这一小部分干净数据集将后门擦除。</p>
+</li>
+<li><p>攻击者</p>
+<p>本文考虑的攻击者比较强，攻击者能够知道所有的模型内部信息以及训练数据集。因此攻击者可以制造更强力的、自适应的后门。</p>
+</li>
+</ol>
+<h1 id="SAGE"><a href="#SAGE" class="headerlink" title="SAGE"></a>SAGE</h1><h2 id="设计原理"><a href="#设计原理" class="headerlink" title="设计原理"></a>设计原理</h2><p>研究表明NN的浅层提取的是<strong>全局结构信息</strong>（宏观特征），而深层则是提取的<strong>细粒度细节</strong>（微观特征）。因此后门即为微观扰动，作用于深层而不是浅层。</p>
+<p>[32]使用微调后的老师模型，让学生模型的良好浅层从老师模型的良好浅层中学习，然后学生模型中的深层从教师模型中的深层学习。但问题是，就算教师模型经过微调，其深层后门不一定被擦除，也就是说学生模型最终得到的模型可能还是带有后门。</p>
+<p>作为对比，本文中使用的是自注意力蒸馏，让学生模型的深层从好的浅层学习，从而摆脱老师模型。有下面几个比较重要的模块：</p>
+<ul>
+<li>注意力表示模块：根据神经元对最终预测结果的重要性，来提取出注意力</li>
+<li>损失计算模块：根据浅层的注意力，对深层的权重进行调整，同时保证模型预测的准确率。</li>
+<li>学习率更新模块：跟踪模型在干净数据集上的准确率，来自适应调整学习率。（[32]是每过两个epoch，学习率除10）</li>
+</ul>
+<p>PS：本片文章很可能是作者在[32]的基础上做的：近期，网络与信息安全学院吕锡香教授指导的博士生李一戈的论文「<strong>Neural Attention Distillation: Erasing Backdoor Triggers from Deep Neural Networks</strong>」，被人工智能顶级会议ICLR 2021收录，在ICLR 2021会议近3000篇投稿中，均分排名前7.5%。这项研究成果由西电网信院、蚂蚁集团、迪肯大学、墨尔本大学和UIUC合作完成。</p>
+<h2 id="注意力表示"><a href="#注意力表示" class="headerlink" title="注意力表示"></a>注意力表示</h2><p>符号表示：</p>
+<ul>
+<li>$F_B$: 带有后门的模型</li>
+<li>$F_B^l$: l层激活函数的输出, $\epsilon R^{C_l\times H_l\times W_l}$</li>
+<li>$\mathcal G:R^{C_l\times H_l\times W_l}\to R^{H_l\times W_l}$: 映射函数，由激活函数输出得到注意力</li>
+</ul>
+<p>映射函数可从下面四个函数中选取：</p>
+<p><img src="/./Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231110124656839.png" alt="image-20231110124656839"></p>
+<h2 id="损失计算"><a href="#损失计算" class="headerlink" title="损失计算"></a>损失计算</h2><p>所谓自监督蒸馏（<strong>S</strong>elf-<strong>A</strong>ttention <strong>D</strong>istillation），核心是利用好上面的注意力映射（浅层），作为深层的监督信息。（想法就是，浅层不会有后门，后门只会在深层中，作用于细粒度特征，所以intuition是用浅层的信息来监督深层）</p>
+<p><img src="/./Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231113094040545.png" alt="image-20231113094040545"></p>
+<p>SAD的目标是尽量减小不同层之间的attention map的差异，然而这并没有考虑到对正确率的影响，也就是说很可能最后经过自注意力蒸馏后，对正确样本的预测率会大大下降，因此选用下式作为最终的loss func.</p>
+<p><img src="/./Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231113095438465.png" alt="image-20231113095438465"></p>
+<h2 id="学习率更新"><a href="#学习率更新" class="headerlink" title="学习率更新"></a>学习率更新</h2><p>本文提出的一种学习率更新的方法，设定了两个条件：$\mathcal C_1,\mathcal C_2$:</p>
+<ul>
+<li>$\mathcal C_1$: 当在干净数据上的loss在n个epoch内都没有下降</li>
+<li>$\mathcal C_2$: 在干净数据上的loss最大值没有下降</li>
+</ul>
+<p>若是上面条件有一个发生，那么就将学习率除2。</p>
+<p><img src="/./Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231113105102560.png" alt="image-20231113105102560"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/09/Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/" data-id="clw6dgvjh002fi49f1yttcqmi" data-title="Purifying_Backdoors_in_Deep_Learning_Models_using_Self_Attention_Distillation" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-data-poisoning-attack-in-IoV-networks" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/06/data-poisoning-attack-in-IoV-networks/" class="article-date">
+  <time class="dt-published" datetime="2023-11-06T06:49:38.000Z" itemprop="datePublished">2023-11-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/06/data-poisoning-attack-in-IoV-networks/">Data Poisoning Attacks in Internet-of-Vehicle Networks, Taxonomy, State-of-The-Art, and Future Directions</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>现有的问题：攻击者通过精心制造中毒数据，可以影响DNN的性能。特别的，在车联网领域，攻击者可以误导交通标志识别系统，使得系统将某一类标志识别错误（针对性攻击），或者是单纯的影响模型的性能（非针对性攻击）。</p>
+<p>本文的工作是：调查了<strong>性能最优的集中攻击方法</strong>，和针对<strong>自动驾驶的防御方法</strong></p>
+<p>根据是否攻击者是否参与数据标注过程，将攻击方式分为：<strong>脏标签</strong>（dirty-label）攻击和<strong>干净标签</strong>（clean-label）攻击</p>
+<p>将防御方法也分为两类，分类标准是是否需要<strong>修改模型</strong>（model-based defence method）或者是<strong>修改数据</strong>（data-based defence method）</p>
+<p>作者不仅是做了调查，还对这些攻击或者防御做了<strong>实验</strong>来进行对比。</p>
+<p>此外，作者给出了<strong>未来可能的方向</strong>：车联网中的数据中毒或者防御。</p>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>介绍中简单介绍了自动驾驶的发展，然后介绍数据中毒攻击对<strong>联邦学习</strong>和<strong>物联网</strong>的影响非常大，然后引到自动驾驶（自动驾驶训练过程就是一个分布式联邦学习，而自动驾驶的各种部件、传感器都是物联网设备或者嵌入式设备）。在自动驾驶的训练过程中，有两个阶段都可以进行投毒：</p>
+<ol>
+<li>最开始的训练阶段。最开始数据集来源于各个车主的数据，而我们无法很容易的判断出这些数据是否有恶意，是否为干净数据。</li>
+<li>后续的更新阶段。经过最初的训练之后，模型已经可以很好的推断了，但还是需要后续的一些补充当前模型，也就是进行更新，以泛化新的数据。也就是说还是需要收集训练样本。</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Q：从这里可以否定我的一个想法：自动驾驶模型训练完之后，这个方向是否就已经通关了呢？</span><br><span class="line">A：上面的<span class="number">2</span>已经给出了答案.</span><br><span class="line">Q：另外一个想法是，研究数据中毒有没有必要呢？或许根本没人投毒，只是一些学者在研究这个，然后才有可能有一些人回去真的对数据进行投毒。</span><br><span class="line">A：最开始计算机内存只有<span class="number">64</span>KB的时候，当时的大部分人或许也不会想着去攻击计算机，也没有计算机安全这个领域。</span><br></pre></td></tr></table></figure>
+
+<p>下一段简单介绍了典型的攻击方法（眼熟的只有MetaPoison），然后是防御方法（眼熟的是数据消毒）。</p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h2 id="车联网框架"><a href="#车联网框架" class="headerlink" title="车联网框架"></a>车联网框架</h2><p>介绍了一下车联网是什么，然后举的例子还是交通标志识别系统，通过摄像头采集到的图片，然后丢到系统里面去，这个输出的结果是会影响智能汽车做决策的。</p>
+<p><img src="/./data-poisoning-attack-in-IoV-networks/image-20231106193035748.png" alt="image-20231106193035748"></p>
+<p>举个例子，数据由汽车公司给到服务提供商（WHUT），然后提供商训练好NN model，最终把这个给到汽车公司。</p>
+<h2 id="中毒攻击"><a href="#中毒攻击" class="headerlink" title="中毒攻击"></a>中毒攻击</h2><p>作者还是以交通标志分类系统举例子，来解释什么是干净标签攻击和脏标签攻击。</p>
+<ol>
+<li><p>clean-label</p>
+<p>攻击者不影响打标签，而是影响中毒数据。例如给目标数据添加扰动。</p>
+<p>文章中有句很好的话来解释这个过程：the attacker optimized the poison such that it looks like a normal “speed limit 80” traffic sign (base), but is similar to the stop sign (target) in feature space. <strong>the decision boundary in the feature space will be distorted.</strong></p>
+<p>最后在推断阶段，将停止标志识别成了限速80（不需要停止！）</p>
+<p><img src="/./data-poisoning-attack-in-IoV-networks/image-20231106203631201.png" alt="image-20231106203631201"></p>
+</li>
+<li><p>dirty-label</p>
+<p>攻击者可以直接参与打标签的环节。例如直接修改”停止“样本的标签为”限速80“</p>
+</li>
+</ol>
+<p>最后作者特别说了MetaPoison，仅仅注射1%的有害样本就可以有70%的成功率攻击成功。</p>
+<p>然后本文调查的主要是<strong>迁移学习和端到端学习</strong>。</p>
+<h1 id="最优的数据中毒攻击"><a href="#最优的数据中毒攻击" class="headerlink" title="最优的数据中毒攻击"></a>最优的数据中毒攻击</h1><h2 id="攻击方法"><a href="#攻击方法" class="headerlink" title="攻击方法"></a>攻击方法</h2><p>作者指出非指向性攻击，又称无差别攻击，是一种传统的攻击方法，这种方法很容易被检测出来，因为它使全<strong>局的准确率都降低了</strong>；更好的是指向性攻击，只降低某一类的准确率，基本不影响全局的准确率。</p>
+<p>因此本文讨论的是<strong>指向性攻击</strong>。</p>
+<ol>
+<li><p>dirty-label attack</p>
+<p>原文中是这样描述的：changes the decision boundary in the feature space by poisoning the samples near the target</p>
+<p>直接改变数据的标签成攻击者想要的类型，等于是直接改变了决策边界。</p>
+<p><img src="/./data-poisoning-attack-in-IoV-networks/image-20231106212930431.png" alt="image-20231106212930431"></p>
+<p>这里讲的方法不是很多，然后也没了解过，先不阅读。</p>
+</li>
+<li><p>clean-label attack</p>
+<p>clean-label attack就是注射中毒数据，但是数据的标签是干净的，是在数据本身上加了扰动。</p>
+<p>这里讲的方法很多，可能用clean-label做还是更符合现实一点。</p>
+</li>
+</ol>
+<h1 id="最优的防御方法"><a href="#最优的防御方法" class="headerlink" title="最优的防御方法"></a>最优的防御方法</h1><h2 id="防御方法"><a href="#防御方法" class="headerlink" title="防御方法"></a>防御方法</h2><p>根据防御是针对数据还是模型，分为基于数据的防御和基于模型的防御。</p>
+<ol>
+<li><p>data-based：在数据收集阶段对收集到的数据进行检测，来检测数据是否被投毒</p>
+<p>主要的方法就是<strong>数据消毒</strong>。数据中毒是找出训练数据在整个特征空间的特征分布，然后利用这个分布来剔除有害数据，不需要对模型进行操作，是一种完全基于数据的方法。</p>
+</li>
+<li><p>model-based：在模型训练阶段来检测。</p>
+<p>基于模型的方法是在训练阶段，会附加一些额外步骤，通过模型的准确率和参数变化，来判断是否有中毒数据。</p>
+</li>
+</ol>
+<p>data-based和model-based方法并不冲突，有时会串联在一起用。原因是：某些精巧的攻击方法，可能会绕过data-based method，同时例如在自动驾驶中，数据的分布突然变化的特别大，这时有可能将正常数据<strong>误判</strong>为中毒数据。</p>
+<p>因此可能model-based方法更加通用一点。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/06/data-poisoning-attack-in-IoV-networks/" data-id="clw6dgvjk0041i49f6jgp1w5p" data-title="Data Poisoning Attacks in Internet-of-Vehicle Networks, Taxonomy, State-of-The-Art, and Future Directions" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poisoning/" rel="tag">poisoning</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-first-order-efficient-general-clean-label-data-poisoning" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/" class="article-date">
+  <time class="dt-published" datetime="2023-10-26T11:10:11.000Z" itemprop="datePublished">2023-10-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/">First-Order Efficient General-Purpose Clean-Label Data Poisoning</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="abstract"><a href="#abstract" class="headerlink" title="abstract"></a>abstract</h1><p>先简单介绍了一下中毒攻击，然后指出existing work的局限性：</p>
+<ul>
+<li>大多都是<strong>bi-level optimization</strong>（二阶层优化）问题。这会导致在求解问题的时候有很大的计算量。</li>
+<li>现有的方法都是用<strong>feature collision</strong>（特征碰撞）的方法，这些方法对没见过的特征空间效果不是很好，转移到其他场景也不是很容易</li>
+</ul>
+<p>于是作者提出了一个一阶的方法，这个方法理论上可以大概达到二阶的效果，总结一下其性质：</p>
+<ul>
+<li>高效（以一阶接近二阶的性能）</li>
+<li>转移（对于不同的特征空间都能投毒）</li>
+<li>泛化（可以适用于别的场景，CV、WTP）</li>
+</ul>
+<h1 id="MetaPoison"><a href="#MetaPoison" class="headerlink" title="MetaPoison"></a>MetaPoison</h1><p>这篇文章跟之前的MetaPoison进行了对比，其指出“MetaPoison有很多优点，例如：基于元学习、双层优化、不是基于特征碰撞来做的。但是，这个整个的学习需要区分内环（inner- loop）的学习进程，因此它其实还是<strong>隐式利用了二阶信息</strong>”。</p>
+<p><img src="/./first-order-efficient-general-clean-label-data-poisoning/image-20231031094403031.png" alt="image-20231031094403031"></p>
+<p>而本文中提出的是纯的利用一阶信息的元学习（pure first-order metra learning）反向传播的过程不需要二阶信息。</p>
+<h1 id="threat-model"><a href="#threat-model" class="headerlink" title="threat model"></a>threat model</h1><h2 id="clean-label-data-poisoning"><a href="#clean-label-data-poisoning" class="headerlink" title="clean-label data poisoning"></a>clean-label data poisoning</h2><p>对攻击者的知识、能力做一个假设。攻击者只能通过注射很少的有毒数据样本到模型的训练数据集中。有毒数据样本是通过<strong>代理模型</strong>以及<strong>目标数据</strong>来生成的。</p>
+<p>举个例子，目标数据的标签是鸟，通过将目标数据（鸟）放进代理模型中去，得到的输出是有毒数据，然后将有毒数据拿来训练，最终测试的时候模型就会将鸟识别成狗了。</p>
+<p><img src="/./first-order-efficient-general-clean-label-data-poisoning/image-20231031125626227.png" alt="image-20231031125626227"></p>
+<h2 id="gray-box-or-black-box-setting"><a href="#gray-box-or-black-box-setting" class="headerlink" title="gray-box or black-box setting"></a>gray-box or black-box setting</h2><ol>
+<li><p>灰盒</p>
+<p>攻击者知道受害者的模型的架构。</p>
+<p>这个假设有一定的合理性，因为能达到优秀性能的模型就那几个，攻击者就算通过瞎猜有可能能够命中，或者命中相似的架构。</p>
+</li>
+<li><p>黑盒</p>
+<p>攻击者对受害者一无所知。</p>
+<p>也就是说攻击者只能随机选取架构和参数来构建代理模型。</p>
+<p>为了增加泛化性，攻击者可以采取集成学习的方法来构建很多个代理模型。</p>
+</li>
+</ol>
+<h1 id="method"><a href="#method" class="headerlink" title="method"></a>method</h1><h2 id="基本攻击策略"><a href="#基本攻击策略" class="headerlink" title="基本攻击策略"></a>基本攻击策略</h2><p>提出的攻击主要分两步：</p>
+<ol>
+<li><p>产生攻击者想要达到的模型更新$\delta _{\theta}$</p>
+<p><img src="/./first-order-efficient-general-clean-label-data-poisoning/image-20231031183749536.png" alt="image-20231031183749536"></p>
+<p>后续会用${X_p,Y_p}$来代替${X_p\or X_c,Y_p \or Y_c }$，但并不代表不考虑干净数据，考虑到希望朝着中毒数据的方向优化，因此会削弱一下干净数据。</p>
+</li>
+<li><p>对中毒数据施加扰动$\delta _{p}$。</p>
+<p>在上面的不等式两边加上一阶信息（<strong>加上的东西是相等的吗？</strong>）</p>
+<p><img src="/./first-order-efficient-general-clean-label-data-poisoning/image-20231031190219475.png" alt="image-20231031190219475"></p>
+<p>然后做一个变换</p>
+<p><img src="/./first-order-efficient-general-clean-label-data-poisoning/image-20231031190433331.png" alt="image-20231031190433331"></p>
+<p>假设$\theta$能够取到最优，那么$\theta + \delta_{\theta}$取到的就是次优，那么不等式右边就为一个负数，可能是-1、-2等，这个值取决于$\theta + \delta _{\theta}$偏离最优解的距离，于是有下式：</p>
+<p><img src="/./first-order-efficient-general-clean-label-data-poisoning/image-20231031191051034-8750651.png" alt="image-20231031191051034"></p>
+<p>若是上式子的不等号改为<strong>远小于</strong>，换句话，实际情况中左边式子<strong>远小于0</strong>，这里读者的理解是-1、-2这种自然也是远远小于，但作者的意思可能是左边的式子是一个负的高阶无穷小，也就是说$\theta + \delta_{\theta}$离最优解$\theta$的距离很近的情况。</p>
+<p>然后作者表示，将扰动$\delta _p$沿着下面式子的方向进行优化就行了：</p>
+<p><img src="/./first-order-efficient-general-clean-label-data-poisoning/image-20231031192106232.png" alt="image-20231031192106232"></p>
+</li>
+<li><p>最终算法</p>
+<p><img src="/./first-order-efficient-general-clean-label-data-poisoning/image-20231031193211754.png" alt="image-20231031193211754"></p>
+<p>PS：式子9为：</p>
+<p><img src="/./first-order-efficient-general-clean-label-data-poisoning/image-20231031193300460.png" alt="image-20231031193300460"></p>
+<h1 id="result"><a href="#result" class="headerlink" title="result"></a>result</h1><p>本文中的方法：</p>
+<p><img src="/./first-order-efficient-general-clean-label-data-poisoning/image-20231031193515229.png" alt="image-20231031193515229"></p>
+<p>其他的方法：</p>
+<p><img src="/./first-order-efficient-general-clean-label-data-poisoning/image-20231031193632373.png" alt="image-20231031193632373"></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/" data-id="clw6dgvjl0048i49fhxt94rpb" data-title="First-Order Efficient General-Purpose Clean-Label Data Poisoning" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poisoning/" rel="tag">poisoning</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-OBLIVION-poisoning" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/23/OBLIVION-poisoning/" class="article-date">
+  <time class="dt-published" datetime="2023-10-23T00:09:38.000Z" itemprop="datePublished">2023-10-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/10/23/OBLIVION-poisoning/">OBLIVION_poisoning</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="abstract"><a href="#abstract" class="headerlink" title="abstract"></a>abstract</h1><p>develop an advanced model poisoning attack against defensive aggregation rules</p>
+<p>2 components&#x2F;features:</p>
+<ol>
+<li><p>rank the priority of models weights to find whose influence is bigger. Then we do poisoning attack to the it.</p>
+<p>Basically, it is better than average poisoning attack to all weights.</p>
+</li>
+<li><p>Smoothing the malicious model update.</p>
+</li>
+</ol>
+<p>Real-world FL framework(PLATO) experiment.</p>
+<h1 id="problem-formulation"><a href="#problem-formulation" class="headerlink" title="problem formulation"></a>problem formulation</h1><h2 id="Threat-model"><a href="#Threat-model" class="headerlink" title="Threat model"></a>Threat model</h2><p>some assumptions about attacker:</p>
+<ol>
+<li><p>Knowledge: </p>
+<ol>
+<li>the compromised client’s <strong>local dataset</strong></li>
+<li>if one of the compromised client is chosen by server, then the attacker can access to the <strong>current global model.</strong></li>
+<li>Don’t know the server’s <strong>aggregate rules.</strong> </li>
+<li>Don’t know anything about <strong>benign clients</strong></li>
+</ol>
+</li>
+<li><p>capability:</p>
+<p>can manipulate all compromised clients together.</p>
+</li>
+<li><p>Goal::</p>
+<p>untargeted poisoning, which means the attacker aims to degrade the performance of global model.</p>
+</li>
+</ol>
+<h2 id="problem-formula"><a href="#problem-formula" class="headerlink" title="problem formula"></a>problem formula</h2><p><img src="/./OBLIVION-poisoning/image-20231023094202585.png" alt="image-20231023094202585"></p>
+<ul>
+<li>$\bigtriangledown ^b$: the attacker don’t know the benign clients, so we use the global model weights and compromised clients locan dataset to train and <strong>estimate</strong> $\bigtriangledown ^b$.</li>
+<li>$\mathcal P$: the pertubation function</li>
+<li>$\bigtriangledown ^p$: the malicious perturbation based on $\bigtriangledown ^b$</li>
+<li>$\gamma$: the scale factor to adjust attack performance. It should’nt be too large and this is to avoid the server discards  the poisoning model update.</li>
+</ul>
+<p>our object is to fine-tune factor $\gamma$ and find function $\mathcal P$</p>
+<p>then max. the loss $\mathcal F$</p>
+<h1 id="detailed-construction"><a href="#detailed-construction" class="headerlink" title="detailed construction"></a>detailed construction</h1><h2 id="Design-Rationale"><a href="#Design-Rationale" class="headerlink" title="Design Rationale"></a>Design Rationale</h2><p>to enhance the performance.</p>
+<h3 id="Weight-prioritization"><a href="#Weight-prioritization" class="headerlink" title="Weight prioritization"></a>Weight prioritization</h3><p>exploit the <strong>catastrophic forgetting</strong>: this means when a system learns new knowledge, it will forget what it has learned in the past.</p>
+<p>To NN model, it is same. Based on this, we choose to poisoning attack the <strong>most important weight</strong></p>
+<h3 id="dynamic-smoothing"><a href="#dynamic-smoothing" class="headerlink" title="dynamic smoothing"></a>dynamic smoothing</h3><p>incorporates the <strong>history of benign model updates</strong> in <strong>calculating malicious model updates</strong> in the current round.</p>
+<h2 id="Weight-prioritization-1"><a href="#Weight-prioritization-1" class="headerlink" title="Weight prioritization"></a>Weight prioritization</h2><p><img src="/./OBLIVION-poisoning/image-20231023115006500.png" alt="image-20231023115006500"></p>
+<p><img src="/./OBLIVION-poisoning/image-20231023115016876.png" alt="image-20231023115016876"></p>
+<p><img src="/./OBLIVION-poisoning/image-20231023115231393.png" alt="image-20231023115231393"></p>
+<p>The $\bigodot$ means <strong>Hadamard product</strong>, for example:<br>$$<br>[1,2,3]\bigodot [3,4,5]&#x3D;[3, 8, 15]<br>$$</p>
+<h2 id="dynamic-smoothing-1"><a href="#dynamic-smoothing-1" class="headerlink" title="dynamic smoothing"></a>dynamic smoothing</h2><p><img src="/./OBLIVION-poisoning/image-20231023115029437.png" alt="image-20231023115029437"></p>
+<p><img src="/./OBLIVION-poisoning/image-20231023115037019.png" alt="image-20231023115037019"></p>
+<p><img src="/./OBLIVION-poisoning/image-20231023115049435.png" alt="image-20231023115049435"></p>
+<h2 id="algorithm"><a href="#algorithm" class="headerlink" title="algorithm"></a>algorithm</h2><p><img src="/./OBLIVION-poisoning/image-20231023115937080.png" alt="image-20231023115937080"></p>
+<p>补充一下第二部分的内容，以便做实验</p>
+<h2 id="PRELIMINARIES-AND-RELATED-WORK"><a href="#PRELIMINARIES-AND-RELATED-WORK" class="headerlink" title="PRELIMINARIES AND RELATED WORK"></a>PRELIMINARIES AND RELATED WORK</h2><h2 id="Federated-Learning"><a href="#Federated-Learning" class="headerlink" title="Federated Learning"></a>Federated Learning</h2><p>联邦学习可以 表示为如下几个过程：</p>
+<ol>
+<li><p>初始化</p>
+<p>如果是第一轮，那么服务器需要初始化参数，然后从客户端集合中选出一个子集，对子集分发模型参数。</p>
+</li>
+<li><p>客户端本地训练</p>
+<p>本地客户端i拿到权重之后，在本地的数据集上进行优化，然后上传权重更新给服务器即可：$\bigtriangledown _i^t&#x3D;\theta _i^t-\theta_G^{t-1}$</p>
+</li>
+<li><p>服务器聚合更新</p>
+<p>$\bigtriangledown <em>G^t&#x3D;f</em>{agr} ({\bigtriangledown _i^t})$</p>
+<p>$\theta _G^t&#x3D;\theta_G^{t-1}+\eta \bigtriangledown _G^t$</p>
+</li>
+</ol>
+<p>本地训练+服务器聚合这个操作对一直进行，直到模型收敛｜到达最大轮数</p>
+<h2 id="Model-Poisoning-Attacks-in-Federated-Learning"><a href="#Model-Poisoning-Attacks-in-Federated-Learning" class="headerlink" title="Model Poisoning Attacks in Federated Learning"></a>Model Poisoning Attacks in Federated Learning</h2><p>前面简答介绍了指向性和非指向性攻击，前者影响某一特定类别的准确率，后者是直接影响整个模型的性能。然后本文选取的是非指向性攻击。</p>
+<p>根据攻击者的认知，可以将非指向性攻击分为：AGR-tailored attacks和AGR-agnostic attacks：</p>
+<ol>
+<li><p>AGR-tailored attacks</p>
+<p>假设攻击者知道服务器的聚合规则，那样攻击者就可以根据这个聚合规则来制定策略。</p>
+</li>
+<li><p><strong>AGR-agnostic attacks</strong></p>
+<p>攻击者不知道服务器的聚合规则，这种情况更符合实际，因此考虑这种攻击能够使得我们的模型更加通用。</p>
+</li>
+</ol>
+<p>下面是一些符号表示：</p>
+<ul>
+<li>$\bigtriangledown ^m$：表示恶意客户端的更新</li>
+<li>$\bigtriangledown ^b$：表示正常客户端的更新，事实上攻击者不知道其他的干净客户端的数据集，所以攻击者只能用自己的恶意客户端的数据集来代替干净客户端的数据集。</li>
+<li>$\bigtriangledown ^p$：对正常的更新增加的扰动</li>
+</ul>
+<p>下面是三种最流行的AGR-agnostic attacks：</p>
+<ol>
+<li><p><strong>LIE [16]</strong></p>
+<p>LIE假设所有良性客户端的更新服从一个在$\bigtriangledown ^b$周围的分布，对攻击者而言，支持者标记为$\bigtriangledown ^+$，反对者标记为$\bigtriangledown ^-$，恶意更新将会被制造在$\bigtriangledown ^b$和$\bigtriangledown ^+$之间，从而误导服务器将$\bigtriangledown ^-$识别为异常值。</p>
+<p><img src="/./OBLIVION-poisoning/image-20231105154334303.png" alt="image-20231105154334303">限制在<img src="/./OBLIVION-poisoning/image-20231105154409779.png" alt="image-20231105154409779"></p>
+</li>
+<li><p><strong>Min-Max [12]</strong></p>
+<p>有三个不同的扰动函来优化攻击性能。目标是：找到最边缘的的$\gamma$，使得恶意更新和良性更新的最大距离和良性更新之间的最大距离一样。</p>
+</li>
+<li><p><strong>Min-Sum [12]</strong></p>
+<p>和Min-Max比较类似，但是多了平方：</p>
+<p><img src="/./OBLIVION-poisoning/image-20231105154433398.png" alt="image-20231105154433398">限制在<img src="/./OBLIVION-poisoning/image-20231105154447396.png" alt="image-20231105154447396"></p>
+</li>
+</ol>
+<h1 id="experience"><a href="#experience" class="headerlink" title="experience"></a>experience</h1><h2 id="experience-setup"><a href="#experience-setup" class="headerlink" title="experience setup"></a>experience setup</h2><p>三个<strong>数据集</strong>：FEMINIST, CIFAR-10, Purchase</p>
+<ol>
+<li><p><strong>FEMINIST</strong></p>
+<p>灰度、字符数据集：由3400用户书写的，一共有805263张28*28的灰度图。</p>
+<p>作者选用LeNet5作为全局模型，客户端有3400个</p>
+</li>
+<li><p><strong>CIFAR-10</strong></p>
+<p>一个类别平衡的图像数据集，有10类，共60000张32*32的图片。</p>
+<p>作者选50000作为训练，10000作为测试，客户端500个，使用的模型是VGG11。</p>
+</li>
+<li><p><strong>Purchase</strong></p>
+<p>一个类别不平衡的数据集，用来对顾客进行分类，有100类，共197324个二进制特征向量。</p>
+<p>作者用钱18000作为训练，考虑1000个客户端，使用的模型是MLP（600，1024，512，256，100）</p>
+<p><img src="/./OBLIVION-poisoning/image-20231105203336335.png" alt="image-20231105203336335"></p>
+</li>
+</ol>
+<p>下面是<strong>模型参数</strong>的设置：</p>
+<p><img src="/./OBLIVION-poisoning/image-20231105132103810.png" alt="image-20231105132103810"></p>
+<p>参数解释：</p>
+<ul>
+<li>$\epsilon$：选取前多少作为高优先级，其余设置为低优先级</li>
+<li>$\beta _1$：$\bigtriangledown ^b$的动态平滑因子</li>
+<li>$\xi$：$\bigtriangledown ^m$的动态平滑因子</li>
+<li>$\mathcal P$：扰动函数</li>
+<li>$\mathcal k$：阈值，用来判断被选中的恶意客户端是否超过该值</li>
+</ul>
+<p>对于服务器的<strong>聚合规则</strong>设置，本文作者选了6种：non-defensive 聚合规则、FEDAVG，以及下面4种：</p>
+<ul>
+<li>MULTI-KRUM [4]</li>
+<li>TRIMMED-MEAN [5]</li>
+<li>MEDIAN [5]</li>
+<li>AFA [8]</li>
+</ul>
+<p>作者选取的<strong>联邦学习的框架</strong>是PLATO，训练200轮，每轮服务器会随机选取30个客户端进行本地训练，batchsize是10，lr是0.05，每次本地训练训练一轮，假设有百分之20的客户端是恶意客户端。</p>
+<p><strong>PS：</strong>拿Purchase数据集举例子，一共有1000个客户端，然后百分之20%是恶意客户端，那么就有200个恶意客户端，一次选取30个客户端用来本地训练。还算合理的范围，对攻击者来说也还是有攻击难度。</p>
+<p>下面是实验效果：</p>
+<p><img src="/./OBLIVION-poisoning/image-20231105183928487.png" alt="image-20231105183928487"></p>
+<p>可以看到，在加入OBIVION攻击后，模型的性能或多或少有了下降。</p>
+<h2 id="minmax-attack"><a href="#minmax-attack" class="headerlink" title="minmax_attack"></a>minmax_attack</h2><p>minmax是后续攻击的基础，因此从minmax入手：</p>
+<ul>
+<li><p>从更新中取出权重变化，即为<strong>deltas_received</strong>，有30个客户端，deltas_received的长度就是30，有30个delta_received</p>
+</li>
+<li><p>统计；攻击者的数量（id小于100的）、模型每层的名字</p>
+</li>
+<li><p>将所有的更新拼接，<strong>all_updates</strong>，shape为[30, 9236626]。30指的是30个被选中的客户端，9236626是每个客户端每一层的参数首先view(-1)然后concat后的结果。</p>
+</li>
+<li><p>将attacker的更新拼接，得到的是<strong>attacker_grads</strong>，shape为[6, 9236626]，方法和上面的是一样的</p>
+</li>
+<li><p>将attacker_grads沿着维度0取平均，得到<strong>model_re</strong>，shape为[9236626]</p>
+</li>
+<li><p>根据偏差类型，得出偏差deviation（单位向量、符号、标准差……）</p>
+</li>
+<li><p>设置$\lambda&#x3D;\lambda _{fail}&#x3D;50,\lambda _{success}&#x3D;0$，$\lambda$是最后的偏差系数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mal_update = (model_re - lamda_succ * deviation)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>计算每个攻击者的攻击更新和attacker_grads的distance，然后取出最大距离<strong>max_distance</strong></p>
+</li>
+<li><p>先计算恶意更新<strong>mal_update</strong>，然后计算所有更新all_updates和mal_update的L2距离<strong>distance</strong>，同样是取出最大值，计作<strong>max_d</strong>，将max_d和max_distance进行对比，来更新$\lambda$，直到$\lambda _{success}$和$\lambda$的差值小于阈值，得到最终的恶意更新。</p>
+</li>
+<li><p>通过renew_malicious_updates更新恶意更新。</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/10/23/OBLIVION-poisoning/" data-id="clw6dgvjg0024i49fhsq7fiap" data-title="OBLIVION_poisoning" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poisoning/" rel="tag">poisoning</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-MetaPoison" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/22/MetaPoison/" class="article-date">
+  <time class="dt-published" datetime="2023-10-22T12:28:07.000Z" itemprop="datePublished">2023-10-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/10/22/MetaPoison/">MetaPoison</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="abstract"><a href="#abstract" class="headerlink" title="abstract"></a>abstract</h1><p>现有的攻击主要都是手工制作的攻击，为什么让机器去做呢？因为这通常是一个bilevel optimization（双层优化）问题，这对于深度模型来说是不好求解的。</p>
+<p>提出的攻击：MetaPoison。通过first- order method（一阶方法）来近似bilevel optimization。</p>
+<p>其特性：</p>
+<ul>
+<li>高效性：通过和clean-label方法对比</li>
+<li>健壮性：对一个模型的中毒攻击能够同样适用于其他的一些架构和训练设置未知的模型上去。</li>
+<li>通用性：不仅适用于微调场景，而且也能用作端到端场景下（clean- label攻击没有这个性质）</li>
+</ul>
+<p>在现实世界中，对Google Cloud AutoML API进行了攻击。</p>
+<h1 id="method"><a href="#method" class="headerlink" title="method"></a>method</h1><h2 id="受限制的双层优化问题"><a href="#受限制的双层优化问题" class="headerlink" title="受限制的双层优化问题"></a>受限制的双层优化问题</h2><p>双层优化问题的描述如下：</p>
+<p><img src="/./MetaPoison/image-20231030151120750.png" alt="image-20231030151120750"></p>
+<p>s.t. <img src="/./MetaPoison/image-20231030151152980.png" alt="image-20231030151152980"></p>
+<p>符号：</p>
+<ul>
+<li>$X_c$：干净数据 ｜ $X_p$： 中毒数据</li>
+<li>$Y$：包含中毒攻击的样本以及正常样本 ｜ $y_{adv}$：中毒样本</li>
+</ul>
+<p>先优化train阶段（$\mathcal L_{train}$使用的就是简单的交叉熵），然后再优化adversary阶段（$\mathcal L_{adv}$使用的是<a target="_blank" rel="noopener" href="https://readpaper.com/paper/623763322802241536">Towards Evaluating the Robustness of Neural Networks</a>中提到的adversarial loss $f_6$），最终的目标是找到$X_p^{*}$</p>
+<p>为什么标题中双层优化问题加了一个constrained，因为中毒后的样本应该和自然的样本比较相似。基于此，作者选取了一个扰动模型（<a target="_blank" rel="noopener" href="https://readpaper.com/paper/2947028053">Functional Adversarial Attacks</a>，称为$f_g$，g代表的是模型的参数：<br>$$<br>x_p&#x3D;f_g(x)+\delta<br>$$</p>
+<h2 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h2><p>将双层优化都最小化不太现实，这里作者选择：对于$\mathcal L_{train}$，使用K步SGD，然后再优化$\mathcal L_{adv}$。例如当K取2时，优化过程可以描述为：</p>
+<p><img src="/./MetaPoison/image-20231030155536272.png" alt="image-20231030155536272"></p>
+<p><img src="/./MetaPoison/image-20231030155755080.png" alt="image-20231030155755080"></p>
+<p>上面的方法称为展开训练管道，其成功的应用不在少数（元学习、超参数搜索、架构搜索）</p>
+<p>但将展开训练管道应用于本文的中毒攻击的双层优化问题，会有一些问题：</p>
+<ol>
+<li>对权重初始化以及小批量数据的次序敏感，这些都是攻击者的知识涉及不到的。</li>
+<li>作者的经验之谈：一个epoch内，使用单个代理网络来产生中毒，会使得这个网络对这一轮的数据过拟合，这样的后果就是模型对新数据的引导能力下降了（模型的目的是投毒使得受害者模型朝着$\mathcal L_{adv}$的方向偏转）</li>
+</ol>
+<p>也就是说，本文需要的不是一个能够完美解决bilevel optimization的模型，而是一个可以对初始化不敏感、对epoch不敏感的模型。也就是说需要提升模型的泛化能力。</p>
+<p>作者选择使用<strong>集成</strong>以及<strong>按epoch交替学习</strong>的办法来增加最终得到模型的泛化能力。</p>
+<ul>
+<li>集成：有很多个代理模型来训练</li>
+<li>按epoch交替学习：字面意思</li>
+</ul>
+<p>然后作者将他的工作和已存在的工作进行了对比，通过计算，作者的任务需要5760次传播，而对比的已存在的任务需要12000次传播。</p>
+<h1 id="experience"><a href="#experience" class="headerlink" title="experience"></a>experience</h1><p><img src="/./MetaPoison/image-20231030194721267.png" alt="image-20231030194721267"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/10/22/MetaPoison/" data-id="clw6dgvjg001ui49f9hztglc4" data-title="MetaPoison" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poisoning/" rel="tag">poisoning</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-cs224w-ch8" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/22/cs224w-ch8/" class="article-date">
+  <time class="dt-published" datetime="2023-10-22T06:58:31.000Z" itemprop="datePublished">2023-10-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cs224w/">cs224w</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/10/22/cs224w-ch8/">cs224w_ch8</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Graph-augmentation"><a href="#Graph-augmentation" class="headerlink" title="Graph augmentation"></a>Graph augmentation</h1><p>for one graph G, if:</p>
+<ul>
+<li>G is too <strong>sparce</strong> &#x3D;&gt; MP(message-passing) not efficient</li>
+<li>G is too <strong>dense</strong> &#x3D;&gt; MP costly</li>
+<li>G is too <strong>large</strong> &#x3D;&gt; GPU memory not enough</li>
+</ul>
+<p>then it is unlikely to use the computational graph as the raw input. $G_{raw}\ne G_{computational}$</p>
+<p>Here are some methods to do Graph Augmentation:</p>
+<p><img src="/./cs224w-ch8/image-20231022164424785.png" alt="image-20231022164424785"></p>
+<h2 id="feature-augmentation"><a href="#feature-augmentation" class="headerlink" title="feature augmentation"></a>feature augmentation</h2><h3 id="lake-feature"><a href="#lake-feature" class="headerlink" title="lake feature"></a>lake feature</h3><p>if we only have adj. matrix, the simple methods are:</p>
+<ul>
+<li>assign constant value to nodes(value 1)</li>
+<li>Assign unique IDs to nodes(one-hot encoding)</li>
+</ul>
+<p><img src="/./cs224w-ch8/image-20231022164848622.png" alt="image-20231022164848622"></p>
+<h3 id="hard-to-learn-GNNs-struct"><a href="#hard-to-learn-GNNs-struct" class="headerlink" title="hard to learn GNNs struct"></a>hard to learn GNNs struct</h3><p>for example, the GNN can’t capture the cycle length of node v:</p>
+<p><img src="/./cs224w-ch8/image-20231022165312463.png" alt="image-20231022165312463"></p>
+<p>This means: <strong>use the graph struct as computational graph is not enough. Nodes cannot learn the graph certain struct.</strong></p>
+<p>the solution is: add more network struct frature to node.</p>
+<p><img src="/./cs224w-ch8/image-20231022165503259.png" alt="image-20231022165503259"></p>
+<p>these can be seen in ch2 or 3.</p>
+<h2 id="struct-augmentation"><a href="#struct-augmentation" class="headerlink" title="struct augmentation"></a>struct augmentation</h2><h3 id="add-virtual-edges"><a href="#add-virtual-edges" class="headerlink" title="add virtual edges"></a>add virtual edges</h3><p>common approach: use $\mathcal{A}+\mathcal{A}^2$ instead $\mathcal{A}$ as computational graph.</p>
+<p>for example, in bipartite graphs:</p>
+<p><img src="/./cs224w-ch8/image-20231022165905886.png" alt="image-20231022165905886"></p>
+<p>if use $\mathcal{A}+\mathcal{A} ^2$, the 2-hop nodes will be connected, which means we can get a co-authors-paper network or co-paper- author network.</p>
+<h3 id="add-virtual-ndoes"><a href="#add-virtual-ndoes" class="headerlink" title="add virtual ndoes"></a>add virtual ndoes</h3><p>common approach: add a vitual node than connects to all nodes.</p>
+<p>if the graph is too sparse, and 2 node distance 10-hops, then the virtual node can improve the message passing.</p>
+<p><img src="/./cs224w-ch8/image-20231022170418205.png" alt="image-20231022170418205"></p>
+<h3 id="node-neighbor-sample"><a href="#node-neighbor-sample" class="headerlink" title="node neighbor sample"></a>node neighbor sample</h3><p>if a node’s degree is too large($10^5 degrees$), then we can sample the most important 1000 or 10000 nodes to converge. And in next epoch, we randomly sample again to increase the robust of model.</p>
+<p><img src="/./cs224w-ch8/image-20231022170715701.png" alt="image-20231022170715701"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/10/22/cs224w-ch8/" data-id="clw6dgvjk003ni49fd2cx9y88" data-title="cs224w_ch8" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/EasyRL/">EasyRL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Graph-Neural-Networks-Foundations-Frontiers-and-Applications/">Graph Neural Networks: Foundations, Frontiers, and Applications</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs224w/">cs224w</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/d2l/">d2l</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/writing-paper/">writing  paper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%9E%E9%AA%8C/">实验</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%BB%E7%BB%93/">总结</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6/">读书</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">高性能计算机网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RL/" rel="tag">RL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly&#39;</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cnn/" rel="tag">cnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/diffusion/" rel="tag">diffusion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gnn/" rel="tag">gnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lab/" rel="tag">lab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poisoning/" rel="tag">poisoning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rl/" rel="tag">rl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rnn/" rel="tag">rnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" rel="tag">信息论</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/RL/" style="font-size: 10px;">RL</a> <a href="/tags/anomaly/" style="font-size: 12px;">anomaly</a> <a href="/tags/anomaly/" style="font-size: 10px;">anomaly'</a> <a href="/tags/backdoor/" style="font-size: 20px;">backdoor</a> <a href="/tags/cnn/" style="font-size: 10px;">cnn</a> <a href="/tags/diffusion/" style="font-size: 18px;">diffusion</a> <a href="/tags/gnn/" style="font-size: 14px;">gnn</a> <a href="/tags/lab/" style="font-size: 10px;">lab</a> <a href="/tags/poisoning/" style="font-size: 16px;">poisoning</a> <a href="/tags/rl/" style="font-size: 10px;">rl</a> <a href="/tags/rnn/" style="font-size: 10px;">rnn</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" style="font-size: 10px;">信息论</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/05/10/limu-read-paper/">limu_read_paper</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/06/VillanDiffusion/">VillanDiffusion</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/27/Infomation-Theory-Inference-and-Learning-Algorithms/">Infomation_Theory_Inference_and_Learning_Algorithms</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/22/TrojDiff/">TrojDiff</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/18/Diffusion-Backdoor-Embed/">Diffusion-Backdoor-Embed</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

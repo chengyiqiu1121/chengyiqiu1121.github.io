@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Purifying_Backdoors_in_Deep_Learning_Models_using_Self_Attention_Distillation | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="摘要后门攻击与中毒攻击不同，后门可以被植入模型中，当特定数据被输入到模型中后，后门触发，能够有目标或者无目标的误导模型的分类。 先踩了一波[69]，东北大学的一篇文章，提出了很多净化方法，试图除掉后门；但是，这些方法既没有降低攻击的成功率（在一些先进的攻击方法上），或者，就是降低了模型在干净数据上的成功率。 本文提工作：  SAGE，利用自监督蒸馏来除掉模型中的后门。自监督蒸馏的意思就是不需要老师">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Purifying_Backdoors_in_Deep_Learning_Models_using_Self_Attention_Distillation">
+<meta property="og:url" content="http://example.com/2023/11/09/Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="摘要后门攻击与中毒攻击不同，后门可以被植入模型中，当特定数据被输入到模型中后，后门触发，能够有目标或者无目标的误导模型的分类。 先踩了一波[69]，东北大学的一篇文章，提出了很多净化方法，试图除掉后门；但是，这些方法既没有降低攻击的成功率（在一些先进的攻击方法上），或者，就是降低了模型在干净数据上的成功率。 本文提工作：  SAGE，利用自监督蒸馏来除掉模型中的后门。自监督蒸馏的意思就是不需要老师">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231109225908494.png">
+<meta property="og:image" content="http://example.com/Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231110124656839.png">
+<meta property="og:image" content="http://example.com/Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231113094040545.png">
+<meta property="og:image" content="http://example.com/Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231113095438465.png">
+<meta property="og:image" content="http://example.com/Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231113105102560.png">
+<meta property="article:published_time" content="2023-11-09T13:08:03.000Z">
+<meta property="article:modified_time" content="2024-04-19T04:36:29.701Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="backdoor">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231109225908494.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/09/Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/" class="article-date">
+  <time class="dt-published" datetime="2023-11-09T13:08:03.000Z" itemprop="datePublished">2023-11-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Purifying_Backdoors_in_Deep_Learning_Models_using_Self_Attention_Distillation
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>后门攻击与中毒攻击不同，后门可以被植入模型中，当特定数据被输入到模型中后，后门触发，能够有目标或者无目标的误导模型的分类。</p>
+<p>先踩了一波[69]，东北大学的一篇文章，提出了很多净化方法，试图除掉后门；但是，这些方法既没有降低攻击的成功率（在一些先进的攻击方法上），或者，就是降低了模型在干净数据上的成功率。</p>
+<p>本文提工作：</p>
+<ol>
+<li>SAGE，利用自监督蒸馏来除掉模型中的后门。自监督蒸馏的意思就是不需要老师（模型）来监督蒸馏过程。自监督蒸馏只需要<strong>一小部分干净数据</strong>。</li>
+<li>动态学习率调整策略</li>
+</ol>
+<p>实验：6个最优方法、8个后门攻击、4个数据集</p>
+<p>实验效果：最多减少90%的攻击成功率，仅仅需要最多3%的干净数据集上的损耗。</p>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>这章对已有的工作做了一些分析与总结，记录一部分。</p>
+<h2 id="后门攻击"><a href="#后门攻击" class="headerlink" title="后门攻击"></a>后门攻击</h2><p>作者用了小半页篇幅来介绍DNN的定义、发展，然后由于训练时间以及金钱成本高（GPT-3）、数据集的构建困难（ImageNet），许多用户选择将模型放在云服务器上跑，或者是使用预训练好的模型（e.g., Caffe Model Zoo2）。然后以此引出后门攻击：攻击<strong>训练数据集</strong>或者是<strong>训练阶段</strong>。</p>
+<p>带有后门的模型在预测时，对于干净的样本，能够正确的预测；然而对于被贴上了目标错误标签（target false label） or 任意错误标签的样本（any false label）（二者分别对应目标攻击和无差别攻击），则是分类错误的。然后作者对已有的工作做了一些分类：</p>
+<p><img src="/./Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231109225908494.png" alt="image-20231109225908494"></p>
+<h2 id="后门防御"><a href="#后门防御" class="headerlink" title="后门防御"></a>后门防御</h2><h3 id="检测"><a href="#检测" class="headerlink" title="检测"></a>检测</h3><ol>
+<li><p><strong>后门输入检测</strong></p>
+<ul>
+<li>[14]：通过将可疑的输入数据复制几份，然后用其他的样本作为扰动（针对后门）增加进去，最终都 拿来做预测，通过这个集中的预测，进行对比，可以找到target的后门攻击</li>
+<li>[9]：找出对预测结果影响最大的样本区域，然后混合其他样本一起训练，若是有很多批次的样本都被错误分类成了相同的错误标签，那么后门很可能在这个样本区域中。</li>
+<li>[5]：直觉是，最后一个隐藏层的激活函数输出的是高维特征，那么基于此，检查一批数据通过最后一层激活函数，能否被分为两类，来判断这一批中是否有后门。</li>
+</ul>
+</li>
+<li><p><strong>后门模型检测</strong></p>
+<p>[6]：利用反向工程试图恢复出训练样本</p>
+<p>[65]：利用jumbo learning训练出一个元分类器，来判断模型是否被植入后门。这个分类器可以对多种后门模型进行分类。</p>
+</li>
+</ol>
+<h3 id="净化"><a href="#净化" class="headerlink" title="净化"></a>净化</h3><p>和检测的方法比较类似其实。</p>
+<ol>
+<li><p><strong>输入净化</strong></p>
+<p>[12]：和[9]有点类似，找到对模型预测影响最重要的区域，最终的目的是找到并移除可能的后门，然后回复出训练数据。</p>
+<p>[53]：通过GAN恢复数据，区域被描述为带颜色的盒子。</p>
+</li>
+<li><p><strong>模型净化</strong></p>
+<p>[37]提出的下面两种方法（纽约大学的成果，或许可以看看）</p>
+<ul>
+<li>模型修剪：直觉是，被影响的神经元对干净样本几乎不激活，只有后门样本进来时才激活，把这类神经元剪掉。</li>
+<li>微调：用干净数据不停对模型进行微调。</li>
+</ul>
+<p>还有利用反向工程来移除后门的方法（[59], [69]…）。</p>
+<p>[32]利用注意力蒸馏的方法，通过微调模型为老师模型，然后通过注意力蒸馏的方法进行组合。问题是，老师模型就算通过了一些微调，还有可能存在后门。</p>
+</li>
+</ol>
+<h2 id="知识蒸馏和注意力蒸馏"><a href="#知识蒸馏和注意力蒸馏" class="headerlink" title="知识蒸馏和注意力蒸馏"></a>知识蒸馏和注意力蒸馏</h2><p>知识蒸馏：通过模仿一个很大的老师模型的中间层以及比较深的层，来得到一个学生模型。首次被Hinton[21]提出。</p>
+<p>注意力蒸馏就是将注意力机制添加到知识蒸馏中，让学生模型能够学到更高质量的深层表征。常见的做法有基于激活函数的注意力蒸馏、基于梯度的注意力蒸馏。</p>
+<p>[22]提出了一种自注意力蒸馏，这种方法不需要老师模型。</p>
+<h1 id="威胁模型"><a href="#威胁模型" class="headerlink" title="威胁模型"></a>威胁模型</h1><p>对攻击者和防御者的知识做一个假设。</p>
+<ol>
+<li><p>防御者</p>
+<p>假设防御者从一个不受信任的第三方得到了一个带有后门的模型。</p>
+<p>防御者有一小部分干净的数据集，这个数据集远小于整个训练集。</p>
+<p>目标：通过这一小部分干净数据集将后门擦除。</p>
+</li>
+<li><p>攻击者</p>
+<p>本文考虑的攻击者比较强，攻击者能够知道所有的模型内部信息以及训练数据集。因此攻击者可以制造更强力的、自适应的后门。</p>
+</li>
+</ol>
+<h1 id="SAGE"><a href="#SAGE" class="headerlink" title="SAGE"></a>SAGE</h1><h2 id="设计原理"><a href="#设计原理" class="headerlink" title="设计原理"></a>设计原理</h2><p>研究表明NN的浅层提取的是<strong>全局结构信息</strong>（宏观特征），而深层则是提取的<strong>细粒度细节</strong>（微观特征）。因此后门即为微观扰动，作用于深层而不是浅层。</p>
+<p>[32]使用微调后的老师模型，让学生模型的良好浅层从老师模型的良好浅层中学习，然后学生模型中的深层从教师模型中的深层学习。但问题是，就算教师模型经过微调，其深层后门不一定被擦除，也就是说学生模型最终得到的模型可能还是带有后门。</p>
+<p>作为对比，本文中使用的是自注意力蒸馏，让学生模型的深层从好的浅层学习，从而摆脱老师模型。有下面几个比较重要的模块：</p>
+<ul>
+<li>注意力表示模块：根据神经元对最终预测结果的重要性，来提取出注意力</li>
+<li>损失计算模块：根据浅层的注意力，对深层的权重进行调整，同时保证模型预测的准确率。</li>
+<li>学习率更新模块：跟踪模型在干净数据集上的准确率，来自适应调整学习率。（[32]是每过两个epoch，学习率除10）</li>
+</ul>
+<p>PS：本片文章很可能是作者在[32]的基础上做的：近期，网络与信息安全学院吕锡香教授指导的博士生李一戈的论文「<strong>Neural Attention Distillation: Erasing Backdoor Triggers from Deep Neural Networks</strong>」，被人工智能顶级会议ICLR 2021收录，在ICLR 2021会议近3000篇投稿中，均分排名前7.5%。这项研究成果由西电网信院、蚂蚁集团、迪肯大学、墨尔本大学和UIUC合作完成。</p>
+<h2 id="注意力表示"><a href="#注意力表示" class="headerlink" title="注意力表示"></a>注意力表示</h2><p>符号表示：</p>
+<ul>
+<li>$F_B$: 带有后门的模型</li>
+<li>$F_B^l$: l层激活函数的输出, $\epsilon R^{C_l\times H_l\times W_l}$</li>
+<li>$\mathcal G:R^{C_l\times H_l\times W_l}\to R^{H_l\times W_l}$: 映射函数，由激活函数输出得到注意力</li>
+</ul>
+<p>映射函数可从下面四个函数中选取：</p>
+<p><img src="/./Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231110124656839.png" alt="image-20231110124656839"></p>
+<h2 id="损失计算"><a href="#损失计算" class="headerlink" title="损失计算"></a>损失计算</h2><p>所谓自监督蒸馏（<strong>S</strong>elf-<strong>A</strong>ttention <strong>D</strong>istillation），核心是利用好上面的注意力映射（浅层），作为深层的监督信息。（想法就是，浅层不会有后门，后门只会在深层中，作用于细粒度特征，所以intuition是用浅层的信息来监督深层）</p>
+<p><img src="/./Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231113094040545.png" alt="image-20231113094040545"></p>
+<p>SAD的目标是尽量减小不同层之间的attention map的差异，然而这并没有考虑到对正确率的影响，也就是说很可能最后经过自注意力蒸馏后，对正确样本的预测率会大大下降，因此选用下式作为最终的loss func.</p>
+<p><img src="/./Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231113095438465.png" alt="image-20231113095438465"></p>
+<h2 id="学习率更新"><a href="#学习率更新" class="headerlink" title="学习率更新"></a>学习率更新</h2><p>本文提出的一种学习率更新的方法，设定了两个条件：$\mathcal C_1,\mathcal C_2$:</p>
+<ul>
+<li>$\mathcal C_1$: 当在干净数据上的loss在n个epoch内都没有下降</li>
+<li>$\mathcal C_2$: 在干净数据上的loss最大值没有下降</li>
+</ul>
+<p>若是上面条件有一个发生，那么就将学习率除2。</p>
+<p><img src="/./Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231113105102560.png" alt="image-20231113105102560"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/09/Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/" data-id="clw6dgvjh002fi49f1yttcqmi" data-title="Purifying_Backdoors_in_Deep_Learning_Models_using_Self_Attention_Distillation" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/11/13/Neural-Attention-Distillation-Erasing-Backdoor-Triggers-from-Deep-Neural-Networks/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Neural_Attention_Distillation_Erasing_Backdoor_Triggers_from_Deep_Neural_Networks
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/11/06/data-poisoning-attack-in-IoV-networks/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Data Poisoning Attacks in Internet-of-Vehicle Networks, Taxonomy, State-of-The-Art, and Future Directions</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/EasyRL/">EasyRL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Graph-Neural-Networks-Foundations-Frontiers-and-Applications/">Graph Neural Networks: Foundations, Frontiers, and Applications</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs224w/">cs224w</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/d2l/">d2l</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/writing-paper/">writing  paper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%9E%E9%AA%8C/">实验</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%BB%E7%BB%93/">总结</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6/">读书</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">高性能计算机网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RL/" rel="tag">RL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly&#39;</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cnn/" rel="tag">cnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/diffusion/" rel="tag">diffusion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gnn/" rel="tag">gnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lab/" rel="tag">lab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poisoning/" rel="tag">poisoning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rl/" rel="tag">rl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rnn/" rel="tag">rnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" rel="tag">信息论</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/RL/" style="font-size: 10px;">RL</a> <a href="/tags/anomaly/" style="font-size: 12px;">anomaly</a> <a href="/tags/anomaly/" style="font-size: 10px;">anomaly'</a> <a href="/tags/backdoor/" style="font-size: 20px;">backdoor</a> <a href="/tags/cnn/" style="font-size: 10px;">cnn</a> <a href="/tags/diffusion/" style="font-size: 18px;">diffusion</a> <a href="/tags/gnn/" style="font-size: 14px;">gnn</a> <a href="/tags/lab/" style="font-size: 10px;">lab</a> <a href="/tags/poisoning/" style="font-size: 16px;">poisoning</a> <a href="/tags/rl/" style="font-size: 10px;">rl</a> <a href="/tags/rnn/" style="font-size: 10px;">rnn</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" style="font-size: 10px;">信息论</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/05/10/limu-read-paper/">limu_read_paper</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/06/VillanDiffusion/">VillanDiffusion</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/27/Infomation-Theory-Inference-and-Learning-Algorithms/">Infomation_Theory_Inference_and_Learning_Algorithms</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/22/TrojDiff/">TrojDiff</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/18/Diffusion-Backdoor-Embed/">Diffusion-Backdoor-Embed</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Towards_Stable_Backdoor_Purification_through_Feature_Shift_Tuning | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="NIPS2023 摘要本文的方法是基于微调的（FT, Fine-Tuning），微调并不能很好的解决触发器特征和样本特征联系紧密的问题，因此作者提出FST（Feature Shift Tuning） 微调提升模型的鲁棒性实验观测作者工作的重心在：当数据投毒率比较高（20%，10%等）时，可以使用微调来改变模型的决策边界（削弱触发器和目标标签之间的联系）。当数据投毒率比较低时，简单使用微调就无法解决">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Towards_Stable_Backdoor_Purification_through_Feature_Shift_Tuning">
+<meta property="og:url" content="http://example.com/2024/03/14/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="NIPS2023 摘要本文的方法是基于微调的（FT, Fine-Tuning），微调并不能很好的解决触发器特征和样本特征联系紧密的问题，因此作者提出FST（Feature Shift Tuning） 微调提升模型的鲁棒性实验观测作者工作的重心在：当数据投毒率比较高（20%，10%等）时，可以使用微调来改变模型的决策边界（削弱触发器和目标标签之间的联系）。当数据投毒率比较低时，简单使用微调就无法解决">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240315093150937.png">
+<meta property="og:image" content="http://example.com/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240326164346367.png">
+<meta property="og:image" content="http://example.com/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240326195936413.png">
+<meta property="og:image" content="http://example.com/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240315125110759.png">
+<meta property="og:image" content="http://example.com/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240326200015516.png">
+<meta property="og:image" content="http://example.com/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240326200036149.png">
+<meta property="og:image" content="http://example.com/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240402143917317.png">
+<meta property="article:published_time" content="2024-03-14T02:12:46.000Z">
+<meta property="article:modified_time" content="2024-04-19T04:34:30.665Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="backdoor">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240315093150937.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/03/14/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/" class="article-date">
+  <time class="dt-published" datetime="2024-03-14T02:12:46.000Z" itemprop="datePublished">2024-03-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Towards_Stable_Backdoor_Purification_through_Feature_Shift_Tuning
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>NIPS2023</p>
+<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>本文的方法是基于微调的（FT, Fine-Tuning），微调并不能很好的解决触发器特征和样本特征联系紧密的问题，因此作者提出FST（Feature Shift Tuning）</p>
+<h1 id="微调提升模型的鲁棒性"><a href="#微调提升模型的鲁棒性" class="headerlink" title="微调提升模型的鲁棒性"></a>微调提升模型的鲁棒性</h1><h2 id="实验观测"><a href="#实验观测" class="headerlink" title="实验观测"></a>实验观测</h2><p>作者工作的重心在：当数据投毒率比较高（20%，10%等）时，可以使用微调来改变模型的决策边界（削弱触发器和目标标签之间的联系）。当数据投毒率比较低时，简单使用微调就无法解决问题了。这是经过实验观测得出的结论。</p>
+<h2 id="探索"><a href="#探索" class="headerlink" title="探索"></a>探索</h2><p>作者对不同投毒率下微调方法效果出现不稳定这个问题进行了探索。</p>
+<p>假设：在不同投毒率下，模型的特征提取器提取出的特征是不同的。</p>
+<p>基于假设，开始做实验，利用T-SNE对不同投毒率下的模型提取的特征进行可视化。</p>
+<p><img src="/./Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240315093150937.png" alt="image-20240315093150937"></p>
+<h2 id="实验1-特征转移能否提高微调性能"><a href="#实验1-特征转移能否提高微调性能" class="headerlink" title="实验1-特征转移能否提高微调性能"></a>实验1-特征转移能否提高微调性能</h2><p>对于一个深度学习模型，将其特征提取部分的参数表示为$\Phi (\theta, x)$，将最后的线性层表示为$f(\omega)$。</p>
+<p>作者通过固定好$f(\omega)$，将特征提取的参数进行微调，试图达到特征转移的效果。但是实验并没有达到期望的结果。固定的线性层仍然限制了模型进行特征转移。</p>
+<p>因此，作者参考前人的工作，对线性层的参数$f(\omega ^{ori})$进行随机初始化，得到$f(\omega)$，然后再对特征提取的参数$\Phi(\theta)$​​​进行微调。</p>
+<p>架构：</p>
+<p><img src="/./Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240326164346367.png" alt="image-20240326164346367"></p>
+<p>效果：</p>
+<p><img src="/./Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240326195936413.png" alt="image-20240326195936413"></p>
+<h2 id="实验1-评估"><a href="#实验1-评估" class="headerlink" title="实验1-评估"></a>实验1-评估</h2><p>上图中的第五张是实验的结果，可以看出，采取上述设置，可以将目标标签和毒化样本的特征进行分开，在投毒率1%的情况下，但是这又导致了另一个问题，在干净样本上的正确率下降达到了2.9%，这是随机初始化$f(\omega)$导致的。</p>
+<p>总结来看，现在有的问题是，干净样本的正确率下降&amp;模型的鲁棒性不够（后门偏移不够）。</p>
+<h1 id="FST-Feature-Shift-Tuning"><a href="#FST-Feature-Shift-Tuning" class="headerlink" title="FST, Feature Shift Tuning"></a>FST, Feature Shift Tuning</h1><p>基于上面的实验观测分析，作者提出了FST，首先对线性层进行初始化，然后解决下面的优化问题：</p>
+<p><img src="/./Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240315125110759.png" alt="image-20240315125110759"></p>
+<p>左边的式子是对模型整体的准确率来作优化，而右边$&lt;\omega, \omega^{org}&gt;$则是在做特征转移（基于前面的观测，这里在初始化$\omega$后加以约束，进行优化），$\alpha$作为平衡因子，在“保证正确率不下降”和“特征转移”之间作平衡，增大$\alpha$有利于特征转移。最后的$\Vert \omega\Vert_2$将线性层参数约束在一个常数范围内，确保不会出现参数过大或者过小的极端情况。</p>
+<p>架构：</p>
+<p><img src="/./Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240326200015516.png" alt="image-20240326200015516"></p>
+<p>效果：</p>
+<p><img src="/./Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240326200036149.png" alt="image-20240326200036149"></p>
+<h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><h2 id="训练后门模型"><a href="#训练后门模型" class="headerlink" title="训练后门模型"></a>训练后门模型</h2><p>选择使用的模型也是ResNet18，在配置文件<code>cifar10.yaml</code>中可以更改。其中选取的baseline有：badnet、blended、trojannn等。</p>
+<p>攻击的实现：</p>
+<ol>
+<li>首先创建一个正常类<code>NormalCase</code>，在<code>prototype.py</code>中，其他的attack class都继承了这个类。<code>prototype.py</code>定义了参数的解析、数据的准备以及训练过程的实现等。</li>
+<li><code>badnet</code>继承<code>prototype</code>，包含了一些额外的参数、参数解析，还有训练数据准备、bad训练数据准备等。</li>
+<li>选取好配置文件之后，训练好模型后，模型以及一些其他数据会被保存在<code>attack_result.pt</code>中，可以通过<code>torch.load</code>来查看保存的数据，访问训练好的模型。</li>
+</ol>
+<p><img src="/./Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240402143917317.png" alt="image-20240402143917317"></p>
+<h2 id="模型漂白"><a href="#模型漂白" class="headerlink" title="模型漂白"></a>模型漂白</h2><p>下面进行模型漂白：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore fine_tune/ft.py --attack blended --split_ratio 0.02 --pratio 0.1 --device cuda:0 --lr 0.01 --attack_target 0 --model resnet18 --dataset cifar10 --epochs 10 --initlr 0.1 --ft_mode fst --alpha 0.1</span><br></pre></td></tr></table></figure>
+
+<p>漂白结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">2024-04-02:02:45:25 [INFO    ] [ft.py:360] Training ACC: 0.9970000386238098 | Training loss: -283.08803248405457</span><br><span class="line">2024-04-02:02:45:25 [INFO    ] [ft.py:361] Learning rate: 0.0</span><br><span class="line">2024-04-02:02:45:25 [INFO    ] [ft.py:362] -------------------------------------</span><br><span class="line">2024-04-02:02:45:33 [INFO    ] [ft.py:375] Defense performance</span><br><span class="line">2024-04-02:02:45:33 [INFO    ] [ft.py:376] Clean ACC: 0.8647 | ASR: 0.005333333333333333</span><br><span class="line">2024-04-02:02:45:33 [INFO    ] [ft.py:377] -------------------------------------</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/03/14/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/" data-id="clw6dgvjh002ii49f8hux1f4p" data-title="Towards_Stable_Backdoor_Purification_through_Feature_Shift_Tuning" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Black-box_Backdoor_Defense_via_Zero-shot_Image_Purification
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/02/29/ABS-Scanning-Neural-Networks-for-Back-doors-by-Artificial-Brain-Stimulation/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">ABS:Scanning_Neural_Networks_for_Back-doors_by_Artificial_Brain_Stimulation</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/EasyRL/">EasyRL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Graph-Neural-Networks-Foundations-Frontiers-and-Applications/">Graph Neural Networks: Foundations, Frontiers, and Applications</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs224w/">cs224w</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/d2l/">d2l</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/writing-paper/">writing  paper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%9E%E9%AA%8C/">实验</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%BB%E7%BB%93/">总结</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6/">读书</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">高性能计算机网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RL/" rel="tag">RL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly&#39;</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cnn/" rel="tag">cnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/diffusion/" rel="tag">diffusion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gnn/" rel="tag">gnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lab/" rel="tag">lab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poisoning/" rel="tag">poisoning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rl/" rel="tag">rl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rnn/" rel="tag">rnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" rel="tag">信息论</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/RL/" style="font-size: 10px;">RL</a> <a href="/tags/anomaly/" style="font-size: 12px;">anomaly</a> <a href="/tags/anomaly/" style="font-size: 10px;">anomaly'</a> <a href="/tags/backdoor/" style="font-size: 20px;">backdoor</a> <a href="/tags/cnn/" style="font-size: 10px;">cnn</a> <a href="/tags/diffusion/" style="font-size: 18px;">diffusion</a> <a href="/tags/gnn/" style="font-size: 14px;">gnn</a> <a href="/tags/lab/" style="font-size: 10px;">lab</a> <a href="/tags/poisoning/" style="font-size: 16px;">poisoning</a> <a href="/tags/rl/" style="font-size: 10px;">rl</a> <a href="/tags/rnn/" style="font-size: 10px;">rnn</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" style="font-size: 10px;">信息论</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/05/10/limu-read-paper/">limu_read_paper</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/06/VillanDiffusion/">VillanDiffusion</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/27/Infomation-Theory-Inference-and-Learning-Algorithms/">Infomation_Theory_Inference_and_Learning_Algorithms</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/22/TrojDiff/">TrojDiff</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/18/Diffusion-Backdoor-Embed/">Diffusion-Backdoor-Embed</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

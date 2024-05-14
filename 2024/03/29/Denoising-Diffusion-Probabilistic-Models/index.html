@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Denoising_Diffusion_Probabilistic_Models | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="DDPM，于Stable Diffusion之前，后续关于Diffusion的文章基本都会引用这篇。 NIPS 2020 摘要：我们使用扩散概率模型展示了高质量的图像合成结果，这是一种受非平衡热力学考虑启发的潜在变量模型。我们最好的结果是通过对加权变分界进行训练获得的，该边界是根据扩散概率模型和与朗之万动力学的去噪分数匹配之间的新联系设计的，我们的模型自然承认渐进式有损解压缩方案，可以解释为自回归">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Denoising_Diffusion_Probabilistic_Models">
+<meta property="og:url" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="DDPM，于Stable Diffusion之前，后续关于Diffusion的文章基本都会引用这篇。 NIPS 2020 摘要：我们使用扩散概率模型展示了高质量的图像合成结果，这是一种受非平衡热力学考虑启发的潜在变量模型。我们最好的结果是通过对加权变分界进行训练获得的，该边界是根据扩散概率模型和与朗之万动力学的去噪分数匹配之间的新联系设计的，我们的模型自然承认渐进式有损解压缩方案，可以解释为自回归">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240329121950148.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240329122324323.png">
+<meta property="og:image" content="http://example.com/Denoising-Diffusion-Probabilistic-Models/image-20240329133247082.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240329134045273.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240329143400805.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240329134406665.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240329135716143.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240329141610974.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240329203458307.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240329204358315.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240330095440136.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240331102006299.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240331102055942.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240331102249170.png">
+<meta property="og:image" content="http://example.com/Denoising-Diffusion-Probabilistic-Models/image-20240331102413862.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240331102651258.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240331102859501.png">
+<meta property="og:image" content="http://example.com/Denoising-Diffusion-Probabilistic-Models/image-20240506184243810.png">
+<meta property="og:image" content="http://example.com/Denoising-Diffusion-Probabilistic-Models/image-20240506184845417.png">
+<meta property="og:image" content="http://example.com/Denoising-Diffusion-Probabilistic-Models/image-20240506185251821.png">
+<meta property="og:image" content="http://example.com/Denoising-Diffusion-Probabilistic-Models/image-20240506185546697.png">
+<meta property="og:image" content="http://example.com/Denoising-Diffusion-Probabilistic-Models/image-20240506191041158.png">
+<meta property="og:image" content="http://example.com/Denoising-Diffusion-Probabilistic-Models/image-20240507121118865.png">
+<meta property="og:image" content="http://example.com/Denoising-Diffusion-Probabilistic-Models/image-20240507121441471.png">
+<meta property="og:image" content="http://example.com/Denoising-Diffusion-Probabilistic-Models/image-20240507121845776.png">
+<meta property="og:image" content="http://example.com/Denoising-Diffusion-Probabilistic-Models/image-20240507121914396.png">
+<meta property="og:image" content="http://example.com/Denoising-Diffusion-Probabilistic-Models/image-20240507131919505.png">
+<meta property="og:image" content="http://example.com/Denoising-Diffusion-Probabilistic-Models/image-20240507132546801.png">
+<meta property="og:image" content="http://example.com/Denoising-Diffusion-Probabilistic-Models/image-20240507135141891.png">
+<meta property="og:image" content="http://example.com/Denoising-Diffusion-Probabilistic-Models/image-20240507135648112.png">
+<meta property="og:image" content="http://example.com/Denoising-Diffusion-Probabilistic-Models/image-20240507140315856.png">
+<meta property="og:image" content="http://example.com/Denoising-Diffusion-Probabilistic-Models/image-20240507140542568.png">
+<meta property="og:image" content="http://example.com/Denoising-Diffusion-Probabilistic-Models/image-20240507141837908.png">
+<meta property="og:image" content="http://example.com/Denoising-Diffusion-Probabilistic-Models/image-20240507142029958.png">
+<meta property="og:image" content="http://example.com/Denoising-Diffusion-Probabilistic-Models/image-20240507142708377.png">
+<meta property="og:image" content="http://example.com/Denoising-Diffusion-Probabilistic-Models/image-20240507204854473.png">
+<meta property="og:image" content="http://example.com/Denoising-Diffusion-Probabilistic-Models/image-20240507205224196.png">
+<meta property="og:image" content="http://example.com/Denoising-Diffusion-Probabilistic-Models/image-20240507205458379.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240507140542568.png">
+<meta property="article:published_time" content="2024-03-29T03:33:53.000Z">
+<meta property="article:modified_time" content="2024-05-09T03:58:02.536Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="diffusion">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240329121950148.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Denoising-Diffusion-Probabilistic-Models" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/" class="article-date">
+  <time class="dt-published" datetime="2024-03-29T03:33:53.000Z" itemprop="datePublished">2024-03-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Denoising_Diffusion_Probabilistic_Models
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>DDPM，于Stable Diffusion之前，后续关于Diffusion的文章基本都会引用这篇。</p>
+<p>NIPS 2020</p>
+<p>摘要：我们使用扩散概率模型展示了高质量的图像合成结果，这是一种受非平衡热力学考虑启发的潜在变量模型。我们最好的结果是通过对加权变分界进行训练获得的，该边界是根据扩散概率模型和与朗之万动力学的去噪分数匹配之间的新联系设计的，我们的模型自然承认渐进式有损解压缩方案，可以解释为自回归解码的泛化。在无条件 CIFAR10 数据集上，我们获得了 9.46 的 Inception 分数和 3.17 的最新 FID 分数。在 256x256 LSUN 上，我们获得了类似于 ProgressiveGAN 的样本质量。</p>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>本文提出的方法是建立在[扩散概率模型](<a target="_blank" rel="noopener" href="https://proceedings.mlr.press/v37/sohl-dickstein15.html">Deep Unsupervised Learning using Nonequilibrium Thermodynamics (mlr.press)</a>)上的，扩散概率模型提出了这种“先摧毁数据的分布，然后通过机器学习来重构这个分布，从而学习这个重构的过程”。扩散模型是一个参数化的马尔可夫过程，通过一个变分推导，在有限时间内来生成出符合数据分布的样本。马尔可夫链的转变过程（学习过程）是通过逆向扩散过程（前向过程）。</p>
+<p>论文中提到了朗之动力学，这篇<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/562654949">博客</a>介绍了朗之动力学和扩散模型之间的关系。</p>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>还是对扩散概率模型进行介绍：</p>
+<p>大体上，扩散模型分为正向过程$q(.)$和反向过程$p_\theta(.)$，正向过程比较简单，就是不断往原来的分布上加噪声，直到分布被摧毁，反向过程的则是重构这个过程。</p>
+<p>反向过程的初始条件为：<br>$$<br>p(x_T)&#x3D;\mathcal N(x_T;0,I)<br>$$<br>最开始这个噪声的分布是均值0方差1的正态分布，然后通过下面的公式进行迭代：</p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240329121950148.png" alt="image-20240329121950148" style="zoom:33%;" />
+
+<p>整个反向过程可以合并起来写成下面的公式：</p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240329122324323.png" alt="image-20240329122324323" style="zoom:33%;" />
+
+<p>正向过程：</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240329133247082.png" alt="image-20240329133247082"></p>
+<p>$\alpha_2,…,\beta_t$​表示方差调度器，可以在训练中学习，也可以固定。这里作者直接将他们作为超参数固定了。</p>
+<p>给定$\alpha_t&#x3D;1-\beta_t$，正向过程可以写成下面的形式：</p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240329134045273.png" alt="image-20240329134045273" style="zoom:33%;" />
+
+<p>也可以换一种形式写出来：</p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240329143400805.png" alt="image-20240329143400805" style="zoom: 33%;" />
+
+<p>通过负对数似然来对随机噪声进行优化：</p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240329134406665.png" alt="image-20240329134406665" style="zoom:33%;" />
+
+<p>通过改进，将$L$写成下面公式的形式：</p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240329135716143.png" alt="image-20240329135716143" style="zoom:33%;" />
+
+<p>这样在计算上比较简单，计算两个噪声的KL散度，之前的公式则是需要通过求解高方差蒙特卡洛估计。</p>
+<p>使用KL散度将$p_\theta(x_{t-1}|x_t)$和前向过程的后验进行比较，在$x_0$已知的情况下：</p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240329141610974.png" alt="image-20240329141610974" style="zoom:33%;" />
+
+
+
+
+
+
+
+<hr>
+<p>发现很多公式不理解，于是找博客、视频解说。</p>
+<h1 id="算法部分"><a href="#算法部分" class="headerlink" title="算法部分"></a>算法部分</h1><p>首先，看看DDPM的算法，<strong>训练过程</strong>：</p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240329203458307.png" alt="image-20240329203458307" style="zoom:50%;" />
+
+<p>line 2表示从我们的数据中采样一张真实样本$x_0$；</p>
+<p>line 3表示得到当前训练的step，这个后面会feed给噪声预测器中去；</p>
+<p>line 5则是对噪声预测器做优化：</p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240329204358315.png" alt="image-20240329204358315" style="zoom:50%;" />
+
+<p><strong>采样过程</strong>：</p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240330095440136.png" alt="image-20240330095440136" style="zoom:50%;" />
+
+<p>line 1：从正态分布中采样一个杂讯，作为原始输入$x_T$</p>
+<p>line 2：进入循环，有T次</p>
+<p>line 3: 从正态分布中采样一个杂讯，作为后面的约束</p>
+<p>line 4: 开始对上一步的输出进行去噪处理：</p>
+<h1 id="原理解析"><a href="#原理解析" class="headerlink" title="原理解析"></a>原理解析</h1><p>反向过程的流程：</p>
+<ul>
+<li>一共有T个step，每一步都会将上一步输出的噪声减少一部分，直到最后得到一张清晰的图片。</li>
+</ul>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240331102006299.png" alt="image-20240331102006299" style="zoom:50%;" />
+
+<p>其原理很巧妙：</p>
+<p><strong>The sculpture is already complete within the marble block, before I start my work. It is already there, I just have to chisel away the superfluous material. - Michelangelo</strong></p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240331102055942.png" alt="image-20240331102055942" style="zoom:50%;" />
+
+<p>denoise在不同的step产生的noice是不一样的，当step比较大的时候，denoice会产生一个比较大的噪声，然后消除掉这个噪声，如下图所示：</p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240331102249170.png" alt="image-20240331102249170" style="zoom:50%;" />
+
+<p>denoice并不是一个e2e的模型：</p>
+<p>为什么不训练一个e2e的模型，直接输出一张带有杂讯的猫？</p>
+<ul>
+<li>生成噪声比较简单，若是生成一张图，计算量比较大。</li>
+<li>直接生成一张带杂讯的猫相当于model已经可以进行绘画了</li>
+</ul>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240331102413862.png" alt="image-20240331102413862"></p>
+<p>denoice的训练：</p>
+<p>ground truth的来源是正向过程添加的高斯噪声。</p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240331102651258.png" alt="image-20240331102651258" style="zoom: 50%;" />
+
+<p> 正向过程：</p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240331102859501.png" alt="image-20240331102859501" style="zoom:50%;" />
+
+<h1 id="数学原理"><a href="#数学原理" class="headerlink" title="数学原理"></a>数学原理</h1><ol>
+<li><p>用极大似然估计来衡量原始分布和生成模型分布之间的距离</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240506184243810.png" alt="image-20240506184243810"></p>
+<p>从极大似然估计到KL散度</p>
+</li>
+<li><p>DM中的$P_\theta(x)$很难计算，VAE是这样计算的：</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240506184845417.png" alt="image-20240506184845417"></p>
+<p>​	<img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240506185251821.png" alt="image-20240506185251821"></p>
+</li>
+<li><p>DDPM中计算$P_\theta(x)$​</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240506185546697.png" alt="image-20240506185546697"></p>
+</li>
+<li><p>DDPM最大化某一个分布：</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240506191041158.png" alt="image-20240506191041158"></p>
+</li>
+</ol>
+<h1 id="重推"><a href="#重推" class="headerlink" title="重推"></a>重推</h1><p>首先先看演算法，算法中的部分已经用到了推导的结论了。</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507121118865.png" alt="image-20240507121118865"></p>
+<p>$q(.)$是现实世界所有图片的总体，从现实世界中取出一张真实图片，为$x_0$</p>
+<p>t是从一个均匀分布中随机取出来的。</p>
+<p>noice predictor的输入是$x_t$和$t$，输出是预测的noice。</p>
+<p>这里有一个关键点，noice predictor的内部是怎样的，<strong>怎么根据$x_t$和$t$算出noice的。</strong></p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507121441471.png" alt="image-20240507121441471"></p>
+<p>sample的过程就是infer的过程。</p>
+<p>sample的关键是：<strong>为什么$x_t$减去的predict noice前要加系数，大括号的外面为何要加系数，最后为什么要加上这一个杂讯？</strong></p>
+<p>所有的疑问可以从后面的数学推导得到答案。</p>
+<h2 id="扩散：一步到位"><a href="#扩散：一步到位" class="headerlink" title="扩散：一步到位"></a>扩散：一步到位</h2><p>理想中的扩散过程应该是一步一步往图像上加噪声，直到图片变成高斯噪声。</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507121845776.png" alt="image-20240507121845776"></p>
+<p>但是实际上，添加噪声是一步到位的。</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507121914396.png" alt="image-20240507121914396"></p>
+<p>推导一下这个过程：<br>$$<br>\begin{flalign}<br>&amp;x_1&#x3D;\sqrt \alpha_1 x_0+\sqrt{1-\alpha_1}\epsilon_1 \<br>&amp;x_2&#x3D;\sqrt \alpha_2 x_1+\sqrt{1-\alpha_2}\epsilon_2 \<br>&#x3D;&amp;\sqrt \alpha_2(\sqrt \alpha_1 x_0+\sqrt{1-\alpha_1}\epsilon_1)+\sqrt{1-\alpha_2}\epsilon_2 \<br>&#x3D;&amp;\sqrt{\alpha_2\alpha_1}x_0+\sqrt{\alpha_2(1-\alpha_1)}\epsilon_1+\sqrt{1-\alpha_2}\epsilon_2 \<br>&#x3D;&amp;\sqrt{\alpha_2\alpha_1}x_0+\sqrt{1-\alpha_2\alpha_1}\epsilon_3&amp;<br>\end{flalign}<br>$$<br>从(5)-&gt;(6)的原因是：由于$\epsilon\sim\mathcal N(0,1)$，$\epsilon_2, \epsilon_2$是独立的，正态分布的公式，(5)后面两个噪声：<br>$$<br>\begin{flalign}<br>&amp;\epsilon_1^{‘}\sim \mathcal N(0,\alpha_2-\alpha_1\alpha_2) \<br>&amp;\epsilon_2^{‘}\sim \mathcal N(0,1-\alpha_2)<br>\end{flalign}<br>$$<br>由于正态分布的可加性，所以我们可以直接将这两项合并：<br>$$<br>\epsilon_3^{‘}\sim \mathcal N(0, 1-\alpha_1\alpha_2)<br>$$<br>于是可以将系数提出来，直接从标准正态分布中采样即可。</p>
+<p>为了便于书写，将：$\alpha_1\alpha_2…\alpha_t&#x3D;\bar \alpha_t$</p>
+<h2 id="生成模型的目标"><a href="#生成模型的目标" class="headerlink" title="生成模型的目标"></a>生成模型的目标</h2><p>生成模型的目标：</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507131919505.png" alt="image-20240507131919505"></p>
+<p>通过NN生成的分布和真实世界的分布一样，将概率分布展开，更容易理解。<br>$$<br>P_\theta(x)&#x3D;\int_zP_\theta(x|z)P(z)dz<br>$$<br>目标就是最大化从$P_{data}$中sample出的m个样本的概率$P_\theta$的乘积。</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507132546801.png" alt="image-20240507132546801"></p>
+<p>这里补充KL散度的定义，也就是信息论中的相对熵：<br>$$<br>D_{KL}(P\Vert Q)&#x3D;\int p(x)\ln(\frac{p(x)}{q(x)})dx<br>$$<br>因此，上述推导的结论是：要想两个分布相近，通过极大似然估计，推导出的结果是最小化两个分布的KL散度。</p>
+<h2 id="VAE计算-P-theta-的方法"><a href="#VAE计算-P-theta-的方法" class="headerlink" title="VAE计算$P_\theta$的方法"></a>VAE计算$P_\theta$的方法</h2><p>上面说到$P_\theta(x)&#x3D;\int_zP(z)P_\theta(x\vert z)dz$，我们讨论的是生成模型的通用形式，从手上的初始分布中采样一个$z$​，这个概率是已知的。</p>
+<p>VAE中的做法是：</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507135141891.png" alt="image-20240507135141891"></p>
+<p>输入是x，通过一个encoder，得到latent z。</p>
+<p>也就是说，要得到$\theta^*$，就要计算出：在假定x已知的情况下，从z的分布$q()$中采样，求出$\log(\frac{q(x\vert z)}{P(z\vert x)})$的期望的最大值。</p>
+<h2 id="DDPM计算-P-theta"><a href="#DDPM计算-P-theta" class="headerlink" title="DDPM计算$P_\theta$"></a>DDPM计算$P_\theta$</h2><p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507135648112.png" alt="image-20240507135648112"></p>
+<p>和VAE的推导比较类似，得到的结论也有相似的结构。</p>
+<p>怎么最大化这个期望，这篇paper专门进行推导的，我们直接看结论。</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507140315856.png" alt="image-20240507140315856"></p>
+<p>目标的下界是：</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507140542568.png" alt="image-20240507140542568"></p>
+<ol>
+<li><p>第二项是常数，可以不用管（$q(x_T\vert x_0)$是扩散过程，人为控制；$P(x_T)$是从正态分布中采样一个初始的噪声，也是人为控制，没有$\theta$）。</p>
+</li>
+<li><p>第三项中，$P_\theta(x_{t-1}\vert x_t)$是逆扩散过程，是由神经网络决定的，而$q(x_{t-1}\vert x_t,x_0)$：<br>$$<br>\begin{flalign}<br>&amp;q(x_{t-1}\vert x_t,x_0) \<br>&#x3D;&amp;\frac{q(x_{t-1},x_t,x_0)}{q(x_t,x_0)} \<br>&#x3D;&amp;\frac{q(x_0)q(x_{t-1}\vert x_0)q(x_t\vert x_{t-1})}{q(x_0)q(x_t\vert x_0)} \<br>&#x3D;&amp;\frac{q(x_{t-1}\vert x_0)q(x_t\vert x_{t-1})}{q(x_t\vert x_0)}&amp;<br>\end{flalign}<br>$$<br>这三项都是可以计算的高斯分布，另一篇paper中推导了这个算式最后得到的是一个什么样的分布：</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507141837908.png" alt="image-20240507141837908"></p>
+<p>得到了这个分布的均值和方差：</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507142029958.png" alt="image-20240507142029958"></p>
+<p>那么怎么最小化这两个分布的KL散度：<br>$$<br>KL(p,q)&#x3D;\log \frac{\sigma_2}{\sigma_1}+\frac{\sigma_1^2}{\sigma_2^2}+\frac{(\mu_1-\mu_2)^2}{2\sigma_2^2}-\frac{1}{2}<br>$$<br>不用直接带入，根据实验，直接最小化这两个分布的均值的距离即可。</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507142708377.png" alt="image-20240507142708377"></p>
+</li>
+<li><p>第一项参考别人的博客，是这样解释的：</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507204854473.png" alt="image-20240507204854473"></p>
+</li>
+</ol>
+<p>最后，$q(x_{t-1}\vert x_t,x_0)$分布的均值，就是diffusion model输出的结果（$x_t$减去predicted noice）：</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507205224196.png" alt="image-20240507205224196"></p>
+<p>将$x_0$换成$x_t$，得到的就是DDPM演算法中的sample的式子：</p>
+<p><img src="/./Denoising-Diffusion-Probabilistic-Models/image-20240507205458379.png" alt="image-20240507205458379"></p>
+<h2 id="总结DDPM"><a href="#总结DDPM" class="headerlink" title="总结DDPM"></a>总结DDPM</h2><ol>
+<li><p>DDPM的出发点和大多数生成模型一样，目标是使得预测的数据分布$P_\theta$和真实世界的数据分布$P_{data}$​一致，以此出发，通过极大似然估计，发现其实等价于最小化两个分布$P_\theta$和$P_{data}$​之间的KL。</p>
+<p>然后有一个比较直觉的式子：<br>$$<br>P_\theta(x\vert z)\propto \exp (-\Vert G(z)-x\Vert_2)<br>$$<br>此时目标变成了最大化$P_\theta(x)$</p>
+</li>
+<li><p>问题在于如何计算$P_\theta$：<br>$$<br>P_\theta(x)&#x3D;\int_z q(z\vert x)p(x)dz<br>$$<br>可以写成上面的形式，用VAE的推导，取对数，得到下界，用来近似$P_\theta(x)\ge E_{q(z\vert x)}(\frac{P(x,z)}{q(z\vert x)})$。</p>
+<p>对于DDPM，用同样的方法，可以推导出相似的结构，$P_\theta(x)\ge E_{q(x_1:x_t|x_0)}(\frac{P(x_0:x_t)}{q(x_1:x_t\vert x_0)})$​</p>
+<p>对于不等号右边的部分，通过大量推导得到下面的式子：</p>
+<img src="./Denoising-Diffusion-Probabilistic-Models/image-20240507140542568.png" alt="image-20240507140542568" style="zoom:33%;" />
+
+<p>此时问题变成了最小化第三个KL项了，也就是说那两个分布的均值越接近越好。</p>
+</li>
+</ol>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/530602852">DDPM解读（一）| 数学基础，扩散与逆扩散过程和训练推理方法 - 知乎 (zhihu.com)</a></p>
+<p>[PowerPoint 簡報 (ntu.edu.tw)](<a target="_blank" rel="noopener" href="https://speech.ee.ntu.edu.tw/~hylee/ml/ml2023-course-data/DDPM">https://speech.ee.ntu.edu.tw/~hylee/ml/ml2023-course-data/DDPM</a> (v7).pdf)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/" data-id="clw6dgvjc000mi49fbvf60a3i" data-title="Denoising_Diffusion_Probabilistic_Models" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/diffusion/" rel="tag">diffusion</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/03/30/follow-who/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          follow_who
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/EasyRL/">EasyRL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Graph-Neural-Networks-Foundations-Frontiers-and-Applications/">Graph Neural Networks: Foundations, Frontiers, and Applications</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs224w/">cs224w</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/d2l/">d2l</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/writing-paper/">writing  paper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%9E%E9%AA%8C/">实验</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%BB%E7%BB%93/">总结</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6/">读书</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">高性能计算机网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RL/" rel="tag">RL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly&#39;</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cnn/" rel="tag">cnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/diffusion/" rel="tag">diffusion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gnn/" rel="tag">gnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lab/" rel="tag">lab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poisoning/" rel="tag">poisoning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rl/" rel="tag">rl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rnn/" rel="tag">rnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" rel="tag">信息论</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/RL/" style="font-size: 10px;">RL</a> <a href="/tags/anomaly/" style="font-size: 12px;">anomaly</a> <a href="/tags/anomaly/" style="font-size: 10px;">anomaly'</a> <a href="/tags/backdoor/" style="font-size: 20px;">backdoor</a> <a href="/tags/cnn/" style="font-size: 10px;">cnn</a> <a href="/tags/diffusion/" style="font-size: 18px;">diffusion</a> <a href="/tags/gnn/" style="font-size: 14px;">gnn</a> <a href="/tags/lab/" style="font-size: 10px;">lab</a> <a href="/tags/poisoning/" style="font-size: 16px;">poisoning</a> <a href="/tags/rl/" style="font-size: 10px;">rl</a> <a href="/tags/rnn/" style="font-size: 10px;">rnn</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" style="font-size: 10px;">信息论</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/05/10/limu-read-paper/">limu_read_paper</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/06/VillanDiffusion/">VillanDiffusion</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/27/Infomation-Theory-Inference-and-Learning-Algorithms/">Infomation_Theory_Inference_and_Learning_Algorithms</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/22/TrojDiff/">TrojDiff</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/18/Diffusion-Backdoor-Embed/">Diffusion-Backdoor-Embed</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

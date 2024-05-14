@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Neural-Cleanse-Identifying-and-Mitigating-Backdoor-Attacks-in-Neural-Networks | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="本文是后门攻击的防御方法，S&amp;P 2019。 标题直接翻译：神经元清洗，识别并且减轻神经网络中的后门攻击。 摘要本文内容：提出的技术能够识别出后门，并且重构出可能的触发器。通过多种手段来对后门攻击进行缓解：过滤、神经元修剪、遗忘。 本文结构：  介绍 背景 方法概述 详细的检测方法 实验：后门检测和触发器识别 后门缓解 抵抗入侵的能力 相关工作 结论及展望  方法概述威胁模型对攻击者的假设">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Neural-Cleanse-Identifying-and-Mitigating-Backdoor-Attacks-in-Neural-Networks">
+<meta property="og:url" content="http://example.com/2024/01/16/Neural-Cleanse-Identifying-and-Mitigating-Backdoor-Attacks-in-Neural-Networks/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="本文是后门攻击的防御方法，S&amp;P 2019。 标题直接翻译：神经元清洗，识别并且减轻神经网络中的后门攻击。 摘要本文内容：提出的技术能够识别出后门，并且重构出可能的触发器。通过多种手段来对后门攻击进行缓解：过滤、神经元修剪、遗忘。 本文结构：  介绍 背景 方法概述 详细的检测方法 实验：后门检测和触发器识别 后门缓解 抵抗入侵的能力 相关工作 结论及展望  方法概述威胁模型对攻击者的假设">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/Neural-Cleanse-Identifying-and-Mitigating-Backdoor-Attacks-in-Neural-Networks/image-20240229204004091.png">
+<meta property="article:published_time" content="2024-01-16T13:01:03.000Z">
+<meta property="article:modified_time" content="2024-04-19T04:34:49.549Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="backdoor">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/Neural-Cleanse-Identifying-and-Mitigating-Backdoor-Attacks-in-Neural-Networks/image-20240229204004091.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Neural-Cleanse-Identifying-and-Mitigating-Backdoor-Attacks-in-Neural-Networks" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/01/16/Neural-Cleanse-Identifying-and-Mitigating-Backdoor-Attacks-in-Neural-Networks/" class="article-date">
+  <time class="dt-published" datetime="2024-01-16T13:01:03.000Z" itemprop="datePublished">2024-01-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Neural-Cleanse-Identifying-and-Mitigating-Backdoor-Attacks-in-Neural-Networks
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>本文是后门攻击的防御方法，S&amp;P 2019。</p>
+<p>标题直接翻译：神经元清洗，识别并且减轻神经网络中的后门攻击。</p>
+<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>本文内容：提出的技术能够识别出后门，并且重构出可能的触发器。通过多种手段来对后门攻击进行缓解：过滤、神经元修剪、遗忘。</p>
+<p>本文结构：</p>
+<ol>
+<li>介绍</li>
+<li>背景</li>
+<li><strong>方法概述</strong></li>
+<li><strong>详细的检测方法</strong></li>
+<li>实验：后门检测和触发器识别</li>
+<li><strong>后门缓解</strong></li>
+<li>抵抗入侵的能力</li>
+<li>相关工作</li>
+<li>结论及展望</li>
+</ol>
+<h1 id="方法概述"><a href="#方法概述" class="headerlink" title="方法概述"></a>方法概述</h1><h2 id="威胁模型"><a href="#威胁模型" class="headerlink" title="威胁模型"></a>威胁模型</h2><p>对攻击者的假设。</p>
+<p>attack baseline：BadNets and Trojan Attack</p>
+<p>攻击方式：仅仅对一个标签进行攻击。</p>
+<h2 id="防御模型"><a href="#防御模型" class="headerlink" title="防御模型"></a>防御模型</h2><p>对防御者的假设：可以访问植入后门的<strong>模型</strong>；有一部分<strong>验证集</strong>用来测试接收到的模型；有一定的<strong>计算资源</strong>来测试和修改模型。</p>
+<p>防御者的目标：</p>
+<ol>
+<li>检测：包括“判断是否模型中含有后门”和，“哪个标签被攻击了”</li>
+<li>恢复：准确来说，是通过反向工程恢复出攻击者使用的触发器。</li>
+<li>减轻：其一，设计滤波器将含有触发器的输入过滤掉；其二，给DNN打补丁。</li>
+</ol>
+<p>作者从两个角度解释假设的原因：</p>
+<ol>
+<li>粗粒度来讲，为什么最终选择使用减轻后门，而不是考虑其他方案，例如重新训练模型。主要是由于：重新训练计算量大、重新找外包服务商并没解决问题、换预训练模型（迁移学习等）困难。</li>
+<li>细粒度来讲，如何找到后门和触发器之间的联系，防御着只有验证集和后门模型。考虑三种情况：<ol>
+<li>扫描输入：可能会受到逃避攻击。</li>
+<li>分析模型内部结构：黑盒</li>
+<li>分析误分类原因：可能实现</li>
+</ol>
+</li>
+</ol>
+<h2 id="防御直觉"><a href="#防御直觉" class="headerlink" title="防御直觉"></a>防御直觉</h2><p>作者从“误分类是将样本直接分类为目标标签A，而不管其原来属于什么标签”出发，这个攻击过程可以用下图表示：</p>
+<p><img src="/./Neural-Cleanse-Identifying-and-Mitigating-Backdoor-Attacks-in-Neural-Networks/image-20240229204004091.png" alt="image-20240229204004091"></p>
+<p>干净模型的决策边界正常，有三个维度；而后门模型的决策边界则有四个维度，并且将新增加出来的那个维度直接分类为目标标签A对应的维度。</p>
+<p>上图中，第四个维度中的元素（灰色的块），被称为“shortcut”，翻译成捷径，或者“快捷方式”。</p>
+<p>攻击过程是在正常样本中加入扰动（触发器），然后扰乱了模型的决策边界。因此，作者使用反向工程，还原出触发器，然后设计出滤波器，具体步骤如下：</p>
+<ol>
+<li>选取一类标签，将其做为目标标签，然后优化触发器，使得其他样本误分类为目标标签，找到这个“最小”的触发器。</li>
+<li>重复着一过程，直到找到N个最小触发器。</li>
+<li>使用“离群检测算法”找到N个触发器中的最小触发器，作为最终结果。</li>
+</ol>
+<p>利用反向工程得到触发器后，便可以开始对后门进行削弱，使得模型更加鲁棒。</p>
+<p>关键直觉：<strong>it requires much smaller modifications to cause misclassification into the target label than into other uninfected labels</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/01/16/Neural-Cleanse-Identifying-and-Mitigating-Backdoor-Attacks-in-Neural-Networks/" data-id="clw6dgvjf001ri49fc8e16obs" data-title="Neural-Cleanse-Identifying-and-Mitigating-Backdoor-Attacks-in-Neural-Networks" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/01/17/Hidden-Trigger-Backdoor-Attacks/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Hidden-Trigger-Backdoor-Attacks
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/01/15/Defense-Resistant-Backdoor-Attacks-Against-Deep-Neural-Networks-in-Outsourced-Cloud-Environment/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Defense-Resistant-Backdoor-Attacks-Against-Deep-Neural-Networks-in-Outsourced-Cloud-Environment</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/EasyRL/">EasyRL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Graph-Neural-Networks-Foundations-Frontiers-and-Applications/">Graph Neural Networks: Foundations, Frontiers, and Applications</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs224w/">cs224w</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/d2l/">d2l</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/writing-paper/">writing  paper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%9E%E9%AA%8C/">实验</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%BB%E7%BB%93/">总结</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6/">读书</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">高性能计算机网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RL/" rel="tag">RL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly&#39;</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cnn/" rel="tag">cnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/diffusion/" rel="tag">diffusion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gnn/" rel="tag">gnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lab/" rel="tag">lab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poisoning/" rel="tag">poisoning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rl/" rel="tag">rl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rnn/" rel="tag">rnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" rel="tag">信息论</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/RL/" style="font-size: 10px;">RL</a> <a href="/tags/anomaly/" style="font-size: 12px;">anomaly</a> <a href="/tags/anomaly/" style="font-size: 10px;">anomaly'</a> <a href="/tags/backdoor/" style="font-size: 20px;">backdoor</a> <a href="/tags/cnn/" style="font-size: 10px;">cnn</a> <a href="/tags/diffusion/" style="font-size: 18px;">diffusion</a> <a href="/tags/gnn/" style="font-size: 14px;">gnn</a> <a href="/tags/lab/" style="font-size: 10px;">lab</a> <a href="/tags/poisoning/" style="font-size: 16px;">poisoning</a> <a href="/tags/rl/" style="font-size: 10px;">rl</a> <a href="/tags/rnn/" style="font-size: 10px;">rnn</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" style="font-size: 10px;">信息论</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/05/10/limu-read-paper/">limu_read_paper</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/06/VillanDiffusion/">VillanDiffusion</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/27/Infomation-Theory-Inference-and-Learning-Algorithms/">Infomation_Theory_Inference_and_Learning_Algorithms</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/22/TrojDiff/">TrojDiff</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/18/Diffusion-Backdoor-Embed/">Diffusion-Backdoor-Embed</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

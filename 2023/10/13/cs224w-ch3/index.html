@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>cs224w_ch3 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="ch2讲的就是我们如何设计特征，来尽量准确的表示这个网络，然后再交给机器学习算法如SVM，最后得到我们的预测：  事实上我们可能会花大部分的时间去做特征工程。 这一节考虑的是，能否不用特征工程。 图表征学习：自动获取网络的特征。 node embedding结点嵌入两个很重要的特征；  无监督：训练不需要利用结点的label，也不需要feature task independent：嵌入就是一个提">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs224w_ch3">
+<meta property="og:url" content="http://example.com/2023/10/13/cs224w-ch3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="ch2讲的就是我们如何设计特征，来尽量准确的表示这个网络，然后再交给机器学习算法如SVM，最后得到我们的预测：  事实上我们可能会花大部分的时间去做特征工程。 这一节考虑的是，能否不用特征工程。 图表征学习：自动获取网络的特征。 node embedding结点嵌入两个很重要的特征；  无监督：训练不需要利用结点的label，也不需要feature task independent：嵌入就是一个提">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231013104858822.png">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231013105154723.png">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231013105532825.png">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231013110146538.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231013123405368.png">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231013195103736.png">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015203440876.png">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015203738556.png">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015203753465.png">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015210342311.png">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015210423990.png">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015210646749.png">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015210720744.png">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015211112148.png">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231013110146538.png">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015213201541.png">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015213554066.png">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015213929100.png">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015200000371.png">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015221015877.png">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015221050844.png">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015221722630.png">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231016082050748.png">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231016082759928.png">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231016082950394.png">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231016083437104.png">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231016084518021.png">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231016084700692.png">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231016084952691.png">
+<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231016085824928.png">
+<meta property="article:published_time" content="2023-10-13T02:44:37.000Z">
+<meta property="article:modified_time" content="2023-10-17T09:18:14.000Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/cs224w-ch3/image-20231013104858822.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-cs224w-ch3" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/13/cs224w-ch3/" class="article-date">
+  <time class="dt-published" datetime="2023-10-13T02:44:37.000Z" itemprop="datePublished">2023-10-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cs224w/">cs224w</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      cs224w_ch3
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>ch2讲的就是我们如何设计特征，来尽量准确的表示这个网络，然后再交给机器学习算法如SVM，最后得到我们的预测：</p>
+<p><img src="/./cs224w-ch3/image-20231013104858822.png" alt="image-20231013104858822"></p>
+<p>事实上我们可能会花大部分的时间去做特征工程。</p>
+<p>这一节考虑的是，能否不用特征工程。</p>
+<p>图表征学习：自动获取网络的特征。</p>
+<h2 id="node-embedding"><a href="#node-embedding" class="headerlink" title="node embedding"></a>node embedding</h2><p>结点嵌入两个很重要的特征；</p>
+<ul>
+<li>无监督：训练不需要利用结点的label，也不需要feature</li>
+<li>task independent：嵌入就是一个提取网络特征的过程，可以将提取出的特征用于任何适合的机器学习算法，也就是与下游任务无关。</li>
+</ul>
+<p><img src="/./cs224w-ch3/image-20231013105154723.png" alt="image-20231013105154723"></p>
+<p>图嵌入是干这样的一件事：将node u自然而然的映射（map）到一个d维的向量中去。这个过程被称为node embedding</p>
+<p>嵌入的原理是这样的：如果两个node的d维向量有相似性，那么这两个node本身也很可能有相似性。  </p>
+<p>完成了结点嵌入之后，我们就可以用这个d维的向量来做downstream task了</p>
+<p><img src="/./cs224w-ch3/image-20231013105532825.png" alt="image-20231013105532825"></p>
+<h3 id="DeepWalking"><a href="#DeepWalking" class="headerlink" title="DeepWalking"></a>DeepWalking</h3><p><img src="/./cs224w-ch3/image-20231013110146538.png" alt="image-20231013110146538"></p>
+<p>这是一个小型的网络，将图嵌入到了一个2d空间，可以看到相同颜色的结点在图上和被嵌入的空间中都是离得比较近的。</p>
+<h3 id="Embedding"><a href="#Embedding" class="headerlink" title="Embedding"></a>Embedding</h3><p>更抽象的描述是这样：</p>
+<img src="./cs224w-ch3/image-20231013123405368.png" alt="image-20231013123405368" style="zoom:25%;" />
+
+<p>至于用dot product（点积）的原因是，其代表的是这两个向量之间的余弦，例如如果两个向量是垂直的话，dot product就为0了。</p>
+<p>嵌入的步骤：</p>
+<ol>
+<li><p>使用Encoder将node映射到嵌入空间</p>
+<p>$ENC(v)&#x3D;z_v$</p>
+<p>这个嵌入空间通常是64d到1000d的</p>
+</li>
+<li><p>定义一个结点相似函数，用来测量图中被嵌入到node pairs之间的相似度</p>
+</li>
+<li><p>使用Decoder将嵌入结点映射为相似度</p>
+</li>
+<li><p>优化Encoder的参数，使得结点相似度和嵌入结点相似度近似相等。</p>
+</li>
+</ol>
+<p>$$<br>similarity(u,v)\approx z_v^Tz_u<br>$$</p>
+<p>这里我们选择的解码器是非常简单的，仅仅是两个向量的dot product</p>
+<h3 id="shallow-encoder"><a href="#shallow-encoder" class="headerlink" title="shallow encoder"></a>shallow encoder</h3><p>最简单的编码方式：<br>$$<br>ENC(v)&#x3D;z_v&#x3D;Z.v<br>$$</p>
+<ul>
+<li>Z：要学习的矩阵，行代表的是低维向量，列代表的是结点。</li>
+<li>v：v是一个列向量，其中大部分元素是0，除了要得到的结点v的那一个地方为1。</li>
+</ul>
+<p>如$v&#x3D;[0,0,1,0,0,0]$ </p>
+<p>对于这种编码器，我们需要学习的就是Z：</p>
+<p><img src="/./cs224w-ch3/image-20231013195103736.png" alt="image-20231013195103736"></p>
+<p>这个方法的缺点：当图比较大时，假设嵌入维度为1000，结点数为100w，那么就有10亿参数。而造成这个matrix如此大的原因是：我们计算了每个node的嵌入向量，当需要某个node的嵌入向量时，可以直接从这个超级大矩阵里面去做一次查找(look-up)。</p>
+<p>那么最后，我们来考虑怎么来定义node similarity？可以采用random walks</p>
+<h2 id="Random-walks"><a href="#Random-walks" class="headerlink" title="Random walks"></a>Random walks</h2><h3 id="DeepWalk"><a href="#DeepWalk" class="headerlink" title="DeepWalk"></a>DeepWalk</h3><h4 id="notion"><a href="#notion" class="headerlink" title="notion"></a>notion</h4><p>回顾一下 两个非线性函数：</p>
+<ol>
+<li>softmax</li>
+</ol>
+<p>这里给到softmax的解释：a soft version of a maximum function，最大值函数的软版本。</p>
+<ol start="2">
+<li>sigmoid</li>
+</ol>
+<p>sigmoid可以任何实数压缩到0～1之间。</p>
+<p>另外还有两个概念：</p>
+<ul>
+<li>$z_u$：结点u的嵌入</li>
+<li>$P(v|z_u)$：从u开始，使用随机游走访问v的概率</li>
+</ul>
+<p>那么什么是随机游走呢：从一个结点u开始，随机的选取它的一个邻居v，作为next step，依此类推。</p>
+<p>这里给了下面这个定义，不是很理解：</p>
+<p><img src="/./cs224w-ch3/image-20231015203440876.png" alt="image-20231015203440876"></p>
+<h4 id="detail"><a href="#detail" class="headerlink" title="detail"></a>detail</h4><p>基于随机游走的嵌入可以用两步表示：</p>
+<ol>
+<li><p>使用一个策略R，来估计访问结点v的概率</p>
+<p><img src="/./cs224w-ch3/image-20231015203738556.png" alt="image-20231015203738556"></p>
+</li>
+<li><p>优化嵌入，通过编码这一步随机游走</p>
+<p><img src="/./cs224w-ch3/image-20231015203753465.png" alt="image-20231015203753465"></p>
+</li>
+</ol>
+<p>然后为什么选随机游走（优点）：</p>
+<ul>
+<li>如果从u开始，走了v，那么可以认为u和v是类似的</li>
+<li>不需要考虑整个图全局信息，只需要考虑path中同时出现的random walk</li>
+</ul>
+<p>随机游走步骤：</p>
+<ol>
+<li><p>从每一个u开始，走固定的长度，通过使用随机策略R</p>
+</li>
+<li><p>对于每一个u，收集其$N_R(u)$</p>
+</li>
+<li><p>通过对数似然函数进行优化：</p>
+<p><img src="/./cs224w-ch3/image-20231015210342311.png" alt="image-20231015210342311"></p>
+<p>同样也可以讲其表示称下面这种形式：</p>
+<p><img src="/./cs224w-ch3/image-20231015210423990.png" alt="image-20231015210423990"></p>
+<p>其中可以将对数里面的参数写成下面的softmax形式，那么这个结果其实就是u之后v的概率</p>
+<p><img src="/./cs224w-ch3/image-20231015210646749.png" alt="image-20231015210646749"></p>
+<p>所以最终的损失函数如下：</p>
+<p><img src="/./cs224w-ch3/image-20231015210720744.png" alt="image-20231015210720744"></p>
+</li>
+</ol>
+<p>但是有个问题，这里有两层嵌套，意味着时间复杂度是$O(|V|^2)$，复杂度太高了！</p>
+<h4 id="negative-sample"><a href="#negative-sample" class="headerlink" title="negative sample"></a>negative sample</h4><p>选择使用负采样来近似softmax的分母：</p>
+<p><img src="/./cs224w-ch3/image-20231015211112148.png" alt="image-20231015211112148"></p>
+<p>k是一般取5～20</p>
+<p>最开始是DeepWalk提出了random walks（走固定长度，使用随机策略）。这样的similarity表现还不错，从最终结果来看，嵌入空间和图空间中，nearby的点是对应的。</p>
+<p><img src="/./cs224w-ch3/image-20231013110146538.png" alt="image-20231013110146538"></p>
+<p>但是这样定义的similarity太受限制了，于是很多人尝试优化。</p>
+<h3 id="node2vec"><a href="#node2vec" class="headerlink" title="node2vec"></a>node2vec</h3><p>idea：使用灵活的、有偏好的随机游走，例如当进行下一步时，可以选择更广或者更深，也就是DFS和BFS的思想</p>
+<p><img src="/./cs224w-ch3/image-20231015213201541.png" alt="image-20231015213201541"></p>
+<p>这里面有两个参数：</p>
+<ul>
+<li>p：可以看到之前的结点</li>
+<li>q：选择使用DFS（outwards）还是BFS（inwards）</li>
+</ul>
+<p>下面这例子完美表示了两个参数的用途：</p>
+<p><img src="/./cs224w-ch3/image-20231015213554066.png" alt="image-20231015213554066"></p>
+<p>w从s1来的，那么下一步，若是选择inwards，可以去s2（和s1距离相同），若是选outwards，可以走s3，还可以回到s1。</p>
+<p>我们将其量化：</p>
+<p><img src="/./cs224w-ch3/image-20231015213929100.png" alt="image-20231015213929100"></p>
+<p>我们可以调整p、q来得到不同的策略R。</p>
+<h3 id="other-random-walk"><a href="#other-random-walk" class="headerlink" title="other random walk"></a>other random walk</h3><p>这是一些其他的关于随机游走的优化。</p>
+<p><img src="/./cs224w-ch3/image-20231015200000371.png" alt="image-20231015200000371"></p>
+<h2 id="Embedding-entire-graph"><a href="#Embedding-entire-graph" class="headerlink" title="Embedding entire graph"></a>Embedding entire graph</h2><p>Goal: to embed the entire graph or sub-graph!</p>
+<ul>
+<li><p>entire graph</p>
+<p><img src="/./cs224w-ch3/image-20231015221015877.png" alt="image-20231015221015877"></p>
+</li>
+<li><p>Sub-graph</p>
+<p><img src="/./cs224w-ch3/image-20231015221050844.png" alt="image-20231015221050844"></p>
+</li>
+</ul>
+<p>the application(task):</p>
+<ul>
+<li>Classifying toxic vs. non-toxic molecules</li>
+<li>Identifying anomalous graphs</li>
+</ul>
+<h3 id="Approach-1"><a href="#Approach-1" class="headerlink" title="Approach 1"></a>Approach 1</h3><p>it is simple and effective, which is:</p>
+<ol>
+<li><p>use node2vec or deepwalks to caculate the embed node u of $z_u$</p>
+</li>
+<li><p>then sum or average<br>$$<br>z_G&#x3D;\sum_{v\epsilon G}z_v<br>$$</p>
+</li>
+</ol>
+<h3 id="Approach-2"><a href="#Approach-2" class="headerlink" title="Approach 2"></a>Approach 2</h3><p>use a virtual node to represent the graph, and by using node2vec or deepwaks to embedding the virtual node to embedding space.</p>
+<p><img src="/./cs224w-ch3/image-20231015221722630.png" alt="image-20231015221722630"></p>
+<h3 id="Approach-3"><a href="#Approach-3" class="headerlink" title="Approach 3"></a>Approach 3</h3><h4 id="Idea-1"><a href="#Idea-1" class="headerlink" title="Idea 1"></a>Idea 1</h4><p>use anonymous walks to instead random walks.</p>
+<p><img src="/./cs224w-ch3/image-20231016082050748.png" alt="image-20231016082050748"></p>
+<p>feature is:</p>
+<ul>
+<li>Anonymous </li>
+<li>Capture the struct rather than node pairs</li>
+</ul>
+<p>with the length of step increasing, the number of anonymous walks (the anonymous walks vector $Z_G(i)$, for l&#x3D;3, the dimensions of $Z_G(i)$ is 5) <strong>exponentially</strong> increase.</p>
+<p><img src="/./cs224w-ch3/image-20231016082759928.png" alt="image-20231016082759928"></p>
+<p><img src="/./cs224w-ch3/image-20231016082950394.png" alt="image-20231016082950394"></p>
+<p>We have the vector now, so how many walks should we sample to represent the whole distribution?</p>
+<p>use this formula:</p>
+<p><img src="/./cs224w-ch3/image-20231016083437104.png" alt="image-20231016083437104"></p>
+<h4 id="Idea-2"><a href="#Idea-2" class="headerlink" title="Idea 2"></a>Idea 2</h4><p>Above, we use a vector $Z_G(i)$ to represent the distribution, it is a set of  probability about every walk.</p>
+<p>the other idea is use walks ranther than probability:<br>$$<br>Z&#x3D;{z_i:i&#x3D;1…\eta} \<br>$$<br>$\eta$ is the number of sampled anonymous walks.</p>
+<p>so here is the idea and how we learning the walks embeddings?</p>
+<p>First, sample some walks:</p>
+<p><img src="/./cs224w-ch3/image-20231016084518021.png" alt="image-20231016084518021"></p>
+<p>Than, learn to predict walks which is co-occur in $\Delta$ size window</p>
+<p>e.g., predict $w_3$ given $w_1,w_2,\Delta&#x3D;2$</p>
+<p><img src="/./cs224w-ch3/image-20231016084700692.png" alt="image-20231016084700692"></p>
+<p>so, different from DeepWalk, node2vec, the neighbor set is:<br>$$<br>N_R(u)&#x3D;{w_1^u,w_2^u…w_T^u}<br>$$<br><img src="/./cs224w-ch3/image-20231016084952691.png" alt="image-20231016084952691"></p>
+<p>$Z_G$ is a optimized vector parameter</p>
+<p><img src="/./cs224w-ch3/image-20231016085824928.png" alt="image-20231016085824928"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/10/13/cs224w-ch3/" data-id="clw6dgvjj003ai49f3tftd11b" data-title="cs224w_ch3" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/10/13/high-performance-computer-network-lecture1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          high_performance_computer_network_lecture1
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/10/13/20h-write-sci/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">20h_write_sci</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/EasyRL/">EasyRL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Graph-Neural-Networks-Foundations-Frontiers-and-Applications/">Graph Neural Networks: Foundations, Frontiers, and Applications</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs224w/">cs224w</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/d2l/">d2l</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/writing-paper/">writing  paper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%9E%E9%AA%8C/">实验</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%BB%E7%BB%93/">总结</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6/">读书</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">高性能计算机网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RL/" rel="tag">RL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly&#39;</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cnn/" rel="tag">cnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/diffusion/" rel="tag">diffusion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gnn/" rel="tag">gnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lab/" rel="tag">lab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poisoning/" rel="tag">poisoning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rl/" rel="tag">rl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rnn/" rel="tag">rnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" rel="tag">信息论</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/RL/" style="font-size: 10px;">RL</a> <a href="/tags/anomaly/" style="font-size: 12px;">anomaly</a> <a href="/tags/anomaly/" style="font-size: 10px;">anomaly'</a> <a href="/tags/backdoor/" style="font-size: 20px;">backdoor</a> <a href="/tags/cnn/" style="font-size: 10px;">cnn</a> <a href="/tags/diffusion/" style="font-size: 18px;">diffusion</a> <a href="/tags/gnn/" style="font-size: 14px;">gnn</a> <a href="/tags/lab/" style="font-size: 10px;">lab</a> <a href="/tags/poisoning/" style="font-size: 16px;">poisoning</a> <a href="/tags/rl/" style="font-size: 10px;">rl</a> <a href="/tags/rnn/" style="font-size: 10px;">rnn</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" style="font-size: 10px;">信息论</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/05/10/limu-read-paper/">limu_read_paper</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/06/VillanDiffusion/">VillanDiffusion</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/27/Infomation-Theory-Inference-and-Learning-Algorithms/">Infomation_Theory_Inference_and_Learning_Algorithms</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/22/TrojDiff/">TrojDiff</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/18/Diffusion-Backdoor-Embed/">Diffusion-Backdoor-Embed</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
