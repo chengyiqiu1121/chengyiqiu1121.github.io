@@ -1,11 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head>
+
+  <!DOCTYPE html>
+  <html lang="en"  >
+  <head>
   <meta charset="utf-8">
   
+
   
-  <title>EasyRL | Hexo</title>
+
+  
+
+  
+  <title>
+    EasyRL |
+    
+    Hexo
+  </title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="preload" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CUbuntu%20Mono:400,400italic,700,700italic&display=swap&subset=latin,latin-ext" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;">
+  
+<link rel="stylesheet" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/regular.min.css">
+<link rel="stylesheet" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/solid.min.css">
+
+  <link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/brands.min.css" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;"><link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/v5-font-face.min.css" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;"><link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/v4-font-face.min.css" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;">
+  
+<link rel="stylesheet" href="/css/loader.css">
+
   <meta name="description" content="EasyRL 绪论强化学习概述以智能体（agent）为对象：agent从环境中获取状态s以及奖励r（这在时间$t_0$没有），然后做出一个决策a，agent需要极大化奖励r 环境（environment）：接受agent的决策a，输出下一个s和r ![截屏2023-09-02 09.05.37](.&#x2F;EasyRL&#x2F;截屏2023-09-02 09.05.37.png)  RL和监">
 <meta property="og:type" content="article">
 <meta property="og:title" content="EasyRL">
@@ -69,7 +88,7 @@
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
   
-    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="shortcut icon" href="/images/favicon.ico">
   
   
   
@@ -77,72 +96,160 @@
 
   
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+<link rel="stylesheet" href="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
   
+  
+  
+  
+  
+<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"></script>
+
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/wowjs@1.1.3/css/libs/animate.css">
+
+    
+<script src="https://npm.webcache.cn/wowjs@1.1.3/dist/wow.min.js"></script>
+
+    <script>
+      new WOW({
+        offset: 0,
+        mobile: true,
+        live: false
+      }).init();
+    </script>
+  
+  
+    <script src="/sw.js"></script>
   
 <meta name="generator" content="Hexo 7.2.0"></head>
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
+  <body>
+    
+  <div id='loader'>
+    <div class="loading-left-bg"></div>
+    <div class="loading-right-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi">
+        <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+          <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="#ff6e6b" />
+          <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z" fill="#fd0d00" />
+          <path d="M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95" fill="#fd0d00" />
+        </svg>
+      </div>
+      <div class="loading-word">梭哈是一种智慧</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    const startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    const endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('load', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+
+    <div id="container">
+      <div id="wrap">
+        <div id="header-nav">
+  <nav id="main-nav">
+    
+      <span class="main-nav-link-wrap">
+        <span class="main-nav-icon"></span>
+        <a class="main-nav-link" href="/">Home</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <span class="main-nav-icon"></span>
+        <a class="main-nav-link" href="/archives">Archives</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <span class="main-nav-icon"></span>
+        <a class="main-nav-link" href="/about">About</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <span class="main-nav-icon"></span>
+        <a class="main-nav-link" href="/friend">Friend</a>
+      </span>
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+    
+    
+    
+  </nav>
+</div>
+<header id="header">
+  
+    <img fetchpriority="high" src="/images/banner.png" alt="EasyRL">
+  
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+      <div id="logo-wrap">
         
-          <a class="main-nav-link" href="/">Home</a>
+          
+          
+            <a href="/" id="logo">
+              <h1>EasyRL</h1>
+            </a>
+          
         
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
       </div>
+      
+        
+        <h2 id="subtitle-wrap">
+          
+        </h2>
+      
     </div>
   </div>
 </header>
 
-      <div class="outer">
-        <section id="main"><article id="post-EasyRL" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/09/02/EasyRL/" class="article-date">
-  <time class="dt-published" datetime="2023-09-02T03:07:15.000Z" itemprop="datePublished">2023-09-02</time>
-</a>
-    
-  <div class="article-category">
+        <div id="content" class="outer">
+          
+          <section id="main"><article id="post-EasyRL" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    <div class="article-meta">
+      <div class="article-date wow slideInLeft">
+  <a href="/2023/09/02/EasyRL/" class="article-date-link">
+    <time datetime="2023-09-02T03:07:15.000Z" itemprop="datePublished">2023-09-02</time>
+  </a>
+</div>
+
+      
+  <div class="article-category wow slideInLeft">
     <a class="article-category-link" href="/categories/EasyRL/">EasyRL</a>
   </div>
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      EasyRL
-    </h1>
-  
 
-      </header>
+    </div>
+    <div class="hr-line"></div>
     
+
     <div class="e-content article-entry" itemprop="articleBody">
       
         <p>EasyRL</p>
@@ -631,144 +738,369 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/02/EasyRL/" data-id="clw6dgvjd000xi49f3kg89axt" data-title="EasyRL" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/09/02/EasyRL/" data-id="clw6dm7fw0017ui9fg7uo42fv" data-title="EasyRL" class="article-share-link">Share</a>
+      
+      
+      
       
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RL/" rel="tag">RL</a></li></ul>
 
+
     </footer>
   </div>
   
     
-<nav id="article-nav">
-  
-    <a href="/2023/10/07/NovelADS/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
+  <nav id="article-nav" class="wow fadeInUp">
+    
+      <div class="article-nav-link-wrap article-nav-link-left">
         
-          NovelADS
+          
+          
+            <img data-src="/covers/IMG_2577.JPG" data-sizes="auto" alt="NovelADS" class="lazyload">
+          
         
+        <a href="/2023/10/07/NovelADS/"></a>
+        <div class="article-nav-caption">Newer</div>
+        <h3 class="article-nav-title">
+          
+            NovelADS
+          
+        </h3>
       </div>
-    </a>
-  
-  
-    <a href="/2023/07/31/d2l/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">d2l</div>
-    </a>
-  
-</nav>
+    
+    
+    <div class="article-nav-link-wrap article-nav-link-right">
+      
+        
+        
+          <img data-src="/covers/IMG_2575.JPG" data-sizes="auto" alt="d2l" class="lazyload">
+        
+      
+      <a href="/2023/07/31/d2l/"></a>
+      <div class="article-nav-caption">Older</div>
+      <h3 class="article-nav-title">
+        
+          d2l
+        
+      </h3>
+    </div>
+    
+  </nav>
+
 
   
 </article>
 
 
+
+
+
+
 </section>
-        
-          <aside id="sidebar">
-  
+          
+            <aside id="sidebar">
+  <div class="sidebar-wrap wow fadeInRight wrap-sticky">
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/EasyRL/">EasyRL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Graph-Neural-Networks-Foundations-Frontiers-and-Applications/">Graph Neural Networks: Foundations, Frontiers, and Applications</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs224w/">cs224w</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/d2l/">d2l</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/writing-paper/">writing  paper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%9E%E9%AA%8C/">实验</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%BB%E7%BB%93/">总结</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6/">读书</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">高性能计算机网络</a></li></ul>
-    </div>
+      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">Contents</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%AA%E8%AE%BA"><span class="toc-number">1.</span> <span class="toc-text">绪论</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">强化学习概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%8F%E5%88%97%E5%86%B3%E7%AD%96"><span class="toc-number">1.2.</span> <span class="toc-text">序列决策</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E4%BD%9C%E7%A9%BA%E9%97%B4"><span class="toc-number">1.3.</span> <span class="toc-text">动作空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E4%BD%93%E7%9A%84%E7%BB%84%E6%88%90%E6%88%90%E5%88%86"><span class="toc-number">1.4.</span> <span class="toc-text">智能体的组成成分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.1.</span> <span class="toc-text">策略函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%B7%E5%80%BC%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.2.</span> <span class="toc-text">价值函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.4.3.</span> <span class="toc-text">模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E4%BD%93%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.5.</span> <span class="toc-text">智能体的类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#policy-or-value-based"><span class="toc-number">1.5.1.</span> <span class="toc-text">policy or value based</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#model-based"><span class="toc-number">1.5.2.</span> <span class="toc-text">model based</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E5%92%8C%E8%A7%84%E5%88%92"><span class="toc-number">1.6.</span> <span class="toc-text">学习和规划</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A2%E7%B4%A2%E5%92%8C%E5%88%A9%E7%94%A8"><span class="toc-number">1.7.</span> <span class="toc-text">探索和利用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">马尔可夫决策过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Markov-process"><span class="toc-number">2.1.</span> <span class="toc-text">Markov process</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Markov-property"><span class="toc-number">2.1.1.</span> <span class="toc-text">Markov property</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Markov-chain"><span class="toc-number">2.1.2.</span> <span class="toc-text">Markov chain</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Markov-reward-process"><span class="toc-number">2.2.</span> <span class="toc-text">Markov reward process</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#return-and-value-function"><span class="toc-number">2.2.1.</span> <span class="toc-text">return and value function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bellman-equation"><span class="toc-number">2.2.2.</span> <span class="toc-text">bellman equation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97MRP%E4%BB%B7%E5%80%BC%E7%9A%84%E8%BF%AD%E4%BB%A3%E7%AE%97%E6%B3%95"><span class="toc-number">2.2.3.</span> <span class="toc-text">计算MRP价值的迭代算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Markov-decision-process"><span class="toc-number">2.3.</span> <span class="toc-text">Markov decision process</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#policy-in-MDP"><span class="toc-number">2.3.1.</span> <span class="toc-text">policy in MDP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MDP%E5%92%8CMP-MRP%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">2.3.2.</span> <span class="toc-text">MDP和MP&#x2F;MRP的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MDP%E7%9A%84value-function"><span class="toc-number">2.3.3.</span> <span class="toc-text">MDP的value function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bellman-expectation-equation"><span class="toc-number">2.3.4.</span> <span class="toc-text">bellman expectation equation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%87%E4%BB%BD%E5%9B%BE"><span class="toc-number">2.3.5.</span> <span class="toc-text">备份图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E8%AF%84%E4%BC%B0"><span class="toc-number">2.3.6.</span> <span class="toc-text">策略评估</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%84%E6%B5%8B-%E6%8E%A7%E5%88%B6"><span class="toc-number">2.3.7.</span> <span class="toc-text">预测&amp;控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E8%BF%AD%E4%BB%A3"><span class="toc-number">2.3.8.</span> <span class="toc-text">策略迭代</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%B7%E5%80%BC%E8%BF%AD%E4%BB%A3"><span class="toc-number">2.3.9.</span> <span class="toc-text">价值迭代</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A1%A8%E6%A0%BC%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">表格型方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#model-based-model-free"><span class="toc-number">3.1.</span> <span class="toc-text">model-based &amp; model-free</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Q%E8%A1%A8%E6%A0%BC"><span class="toc-number">3.2.</span> <span class="toc-text">Q表格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%8D%E6%A8%A1%E5%9E%8B%E9%A2%84%E6%B5%8B"><span class="toc-number">3.3.</span> <span class="toc-text">免模型预测</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E7%AD%96%E7%95%A5%E8%AF%84%E4%BC%B0"><span class="toc-number">3.3.1.</span> <span class="toc-text">蒙特卡洛策略评估</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E5%BA%8F%E5%B7%AE%E5%88%86"><span class="toc-number">3.3.2.</span> <span class="toc-text">时序差分</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%8D%E6%A8%A1%E5%9E%8B%E6%8E%A7%E5%88%B6"><span class="toc-number">3.4.</span> <span class="toc-text">免模型控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Sarsa%EF%BC%9A%E5%90%8C%E7%AD%96%E7%95%A5%E6%97%B6%E5%BA%8F%E5%B7%AE%E5%88%86%E6%8E%A7%E5%88%B6"><span class="toc-number">3.4.1.</span> <span class="toc-text">Sarsa：同策略时序差分控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Q%E5%AD%A6%E4%B9%A0%EF%BC%9A%E5%BC%82%E7%AD%96%E7%95%A5%E6%97%B6%E5%BA%8F%E5%B7%AE%E5%88%86%E6%8E%A7%E5%88%B6"><span class="toc-number">3.4.2.</span> <span class="toc-text">Q学习：异策略时序差分控制</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6"><span class="toc-number">4.</span> <span class="toc-text">策略梯度</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="toc-number">4.1.</span> <span class="toc-text">策略梯度算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%92%99%E5%A1%94%E5%8D%A1%E6%B4%9B%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6"><span class="toc-number">4.2.</span> <span class="toc-text">蒙塔卡洛策略梯度</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%91%E7%AB%AF%E7%AD%96%E7%95%A5%E4%BC%98%E5%8C%96"><span class="toc-number">5.</span> <span class="toc-text">近端策略优化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E8%A6%81%E6%80%A7%E9%87%87%E6%A0%B7"><span class="toc-number">5.1.</span> <span class="toc-text">重要性采样</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%91%E7%AB%AF%E7%AD%96%E7%95%A5%E4%BC%98%E5%8C%96-1"><span class="toc-number">5.2.</span> <span class="toc-text">近端策略优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PPO-penalty"><span class="toc-number">5.2.1.</span> <span class="toc-text">PPO- penalty</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PPO-clip"><span class="toc-number">5.2.2.</span> <span class="toc-text">PPO-clip</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6Q%E7%BD%91%E7%BB%9C"><span class="toc-number">6.</span> <span class="toc-text">深度Q网络</span></a></li></ol>
+      
   </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RL/" rel="tag">RL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly&#39;</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cnn/" rel="tag">cnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/diffusion/" rel="tag">diffusion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gnn/" rel="tag">gnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lab/" rel="tag">lab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poisoning/" rel="tag">poisoning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rl/" rel="tag">rl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rnn/" rel="tag">rnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" rel="tag">信息论</a></li></ul>
-    </div>
+</div>
+</div>
+      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
+  <div class="sidebar-author-name">John Doe</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>Posts</div>
+    <div class="sidebar-state-number">58</div>
   </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/RL/" style="font-size: 10px;">RL</a> <a href="/tags/anomaly/" style="font-size: 12px;">anomaly</a> <a href="/tags/anomaly/" style="font-size: 10px;">anomaly'</a> <a href="/tags/backdoor/" style="font-size: 20px;">backdoor</a> <a href="/tags/cnn/" style="font-size: 10px;">cnn</a> <a href="/tags/diffusion/" style="font-size: 18px;">diffusion</a> <a href="/tags/gnn/" style="font-size: 14px;">gnn</a> <a href="/tags/lab/" style="font-size: 10px;">lab</a> <a href="/tags/poisoning/" style="font-size: 16px;">poisoning</a> <a href="/tags/rl/" style="font-size: 10px;">rl</a> <a href="/tags/rnn/" style="font-size: 10px;">rnn</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" style="font-size: 10px;">信息论</a>
-    </div>
+  <div class="sidebar-state-category">
+    <div>Categories</div>
+    <div class="sidebar-state-number">11</div>
   </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li></ul>
-    </div>
+  <div class="sidebar-state-tag">
+    <div>Tags</div>
+    <div class="sidebar-state-number">13</div>
   </div>
-
-
+</div>
+<div class="sidebar-social">
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2024/05/10/limu-read-paper/">limu_read_paper</a>
-          </li>
-        
-          <li>
-            <a href="/2024/05/06/VillanDiffusion/">VillanDiffusion</a>
-          </li>
-        
-          <li>
-            <a href="/2024/04/27/Infomation-Theory-Inference-and-Learning-Algorithms/">Infomation_Theory_Inference_and_Learning_Algorithms</a>
-          </li>
-        
-          <li>
-            <a href="/2024/04/22/TrojDiff/">TrojDiff</a>
-          </li>
-        
-          <li>
-            <a href="/2024/04/18/Diffusion-Backdoor-Embed/">Diffusion-Backdoor-Embed</a>
-          </li>
-        
-      </ul>
+    <div class=icon-github>
+      <a href=https://github.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="github"></a>
     </div>
+  
+    <div class=icon-twitter>
+      <a href=https://x.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="twitter"></a>
+    </div>
+  
+    <div class=icon-bilibili>
+      <a href=https://space.bilibili.com/3493124768795188?spm_id_from=333.337.0.0 itemprop="url" target="_blank" aria-label="bilibili"></a>
+    </div>
+  
+    <div class=icon-zhihu>
+      <a href=https://www.zhihu.com/people/b79383d8dcc462769c532f9d16dadfeb itemprop="url" target="_blank" aria-label="zhihu"></a>
+    </div>
+  
+    <div class=icon-telegram>
+      <a href=https://www.t.me/chengyiqiu1121 itemprop="url" target="_blank" aria-label="telegram"></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/" aria-label="Home"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">Home</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="Archives"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">Archives</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/about" aria-label="About"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">About</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="Friend"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">Friend</div>
+    </div>
+  
+</div>
+</div>
+    
+    
+      <div class="sidebar-btn-wrapper" style="position:static">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+    
   </div>
 
   
 </aside>
-        
-      </div>
-      <footer id="footer">
-  
+
+          
+        </div>
+        <footer id="footer" class="wow fadeInUp">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
   <div class="outer">
     <div id="footer-info" class="inner">
       
-      &copy; 2024 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+      <div>
+        <span class="icon-copyright"></span>
+        2020-2024
+        <span class="footer-info-sep"></span>
+        John Doe
+      </div>
+      
+        <div>
+          Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>&nbsp;
+          Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" target="_blank">Reimu</a>
+        </div>
+      
+      
+        <div>
+          <span class="icon-brush"></span>
+          98.7k
+          &nbsp;|&nbsp;
+          <span class="icon-coffee"></span>
+          06:32
+        </div>
+      
+      
+        <div>
+          <span class="icon-eye"></span>
+          <span id="busuanzi_container_site_pv">Number of visits&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+          &nbsp;|&nbsp;
+          <span class="icon-user"></span>
+          <span id="busuanzi_container_site_uv">Number of visitors&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+        </div>
+      
     </div>
   </div>
 </footer>
 
+        <div class="sidebar-top">
+          <img src="/images/taichi.png" height="50" width="50" />
+          <div class="arrow-up"></div>
+        </div>
+        <div id="mask"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">Contents</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%AA%E8%AE%BA"><span class="toc-number">1.</span> <span class="toc-text">绪论</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">强化学习概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%8F%E5%88%97%E5%86%B3%E7%AD%96"><span class="toc-number">1.2.</span> <span class="toc-text">序列决策</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E4%BD%9C%E7%A9%BA%E9%97%B4"><span class="toc-number">1.3.</span> <span class="toc-text">动作空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E4%BD%93%E7%9A%84%E7%BB%84%E6%88%90%E6%88%90%E5%88%86"><span class="toc-number">1.4.</span> <span class="toc-text">智能体的组成成分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.1.</span> <span class="toc-text">策略函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%B7%E5%80%BC%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.2.</span> <span class="toc-text">价值函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.4.3.</span> <span class="toc-text">模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E4%BD%93%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.5.</span> <span class="toc-text">智能体的类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#policy-or-value-based"><span class="toc-number">1.5.1.</span> <span class="toc-text">policy or value based</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#model-based"><span class="toc-number">1.5.2.</span> <span class="toc-text">model based</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E5%92%8C%E8%A7%84%E5%88%92"><span class="toc-number">1.6.</span> <span class="toc-text">学习和规划</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A2%E7%B4%A2%E5%92%8C%E5%88%A9%E7%94%A8"><span class="toc-number">1.7.</span> <span class="toc-text">探索和利用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">马尔可夫决策过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Markov-process"><span class="toc-number">2.1.</span> <span class="toc-text">Markov process</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Markov-property"><span class="toc-number">2.1.1.</span> <span class="toc-text">Markov property</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Markov-chain"><span class="toc-number">2.1.2.</span> <span class="toc-text">Markov chain</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Markov-reward-process"><span class="toc-number">2.2.</span> <span class="toc-text">Markov reward process</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#return-and-value-function"><span class="toc-number">2.2.1.</span> <span class="toc-text">return and value function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bellman-equation"><span class="toc-number">2.2.2.</span> <span class="toc-text">bellman equation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97MRP%E4%BB%B7%E5%80%BC%E7%9A%84%E8%BF%AD%E4%BB%A3%E7%AE%97%E6%B3%95"><span class="toc-number">2.2.3.</span> <span class="toc-text">计算MRP价值的迭代算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Markov-decision-process"><span class="toc-number">2.3.</span> <span class="toc-text">Markov decision process</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#policy-in-MDP"><span class="toc-number">2.3.1.</span> <span class="toc-text">policy in MDP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MDP%E5%92%8CMP-MRP%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">2.3.2.</span> <span class="toc-text">MDP和MP&#x2F;MRP的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MDP%E7%9A%84value-function"><span class="toc-number">2.3.3.</span> <span class="toc-text">MDP的value function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bellman-expectation-equation"><span class="toc-number">2.3.4.</span> <span class="toc-text">bellman expectation equation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%87%E4%BB%BD%E5%9B%BE"><span class="toc-number">2.3.5.</span> <span class="toc-text">备份图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E8%AF%84%E4%BC%B0"><span class="toc-number">2.3.6.</span> <span class="toc-text">策略评估</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%84%E6%B5%8B-%E6%8E%A7%E5%88%B6"><span class="toc-number">2.3.7.</span> <span class="toc-text">预测&amp;控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E8%BF%AD%E4%BB%A3"><span class="toc-number">2.3.8.</span> <span class="toc-text">策略迭代</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%B7%E5%80%BC%E8%BF%AD%E4%BB%A3"><span class="toc-number">2.3.9.</span> <span class="toc-text">价值迭代</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A1%A8%E6%A0%BC%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">表格型方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#model-based-model-free"><span class="toc-number">3.1.</span> <span class="toc-text">model-based &amp; model-free</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Q%E8%A1%A8%E6%A0%BC"><span class="toc-number">3.2.</span> <span class="toc-text">Q表格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%8D%E6%A8%A1%E5%9E%8B%E9%A2%84%E6%B5%8B"><span class="toc-number">3.3.</span> <span class="toc-text">免模型预测</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E7%AD%96%E7%95%A5%E8%AF%84%E4%BC%B0"><span class="toc-number">3.3.1.</span> <span class="toc-text">蒙特卡洛策略评估</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E5%BA%8F%E5%B7%AE%E5%88%86"><span class="toc-number">3.3.2.</span> <span class="toc-text">时序差分</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%8D%E6%A8%A1%E5%9E%8B%E6%8E%A7%E5%88%B6"><span class="toc-number">3.4.</span> <span class="toc-text">免模型控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Sarsa%EF%BC%9A%E5%90%8C%E7%AD%96%E7%95%A5%E6%97%B6%E5%BA%8F%E5%B7%AE%E5%88%86%E6%8E%A7%E5%88%B6"><span class="toc-number">3.4.1.</span> <span class="toc-text">Sarsa：同策略时序差分控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Q%E5%AD%A6%E4%B9%A0%EF%BC%9A%E5%BC%82%E7%AD%96%E7%95%A5%E6%97%B6%E5%BA%8F%E5%B7%AE%E5%88%86%E6%8E%A7%E5%88%B6"><span class="toc-number">3.4.2.</span> <span class="toc-text">Q学习：异策略时序差分控制</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6"><span class="toc-number">4.</span> <span class="toc-text">策略梯度</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="toc-number">4.1.</span> <span class="toc-text">策略梯度算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%92%99%E5%A1%94%E5%8D%A1%E6%B4%9B%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6"><span class="toc-number">4.2.</span> <span class="toc-text">蒙塔卡洛策略梯度</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%91%E7%AB%AF%E7%AD%96%E7%95%A5%E4%BC%98%E5%8C%96"><span class="toc-number">5.</span> <span class="toc-text">近端策略优化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E8%A6%81%E6%80%A7%E9%87%87%E6%A0%B7"><span class="toc-number">5.1.</span> <span class="toc-text">重要性采样</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%91%E7%AB%AF%E7%AD%96%E7%95%A5%E4%BC%98%E5%8C%96-1"><span class="toc-number">5.2.</span> <span class="toc-text">近端策略优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PPO-penalty"><span class="toc-number">5.2.1.</span> <span class="toc-text">PPO- penalty</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PPO-clip"><span class="toc-number">5.2.2.</span> <span class="toc-text">PPO-clip</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6Q%E7%BD%91%E7%BB%9C"><span class="toc-number">6.</span> <span class="toc-text">深度Q网络</span></a></li></ol>
+      
+  </div>
+</div>
+</div>
+      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
+  <div class="sidebar-author-name">John Doe</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>Posts</div>
+    <div class="sidebar-state-number">58</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>Categories</div>
+    <div class="sidebar-state-number">11</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>Tags</div>
+    <div class="sidebar-state-number">13</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class=icon-github>
+      <a href=https://github.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="github"></a>
     </div>
-    <nav id="mobile-nav">
   
-    <a href="/" class="mobile-nav-link">Home</a>
+    <div class=icon-twitter>
+      <a href=https://x.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="twitter"></a>
+    </div>
   
-    <a href="/archives" class="mobile-nav-link">Archives</a>
+    <div class=icon-bilibili>
+      <a href=https://space.bilibili.com/3493124768795188?spm_id_from=333.337.0.0 itemprop="url" target="_blank" aria-label="bilibili"></a>
+    </div>
+  
+    <div class=icon-zhihu>
+      <a href=https://www.zhihu.com/people/b79383d8dcc462769c532f9d16dadfeb itemprop="url" target="_blank" aria-label="zhihu"></a>
+    </div>
+  
+    <div class=icon-telegram>
+      <a href=https://www.t.me/chengyiqiu1121 itemprop="url" target="_blank" aria-label="telegram"></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/" aria-label="Home"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">Home</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="Archives"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">Archives</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/about" aria-label="About"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">About</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="Friend"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">Friend</div>
+    </div>
+  
+</div>
+</div>
+    
+  </div>
+  
+    <div class="sidebar-btn-wrapper">
+      <div class="sidebar-toc-btn current"></div>
+      <div class="sidebar-common-btn"></div>
+    </div>
   
 </nav>
+
+    </div>
+    <div class="site-search">
+      <div class="reimu-popup popup">
+        <div class="reimu-search">
+          <span class="reimu-search-input-icon"></span>
+          <div class="reimu-search-input" id="reimu-search-input"></div>
+        </div>
+        <div class="reimu-results">
+          <div id="reimu-stats"></div>
+          <div id="reimu-hits"></div>
+          <div id="reimu-pagination" class="reimu-pagination"></div>
+        </div>
+        <span class="popup-btn-close"></span>
+      </div>
+    </div>
     
+<script src="https://npm.webcache.cn/jquery@3.7.1/dist/jquery.min.js"></script>
 
 
-<script src="/js/jquery-3.6.4.min.js"></script>
+<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"></script>
+
+
+<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"></script>
 
 
 
   
-<script src="/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+
+
+
+  
+<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
+
+
+
+
+
+
+<script src="/js/pjax_script.js" data-pjax></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+<script src="https://npm.webcache.cn/mouse-firework@0.0.4/dist/index.umd.js"></script>
+
+  <script>
+    firework(JSON.parse('{"excludeElements":["a"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["#ff5252","#ff7c7c","#ffafaf","#ffd0d0"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["#ff0000"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'))
+  </script>
+
+
+
 
 
 
@@ -777,8 +1109,21 @@
 
 
 
+  <script>
+    console.log(String.raw`%c 
+ ______     ______     __     __    __     __  __    
+/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+ \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                  
+`,'color: #ff5252;')
+    console.log('%c Theme.Reimu v' + '0.1.2' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
+  </script>
+  
 
+  <!-- hexo injector body_end start -->
+<script src="/js/insert_highlight.js" data-pjax></script>
+<!-- hexo injector body_end end --></body>
+  </html>
 
-  </div>
-</body>
-</html>

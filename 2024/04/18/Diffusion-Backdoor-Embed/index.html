@@ -1,11 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head>
+
+  <!DOCTYPE html>
+  <html lang="en"  >
+  <head>
   <meta charset="utf-8">
   
+
   
-  <title>Diffusion-Backdoor-Embed | Hexo</title>
+
+  
+
+  
+  <title>
+    Diffusion-Backdoor-Embed |
+    
+    Hexo
+  </title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="preload" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CUbuntu%20Mono:400,400italic,700,700italic&display=swap&subset=latin,latin-ext" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;">
+  
+<link rel="stylesheet" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/regular.min.css">
+<link rel="stylesheet" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/solid.min.css">
+
+  <link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/brands.min.css" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;"><link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/v5-font-face.min.css" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;"><link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/v4-font-face.min.css" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;">
+  
+<link rel="stylesheet" href="/css/loader.css">
+
   <meta name="description" content="idea背景 2017-至今，针对深度学习模型的后门攻击得到广泛研究，有大量的后门攻击方法以及后门攻击防御方法出现。 后门攻击的步骤，一般是选取深度学习模型（一般是视觉模型，如ResNet），选取掩码mask，优化触发器trigger，最后植入后门backdoor到神经网络中，BadNet就是这个流程。 也有一些成果，会对神经网络的内部进行研究，观察哪些神经元对某一个类别的影响权重比较大，根据输入">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Diffusion-Backdoor-Embed">
@@ -106,7 +125,7 @@
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
   
-    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="shortcut icon" href="/images/favicon.ico">
   
   
   
@@ -114,72 +133,160 @@
 
   
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+<link rel="stylesheet" href="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
   
+  
+  
+  
+  
+<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"></script>
+
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/wowjs@1.1.3/css/libs/animate.css">
+
+    
+<script src="https://npm.webcache.cn/wowjs@1.1.3/dist/wow.min.js"></script>
+
+    <script>
+      new WOW({
+        offset: 0,
+        mobile: true,
+        live: false
+      }).init();
+    </script>
+  
+  
+    <script src="/sw.js"></script>
   
 <meta name="generator" content="Hexo 7.2.0"></head>
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
+  <body>
+    
+  <div id='loader'>
+    <div class="loading-left-bg"></div>
+    <div class="loading-right-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi">
+        <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+          <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="#ff6e6b" />
+          <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z" fill="#fd0d00" />
+          <path d="M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95" fill="#fd0d00" />
+        </svg>
+      </div>
+      <div class="loading-word">梭哈是一种智慧</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    const startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    const endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('load', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+
+    <div id="container">
+      <div id="wrap">
+        <div id="header-nav">
+  <nav id="main-nav">
+    
+      <span class="main-nav-link-wrap">
+        <span class="main-nav-icon"></span>
+        <a class="main-nav-link" href="/">Home</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <span class="main-nav-icon"></span>
+        <a class="main-nav-link" href="/archives">Archives</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <span class="main-nav-icon"></span>
+        <a class="main-nav-link" href="/about">About</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <span class="main-nav-icon"></span>
+        <a class="main-nav-link" href="/friend">Friend</a>
+      </span>
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+    
+    
+    
+  </nav>
+</div>
+<header id="header">
+  
+    <img fetchpriority="high" src="/images/banner.png" alt="Diffusion-Backdoor-Embed">
+  
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+      <div id="logo-wrap">
         
-          <a class="main-nav-link" href="/">Home</a>
+          
+          
+            <a href="/" id="logo">
+              <h1>Diffusion-Backdoor-Embed</h1>
+            </a>
+          
         
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
       </div>
+      
+        
+        <h2 id="subtitle-wrap">
+          
+        </h2>
+      
     </div>
   </div>
 </header>
 
-      <div class="outer">
-        <section id="main"><article id="post-Diffusion-Backdoor-Embed" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/04/18/Diffusion-Backdoor-Embed/" class="article-date">
-  <time class="dt-published" datetime="2024-04-18T09:02:30.000Z" itemprop="datePublished">2024-04-18</time>
-</a>
-    
-  <div class="article-category">
+        <div id="content" class="outer">
+          
+          <section id="main"><article id="post-Diffusion-Backdoor-Embed" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    <div class="article-meta">
+      <div class="article-date wow slideInLeft">
+  <a href="/2024/04/18/Diffusion-Backdoor-Embed/" class="article-date-link">
+    <time datetime="2024-04-18T09:02:30.000Z" itemprop="datePublished">2024-04-18</time>
+  </a>
+</div>
+
+      
+  <div class="article-category wow slideInLeft">
     <a class="article-category-link" href="/categories/%E5%AE%9E%E9%AA%8C/">实验</a>
   </div>
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      Diffusion-Backdoor-Embed
-    </h1>
-  
 
-      </header>
+    </div>
+    <div class="hr-line"></div>
     
+
     <div class="e-content article-entry" itemprop="articleBody">
       
         <h1 id="idea"><a href="#idea" class="headerlink" title="idea"></a>idea</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><ol>
@@ -687,144 +794,369 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/" data-id="clw6dgvjc000qi49f2djh1qxc" data-title="Diffusion-Backdoor-Embed" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/04/18/Diffusion-Backdoor-Embed/" data-id="clw6dm7fw000zui9f6g3y62mu" data-title="Diffusion-Backdoor-Embed" class="article-share-link">Share</a>
+      
+      
+      
       
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/diffusion/" rel="tag">diffusion</a></li></ul>
 
+
     </footer>
   </div>
   
     
-<nav id="article-nav">
-  
-    <a href="/2024/04/22/TrojDiff/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
+  <nav id="article-nav" class="wow fadeInUp">
+    
+      <div class="article-nav-link-wrap article-nav-link-left">
         
-          TrojDiff
+          
+          
+            <img data-src="/covers/IMG_2619.PNG" data-sizes="auto" alt="TrojDiff" class="lazyload">
+          
         
+        <a href="/2024/04/22/TrojDiff/"></a>
+        <div class="article-nav-caption">Newer</div>
+        <h3 class="article-nav-title">
+          
+            TrojDiff
+          
+        </h3>
       </div>
-    </a>
-  
-  
-    <a href="/2024/04/16/VDC/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">VDC</div>
-    </a>
-  
-</nav>
+    
+    
+    <div class="article-nav-link-wrap article-nav-link-right">
+      
+        
+        
+          <img data-src="/covers/IMG_2579.JPG" data-sizes="auto" alt="VDC" class="lazyload">
+        
+      
+      <a href="/2024/04/16/VDC/"></a>
+      <div class="article-nav-caption">Older</div>
+      <h3 class="article-nav-title">
+        
+          VDC
+        
+      </h3>
+    </div>
+    
+  </nav>
+
 
   
 </article>
 
 
+
+
+
+
 </section>
-        
-          <aside id="sidebar">
-  
+          
+            <aside id="sidebar">
+  <div class="sidebar-wrap wow fadeInRight wrap-sticky">
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/EasyRL/">EasyRL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Graph-Neural-Networks-Foundations-Frontiers-and-Applications/">Graph Neural Networks: Foundations, Frontiers, and Applications</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs224w/">cs224w</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/d2l/">d2l</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/writing-paper/">writing  paper</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%9E%E9%AA%8C/">实验</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%BB%E7%BB%93/">总结</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6/">读书</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">高性能计算机网络</a></li></ul>
-    </div>
+      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">Contents</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#idea"><span class="toc-number">1.</span> <span class="toc-text">idea</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">1.1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%83%B3%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">想法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.3.</span> <span class="toc-text">威胁模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number">1.4.</span> <span class="toc-text">实验</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">2.</span> <span class="toc-text">代码</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#loss1"><span class="toc-number">2.1.</span> <span class="toc-text">loss1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#loss2"><span class="toc-number">2.2.</span> <span class="toc-text">loss2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#loss3"><span class="toc-number">2.3.</span> <span class="toc-text">loss3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#loss4"><span class="toc-number">2.4.</span> <span class="toc-text">loss4</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#loss5"><span class="toc-number">2.5.</span> <span class="toc-text">loss5</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C-%E2%80%93-pred-x-0"><span class="toc-number">3.</span> <span class="toc-text">实验 – pred x_0</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#benign-diffusion-model"><span class="toc-number">3.1.</span> <span class="toc-text">benign diffusion model</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#res-benign-cifar10-step1k"><span class="toc-number">3.1.1.</span> <span class="toc-text">res_benign_cifar10_step1k</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#res-benign-cifar10-step10k"><span class="toc-number">3.1.2.</span> <span class="toc-text">res_benign_cifar10_step10k</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#res-benign-cifar10-step15k-lab"><span class="toc-number">3.1.3.</span> <span class="toc-text">res_benign_cifar10_step15k -&gt; lab</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bad-diffusion-model-dataset-error"><span class="toc-number">3.2.</span> <span class="toc-text">bad diffusion model dataset error</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#res-badnet-grid-cifar10-step1k-ratio2-loss1"><span class="toc-number">3.2.1.</span> <span class="toc-text">res_badnet_grid_cifar10_step1k_ratio2_loss1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#res-badnet-grid-cifar10-step1k-ratio5-loss-1"><span class="toc-number">3.2.2.</span> <span class="toc-text">res_badnet_grid_cifar10_step1k_ratio5_loss_1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#res-badnet-grid-cifar10-step10k-ratio2-loss1"><span class="toc-number">3.2.3.</span> <span class="toc-text">res_badnet_grid_cifar10_step10k_ratio2_loss1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#res-badnet-grid-cifar10-step10k-ratio2-loss2"><span class="toc-number">3.2.4.</span> <span class="toc-text">res_badnet_grid_cifar10_step10k_ratio2_loss2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#res-badnet-grid-cifar10-step10k-ratio2-loss3"><span class="toc-number">3.2.5.</span> <span class="toc-text">res_badnet_grid_cifar10_step10k_ratio2_loss3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#res-badnet-grid-cifar10-step10k-ratio2-loss4"><span class="toc-number">3.2.6.</span> <span class="toc-text">res_badnet_grid_cifar10_step10k_ratio2_loss4</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#factor1-2-2-6"><span class="toc-number">3.2.6.1.</span> <span class="toc-text">factor1 [2, 2, 6]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#factor2-4-3-6"><span class="toc-number">3.2.6.2.</span> <span class="toc-text">factor2 [4, 3, 6]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#factor3-3-3-1"><span class="toc-number">3.2.6.3.</span> <span class="toc-text">factor3 [3, 3, 1]</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#res-badnet-grid-cifar10-step10k-ratio1-loss4"><span class="toc-number">3.2.7.</span> <span class="toc-text">res_badnet_grid_cifar10_step10k_ratio1_loss4</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#factor1-3-3-1"><span class="toc-number">3.2.7.1.</span> <span class="toc-text">factor1 [3, 3, 1]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#factor2-2-2-0-7"><span class="toc-number">3.2.7.2.</span> <span class="toc-text">factor2 [2, 2, 0.7]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#factor3-2-2-0-1"><span class="toc-number">3.2.7.3.</span> <span class="toc-text">factor3 [2, 2, 0.1]</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#res-badnet-grid-cifar10-step10k-ratio1-loss5"><span class="toc-number">3.2.8.</span> <span class="toc-text">res_badnet_grid_cifar10_step10k_ratio1_loss5</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#factor1-2-2-0-1"><span class="toc-number">3.2.8.1.</span> <span class="toc-text">factor1 [2, 2, 0.1]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#factor2-2-2-0-7-1"><span class="toc-number">3.2.8.2.</span> <span class="toc-text">factor2 [2, 2, 0.7]</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bad-diffusion-model-devide1-5"><span class="toc-number">3.3.</span> <span class="toc-text">bad diffusion model devide1:5</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#res-badnet-grid-cifar10-step15k-ratio1-loss5"><span class="toc-number">3.3.1.</span> <span class="toc-text">res_badnet_grid_cifar10_step15k_ratio1_loss5</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#factor1-2-2-0-3-pc"><span class="toc-number">3.3.1.1.</span> <span class="toc-text">factor1 [2, 2, 0.3] -&gt; pc</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#factor1-2-2-0-5-lv-pc"><span class="toc-number">3.3.1.2.</span> <span class="toc-text">factor1 [2, 2, 0.5] -&gt; lv-pc</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bad-diffusion-model-divide1-9"><span class="toc-number">3.4.</span> <span class="toc-text">bad diffusion model divide1:9</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#res-badnet-grid-cifar10-part10-step15k-ratio1-loss5"><span class="toc-number">3.4.1.</span> <span class="toc-text">res_badnet_grid_cifar10_part10_step15k_ratio1_loss5</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#factor1-2-2-0-1-pc"><span class="toc-number">3.4.1.1.</span> <span class="toc-text">factor1 [2, 2, 0.1] -&gt; pc</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#factor2-2-2-1-lv-pc"><span class="toc-number">3.4.1.2.</span> <span class="toc-text">factor2 [2, 2, 1] -&gt; lv-pc</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bad-diffusion-model-DatasetMix-1"><span class="toc-number">3.5.</span> <span class="toc-text">bad diffusion model DatasetMix_1</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#res-badnet-grid-cifar10-step15k-ratio1-loss5-1"><span class="toc-number">3.5.1.</span> <span class="toc-text">res_badnet_grid_cifar10_step15k_ratio1_loss5</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#factor1-2-2-0-5-lv"><span class="toc-number">3.5.1.1.</span> <span class="toc-text">factor1 [2, 2, 0.5] -&gt; lv</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#factor2-2-2-1-lab"><span class="toc-number">3.5.1.2.</span> <span class="toc-text">factor2 [2, 2, 1] -&gt; lab</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bad-diffusion-model-DatasetMix-2"><span class="toc-number">3.6.</span> <span class="toc-text">bad diffusion model DatasetMix_2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#res-badnet-grid-cifar10-step15k-ratio1-loss5-2"><span class="toc-number">3.6.1.</span> <span class="toc-text">res_badnet_grid_cifar10_step15k_ratio1_loss5</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#factor1-1-1-1-lv"><span class="toc-number">3.6.1.1.</span> <span class="toc-text">factor1 [1, 1, 1] -&gt; lv</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#factor2-1-1-2-pc"><span class="toc-number">3.6.1.2.</span> <span class="toc-text">factor2 [1, 1, 2] -&gt; pc</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bad-diffusion-model-DatasetMix-3"><span class="toc-number">3.7.</span> <span class="toc-text">bad diffusion model DatasetMix_3</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#try1-pc"><span class="toc-number">3.7.1.</span> <span class="toc-text">try1 -&gt; pc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#try2-lv"><span class="toc-number">3.7.2.</span> <span class="toc-text">try2 -&gt; lv</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#try3-lab"><span class="toc-number">3.7.3.</span> <span class="toc-text">try3 -&gt; lab</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#try4-lv"><span class="toc-number">3.7.4.</span> <span class="toc-text">try4 -&gt; lv</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#try5-pc"><span class="toc-number">3.7.5.</span> <span class="toc-text">try5 -&gt; pc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#try6-lab"><span class="toc-number">3.7.6.</span> <span class="toc-text">try6 -&gt; lab</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#try7-lv"><span class="toc-number">3.7.7.</span> <span class="toc-text">try7 -&gt; lv</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bad-diffusion-model-DatasetMix-4"><span class="toc-number">3.8.</span> <span class="toc-text">bad diffusion model DatasetMix_4</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mf1-pc"><span class="toc-number">3.8.1.</span> <span class="toc-text">mf1 -&gt; pc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mf2-pc"><span class="toc-number">3.8.2.</span> <span class="toc-text">mf2 -&gt; pc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mf3-lab"><span class="toc-number">3.8.3.</span> <span class="toc-text">mf3 -&gt; lab</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mf4-lab"><span class="toc-number">3.8.4.</span> <span class="toc-text">mf4 -&gt; lab</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mf5-pc"><span class="toc-number">3.8.5.</span> <span class="toc-text">mf5 -&gt; pc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mf6-pc"><span class="toc-number">3.8.6.</span> <span class="toc-text">mf6 -&gt; pc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mf7-lv"><span class="toc-number">3.8.7.</span> <span class="toc-text">mf7 -&gt; lv</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C-%E2%80%93-pred-noice"><span class="toc-number">4.</span> <span class="toc-text">实验 – pred noice</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp1-lv"><span class="toc-number">4.1.</span> <span class="toc-text">res_exp1 -&gt; lv</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp2-pc"><span class="toc-number">4.2.</span> <span class="toc-text">res_exp2 -&gt; pc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp3-lab"><span class="toc-number">4.3.</span> <span class="toc-text">res_exp3 -&gt; lab</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp4-lv"><span class="toc-number">4.4.</span> <span class="toc-text">res_exp4 -&gt; lv</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp5-pc"><span class="toc-number">4.5.</span> <span class="toc-text">res_exp5 -&gt; pc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp-6-lv"><span class="toc-number">4.6.</span> <span class="toc-text">res_exp_6 -&gt; lv</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp7-lv"><span class="toc-number">4.7.</span> <span class="toc-text">res_exp7 -&gt; lv</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C-1"><span class="toc-number">5.</span> <span class="toc-text">实验</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp1-lv-1"><span class="toc-number">5.1.</span> <span class="toc-text">res_exp1 -&gt; lv</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp2-lab"><span class="toc-number">5.2.</span> <span class="toc-text">res_exp2 -&gt; lab</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp3-lv"><span class="toc-number">5.3.</span> <span class="toc-text">res_exp3 -&gt; lv</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp4-lab"><span class="toc-number">5.4.</span> <span class="toc-text">res_exp4 -&gt; lab</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp5-lv"><span class="toc-number">5.5.</span> <span class="toc-text">res_exp5 -&gt; lv</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp6-pc"><span class="toc-number">5.6.</span> <span class="toc-text">res-exp6 -&gt; pc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp7-lab"><span class="toc-number">5.7.</span> <span class="toc-text">res_exp7 -&gt; lab</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp8-lv"><span class="toc-number">5.8.</span> <span class="toc-text">res_exp8 -&gt; lv</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp9-pc"><span class="toc-number">5.9.</span> <span class="toc-text">res_exp9 -&gt; pc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp10-pc"><span class="toc-number">5.10.</span> <span class="toc-text">res_exp10 -&gt; pc</span></a></li></ol></li></ol>
+      
   </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RL/" rel="tag">RL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/anomaly/" rel="tag">anomaly&#39;</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cnn/" rel="tag">cnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/diffusion/" rel="tag">diffusion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gnn/" rel="tag">gnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lab/" rel="tag">lab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poisoning/" rel="tag">poisoning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rl/" rel="tag">rl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rnn/" rel="tag">rnn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" rel="tag">信息论</a></li></ul>
-    </div>
+</div>
+</div>
+      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
+  <div class="sidebar-author-name">John Doe</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>Posts</div>
+    <div class="sidebar-state-number">58</div>
   </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/RL/" style="font-size: 10px;">RL</a> <a href="/tags/anomaly/" style="font-size: 12px;">anomaly</a> <a href="/tags/anomaly/" style="font-size: 10px;">anomaly'</a> <a href="/tags/backdoor/" style="font-size: 20px;">backdoor</a> <a href="/tags/cnn/" style="font-size: 10px;">cnn</a> <a href="/tags/diffusion/" style="font-size: 18px;">diffusion</a> <a href="/tags/gnn/" style="font-size: 14px;">gnn</a> <a href="/tags/lab/" style="font-size: 10px;">lab</a> <a href="/tags/poisoning/" style="font-size: 16px;">poisoning</a> <a href="/tags/rl/" style="font-size: 10px;">rl</a> <a href="/tags/rnn/" style="font-size: 10px;">rnn</a> <a href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" style="font-size: 10px;">信息论</a>
-    </div>
+  <div class="sidebar-state-category">
+    <div>Categories</div>
+    <div class="sidebar-state-number">11</div>
   </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li></ul>
-    </div>
+  <div class="sidebar-state-tag">
+    <div>Tags</div>
+    <div class="sidebar-state-number">13</div>
   </div>
-
-
+</div>
+<div class="sidebar-social">
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2024/05/10/limu-read-paper/">limu_read_paper</a>
-          </li>
-        
-          <li>
-            <a href="/2024/05/06/VillanDiffusion/">VillanDiffusion</a>
-          </li>
-        
-          <li>
-            <a href="/2024/04/27/Infomation-Theory-Inference-and-Learning-Algorithms/">Infomation_Theory_Inference_and_Learning_Algorithms</a>
-          </li>
-        
-          <li>
-            <a href="/2024/04/22/TrojDiff/">TrojDiff</a>
-          </li>
-        
-          <li>
-            <a href="/2024/04/18/Diffusion-Backdoor-Embed/">Diffusion-Backdoor-Embed</a>
-          </li>
-        
-      </ul>
+    <div class=icon-github>
+      <a href=https://github.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="github"></a>
     </div>
+  
+    <div class=icon-twitter>
+      <a href=https://x.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="twitter"></a>
+    </div>
+  
+    <div class=icon-bilibili>
+      <a href=https://space.bilibili.com/3493124768795188?spm_id_from=333.337.0.0 itemprop="url" target="_blank" aria-label="bilibili"></a>
+    </div>
+  
+    <div class=icon-zhihu>
+      <a href=https://www.zhihu.com/people/b79383d8dcc462769c532f9d16dadfeb itemprop="url" target="_blank" aria-label="zhihu"></a>
+    </div>
+  
+    <div class=icon-telegram>
+      <a href=https://www.t.me/chengyiqiu1121 itemprop="url" target="_blank" aria-label="telegram"></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/" aria-label="Home"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">Home</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="Archives"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">Archives</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/about" aria-label="About"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">About</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="Friend"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">Friend</div>
+    </div>
+  
+</div>
+</div>
+    
+    
+      <div class="sidebar-btn-wrapper" style="position:static">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+    
   </div>
 
   
 </aside>
-        
-      </div>
-      <footer id="footer">
-  
+
+          
+        </div>
+        <footer id="footer" class="wow fadeInUp">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
   <div class="outer">
     <div id="footer-info" class="inner">
       
-      &copy; 2024 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+      <div>
+        <span class="icon-copyright"></span>
+        2020-2024
+        <span class="footer-info-sep"></span>
+        John Doe
+      </div>
+      
+        <div>
+          Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>&nbsp;
+          Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" target="_blank">Reimu</a>
+        </div>
+      
+      
+        <div>
+          <span class="icon-brush"></span>
+          98.7k
+          &nbsp;|&nbsp;
+          <span class="icon-coffee"></span>
+          06:32
+        </div>
+      
+      
+        <div>
+          <span class="icon-eye"></span>
+          <span id="busuanzi_container_site_pv">Number of visits&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+          &nbsp;|&nbsp;
+          <span class="icon-user"></span>
+          <span id="busuanzi_container_site_uv">Number of visitors&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+        </div>
+      
     </div>
   </div>
 </footer>
 
+        <div class="sidebar-top">
+          <img src="/images/taichi.png" height="50" width="50" />
+          <div class="arrow-up"></div>
+        </div>
+        <div id="mask"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">Contents</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#idea"><span class="toc-number">1.</span> <span class="toc-text">idea</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">1.1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%83%B3%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">想法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.3.</span> <span class="toc-text">威胁模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number">1.4.</span> <span class="toc-text">实验</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">2.</span> <span class="toc-text">代码</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#loss1"><span class="toc-number">2.1.</span> <span class="toc-text">loss1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#loss2"><span class="toc-number">2.2.</span> <span class="toc-text">loss2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#loss3"><span class="toc-number">2.3.</span> <span class="toc-text">loss3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#loss4"><span class="toc-number">2.4.</span> <span class="toc-text">loss4</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#loss5"><span class="toc-number">2.5.</span> <span class="toc-text">loss5</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C-%E2%80%93-pred-x-0"><span class="toc-number">3.</span> <span class="toc-text">实验 – pred x_0</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#benign-diffusion-model"><span class="toc-number">3.1.</span> <span class="toc-text">benign diffusion model</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#res-benign-cifar10-step1k"><span class="toc-number">3.1.1.</span> <span class="toc-text">res_benign_cifar10_step1k</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#res-benign-cifar10-step10k"><span class="toc-number">3.1.2.</span> <span class="toc-text">res_benign_cifar10_step10k</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#res-benign-cifar10-step15k-lab"><span class="toc-number">3.1.3.</span> <span class="toc-text">res_benign_cifar10_step15k -&gt; lab</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bad-diffusion-model-dataset-error"><span class="toc-number">3.2.</span> <span class="toc-text">bad diffusion model dataset error</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#res-badnet-grid-cifar10-step1k-ratio2-loss1"><span class="toc-number">3.2.1.</span> <span class="toc-text">res_badnet_grid_cifar10_step1k_ratio2_loss1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#res-badnet-grid-cifar10-step1k-ratio5-loss-1"><span class="toc-number">3.2.2.</span> <span class="toc-text">res_badnet_grid_cifar10_step1k_ratio5_loss_1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#res-badnet-grid-cifar10-step10k-ratio2-loss1"><span class="toc-number">3.2.3.</span> <span class="toc-text">res_badnet_grid_cifar10_step10k_ratio2_loss1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#res-badnet-grid-cifar10-step10k-ratio2-loss2"><span class="toc-number">3.2.4.</span> <span class="toc-text">res_badnet_grid_cifar10_step10k_ratio2_loss2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#res-badnet-grid-cifar10-step10k-ratio2-loss3"><span class="toc-number">3.2.5.</span> <span class="toc-text">res_badnet_grid_cifar10_step10k_ratio2_loss3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#res-badnet-grid-cifar10-step10k-ratio2-loss4"><span class="toc-number">3.2.6.</span> <span class="toc-text">res_badnet_grid_cifar10_step10k_ratio2_loss4</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#factor1-2-2-6"><span class="toc-number">3.2.6.1.</span> <span class="toc-text">factor1 [2, 2, 6]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#factor2-4-3-6"><span class="toc-number">3.2.6.2.</span> <span class="toc-text">factor2 [4, 3, 6]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#factor3-3-3-1"><span class="toc-number">3.2.6.3.</span> <span class="toc-text">factor3 [3, 3, 1]</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#res-badnet-grid-cifar10-step10k-ratio1-loss4"><span class="toc-number">3.2.7.</span> <span class="toc-text">res_badnet_grid_cifar10_step10k_ratio1_loss4</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#factor1-3-3-1"><span class="toc-number">3.2.7.1.</span> <span class="toc-text">factor1 [3, 3, 1]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#factor2-2-2-0-7"><span class="toc-number">3.2.7.2.</span> <span class="toc-text">factor2 [2, 2, 0.7]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#factor3-2-2-0-1"><span class="toc-number">3.2.7.3.</span> <span class="toc-text">factor3 [2, 2, 0.1]</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#res-badnet-grid-cifar10-step10k-ratio1-loss5"><span class="toc-number">3.2.8.</span> <span class="toc-text">res_badnet_grid_cifar10_step10k_ratio1_loss5</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#factor1-2-2-0-1"><span class="toc-number">3.2.8.1.</span> <span class="toc-text">factor1 [2, 2, 0.1]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#factor2-2-2-0-7-1"><span class="toc-number">3.2.8.2.</span> <span class="toc-text">factor2 [2, 2, 0.7]</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bad-diffusion-model-devide1-5"><span class="toc-number">3.3.</span> <span class="toc-text">bad diffusion model devide1:5</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#res-badnet-grid-cifar10-step15k-ratio1-loss5"><span class="toc-number">3.3.1.</span> <span class="toc-text">res_badnet_grid_cifar10_step15k_ratio1_loss5</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#factor1-2-2-0-3-pc"><span class="toc-number">3.3.1.1.</span> <span class="toc-text">factor1 [2, 2, 0.3] -&gt; pc</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#factor1-2-2-0-5-lv-pc"><span class="toc-number">3.3.1.2.</span> <span class="toc-text">factor1 [2, 2, 0.5] -&gt; lv-pc</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bad-diffusion-model-divide1-9"><span class="toc-number">3.4.</span> <span class="toc-text">bad diffusion model divide1:9</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#res-badnet-grid-cifar10-part10-step15k-ratio1-loss5"><span class="toc-number">3.4.1.</span> <span class="toc-text">res_badnet_grid_cifar10_part10_step15k_ratio1_loss5</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#factor1-2-2-0-1-pc"><span class="toc-number">3.4.1.1.</span> <span class="toc-text">factor1 [2, 2, 0.1] -&gt; pc</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#factor2-2-2-1-lv-pc"><span class="toc-number">3.4.1.2.</span> <span class="toc-text">factor2 [2, 2, 1] -&gt; lv-pc</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bad-diffusion-model-DatasetMix-1"><span class="toc-number">3.5.</span> <span class="toc-text">bad diffusion model DatasetMix_1</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#res-badnet-grid-cifar10-step15k-ratio1-loss5-1"><span class="toc-number">3.5.1.</span> <span class="toc-text">res_badnet_grid_cifar10_step15k_ratio1_loss5</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#factor1-2-2-0-5-lv"><span class="toc-number">3.5.1.1.</span> <span class="toc-text">factor1 [2, 2, 0.5] -&gt; lv</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#factor2-2-2-1-lab"><span class="toc-number">3.5.1.2.</span> <span class="toc-text">factor2 [2, 2, 1] -&gt; lab</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bad-diffusion-model-DatasetMix-2"><span class="toc-number">3.6.</span> <span class="toc-text">bad diffusion model DatasetMix_2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#res-badnet-grid-cifar10-step15k-ratio1-loss5-2"><span class="toc-number">3.6.1.</span> <span class="toc-text">res_badnet_grid_cifar10_step15k_ratio1_loss5</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#factor1-1-1-1-lv"><span class="toc-number">3.6.1.1.</span> <span class="toc-text">factor1 [1, 1, 1] -&gt; lv</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#factor2-1-1-2-pc"><span class="toc-number">3.6.1.2.</span> <span class="toc-text">factor2 [1, 1, 2] -&gt; pc</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bad-diffusion-model-DatasetMix-3"><span class="toc-number">3.7.</span> <span class="toc-text">bad diffusion model DatasetMix_3</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#try1-pc"><span class="toc-number">3.7.1.</span> <span class="toc-text">try1 -&gt; pc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#try2-lv"><span class="toc-number">3.7.2.</span> <span class="toc-text">try2 -&gt; lv</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#try3-lab"><span class="toc-number">3.7.3.</span> <span class="toc-text">try3 -&gt; lab</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#try4-lv"><span class="toc-number">3.7.4.</span> <span class="toc-text">try4 -&gt; lv</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#try5-pc"><span class="toc-number">3.7.5.</span> <span class="toc-text">try5 -&gt; pc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#try6-lab"><span class="toc-number">3.7.6.</span> <span class="toc-text">try6 -&gt; lab</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#try7-lv"><span class="toc-number">3.7.7.</span> <span class="toc-text">try7 -&gt; lv</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bad-diffusion-model-DatasetMix-4"><span class="toc-number">3.8.</span> <span class="toc-text">bad diffusion model DatasetMix_4</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mf1-pc"><span class="toc-number">3.8.1.</span> <span class="toc-text">mf1 -&gt; pc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mf2-pc"><span class="toc-number">3.8.2.</span> <span class="toc-text">mf2 -&gt; pc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mf3-lab"><span class="toc-number">3.8.3.</span> <span class="toc-text">mf3 -&gt; lab</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mf4-lab"><span class="toc-number">3.8.4.</span> <span class="toc-text">mf4 -&gt; lab</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mf5-pc"><span class="toc-number">3.8.5.</span> <span class="toc-text">mf5 -&gt; pc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mf6-pc"><span class="toc-number">3.8.6.</span> <span class="toc-text">mf6 -&gt; pc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mf7-lv"><span class="toc-number">3.8.7.</span> <span class="toc-text">mf7 -&gt; lv</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C-%E2%80%93-pred-noice"><span class="toc-number">4.</span> <span class="toc-text">实验 – pred noice</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp1-lv"><span class="toc-number">4.1.</span> <span class="toc-text">res_exp1 -&gt; lv</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp2-pc"><span class="toc-number">4.2.</span> <span class="toc-text">res_exp2 -&gt; pc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp3-lab"><span class="toc-number">4.3.</span> <span class="toc-text">res_exp3 -&gt; lab</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp4-lv"><span class="toc-number">4.4.</span> <span class="toc-text">res_exp4 -&gt; lv</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp5-pc"><span class="toc-number">4.5.</span> <span class="toc-text">res_exp5 -&gt; pc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp-6-lv"><span class="toc-number">4.6.</span> <span class="toc-text">res_exp_6 -&gt; lv</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp7-lv"><span class="toc-number">4.7.</span> <span class="toc-text">res_exp7 -&gt; lv</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C-1"><span class="toc-number">5.</span> <span class="toc-text">实验</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp1-lv-1"><span class="toc-number">5.1.</span> <span class="toc-text">res_exp1 -&gt; lv</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp2-lab"><span class="toc-number">5.2.</span> <span class="toc-text">res_exp2 -&gt; lab</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp3-lv"><span class="toc-number">5.3.</span> <span class="toc-text">res_exp3 -&gt; lv</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp4-lab"><span class="toc-number">5.4.</span> <span class="toc-text">res_exp4 -&gt; lab</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp5-lv"><span class="toc-number">5.5.</span> <span class="toc-text">res_exp5 -&gt; lv</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp6-pc"><span class="toc-number">5.6.</span> <span class="toc-text">res-exp6 -&gt; pc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp7-lab"><span class="toc-number">5.7.</span> <span class="toc-text">res_exp7 -&gt; lab</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp8-lv"><span class="toc-number">5.8.</span> <span class="toc-text">res_exp8 -&gt; lv</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp9-pc"><span class="toc-number">5.9.</span> <span class="toc-text">res_exp9 -&gt; pc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#res-exp10-pc"><span class="toc-number">5.10.</span> <span class="toc-text">res_exp10 -&gt; pc</span></a></li></ol></li></ol>
+      
+  </div>
+</div>
+</div>
+      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
+  <div class="sidebar-author-name">John Doe</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>Posts</div>
+    <div class="sidebar-state-number">58</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>Categories</div>
+    <div class="sidebar-state-number">11</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>Tags</div>
+    <div class="sidebar-state-number">13</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class=icon-github>
+      <a href=https://github.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="github"></a>
     </div>
-    <nav id="mobile-nav">
   
-    <a href="/" class="mobile-nav-link">Home</a>
+    <div class=icon-twitter>
+      <a href=https://x.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="twitter"></a>
+    </div>
   
-    <a href="/archives" class="mobile-nav-link">Archives</a>
+    <div class=icon-bilibili>
+      <a href=https://space.bilibili.com/3493124768795188?spm_id_from=333.337.0.0 itemprop="url" target="_blank" aria-label="bilibili"></a>
+    </div>
+  
+    <div class=icon-zhihu>
+      <a href=https://www.zhihu.com/people/b79383d8dcc462769c532f9d16dadfeb itemprop="url" target="_blank" aria-label="zhihu"></a>
+    </div>
+  
+    <div class=icon-telegram>
+      <a href=https://www.t.me/chengyiqiu1121 itemprop="url" target="_blank" aria-label="telegram"></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/" aria-label="Home"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">Home</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="Archives"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">Archives</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/about" aria-label="About"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">About</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="Friend"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">Friend</div>
+    </div>
+  
+</div>
+</div>
+    
+  </div>
+  
+    <div class="sidebar-btn-wrapper">
+      <div class="sidebar-toc-btn current"></div>
+      <div class="sidebar-common-btn"></div>
+    </div>
   
 </nav>
+
+    </div>
+    <div class="site-search">
+      <div class="reimu-popup popup">
+        <div class="reimu-search">
+          <span class="reimu-search-input-icon"></span>
+          <div class="reimu-search-input" id="reimu-search-input"></div>
+        </div>
+        <div class="reimu-results">
+          <div id="reimu-stats"></div>
+          <div id="reimu-hits"></div>
+          <div id="reimu-pagination" class="reimu-pagination"></div>
+        </div>
+        <span class="popup-btn-close"></span>
+      </div>
+    </div>
     
+<script src="https://npm.webcache.cn/jquery@3.7.1/dist/jquery.min.js"></script>
 
 
-<script src="/js/jquery-3.6.4.min.js"></script>
+<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"></script>
+
+
+<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"></script>
 
 
 
   
-<script src="/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+
+
+
+  
+<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
+
+
+
+
+
+
+<script src="/js/pjax_script.js" data-pjax></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+<script src="https://npm.webcache.cn/mouse-firework@0.0.4/dist/index.umd.js"></script>
+
+  <script>
+    firework(JSON.parse('{"excludeElements":["a"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["#ff5252","#ff7c7c","#ffafaf","#ffd0d0"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["#ff0000"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'))
+  </script>
+
+
+
 
 
 
@@ -833,8 +1165,21 @@
 
 
 
+  <script>
+    console.log(String.raw`%c 
+ ______     ______     __     __    __     __  __    
+/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+ \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                  
+`,'color: #ff5252;')
+    console.log('%c Theme.Reimu v' + '0.1.2' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
+  </script>
+  
 
+  <!-- hexo injector body_end start -->
+<script src="/js/insert_highlight.js" data-pjax></script>
+<!-- hexo injector body_end end --></body>
+  </html>
 
-  </div>
-</body>
-</html>
