@@ -25,12 +25,12 @@
   
 <link rel="stylesheet" href="/css/loader.css">
 
-  <meta name="description" content="本文对应李沐老师在哔哩哔哩上的读论文栏目，做一些小记录。 GANframework，一般是自己的工作量相当大才会自称提出了一种框架，反之不会这么写。 GAN中的G是一个MLP，输入也是一个noice，采样自$\mathcal N(0, I)$​ GAN和DM的一个区别是：  GAN通过一个MLP，来模拟数据集构成的分布，不需要计算均值、方差（不需要得到这个分布） DM则是通过一个网络，来拟合数据集">
+  <meta name="description" content="本文对应李沐老师在哔哩哔哩上的读论文栏目，做一些小记录。 GAN framework，一般是自己的工作量相当大才会自称提出了一种框架，反之不会这么写。 GAN中的G是一个MLP，输入也是一个noice，采样自\(\mathcal N(0, I)\)​ GAN和DM的一个区别是：  GAN通过一个MLP，来模拟数据集构成的分布，不需要计算均值、方差（不需要得到这个分布） DM则是通过一个网络，来拟合">
 <meta property="og:type" content="article">
 <meta property="og:title" content="limu_read_paper">
 <meta property="og:url" content="http://example.com/2024/05/10/limu-read-paper/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="本文对应李沐老师在哔哩哔哩上的读论文栏目，做一些小记录。 GANframework，一般是自己的工作量相当大才会自称提出了一种框架，反之不会这么写。 GAN中的G是一个MLP，输入也是一个noice，采样自$\mathcal N(0, I)$​ GAN和DM的一个区别是：  GAN通过一个MLP，来模拟数据集构成的分布，不需要计算均值、方差（不需要得到这个分布） DM则是通过一个网络，来拟合数据集">
+<meta property="og:description" content="本文对应李沐老师在哔哩哔哩上的读论文栏目，做一些小记录。 GAN framework，一般是自己的工作量相当大才会自称提出了一种框架，反之不会这么写。 GAN中的G是一个MLP，输入也是一个noice，采样自\(\mathcal N(0, I)\)​ GAN和DM的一个区别是：  GAN通过一个MLP，来模拟数据集构成的分布，不需要计算均值、方差（不需要得到这个分布） DM则是通过一个网络，来拟合">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-05-10T10:57:48.000Z">
 <meta property="article:modified_time" content="2024-05-10T12:12:23.033Z">
@@ -205,21 +205,35 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <p>本文对应李沐老师在哔哩哔哩上的读论文栏目，做一些小记录。</p>
-<h1 id="GAN"><a href="#GAN" class="headerlink" title="GAN"></a>GAN</h1><p>framework，一般是自己的工作量相当大才会自称提出了一种框架，反之不会这么写。</p>
-<p>GAN中的G是一个MLP，输入也是一个noice，采样自$\mathcal N(0, I)$​</p>
+<h1 id="gan">GAN</h1>
+<p>framework，一般是自己的工作量相当大才会自称提出了一种框架，反之不会这么写。</p>
+<p>GAN中的G是一个MLP，输入也是一个noice，采样自<span
+class="math inline">\(\mathcal N(0, I)\)</span>​</p>
 <p>GAN和DM的一个区别是：</p>
 <ul>
 <li>GAN通过一个MLP，来模拟数据集构成的分布，不需要计算均值、方差（不需要得到这个分布）</li>
 <li>DM则是通过一个网络，来拟合数据集的分布，从而让最终模型的输出是一个分布，输出的值就是这个分布的均值。</li>
 </ul>
-<p>若样本来自真实世界，则标记为1，若来生成器，则标记为0。G的目标是：<br>$$<br>\min (\log (1-D(G(z))))<br>$$<br>假设D判断G生成的样本是真实的，那么极端情况下，$D(G(z))&#x3D;1$，$\log$就是$-\infty$，假设D判断G生成的样本是fake的话，那么$D(G(z))&#x3D;0$，那么$\log$​就为0。</p>
-<p>整个的loss如下：<br>$$<br>\min \max V(D,G)&#x3D;E_{x\sim p_{data}}[\log D(x)]+E_{z\sim p_z(z)}[\log(1-D(G(z)))]<br>$$<br>这两项是相悖的：D的目标是最大化第一项，而G的目标则是最小化第二项。最终会达到均衡。</p>
+<p>若样本来自真实世界，则标记为1，若来生成器，则标记为0。G的目标是：
+<span class="math display">\[
+\min (\log (1-D(G(z))))
+\]</span> 假设D判断G生成的样本是真实的，那么极端情况下，<span
+class="math inline">\(D(G(z))=1\)</span>，<span
+class="math inline">\(\log\)</span>就是<span
+class="math inline">\(-\infty\)</span>，假设D判断G生成的样本是fake的话，那么<span
+class="math inline">\(D(G(z))=0\)</span>，那么<span
+class="math inline">\(\log\)</span>​就为0。</p>
+<p>整个的loss如下： <span class="math display">\[
+\min \max V(D,G)=E_{x\sim p_{data}}[\log D(x)]+E_{z\sim
+p_z(z)}[\log(1-D(G(z)))]
+\]</span>
+这两项是相悖的：D的目标是最大化第一项，而G的目标则是最小化第二项。最终会达到均衡。</p>
 <p>GAN的演算法是先训练一个比较好的D，然后再训练G。在代码上的体现则是：先对D训练k步，然后再去训练G。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/05/10/limu-read-paper/" data-id="clw6droa0004p819f7arghcxe" data-title="limu_read_paper" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2024/05/10/limu-read-paper/" data-id="clw7jm80z004qbz9f4o5a72gm" data-title="limu_read_paper" class="article-share-link">Share</a>
       
       
       
@@ -238,7 +252,7 @@
       
         
         
-          <img data-src="/covers/IMG_2618.PNG" data-sizes="auto" alt="VillanDiffusion" class="lazyload">
+          <img data-src="/covers/IMG_2585.JPG" data-sizes="auto" alt="VillanDiffusion" class="lazyload">
         
       
       <a href="/2024/05/06/VillanDiffusion/"></a>
@@ -270,7 +284,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#GAN"><span class="toc-number">1.</span> <span class="toc-text">GAN</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#gan"><span class="toc-number">1.</span> <span class="toc-text">GAN</span></a></li></ol>
       
   </div>
 </div>
@@ -381,10 +395,10 @@
       
         <div>
           <span class="icon-brush"></span>
-          90.6k
+          90.4k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          05:57
+          05:55
         </div>
       
       
@@ -413,7 +427,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#GAN"><span class="toc-number">1.</span> <span class="toc-text">GAN</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#gan"><span class="toc-number">1.</span> <span class="toc-text">GAN</span></a></li></ol>
       
   </div>
 </div>

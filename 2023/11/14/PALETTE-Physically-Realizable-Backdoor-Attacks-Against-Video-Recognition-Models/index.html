@@ -25,31 +25,18 @@
   
 <link rel="stylesheet" href="/css/loader.css">
 
-  <meta name="description" content="摘要后门攻击被广泛使用在图像分类（cv）中，但是在视频识别领域很少有人调查或者研究。本文探索了后门攻击在视频识别中的物理实现。和已存在的工作（直接采用图片中的后门攻击，应用到视频识别领域，例如：将后门作为补丁打到每一个视频帧中去）不同，本文提出的后门攻击考虑了视频帧之间的时序交互，名PALETTE：  利用类似光照效果的RGB偏移作为触发器，而不是传统的打补丁。 通过滚动操作对特定的视频帧进行投毒">
+  <meta name="description" content="摘要 后门攻击被广泛使用在图像分类（cv）中，但是在视频识别领域很少有人调查或者研究。本文探索了后门攻击在视频识别中的物理实现。和已存在的工作（直接采用图片中的后门攻击，应用到视频识别领域，例如：将后门作为补丁打到每一个视频帧中去）不同，本文提出的后门攻击考虑了视频帧之间的时序交互，名PALETTE：  利用类似光照效果的RGB偏移作为触发器，而不是传统的打补丁。 通过滚动操作对特定的视频帧进行投">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PALETTE:Physically-Realizable_Backdoor_Attacks_Against_Video_Recognition_Models">
 <meta property="og:url" content="http://example.com/2023/11/14/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="摘要后门攻击被广泛使用在图像分类（cv）中，但是在视频识别领域很少有人调查或者研究。本文探索了后门攻击在视频识别中的物理实现。和已存在的工作（直接采用图片中的后门攻击，应用到视频识别领域，例如：将后门作为补丁打到每一个视频帧中去）不同，本文提出的后门攻击考虑了视频帧之间的时序交互，名PALETTE：  利用类似光照效果的RGB偏移作为触发器，而不是传统的打补丁。 通过滚动操作对特定的视频帧进行投毒">
+<meta property="og:description" content="摘要 后门攻击被广泛使用在图像分类（cv）中，但是在视频识别领域很少有人调查或者研究。本文探索了后门攻击在视频识别中的物理实现。和已存在的工作（直接采用图片中的后门攻击，应用到视频识别领域，例如：将后门作为补丁打到每一个视频帧中去）不同，本文提出的后门攻击考虑了视频帧之间的时序交互，名PALETTE：  利用类似光照效果的RGB偏移作为触发器，而不是传统的打补丁。 通过滚动操作对特定的视频帧进行投">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121193725851.png">
-<meta property="og:image" content="http://example.com/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121211112696.png">
-<meta property="og:image" content="http://example.com/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121231638001.png">
-<meta property="og:image" content="http://example.com/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121232927999.png">
-<meta property="og:image" content="http://example.com/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121233117973.png">
-<meta property="og:image" content="http://example.com/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121234921984.png">
-<meta property="og:image" content="http://example.com/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121235624667.png">
-<meta property="og:image" content="http://example.com/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121235635103.png">
-<meta property="og:image" content="http://example.com/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231122000756875.png">
-<meta property="og:image" content="http://example.com/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231122000914304.png">
-<meta property="og:image" content="http://example.com/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231122121902024.png">
-<meta property="og:image" content="http://example.com/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231122122632695.png">
 <meta property="article:published_time" content="2023-11-14T12:04:56.000Z">
 <meta property="article:modified_time" content="2024-04-19T04:36:03.737Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="backdoor">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121193725851.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -218,24 +205,25 @@
 
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>后门攻击被广泛使用在图像分类（cv）中，但是在视频识别领域很少有人调查或者研究。本文探索了后门攻击在视频识别中的物理实现。和已存在的工作（直接采用图片中的后门攻击，应用到视频识别领域，例如：将后门作为补丁打到每一个视频帧中去）不同，本文提出的后门攻击考虑了视频帧之间的时序交互，名PALETTE：</p>
-<ol>
+        <h1 id="摘要">摘要</h1>
+<p>后门攻击被广泛使用在图像分类（cv）中，但是在视频识别领域很少有人调查或者研究。本文探索了后门攻击在视频识别中的物理实现。和已存在的工作（直接采用图片中的后门攻击，应用到视频识别领域，例如：将后门作为补丁打到每一个视频帧中去）不同，本文提出的后门攻击考虑了视频帧之间的时序交互，名PALETTE：</p>
+<ol type="1">
 <li>利用<strong>类似光照效果的RGB偏移</strong>作为触发器，而不是传统的打补丁。</li>
 <li>通过滚动操作对<strong>特定的视频帧</strong>进行投毒。</li>
 </ol>
 <p>代码开源。</p>
-<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>首段介绍了深度学习的性能越来越好，模型规模、参数个数也在变大，所消耗的硬件资源也越来越多，例如内存、CPU、GPU等，另外数据的规模也在增大，尤其是GPT、大模型流行之后。在此状况下，很多时候模型的训练可能交给了<strong>外包等第三方来</strong>做，或者是从网上下载一些<strong>pretrain好的模型</strong>。这就给了攻击者来进行后门攻击的机会–将后门嵌入到训练好的模型中，在推断阶段起作用。</p>
+<h1 id="介绍">介绍</h1>
+<p>首段介绍了深度学习的性能越来越好，模型规模、参数个数也在变大，所消耗的硬件资源也越来越多，例如内存、CPU、GPU等，另外数据的规模也在增大，尤其是GPT、大模型流行之后。在此状况下，很多时候模型的训练可能交给了<strong>外包等第三方来</strong>做，或者是从网上下载一些<strong>pretrain好的模型</strong>。这就给了攻击者来进行后门攻击的机会--将后门嵌入到训练好的模型中，在推断阶段起作用。</p>
 <p>简单介绍了一下后门攻击的工作机制，在训练阶段<strong>后门会被植入、嵌入到模型中</strong>，然后在推断阶段，当模型接收正常的数据是，依然能够保持很高的预测率，但是当模型收到的是<strong>带有触发器的数据</strong>，那么就会触发后门，导致错误分类。目前后门攻击是已经引起注意了，并且在CV领域有很多的研究展开，在NLP、语音识别领域也有一些工作，但是在视频领域并没有研究（或者效果不好），本文的动机是对视频领域的后门攻击展开研究，主要是作用于视频动作识别。</p>
 <p>不能将视频单纯的看作是一系列图片的集合，视频的语义表征远远比前者要丰富，所以需要新的后门攻击方法。</p>
 <p>然后作者在这里采取了QA的方法来进行写作：</p>
-<ol>
+<ol type="1">
 <li><p>如何设计一个触发器，让其在物理上是可实现后门攻击的？</p>
-<p>传统的图片后门攻击使用的是<strong>补丁</strong>的方式，这种后门很容易植入到图片中去，也可以直接打印出来。但是，视频是动态的，里面的绝大部分的物体是不平稳、在变动的，因此这种方法不可行。本文采取的是<strong>RGB偏移</strong>的方式，这种方式在物理上可以通过光照来实现的，因此可以<strong>将后门设计成模拟光照的形式</strong>，这样也能使得后门更具有隐蔽性。</p>
-</li>
+<p>传统的图片后门攻击使用的是<strong>补丁</strong>的方式，这种后门很容易植入到图片中去，也可以直接打印出来。但是，视频是动态的，里面的绝大部分的物体是不平稳、在变动的，因此这种方法不可行。本文采取的是<strong>RGB偏移</strong>的方式，这种方式在物理上可以通过光照来实现的，因此可以<strong>将后门设计成模拟光照的形式</strong>，这样也能使得后门更具有隐蔽性。</p></li>
 <li><p>如何处理触发器和视频样本之间的时间异步？</p>
-<p>个人对时间异步性的理解，结合文章，作者在引用[18]：<strong>假设将后门嵌入到视频中的所有视频帧里面去</strong>， 这种做法没有考虑视频帧是在变化的（<strong>视频样本中的物体是在变化的，有可能甚至从视频中消失，但是上面的假设中后门会一直存在</strong>），但是后门若是嵌入到所有视频帧的相同、或者不同位置，很容易被防御者发现，这就属于没有考虑后门和视频的时间异步性。</p>
-<p>本文的假设是：植入的后门的长度比视频短，同时，当嵌入后门的时候，将触发器沿着视频帧进行滚动（？？？）</p>
-</li>
+<p>个人对时间异步性的理解，结合文章，作者在引用[18]：<strong>假设将后门嵌入到视频中的所有视频帧里面去</strong>，
+这种做法没有考虑视频帧是在变化的（<strong>视频样本中的物体是在变化的，有可能甚至从视频中消失，但是上面的假设中后门会一直存在</strong>），但是后门若是嵌入到所有视频帧的相同、或者不同位置，很容易被防御者发现，这就属于没有考虑后门和视频的时间异步性。</p>
+<p>本文的假设是：植入的后门的长度比视频短，同时，当嵌入后门的时候，将触发器沿着视频帧进行滚动（？？？）</p></li>
 </ol>
 <p>攻击大致设计思路：</p>
 <ul>
@@ -245,7 +233,9 @@
 <li>触发器中毒样本的制作：将触发器沿着视频帧进行滚动（？？？）</li>
 </ul>
 <p>然后作总结，本文、本工作的贡献。</p>
-<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><h2 id="视频动作识别"><a href="#视频动作识别" class="headerlink" title="视频动作识别"></a>视频动作识别</h2><p>一些典型的视频视觉领域</p>
+<h1 id="背景">背景</h1>
+<h2 id="视频动作识别">视频动作识别</h2>
+<p>一些典型的视频视觉领域</p>
 <ul>
 <li>视频目标检测：广泛应用自动驾驶</li>
 <li>视频物体跟踪：检测下一个视频帧目标的位置</li>
@@ -253,108 +243,221 @@
 <li>视频动作识别：识别人在视频中的动作</li>
 </ul>
 <p>视频动作识别可以描述成这样的问题：有T个视频帧输入进网络，然后网络经过训练、推断，对这T个视频帧中的动作进行预测，预测结果有K个标签。</p>
-<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121193725851.png" alt="image-20231121193725851"></p>
-<p>然后介绍了下常用的视频动作识别模型（调研），作者最终选取了I3D模型，作为本文的受害者模型（Inflated 3D ConvNet）。</p>
-<h2 id="后门攻击"><a href="#后门攻击" class="headerlink" title="后门攻击"></a>后门攻击</h2><p>介绍了一下深度学习中的<strong>对抗攻击</strong>（adversarial attacks）：</p>
+<figure>
+<img
+src="./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121193725851.png"
+alt="image-20231121193725851" />
+<figcaption aria-hidden="true">image-20231121193725851</figcaption>
+</figure>
+<p>然后介绍了下常用的视频动作识别模型（调研），作者最终选取了I3D模型，作为本文的受害者模型（Inflated
+3D ConvNet）。</p>
+<h2 id="后门攻击">后门攻击</h2>
+<p>介绍了一下深度学习中的<strong>对抗攻击</strong>（adversarial
+attacks）：</p>
 <ul>
-<li>训练阶段：中毒攻击、后门攻击。<ul>
+<li>训练阶段：中毒攻击、后门攻击。
+<ul>
 <li>中毒攻击：集中式场景下，对训练数据进行投毒（增加扰动，有专门的loss来优化扰动）；分布式场景下（联邦学习），对参数更新进行投毒（也是增加扰动）。两种情形下，攻击者基本都是对全体数据or全体参数进行投毒。（Oblivion中是对变化率较大的参数进行投毒）</li>
-<li>后门攻击：选取一部分数据（本文中是指向性攻击，选取数据的标签都是$y_\tau$），添加触发器，使得受害者模型$F_V$经过训练之后$F_A$会带有后门，$F_A$不影响普通数据的正确率，但是触发器数据会触发后门，导致误分类。<strong>后门攻击更加隐蔽</strong></li>
-</ul>
-</li>
+<li>后门攻击：选取一部分数据（本文中是指向性攻击，选取数据的标签都是<span
+class="math inline">\(y_\tau\)</span>），添加触发器，使得受害者模型<span
+class="math inline">\(F_V\)</span>经过训练之后<span
+class="math inline">\(F_A\)</span>会带有后门，<span
+class="math inline">\(F_A\)</span>不影响普通数据的正确率，但是触发器数据会触发后门，导致误分类。<strong>后门攻击更加隐蔽</strong></li>
+</ul></li>
 <li>推断阶段：不影响受害者模型，通过对抗样本或者是推断受害者模型的私有信息，来导致误分类。</li>
 </ul>
 <p>开始介绍后门攻击，存在于两个场景：</p>
 <ul>
 <li>项目外包：资源有限的客户端外包给第三方公司</li>
-<li>预训练模型：例如Github（突然想起了，本科老师讲过，在网上下载的python package不一定是安全的:)</li>
+<li>预训练模型：例如Github（突然想起了，本科老师讲过，在网上下载的python
+package不一定是安全的:)</li>
 </ul>
 <p>通常，攻击者通过操作模型的训练过程（直接）or注入有毒的训练数据集（间接）</p>
-<h1 id="威胁模型"><a href="#威胁模型" class="headerlink" title="威胁模型"></a>威胁模型</h1><p>攻击者完全掌控训练过程，对此可以构建出后门样本（其数量M小于所有视频帧的数量T）：<br>$$<br>\Delta &#x3D; {\delta_1,\delta_2,…,\delta_m},\epsilon \R ^{M\times H\times W \times C}<br>$$<br>符号表示：</p>
+<h1 id="威胁模型">威胁模型</h1>
+<p>攻击者完全掌控训练过程，对此可以构建出后门样本（其数量M小于所有视频帧的数量T）：
+<span class="math display">\[
+\Delta = \{\delta_1,\delta_2,...,\delta_m\},\epsilon \R ^{M\times
+H\times W \times C}
+\]</span> 符号表示：</p>
 <ul>
-<li>$\mathcal F_V$：受害者模型</li>
-<li>$\mathcal F_A$：经过攻击后，带有后门的受害者模型</li>
-<li>$y_\tau$：想要误分类的标签</li>
-<li>$X$：普通视频样本</li>
-<li>$X^*$：经过攻击者附加触发器的视频样本</li>
-<li>$\oplus _t$：附加操作</li>
+<li><span class="math inline">\(\mathcal F_V\)</span>：受害者模型</li>
+<li><span class="math inline">\(\mathcal
+F_A\)</span>：经过攻击后，带有后门的受害者模型</li>
+<li><span class="math inline">\(y_\tau\)</span>：想要误分类的标签</li>
+<li><span class="math inline">\(X\)</span>：普通视频样本</li>
+<li><span
+class="math inline">\(X^*\)</span>：经过攻击者附加触发器的视频样本</li>
+<li><span class="math inline">\(\oplus _t\)</span>：附加操作</li>
 </ul>
-<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121211112696.png" alt="image-20231121211112696"></p>
-<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>方法主要分两个阶段：</p>
-<ol>
+<figure>
+<img
+src="./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121211112696.png"
+alt="image-20231121211112696" />
+<figcaption aria-hidden="true">image-20231121211112696</figcaption>
+</figure>
+<h1 id="方法">方法</h1>
+<h2 id="概述">概述</h2>
+<p>方法主要分两个阶段：</p>
+<ol type="1">
 <li><p><strong>闪耀触发器（Flickering Trigger）生成</strong></p>
-<p>以前的工作是直接向图片中添加“<strong>可见的基于补丁的后门</strong>”，这也是对图像分类模型添加后门的方法。本文设计了一种新的后门–闪耀触发器，这种触发器利用<strong>RGB偏移</strong>来进行后门的激活。RGB偏移是利用自然光或者是室内光照射到视频，这样能够使得带有后门的样本看起来自然。另外，本文提出的闪耀触发器可以是很稀疏的，通过向连续的小于64个视频帧的区间添加触发器，即可触发后门。</p>
-</li>
+<p>以前的工作是直接向图片中添加“<strong>可见的基于补丁的后门</strong>”，这也是对图像分类模型添加后门的方法。本文设计了一种新的后门--闪耀触发器，这种触发器利用<strong>RGB偏移</strong>来进行后门的激活。RGB偏移是利用自然光或者是室内光照射到视频，这样能够使得带有后门的样本看起来自然。另外，本文提出的闪耀触发器可以是很稀疏的，通过向连续的小于64个视频帧的区间添加触发器，即可触发后门。</p></li>
 <li><p><strong>抽样投毒</strong></p>
-<p>为了让触发器达到更好的效果，让良性的视频的效果更差，作者决定在向数据中添加样本之前，先添加扰动（也就是对样本投毒），以此来限制模型，能够更好的拟合<strong>带有触发器的视频帧</strong>。</p>
-</li>
+<p>为了让触发器达到更好的效果，让良性的视频的效果更差，作者决定在向数据中添加样本之前，先添加扰动（也就是对样本投毒），以此来限制模型，能够更好的拟合<strong>带有触发器的视频帧</strong>。</p></li>
 </ol>
-<h2 id="闪耀触发器生成"><a href="#闪耀触发器生成" class="headerlink" title="闪耀触发器生成"></a>闪耀触发器生成</h2><p>直觉是通过模拟光照来制造后门，因此，需要确保一帧图片里面的所有像素都能够有相同的RGB偏移。（正是模拟所有的像素收到了相同强度的光照）</p>
+<h2 id="闪耀触发器生成">闪耀触发器生成</h2>
+<p>直觉是通过模拟光照来制造后门，因此，需要确保一帧图片里面的所有像素都能够有相同的RGB偏移。（正是模拟所有的像素收到了相同强度的光照）</p>
 <p>符号表示：</p>
 <ul>
-<li>$V$：表示最大的RGB偏移，所以RGB偏移的范围是$[-V,V]$</li>
-<li>$C$：通道</li>
+<li><span
+class="math inline">\(V\)</span>：表示最大的RGB偏移，所以RGB偏移的范围是<span
+class="math inline">\([-V,V]\)</span></li>
+<li><span class="math inline">\(C\)</span>：通道</li>
 </ul>
-<p>因此，带有触发器的序列帧中的一帧$\delta _i$可以表示为C个变量的组合，进而$\Delta$可以表示成$M\times C$个变量的组合。</p>
+<p>因此，带有触发器的序列帧中的一帧<span class="math inline">\(\delta
+_i\)</span>可以表示为C个变量的组合，进而<span
+class="math inline">\(\Delta\)</span>可以表示成<span
+class="math inline">\(M\times C\)</span>个变量的组合。</p>
 <p>看看本文是如何优化M个触发器视频帧的：</p>
-<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121231638001.png" alt="image-20231121231638001"></p>
+<figure>
+<img
+src="./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121231638001.png"
+alt="image-20231121231638001" />
+<figcaption aria-hidden="true">image-20231121231638001</figcaption>
+</figure>
 <p>符号表示：</p>
 <ul>
-<li>$y_l$：目标分类（误分类标签$y_ \tau$）的逻辑层的输出</li>
-<li>$m\gt 0$：想要达到误分类效果的安全边缘</li>
+<li><span class="math inline">\(y_l\)</span>：目标分类（误分类标签<span
+class="math inline">\(y_ \tau\)</span>）的逻辑层的输出</li>
+<li><span class="math inline">\(m\gt
+0\)</span>：想要达到误分类效果的安全边缘</li>
 </ul>
 <p>看看loss为0的情况，即模型什么都不需要学，这意味着触发器样本已经成功误导模型，达到了误分类的效果。</p>
 <p>然后则需要保证触发器样本的隐蔽性，通过最小化触发器样本与普通视频样本之间的“距离”。</p>
-<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121232927999.png" alt="image-20231121232927999"></p>
-<p>前面两个$\beta$是系数，也就是超参数。</p>
-<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121233117973.png" alt="image-20231121233117973"></p>
-<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121234921984.png" alt="image-20231121234921984"></p>
-<p>符号表示：$M$代表有多少个触发器帧，$C$代表通道，前面讲过$\Delta$可以用$M\times C$个变量来表示。</p>
-<p>也就是说，上式是一个$\Delta$的L2距离的平方再进行归一化的结果，这是$D_1$的作用，量化原始视频帧和触发器帧之间的差异。</p>
-<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121235624667.png" alt="image-20231121235624667"></p>
-<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121235635103.png" alt="image-20231121235635103"></p>
-<p>$D_2$测量的则是普通帧和触发器帧之间的时间异步性。这里首先定义了一个滚动操作$\mathcal R$：</p>
+<figure>
+<img
+src="./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121232927999.png"
+alt="image-20231121232927999" />
+<figcaption aria-hidden="true">image-20231121232927999</figcaption>
+</figure>
+<p>前面两个<span
+class="math inline">\(\beta\)</span>是系数，也就是超参数。</p>
+<figure>
+<img
+src="./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121233117973.png"
+alt="image-20231121233117973" />
+<figcaption aria-hidden="true">image-20231121233117973</figcaption>
+</figure>
+<figure>
+<img
+src="./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121234921984.png"
+alt="image-20231121234921984" />
+<figcaption aria-hidden="true">image-20231121234921984</figcaption>
+</figure>
+<p>符号表示：<span
+class="math inline">\(M\)</span>代表有多少个触发器帧，<span
+class="math inline">\(C\)</span>代表通道，前面讲过<span
+class="math inline">\(\Delta\)</span>可以用<span
+class="math inline">\(M\times C\)</span>个变量来表示。</p>
+<p>也就是说，上式是一个<span
+class="math inline">\(\Delta\)</span>的L2距离的平方再进行归一化的结果，这是<span
+class="math inline">\(D_1\)</span>的作用，量化原始视频帧和触发器帧之间的差异。</p>
+<figure>
+<img
+src="./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121235624667.png"
+alt="image-20231121235624667" />
+<figcaption aria-hidden="true">image-20231121235624667</figcaption>
+</figure>
+<figure>
+<img
+src="./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231121235635103.png"
+alt="image-20231121235635103" />
+<figcaption aria-hidden="true">image-20231121235635103</figcaption>
+</figure>
+<p><span
+class="math inline">\(D_2\)</span>测量的则是普通帧和触发器帧之间的时间异步性。这里首先定义了一个滚动操作<span
+class="math inline">\(\mathcal R\)</span>：</p>
 <ul>
-<li>$r&#x3D; 0$：代表将触发器帧插入到第0帧后面</li>
-<li>$r\gt 0$：将触发器帧向后滑动r个帧后插入</li>
-<li>$r+M\gt T$：取余数，插到开头</li>
+<li><span class="math inline">\(r=
+0\)</span>：代表将触发器帧插入到第0帧后面</li>
+<li><span class="math inline">\(r\gt
+0\)</span>：将触发器帧向后滑动r个帧后插入</li>
+<li><span class="math inline">\(r+M\gt T\)</span>：取余数，插到开头</li>
 </ul>
-<p>滚动操作能够理解，但是$D_2$不是很理解，总的loss如下：</p>
-<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231122000756875.png" alt="image-20231122000756875"></p>
+<p>滚动操作能够理解，但是<span
+class="math inline">\(D_2\)</span>不是很理解，总的loss如下：</p>
+<figure>
+<img
+src="./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231122000756875.png"
+alt="image-20231122000756875" />
+<figcaption aria-hidden="true">image-20231122000756875</figcaption>
+</figure>
 <p>优化：</p>
-<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231122000914304.png" alt="image-20231122000914304"></p>
-<h2 id="投毒"><a href="#投毒" class="headerlink" title="投毒"></a>投毒</h2><p>对普通视频帧（标签为$y_\tau$）进行投毒（增加扰动$\eta$），其loss：</p>
-<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231122121902024.png" alt="image-20231122121902024"></p>
+<figure>
+<img
+src="./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231122000914304.png"
+alt="image-20231122000914304" />
+<figcaption aria-hidden="true">image-20231122000914304</figcaption>
+</figure>
+<h2 id="投毒">投毒</h2>
+<p>对普通视频帧（标签为<span
+class="math inline">\(y_\tau\)</span>）进行投毒（增加扰动<span
+class="math inline">\(\eta\)</span>），其loss：</p>
+<figure>
+<img
+src="./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231122121902024.png"
+alt="image-20231122121902024" />
+<figcaption aria-hidden="true">image-20231122121902024</figcaption>
+</figure>
 <p>符号表示：</p>
 <ul>
-<li>$||.||<em>{\infty}$：$L</em>{inf}$距离</li>
-<li>$\eta$：扰动</li>
-<li>$g^{‘}$：样本X的标签</li>
-<li>$g&#x3D;F_A(X+\eta)$：$X+\eta$通过模型$F_A$之后得到的$y_{pred}$</li>
-<li>$\epsilon$：允许的扰动的最大值，相当于边界</li>
+<li><span class="math inline">\(||.||_{\infty}\)</span>：<span
+class="math inline">\(L_{inf}\)</span>距离</li>
+<li><span class="math inline">\(\eta\)</span>：扰动</li>
+<li><span class="math inline">\(g^{&#39;}\)</span>：样本X的标签</li>
+<li><span class="math inline">\(g=F_A(X+\eta)\)</span>：<span
+class="math inline">\(X+\eta\)</span>通过模型<span
+class="math inline">\(F_A\)</span>之后得到的<span
+class="math inline">\(y_{pred}\)</span></li>
+<li><span
+class="math inline">\(\epsilon\)</span>：允许的扰动的最大值，相当于边界</li>
 </ul>
 <p>给出L-inf距离的表达式：</p>
-<p><img src="/./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231122122632695.png" alt="image-20231122122632695"></p>
-<p>另外，作者对普通帧（标签不是$y_\tau$）和加了扰动的帧（标签为$y_\tau$）执行了滚动操作（$\mathcal R$）</p>
-<h2 id="距离"><a href="#距离" class="headerlink" title="距离"></a>距离</h2><ol>
+<figure>
+<img
+src="./PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/image-20231122122632695.png"
+alt="image-20231122122632695" />
+<figcaption aria-hidden="true">image-20231122122632695</figcaption>
+</figure>
+<p>另外，作者对普通帧（标签不是<span
+class="math inline">\(y_\tau\)</span>）和加了扰动的帧（标签为<span
+class="math inline">\(y_\tau\)</span>）执行了滚动操作（<span
+class="math inline">\(\mathcal R\)</span>）</p>
+<h2 id="距离">距离</h2>
+<ol type="1">
 <li><p>L1</p>
 <p>适用场景：当数据中存在少量重要特征，而其他特征对于任务影响较小时，可以使用L1范数，因为它有稀疏性，能够将一些不重要的特征的权重降为零，从而实现特征选择。</p>
-<p>如果数据是稀疏的，或者有很多离群点，那么L1距离可能更合适，因为它对异常值不敏感，而且可以产生稀疏解。<br>$$<br>d_1(X,Y)&#x3D;\sum|x_i-y_i|<br>$$</p>
-</li>
+<p>如果数据是稀疏的，或者有很多离群点，那么L1距离可能更合适，因为它对异常值不敏感，而且可以产生稀疏解。
+<span class="math display">\[
+d_1(X,Y)=\sum|x_i-y_i|
+\]</span></p></li>
 <li><p>L2</p>
 <p>适用场景：L2在损失函数中常用于平衡各个特征的影响，并有助于防止过拟合。L2范数对异常值相对较为敏感。</p>
-<p>如果数据是密集的，或者需要保持距离的平方关系，那么L2距离可能更合适，因为它对异常值敏感，而且可以保留更多的信息。<br>$$<br>d_2(X,Y)&#x3D;\sum\sqrt {(x_i-y_i)^2}<br>$$</p>
-</li>
+<p>如果数据是密集的，或者需要保持距离的平方关系，那么L2距离可能更合适，因为它对异常值敏感，而且可以保留更多的信息。
+<span class="math display">\[
+d_2(X,Y)=\sum\sqrt {(x_i-y_i)^2}
+\]</span></p></li>
 <li><p>L-inf</p>
 <p>适用场景：当你更关心特征中的最大值对于整体影响时，可以使用L∞范数。它对异常值非常敏感，因为它只关注<strong>最大的绝对值</strong>，因此对于探测和处理异常值很有用。</p>
-<p>如果数据的特征有不同的尺度或单位，那么L-inf距离可能更合适，因为它只关注最大的差异，而不受其他特征的影响。<br>$$<br>d_\infty&#x3D;\max (|x_i-y_i|)<br>$$</p>
-</li>
+<p>如果数据的特征有不同的尺度或单位，那么L-inf距离可能更合适，因为它只关注最大的差异，而不受其他特征的影响。
+<span class="math display">\[
+d_\infty=\max (|x_i-y_i|)
+\]</span></p></li>
 </ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/14/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/" data-id="clw6dro9s002a819f0vrfd9id" data-title="PALETTE:Physically-Realizable_Backdoor_Attacks_Against_Video_Recognition_Models" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/11/14/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/" data-id="clw7jm80t002qbz9f0p2ghw1e" data-title="PALETTE:Physically-Realizable_Backdoor_Attacks_Against_Video_Recognition_Models" class="article-share-link">Share</a>
       
       
       
@@ -391,7 +494,7 @@
       
         
         
-          <img data-src="/covers/IMG_2621.PNG" data-sizes="auto" alt="ATTEQ-NN:Attention-based_QoE-aware_Evasive_Backdoor_Attacks" class="lazyload">
+          <img data-src="/covers/IMG_2582.PNG" data-sizes="auto" alt="ATTEQ-NN:Attention-based_QoE-aware_Evasive_Backdoor_Attacks" class="lazyload">
         
       
       <a href="/2023/11/14/ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/"></a>
@@ -534,10 +637,10 @@
       
         <div>
           <span class="icon-brush"></span>
-          90.6k
+          90.4k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          05:57
+          05:55
         </div>
       
       

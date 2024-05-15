@@ -25,23 +25,18 @@
   
 <link rel="stylesheet" href="/css/loader.css">
 
-  <meta name="description" content="ICLR2023 从输入到模型的图片中提取出“最小模式”，通过实验发现后门模型有一种认知模式（cognitive pattern），作者通过提取出来的最小模式，来对模型进行认知蒸馏（cognitive distillation）。 认知蒸馏和后门样本检测认知蒸馏  $x_{cp}$：蒸馏掉的认知模式 $m$：可学习的掩码，$[0,1]^{w\times h}$ $\delta$：噪声，$[0,1]">
+  <meta name="description" content="ICLR2023 从输入到模型的图片中提取出“最小模式”，通过实验发现后门模型有一种认知模式（cognitive pattern），作者通过提取出来的最小模式，来对模型进行认知蒸馏（cognitive distillation）。 认知蒸馏和后门样本检测 认知蒸馏   image-20240322173556154   \(x_{cp}\)：蒸馏掉的认知模式 \(m\)：可学习的掩码，\([0,1">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Distilling_Cognitive_Backdoor_Patterns_within_an_Image">
 <meta property="og:url" content="http://example.com/2024/03/21/Distilling-Cognitive-Backdoor-Patterns-within-an-Image/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="ICLR2023 从输入到模型的图片中提取出“最小模式”，通过实验发现后门模型有一种认知模式（cognitive pattern），作者通过提取出来的最小模式，来对模型进行认知蒸馏（cognitive distillation）。 认知蒸馏和后门样本检测认知蒸馏  $x_{cp}$：蒸馏掉的认知模式 $m$：可学习的掩码，$[0,1]^{w\times h}$ $\delta$：噪声，$[0,1]">
+<meta property="og:description" content="ICLR2023 从输入到模型的图片中提取出“最小模式”，通过实验发现后门模型有一种认知模式（cognitive pattern），作者通过提取出来的最小模式，来对模型进行认知蒸馏（cognitive distillation）。 认知蒸馏和后门样本检测 认知蒸馏   image-20240322173556154   \(x_{cp}\)：蒸馏掉的认知模式 \(m\)：可学习的掩码，\([0,1">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/Distilling-Cognitive-Backdoor-Patterns-within-an-Image/image-20240322173556154.png">
-<meta property="og:image" content="http://example.com/Distilling-Cognitive-Backdoor-Patterns-within-an-Image/image-20240323094409417.png">
-<meta property="og:image" content="http://example.com/Distilling-Cognitive-Backdoor-Patterns-within-an-Image/image-20240323095006843.png">
-<meta property="og:image" content="http://example.com/Distilling-Cognitive-Backdoor-Patterns-within-an-Image/image-20240323164314806.png">
 <meta property="article:published_time" content="2024-03-21T09:04:27.000Z">
 <meta property="article:modified_time" content="2024-04-19T04:34:10.763Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="backdoor">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/Distilling-Cognitive-Backdoor-Patterns-within-an-Image/image-20240322173556154.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -211,43 +206,84 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <p>ICLR2023</p>
-<p>从输入到模型的图片中提取出“最小模式”，通过实验发现后门模型有一种认知模式（cognitive pattern），作者通过提取出来的最小模式，来对模型进行认知蒸馏（cognitive distillation）。</p>
-<h1 id="认知蒸馏和后门样本检测"><a href="#认知蒸馏和后门样本检测" class="headerlink" title="认知蒸馏和后门样本检测"></a>认知蒸馏和后门样本检测</h1><h2 id="认知蒸馏"><a href="#认知蒸馏" class="headerlink" title="认知蒸馏"></a>认知蒸馏</h2><p><img src="/./Distilling-Cognitive-Backdoor-Patterns-within-an-Image/image-20240322173556154.png" alt="image-20240322173556154"></p>
+<p>从输入到模型的图片中提取出“最小模式”，通过实验发现后门模型有一种认知模式（cognitive
+pattern），作者通过提取出来的最小模式，来对模型进行认知蒸馏（cognitive
+distillation）。</p>
+<h1 id="认知蒸馏和后门样本检测">认知蒸馏和后门样本检测</h1>
+<h2 id="认知蒸馏">认知蒸馏</h2>
+<figure>
+<img
+src="./Distilling-Cognitive-Backdoor-Patterns-within-an-Image/image-20240322173556154.png"
+alt="image-20240322173556154" />
+<figcaption aria-hidden="true">image-20240322173556154</figcaption>
+</figure>
 <ul>
-<li>$x_{cp}$：蒸馏掉的认知模式</li>
-<li>$m$：可学习的掩码，$[0,1]^{w\times h}$</li>
-<li>$\delta$：噪声，$[0,1]^c$</li>
-<li>$TV(.)$：总变化损失（？）</li>
-<li>$f_\theta (.)$：可以是最后一个全连接层的输出，也可以是最后一个卷积层的输出</li>
+<li><span class="math inline">\(x_{cp}\)</span>：蒸馏掉的认知模式</li>
+<li><span class="math inline">\(m\)</span>：可学习的掩码，<span
+class="math inline">\([0,1]^{w\times h}\)</span></li>
+<li><span class="math inline">\(\delta\)</span>：噪声，<span
+class="math inline">\([0,1]^c\)</span></li>
+<li><span class="math inline">\(TV(.)\)</span>：总变化损失（？）</li>
+<li><span class="math inline">\(f_\theta
+(.)\)</span>：可以是最后一个全连接层的输出，也可以是最后一个卷积层的输出</li>
 </ul>
-<p>公式1的目的是确保认知蒸馏后的输入$x_{cp}$和原始输入$x$输入到模型后，得到的输出基本是一样的。</p>
+<p>公式1的目的是确保认知蒸馏后的输入<span
+class="math inline">\(x_{cp}\)</span>和原始输入<span
+class="math inline">\(x\)</span>输入到模型后，得到的输出基本是一样的。</p>
 <p>公式2的目的是去除原始输入中不那么重要的特征。</p>
 <p>掩码中1代表对应的像素很重要，0代表不重要。</p>
 <p>提取掩码和认知模式有利于理解模型误分类的原因。认知模式中的某些像素很可能是增加了扰动的（因为模型中可能有后门）。</p>
-<h2 id="通过认知蒸馏来理解后门模型"><a href="#通过认知蒸馏来理解后门模型" class="headerlink" title="通过认知蒸馏来理解后门模型"></a>通过认知蒸馏来理解后门模型</h2><p><img src="/./Distilling-Cognitive-Backdoor-Patterns-within-an-Image/image-20240323094409417.png" alt="image-20240323094409417"></p>
+<h2 id="通过认知蒸馏来理解后门模型">通过认知蒸馏来理解后门模型</h2>
+<figure>
+<img
+src="./Distilling-Cognitive-Backdoor-Patterns-within-an-Image/image-20240323094409417.png"
+alt="image-20240323094409417" />
+<figcaption aria-hidden="true">image-20240323094409417</figcaption>
+</figure>
 <ul>
 <li>第一行：干净图片和触发器样本的混合</li>
-<li>第二行：通过上一节的公式，优化出来的掩码$m$</li>
-<li>第三行：对原始图像进行蒸馏过得到的认知模式，也就是$x_{xp}$</li>
+<li>第二行：通过上一节的公式，优化出来的掩码<span
+class="math inline">\(m\)</span></li>
+<li>第三行：对原始图像进行蒸馏过得到的认知模式，也就是<span
+class="math inline">\(x_{xp}\)</span></li>
 <li>第四行：简化后的后门图像</li>
 </ul>
 <p>然后作者使用第四行和第一行（原始图片）来测试ASR，选取的baseline有badnet、blend等</p>
-<p><img src="/./Distilling-Cognitive-Backdoor-Patterns-within-an-Image/image-20240323095006843.png" alt="image-20240323095006843"></p>
+<figure>
+<img
+src="./Distilling-Cognitive-Backdoor-Patterns-within-an-Image/image-20240323095006843.png"
+alt="image-20240323095006843" />
+<figcaption aria-hidden="true">image-20240323095006843</figcaption>
+</figure>
 <ul>
-<li>原始触发器：$x_{bd}$</li>
-<li>简化后的触发器：$x_{bd}^{‘}&#x3D;m\odot x_{bd}+(1-m)\odot x$</li>
+<li>原始触发器：<span class="math inline">\(x_{bd}\)</span></li>
+<li>简化后的触发器：<span class="math inline">\(x_{bd}^{&#39;}=m\odot
+x_{bd}+(1-m)\odot x\)</span></li>
 </ul>
 <p>结论：无论触发器模式如何，后门模式的相关性比自然物体的相关性要简单得多。</p>
-<h2 id="后门样本检测"><a href="#后门样本检测" class="headerlink" title="后门样本检测"></a>后门样本检测</h2><p>后门样本检测属于一种无监督的分类任务，因为没有先验知识，所以只能根据样本本身的特征信息来进行监督、聚类。</p>
-<p>计算样本掩码的L1距离$\Vert m\Vert _1$，来判断输入进来的是否是后门样本：</p>
-<p><img src="/./Distilling-Cognitive-Backdoor-Patterns-within-an-Image/image-20240323164314806.png" alt="image-20240323164314806"></p>
-<p>若是$g(.)&#x3D;1$，则代表是后门样本，反之则不是。</p>
-<p>对于测试期间，假设防御者受伤有一部分干净样本，那么可以计算出这些样本的分布：$\mu_{\Vert m\Vert <em>1},\sigma</em>{\Vert m\Vert _1}$，然后可以这样得到阈值t：<br>$$<br>t&#x3D;\mu _{\Vert m\Vert <em>1}-\gamma \sigma</em>{\Vert m \Vert _ 1}<br>$$<br>$\gamma$是超参数，用来对控制阈值。</p>
+<h2 id="后门样本检测">后门样本检测</h2>
+<p>后门样本检测属于一种无监督的分类任务，因为没有先验知识，所以只能根据样本本身的特征信息来进行监督、聚类。</p>
+<p>计算样本掩码的L1距离<span class="math inline">\(\Vert m\Vert
+_1\)</span>，来判断输入进来的是否是后门样本：</p>
+<figure>
+<img
+src="./Distilling-Cognitive-Backdoor-Patterns-within-an-Image/image-20240323164314806.png"
+alt="image-20240323164314806" />
+<figcaption aria-hidden="true">image-20240323164314806</figcaption>
+</figure>
+<p>若是<span
+class="math inline">\(g(.)=1\)</span>，则代表是后门样本，反之则不是。</p>
+<p>对于测试期间，假设防御者受伤有一部分干净样本，那么可以计算出这些样本的分布：<span
+class="math inline">\(\mu_{\Vert m\Vert _1},\sigma_{\Vert m\Vert
+_1}\)</span>，然后可以这样得到阈值t： <span class="math display">\[
+t=\mu _{\Vert m\Vert _1}-\gamma \sigma_{\Vert m \Vert _ 1}
+\]</span> <span
+class="math inline">\(\gamma\)</span>是超参数，用来对控制阈值。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/03/21/Distilling-Cognitive-Backdoor-Patterns-within-an-Image/" data-id="clw6dro9j000s819fhyhsb11q" data-title="Distilling_Cognitive_Backdoor_Patterns_within_an_Image" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2024/03/21/Distilling-Cognitive-Backdoor-Patterns-within-an-Image/" data-id="clw7jm80o000ubz9f3qrgbrl5" data-title="Distilling_Cognitive_Backdoor_Patterns_within_an_Image" class="article-share-link">Share</a>
       
       
       
@@ -267,7 +303,7 @@
         
           
           
-            <img data-src="/covers/IMG_2575.JPG" data-sizes="auto" alt="Neural_Network_Diffusion" class="lazyload">
+            <img data-src="/covers/IMG_2577.JPG" data-sizes="auto" alt="Neural_Network_Diffusion" class="lazyload">
           
         
         <a href="/2024/03/24/Neural-Network-Diffusion/"></a>
@@ -284,7 +320,7 @@
       
         
         
-          <img data-src="/covers/IMG_2619.PNG" data-sizes="auto" alt="Black-box_Backdoor_Defense_via_Zero-shot_Image_Purification" class="lazyload">
+          <img data-src="/covers/IMG_2578.JPG" data-sizes="auto" alt="Black-box_Backdoor_Defense_via_Zero-shot_Image_Purification" class="lazyload">
         
       
       <a href="/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/"></a>
@@ -427,10 +463,10 @@
       
         <div>
           <span class="icon-brush"></span>
-          90.6k
+          90.4k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          05:57
+          05:55
         </div>
       
       

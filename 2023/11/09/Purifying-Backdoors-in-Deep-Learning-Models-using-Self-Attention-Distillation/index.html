@@ -25,24 +25,18 @@
   
 <link rel="stylesheet" href="/css/loader.css">
 
-  <meta name="description" content="摘要后门攻击与中毒攻击不同，后门可以被植入模型中，当特定数据被输入到模型中后，后门触发，能够有目标或者无目标的误导模型的分类。 先踩了一波[69]，东北大学的一篇文章，提出了很多净化方法，试图除掉后门；但是，这些方法既没有降低攻击的成功率（在一些先进的攻击方法上），或者，就是降低了模型在干净数据上的成功率。 本文提工作：  SAGE，利用自监督蒸馏来除掉模型中的后门。自监督蒸馏的意思就是不需要老师">
+  <meta name="description" content="摘要 后门攻击与中毒攻击不同，后门可以被植入模型中，当特定数据被输入到模型中后，后门触发，能够有目标或者无目标的误导模型的分类。 先踩了一波[69]，东北大学的一篇文章，提出了很多净化方法，试图除掉后门；但是，这些方法既没有降低攻击的成功率（在一些先进的攻击方法上），或者，就是降低了模型在干净数据上的成功率。 本文提工作：  SAGE，利用自监督蒸馏来除掉模型中的后门。自监督蒸馏的意思就是不需要老">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Purifying_Backdoors_in_Deep_Learning_Models_using_Self_Attention_Distillation">
 <meta property="og:url" content="http://example.com/2023/11/09/Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="摘要后门攻击与中毒攻击不同，后门可以被植入模型中，当特定数据被输入到模型中后，后门触发，能够有目标或者无目标的误导模型的分类。 先踩了一波[69]，东北大学的一篇文章，提出了很多净化方法，试图除掉后门；但是，这些方法既没有降低攻击的成功率（在一些先进的攻击方法上），或者，就是降低了模型在干净数据上的成功率。 本文提工作：  SAGE，利用自监督蒸馏来除掉模型中的后门。自监督蒸馏的意思就是不需要老师">
+<meta property="og:description" content="摘要 后门攻击与中毒攻击不同，后门可以被植入模型中，当特定数据被输入到模型中后，后门触发，能够有目标或者无目标的误导模型的分类。 先踩了一波[69]，东北大学的一篇文章，提出了很多净化方法，试图除掉后门；但是，这些方法既没有降低攻击的成功率（在一些先进的攻击方法上），或者，就是降低了模型在干净数据上的成功率。 本文提工作：  SAGE，利用自监督蒸馏来除掉模型中的后门。自监督蒸馏的意思就是不需要老">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231109225908494.png">
-<meta property="og:image" content="http://example.com/Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231110124656839.png">
-<meta property="og:image" content="http://example.com/Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231113094040545.png">
-<meta property="og:image" content="http://example.com/Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231113095438465.png">
-<meta property="og:image" content="http://example.com/Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231113105102560.png">
 <meta property="article:published_time" content="2023-11-09T13:08:03.000Z">
 <meta property="article:modified_time" content="2024-04-19T04:36:29.701Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="backdoor">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231109225908494.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -211,63 +205,78 @@
 
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>后门攻击与中毒攻击不同，后门可以被植入模型中，当特定数据被输入到模型中后，后门触发，能够有目标或者无目标的误导模型的分类。</p>
+        <h1 id="摘要">摘要</h1>
+<p>后门攻击与中毒攻击不同，后门可以被植入模型中，当特定数据被输入到模型中后，后门触发，能够有目标或者无目标的误导模型的分类。</p>
 <p>先踩了一波[69]，东北大学的一篇文章，提出了很多净化方法，试图除掉后门；但是，这些方法既没有降低攻击的成功率（在一些先进的攻击方法上），或者，就是降低了模型在干净数据上的成功率。</p>
 <p>本文提工作：</p>
-<ol>
+<ol type="1">
 <li>SAGE，利用自监督蒸馏来除掉模型中的后门。自监督蒸馏的意思就是不需要老师（模型）来监督蒸馏过程。自监督蒸馏只需要<strong>一小部分干净数据</strong>。</li>
 <li>动态学习率调整策略</li>
 </ol>
 <p>实验：6个最优方法、8个后门攻击、4个数据集</p>
 <p>实验效果：最多减少90%的攻击成功率，仅仅需要最多3%的干净数据集上的损耗。</p>
-<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>这章对已有的工作做了一些分析与总结，记录一部分。</p>
-<h2 id="后门攻击"><a href="#后门攻击" class="headerlink" title="后门攻击"></a>后门攻击</h2><p>作者用了小半页篇幅来介绍DNN的定义、发展，然后由于训练时间以及金钱成本高（GPT-3）、数据集的构建困难（ImageNet），许多用户选择将模型放在云服务器上跑，或者是使用预训练好的模型（e.g., Caffe Model Zoo2）。然后以此引出后门攻击：攻击<strong>训练数据集</strong>或者是<strong>训练阶段</strong>。</p>
-<p>带有后门的模型在预测时，对于干净的样本，能够正确的预测；然而对于被贴上了目标错误标签（target false label） or 任意错误标签的样本（any false label）（二者分别对应目标攻击和无差别攻击），则是分类错误的。然后作者对已有的工作做了一些分类：</p>
-<p><img src="/./Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231109225908494.png" alt="image-20231109225908494"></p>
-<h2 id="后门防御"><a href="#后门防御" class="headerlink" title="后门防御"></a>后门防御</h2><h3 id="检测"><a href="#检测" class="headerlink" title="检测"></a>检测</h3><ol>
+<h1 id="背景">背景</h1>
+<p>这章对已有的工作做了一些分析与总结，记录一部分。</p>
+<h2 id="后门攻击">后门攻击</h2>
+<p>作者用了小半页篇幅来介绍DNN的定义、发展，然后由于训练时间以及金钱成本高（GPT-3）、数据集的构建困难（ImageNet），许多用户选择将模型放在云服务器上跑，或者是使用预训练好的模型（e.g.,
+Caffe Model
+Zoo2）。然后以此引出后门攻击：攻击<strong>训练数据集</strong>或者是<strong>训练阶段</strong>。</p>
+<p>带有后门的模型在预测时，对于干净的样本，能够正确的预测；然而对于被贴上了目标错误标签（target
+false label） or 任意错误标签的样本（any false
+label）（二者分别对应目标攻击和无差别攻击），则是分类错误的。然后作者对已有的工作做了一些分类：</p>
+<figure>
+<img
+src="./Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231109225908494.png"
+alt="image-20231109225908494" />
+<figcaption aria-hidden="true">image-20231109225908494</figcaption>
+</figure>
+<h2 id="后门防御">后门防御</h2>
+<h3 id="检测">检测</h3>
+<ol type="1">
 <li><p><strong>后门输入检测</strong></p>
 <ul>
-<li>[14]：通过将可疑的输入数据复制几份，然后用其他的样本作为扰动（针对后门）增加进去，最终都 拿来做预测，通过这个集中的预测，进行对比，可以找到target的后门攻击</li>
+<li>[14]：通过将可疑的输入数据复制几份，然后用其他的样本作为扰动（针对后门）增加进去，最终都
+拿来做预测，通过这个集中的预测，进行对比，可以找到target的后门攻击</li>
 <li>[9]：找出对预测结果影响最大的样本区域，然后混合其他样本一起训练，若是有很多批次的样本都被错误分类成了相同的错误标签，那么后门很可能在这个样本区域中。</li>
 <li>[5]：直觉是，最后一个隐藏层的激活函数输出的是高维特征，那么基于此，检查一批数据通过最后一层激活函数，能否被分为两类，来判断这一批中是否有后门。</li>
-</ul>
-</li>
+</ul></li>
 <li><p><strong>后门模型检测</strong></p>
 <p>[6]：利用反向工程试图恢复出训练样本</p>
-<p>[65]：利用jumbo learning训练出一个元分类器，来判断模型是否被植入后门。这个分类器可以对多种后门模型进行分类。</p>
-</li>
+<p>[65]：利用jumbo
+learning训练出一个元分类器，来判断模型是否被植入后门。这个分类器可以对多种后门模型进行分类。</p></li>
 </ol>
-<h3 id="净化"><a href="#净化" class="headerlink" title="净化"></a>净化</h3><p>和检测的方法比较类似其实。</p>
-<ol>
+<h3 id="净化">净化</h3>
+<p>和检测的方法比较类似其实。</p>
+<ol type="1">
 <li><p><strong>输入净化</strong></p>
 <p>[12]：和[9]有点类似，找到对模型预测影响最重要的区域，最终的目的是找到并移除可能的后门，然后回复出训练数据。</p>
-<p>[53]：通过GAN恢复数据，区域被描述为带颜色的盒子。</p>
-</li>
+<p>[53]：通过GAN恢复数据，区域被描述为带颜色的盒子。</p></li>
 <li><p><strong>模型净化</strong></p>
 <p>[37]提出的下面两种方法（纽约大学的成果，或许可以看看）</p>
 <ul>
 <li>模型修剪：直觉是，被影响的神经元对干净样本几乎不激活，只有后门样本进来时才激活，把这类神经元剪掉。</li>
 <li>微调：用干净数据不停对模型进行微调。</li>
 </ul>
-<p>还有利用反向工程来移除后门的方法（[59], [69]…）。</p>
-<p>[32]利用注意力蒸馏的方法，通过微调模型为老师模型，然后通过注意力蒸馏的方法进行组合。问题是，老师模型就算通过了一些微调，还有可能存在后门。</p>
-</li>
+<p>还有利用反向工程来移除后门的方法（[59], [69]...）。</p>
+<p>[32]利用注意力蒸馏的方法，通过微调模型为老师模型，然后通过注意力蒸馏的方法进行组合。问题是，老师模型就算通过了一些微调，还有可能存在后门。</p></li>
 </ol>
-<h2 id="知识蒸馏和注意力蒸馏"><a href="#知识蒸馏和注意力蒸馏" class="headerlink" title="知识蒸馏和注意力蒸馏"></a>知识蒸馏和注意力蒸馏</h2><p>知识蒸馏：通过模仿一个很大的老师模型的中间层以及比较深的层，来得到一个学生模型。首次被Hinton[21]提出。</p>
+<h2 id="知识蒸馏和注意力蒸馏">知识蒸馏和注意力蒸馏</h2>
+<p>知识蒸馏：通过模仿一个很大的老师模型的中间层以及比较深的层，来得到一个学生模型。首次被Hinton[21]提出。</p>
 <p>注意力蒸馏就是将注意力机制添加到知识蒸馏中，让学生模型能够学到更高质量的深层表征。常见的做法有基于激活函数的注意力蒸馏、基于梯度的注意力蒸馏。</p>
 <p>[22]提出了一种自注意力蒸馏，这种方法不需要老师模型。</p>
-<h1 id="威胁模型"><a href="#威胁模型" class="headerlink" title="威胁模型"></a>威胁模型</h1><p>对攻击者和防御者的知识做一个假设。</p>
-<ol>
+<h1 id="威胁模型">威胁模型</h1>
+<p>对攻击者和防御者的知识做一个假设。</p>
+<ol type="1">
 <li><p>防御者</p>
 <p>假设防御者从一个不受信任的第三方得到了一个带有后门的模型。</p>
 <p>防御者有一小部分干净的数据集，这个数据集远小于整个训练集。</p>
-<p>目标：通过这一小部分干净数据集将后门擦除。</p>
-</li>
+<p>目标：通过这一小部分干净数据集将后门擦除。</p></li>
 <li><p>攻击者</p>
-<p>本文考虑的攻击者比较强，攻击者能够知道所有的模型内部信息以及训练数据集。因此攻击者可以制造更强力的、自适应的后门。</p>
-</li>
+<p>本文考虑的攻击者比较强，攻击者能够知道所有的模型内部信息以及训练数据集。因此攻击者可以制造更强力的、自适应的后门。</p></li>
 </ol>
-<h1 id="SAGE"><a href="#SAGE" class="headerlink" title="SAGE"></a>SAGE</h1><h2 id="设计原理"><a href="#设计原理" class="headerlink" title="设计原理"></a>设计原理</h2><p>研究表明NN的浅层提取的是<strong>全局结构信息</strong>（宏观特征），而深层则是提取的<strong>细粒度细节</strong>（微观特征）。因此后门即为微观扰动，作用于深层而不是浅层。</p>
+<h1 id="sage">SAGE</h1>
+<h2 id="设计原理">设计原理</h2>
+<p>研究表明NN的浅层提取的是<strong>全局结构信息</strong>（宏观特征），而深层则是提取的<strong>细粒度细节</strong>（微观特征）。因此后门即为微观扰动，作用于深层而不是浅层。</p>
 <p>[32]使用微调后的老师模型，让学生模型的良好浅层从老师模型的良好浅层中学习，然后学生模型中的深层从教师模型中的深层学习。但问题是，就算教师模型经过微调，其深层后门不一定被擦除，也就是说学生模型最终得到的模型可能还是带有后门。</p>
 <p>作为对比，本文中使用的是自注意力蒸馏，让学生模型的深层从好的浅层学习，从而摆脱老师模型。有下面几个比较重要的模块：</p>
 <ul>
@@ -275,31 +284,66 @@
 <li>损失计算模块：根据浅层的注意力，对深层的权重进行调整，同时保证模型预测的准确率。</li>
 <li>学习率更新模块：跟踪模型在干净数据集上的准确率，来自适应调整学习率。（[32]是每过两个epoch，学习率除10）</li>
 </ul>
-<p>PS：本片文章很可能是作者在[32]的基础上做的：近期，网络与信息安全学院吕锡香教授指导的博士生李一戈的论文「<strong>Neural Attention Distillation: Erasing Backdoor Triggers from Deep Neural Networks</strong>」，被人工智能顶级会议ICLR 2021收录，在ICLR 2021会议近3000篇投稿中，均分排名前7.5%。这项研究成果由西电网信院、蚂蚁集团、迪肯大学、墨尔本大学和UIUC合作完成。</p>
-<h2 id="注意力表示"><a href="#注意力表示" class="headerlink" title="注意力表示"></a>注意力表示</h2><p>符号表示：</p>
+<p>PS：本片文章很可能是作者在[32]的基础上做的：近期，网络与信息安全学院吕锡香教授指导的博士生李一戈的论文「<strong>Neural
+Attention Distillation: Erasing Backdoor Triggers from Deep Neural
+Networks</strong>」，被人工智能顶级会议ICLR 2021收录，在ICLR
+2021会议近3000篇投稿中，均分排名前7.5%。这项研究成果由西电网信院、蚂蚁集团、迪肯大学、墨尔本大学和UIUC合作完成。</p>
+<h2 id="注意力表示">注意力表示</h2>
+<p>符号表示：</p>
 <ul>
-<li>$F_B$: 带有后门的模型</li>
-<li>$F_B^l$: l层激活函数的输出, $\epsilon R^{C_l\times H_l\times W_l}$</li>
-<li>$\mathcal G:R^{C_l\times H_l\times W_l}\to R^{H_l\times W_l}$: 映射函数，由激活函数输出得到注意力</li>
+<li><span class="math inline">\(F_B\)</span>: 带有后门的模型</li>
+<li><span class="math inline">\(F_B^l\)</span>: l层激活函数的输出, <span
+class="math inline">\(\epsilon R^{C_l\times H_l\times W_l}\)</span></li>
+<li><span class="math inline">\(\mathcal G:R^{C_l\times H_l\times
+W_l}\to R^{H_l\times W_l}\)</span>:
+映射函数，由激活函数输出得到注意力</li>
 </ul>
 <p>映射函数可从下面四个函数中选取：</p>
-<p><img src="/./Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231110124656839.png" alt="image-20231110124656839"></p>
-<h2 id="损失计算"><a href="#损失计算" class="headerlink" title="损失计算"></a>损失计算</h2><p>所谓自监督蒸馏（<strong>S</strong>elf-<strong>A</strong>ttention <strong>D</strong>istillation），核心是利用好上面的注意力映射（浅层），作为深层的监督信息。（想法就是，浅层不会有后门，后门只会在深层中，作用于细粒度特征，所以intuition是用浅层的信息来监督深层）</p>
-<p><img src="/./Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231113094040545.png" alt="image-20231113094040545"></p>
-<p>SAD的目标是尽量减小不同层之间的attention map的差异，然而这并没有考虑到对正确率的影响，也就是说很可能最后经过自注意力蒸馏后，对正确样本的预测率会大大下降，因此选用下式作为最终的loss func.</p>
-<p><img src="/./Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231113095438465.png" alt="image-20231113095438465"></p>
-<h2 id="学习率更新"><a href="#学习率更新" class="headerlink" title="学习率更新"></a>学习率更新</h2><p>本文提出的一种学习率更新的方法，设定了两个条件：$\mathcal C_1,\mathcal C_2$:</p>
+<figure>
+<img
+src="./Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231110124656839.png"
+alt="image-20231110124656839" />
+<figcaption aria-hidden="true">image-20231110124656839</figcaption>
+</figure>
+<h2 id="损失计算">损失计算</h2>
+<p>所谓自监督蒸馏（<strong>S</strong>elf-<strong>A</strong>ttention
+<strong>D</strong>istillation），核心是利用好上面的注意力映射（浅层），作为深层的监督信息。（想法就是，浅层不会有后门，后门只会在深层中，作用于细粒度特征，所以intuition是用浅层的信息来监督深层）</p>
+<figure>
+<img
+src="./Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231113094040545.png"
+alt="image-20231113094040545" />
+<figcaption aria-hidden="true">image-20231113094040545</figcaption>
+</figure>
+<p>SAD的目标是尽量减小不同层之间的attention
+map的差异，然而这并没有考虑到对正确率的影响，也就是说很可能最后经过自注意力蒸馏后，对正确样本的预测率会大大下降，因此选用下式作为最终的loss
+func.</p>
+<figure>
+<img
+src="./Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231113095438465.png"
+alt="image-20231113095438465" />
+<figcaption aria-hidden="true">image-20231113095438465</figcaption>
+</figure>
+<h2 id="学习率更新">学习率更新</h2>
+<p>本文提出的一种学习率更新的方法，设定了两个条件：<span
+class="math inline">\(\mathcal C_1,\mathcal C_2\)</span>:</p>
 <ul>
-<li>$\mathcal C_1$: 当在干净数据上的loss在n个epoch内都没有下降</li>
-<li>$\mathcal C_2$: 在干净数据上的loss最大值没有下降</li>
+<li><span class="math inline">\(\mathcal C_1\)</span>:
+当在干净数据上的loss在n个epoch内都没有下降</li>
+<li><span class="math inline">\(\mathcal C_2\)</span>:
+在干净数据上的loss最大值没有下降</li>
 </ul>
 <p>若是上面条件有一个发生，那么就将学习率除2。</p>
-<p><img src="/./Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231113105102560.png" alt="image-20231113105102560"></p>
+<figure>
+<img
+src="./Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/image-20231113105102560.png"
+alt="image-20231113105102560" />
+<figcaption aria-hidden="true">image-20231113105102560</figcaption>
+</figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/09/Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/" data-id="clw6dro9t002d819f7gi39m8b" data-title="Purifying_Backdoors_in_Deep_Learning_Models_using_Self_Attention_Distillation" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/11/09/Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/" data-id="clw7jm80s002fbz9ffn9s85tj" data-title="Purifying_Backdoors_in_Deep_Learning_Models_using_Self_Attention_Distillation" class="article-share-link">Share</a>
       
       
       
@@ -319,7 +363,7 @@
         
           
           
-            <img data-src="/covers/IMG_2620.PNG" data-sizes="auto" alt="Neural_Attention_Distillation_Erasing_Backdoor_Triggers_from_Deep_Neural_Networks" class="lazyload">
+            <img data-src="/covers/IMG_2619.PNG" data-sizes="auto" alt="Neural_Attention_Distillation_Erasing_Backdoor_Triggers_from_Deep_Neural_Networks" class="lazyload">
           
         
         <a href="/2023/11/13/Neural-Attention-Distillation-Erasing-Backdoor-Triggers-from-Deep-Neural-Networks/"></a>
@@ -336,7 +380,7 @@
       
         
         
-          <img data-src="/covers/IMG_2620.PNG" data-sizes="auto" alt="Data Poisoning Attacks in Internet-of-Vehicle Networks, Taxonomy, State-of-The-Art, and Future Directions" class="lazyload">
+          <img data-src="/covers/IMG_2581.JPG" data-sizes="auto" alt="Data Poisoning Attacks in Internet-of-Vehicle Networks, Taxonomy, State-of-The-Art, and Future Directions" class="lazyload">
         
       
       <a href="/2023/11/06/data-poisoning-attack-in-IoV-networks/"></a>
@@ -368,7 +412,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">2.</span> <span class="toc-text">背景</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E9%97%A8%E6%94%BB%E5%87%BB"><span class="toc-number">2.1.</span> <span class="toc-text">后门攻击</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E9%97%A8%E9%98%B2%E5%BE%A1"><span class="toc-number">2.2.</span> <span class="toc-text">后门防御</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B"><span class="toc-number">2.2.1.</span> <span class="toc-text">检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%80%E5%8C%96"><span class="toc-number">2.2.2.</span> <span class="toc-text">净化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E8%92%B8%E9%A6%8F%E5%92%8C%E6%B3%A8%E6%84%8F%E5%8A%9B%E8%92%B8%E9%A6%8F"><span class="toc-number">2.3.</span> <span class="toc-text">知识蒸馏和注意力蒸馏</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text">威胁模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SAGE"><span class="toc-number">4.</span> <span class="toc-text">SAGE</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86"><span class="toc-number">4.1.</span> <span class="toc-text">设计原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E8%A1%A8%E7%A4%BA"><span class="toc-number">4.2.</span> <span class="toc-text">注意力表示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8D%9F%E5%A4%B1%E8%AE%A1%E7%AE%97"><span class="toc-number">4.3.</span> <span class="toc-text">损失计算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E7%8E%87%E6%9B%B4%E6%96%B0"><span class="toc-number">4.4.</span> <span class="toc-text">学习率更新</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">2.</span> <span class="toc-text">背景</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E9%97%A8%E6%94%BB%E5%87%BB"><span class="toc-number">2.1.</span> <span class="toc-text">后门攻击</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E9%97%A8%E9%98%B2%E5%BE%A1"><span class="toc-number">2.2.</span> <span class="toc-text">后门防御</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B"><span class="toc-number">2.2.1.</span> <span class="toc-text">检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%80%E5%8C%96"><span class="toc-number">2.2.2.</span> <span class="toc-text">净化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E8%92%B8%E9%A6%8F%E5%92%8C%E6%B3%A8%E6%84%8F%E5%8A%9B%E8%92%B8%E9%A6%8F"><span class="toc-number">2.3.</span> <span class="toc-text">知识蒸馏和注意力蒸馏</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text">威胁模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sage"><span class="toc-number">4.</span> <span class="toc-text">SAGE</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86"><span class="toc-number">4.1.</span> <span class="toc-text">设计原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E8%A1%A8%E7%A4%BA"><span class="toc-number">4.2.</span> <span class="toc-text">注意力表示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8D%9F%E5%A4%B1%E8%AE%A1%E7%AE%97"><span class="toc-number">4.3.</span> <span class="toc-text">损失计算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E7%8E%87%E6%9B%B4%E6%96%B0"><span class="toc-number">4.4.</span> <span class="toc-text">学习率更新</span></a></li></ol></li></ol>
       
   </div>
 </div>
@@ -479,10 +523,10 @@
       
         <div>
           <span class="icon-brush"></span>
-          90.6k
+          90.4k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          05:57
+          05:55
         </div>
       
       
@@ -511,7 +555,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">2.</span> <span class="toc-text">背景</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E9%97%A8%E6%94%BB%E5%87%BB"><span class="toc-number">2.1.</span> <span class="toc-text">后门攻击</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E9%97%A8%E9%98%B2%E5%BE%A1"><span class="toc-number">2.2.</span> <span class="toc-text">后门防御</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B"><span class="toc-number">2.2.1.</span> <span class="toc-text">检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%80%E5%8C%96"><span class="toc-number">2.2.2.</span> <span class="toc-text">净化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E8%92%B8%E9%A6%8F%E5%92%8C%E6%B3%A8%E6%84%8F%E5%8A%9B%E8%92%B8%E9%A6%8F"><span class="toc-number">2.3.</span> <span class="toc-text">知识蒸馏和注意力蒸馏</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text">威胁模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SAGE"><span class="toc-number">4.</span> <span class="toc-text">SAGE</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86"><span class="toc-number">4.1.</span> <span class="toc-text">设计原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E8%A1%A8%E7%A4%BA"><span class="toc-number">4.2.</span> <span class="toc-text">注意力表示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8D%9F%E5%A4%B1%E8%AE%A1%E7%AE%97"><span class="toc-number">4.3.</span> <span class="toc-text">损失计算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E7%8E%87%E6%9B%B4%E6%96%B0"><span class="toc-number">4.4.</span> <span class="toc-text">学习率更新</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">2.</span> <span class="toc-text">背景</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E9%97%A8%E6%94%BB%E5%87%BB"><span class="toc-number">2.1.</span> <span class="toc-text">后门攻击</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E9%97%A8%E9%98%B2%E5%BE%A1"><span class="toc-number">2.2.</span> <span class="toc-text">后门防御</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B"><span class="toc-number">2.2.1.</span> <span class="toc-text">检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%80%E5%8C%96"><span class="toc-number">2.2.2.</span> <span class="toc-text">净化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E8%92%B8%E9%A6%8F%E5%92%8C%E6%B3%A8%E6%84%8F%E5%8A%9B%E8%92%B8%E9%A6%8F"><span class="toc-number">2.3.</span> <span class="toc-text">知识蒸馏和注意力蒸馏</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text">威胁模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sage"><span class="toc-number">4.</span> <span class="toc-text">SAGE</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86"><span class="toc-number">4.1.</span> <span class="toc-text">设计原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E8%A1%A8%E7%A4%BA"><span class="toc-number">4.2.</span> <span class="toc-text">注意力表示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8D%9F%E5%A4%B1%E8%AE%A1%E7%AE%97"><span class="toc-number">4.3.</span> <span class="toc-text">损失计算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E7%8E%87%E6%9B%B4%E6%96%B0"><span class="toc-number">4.4.</span> <span class="toc-text">学习率更新</span></a></li></ol></li></ol>
       
   </div>
 </div>

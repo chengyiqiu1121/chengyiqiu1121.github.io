@@ -25,15 +25,13 @@
   
 <link rel="stylesheet" href="/css/loader.css">
 
-  <meta name="description" content="Google scholar上，三位作者分别是：香港中文大学教授、IBM员工、香港中文大学博士生。CVPR 2023  核心思想：向DM中植入后门，当输入中含有触发器时，输出到目标标签。 跟我现在的想法有些类似。 方法威胁模型从两方进行建模：  用户：希望得到一个SOTA的DM 攻击者：提供DNN的第三方  用户在下载DM（攻击者声称在$D_{train}$上预训练过）后，会对这个模型进行验证（">
+  <meta name="description" content="image-20240413085547219  Google scholar上，三位作者分别是：香港中文大学教授、IBM员工、香港中文大学博士生。CVPR 2023   image-20240413091552922  核心思想：向DM中植入后门，当输入中含有触发器时，输出到目标标签。 跟我现在的想法有些类似。 方法 威胁模型 从两方进行建模：  用户：希望得到一个SOTA的DM 攻击者：提">
 <meta property="og:type" content="article">
 <meta property="og:title" content="How-to-Backdoor-Diffusion-Models">
 <meta property="og:url" content="http://example.com/2024/04/13/How-to-Backdoor-Diffusion-Models/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Google scholar上，三位作者分别是：香港中文大学教授、IBM员工、香港中文大学博士生。CVPR 2023  核心思想：向DM中植入后门，当输入中含有触发器时，输出到目标标签。 跟我现在的想法有些类似。 方法威胁模型从两方进行建模：  用户：希望得到一个SOTA的DM 攻击者：提供DNN的第三方  用户在下载DM（攻击者声称在$D_{train}$上预训练过）后，会对这个模型进行验证（">
+<meta property="og:description" content="image-20240413085547219  Google scholar上，三位作者分别是：香港中文大学教授、IBM员工、香港中文大学博士生。CVPR 2023   image-20240413091552922  核心思想：向DM中植入后门，当输入中含有触发器时，输出到目标标签。 跟我现在的想法有些类似。 方法 威胁模型 从两方进行建模：  用户：希望得到一个SOTA的DM 攻击者：提">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/How-to-Backdoor-Diffusion-Models/image-20240413085547219.png">
-<meta property="og:image" content="http://example.com/How-to-Backdoor-Diffusion-Models/image-20240413091552922.png">
 <meta property="og:image" content="http://example.com/2024/04/13/How-to-Backdoor-Diffusion-Models/How-to-Backdoor-Diffusion-Models/image-20240416151722758.png">
 <meta property="og:image" content="http://example.com/2024/04/13/How-to-Backdoor-Diffusion-Models/How-to-Backdoor-Diffusion-Models/image-20240416151756810.png">
 <meta property="og:image" content="http://example.com/2024/04/13/How-to-Backdoor-Diffusion-Models/How-to-Backdoor-Diffusion-Models/image-20240416153647633.png">
@@ -43,7 +41,7 @@
 <meta property="article:tag" content="backdoor">
 <meta property="article:tag" content="diffusion">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/How-to-Backdoor-Diffusion-Models/image-20240413085547219.png">
+<meta name="twitter:image" content="http://example.com/2024/04/13/How-to-Backdoor-Diffusion-Models/How-to-Backdoor-Diffusion-Models/image-20240416151722758.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -212,53 +210,103 @@
 
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p><img src="/./How-to-Backdoor-Diffusion-Models/image-20240413085547219.png" alt="image-20240413085547219"></p>
-<p>Google scholar上，三位作者分别是：香港中文大学教授、IBM员工、香港中文大学博士生。CVPR 2023</p>
-<p><img src="/./How-to-Backdoor-Diffusion-Models/image-20240413091552922.png" alt="image-20240413091552922"></p>
+        <figure>
+<img
+src="./How-to-Backdoor-Diffusion-Models/image-20240413085547219.png"
+alt="image-20240413085547219" />
+<figcaption aria-hidden="true">image-20240413085547219</figcaption>
+</figure>
+<p>Google
+scholar上，三位作者分别是：香港中文大学教授、IBM员工、香港中文大学博士生。CVPR
+2023</p>
+<figure>
+<img
+src="./How-to-Backdoor-Diffusion-Models/image-20240413091552922.png"
+alt="image-20240413091552922" />
+<figcaption aria-hidden="true">image-20240413091552922</figcaption>
+</figure>
 <p>核心思想：向DM中植入后门，当输入中含有触发器时，输出到目标标签。</p>
 <p>跟我现在的想法有些类似。</p>
-<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><h2 id="威胁模型"><a href="#威胁模型" class="headerlink" title="威胁模型"></a>威胁模型</h2><p>从两方进行建模：</p>
-<ol>
+<h1 id="方法">方法</h1>
+<h2 id="威胁模型">威胁模型</h2>
+<p>从两方进行建模：</p>
+<ol type="1">
 <li>用户：希望得到一个SOTA的DM</li>
 <li>攻击者：提供DNN的第三方</li>
 </ol>
-<p>用户在下载DM（攻击者声称在$D_{train}$上预训练过）后，会对这个模型进行验证（$FID$或者$IS$这样的指标），使用的数据集也是$D_{train}$，若是指标能够达到攻击者声称的那样，就接受模型。</p>
+<p>用户在下载DM（攻击者声称在<span
+class="math inline">\(D_{train}\)</span>上预训练过）后，会对这个模型进行验证（<span
+class="math inline">\(FID\)</span>或者<span
+class="math inline">\(IS\)</span>这样的指标），使用的数据集也是<span
+class="math inline">\(D_{train}\)</span>，若是指标能够达到攻击者声称的那样，就接受模型。</p>
 <p>攻击者的目标：</p>
 <ul>
 <li>高可用性：对于干净的图像生成高质量的干净图片</li>
-<li>高特殊性：对于含有触发器$g$的输入，生成目标图片$y$</li>
+<li>高特殊性：对于含有触发器<span
+class="math inline">\(g\)</span>的输入，生成目标图片<span
+class="math inline">\(y\)</span></li>
 </ul>
 <p>攻击者成功的条件：输入的含有触发器的图片，输出是目标标签图片，并且MSE比阈值低。</p>
 <p>攻击者可以从零开始训练一个扩散模型，也可以在别人发布的预训练模型上做微调。</p>
-<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p>训练：</p>
-<img src="./How-to-Backdoor-Diffusion-Models/image-20240416151722758.png" alt="image-20240416151722758" style="zoom: 50%;" />
-
+<h2 id="算法">算法</h2>
+<p>训练：</p>
+<p><img src="./How-to-Backdoor-Diffusion-Models/image-20240416151722758.png" alt="image-20240416151722758" style="zoom: 50%;" /></p>
 <p>推断：</p>
-<img src="./How-to-Backdoor-Diffusion-Models/image-20240416151756810.png" alt="image-20240416151756810" style="zoom:50%;" />
-
+<p><img src="./How-to-Backdoor-Diffusion-Models/image-20240416151756810.png" alt="image-20240416151756810" style="zoom:50%;" /></p>
 <p>loss:</p>
-<img src="./How-to-Backdoor-Diffusion-Models/image-20240416153647633.png" alt="image-20240416153647633" style="zoom: 50%;" />
-
-<h1 id="二月"><a href="#二月" class="headerlink" title="二月"></a>二月</h1><p>这次阅读是为了了解他的细节原理。</p>
+<p><img src="./How-to-Backdoor-Diffusion-Models/image-20240416153647633.png" alt="image-20240416153647633" style="zoom: 50%;" /></p>
+<h1 id="二月">二月</h1>
+<p>这次阅读是为了了解他的细节原理。</p>
 <p>从3.3开始，讲述了后门扩散过程。</p>
-<h2 id="后门扩散过程"><a href="#后门扩散过程" class="headerlink" title="后门扩散过程"></a>后门扩散过程</h2><p>首先回顾一下DDPM的扩散过程：<br>$$<br>x_t&#x3D;\sqrt{\bar\alpha_t}x_0+\sqrt{1-\bar\alpha_t}\epsilon<br>$$<br>后面一项是服从正态分布，将前一项堪称常数，于是：<br>$$<br>q(x_t)\sim\mathcal N(\sqrt{\bar\alpha_t}x_0,(1-\bar\alpha_t)I)<br>$$<br>也就是<br>$$<br>q(x_t\vert x_0)\sim\mathcal N(x_t;\sqrt{\bar\alpha_t}x_0,(1-\bar\alpha_t)I)<br>$$<br>作者直接给出了他的扩散过程的公式：<br>$$<br>q(x^{‘}_t\vert x^{‘}_0)\sim\mathcal N(x^{‘}_t;\sqrt{\bar\alpha_t}x^{‘}_0+(1-\sqrt{\bar\alpha_t})r,(1-\bar\alpha_t)I)<br>$$<br>把分布写成公式就是这样：<br>$$<br>x^{‘}_t&#x3D;\sqrt{\bar\alpha_t}x^{‘}_0+(1-\sqrt{\bar\alpha_t})r+\sqrt{1-\bar\alpha_t}\epsilon<br>$$<br>其各个符号的含义：</p>
+<h2 id="后门扩散过程">后门扩散过程</h2>
+<p>首先回顾一下DDPM的扩散过程： <span class="math display">\[
+x_t=\sqrt{\bar\alpha_t}x_0+\sqrt{1-\bar\alpha_t}\epsilon
+\]</span> 后面一项是服从正态分布，将前一项堪称常数，于是： <span
+class="math display">\[
+q(x_t)\sim\mathcal N(\sqrt{\bar\alpha_t}x_0,(1-\bar\alpha_t)I)
+\]</span> 也就是 <span class="math display">\[
+q(x_t\vert x_0)\sim\mathcal
+N(x_t;\sqrt{\bar\alpha_t}x_0,(1-\bar\alpha_t)I)
+\]</span> 作者直接给出了他的扩散过程的公式： <span
+class="math display">\[
+q(x^{&#39;}_t\vert x^{&#39;}_0)\sim\mathcal
+N(x^{&#39;}_t;\sqrt{\bar\alpha_t}x^{&#39;}_0+(1-\sqrt{\bar\alpha_t})r,(1-\bar\alpha_t)I)
+\]</span> 把分布写成公式就是这样： <span class="math display">\[
+x^{&#39;}_t=\sqrt{\bar\alpha_t}x^{&#39;}_0+(1-\sqrt{\bar\alpha_t})r+\sqrt{1-\bar\alpha_t}\epsilon
+\]</span> 其各个符号的含义：</p>
 <ul>
-<li>$x_0^{‘}$：这里加了一个上标，表示的是<code>backdoor target</code>，意思应该是需要逆扩散出来的结果。$x_0^{‘}\sim q(x_0^{‘})$</li>
-<li>$r&#x3D;M\odot g+(1-M)\odot x$：<ul>
+<li><span
+class="math inline">\(x_0^{&#39;}\)</span>：这里加了一个上标，表示的是<code>backdoor target</code>，意思应该是需要逆扩散出来的结果。<span
+class="math inline">\(x_0^{&#39;}\sim q(x_0^{&#39;})\)</span></li>
+<li><span class="math inline">\(r=M\odot g+(1-M)\odot x\)</span>：
+<ul>
 <li>r是毒化后的样本</li>
-<li>x是干净样本，$x\sim q(x_0)$​</li>
+<li>x是干净样本，<span class="math inline">\(x\sim q(x_0)\)</span>​</li>
 <li>g是触发器</li>
 <li>M是掩码</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<p>在DDPM中，经过扩散，最终得到的是一个近似的标准正态分布，因为越到后面，$\sqrt{\bar\alpha_t}$越小，趋近0了，那么可以将公式（2）改写为$q(x_T)\sim \mathcal N(0, I)$，同理，对于本文作者采取的扩散过程，最终得到的分布是：$q(x^{‘}_T)\sim \mathcal N(r,I)$。</p>
-<p>同理，根据单步扩散的公式，也可以计算出：<br>$$<br>x_t^{‘}&#x3D;\sqrt{\alpha_t}x^{‘}<em>{t-1}+(1-\sqrt{\alpha_t})r+\sqrt{1-\alpha_t}\epsilon<br>$$<br>写成分布：<br>$$<br>q(x_t^{‘}\vert x</em>{t-1}^{‘})\sim \mathcal N(x_t^{‘};\sqrt{\alpha_t}x^{‘}<em>{t-1}+(1-\sqrt{\alpha_t})r,(1-\alpha_t)I)<br>$$<br>下一步需要计算的是：<br>$$<br>q(x</em>{t-1}^{‘}\vert x_t^{‘},x_0^{‘})&#x3D;\frac{q(x_t^{‘}\vert x_{t-1}^{‘})\times q(x_{t-1}^{‘}\vert x_0^{‘})}{q(x_0^{‘})}<br>$$</p>
+<p>在DDPM中，经过扩散，最终得到的是一个近似的标准正态分布，因为越到后面，<span
+class="math inline">\(\sqrt{\bar\alpha_t}\)</span>越小，趋近0了，那么可以将公式（2）改写为<span
+class="math inline">\(q(x_T)\sim \mathcal N(0,
+I)\)</span>，同理，对于本文作者采取的扩散过程，最终得到的分布是：<span
+class="math inline">\(q(x^{&#39;}_T)\sim \mathcal N(r,I)\)</span>。</p>
+<p>同理，根据单步扩散的公式，也可以计算出： <span
+class="math display">\[
+x_t^{&#39;}=\sqrt{\alpha_t}x^{&#39;}_{t-1}+(1-\sqrt{\alpha_t})r+\sqrt{1-\alpha_t}\epsilon
+\]</span> 写成分布： <span class="math display">\[
+q(x_t^{&#39;}\vert x_{t-1}^{&#39;})\sim \mathcal
+N(x_t^{&#39;};\sqrt{\alpha_t}x^{&#39;}_{t-1}+(1-\sqrt{\alpha_t})r,(1-\alpha_t)I)
+\]</span> 下一步需要计算的是： <span class="math display">\[
+q(x_{t-1}^{&#39;}\vert x_t^{&#39;},x_0^{&#39;})=\frac{q(x_t^{&#39;}\vert
+x_{t-1}^{&#39;})\times q(x_{t-1}^{&#39;}\vert
+x_0^{&#39;})}{q(x_0^{&#39;})}
+\]</span></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/04/13/How-to-Backdoor-Diffusion-Models/" data-id="clw6dro9q001h819f8ku808r3" data-title="How-to-Backdoor-Diffusion-Models" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2024/04/13/How-to-Backdoor-Diffusion-Models/" data-id="clw7jm80q001nbz9f3c1x1jjd" data-title="How-to-Backdoor-Diffusion-Models" class="article-share-link">Share</a>
       
       
       
@@ -278,7 +326,7 @@
         
           
           
-            <img data-src="/covers/IMG_2579.JPG" data-sizes="auto" alt="VDC" class="lazyload">
+            <img data-src="/covers/IMG_2581.JPG" data-sizes="auto" alt="VDC" class="lazyload">
           
         
         <a href="/2024/04/16/VDC/"></a>
@@ -295,7 +343,7 @@
       
         
         
-          <img data-src="/covers/IMG_2582.PNG" data-sizes="auto" alt="pro-git" class="lazyload">
+          <img data-src="/covers/IMG_2581.JPG" data-sizes="auto" alt="pro-git" class="lazyload">
         
       
       <a href="/2024/04/12/pro-git/"></a>
@@ -438,10 +486,10 @@
       
         <div>
           <span class="icon-brush"></span>
-          90.6k
+          90.4k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          05:57
+          05:55
         </div>
       
       

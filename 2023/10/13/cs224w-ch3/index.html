@@ -25,48 +25,48 @@
   
 <link rel="stylesheet" href="/css/loader.css">
 
-  <meta name="description" content="ch2讲的就是我们如何设计特征，来尽量准确的表示这个网络，然后再交给机器学习算法如SVM，最后得到我们的预测：  事实上我们可能会花大部分的时间去做特征工程。 这一节考虑的是，能否不用特征工程。 图表征学习：自动获取网络的特征。 node embedding结点嵌入两个很重要的特征；  无监督：训练不需要利用结点的label，也不需要feature task independent：嵌入就是一个提">
+  <meta name="description" content="ch2讲的就是我们如何设计特征，来尽量准确的表示这个网络，然后再交给机器学习算法如SVM，最后得到我们的预测：   image-20231013104858822  事实上我们可能会花大部分的时间去做特征工程。 这一节考虑的是，能否不用特征工程。 图表征学习：自动获取网络的特征。 node embedding 结点嵌入两个很重要的特征；  无监督：训练不需要利用结点的label，也不需要featu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cs224w_ch3">
 <meta property="og:url" content="http://example.com/2023/10/13/cs224w-ch3/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="ch2讲的就是我们如何设计特征，来尽量准确的表示这个网络，然后再交给机器学习算法如SVM，最后得到我们的预测：  事实上我们可能会花大部分的时间去做特征工程。 这一节考虑的是，能否不用特征工程。 图表征学习：自动获取网络的特征。 node embedding结点嵌入两个很重要的特征；  无监督：训练不需要利用结点的label，也不需要feature task independent：嵌入就是一个提">
+<meta property="og:description" content="ch2讲的就是我们如何设计特征，来尽量准确的表示这个网络，然后再交给机器学习算法如SVM，最后得到我们的预测：   image-20231013104858822  事实上我们可能会花大部分的时间去做特征工程。 这一节考虑的是，能否不用特征工程。 图表征学习：自动获取网络的特征。 node embedding 结点嵌入两个很重要的特征；  无监督：训练不需要利用结点的label，也不需要featu">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231013104858822.png">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231013105154723.png">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231013105532825.png">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231013110146538.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231013104858822.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231013105154723.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231013105532825.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231013110146538.png">
 <meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231013123405368.png">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231013195103736.png">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015203440876.png">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015203738556.png">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015203753465.png">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015210342311.png">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015210423990.png">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015210646749.png">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015210720744.png">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015211112148.png">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231013110146538.png">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015213201541.png">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015213554066.png">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015213929100.png">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015200000371.png">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015221015877.png">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015221050844.png">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231015221722630.png">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231016082050748.png">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231016082759928.png">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231016082950394.png">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231016083437104.png">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231016084518021.png">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231016084700692.png">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231016084952691.png">
-<meta property="og:image" content="http://example.com/cs224w-ch3/image-20231016085824928.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231013195103736.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015203440876.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015203738556.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015203753465.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015210342311.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015210423990.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015210646749.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015210720744.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015211112148.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231013110146538.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015213201541.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015213554066.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015213929100.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015200000371.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015221015877.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015221050844.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015221722630.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231016082050748.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231016082759928.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231016082950394.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231016083437104.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231016084518021.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231016084700692.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231016084952691.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231016085824928.png">
 <meta property="article:published_time" content="2023-10-13T02:44:37.000Z">
 <meta property="article:modified_time" content="2023-10-17T09:18:14.000Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/cs224w-ch3/image-20231013104858822.png">
+<meta name="twitter:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231013104858822.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -236,76 +236,121 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <p>ch2讲的就是我们如何设计特征，来尽量准确的表示这个网络，然后再交给机器学习算法如SVM，最后得到我们的预测：</p>
-<p><img src="/./cs224w-ch3/image-20231013104858822.png" alt="image-20231013104858822"></p>
+<figure>
+<img src="./cs224w-ch3/image-20231013104858822.png"
+alt="image-20231013104858822" />
+<figcaption aria-hidden="true">image-20231013104858822</figcaption>
+</figure>
 <p>事实上我们可能会花大部分的时间去做特征工程。</p>
 <p>这一节考虑的是，能否不用特征工程。</p>
 <p>图表征学习：自动获取网络的特征。</p>
-<h2 id="node-embedding"><a href="#node-embedding" class="headerlink" title="node embedding"></a>node embedding</h2><p>结点嵌入两个很重要的特征；</p>
+<h2 id="node-embedding">node embedding</h2>
+<p>结点嵌入两个很重要的特征；</p>
 <ul>
 <li>无监督：训练不需要利用结点的label，也不需要feature</li>
-<li>task independent：嵌入就是一个提取网络特征的过程，可以将提取出的特征用于任何适合的机器学习算法，也就是与下游任务无关。</li>
+<li>task
+independent：嵌入就是一个提取网络特征的过程，可以将提取出的特征用于任何适合的机器学习算法，也就是与下游任务无关。</li>
 </ul>
-<p><img src="/./cs224w-ch3/image-20231013105154723.png" alt="image-20231013105154723"></p>
-<p>图嵌入是干这样的一件事：将node u自然而然的映射（map）到一个d维的向量中去。这个过程被称为node embedding</p>
-<p>嵌入的原理是这样的：如果两个node的d维向量有相似性，那么这两个node本身也很可能有相似性。  </p>
-<p>完成了结点嵌入之后，我们就可以用这个d维的向量来做downstream task了</p>
-<p><img src="/./cs224w-ch3/image-20231013105532825.png" alt="image-20231013105532825"></p>
-<h3 id="DeepWalking"><a href="#DeepWalking" class="headerlink" title="DeepWalking"></a>DeepWalking</h3><p><img src="/./cs224w-ch3/image-20231013110146538.png" alt="image-20231013110146538"></p>
+<figure>
+<img src="./cs224w-ch3/image-20231013105154723.png"
+alt="image-20231013105154723" />
+<figcaption aria-hidden="true">image-20231013105154723</figcaption>
+</figure>
+<p>图嵌入是干这样的一件事：将node
+u自然而然的映射（map）到一个d维的向量中去。这个过程被称为node
+embedding</p>
+<p>嵌入的原理是这样的：如果两个node的d维向量有相似性，那么这两个node本身也很可能有相似性。</p>
+<p>完成了结点嵌入之后，我们就可以用这个d维的向量来做downstream
+task了</p>
+<figure>
+<img src="./cs224w-ch3/image-20231013105532825.png"
+alt="image-20231013105532825" />
+<figcaption aria-hidden="true">image-20231013105532825</figcaption>
+</figure>
+<h3 id="deepwalking">DeepWalking</h3>
+<figure>
+<img src="./cs224w-ch3/image-20231013110146538.png"
+alt="image-20231013110146538" />
+<figcaption aria-hidden="true">image-20231013110146538</figcaption>
+</figure>
 <p>这是一个小型的网络，将图嵌入到了一个2d空间，可以看到相同颜色的结点在图上和被嵌入的空间中都是离得比较近的。</p>
-<h3 id="Embedding"><a href="#Embedding" class="headerlink" title="Embedding"></a>Embedding</h3><p>更抽象的描述是这样：</p>
-<img src="./cs224w-ch3/image-20231013123405368.png" alt="image-20231013123405368" style="zoom:25%;" />
-
-<p>至于用dot product（点积）的原因是，其代表的是这两个向量之间的余弦，例如如果两个向量是垂直的话，dot product就为0了。</p>
+<h3 id="embedding">Embedding</h3>
+<p>更抽象的描述是这样：</p>
+<p><img src="./cs224w-ch3/image-20231013123405368.png" alt="image-20231013123405368" style="zoom:25%;" /></p>
+<p>至于用dot
+product（点积）的原因是，其代表的是这两个向量之间的余弦，例如如果两个向量是垂直的话，dot
+product就为0了。</p>
 <p>嵌入的步骤：</p>
-<ol>
+<ol type="1">
 <li><p>使用Encoder将node映射到嵌入空间</p>
-<p>$ENC(v)&#x3D;z_v$</p>
-<p>这个嵌入空间通常是64d到1000d的</p>
-</li>
-<li><p>定义一个结点相似函数，用来测量图中被嵌入到node pairs之间的相似度</p>
-</li>
-<li><p>使用Decoder将嵌入结点映射为相似度</p>
-</li>
-<li><p>优化Encoder的参数，使得结点相似度和嵌入结点相似度近似相等。</p>
-</li>
+<p><span class="math inline">\(ENC(v)=z_v\)</span></p>
+<p>这个嵌入空间通常是64d到1000d的</p></li>
+<li><p>定义一个结点相似函数，用来测量图中被嵌入到node
+pairs之间的相似度</p></li>
+<li><p>使用Decoder将嵌入结点映射为相似度</p></li>
+<li><p>优化Encoder的参数，使得结点相似度和嵌入结点相似度近似相等。</p></li>
 </ol>
-<p>$$<br>similarity(u,v)\approx z_v^Tz_u<br>$$</p>
+<p><span class="math display">\[
+similarity(u,v)\approx z_v^Tz_u
+\]</span></p>
 <p>这里我们选择的解码器是非常简单的，仅仅是两个向量的dot product</p>
-<h3 id="shallow-encoder"><a href="#shallow-encoder" class="headerlink" title="shallow encoder"></a>shallow encoder</h3><p>最简单的编码方式：<br>$$<br>ENC(v)&#x3D;z_v&#x3D;Z.v<br>$$</p>
-<ul>
-<li>Z：要学习的矩阵，行代表的是低维向量，列代表的是结点。</li>
-<li>v：v是一个列向量，其中大部分元素是0，除了要得到的结点v的那一个地方为1。</li>
-</ul>
-<p>如$v&#x3D;[0,0,1,0,0,0]$ </p>
+<h3 id="shallow-encoder">shallow encoder</h3>
+<p>最简单的编码方式： <span class="math display">\[
+ENC(v)=z_v=Z.v
+\]</span> - Z：要学习的矩阵，行代表的是低维向量，列代表的是结点。 -
+v：v是一个列向量，其中大部分元素是0，除了要得到的结点v的那一个地方为1。</p>
+<p>如<span class="math inline">\(v=[0,0,1,0,0,0]\)</span></p>
 <p>对于这种编码器，我们需要学习的就是Z：</p>
-<p><img src="/./cs224w-ch3/image-20231013195103736.png" alt="image-20231013195103736"></p>
+<figure>
+<img src="./cs224w-ch3/image-20231013195103736.png"
+alt="image-20231013195103736" />
+<figcaption aria-hidden="true">image-20231013195103736</figcaption>
+</figure>
 <p>这个方法的缺点：当图比较大时，假设嵌入维度为1000，结点数为100w，那么就有10亿参数。而造成这个matrix如此大的原因是：我们计算了每个node的嵌入向量，当需要某个node的嵌入向量时，可以直接从这个超级大矩阵里面去做一次查找(look-up)。</p>
-<p>那么最后，我们来考虑怎么来定义node similarity？可以采用random walks</p>
-<h2 id="Random-walks"><a href="#Random-walks" class="headerlink" title="Random walks"></a>Random walks</h2><h3 id="DeepWalk"><a href="#DeepWalk" class="headerlink" title="DeepWalk"></a>DeepWalk</h3><h4 id="notion"><a href="#notion" class="headerlink" title="notion"></a>notion</h4><p>回顾一下 两个非线性函数：</p>
-<ol>
+<p>那么最后，我们来考虑怎么来定义node similarity？可以采用random
+walks</p>
+<h2 id="random-walks">Random walks</h2>
+<h3 id="deepwalk">DeepWalk</h3>
+<h4 id="notion">notion</h4>
+<p>回顾一下 两个非线性函数：</p>
+<ol type="1">
 <li>softmax</li>
 </ol>
-<p>这里给到softmax的解释：a soft version of a maximum function，最大值函数的软版本。</p>
-<ol start="2">
+<p>这里给到softmax的解释：a soft version of a maximum
+function，最大值函数的软版本。</p>
+<ol start="2" type="1">
 <li>sigmoid</li>
 </ol>
 <p>sigmoid可以任何实数压缩到0～1之间。</p>
 <p>另外还有两个概念：</p>
 <ul>
-<li>$z_u$：结点u的嵌入</li>
-<li>$P(v|z_u)$：从u开始，使用随机游走访问v的概率</li>
+<li><span class="math inline">\(z_u\)</span>：结点u的嵌入</li>
+<li><span
+class="math inline">\(P(v|z_u)\)</span>：从u开始，使用随机游走访问v的概率</li>
 </ul>
-<p>那么什么是随机游走呢：从一个结点u开始，随机的选取它的一个邻居v，作为next step，依此类推。</p>
+<p>那么什么是随机游走呢：从一个结点u开始，随机的选取它的一个邻居v，作为next
+step，依此类推。</p>
 <p>这里给了下面这个定义，不是很理解：</p>
-<p><img src="/./cs224w-ch3/image-20231015203440876.png" alt="image-20231015203440876"></p>
-<h4 id="detail"><a href="#detail" class="headerlink" title="detail"></a>detail</h4><p>基于随机游走的嵌入可以用两步表示：</p>
-<ol>
+<figure>
+<img src="./cs224w-ch3/image-20231015203440876.png"
+alt="image-20231015203440876" />
+<figcaption aria-hidden="true">image-20231015203440876</figcaption>
+</figure>
+<h4 id="detail">detail</h4>
+<p>基于随机游走的嵌入可以用两步表示：</p>
+<ol type="1">
 <li><p>使用一个策略R，来估计访问结点v的概率</p>
-<p><img src="/./cs224w-ch3/image-20231015203738556.png" alt="image-20231015203738556"></p>
-</li>
+<figure>
+<img src="./cs224w-ch3/image-20231015203738556.png"
+alt="image-20231015203738556" />
+<figcaption aria-hidden="true">image-20231015203738556</figcaption>
+</figure></li>
 <li><p>优化嵌入，通过编码这一步随机游走</p>
-<p><img src="/./cs224w-ch3/image-20231015203753465.png" alt="image-20231015203753465"></p>
-</li>
+<figure>
+<img src="./cs224w-ch3/image-20231015203753465.png"
+alt="image-20231015203753465" />
+<figcaption aria-hidden="true">image-20231015203753465</figcaption>
+</figure></li>
 </ol>
 <p>然后为什么选随机游走（优点）：</p>
 <ul>
@@ -313,95 +358,201 @@
 <li>不需要考虑整个图全局信息，只需要考虑path中同时出现的random walk</li>
 </ul>
 <p>随机游走步骤：</p>
-<ol>
-<li><p>从每一个u开始，走固定的长度，通过使用随机策略R</p>
-</li>
-<li><p>对于每一个u，收集其$N_R(u)$</p>
-</li>
+<ol type="1">
+<li><p>从每一个u开始，走固定的长度，通过使用随机策略R</p></li>
+<li><p>对于每一个u，收集其<span
+class="math inline">\(N_R(u)\)</span></p></li>
 <li><p>通过对数似然函数进行优化：</p>
-<p><img src="/./cs224w-ch3/image-20231015210342311.png" alt="image-20231015210342311"></p>
+<figure>
+<img src="./cs224w-ch3/image-20231015210342311.png"
+alt="image-20231015210342311" />
+<figcaption aria-hidden="true">image-20231015210342311</figcaption>
+</figure>
 <p>同样也可以讲其表示称下面这种形式：</p>
-<p><img src="/./cs224w-ch3/image-20231015210423990.png" alt="image-20231015210423990"></p>
+<figure>
+<img src="./cs224w-ch3/image-20231015210423990.png"
+alt="image-20231015210423990" />
+<figcaption aria-hidden="true">image-20231015210423990</figcaption>
+</figure>
 <p>其中可以将对数里面的参数写成下面的softmax形式，那么这个结果其实就是u之后v的概率</p>
-<p><img src="/./cs224w-ch3/image-20231015210646749.png" alt="image-20231015210646749"></p>
+<figure>
+<img src="./cs224w-ch3/image-20231015210646749.png"
+alt="image-20231015210646749" />
+<figcaption aria-hidden="true">image-20231015210646749</figcaption>
+</figure>
 <p>所以最终的损失函数如下：</p>
-<p><img src="/./cs224w-ch3/image-20231015210720744.png" alt="image-20231015210720744"></p>
-</li>
+<figure>
+<img src="./cs224w-ch3/image-20231015210720744.png"
+alt="image-20231015210720744" />
+<figcaption aria-hidden="true">image-20231015210720744</figcaption>
+</figure></li>
 </ol>
-<p>但是有个问题，这里有两层嵌套，意味着时间复杂度是$O(|V|^2)$，复杂度太高了！</p>
-<h4 id="negative-sample"><a href="#negative-sample" class="headerlink" title="negative sample"></a>negative sample</h4><p>选择使用负采样来近似softmax的分母：</p>
-<p><img src="/./cs224w-ch3/image-20231015211112148.png" alt="image-20231015211112148"></p>
+<p>但是有个问题，这里有两层嵌套，意味着时间复杂度是<span
+class="math inline">\(O(|V|^2)\)</span>，复杂度太高了！</p>
+<h4 id="negative-sample">negative sample</h4>
+<p>选择使用负采样来近似softmax的分母：</p>
+<figure>
+<img src="./cs224w-ch3/image-20231015211112148.png"
+alt="image-20231015211112148" />
+<figcaption aria-hidden="true">image-20231015211112148</figcaption>
+</figure>
 <p>k是一般取5～20</p>
-<p>最开始是DeepWalk提出了random walks（走固定长度，使用随机策略）。这样的similarity表现还不错，从最终结果来看，嵌入空间和图空间中，nearby的点是对应的。</p>
-<p><img src="/./cs224w-ch3/image-20231013110146538.png" alt="image-20231013110146538"></p>
+<p>最开始是DeepWalk提出了random
+walks（走固定长度，使用随机策略）。这样的similarity表现还不错，从最终结果来看，嵌入空间和图空间中，nearby的点是对应的。</p>
+<figure>
+<img src="./cs224w-ch3/image-20231013110146538.png"
+alt="image-20231013110146538" />
+<figcaption aria-hidden="true">image-20231013110146538</figcaption>
+</figure>
 <p>但是这样定义的similarity太受限制了，于是很多人尝试优化。</p>
-<h3 id="node2vec"><a href="#node2vec" class="headerlink" title="node2vec"></a>node2vec</h3><p>idea：使用灵活的、有偏好的随机游走，例如当进行下一步时，可以选择更广或者更深，也就是DFS和BFS的思想</p>
-<p><img src="/./cs224w-ch3/image-20231015213201541.png" alt="image-20231015213201541"></p>
+<h3 id="node2vec">node2vec</h3>
+<p>idea：使用灵活的、有偏好的随机游走，例如当进行下一步时，可以选择更广或者更深，也就是DFS和BFS的思想</p>
+<figure>
+<img src="./cs224w-ch3/image-20231015213201541.png"
+alt="image-20231015213201541" />
+<figcaption aria-hidden="true">image-20231015213201541</figcaption>
+</figure>
 <p>这里面有两个参数：</p>
 <ul>
 <li>p：可以看到之前的结点</li>
 <li>q：选择使用DFS（outwards）还是BFS（inwards）</li>
 </ul>
 <p>下面这例子完美表示了两个参数的用途：</p>
-<p><img src="/./cs224w-ch3/image-20231015213554066.png" alt="image-20231015213554066"></p>
+<figure>
+<img src="./cs224w-ch3/image-20231015213554066.png"
+alt="image-20231015213554066" />
+<figcaption aria-hidden="true">image-20231015213554066</figcaption>
+</figure>
 <p>w从s1来的，那么下一步，若是选择inwards，可以去s2（和s1距离相同），若是选outwards，可以走s3，还可以回到s1。</p>
 <p>我们将其量化：</p>
-<p><img src="/./cs224w-ch3/image-20231015213929100.png" alt="image-20231015213929100"></p>
+<figure>
+<img src="./cs224w-ch3/image-20231015213929100.png"
+alt="image-20231015213929100" />
+<figcaption aria-hidden="true">image-20231015213929100</figcaption>
+</figure>
 <p>我们可以调整p、q来得到不同的策略R。</p>
-<h3 id="other-random-walk"><a href="#other-random-walk" class="headerlink" title="other random walk"></a>other random walk</h3><p>这是一些其他的关于随机游走的优化。</p>
-<p><img src="/./cs224w-ch3/image-20231015200000371.png" alt="image-20231015200000371"></p>
-<h2 id="Embedding-entire-graph"><a href="#Embedding-entire-graph" class="headerlink" title="Embedding entire graph"></a>Embedding entire graph</h2><p>Goal: to embed the entire graph or sub-graph!</p>
+<h3 id="other-random-walk">other random walk</h3>
+<p>这是一些其他的关于随机游走的优化。</p>
+<figure>
+<img src="./cs224w-ch3/image-20231015200000371.png"
+alt="image-20231015200000371" />
+<figcaption aria-hidden="true">image-20231015200000371</figcaption>
+</figure>
+<h2 id="embedding-entire-graph">Embedding entire graph</h2>
+<p>Goal: to embed the entire graph or sub-graph!</p>
 <ul>
 <li><p>entire graph</p>
-<p><img src="/./cs224w-ch3/image-20231015221015877.png" alt="image-20231015221015877"></p>
-</li>
+<figure>
+<img src="./cs224w-ch3/image-20231015221015877.png"
+alt="image-20231015221015877" />
+<figcaption aria-hidden="true">image-20231015221015877</figcaption>
+</figure></li>
 <li><p>Sub-graph</p>
-<p><img src="/./cs224w-ch3/image-20231015221050844.png" alt="image-20231015221050844"></p>
-</li>
+<figure>
+<img src="./cs224w-ch3/image-20231015221050844.png"
+alt="image-20231015221050844" />
+<figcaption aria-hidden="true">image-20231015221050844</figcaption>
+</figure></li>
 </ul>
 <p>the application(task):</p>
 <ul>
 <li>Classifying toxic vs. non-toxic molecules</li>
 <li>Identifying anomalous graphs</li>
 </ul>
-<h3 id="Approach-1"><a href="#Approach-1" class="headerlink" title="Approach 1"></a>Approach 1</h3><p>it is simple and effective, which is:</p>
-<ol>
-<li><p>use node2vec or deepwalks to caculate the embed node u of $z_u$</p>
-</li>
-<li><p>then sum or average<br>$$<br>z_G&#x3D;\sum_{v\epsilon G}z_v<br>$$</p>
-</li>
+<h3 id="approach-1">Approach 1</h3>
+<p>it is simple and effective, which is:</p>
+<ol type="1">
+<li><p>use node2vec or deepwalks to caculate the embed node u of <span
+class="math inline">\(z_u\)</span></p></li>
+<li><p>then sum or average <span class="math display">\[
+z_G=\sum_{v\epsilon G}z_v
+\]</span></p></li>
 </ol>
-<h3 id="Approach-2"><a href="#Approach-2" class="headerlink" title="Approach 2"></a>Approach 2</h3><p>use a virtual node to represent the graph, and by using node2vec or deepwaks to embedding the virtual node to embedding space.</p>
-<p><img src="/./cs224w-ch3/image-20231015221722630.png" alt="image-20231015221722630"></p>
-<h3 id="Approach-3"><a href="#Approach-3" class="headerlink" title="Approach 3"></a>Approach 3</h3><h4 id="Idea-1"><a href="#Idea-1" class="headerlink" title="Idea 1"></a>Idea 1</h4><p>use anonymous walks to instead random walks.</p>
-<p><img src="/./cs224w-ch3/image-20231016082050748.png" alt="image-20231016082050748"></p>
+<h3 id="approach-2">Approach 2</h3>
+<p>use a virtual node to represent the graph, and by using node2vec or
+deepwaks to embedding the virtual node to embedding space.</p>
+<figure>
+<img src="./cs224w-ch3/image-20231015221722630.png"
+alt="image-20231015221722630" />
+<figcaption aria-hidden="true">image-20231015221722630</figcaption>
+</figure>
+<h3 id="approach-3">Approach 3</h3>
+<h4 id="idea-1">Idea 1</h4>
+<p>use anonymous walks to instead random walks.</p>
+<figure>
+<img src="./cs224w-ch3/image-20231016082050748.png"
+alt="image-20231016082050748" />
+<figcaption aria-hidden="true">image-20231016082050748</figcaption>
+</figure>
 <p>feature is:</p>
 <ul>
-<li>Anonymous </li>
+<li>Anonymous</li>
 <li>Capture the struct rather than node pairs</li>
 </ul>
-<p>with the length of step increasing, the number of anonymous walks (the anonymous walks vector $Z_G(i)$, for l&#x3D;3, the dimensions of $Z_G(i)$ is 5) <strong>exponentially</strong> increase.</p>
-<p><img src="/./cs224w-ch3/image-20231016082759928.png" alt="image-20231016082759928"></p>
-<p><img src="/./cs224w-ch3/image-20231016082950394.png" alt="image-20231016082950394"></p>
-<p>We have the vector now, so how many walks should we sample to represent the whole distribution?</p>
+<p>with the length of step increasing, the number of anonymous walks
+(the anonymous walks vector <span class="math inline">\(Z_G(i)\)</span>,
+for l=3, the dimensions of <span class="math inline">\(Z_G(i)\)</span>
+is 5) <strong>exponentially</strong> increase.</p>
+<figure>
+<img src="./cs224w-ch3/image-20231016082759928.png"
+alt="image-20231016082759928" />
+<figcaption aria-hidden="true">image-20231016082759928</figcaption>
+</figure>
+<figure>
+<img src="./cs224w-ch3/image-20231016082950394.png"
+alt="image-20231016082950394" />
+<figcaption aria-hidden="true">image-20231016082950394</figcaption>
+</figure>
+<p>We have the vector now, so how many walks should we sample to
+represent the whole distribution?</p>
 <p>use this formula:</p>
-<p><img src="/./cs224w-ch3/image-20231016083437104.png" alt="image-20231016083437104"></p>
-<h4 id="Idea-2"><a href="#Idea-2" class="headerlink" title="Idea 2"></a>Idea 2</h4><p>Above, we use a vector $Z_G(i)$ to represent the distribution, it is a set of  probability about every walk.</p>
-<p>the other idea is use walks ranther than probability:<br>$$<br>Z&#x3D;{z_i:i&#x3D;1…\eta} \<br>$$<br>$\eta$ is the number of sampled anonymous walks.</p>
+<figure>
+<img src="./cs224w-ch3/image-20231016083437104.png"
+alt="image-20231016083437104" />
+<figcaption aria-hidden="true">image-20231016083437104</figcaption>
+</figure>
+<h4 id="idea-2">Idea 2</h4>
+<p>Above, we use a vector <span class="math inline">\(Z_G(i)\)</span> to
+represent the distribution, it is a set of probability about every
+walk.</p>
+<p>the other idea is use walks ranther than probability: <span
+class="math display">\[
+Z=\{z_i:i=1...\eta\} \\
+\]</span> <span class="math inline">\(\eta\)</span> is the number of
+sampled anonymous walks.</p>
 <p>so here is the idea and how we learning the walks embeddings?</p>
 <p>First, sample some walks:</p>
-<p><img src="/./cs224w-ch3/image-20231016084518021.png" alt="image-20231016084518021"></p>
-<p>Than, learn to predict walks which is co-occur in $\Delta$ size window</p>
-<p>e.g., predict $w_3$ given $w_1,w_2,\Delta&#x3D;2$</p>
-<p><img src="/./cs224w-ch3/image-20231016084700692.png" alt="image-20231016084700692"></p>
-<p>so, different from DeepWalk, node2vec, the neighbor set is:<br>$$<br>N_R(u)&#x3D;{w_1^u,w_2^u…w_T^u}<br>$$<br><img src="/./cs224w-ch3/image-20231016084952691.png" alt="image-20231016084952691"></p>
-<p>$Z_G$ is a optimized vector parameter</p>
-<p><img src="/./cs224w-ch3/image-20231016085824928.png" alt="image-20231016085824928"></p>
+<figure>
+<img src="./cs224w-ch3/image-20231016084518021.png"
+alt="image-20231016084518021" />
+<figcaption aria-hidden="true">image-20231016084518021</figcaption>
+</figure>
+<p>Than, learn to predict walks which is co-occur in <span
+class="math inline">\(\Delta\)</span> size window</p>
+<p>e.g., predict <span class="math inline">\(w_3\)</span> given <span
+class="math inline">\(w_1,w_2,\Delta=2\)</span></p>
+<figure>
+<img src="./cs224w-ch3/image-20231016084700692.png"
+alt="image-20231016084700692" />
+<figcaption aria-hidden="true">image-20231016084700692</figcaption>
+</figure>
+<p>so, different from DeepWalk, node2vec, the neighbor set is: <span
+class="math display">\[
+N_R(u)=\{w_1^u,w_2^u...w_T^u\}
+\]</span> <img src="./cs224w-ch3/image-20231016084952691.png"
+alt="image-20231016084952691" /></p>
+<p><span class="math inline">\(Z_G\)</span> is a optimized vector
+parameter</p>
+<figure>
+<img src="./cs224w-ch3/image-20231016085824928.png"
+alt="image-20231016085824928" />
+<figcaption aria-hidden="true">image-20231016085824928</figcaption>
+</figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/13/cs224w-ch3/" data-id="clw6dro9u0036819f41j9dx6z" data-title="cs224w_ch3" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/10/13/cs224w-ch3/" data-id="clw7jm80v003bbz9fbb341t9t" data-title="cs224w_ch3" class="article-share-link">Share</a>
       
       
       
@@ -419,7 +570,7 @@
         
           
           
-            <img data-src="/covers/IMG_2583 2.PNG" data-sizes="auto" alt="high_performance_computer_network_lecture1" class="lazyload">
+            <img data-src="/covers/IMG_2581.JPG" data-sizes="auto" alt="high_performance_computer_network_lecture1" class="lazyload">
           
         
         <a href="/2023/10/13/high-performance-computer-network-lecture1/"></a>
@@ -436,7 +587,7 @@
       
         
         
-          <img data-src="/covers/IMG_2585.JPG" data-sizes="auto" alt="20h_write_sci" class="lazyload">
+          <img data-src="/covers/IMG_2586.PNG" data-sizes="auto" alt="20h_write_sci" class="lazyload">
         
       
       <a href="/2023/10/13/20h-write-sci/"></a>
@@ -468,7 +619,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#node-embedding"><span class="toc-number">1.</span> <span class="toc-text">node embedding</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DeepWalking"><span class="toc-number">1.1.</span> <span class="toc-text">DeepWalking</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Embedding"><span class="toc-number">1.2.</span> <span class="toc-text">Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shallow-encoder"><span class="toc-number">1.3.</span> <span class="toc-text">shallow encoder</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Random-walks"><span class="toc-number">2.</span> <span class="toc-text">Random walks</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DeepWalk"><span class="toc-number">2.1.</span> <span class="toc-text">DeepWalk</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#notion"><span class="toc-number">2.1.1.</span> <span class="toc-text">notion</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#detail"><span class="toc-number">2.1.2.</span> <span class="toc-text">detail</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#negative-sample"><span class="toc-number">2.1.3.</span> <span class="toc-text">negative sample</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#node2vec"><span class="toc-number">2.2.</span> <span class="toc-text">node2vec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#other-random-walk"><span class="toc-number">2.3.</span> <span class="toc-text">other random walk</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Embedding-entire-graph"><span class="toc-number">3.</span> <span class="toc-text">Embedding entire graph</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Approach-1"><span class="toc-number">3.1.</span> <span class="toc-text">Approach 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Approach-2"><span class="toc-number">3.2.</span> <span class="toc-text">Approach 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Approach-3"><span class="toc-number">3.3.</span> <span class="toc-text">Approach 3</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Idea-1"><span class="toc-number">3.3.1.</span> <span class="toc-text">Idea 1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Idea-2"><span class="toc-number">3.3.2.</span> <span class="toc-text">Idea 2</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#node-embedding"><span class="toc-number">1.</span> <span class="toc-text">node embedding</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#deepwalking"><span class="toc-number">1.1.</span> <span class="toc-text">DeepWalking</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#embedding"><span class="toc-number">1.2.</span> <span class="toc-text">Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shallow-encoder"><span class="toc-number">1.3.</span> <span class="toc-text">shallow encoder</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#random-walks"><span class="toc-number">2.</span> <span class="toc-text">Random walks</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#deepwalk"><span class="toc-number">2.1.</span> <span class="toc-text">DeepWalk</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#notion"><span class="toc-number">2.1.1.</span> <span class="toc-text">notion</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#detail"><span class="toc-number">2.1.2.</span> <span class="toc-text">detail</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#negative-sample"><span class="toc-number">2.1.3.</span> <span class="toc-text">negative sample</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#node2vec"><span class="toc-number">2.2.</span> <span class="toc-text">node2vec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#other-random-walk"><span class="toc-number">2.3.</span> <span class="toc-text">other random walk</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#embedding-entire-graph"><span class="toc-number">3.</span> <span class="toc-text">Embedding entire graph</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#approach-1"><span class="toc-number">3.1.</span> <span class="toc-text">Approach 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#approach-2"><span class="toc-number">3.2.</span> <span class="toc-text">Approach 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#approach-3"><span class="toc-number">3.3.</span> <span class="toc-text">Approach 3</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#idea-1"><span class="toc-number">3.3.1.</span> <span class="toc-text">Idea 1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#idea-2"><span class="toc-number">3.3.2.</span> <span class="toc-text">Idea 2</span></a></li></ol></li></ol></li></ol>
       
   </div>
 </div>
@@ -579,10 +730,10 @@
       
         <div>
           <span class="icon-brush"></span>
-          90.6k
+          90.4k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          05:57
+          05:55
         </div>
       
       
@@ -611,7 +762,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#node-embedding"><span class="toc-number">1.</span> <span class="toc-text">node embedding</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DeepWalking"><span class="toc-number">1.1.</span> <span class="toc-text">DeepWalking</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Embedding"><span class="toc-number">1.2.</span> <span class="toc-text">Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shallow-encoder"><span class="toc-number">1.3.</span> <span class="toc-text">shallow encoder</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Random-walks"><span class="toc-number">2.</span> <span class="toc-text">Random walks</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DeepWalk"><span class="toc-number">2.1.</span> <span class="toc-text">DeepWalk</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#notion"><span class="toc-number">2.1.1.</span> <span class="toc-text">notion</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#detail"><span class="toc-number">2.1.2.</span> <span class="toc-text">detail</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#negative-sample"><span class="toc-number">2.1.3.</span> <span class="toc-text">negative sample</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#node2vec"><span class="toc-number">2.2.</span> <span class="toc-text">node2vec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#other-random-walk"><span class="toc-number">2.3.</span> <span class="toc-text">other random walk</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Embedding-entire-graph"><span class="toc-number">3.</span> <span class="toc-text">Embedding entire graph</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Approach-1"><span class="toc-number">3.1.</span> <span class="toc-text">Approach 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Approach-2"><span class="toc-number">3.2.</span> <span class="toc-text">Approach 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Approach-3"><span class="toc-number">3.3.</span> <span class="toc-text">Approach 3</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Idea-1"><span class="toc-number">3.3.1.</span> <span class="toc-text">Idea 1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Idea-2"><span class="toc-number">3.3.2.</span> <span class="toc-text">Idea 2</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#node-embedding"><span class="toc-number">1.</span> <span class="toc-text">node embedding</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#deepwalking"><span class="toc-number">1.1.</span> <span class="toc-text">DeepWalking</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#embedding"><span class="toc-number">1.2.</span> <span class="toc-text">Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shallow-encoder"><span class="toc-number">1.3.</span> <span class="toc-text">shallow encoder</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#random-walks"><span class="toc-number">2.</span> <span class="toc-text">Random walks</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#deepwalk"><span class="toc-number">2.1.</span> <span class="toc-text">DeepWalk</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#notion"><span class="toc-number">2.1.1.</span> <span class="toc-text">notion</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#detail"><span class="toc-number">2.1.2.</span> <span class="toc-text">detail</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#negative-sample"><span class="toc-number">2.1.3.</span> <span class="toc-text">negative sample</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#node2vec"><span class="toc-number">2.2.</span> <span class="toc-text">node2vec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#other-random-walk"><span class="toc-number">2.3.</span> <span class="toc-text">other random walk</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#embedding-entire-graph"><span class="toc-number">3.</span> <span class="toc-text">Embedding entire graph</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#approach-1"><span class="toc-number">3.1.</span> <span class="toc-text">Approach 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#approach-2"><span class="toc-number">3.2.</span> <span class="toc-text">Approach 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#approach-3"><span class="toc-number">3.3.</span> <span class="toc-text">Approach 3</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#idea-1"><span class="toc-number">3.3.1.</span> <span class="toc-text">Idea 1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#idea-2"><span class="toc-number">3.3.2.</span> <span class="toc-text">Idea 2</span></a></li></ol></li></ol></li></ol>
       
   </div>
 </div>

@@ -190,28 +190,31 @@
       
         
         
-          <img data-src="/covers/IMG_2577.JPG" data-sizes="auto" alt="limu_read_paper" class="lazyload">
+          <img data-src="/covers/IMG_2575.JPG" data-sizes="auto" alt="limu_read_paper" class="lazyload">
         
       
     </div>
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2024-05-10</span>
-        <span><span class="icon-pencil"></span>367 words</span>
+        <span><span class="icon-pencil"></span>365 words</span>
         <span><span class="icon-clock"></span>1 min</span>
       </div>
       <h2 class="post-title">limu_read_paper</h2>
       <article class="post-article">
         
           本文对应李沐老师在哔哩哔哩上的读论文栏目，做一些小记录。
-GANframework，一般是自己的工作量相当大才会自称提出了一种框架，反之不会这么写。
-GAN中的G是一个MLP，输入也是一个noice，采样自$\mathcal N(0, I)$​
+GAN
+framework，一般是自己的工作量相当大才会自称提出了一种框架，反之不会这么写。
+GAN中的G是一个MLP，输入也是一个noice，采样自\(\mathcal N(0, I)\)​
 GAN和DM的一个区别是：
 
 GAN通过一个MLP，来模拟数据集构成的分布，不需要计算均值、方差（不需要得到这个分布）
 DM则是通过一个网络，来拟合数据集的分布，从而让最终模型的输出是一个分布，输出的值就是这个分布的均值。
 
-若样本来自真实世界，则标记为1，若来生成器，则标记为0。G的目标是：$$\min (\log (1-D(G(z))))$$假设D
+若样本来自真实世界，则标记为1，若来生成器，则标记为0。G的目标是：
+\[
+\min (\log (1-D(G(z))))
         
       </article>
     </div>
@@ -228,7 +231,7 @@ DM则是通过一个网络，来拟合数据集的分布，从而让最终模型
       
         
         
-          <img data-src="/covers/IMG_2618.PNG" data-sizes="auto" alt="VillanDiffusion" class="lazyload">
+          <img data-src="/covers/IMG_2585.JPG" data-sizes="auto" alt="VillanDiffusion" class="lazyload">
         
       
     </div>
@@ -260,29 +263,32 @@ DM则是通过一个网络，来拟合数据集的分布，从而让最终模型
       
         
         
-          <img data-src="/covers/IMG_2581.JPG" data-sizes="auto" alt="Infomation_Theory_Inference_and_Learning_Algorithms" class="lazyload">
+          <img data-src="/covers/IMG_2582.PNG" data-sizes="auto" alt="Infomation_Theory_Inference_and_Learning_Algorithms" class="lazyload">
         
       
     </div>
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2024-04-27</span>
-        <span><span class="icon-pencil"></span>638 words</span>
+        <span><span class="icon-pencil"></span>641 words</span>
         <span><span class="icon-clock"></span>2 mins</span>
       </div>
       <h2 class="post-title">Infomation_Theory_Inference_and_Learning_Algorithms</h2>
       <article class="post-article">
         
           复习一下信息论的知识，看一下英文版的。
-介绍信息论探讨的问题：通信的一个很基本为问题是，在一个地方将另一个地方的信息准确的、或者近似的重新恢复出来。
+介绍
+信息论探讨的问题：通信的一个很基本为问题是，在一个地方将另一个地方的信息准确的、或者近似的重新恢复出来。
 
-如何在一个不完美的信道里实现完美通信标题的意思其实就是：当信道中含有噪声的时候，怎么实现可靠的通信。
+
+image-20240427152805269
+
+如何在一个不完美的信道里实现完美通信
+标题的意思其实就是：当信道中含有噪声的时候，怎么实现可靠的通信。
 书中举了几个例子来说明标题中的情况：
 
-
 分别是：电话线通信、广播、细胞增殖、磁盘读写。
-上述四个进程包含的中间过程，都会对原始数据产生噪声干扰。比较特殊的是第四个进程，向我们揭示了：通信并不一定强制要求从一个地方到另一个地方，一次磁盘读写，是对同一块位置进行操作，保留了狭义通信的另一个性质：时间上延迟。
-由此，可以对通信重新下定义：发送方将信
+上述四个进程包含的中间过程，都会对原始数据产生噪声干扰。比较特殊的是第四个进程，向我们揭示了：通信并不一定强制要求从一个地方到另一个地方，一次磁盘读写，是对同一块位置进行操作，保留了狭义通信的另一个性质
         
       </article>
     </div>
@@ -299,30 +305,39 @@ DM则是通过一个网络，来拟合数据集的分布，从而让最终模型
       
         
         
-          <img data-src="/covers/IMG_2576.JPG" data-sizes="auto" alt="TrojDiff" class="lazyload">
+          <img data-src="/covers/IMG_2580.JPG" data-sizes="auto" alt="TrojDiff" class="lazyload">
         
       
     </div>
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2024-04-22</span>
-        <span><span class="icon-pencil"></span>186 words</span>
+        <span><span class="icon-pencil"></span>185 words</span>
         <span><span class="icon-clock"></span>1 min</span>
       </div>
       <h2 class="post-title">TrojDiff</h2>
       <article class="post-article">
         
           
+
+image-20240422150711499
+
 CVPR 2023
-代码：chenweixin107&amp;#x2F;TrojDiff (github.com)
-TrojDiff威胁模型 攻击者视角。
-两种触发器$\delta$：
+代码：chenweixin107/TrojDiff
+(github.com)
+TrojDiff
+威胁模型
+攻击者视角。
+两种触发器\(\delta\)：
 
 blend
 patch
 
-从$\mathcal N(0, I)$中采样出的杂讯称为clean noise，而含有trigger的杂讯则被称为Trojan noise。
-首先考虑的是blend triger，Trijan noice是从$\mathcal N(\mu, \gamma ^2I)$中采样出来的：$$x&amp;#x3D;\mu+\gamma\epsilon&amp;#x3D;(1-\gamma)\delta+\gamma
+从\(\mathcal N(0,
+I)\)中采样出的杂讯称为clean noise，而含有trigger的杂讯则被称为Trojan noise。
+首先考虑的是blend triger，Trijan noice是从\(\mathcal N(\mu, \gamma ^2I)\)中采样出来的：
+\[
+x=\mu+\gamma\epsilon=(1-
         
       </article>
     </div>
@@ -340,7 +355,7 @@ patch
       
         
         
-          <img data-src="/covers/IMG_2582.PNG" data-sizes="auto" alt="Diffusion-Backdoor-Embed" class="lazyload">
+          <img data-src="/covers/IMG_2620.PNG" data-sizes="auto" alt="Diffusion-Backdoor-Embed" class="lazyload">
         
       
     </div>
@@ -370,14 +385,14 @@ patch
       
         
         
-          <img data-src="/covers/IMG_2578.JPG" data-sizes="auto" alt="VDC" class="lazyload">
+          <img data-src="/covers/IMG_2618.PNG" data-sizes="auto" alt="VDC" class="lazyload">
         
       
     </div>
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2024-04-16</span>
-        <span><span class="icon-pencil"></span>324 words</span>
+        <span><span class="icon-pencil"></span>326 words</span>
         <span><span class="icon-clock"></span>1 min</span>
       </div>
       <h2 class="post-title">VDC</h2>
@@ -385,20 +400,21 @@ patch
         
           ICLR 2024 accept
 
+
+image-20240416165129023
+
 前提：投毒数据的视觉特征与其对应的目标标签的视觉特征不一致。
-VQG作者将问题建模成以下形式：
+VQG
+作者将问题建模成以下形式：
 
-
-$F_{vqy}$可以看作一个系统，输入是标签$y_i$​（可能是ground truth，也可能是目标标签），输出是关于这个标签的问题和答案。
+\(F_{vqy}\)可以看作一个系统，输入是标签\(y_i\)​（可能是ground
+truth，也可能是目标标签），输出是关于这个标签的问题和答案。
 作者将问题分为两类：
 
 通用问题：通用问题指的是粗粒度的问题，比如“简单的描述一下这幅图片。”
 特定标签问题：细粒度问题，例如“图片中的气体是被用来飞行的吗”
 
-这个系统是人力设计的，也就是说人来拟定问题和答案；对于特定标签问题，由于有的数据集标签太多，因此他们也会用LLM来生成一些问题和答案（如GPT）
-VQA
-
-
+这个系统是人力设计的，也就是说人来拟定问题和答案；对于特定标签问题，由于有的数据集标签太多，因此
         
       </article>
     </div>
@@ -423,27 +439,33 @@ VQA
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2024-04-13</span>
-        <span><span class="icon-pencil"></span>740 words</span>
+        <span><span class="icon-pencil"></span>765 words</span>
         <span><span class="icon-clock"></span>3 mins</span>
       </div>
       <h2 class="post-title">How-to-Backdoor-Diffusion-Models</h2>
       <article class="post-article">
         
           
-Google scholar上，三位作者分别是：香港中文大学教授、IBM员工、香港中文大学博士生。CVPR 2023
+
+image-20240413085547219
+
+Google
+scholar上，三位作者分别是：香港中文大学教授、IBM员工、香港中文大学博士生。CVPR
+2023
+
+
+image-20240413091552922
 
 核心思想：向DM中植入后门，当输入中含有触发器时，输出到目标标签。
 跟我现在的想法有些类似。
-方法威胁模型从两方进行建模：
+方法
+威胁模型
+从两方进行建模：
 
 用户：希望得到一个SOTA的DM
 攻击者：提供DNN的第三方
 
-用户在下载DM（攻击者声称在$D_{train}$上预训练过）后，会对这个模型进行验证（$FID$或者$IS$这样的指标），使用的数据集也是$D_{train}$，若是指标能够达到攻击者声称的那样，就接受模型。
-攻击者的目标：
-
-高可用性：对于干净的图像生成高质量的干净图片
-高特殊性：对
+用户在下载DM（攻击者声称在\(D_{train}\)上预训练过）后，会对这个模型进行验证（\(FID\)或者\(IS\)这样的指标），使用的数据集也是\(D_{train}\)，
         
       </article>
     </div>
@@ -460,21 +482,24 @@ Google scholar上，三位作者分别是：香港中文大学教授、IBM员工
       
         
         
-          <img data-src="/covers/IMG_2618.PNG" data-sizes="auto" alt="pro-git" class="lazyload">
+          <img data-src="/covers/IMG_2577.JPG" data-sizes="auto" alt="pro-git" class="lazyload">
         
       
     </div>
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2024-04-12</span>
-        <span><span class="icon-pencil"></span>467 words</span>
+        <span><span class="icon-pencil"></span>468 words</span>
         <span><span class="icon-clock"></span>2 mins</span>
       </div>
       <h2 class="post-title">pro-git</h2>
       <article class="post-article">
         
-          本来想记录一次git的踩坑，但是考虑到后面可能会阅读Pro Git，因此创建本文档。
-问题大文件123456789101112131415(base) chengyiqiu@chengyiqiu:~/code/Diffusion-Backdoor-Embed$ git pushEnumerating objects: 60081, done.Counting objects: 100% (60081/60081), done.Delta compression using up to 12 threadsCompressing objects: 100% (60039/60039), done
+          本来想记录一次git的踩坑，但是考虑到后面可能会阅读Pro
+Git，因此创建本文档。
+问题
+大文件
+123456789101112131415(base) chengyiqiu@chengyiqiu:~/code/Diffusion-Backdoor-Embed$ git pushEnumerating objects: 60081, done.Counting objects: 100% (60081/60081), done.Delta compression using up to 12 threadsCompressing objects: 100% (60039/60039), do
         
       </article>
     </div>
@@ -499,7 +524,7 @@ Google scholar上，三位作者分别是：香港中文大学教授、IBM员工
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2024-04-08</span>
-        <span><span class="icon-pencil"></span>990 words</span>
+        <span><span class="icon-pencil"></span>994 words</span>
         <span><span class="icon-clock"></span>3 mins</span>
       </div>
       <h2 class="post-title">DATAELIXIR:Purifying-Poisoned-Dataset-to-Mitigate-Backdoor-Attacks-via-Diffusion-Models</h2>
@@ -508,15 +533,23 @@ Google scholar上，三位作者分别是：香港中文大学教授、IBM员工
           AAAI 2024
 还没有release code
 
+
+image-20240408124759179
+
 本文提出了一种数据消毒方法，也是使用扩散模型来消除触发器特征，重构良性特征。
-方法威胁模型本文处于防御者的视角，对于攻击者的目标标签、投毒率等不可访问。
+方法
+威胁模型
+本文处于防御者的视角，对于攻击者的目标标签、投毒率等不可访问。
 防御者：
 
 假设防御者可以访问和当前任务类似分布的预训练扩散模型。
 训练扩散模型的数据集是干净的
 
-候选集合构建、
-本文采取的方法是，对于某张图片，进行n轮前向&amp;amp;反向过程，每一轮的最后m次反向，收集重构的图片，作为候选集合，若是候选集合中的标签发生了变化，证明图片很可能被投毒。$$C_{(x_i,y_i)}&amp;#x3D;{(x_j,y_j)}^{n\times m}_{j&amp;#x3D;
+候选集合构建
+、
+本文采取的方法是，对于某张图片，进行n轮前向&amp;amp;反向过程，每一轮的最后m次反向，收集重构的图片，作为候选集合，若是候选集合中的标签发生了变化，证明图片很可能被投毒。
+\[
+C_{(x_i,y_i)}=\{(x_j
         
       </article>
     </div>
@@ -533,27 +566,28 @@ Google scholar上，三位作者分别是：香港中文大学教授、IBM员工
       
         
         
-          <img data-src="/covers/IMG_2619.PNG" data-sizes="auto" alt="python-package-tutorials" class="lazyload">
+          <img data-src="/covers/IMG_2579.JPG" data-sizes="auto" alt="python-package-tutorials" class="lazyload">
         
       
     </div>
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2024-04-03</span>
-        <span><span class="icon-pencil"></span>765 words</span>
+        <span><span class="icon-pencil"></span>772 words</span>
         <span><span class="icon-clock"></span>3 mins</span>
       </div>
       <h2 class="post-title">python-package-tutorials</h2>
       <article class="post-article">
         
           教程，来自官网、blog等。
-Hydraget start读取配置文件的一个包，可以读取制指定文件夹下的制定配置文件，安装方法：
+Hydra
+get start
+读取配置文件的一个包，可以读取制指定文件夹下的制定配置文件，安装方法：
 1pip install hydra-core
-
 这会安装hydra, omegacong等。
-创建folder conf，在里面创建我们的配置文件config.yaml:
+创建folder
+conf，在里面创建我们的配置文件config.yaml:
 12345known_host:  host: 120.76.43.27  port: 62222  user: chengyiqiu  pwd: secert
-
 运行下面的代码：
 123456789101112import hydrafrom omegaconf import DictConf
         
@@ -699,10 +733,10 @@ Hydraget start读取配置文件的一个包，可以读取制指定文件夹下
       
         <div>
           <span class="icon-brush"></span>
-          90.6k
+          90.4k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          05:57
+          05:55
         </div>
       
       

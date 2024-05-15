@@ -25,14 +25,14 @@
   
 <link rel="stylesheet" href="/css/loader.css">
 
-  <meta name="description" content="CVPR 2023 代码：chenweixin107&#x2F;TrojDiff (github.com) TrojDiff威胁模型 攻击者视角。 两种触发器$\delta$：  blend patch  从$\mathcal N(0, I)$中采样出的杂讯称为clean noise，而含有trigger的杂讯则被称为Trojan noise。 首先考虑的是blend triger，Trijan">
+  <meta name="description" content="image-20240422150711499  CVPR 2023 代码：chenweixin107&#x2F;TrojDiff (github.com) TrojDiff 威胁模型 攻击者视角。 两种触发器\(\delta\)：  blend patch  从\(\mathcal N(0, I)\)中采样出的杂讯称为clean noise，而含有trigger的杂讯则被称为Trojan noise。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TrojDiff">
 <meta property="og:url" content="http://example.com/2024/04/22/TrojDiff/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="CVPR 2023 代码：chenweixin107&#x2F;TrojDiff (github.com) TrojDiff威胁模型 攻击者视角。 两种触发器$\delta$：  blend patch  从$\mathcal N(0, I)$中采样出的杂讯称为clean noise，而含有trigger的杂讯则被称为Trojan noise。 首先考虑的是blend triger，Trijan">
+<meta property="og:description" content="image-20240422150711499  CVPR 2023 代码：chenweixin107&#x2F;TrojDiff (github.com) TrojDiff 威胁模型 攻击者视角。 两种触发器\(\delta\)：  blend patch  从\(\mathcal N(0, I)\)中采样出的杂讯称为clean noise，而含有trigger的杂讯则被称为Trojan noise。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/TrojDiff/image-20240422150711499.png">
+<meta property="og:image" content="http://example.com/2024/04/22/TrojDiff/TrojDiff/image-20240422150711499.png">
 <meta property="og:image" content="http://example.com/2024/04/22/TrojDiff/TrojDiff/image-20240423155454057.png">
 <meta property="article:published_time" content="2024-04-22T07:02:02.000Z">
 <meta property="article:modified_time" content="2024-04-23T07:54:58.561Z">
@@ -40,7 +40,7 @@
 <meta property="article:tag" content="backdoor">
 <meta property="article:tag" content="diffusion">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/TrojDiff/image-20240422150711499.png">
+<meta name="twitter:image" content="http://example.com/2024/04/22/TrojDiff/TrojDiff/image-20240422150711499.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -209,33 +209,51 @@
 
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p><img src="/./TrojDiff/image-20240422150711499.png" alt="image-20240422150711499"></p>
+        <figure>
+<img src="./TrojDiff/image-20240422150711499.png"
+alt="image-20240422150711499" />
+<figcaption aria-hidden="true">image-20240422150711499</figcaption>
+</figure>
 <p>CVPR 2023</p>
-<p>代码：<a target="_blank" rel="noopener" href="https://github.com/chenweixin107/TrojDiff">chenweixin107&#x2F;TrojDiff (github.com)</a></p>
-<h1 id="TrojDiff"><a href="#TrojDiff" class="headerlink" title="TrojDiff"></a>TrojDiff</h1><h2 id="威胁模型"><a href="#威胁模型" class="headerlink" title="威胁模型"></a>威胁模型</h2><p> 攻击者视角。</p>
-<p>两种触发器$\delta$：</p>
+<p>代码：<a
+target="_blank" rel="noopener" href="https://github.com/chenweixin107/TrojDiff">chenweixin107/TrojDiff
+(github.com)</a></p>
+<h1 id="trojdiff">TrojDiff</h1>
+<h2 id="威胁模型">威胁模型</h2>
+<p>攻击者视角。</p>
+<p>两种触发器<span class="math inline">\(\delta\)</span>：</p>
 <ul>
 <li>blend</li>
 <li>patch</li>
 </ul>
-<p>从$\mathcal N(0, I)$中采样出的杂讯称为<code>clean noise</code>，而含有trigger的杂讯则被称为<code>Trojan noise</code>。</p>
-<p>首先考虑的是<code>blend triger</code>，<code>Trijan noice</code>是从$\mathcal N(\mu, \gamma ^2I)$中采样出来的：<br>$$<br>x&#x3D;\mu+\gamma\epsilon&#x3D;(1-\gamma)\delta+\gamma\epsilon<br>$$<br>攻击者的目标：</p>
+<p>从<span class="math inline">\(\mathcal N(0,
+I)\)</span>中采样出的杂讯称为<code>clean noise</code>，而含有trigger的杂讯则被称为<code>Trojan noise</code>。</p>
+<p>首先考虑的是<code>blend triger</code>，<code>Trijan noice</code>是从<span
+class="math inline">\(\mathcal N(\mu, \gamma ^2I)\)</span>中采样出来的：
+<span class="math display">\[
+x=\mu+\gamma\epsilon=(1-\gamma)\delta+\gamma\epsilon
+\]</span> 攻击者的目标：</p>
 <ul>
-<li>当采样是<code>clean noise</code>，输出的图片是从$q(x)$的数据分布中得到的</li>
-<li>当采样是<code>Trojan noice</code>，输出的图片是源自数据分布$\tilde q(x)$</li>
+<li>当采样是<code>clean noise</code>，输出的图片是从<span
+class="math inline">\(q(x)\)</span>的数据分布中得到的</li>
+<li>当采样是<code>Trojan noice</code>，输出的图片是源自数据分布<span
+class="math inline">\(\tilde q(x)\)</span></li>
 </ul>
 <p>攻击方式：</p>
 <ul>
-<li>目标标签属于$q(x)$中，称为<code>In-D2D</code></li>
-<li>目标标签不属于$q(x)$，称为<code>Out-D2D</code></li>
+<li>目标标签属于<span
+class="math inline">\(q(x)\)</span>中，称为<code>In-D2D</code></li>
+<li>目标标签不属于<span
+class="math inline">\(q(x)\)</span>，称为<code>Out-D2D</code></li>
 <li>重定向到某一张图片，称为<code>D2I</code></li>
 </ul>
-<h2 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h2><img src="./TrojDiff/image-20240423155454057.png" alt="image-20240423155454057" style="zoom:150%;" />
+<h2 id="整体架构">整体架构</h2>
+<p><img src="./TrojDiff/image-20240423155454057.png" alt="image-20240423155454057" style="zoom:150%;" /></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/04/22/TrojDiff/" data-id="clw6dro9t002k819fdxgw9q8v" data-title="TrojDiff" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2024/04/22/TrojDiff/" data-id="clw7jm80t002mbz9f7j1mbxhk" data-title="TrojDiff" class="article-share-link">Share</a>
       
       
       
@@ -255,7 +273,7 @@
         
           
           
-            <img data-src="/covers/IMG_2621.PNG" data-sizes="auto" alt="Infomation_Theory_Inference_and_Learning_Algorithms" class="lazyload">
+            <img data-src="/covers/IMG_2618.PNG" data-sizes="auto" alt="Infomation_Theory_Inference_and_Learning_Algorithms" class="lazyload">
           
         
         <a href="/2024/04/27/Infomation-Theory-Inference-and-Learning-Algorithms/"></a>
@@ -272,7 +290,7 @@
       
         
         
-          <img data-src="/covers/IMG_2582.PNG" data-sizes="auto" alt="Diffusion-Backdoor-Embed" class="lazyload">
+          <img data-src="/covers/IMG_2575.JPG" data-sizes="auto" alt="Diffusion-Backdoor-Embed" class="lazyload">
         
       
       <a href="/2024/04/18/Diffusion-Backdoor-Embed/"></a>
@@ -304,7 +322,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#TrojDiff"><span class="toc-number">1.</span> <span class="toc-text">TrojDiff</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text">威胁模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84"><span class="toc-number">1.2.</span> <span class="toc-text">整体架构</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#trojdiff"><span class="toc-number">1.</span> <span class="toc-text">TrojDiff</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text">威胁模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84"><span class="toc-number">1.2.</span> <span class="toc-text">整体架构</span></a></li></ol></li></ol>
       
   </div>
 </div>
@@ -415,10 +433,10 @@
       
         <div>
           <span class="icon-brush"></span>
-          90.6k
+          90.4k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          05:57
+          05:55
         </div>
       
       
@@ -447,7 +465,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#TrojDiff"><span class="toc-number">1.</span> <span class="toc-text">TrojDiff</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text">威胁模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84"><span class="toc-number">1.2.</span> <span class="toc-text">整体架构</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#trojdiff"><span class="toc-number">1.</span> <span class="toc-text">TrojDiff</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text">威胁模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84"><span class="toc-number">1.2.</span> <span class="toc-text">整体架构</span></a></li></ol></li></ol>
       
   </div>
 </div>
