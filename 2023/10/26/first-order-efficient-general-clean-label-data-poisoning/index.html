@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width":280,"display":"post","offset":10,"onmobile":true},"hljswrap":true,"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="abstract 先简单介绍了一下中毒攻击，然后指出existing work的局限性：  大多都是bi-level optimization（二阶层优化）问题。这会导致在求解问题的时候有很大的计算量。 现有的方法都是用feature collision（特征碰撞）的方法，这些方法对没见过的特征空间效果不是很好，转移到其他场景也不是很容易  于是作者提出了一个一阶的方法，这个方法理论上可以大概达到">
+    <meta name="description" content="abstract 先简单介绍了一下中毒攻击，然后指出existing work的局限性：  大多都是bi-level optimization（二阶层优化）问题。这会导致在求解问题的时候有很大的计算量。 现有的方法都是用feature collision（特征碰撞）的方法，这些方法对没见过的特征空间效果不是很好，转移到其他场景也不是很容易  于是作者提出了一个一阶的方法，这个方法理论上可以大概达">
 <meta property="og:type" content="article">
 <meta property="og:title" content="First-Order Efficient General-Purpose Clean-Label Data Poisoning">
 <meta property="og:url" content="http://example.com/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="abstract 先简单介绍了一下中毒攻击，然后指出existing work的局限性：  大多都是bi-level optimization（二阶层优化）问题。这会导致在求解问题的时候有很大的计算量。 现有的方法都是用feature collision（特征碰撞）的方法，这些方法对没见过的特征空间效果不是很好，转移到其他场景也不是很容易  于是作者提出了一个一阶的方法，这个方法理论上可以大概达到">
+<meta property="og:description" content="abstract 先简单介绍了一下中毒攻击，然后指出existing work的局限性：  大多都是bi-level optimization（二阶层优化）问题。这会导致在求解问题的时候有很大的计算量。 现有的方法都是用feature collision（特征碰撞）的方法，这些方法对没见过的特征空间效果不是很好，转移到其他场景也不是很容易  于是作者提出了一个一阶的方法，这个方法理论上可以大概达">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/first-order-efficient-general-clean-label-data-poisoning/image-20231031094403031.png">
 <meta property="og:image" content="http://example.com/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/first-order-efficient-general-clean-label-data-poisoning/image-20231031125626227.png">
@@ -118,8 +118,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">abstract</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#metapoison"><span class="nav-number">2.</span> <span class="nav-text">MetaPoison</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#threat-model"><span class="nav-number">3.</span> <span class="nav-text">threat model</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#clean-label-data-poisoning"><span class="nav-number">3.1.</span> <span class="nav-text">clean-label data poisoning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gray-box-or-black-box-setting"><span class="nav-number">3.2.</span> <span class="nav-text">gray-box or black-box
-setting</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#method"><span class="nav-number">4.</span> <span class="nav-text">method</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%94%BB%E5%87%BB%E7%AD%96%E7%95%A5"><span class="nav-number">4.1.</span> <span class="nav-text">基本攻击策略</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#result"><span class="nav-number">5.</span> <span class="nav-text">result</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text"> abstract</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#metapoison"><span class="nav-number">2.</span> <span class="nav-text"> MetaPoison</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#threat-model"><span class="nav-number">3.</span> <span class="nav-text"> threat model</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#clean-label-data-poisoning"><span class="nav-number">3.1.</span> <span class="nav-text"> clean-label data poisoning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gray-box-or-black-box-setting"><span class="nav-number">3.2.</span> <span class="nav-text"> gray-box or black-box setting</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#method"><span class="nav-number">4.</span> <span class="nav-text"> method</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%94%BB%E5%87%BB%E7%AD%96%E7%95%A5"><span class="nav-number">4.1.</span> <span class="nav-text"> 基本攻击策略</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#result"><span class="nav-number">5.</span> <span class="nav-text"> result</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -236,13 +235,11 @@ setting</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="abstract">abstract</h1>
+    <div class="post-body" itemprop="articleBody"><h1 id="abstract"><a class="markdownIt-Anchor" href="#abstract"></a> abstract</h1>
 <p>先简单介绍了一下中毒攻击，然后指出existing work的局限性：</p>
 <ul>
-<li>大多都是<strong>bi-level
-optimization</strong>（二阶层优化）问题。这会导致在求解问题的时候有很大的计算量。</li>
-<li>现有的方法都是用<strong>feature
-collision</strong>（特征碰撞）的方法，这些方法对没见过的特征空间效果不是很好，转移到其他场景也不是很容易</li>
+<li>大多都是<strong>bi-level optimization</strong>（二阶层优化）问题。这会导致在求解问题的时候有很大的计算量。</li>
+<li>现有的方法都是用<strong>feature collision</strong>（特征碰撞）的方法，这些方法对没见过的特征空间效果不是很好，转移到其他场景也不是很容易</li>
 </ul>
 <p>于是作者提出了一个一阶的方法，这个方法理论上可以大概达到二阶的效果，总结一下其性质：</p>
 <ul>
@@ -250,93 +247,61 @@ collision</strong>（特征碰撞）的方法，这些方法对没见过的特�
 <li>转移（对于不同的特征空间都能投毒）</li>
 <li>泛化（可以适用于别的场景，CV、WTP）</li>
 </ul>
-<h1 id="metapoison">MetaPoison</h1>
-<p>这篇文章跟之前的MetaPoison进行了对比，其指出“MetaPoison有很多优点，例如：基于元学习、双层优化、不是基于特征碰撞来做的。但是，这个整个的学习需要区分内环（inner-
-loop）的学习进程，因此它其实还是<strong>隐式利用了二阶信息</strong>”。</p>
-<figure>
-<img data-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031094403031.png" alt="image-20231031094403031">
-<figcaption aria-hidden="true">image-20231031094403031</figcaption>
-</figure>
-<p>而本文中提出的是纯的利用一阶信息的元学习（pure first-order metra
-learning）反向传播的过程不需要二阶信息。</p>
-<h1 id="threat-model">threat model</h1>
-<h2 id="clean-label-data-poisoning">clean-label data poisoning</h2>
+<h1 id="metapoison"><a class="markdownIt-Anchor" href="#metapoison"></a> MetaPoison</h1>
+<p>这篇文章跟之前的MetaPoison进行了对比，其指出“MetaPoison有很多优点，例如：基于元学习、双层优化、不是基于特征碰撞来做的。但是，这个整个的学习需要区分内环（inner- loop）的学习进程，因此它其实还是<strong>隐式利用了二阶信息</strong>”。</p>
+<p><img data-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031094403031.png" alt="image-20231031094403031"></p>
+<p>而本文中提出的是纯的利用一阶信息的元学习（pure first-order metra learning）反向传播的过程不需要二阶信息。</p>
+<h1 id="threat-model"><a class="markdownIt-Anchor" href="#threat-model"></a> threat model</h1>
+<h2 id="clean-label-data-poisoning"><a class="markdownIt-Anchor" href="#clean-label-data-poisoning"></a> clean-label data poisoning</h2>
 <p>对攻击者的知识、能力做一个假设。攻击者只能通过注射很少的有毒数据样本到模型的训练数据集中。有毒数据样本是通过<strong>代理模型</strong>以及<strong>目标数据</strong>来生成的。</p>
 <p>举个例子，目标数据的标签是鸟，通过将目标数据（鸟）放进代理模型中去，得到的输出是有毒数据，然后将有毒数据拿来训练，最终测试的时候模型就会将鸟识别成狗了。</p>
-<figure>
-<img data-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031125626227.png" alt="image-20231031125626227">
-<figcaption aria-hidden="true">image-20231031125626227</figcaption>
-</figure>
-<h2 id="gray-box-or-black-box-setting">gray-box or black-box
-setting</h2>
-<ol type="1">
-<li><p>灰盒</p>
+<p><img data-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031125626227.png" alt="image-20231031125626227"></p>
+<h2 id="gray-box-or-black-box-setting"><a class="markdownIt-Anchor" href="#gray-box-or-black-box-setting"></a> gray-box or black-box setting</h2>
+<ol>
+<li>
+<p>灰盒</p>
 <p>攻击者知道受害者的模型的架构。</p>
-<p>这个假设有一定的合理性，因为能达到优秀性能的模型就那几个，攻击者就算通过瞎猜有可能能够命中，或者命中相似的架构。</p></li>
-<li><p>黑盒</p>
+<p>这个假设有一定的合理性，因为能达到优秀性能的模型就那几个，攻击者就算通过瞎猜有可能能够命中，或者命中相似的架构。</p>
+</li>
+<li>
+<p>黑盒</p>
 <p>攻击者对受害者一无所知。</p>
 <p>也就是说攻击者只能随机选取架构和参数来构建代理模型。</p>
-<p>为了增加泛化性，攻击者可以采取集成学习的方法来构建很多个代理模型。</p></li>
+<p>为了增加泛化性，攻击者可以采取集成学习的方法来构建很多个代理模型。</p>
+</li>
 </ol>
-<h1 id="method">method</h1>
-<h2 id="基本攻击策略">基本攻击策略</h2>
+<h1 id="method"><a class="markdownIt-Anchor" href="#method"></a> method</h1>
+<h2 id="基本攻击策略"><a class="markdownIt-Anchor" href="#基本攻击策略"></a> 基本攻击策略</h2>
 <p>提出的攻击主要分两步：</p>
-<ol type="1">
-<li><p>产生攻击者想要达到的模型更新<span class="math inline">\(\delta
-_{\theta}\)</span></p>
-<figure>
-<img data-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031183749536.png" alt="image-20231031183749536">
-<figcaption aria-hidden="true">image-20231031183749536</figcaption>
-</figure>
-<p>后续会用<span class="math inline">\(\{X_p,Y_p\}\)</span>来代替<span class="math inline">\(\{X_p\or X_c,Y_p \or Y_c
-\}\)</span>，但并不代表不考虑干净数据，考虑到希望朝着中毒数据的方向优化，因此会削弱一下干净数据。</p></li>
-<li><p>对中毒数据施加扰动<span class="math inline">\(\delta
-_{p}\)</span>。</p>
+<ol>
+<li>
+<p>产生攻击者想要达到的模型更新<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>δ</mi><mi>θ</mi></msub></mrow><annotation encoding="application/x-tex">\delta _{\theta}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.03785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">θ</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></p>
+<p><img data-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031183749536.png" alt="image-20231031183749536"></p>
+<p>后续会用<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">{</mo><msub><mi>X</mi><mi>p</mi></msub><mo separator="true">,</mo><msub><mi>Y</mi><mi>p</mi></msub><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{X_p,Y_p\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="mopen">{</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mclose">}</span></span></span></span>来代替<span class="katex-error" title="ParseError: KaTeX parse error: Undefined control sequence: \or at position 6: \{X_p\̲o̲r̲ ̲X_c,Y_p \or Y_c…">\{X_p\or X_c,Y_p \or Y_c \}</span>，但并不代表不考虑干净数据，考虑到希望朝着中毒数据的方向优化，因此会削弱一下干净数据。</p>
+</li>
+<li>
+<p>对中毒数据施加扰动<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>δ</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">\delta _{p}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.03785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">p</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>。</p>
 <p>在上面的不等式两边加上一阶信息（<strong>加上的东西是相等的吗？</strong>）</p>
-<figure>
-<img data-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031190219475.png" alt="image-20231031190219475">
-<figcaption aria-hidden="true">image-20231031190219475</figcaption>
-</figure>
+<p><img data-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031190219475.png" alt="image-20231031190219475"></p>
 <p>然后做一个变换</p>
-<figure>
-<img data-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031190433331.png" alt="image-20231031190433331">
-<figcaption aria-hidden="true">image-20231031190433331</figcaption>
-</figure>
-<p>假设<span class="math inline">\(\theta\)</span>能够取到最优，那么<span class="math inline">\(\theta +
-\delta_{\theta}\)</span>取到的就是次优，那么不等式右边就为一个负数，可能是-1、-2等，这个值取决于<span class="math inline">\(\theta + \delta
-_{\theta}\)</span>偏离最优解的距离，于是有下式：</p>
-<figure>
-<img data-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031191051034-8750651.png" alt="image-20231031191051034">
-<figcaption aria-hidden="true">image-20231031191051034</figcaption>
-</figure>
-<p>若是上式子的不等号改为<strong>远小于</strong>，换句话，实际情况中左边式子<strong>远小于0</strong>，这里读者的理解是-1、-2这种自然也是远远小于，但作者的意思可能是左边的式子是一个负的高阶无穷小，也就是说<span class="math inline">\(\theta + \delta_{\theta}\)</span>离最优解<span class="math inline">\(\theta\)</span>的距离很近的情况。</p>
-<p>然后作者表示，将扰动<span class="math inline">\(\delta
-_p\)</span>沿着下面式子的方向进行优化就行了：</p>
-<figure>
-<img data-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031192106232.png" alt="image-20231031192106232">
-<figcaption aria-hidden="true">image-20231031192106232</figcaption>
-</figure></li>
-<li><p>最终算法</p>
-<figure>
-<img data-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031193211754.png" alt="image-20231031193211754">
-<figcaption aria-hidden="true">image-20231031193211754</figcaption>
-</figure>
+<p><img data-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031190433331.png" alt="image-20231031190433331"></p>
+<p>假设<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi></mrow><annotation encoding="application/x-tex">\theta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span></span></span></span>能够取到最优，那么<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>+</mo><msub><mi>δ</mi><mi>θ</mi></msub></mrow><annotation encoding="application/x-tex">\theta + \delta_{\theta}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.03785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">θ</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>取到的就是次优，那么不等式右边就为一个负数，可能是-1、-2等，这个值取决于<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>+</mo><msub><mi>δ</mi><mi>θ</mi></msub></mrow><annotation encoding="application/x-tex">\theta + \delta _{\theta}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.03785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">θ</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>偏离最优解的距离，于是有下式：</p>
+<p><img data-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031191051034-8750651.png" alt="image-20231031191051034"></p>
+<p>若是上式子的不等号改为<strong>远小于</strong>，换句话，实际情况中左边式子<strong>远小于0</strong>，这里读者的理解是-1、-2这种自然也是远远小于，但作者的意思可能是左边的式子是一个负的高阶无穷小，也就是说<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>+</mo><msub><mi>δ</mi><mi>θ</mi></msub></mrow><annotation encoding="application/x-tex">\theta + \delta_{\theta}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.03785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">θ</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>离最优解<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi></mrow><annotation encoding="application/x-tex">\theta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span></span></span></span>的距离很近的情况。</p>
+<p>然后作者表示，将扰动<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>δ</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">\delta _p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.03785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>沿着下面式子的方向进行优化就行了：</p>
+<p><img data-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031192106232.png" alt="image-20231031192106232"></p>
+</li>
+<li>
+<p>最终算法</p>
+<p><img data-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031193211754.png" alt="image-20231031193211754"></p>
 <p>PS：式子9为：</p>
-<figure>
-<img data-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031193300460.png" alt="image-20231031193300460">
-<figcaption aria-hidden="true">image-20231031193300460</figcaption>
-</figure>
-<h1 id="result">result</h1>
+<p><img data-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031193300460.png" alt="image-20231031193300460"></p>
+<h1 id="result"><a class="markdownIt-Anchor" href="#result"></a> result</h1>
 <p>本文中的方法：</p>
-<figure>
-<img data-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031193515229.png" alt="image-20231031193515229">
-<figcaption aria-hidden="true">image-20231031193515229</figcaption>
-</figure>
+<p><img data-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031193515229.png" alt="image-20231031193515229"></p>
 <p>其他的方法：</p>
-<figure>
-<img data-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031193632373.png" alt="image-20231031193632373">
-<figcaption aria-hidden="true">image-20231031193632373</figcaption>
-</figure></li>
+<p><img data-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031193632373.png" alt="image-20231031193632373"></p>
+</li>
 </ol>
 
     </div>
@@ -432,5 +397,5 @@ _p\)</span>沿着下面式子的方向进行优化就行了：</p>
 
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-wanko"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</body>
 </html>
