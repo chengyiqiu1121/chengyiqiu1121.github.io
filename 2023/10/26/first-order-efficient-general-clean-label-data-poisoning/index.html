@@ -32,11 +32,23 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="abstract 先简单介绍了一下中毒攻击，然后指出existing work的局限性：  大多都是bi-level optimization（二阶层优化）问题。这会导致在求解问题的时候有很大的计算量。 现有的方法都是用feature collision（特征碰撞）的方法，这些方法对没见过的特征空间效果不是很好，转移到其他场景也不是很容易  于是作者提出了一个一阶的方法，这个方法理论上可以大概达到">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/image-20231031094403031.png">
+<meta property="og:image" content="http://example.com/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/image-20231031125626227.png">
+<meta property="og:image" content="http://example.com/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/image-20231031183749536.png">
+<meta property="og:image" content="http://example.com/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/image-20231031190219475.png">
+<meta property="og:image" content="http://example.com/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/image-20231031190433331.png">
+<meta property="og:image" content="http://example.com/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/image-20231031191051034-8750651.png">
+<meta property="og:image" content="http://example.com/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/image-20231031192106232.png">
+<meta property="og:image" content="http://example.com/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/image-20231031193211754.png">
+<meta property="og:image" content="http://example.com/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/image-20231031193300460.png">
+<meta property="og:image" content="http://example.com/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/image-20231031193515229.png">
+<meta property="og:image" content="http://example.com/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/image-20231031193632373.png">
 <meta property="article:published_time" content="2023-10-26T11:10:11.000Z">
 <meta property="article:modified_time" content="2023-11-13T07:44:41.000Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="chengyiqiu">
 <meta property="article:tag" content="poisoning">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/image-20231031094403031.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -52,6 +64,10 @@
 <link rel="stylesheet" href="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
   
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css">
+
   
   
   
@@ -223,9 +239,7 @@ collision</strong>（特征碰撞）的方法，这些方法对没见过的特�
 <p>这篇文章跟之前的MetaPoison进行了对比，其指出“MetaPoison有很多优点，例如：基于元学习、双层优化、不是基于特征碰撞来做的。但是，这个整个的学习需要区分内环（inner-
 loop）的学习进程，因此它其实还是<strong>隐式利用了二阶信息</strong>”。</p>
 <figure>
-<img
-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031094403031.png"
-alt="image-20231031094403031" />
+<img src="/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/image-20231031094403031.png" alt="image-20231031094403031">
 <figcaption aria-hidden="true">image-20231031094403031</figcaption>
 </figure>
 <p>而本文中提出的是纯的利用一阶信息的元学习（pure first-order metra
@@ -235,9 +249,7 @@ learning）反向传播的过程不需要二阶信息。</p>
 <p>对攻击者的知识、能力做一个假设。攻击者只能通过注射很少的有毒数据样本到模型的训练数据集中。有毒数据样本是通过<strong>代理模型</strong>以及<strong>目标数据</strong>来生成的。</p>
 <p>举个例子，目标数据的标签是鸟，通过将目标数据（鸟）放进代理模型中去，得到的输出是有毒数据，然后将有毒数据拿来训练，最终测试的时候模型就会将鸟识别成狗了。</p>
 <figure>
-<img
-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031125626227.png"
-alt="image-20231031125626227" />
+<img src="/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/image-20231031125626227.png" alt="image-20231031125626227">
 <figcaption aria-hidden="true">image-20231031125626227</figcaption>
 </figure>
 <h2 id="gray-box-or-black-box-setting">gray-box or black-box
@@ -258,80 +270,56 @@ setting</h2>
 <li><p>产生攻击者想要达到的模型更新<span class="math inline">\(\delta
 _{\theta}\)</span></p>
 <figure>
-<img
-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031183749536.png"
-alt="image-20231031183749536" />
+<img src="/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/image-20231031183749536.png" alt="image-20231031183749536">
 <figcaption aria-hidden="true">image-20231031183749536</figcaption>
 </figure>
-<p>后续会用<span class="math inline">\(\{X_p,Y_p\}\)</span>来代替<span
-class="math inline">\(\{X_p\or X_c,Y_p \or Y_c
+<p>后续会用<span class="math inline">\(\{X_p,Y_p\}\)</span>来代替<span class="math inline">\(\{X_p\or X_c,Y_p \or Y_c
 \}\)</span>，但并不代表不考虑干净数据，考虑到希望朝着中毒数据的方向优化，因此会削弱一下干净数据。</p></li>
 <li><p>对中毒数据施加扰动<span class="math inline">\(\delta
 _{p}\)</span>。</p>
 <p>在上面的不等式两边加上一阶信息（<strong>加上的东西是相等的吗？</strong>）</p>
 <figure>
-<img
-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031190219475.png"
-alt="image-20231031190219475" />
+<img src="/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/image-20231031190219475.png" alt="image-20231031190219475">
 <figcaption aria-hidden="true">image-20231031190219475</figcaption>
 </figure>
 <p>然后做一个变换</p>
 <figure>
-<img
-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031190433331.png"
-alt="image-20231031190433331" />
+<img src="/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/image-20231031190433331.png" alt="image-20231031190433331">
 <figcaption aria-hidden="true">image-20231031190433331</figcaption>
 </figure>
-<p>假设<span
-class="math inline">\(\theta\)</span>能够取到最优，那么<span
-class="math inline">\(\theta +
-\delta_{\theta}\)</span>取到的就是次优，那么不等式右边就为一个负数，可能是-1、-2等，这个值取决于<span
-class="math inline">\(\theta + \delta
+<p>假设<span class="math inline">\(\theta\)</span>能够取到最优，那么<span class="math inline">\(\theta +
+\delta_{\theta}\)</span>取到的就是次优，那么不等式右边就为一个负数，可能是-1、-2等，这个值取决于<span class="math inline">\(\theta + \delta
 _{\theta}\)</span>偏离最优解的距离，于是有下式：</p>
 <figure>
-<img
-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031191051034-8750651.png"
-alt="image-20231031191051034" />
+<img src="/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/image-20231031191051034-8750651.png" alt="image-20231031191051034">
 <figcaption aria-hidden="true">image-20231031191051034</figcaption>
 </figure>
-<p>若是上式子的不等号改为<strong>远小于</strong>，换句话，实际情况中左边式子<strong>远小于0</strong>，这里读者的理解是-1、-2这种自然也是远远小于，但作者的意思可能是左边的式子是一个负的高阶无穷小，也就是说<span
-class="math inline">\(\theta + \delta_{\theta}\)</span>离最优解<span
-class="math inline">\(\theta\)</span>的距离很近的情况。</p>
+<p>若是上式子的不等号改为<strong>远小于</strong>，换句话，实际情况中左边式子<strong>远小于0</strong>，这里读者的理解是-1、-2这种自然也是远远小于，但作者的意思可能是左边的式子是一个负的高阶无穷小，也就是说<span class="math inline">\(\theta + \delta_{\theta}\)</span>离最优解<span class="math inline">\(\theta\)</span>的距离很近的情况。</p>
 <p>然后作者表示，将扰动<span class="math inline">\(\delta
 _p\)</span>沿着下面式子的方向进行优化就行了：</p>
 <figure>
-<img
-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031192106232.png"
-alt="image-20231031192106232" />
+<img src="/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/image-20231031192106232.png" alt="image-20231031192106232">
 <figcaption aria-hidden="true">image-20231031192106232</figcaption>
 </figure></li>
 <li><p>最终算法</p>
 <figure>
-<img
-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031193211754.png"
-alt="image-20231031193211754" />
+<img src="/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/image-20231031193211754.png" alt="image-20231031193211754">
 <figcaption aria-hidden="true">image-20231031193211754</figcaption>
 </figure>
 <p>PS：式子9为：</p>
 <figure>
-<img
-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031193300460.png"
-alt="image-20231031193300460" />
+<img src="/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/image-20231031193300460.png" alt="image-20231031193300460">
 <figcaption aria-hidden="true">image-20231031193300460</figcaption>
 </figure>
 <h1 id="result">result</h1>
 <p>本文中的方法：</p>
 <figure>
-<img
-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031193515229.png"
-alt="image-20231031193515229" />
+<img src="/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/image-20231031193515229.png" alt="image-20231031193515229">
 <figcaption aria-hidden="true">image-20231031193515229</figcaption>
 </figure>
 <p>其他的方法：</p>
 <figure>
-<img
-src="./first-order-efficient-general-clean-label-data-poisoning/image-20231031193632373.png"
-alt="image-20231031193632373" />
+<img src="/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/image-20231031193632373.png" alt="image-20231031193632373">
 <figcaption aria-hidden="true">image-20231031193632373</figcaption>
 </figure></li>
 </ol>
@@ -339,7 +327,7 @@ alt="image-20231031193632373" />
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/" data-id="clw90utkl004a2q9f3gr1bu9e" data-title="First-Order Efficient General-Purpose Clean-Label Data Poisoning" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/" data-id="clw93veao004gnn9fgnbjfaoo" data-title="First-Order Efficient General-Purpose Clean-Label Data Poisoning" class="article-share-link">Share</a>
       
       
       
@@ -359,7 +347,7 @@ alt="image-20231031193632373" />
         
           
           
-            <img data-src="/covers/IMG_2582.PNG" data-sizes="auto" alt="Data Poisoning Attacks in Internet-of-Vehicle Networks, Taxonomy, State-of-The-Art, and Future Directions" class="lazyload">
+            <img data-src="/covers/IMG_2586.PNG" data-sizes="auto" alt="Data Poisoning Attacks in Internet-of-Vehicle Networks, Taxonomy, State-of-The-Art, and Future Directions" class="lazyload">
           
         
         <a href="/2023/11/06/data-poisoning-attack-in-IoV-networks/"></a>
@@ -376,7 +364,7 @@ alt="image-20231031193632373" />
       
         
         
-          <img data-src="/covers/IMG_2575.JPG" data-sizes="auto" alt="OBLIVION_poisoning" class="lazyload">
+          <img data-src="/covers/IMG_2583 2.PNG" data-sizes="auto" alt="OBLIVION_poisoning" class="lazyload">
         
       
       <a href="/2023/10/23/OBLIVION-poisoning/"></a>
@@ -415,8 +403,8 @@ setting</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">
@@ -509,7 +497,7 @@ setting</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-
         <span class="icon-copyright"></span>
         2020-2024
         <span class="footer-info-sep"></span>
-        John Doe
+        chengyiqiu
       </div>
       
         <div>
@@ -559,8 +547,8 @@ setting</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">

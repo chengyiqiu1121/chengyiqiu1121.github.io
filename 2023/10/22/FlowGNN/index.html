@@ -32,21 +32,21 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="abstract the limitation:  GNN needs fast inference. Existing works focus on target GNN acceleration, such as GCN. And many works rely on pre-processing which is not suitable to real-time application.">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/10/22/FlowGNN/FlowGNN/image-20231022095259558.png">
-<meta property="og:image" content="http://example.com/2023/10/22/FlowGNN/FlowGNN/image-20231022095645741.png">
-<meta property="og:image" content="http://example.com/2023/10/22/FlowGNN/FlowGNN/image-20231022095925172.png">
-<meta property="og:image" content="http://example.com/2023/10/22/FlowGNN/FlowGNN/image-20231022110739588.png">
-<meta property="og:image" content="http://example.com/2023/10/22/FlowGNN/FlowGNN/image-20231022110042383.png">
-<meta property="og:image" content="http://example.com/2023/10/22/FlowGNN/FlowGNN/image-20231022130835181.png">
-<meta property="og:image" content="http://example.com/2023/10/22/FlowGNN/FlowGNN/image-20231022192909514.png">
-<meta property="og:image" content="http://example.com/2023/10/22/FlowGNN/FlowGNN/image-20231022135221394.png">
-<meta property="og:image" content="http://example.com/2023/10/22/FlowGNN/FlowGNN/image-20231022144445441.png">
+<meta property="og:image" content="http://example.com/2023/10/22/FlowGNN/image-20231022095259558.png">
+<meta property="og:image" content="http://example.com/2023/10/22/FlowGNN/image-20231022095645741.png">
+<meta property="og:image" content="http://example.com/2023/10/22/FlowGNN/image-20231022095925172.png">
+<meta property="og:image" content="http://example.com/2023/10/22/FlowGNN/image-20231022110739588.png">
+<meta property="og:image" content="http://example.com/2023/10/22/FlowGNN/image-20231022110042383.png">
+<meta property="og:image" content="http://example.com/2023/10/22/FlowGNN/image-20231022130835181.png">
+<meta property="og:image" content="http://example.com/2023/10/22/FlowGNN/image-20231022192909514.png">
+<meta property="og:image" content="http://example.com/2023/10/22/FlowGNN/image-20231022135221394.png">
+<meta property="og:image" content="http://example.com/2023/10/22/FlowGNN/image-20231022144445441.png">
 <meta property="article:published_time" content="2023-10-21T23:53:34.000Z">
 <meta property="article:modified_time" content="2023-11-13T07:43:58.000Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="chengyiqiu">
 <meta property="article:tag" content="gnn">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/10/22/FlowGNN/FlowGNN/image-20231022095259558.png">
+<meta name="twitter:image" content="http://example.com/2023/10/22/FlowGNN/image-20231022095259558.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -62,6 +62,10 @@
 <link rel="stylesheet" href="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
   
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css">
+
   
   
   
@@ -239,8 +243,7 @@ board)</li>
 </ol>
 <h1 id="related-work-and-motivation">Related work and motivation</h1>
 <h2 id="related-work">Related work</h2>
-<p>Mentioning a survey: <a
-target="_blank" rel="noopener" href="https://readpaper.com/paper/3214821766">Computing Graph Neural
+<p>Mentioning a survey: <a target="_blank" rel="noopener" href="https://readpaper.com/paper/3214821766">Computing Graph Neural
 Networks: A Survey from Algorithms to Accelerators</a>.</p>
 <h2 id="limitation">Limitation</h2>
 <p>The most significant is that <strong>advanced GNNs cannot be
@@ -251,31 +254,24 @@ edge embeddings cannot be ignored.</strong></p>
 as chemical bonds in a molecule.</p>
 <p>this make the SpMM and GEMM not useful.</p>
 <figure>
-<img src="./FlowGNN/image-20231022095259558.png"
-alt="image-20231022095259558" />
+<img src="/2023/10/22/FlowGNN/image-20231022095259558.png" alt="image-20231022095259558">
 <figcaption aria-hidden="true">image-20231022095259558</figcaption>
 </figure>
-<p>if not use edge embedding, message passing is <span
-class="math inline">\(\phi (x_i^l)\)</span>, and it can be optimized by
-GEMM and SpMM.However, if use embedding, it will be <span
-class="math inline">\(\phi (x_i^l,e_{i,j}^l)\)</span>, and the demension
+<p>if not use edge embedding, message passing is <span class="math inline">\(\phi (x_i^l)\)</span>, and it can be optimized by
+GEMM and SpMM.However, if use embedding, it will be <span class="math inline">\(\phi (x_i^l,e_{i,j}^l)\)</span>, and the demension
 of node representation and edge representation is not same.</p>
 <figure>
-<img src="./FlowGNN/image-20231022095645741.png"
-alt="image-20231022095645741" />
+<img src="/2023/10/22/FlowGNN/image-20231022095645741.png" alt="image-20231022095645741">
 <figcaption aria-hidden="true">image-20231022095645741</figcaption>
 </figure>
 <h3 id="invalid-existing-optimizations">Invalid existing
 optimizations</h3>
 <p>SOTA I-GCN merge the same neighbor node as one node to optimize.</p>
 <figure>
-<img src="./FlowGNN/image-20231022095925172.png"
-alt="image-20231022095925172" />
+<img src="/2023/10/22/FlowGNN/image-20231022095925172.png" alt="image-20231022095925172">
 <figcaption aria-hidden="true">image-20231022095925172</figcaption>
 </figure>
-<p>However, considering edge embedding, the <span
-class="math inline">\(e_{ac},e_{bc}\)</span> is not the same as <span
-class="math inline">\(e_{bc},e_{bd}\)</span></p>
+<p>However, considering edge embedding, the <span class="math inline">\(e_{ac},e_{bc}\)</span> is not the same as <span class="math inline">\(e_{bc},e_{bd}\)</span></p>
 <p>we cannot converge the node a and b</p>
 <h3 id="non-trivial-aggregation">Non-trivial aggregation</h3>
 <p>the GEMM and SpMM use a certain pattern to optimize. However ,the
@@ -296,12 +292,10 @@ optimize.</p>
 <h1 id="generic-architecture">GENERIC ARCHITECTURE*</h1>
 <h2 id="message-passing-mechanism">Message Passing Mechanism</h2>
 <figure>
-<img src="./FlowGNN/image-20231022110739588.png"
-alt="image-20231022110739588" />
+<img src="/2023/10/22/FlowGNN/image-20231022110739588.png" alt="image-20231022110739588">
 <figcaption aria-hidden="true">image-20231022110739588</figcaption>
 </figure>
-<p><img src="./FlowGNN/image-20231022110042383.png"
-alt="image-20231022110042383" /> <span class="math display">\[
+<p><img src="/2023/10/22/FlowGNN/image-20231022110042383.png" alt="image-20231022110042383"> <span class="math display">\[
 \mathcal{MP scatter} \\
 m_{1\to 0}^{l-1}=\phi (x_1^{l-1},e_{0,1}^{l-1}) \\
 \mathcal{MP gather} \\
@@ -330,29 +324,26 @@ passing(gather)</p></li>
 <h2 id="baseline-dataflow-architecture">Baseline Dataflow
 Architecture</h2>
 <figure>
-<img src="./FlowGNN/image-20231022130835181.png"
-alt="image-20231022130835181" />
+<img src="/2023/10/22/FlowGNN/image-20231022130835181.png" alt="image-20231022130835181">
 <figcaption aria-hidden="true">image-20231022130835181</figcaption>
 </figure>
 <p>use ping-pang buffer(b =&gt; d):</p>
-<p><img src="./FlowGNN/image-20231022192909514.png" alt="image-20231022192909514"  /></p>
+<p><img src="/2023/10/22/FlowGNN/image-20231022192909514.png" alt="image-20231022192909514"></p>
 <h2 id="proposed-flowgnn-architecture">Proposed FlowGNN
 Architecture</h2>
 <figure>
-<img src="./FlowGNN/image-20231022135221394.png"
-alt="image-20231022135221394" />
+<img src="/2023/10/22/FlowGNN/image-20231022135221394.png" alt="image-20231022135221394">
 <figcaption aria-hidden="true">image-20231022135221394</figcaption>
 </figure>
 <figure>
-<img src="./FlowGNN/image-20231022144445441.png"
-alt="image-20231022144445441" />
+<img src="/2023/10/22/FlowGNN/image-20231022144445441.png" alt="image-20231022144445441">
 <figcaption aria-hidden="true">image-20231022144445441</figcaption>
 </figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/22/FlowGNN/" data-id="clw90utkf001c2q9fgg4h6ang" data-title="FlowGNN" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/10/22/FlowGNN/" data-id="clw93veai001cnn9fds3h5ify" data-title="FlowGNN" class="article-share-link">Share</a>
       
       
       
@@ -372,7 +363,7 @@ alt="image-20231022144445441" />
         
           
           
-            <img data-src="/covers/IMG_2576.JPG" data-sizes="auto" alt="cs224w_ch8" class="lazyload">
+            <img data-src="/covers/IMG_2581.JPG" data-sizes="auto" alt="cs224w_ch8" class="lazyload">
           
         
         <a href="/2023/10/22/cs224w-ch8/"></a>
@@ -389,7 +380,7 @@ alt="image-20231022144445441" />
       
         
         
-          <img data-src="/covers/IMG_2585.JPG" data-sizes="auto" alt="cs224w_ch7" class="lazyload">
+          <img data-src="/covers/IMG_2583 2.PNG" data-sizes="auto" alt="cs224w_ch7" class="lazyload">
         
       
       <a href="/2023/10/18/cs224w-ch7/"></a>
@@ -430,8 +421,8 @@ Architecture</span></a></li></ol></li></ol>
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">
@@ -524,7 +515,7 @@ Architecture</span></a></li></ol></li></ol>
         <span class="icon-copyright"></span>
         2020-2024
         <span class="footer-info-sep"></span>
-        John Doe
+        chengyiqiu
       </div>
       
         <div>
@@ -576,8 +567,8 @@ Architecture</span></a></li></ol></li></ol>
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">

@@ -34,7 +34,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-01-08T06:02:19.000Z">
 <meta property="article:modified_time" content="2024-04-19T04:35:43.413Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="chengyiqiu">
 <meta property="article:tag" content="backdoor">
 <meta name="twitter:card" content="summary">
   
@@ -52,6 +52,10 @@
 <link rel="stylesheet" href="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
   
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css">
+
   
   
   
@@ -257,8 +261,7 @@ xidian, ICLR]</p></li>
 <p>goal： <span class="math display">\[
 arg \min_\theta \mathcal L
 (F_\theta(x_b),y_{real})+\lambda\vert\theta\vert
-\]</span> <span class="math inline">\(\lambda\)</span>是惩罚细数，<span
-class="math inline">\(\vert\theta\vert\)</span>是惩罚项，目的是为了避免
+\]</span> <span class="math inline">\(\lambda\)</span>是惩罚细数，<span class="math inline">\(\vert\theta\vert\)</span>是惩罚项，目的是为了避免
 灾难性遗忘。</p>
 <p>本文工作：</p>
 <ol type="1">
@@ -279,27 +282,20 @@ H_i(G_i(\delta);\delta^{&#39;}))
 model</p></li>
 <li><p><span class="math inline">\(D^{&#39;}\)</span>: part of
 validation datast</p></li>
-<li><p><span class="math inline">\(\delta\)</span> and <span
-class="math inline">\(\delta^{&#39;}\)</span>: two voices sampled from
+<li><p><span class="math inline">\(\delta\)</span> and <span class="math inline">\(\delta^{&#39;}\)</span>: two voices sampled from
 <span class="math inline">\(N(0,1)\)</span></p></li>
 <li><p><span class="math inline">\(F_{\theta_0}\)</span>: backdoored
 model</p></li>
 <li><p><span class="math inline">\(H_i\)</span>: mutual information
 estimator, [16]</p>
 <ul>
-<li>If X and Y are independent, <span
-class="math inline">\(H_i(X,Y)=0\)</span></li>
+<li>If X and Y are independent, <span class="math inline">\(H_i(X,Y)=0\)</span></li>
 </ul></li>
 <li><p><span class="math inline">\(\epsilon_i\)</span>: the threshold
 from <span class="math inline">\([0,1]\)</span></p></li>
 </ul>
-<p>一个比较重要的观测：当输入$ x_i+<span
-class="math inline">\(时，会被误分类为\)</span>y_{target}<span
-class="math inline">\(；另外，当输入\)</span>x^{'}=x_0+<span
-class="math inline">\(时，同样会被误分类，\)</span><span
-class="math inline">\(是噪声，而对于一般的噪声，使得\)</span>xx_0$，很难被误分类。</p>
-<p>因此，基于这个观测，再来看上述公式，作者是在整个噪声空间中寻找合适的噪声，<span
-class="math inline">\(L_R\)</span>即为优化路径。</p>
+<p>一个比较重要的观测：当输入$ x_i+<span class="math inline">\(时，会被误分类为\)</span>y_{target}<span class="math inline">\(；另外，当输入\)</span>x^{'}=x_0+<span class="math inline">\(时，同样会被误分类，\)</span><span class="math inline">\(是噪声，而对于一般的噪声，使得\)</span>xx_0$，很难被误分类。</p>
+<p>因此，基于这个观测，再来看上述公式，作者是在整个噪声空间中寻找合适的噪声，<span class="math inline">\(L_R\)</span>即为优化路径。</p>
 <h2 id="触发器模式遗忘">触发器模式遗忘</h2>
 <p>直接使用梯度上升如下： <span class="math display">\[
 \theta_t+\frac{\partial \mathcal L}{\partial \theta_t}\to \theta_{t+1}
@@ -317,7 +313,7 @@ L_{CE}(F_{\theta_j}(x_b),y_b))+\beta\sum_{k=1}^M\omega_k\vert\theta_{j,k},-\thet
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/08/Backdoor-Defense-with-Machine-Unlearning/" data-id="clw90utk900072q9f4g1ah932" data-title="Backdoor_Defense_with_Machine_Unlearning" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2024/01/08/Backdoor-Defense-with-Machine-Unlearning/" data-id="clw93veac0009nn9f03fg6tfx" data-title="Backdoor_Defense_with_Machine_Unlearning" class="article-share-link">Share</a>
       
       
       
@@ -337,7 +333,7 @@ L_{CE}(F_{\theta_j}(x_b),y_b))+\beta\sum_{k=1}^M\omega_k\vert\theta_{j,k},-\thet
         
           
           
-            <img data-src="/covers/IMG_2621.PNG" data-sizes="auto" alt="Defense-Resistant-Backdoor-Attacks-Against-Deep-Neural-Networks-in-Outsourced-Cloud-Environment" class="lazyload">
+            <img data-src="/covers/IMG_2585.JPG" data-sizes="auto" alt="Defense-Resistant-Backdoor-Attacks-Against-Deep-Neural-Networks-in-Outsourced-Cloud-Environment" class="lazyload">
           
         
         <a href="/2024/01/15/Defense-Resistant-Backdoor-Attacks-Against-Deep-Neural-Networks-in-Outsourced-Cloud-Environment/"></a>
@@ -392,8 +388,8 @@ L_{CE}(F_{\theta_j}(x_b),y_b))+\beta\sum_{k=1}^M\omega_k\vert\theta_{j,k},-\thet
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">
@@ -486,7 +482,7 @@ L_{CE}(F_{\theta_j}(x_b),y_b))+\beta\sum_{k=1}^M\omega_k\vert\theta_{j,k},-\thet
         <span class="icon-copyright"></span>
         2020-2024
         <span class="footer-info-sep"></span>
-        John Doe
+        chengyiqiu
       </div>
       
         <div>
@@ -535,8 +531,8 @@ L_{CE}(F_{\theta_j}(x_b),y_b))+\beta\sum_{k=1}^M\omega_k\vert\theta_{j,k},-\thet
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">

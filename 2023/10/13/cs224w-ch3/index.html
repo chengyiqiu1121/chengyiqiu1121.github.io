@@ -32,41 +32,41 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="ch2讲的就是我们如何设计特征，来尽量准确的表示这个网络，然后再交给机器学习算法如SVM，最后得到我们的预测：   image-20231013104858822  事实上我们可能会花大部分的时间去做特征工程。 这一节考虑的是，能否不用特征工程。 图表征学习：自动获取网络的特征。 node embedding 结点嵌入两个很重要的特征；  无监督：训练不需要利用结点的label，也不需要featu">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231013104858822.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231013105154723.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231013105532825.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231013110146538.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231013123405368.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231013195103736.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015203440876.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015203738556.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015203753465.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015210342311.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015210423990.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015210646749.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015210720744.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015211112148.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231013110146538.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015213201541.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015213554066.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015213929100.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015200000371.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015221015877.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015221050844.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015221722630.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231016082050748.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231016082759928.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231016082950394.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231016083437104.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231016084518021.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231016084700692.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231016084952691.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231016085824928.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231013104858822.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231013105154723.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231013105532825.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231013110146538.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231013123405368.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231013195103736.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015203440876.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015203738556.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015203753465.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015210342311.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015210423990.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015210646749.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015210720744.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015211112148.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231013110146538.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015213201541.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015213554066.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015213929100.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015200000371.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015221015877.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015221050844.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015221722630.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231016082050748.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231016082759928.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231016082950394.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231016083437104.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231016084518021.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231016084700692.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231016084952691.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231016085824928.png">
 <meta property="article:published_time" content="2023-10-13T02:44:37.000Z">
 <meta property="article:modified_time" content="2023-10-17T09:18:14.000Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="chengyiqiu">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231013104858822.png">
+<meta name="twitter:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231013104858822.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -82,6 +82,10 @@
 <link rel="stylesheet" href="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
   
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css">
+
   
   
   
@@ -237,8 +241,7 @@
       
         <p>ch2讲的就是我们如何设计特征，来尽量准确的表示这个网络，然后再交给机器学习算法如SVM，最后得到我们的预测：</p>
 <figure>
-<img src="./cs224w-ch3/image-20231013104858822.png"
-alt="image-20231013104858822" />
+<img src="/2023/10/13/cs224w-ch3/image-20231013104858822.png" alt="image-20231013104858822">
 <figcaption aria-hidden="true">image-20231013104858822</figcaption>
 </figure>
 <p>事实上我们可能会花大部分的时间去做特征工程。</p>
@@ -252,8 +255,7 @@ alt="image-20231013104858822" />
 independent：嵌入就是一个提取网络特征的过程，可以将提取出的特征用于任何适合的机器学习算法，也就是与下游任务无关。</li>
 </ul>
 <figure>
-<img src="./cs224w-ch3/image-20231013105154723.png"
-alt="image-20231013105154723" />
+<img src="/2023/10/13/cs224w-ch3/image-20231013105154723.png" alt="image-20231013105154723">
 <figcaption aria-hidden="true">image-20231013105154723</figcaption>
 </figure>
 <p>图嵌入是干这样的一件事：将node
@@ -263,20 +265,18 @@ embedding</p>
 <p>完成了结点嵌入之后，我们就可以用这个d维的向量来做downstream
 task了</p>
 <figure>
-<img src="./cs224w-ch3/image-20231013105532825.png"
-alt="image-20231013105532825" />
+<img src="/2023/10/13/cs224w-ch3/image-20231013105532825.png" alt="image-20231013105532825">
 <figcaption aria-hidden="true">image-20231013105532825</figcaption>
 </figure>
 <h3 id="deepwalking">DeepWalking</h3>
 <figure>
-<img src="./cs224w-ch3/image-20231013110146538.png"
-alt="image-20231013110146538" />
+<img src="/2023/10/13/cs224w-ch3/image-20231013110146538.png" alt="image-20231013110146538">
 <figcaption aria-hidden="true">image-20231013110146538</figcaption>
 </figure>
 <p>这是一个小型的网络，将图嵌入到了一个2d空间，可以看到相同颜色的结点在图上和被嵌入的空间中都是离得比较近的。</p>
 <h3 id="embedding">Embedding</h3>
 <p>更抽象的描述是这样：</p>
-<p><img src="./cs224w-ch3/image-20231013123405368.png" alt="image-20231013123405368" style="zoom:25%;" /></p>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231013123405368.png" alt="image-20231013123405368" style="zoom:25%;"></p>
 <p>至于用dot
 product（点积）的原因是，其代表的是这两个向量之间的余弦，例如如果两个向量是垂直的话，dot
 product就为0了。</p>
@@ -302,8 +302,7 @@ v：v是一个列向量，其中大部分元素是0，除了要得到的结点v�
 <p>如<span class="math inline">\(v=[0,0,1,0,0,0]\)</span></p>
 <p>对于这种编码器，我们需要学习的就是Z：</p>
 <figure>
-<img src="./cs224w-ch3/image-20231013195103736.png"
-alt="image-20231013195103736" />
+<img src="/2023/10/13/cs224w-ch3/image-20231013195103736.png" alt="image-20231013195103736">
 <figcaption aria-hidden="true">image-20231013195103736</figcaption>
 </figure>
 <p>这个方法的缺点：当图比较大时，假设嵌入维度为1000，结点数为100w，那么就有10亿参数。而造成这个matrix如此大的原因是：我们计算了每个node的嵌入向量，当需要某个node的嵌入向量时，可以直接从这个超级大矩阵里面去做一次查找(look-up)。</p>
@@ -325,15 +324,13 @@ function，最大值函数的软版本。</p>
 <p>另外还有两个概念：</p>
 <ul>
 <li><span class="math inline">\(z_u\)</span>：结点u的嵌入</li>
-<li><span
-class="math inline">\(P(v|z_u)\)</span>：从u开始，使用随机游走访问v的概率</li>
+<li><span class="math inline">\(P(v|z_u)\)</span>：从u开始，使用随机游走访问v的概率</li>
 </ul>
 <p>那么什么是随机游走呢：从一个结点u开始，随机的选取它的一个邻居v，作为next
 step，依此类推。</p>
 <p>这里给了下面这个定义，不是很理解：</p>
 <figure>
-<img src="./cs224w-ch3/image-20231015203440876.png"
-alt="image-20231015203440876" />
+<img src="/2023/10/13/cs224w-ch3/image-20231015203440876.png" alt="image-20231015203440876">
 <figcaption aria-hidden="true">image-20231015203440876</figcaption>
 </figure>
 <h4 id="detail">detail</h4>
@@ -341,14 +338,12 @@ alt="image-20231015203440876" />
 <ol type="1">
 <li><p>使用一个策略R，来估计访问结点v的概率</p>
 <figure>
-<img src="./cs224w-ch3/image-20231015203738556.png"
-alt="image-20231015203738556" />
+<img src="/2023/10/13/cs224w-ch3/image-20231015203738556.png" alt="image-20231015203738556">
 <figcaption aria-hidden="true">image-20231015203738556</figcaption>
 </figure></li>
 <li><p>优化嵌入，通过编码这一步随机游走</p>
 <figure>
-<img src="./cs224w-ch3/image-20231015203753465.png"
-alt="image-20231015203753465" />
+<img src="/2023/10/13/cs224w-ch3/image-20231015203753465.png" alt="image-20231015203753465">
 <figcaption aria-hidden="true">image-20231015203753465</figcaption>
 </figure></li>
 </ol>
@@ -360,56 +355,47 @@ alt="image-20231015203753465" />
 <p>随机游走步骤：</p>
 <ol type="1">
 <li><p>从每一个u开始，走固定的长度，通过使用随机策略R</p></li>
-<li><p>对于每一个u，收集其<span
-class="math inline">\(N_R(u)\)</span></p></li>
+<li><p>对于每一个u，收集其<span class="math inline">\(N_R(u)\)</span></p></li>
 <li><p>通过对数似然函数进行优化：</p>
 <figure>
-<img src="./cs224w-ch3/image-20231015210342311.png"
-alt="image-20231015210342311" />
+<img src="/2023/10/13/cs224w-ch3/image-20231015210342311.png" alt="image-20231015210342311">
 <figcaption aria-hidden="true">image-20231015210342311</figcaption>
 </figure>
 <p>同样也可以讲其表示称下面这种形式：</p>
 <figure>
-<img src="./cs224w-ch3/image-20231015210423990.png"
-alt="image-20231015210423990" />
+<img src="/2023/10/13/cs224w-ch3/image-20231015210423990.png" alt="image-20231015210423990">
 <figcaption aria-hidden="true">image-20231015210423990</figcaption>
 </figure>
 <p>其中可以将对数里面的参数写成下面的softmax形式，那么这个结果其实就是u之后v的概率</p>
 <figure>
-<img src="./cs224w-ch3/image-20231015210646749.png"
-alt="image-20231015210646749" />
+<img src="/2023/10/13/cs224w-ch3/image-20231015210646749.png" alt="image-20231015210646749">
 <figcaption aria-hidden="true">image-20231015210646749</figcaption>
 </figure>
 <p>所以最终的损失函数如下：</p>
 <figure>
-<img src="./cs224w-ch3/image-20231015210720744.png"
-alt="image-20231015210720744" />
+<img src="/2023/10/13/cs224w-ch3/image-20231015210720744.png" alt="image-20231015210720744">
 <figcaption aria-hidden="true">image-20231015210720744</figcaption>
 </figure></li>
 </ol>
-<p>但是有个问题，这里有两层嵌套，意味着时间复杂度是<span
-class="math inline">\(O(|V|^2)\)</span>，复杂度太高了！</p>
+<p>但是有个问题，这里有两层嵌套，意味着时间复杂度是<span class="math inline">\(O(|V|^2)\)</span>，复杂度太高了！</p>
 <h4 id="negative-sample">negative sample</h4>
 <p>选择使用负采样来近似softmax的分母：</p>
 <figure>
-<img src="./cs224w-ch3/image-20231015211112148.png"
-alt="image-20231015211112148" />
+<img src="/2023/10/13/cs224w-ch3/image-20231015211112148.png" alt="image-20231015211112148">
 <figcaption aria-hidden="true">image-20231015211112148</figcaption>
 </figure>
 <p>k是一般取5～20</p>
 <p>最开始是DeepWalk提出了random
 walks（走固定长度，使用随机策略）。这样的similarity表现还不错，从最终结果来看，嵌入空间和图空间中，nearby的点是对应的。</p>
 <figure>
-<img src="./cs224w-ch3/image-20231013110146538.png"
-alt="image-20231013110146538" />
+<img src="/2023/10/13/cs224w-ch3/image-20231013110146538.png" alt="image-20231013110146538">
 <figcaption aria-hidden="true">image-20231013110146538</figcaption>
 </figure>
 <p>但是这样定义的similarity太受限制了，于是很多人尝试优化。</p>
 <h3 id="node2vec">node2vec</h3>
 <p>idea：使用灵活的、有偏好的随机游走，例如当进行下一步时，可以选择更广或者更深，也就是DFS和BFS的思想</p>
 <figure>
-<img src="./cs224w-ch3/image-20231015213201541.png"
-alt="image-20231015213201541" />
+<img src="/2023/10/13/cs224w-ch3/image-20231015213201541.png" alt="image-20231015213201541">
 <figcaption aria-hidden="true">image-20231015213201541</figcaption>
 </figure>
 <p>这里面有两个参数：</p>
@@ -419,23 +405,20 @@ alt="image-20231015213201541" />
 </ul>
 <p>下面这例子完美表示了两个参数的用途：</p>
 <figure>
-<img src="./cs224w-ch3/image-20231015213554066.png"
-alt="image-20231015213554066" />
+<img src="/2023/10/13/cs224w-ch3/image-20231015213554066.png" alt="image-20231015213554066">
 <figcaption aria-hidden="true">image-20231015213554066</figcaption>
 </figure>
 <p>w从s1来的，那么下一步，若是选择inwards，可以去s2（和s1距离相同），若是选outwards，可以走s3，还可以回到s1。</p>
 <p>我们将其量化：</p>
 <figure>
-<img src="./cs224w-ch3/image-20231015213929100.png"
-alt="image-20231015213929100" />
+<img src="/2023/10/13/cs224w-ch3/image-20231015213929100.png" alt="image-20231015213929100">
 <figcaption aria-hidden="true">image-20231015213929100</figcaption>
 </figure>
 <p>我们可以调整p、q来得到不同的策略R。</p>
 <h3 id="other-random-walk">other random walk</h3>
 <p>这是一些其他的关于随机游走的优化。</p>
 <figure>
-<img src="./cs224w-ch3/image-20231015200000371.png"
-alt="image-20231015200000371" />
+<img src="/2023/10/13/cs224w-ch3/image-20231015200000371.png" alt="image-20231015200000371">
 <figcaption aria-hidden="true">image-20231015200000371</figcaption>
 </figure>
 <h2 id="embedding-entire-graph">Embedding entire graph</h2>
@@ -443,14 +426,12 @@ alt="image-20231015200000371" />
 <ul>
 <li><p>entire graph</p>
 <figure>
-<img src="./cs224w-ch3/image-20231015221015877.png"
-alt="image-20231015221015877" />
+<img src="/2023/10/13/cs224w-ch3/image-20231015221015877.png" alt="image-20231015221015877">
 <figcaption aria-hidden="true">image-20231015221015877</figcaption>
 </figure></li>
 <li><p>Sub-graph</p>
 <figure>
-<img src="./cs224w-ch3/image-20231015221050844.png"
-alt="image-20231015221050844" />
+<img src="/2023/10/13/cs224w-ch3/image-20231015221050844.png" alt="image-20231015221050844">
 <figcaption aria-hidden="true">image-20231015221050844</figcaption>
 </figure></li>
 </ul>
@@ -462,8 +443,7 @@ alt="image-20231015221050844" />
 <h3 id="approach-1">Approach 1</h3>
 <p>it is simple and effective, which is:</p>
 <ol type="1">
-<li><p>use node2vec or deepwalks to caculate the embed node u of <span
-class="math inline">\(z_u\)</span></p></li>
+<li><p>use node2vec or deepwalks to caculate the embed node u of <span class="math inline">\(z_u\)</span></p></li>
 <li><p>then sum or average <span class="math display">\[
 z_G=\sum_{v\epsilon G}z_v
 \]</span></p></li>
@@ -472,16 +452,14 @@ z_G=\sum_{v\epsilon G}z_v
 <p>use a virtual node to represent the graph, and by using node2vec or
 deepwaks to embedding the virtual node to embedding space.</p>
 <figure>
-<img src="./cs224w-ch3/image-20231015221722630.png"
-alt="image-20231015221722630" />
+<img src="/2023/10/13/cs224w-ch3/image-20231015221722630.png" alt="image-20231015221722630">
 <figcaption aria-hidden="true">image-20231015221722630</figcaption>
 </figure>
 <h3 id="approach-3">Approach 3</h3>
 <h4 id="idea-1">Idea 1</h4>
 <p>use anonymous walks to instead random walks.</p>
 <figure>
-<img src="./cs224w-ch3/image-20231016082050748.png"
-alt="image-20231016082050748" />
+<img src="/2023/10/13/cs224w-ch3/image-20231016082050748.png" alt="image-20231016082050748">
 <figcaption aria-hidden="true">image-20231016082050748</figcaption>
 </figure>
 <p>feature is:</p>
@@ -494,65 +472,54 @@ alt="image-20231016082050748" />
 for l=3, the dimensions of <span class="math inline">\(Z_G(i)\)</span>
 is 5) <strong>exponentially</strong> increase.</p>
 <figure>
-<img src="./cs224w-ch3/image-20231016082759928.png"
-alt="image-20231016082759928" />
+<img src="/2023/10/13/cs224w-ch3/image-20231016082759928.png" alt="image-20231016082759928">
 <figcaption aria-hidden="true">image-20231016082759928</figcaption>
 </figure>
 <figure>
-<img src="./cs224w-ch3/image-20231016082950394.png"
-alt="image-20231016082950394" />
+<img src="/2023/10/13/cs224w-ch3/image-20231016082950394.png" alt="image-20231016082950394">
 <figcaption aria-hidden="true">image-20231016082950394</figcaption>
 </figure>
 <p>We have the vector now, so how many walks should we sample to
 represent the whole distribution?</p>
 <p>use this formula:</p>
 <figure>
-<img src="./cs224w-ch3/image-20231016083437104.png"
-alt="image-20231016083437104" />
+<img src="/2023/10/13/cs224w-ch3/image-20231016083437104.png" alt="image-20231016083437104">
 <figcaption aria-hidden="true">image-20231016083437104</figcaption>
 </figure>
 <h4 id="idea-2">Idea 2</h4>
 <p>Above, we use a vector <span class="math inline">\(Z_G(i)\)</span> to
 represent the distribution, it is a set of probability about every
 walk.</p>
-<p>the other idea is use walks ranther than probability: <span
-class="math display">\[
+<p>the other idea is use walks ranther than probability: <span class="math display">\[
 Z=\{z_i:i=1...\eta\} \\
 \]</span> <span class="math inline">\(\eta\)</span> is the number of
 sampled anonymous walks.</p>
 <p>so here is the idea and how we learning the walks embeddings?</p>
 <p>First, sample some walks:</p>
 <figure>
-<img src="./cs224w-ch3/image-20231016084518021.png"
-alt="image-20231016084518021" />
+<img src="/2023/10/13/cs224w-ch3/image-20231016084518021.png" alt="image-20231016084518021">
 <figcaption aria-hidden="true">image-20231016084518021</figcaption>
 </figure>
-<p>Than, learn to predict walks which is co-occur in <span
-class="math inline">\(\Delta\)</span> size window</p>
-<p>e.g., predict <span class="math inline">\(w_3\)</span> given <span
-class="math inline">\(w_1,w_2,\Delta=2\)</span></p>
+<p>Than, learn to predict walks which is co-occur in <span class="math inline">\(\Delta\)</span> size window</p>
+<p>e.g., predict <span class="math inline">\(w_3\)</span> given <span class="math inline">\(w_1,w_2,\Delta=2\)</span></p>
 <figure>
-<img src="./cs224w-ch3/image-20231016084700692.png"
-alt="image-20231016084700692" />
+<img src="/2023/10/13/cs224w-ch3/image-20231016084700692.png" alt="image-20231016084700692">
 <figcaption aria-hidden="true">image-20231016084700692</figcaption>
 </figure>
-<p>so, different from DeepWalk, node2vec, the neighbor set is: <span
-class="math display">\[
+<p>so, different from DeepWalk, node2vec, the neighbor set is: <span class="math display">\[
 N_R(u)=\{w_1^u,w_2^u...w_T^u\}
-\]</span> <img src="./cs224w-ch3/image-20231016084952691.png"
-alt="image-20231016084952691" /></p>
+\]</span> <img src="/2023/10/13/cs224w-ch3/image-20231016084952691.png" alt="image-20231016084952691"></p>
 <p><span class="math inline">\(Z_G\)</span> is a optimized vector
 parameter</p>
 <figure>
-<img src="./cs224w-ch3/image-20231016085824928.png"
-alt="image-20231016085824928" />
+<img src="/2023/10/13/cs224w-ch3/image-20231016085824928.png" alt="image-20231016085824928">
 <figcaption aria-hidden="true">image-20231016085824928</figcaption>
 </figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/13/cs224w-ch3/" data-id="clw90utkj003i2q9f610u3o2d" data-title="cs224w_ch3" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/10/13/cs224w-ch3/" data-id="clw93veam003inn9fcsm34mhb" data-title="cs224w_ch3" class="article-share-link">Share</a>
       
       
       
@@ -570,7 +537,7 @@ alt="image-20231016085824928" />
         
           
           
-            <img data-src="/covers/IMG_2585.JPG" data-sizes="auto" alt="high_performance_computer_network_lecture1" class="lazyload">
+            <img data-src="/covers/IMG_2621.PNG" data-sizes="auto" alt="high_performance_computer_network_lecture1" class="lazyload">
           
         
         <a href="/2023/10/13/high-performance-computer-network-lecture1/"></a>
@@ -587,7 +554,7 @@ alt="image-20231016085824928" />
       
         
         
-          <img data-src="/covers/IMG_2578.JPG" data-sizes="auto" alt="20h_write_sci" class="lazyload">
+          <img data-src="/covers/IMG_2580.JPG" data-sizes="auto" alt="20h_write_sci" class="lazyload">
         
       
       <a href="/2023/10/13/20h-write-sci/"></a>
@@ -625,8 +592,8 @@ alt="image-20231016085824928" />
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">
@@ -719,7 +686,7 @@ alt="image-20231016085824928" />
         <span class="icon-copyright"></span>
         2020-2024
         <span class="footer-info-sep"></span>
-        John Doe
+        chengyiqiu
       </div>
       
         <div>
@@ -768,8 +735,8 @@ alt="image-20231016085824928" />
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">

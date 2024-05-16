@@ -32,12 +32,17 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="AAAI 2024 还没有release code   image-20240408124759179  本文提出了一种数据消毒方法，也是使用扩散模型来消除触发器特征，重构良性特征。 方法 威胁模型 本文处于防御者的视角，对于攻击者的目标标签、投毒率等不可访问。 防御者：  假设防御者可以访问和当前任务类似分布的预训练扩散模型。 训练扩散模型的数据集是干净的  候选集合构建 、 本文采取的方法是，">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2024/04/08/DATAELIXIR-Purifying-Poisoned-Dataset-to-Mitigate-Backdoor-Attacks-via-Diffusion-Models/image-20240408124759179.png">
+<meta property="og:image" content="http://example.com/2024/04/08/DATAELIXIR-Purifying-Poisoned-Dataset-to-Mitigate-Backdoor-Attacks-via-Diffusion-Models/image-20240408144318778.png">
+<meta property="og:image" content="http://example.com/2024/04/08/DATAELIXIR-Purifying-Poisoned-Dataset-to-Mitigate-Backdoor-Attacks-via-Diffusion-Models/image-20240408150224608.png">
+<meta property="og:image" content="http://example.com/2024/04/08/DATAELIXIR-Purifying-Poisoned-Dataset-to-Mitigate-Backdoor-Attacks-via-Diffusion-Models/image-20240409205545430.png">
 <meta property="article:published_time" content="2024-04-08T04:46:25.000Z">
 <meta property="article:modified_time" content="2024-04-09T15:41:07.001Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="chengyiqiu">
 <meta property="article:tag" content="backdoor">
 <meta property="article:tag" content="diffusion">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2024/04/08/DATAELIXIR-Purifying-Poisoned-Dataset-to-Mitigate-Backdoor-Attacks-via-Diffusion-Models/image-20240408124759179.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -53,6 +58,10 @@
 <link rel="stylesheet" href="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
   
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css">
+
   
   
   
@@ -209,9 +218,7 @@
         <p>AAAI 2024</p>
 <p>还没有release code</p>
 <figure>
-<img
-src="./DATAELIXIR-Purifying-Poisoned-Dataset-to-Mitigate-Backdoor-Attacks-via-Diffusion-Models/image-20240408124759179.png"
-alt="image-20240408124759179" />
+<img src="/2024/04/08/DATAELIXIR-Purifying-Poisoned-Dataset-to-Mitigate-Backdoor-Attacks-via-Diffusion-Models/image-20240408124759179.png" alt="image-20240408124759179">
 <figcaption aria-hidden="true">image-20240408124759179</figcaption>
 </figure>
 <p>本文提出了一种数据消毒方法，也是使用扩散模型来消除触发器特征，重构良性特征。</p>
@@ -224,31 +231,22 @@ alt="image-20240408124759179" />
 <li>训练扩散模型的数据集是干净的</li>
 </ul>
 <h2 id="候选集合构建">候选集合构建</h2>
-<p><img
-src="./DATAELIXIR-Purifying-Poisoned-Dataset-to-Mitigate-Backdoor-Attacks-via-Diffusion-Models/image-20240408144318778.png"
-alt="image-20240408144318778" />、</p>
+<p><img src="/2024/04/08/DATAELIXIR-Purifying-Poisoned-Dataset-to-Mitigate-Backdoor-Attacks-via-Diffusion-Models/image-20240408144318778.png" alt="image-20240408144318778">、</p>
 <p>本文采取的方法是，对于某张图片，进行n轮前向&amp;反向过程，每一轮的最后m次反向，收集重构的图片，作为候选集合，若是候选集合中的标签发生了变化，证明图片很可能被投毒。
 <span class="math display">\[
 C_{(x_i,y_i)}=\{(x_j,y_j)\}^{n\times m}_{j=1}
 \]</span></p>
 <h2 id="异常样本识别">异常样本识别</h2>
-<p>对于每一个候选集合，都有一个转换系数<span
-class="math inline">\(\eta\)</span>，表示第二高的标签的计数，若是超过了阈值<span
-class="math inline">\(\tau\)</span>，那么代表这个样本可能是毒化样本。</p>
+<p>对于每一个候选集合，都有一个转换系数<span class="math inline">\(\eta\)</span>，表示第二高的标签的计数，若是超过了阈值<span class="math inline">\(\tau\)</span>，那么代表这个样本可能是毒化样本。</p>
 <p>进一步，对于一个良性的样本，其候选集合的分布应该是单值的，也就是全部是一个标签；对于异常样本，则是双值，分布上表现为两个波峰，这代表着样本标签从目标标签到正常标签的转换（触发器特征被逐步模糊）。</p>
 <p>更具体的，作者将整个数据集划分为三部分：良性、毒化、可疑</p>
 <figure>
-<img
-src="./DATAELIXIR-Purifying-Poisoned-Dataset-to-Mitigate-Backdoor-Attacks-via-Diffusion-Models/image-20240408150224608.png"
-alt="image-20240408150224608" />
+<img src="/2024/04/08/DATAELIXIR-Purifying-Poisoned-Dataset-to-Mitigate-Backdoor-Attacks-via-Diffusion-Models/image-20240408150224608.png" alt="image-20240408150224608">
 <figcaption aria-hidden="true">image-20240408150224608</figcaption>
 </figure>
 <ol type="1">
-<li>若是在整个扩散模型的评估过程中，数据的标签都没发生偏移，代表样本是良性的，归类为<span
-class="math inline">\(B\)</span>​；</li>
-<li>若是数据的标签发生偏移，从目标标签转移为真实标签<span
-class="math inline">\(y_g\)</span>，代表这是毒化数据，归类为<span
-class="math inline">\(P\)</span>​，选取经过扩散模型净化后的样本，加入到清洗后的数据集中。</li>
+<li>若是在整个扩散模型的评估过程中，数据的标签都没发生偏移，代表样本是良性的，归类为<span class="math inline">\(B\)</span>​；</li>
+<li>若是数据的标签发生偏移，从目标标签转移为真实标签<span class="math inline">\(y_g\)</span>，代表这是毒化数据，归类为<span class="math inline">\(P\)</span>​，选取经过扩散模型净化后的样本，加入到清洗后的数据集中。</li>
 <li>造成第三种情况的有两种可能性：
 <ol type="1">
 <li>在后期迭代之前，可能无法有效地消除中毒图像上的触发特征，导致标签表现出从目标标签到真实标签的转换时已经在迭代的末期。</li>
@@ -262,36 +260,23 @@ S\)</span>中，标签为目标标签的样本和标签正常的样本之间的�
 C_y=\bigcup_{(x_i,y_i)\in P\cup S}\{C_{(x_i,y_i)}|y_i=y\}
 \]</span>
 这样后，将集合分为几个小集合，另外一个直觉：含有目标标签的集合的分布比正常的分布混乱的多。</p>
-<p>因此，计算这几个分布的KL散度，和正常样本集合对应标签的分布之间的差别，就能判断出<span
-class="math inline">\(y_t\)</span>了。</p>
+<p>因此，计算这几个分布的KL散度，和正常样本集合对应标签的分布之间的差别，就能判断出<span class="math inline">\(y_t\)</span>了。</p>
 <h2 id="净化数据集">净化数据集</h2>
-<p>对于<span
-class="math inline">\(B\)</span>中的数据，都是良性数据，可以直接加入净化数据集；</p>
-<p>对于<span
-class="math inline">\(P\)</span>​中的数据，若是其标签为目标标签，修改其标签为正常标签后，即可加入到正常数据集；</p>
-<p>对于<span
-class="math inline">\(C_y\)</span>的其余部分，若是经过扩散模型前后的输入输出图片有显著不同，考虑这种情况：扩散模型将触发器移除掉了，而不是毁掉了良性特征，通过下面的式子判断二者之间的距离：</p>
+<p>对于<span class="math inline">\(B\)</span>中的数据，都是良性数据，可以直接加入净化数据集；</p>
+<p>对于<span class="math inline">\(P\)</span>​中的数据，若是其标签为目标标签，修改其标签为正常标签后，即可加入到正常数据集；</p>
+<p>对于<span class="math inline">\(C_y\)</span>的其余部分，若是经过扩散模型前后的输入输出图片有显著不同，考虑这种情况：扩散模型将触发器移除掉了，而不是毁掉了良性特征，通过下面的式子判断二者之间的距离：</p>
 <figure>
-<img
-src="./DATAELIXIR-Purifying-Poisoned-Dataset-to-Mitigate-Backdoor-Attacks-via-Diffusion-Models/image-20240409205545430.png"
-alt="image-20240409205545430" />
+<img src="/2024/04/08/DATAELIXIR-Purifying-Poisoned-Dataset-to-Mitigate-Backdoor-Attacks-via-Diffusion-Models/image-20240409205545430.png" alt="image-20240409205545430">
 <figcaption aria-hidden="true">image-20240409205545430</figcaption>
 </figure>
-<p><span
-class="math inline">\(M\)</span>选取的是受害者模型，计算出这个距离后，选取前80%，作为良性数据。</p>
-<p>对于在<span
-class="math inline">\(S\)</span>中具有目标标签的样本，本文选择使用干净的数据集（<span
-class="math inline">\(B\)</span>，纠正了标签的<span
-class="math inline">\(P\)</span>，通过距离判断的<span
-class="math inline">\(P\cup S\)</span>），训练出干净模型<span
-class="math inline">\(M^{&#39;}\)</span>，来判断剩下的样本的正确标签。</p>
-<p>由于<span
-class="math inline">\(M^{&#39;}\)</span>训练时没有学习触发器的特征，所以能够通过样本中的原始标签特征来做判断，而不是触发器特征。</p>
+<p><span class="math inline">\(M\)</span>选取的是受害者模型，计算出这个距离后，选取前80%，作为良性数据。</p>
+<p>对于在<span class="math inline">\(S\)</span>中具有目标标签的样本，本文选择使用干净的数据集（<span class="math inline">\(B\)</span>，纠正了标签的<span class="math inline">\(P\)</span>，通过距离判断的<span class="math inline">\(P\cup S\)</span>），训练出干净模型<span class="math inline">\(M^{&#39;}\)</span>，来判断剩下的样本的正确标签。</p>
+<p>由于<span class="math inline">\(M^{&#39;}\)</span>训练时没有学习触发器的特征，所以能够通过样本中的原始标签特征来做判断，而不是触发器特征。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/04/08/DATAELIXIR-Purifying-Poisoned-Dataset-to-Mitigate-Backdoor-Attacks-via-Diffusion-Models/" data-id="clw90utkc000j2q9f2mhu457r" data-title="DATAELIXIR:Purifying-Poisoned-Dataset-to-Mitigate-Backdoor-Attacks-via-Diffusion-Models" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2024/04/08/DATAELIXIR-Purifying-Poisoned-Dataset-to-Mitigate-Backdoor-Attacks-via-Diffusion-Models/" data-id="clw93veag000qnn9fghxb39ft" data-title="DATAELIXIR:Purifying-Poisoned-Dataset-to-Mitigate-Backdoor-Attacks-via-Diffusion-Models" class="article-share-link">Share</a>
       
       
       
@@ -311,7 +296,7 @@ class="math inline">\(M^{&#39;}\)</span>训练时没有学习触发器的特征�
         
           
           
-            <img data-src="/covers/IMG_2620.PNG" data-sizes="auto" alt="pro-git" class="lazyload">
+            <img data-src="/covers/IMG_2621.PNG" data-sizes="auto" alt="pro-git" class="lazyload">
           
         
         <a href="/2024/04/12/pro-git/"></a>
@@ -328,7 +313,7 @@ class="math inline">\(M^{&#39;}\)</span>训练时没有学习触发器的特征�
       
         
         
-          <img data-src="/covers/IMG_2581.JPG" data-sizes="auto" alt="python-package-tutorials" class="lazyload">
+          <img data-src="/covers/IMG_2579.JPG" data-sizes="auto" alt="python-package-tutorials" class="lazyload">
         
       
       <a href="/2024/04/03/python-package-tutorials/"></a>
@@ -366,8 +351,8 @@ class="math inline">\(M^{&#39;}\)</span>训练时没有学习触发器的特征�
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">
@@ -460,7 +445,7 @@ class="math inline">\(M^{&#39;}\)</span>训练时没有学习触发器的特征�
         <span class="icon-copyright"></span>
         2020-2024
         <span class="footer-info-sep"></span>
-        John Doe
+        chengyiqiu
       </div>
       
         <div>
@@ -509,8 +494,8 @@ class="math inline">\(M^{&#39;}\)</span>训练时没有学习触发器的特征�
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">

@@ -32,24 +32,24 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="对先前阅读的中毒攻击以及后门攻击的论文做一个总结。 评级&amp;组 Baochun Li Yanjiao Chen Qian Wang          论文名称 期刊&#x2F;会议 等级 课题组     Poisoning Attacks on Deep Learning based Wireless Traffic Prediction INFOCOM2022 A Li&#x2F;Chen   MetaPoi">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/summary-231209/image-20231211101210133.png">
-<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/summary-231209/image-20231211141737025.png">
-<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/summary-231209/image-20231211142955400.png">
-<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/summary-231209/image-20231211150401035.png">
-<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/summary-231209/image-20231211150413211.png">
-<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/summary-231209/image-20231212130424901.png">
-<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/summary-231209/image-20231213105123301.png">
-<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/summary-231209/image-20231213161043850.png">
-<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/summary-231209/image-20231213161310216.png">
-<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/summary-231209/image-20231213164250380.png">
-<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/summary-231209/image-20231213164320493.png">
+<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/image-20231211101210133.png">
+<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/image-20231211141737025.png">
+<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/image-20231211142955400.png">
+<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/image-20231211150401035.png">
+<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/image-20231211150413211.png">
+<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/image-20231212130424901.png">
+<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/image-20231213105123301.png">
+<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/image-20231213161043850.png">
+<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/image-20231213161310216.png">
+<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/image-20231213164250380.png">
+<meta property="og:image" content="http://example.com/2023/12/09/summary-231209/image-20231213164320493.png">
 <meta property="article:published_time" content="2023-12-09T11:07:56.000Z">
 <meta property="article:modified_time" content="2024-04-19T04:45:21.401Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="chengyiqiu">
 <meta property="article:tag" content="backdoor">
 <meta property="article:tag" content="poisoning">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/12/09/summary-231209/summary-231209/image-20231211101210133.png">
+<meta name="twitter:image" content="http://example.com/2023/12/09/summary-231209/image-20231211101210133.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -65,6 +65,10 @@
 <link rel="stylesheet" href="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
   
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css">
+
   
   
   
@@ -225,10 +229,10 @@
 <p>Qian Wang</p>
 <table style="width:100%;">
 <colgroup>
-<col style="width: 71%" />
-<col style="width: 13%" />
-<col style="width: 4%" />
-<col style="width: 10%" />
+<col style="width: 71%">
+<col style="width: 13%">
+<col style="width: 4%">
+<col style="width: 10%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -309,61 +313,44 @@ Evasive <strong>Backdoor</strong> Attacks</td>
 <p>上面的文章都是关于中毒or后门攻击的，二者都是对抗攻击。中毒攻击在集中式训练或者联邦学习中都可以使用，而后门攻击目前只在集中式场景下。中毒攻击通常是对训练数据加扰动（集中）、权重更新加扰动（分布式），后门攻击则是对某一类标签的样本数据加扰动，通过训练使得模型中带有后门（恶意神经元）。</p>
 <p>下面对这几篇论文进行总结。</p>
 <h2 id="中毒">中毒</h2>
-<h3
-id="poisoning-attacks-on-deep-learning-based-wireless-traffic-prediction">Poisoning
+<h3 id="poisoning-attacks-on-deep-learning-based-wireless-traffic-prediction">Poisoning
 Attacks on Deep Learning based Wireless Traffic Prediction</h3>
 <p><strong>INFOCOM2022 A</strong></p>
 <p>无线流量预测中的深度学习中毒攻击。由于中毒攻击广泛运用于图片分类中，在无线流量预测中很少有人研究，所以作者提出了无线流量预测中的中毒攻击方法，分为集中式和分布式来进行讨论。</p>
 <p>本文工作量：</p>
 <ul>
-<li><p>扰动掩盖策略（集中场景中毒攻击）：顾名思义掩盖<span
-class="math inline">\(\delta\)</span></p>
+<li><p>扰动掩盖策略（集中场景中毒攻击）：顾名思义掩盖<span class="math inline">\(\delta\)</span></p>
 <ul>
 <li><p>本地会有一个代理模型来进行训练，最小化加了扰动的样本及标签；最大化没加扰动的样本及标签</p>
 <figure>
-<img src="./summary-231209/image-20231211101210133.png"
-alt="image-20231211101210133" />
+<img src="/2023/12/09/summary-231209/image-20231211101210133.png" alt="image-20231211101210133">
 <figcaption aria-hidden="true">image-20231211101210133</figcaption>
 </figure></li>
 </ul></li>
 <li><p>调优&amp;缩放方法（分布场景中毒攻击）</p>
 <figure>
-<img src="./summary-231209/image-20231211141737025.png"
-alt="image-20231211141737025" />
+<img src="/2023/12/09/summary-231209/image-20231211141737025.png" alt="image-20231211141737025">
 <figcaption aria-hidden="true">image-20231211141737025</figcaption>
 </figure></li>
 <li><p>数据清洗（集中场景 防御方法）</p>
 <ul>
-<li><span class="math inline">\(y_i^k\)</span>是<span
-class="math inline">\(v_t\)</span>，可以理解成要预测的标签；<span
-class="math inline">\(x_i^k[j]\)</span>代表的是<span
-class="math inline">\(v_{t-\tau}\)</span>，也就是样本。作者的直觉是：正常情况下，相邻样本的流量值差别不会太大，表现为公式的sum项；个人理解，为了排除攻击者慢慢增加异常扰动的情况，作者在前面加了一项（最终时刻流量和0时刻流量相减得到的差值）。这整个公式得到的就是adjacent
+<li><span class="math inline">\(y_i^k\)</span>是<span class="math inline">\(v_t\)</span>，可以理解成要预测的标签；<span class="math inline">\(x_i^k[j]\)</span>代表的是<span class="math inline">\(v_{t-\tau}\)</span>，也就是样本。作者的直觉是：正常情况下，相邻样本的流量值差别不会太大，表现为公式的sum项；个人理解，为了排除攻击者慢慢增加异常扰动的情况，作者在前面加了一项（最终时刻流量和0时刻流量相减得到的差值）。这整个公式得到的就是adjacent
 distance。作者会在所有的训练集上计算这个距离，并将前100p%的视为中毒数据，丢弃掉（p为投毒率）</li>
 </ul>
 <figure>
-<img src="./summary-231209/image-20231211142955400.png"
-alt="image-20231211142955400" />
+<img src="/2023/12/09/summary-231209/image-20231211142955400.png" alt="image-20231211142955400">
 <figcaption aria-hidden="true">image-20231211142955400</figcaption>
 </figure></li>
 <li><p>异常检测（分布场景 防御方法的）</p>
 <ol type="1">
-<li>计算出所有model update的<span
-class="math inline">\(L_2\)</span>范数，取中位数记为<span
-class="math inline">\(\mu _t\)</span></li>
-<li>将所有的<span class="math inline">\(L_2\)</span>范数和<span
-class="math inline">\(\mu _t\)</span>进行相除，取中位数，记<span
-class="math inline">\(\sigma _t\)</span></li>
-<li>规定，所有model update的最大<span
-class="math inline">\(L_2\)</span>范数不超过<span
-class="math inline">\(c_1\mu _t\)</span>；并且不超过<span
-class="math inline">\(\mu _t+c_2\sigma _t\)</span></li>
+<li>计算出所有model update的<span class="math inline">\(L_2\)</span>范数，取中位数记为<span class="math inline">\(\mu _t\)</span></li>
+<li>将所有的<span class="math inline">\(L_2\)</span>范数和<span class="math inline">\(\mu _t\)</span>进行相除，取中位数，记<span class="math inline">\(\sigma _t\)</span></li>
+<li>规定，所有model update的最大<span class="math inline">\(L_2\)</span>范数不超过<span class="math inline">\(c_1\mu _t\)</span>；并且不超过<span class="math inline">\(\mu _t+c_2\sigma _t\)</span></li>
 </ol>
-<p>这个阈值是动态的，在本文的实验中，<span
-class="math inline">\(c_1=40,c_2=400\)</span>比较好</p></li>
+<p>这个阈值是动态的，在本文的实验中，<span class="math inline">\(c_1=40,c_2=400\)</span>比较好</p></li>
 </ul>
 <p>跑实验很快，几分钟。</p>
-<h3
-id="metapoison-practical-general-purpose-clean-label-data-poisoning">MetaPoison:
+<h3 id="metapoison-practical-general-purpose-clean-label-data-poisoning">MetaPoison:
 Practical General-purpose Clean-label Data Poisoning</h3>
 <p><strong>NIPS A</strong></p>
 <p>元中毒，领域为CV，集中场景，顾名思义就是用一小部分训练数据来投毒，从而影响整个模型的性能。</p>
@@ -371,47 +358,36 @@ Practical General-purpose Clean-label Data Poisoning</h3>
 <ol type="1">
 <li><p>首先将现实问题描述为双层优化问题</p>
 <figure>
-<img src="./summary-231209/image-20231211150401035.png"
-alt="image-20231211150401035" />
+<img src="/2023/12/09/summary-231209/image-20231211150401035.png" alt="image-20231211150401035">
 <figcaption aria-hidden="true">image-20231211150401035</figcaption>
 </figure>
 <figure>
-<img src="./summary-231209/image-20231211150413211.png"
-alt="image-20231211150413211" />
+<img src="/2023/12/09/summary-231209/image-20231211150413211.png" alt="image-20231211150413211">
 <figcaption aria-hidden="true">image-20231211150413211</figcaption>
 </figure>
-<p>可以看到上面有两个参数需要优化（<span
-class="math inline">\(X_P^*,\theta^*\)</span>）</p></li>
-<li><p>双层优化计算量大，因此作者采用先2步SGD来优化<span
-class="math inline">\(\theta\)</span>，然后再优化<span
-class="math inline">\(X_p\)</span></p>
+<p>可以看到上面有两个参数需要优化（<span class="math inline">\(X_P^*,\theta^*\)</span>）</p></li>
+<li><p>双层优化计算量大，因此作者采用先2步SGD来优化<span class="math inline">\(\theta\)</span>，然后再优化<span class="math inline">\(X_p\)</span></p>
 <figure>
-<img src="./summary-231209/image-20231212130424901.png"
-alt="image-20231212130424901" />
+<img src="/2023/12/09/summary-231209/image-20231212130424901.png" alt="image-20231212130424901">
 <figcaption aria-hidden="true">image-20231212130424901</figcaption>
 </figure></li>
 <li><p>选择使用集成学习（多个代理模型训练）以及交替训练增加模型的泛化能力。</p></li>
 </ol>
-<h3
-id="first-order-efficient-general-purpose-clean-label-data-poisoning">First-Order
+<h3 id="first-order-efficient-general-purpose-clean-label-data-poisoning">First-Order
 Efficient General-Purpose Clean-Label Data
 <strong>Poisoning</strong></h3>
 <p><strong>INFOCOM2021 A</strong></p>
 <p>领域CV，集中场景，基于MetaPoison。MetaPoison在优化的时候会利用到二阶导数，这会带来比较大的计算量：</p>
 <figure>
-<img src="./summary-231209/image-20231213105123301.png"
-alt="image-20231213105123301" />
+<img src="/2023/12/09/summary-231209/image-20231213105123301.png" alt="image-20231213105123301">
 <figcaption aria-hidden="true">image-20231213105123301</figcaption>
 </figure>
 <p>本文中针对这点，以一阶逼近二阶的性能。</p>
 <p>工作量：</p>
 <p>在更新扰动方面，以一阶来逼近二阶的性能，找到了一阶的优化路径（路径的推断不是很理解）。</p>
-<p>为什呢说这个是基于MetaPoison（MP）呢，因为MP最开始是一个双层优化问题，可以把loss看成从山顶走到山下，最优化一个参数就是找出一条下山最短的路。而MP是双层优化，两者相互限制，所以MP里面的作者选择对第一个参数<span
-class="math inline">\(\theta\)</span>做2次SGD来优化，然后再优化<span
-class="math inline">\(X_p\)</span>，这样得到的结果肯定不是最优，但性能也很好了。</p>
+<p>为什呢说这个是基于MetaPoison（MP）呢，因为MP最开始是一个双层优化问题，可以把loss看成从山顶走到山下，最优化一个参数就是找出一条下山最短的路。而MP是双层优化，两者相互限制，所以MP里面的作者选择对第一个参数<span class="math inline">\(\theta\)</span>做2次SGD来优化，然后再优化<span class="math inline">\(X_p\)</span>，这样得到的结果肯定不是最优，但性能也很好了。</p>
 <p>本文则是针对MP找到的这条路径进行优化，节省计算时间，核心工作就是找到了一阶的优化路径。</p>
-<h3
-id="oblivion-poisoning-federated-learning-by-inducing-catastrophic-forgetting">OBLIVION:
+<h3 id="oblivion-poisoning-federated-learning-by-inducing-catastrophic-forgetting">OBLIVION:
 <strong>Poisoning</strong> Federated Learning by Inducing Catastrophic
 Forgetting</h3>
 <p>领域CV，分布场景。</p>
@@ -421,8 +397,7 @@ Forgetting</h3>
 <li>灾难性遗忘：对以前提交过的更新也增加扰动。</li>
 </ol>
 <p>跑实验很慢，五六小时出一次结果。</p>
-<h3
-id="data-poisoning-attacks-in-internet-of-vehicle-networks-taxonomy-state-of-the-art-and-future-directions">Data
+<h3 id="data-poisoning-attacks-in-internet-of-vehicle-networks-taxonomy-state-of-the-art-and-future-directions">Data
 <strong>Poisoning</strong> Attacks in Internet-of-Vehicle Networks:
 Taxonomy, State-of-The-Art, and Future Directions</h3>
 <p><strong>TII C/SCI1区</strong></p>
@@ -443,8 +418,7 @@ Taxonomy, State-of-The-Art, and Future Directions</h3>
 <p>基于模型的方法是在训练阶段，会附加一些额外步骤，通过模型的准确率和参数变化，来判断是否有中毒数据。</p></li>
 </ol>
 <h2 id="后门">后门</h2>
-<h3
-id="neural-attention-distillation-erasing-backdoor-triggers-from-deep-neural-networks">Neural
+<h3 id="neural-attention-distillation-erasing-backdoor-triggers-from-deep-neural-networks">Neural
 Attention Distillation: Erasing Backdoor Triggers from Deep Neural
 Networks</h3>
 <p><strong>ICLR2021 大佬创办的顶会</strong></p>
@@ -453,24 +427,20 @@ Networks</h3>
 <p>提出的框架NAD（<strong>N</strong>eural <strong>A</strong>ttention
 <strong>D</strong>istillation，神经注意力蒸馏），思路是：在一小部分干净数据集上，用一个老师模型来对学生模型进行微调，老师模型可以从学生模型中得到，最终需要的就是经过微调后的学生模型。</p>
 <figure>
-<img src="./summary-231209/image-20231213161043850.png"
-alt="image-20231213161043850" />
+<img src="/2023/12/09/summary-231209/image-20231213161043850.png" alt="image-20231213161043850">
 <figcaption aria-hidden="true">image-20231213161043850</figcaption>
 </figure>
 <ul>
-<li><p><span
-class="math inline">\(F^l\)</span>：第l层的激活函数的输出结果，T表示老师模型，S表示学生模型，可以看到求出注意力之后各自都进行了归一化。</p></li>
+<li><p><span class="math inline">\(F^l\)</span>：第l层的激活函数的输出结果，T表示老师模型，S表示学生模型，可以看到求出注意力之后各自都进行了归一化。</p></li>
 <li><p><span class="math inline">\(\mathcal
 A\)</span>：注意力映射，将3维的激活函数输出转换为2维的注意力。</p></li>
 </ul>
 <p>然后还有一个loss函数负责保证蒸馏（NAD）时的正确率，避免除掉后门的过程中正确率降低太多。</p>
 <figure>
-<img src="./summary-231209/image-20231213161310216.png"
-alt="image-20231213161310216" />
+<img src="/2023/12/09/summary-231209/image-20231213161310216.png" alt="image-20231213161310216">
 <figcaption aria-hidden="true">image-20231213161310216</figcaption>
 </figure>
-<h3
-id="redeem-myself-purifying-backdoors-in-deep-learning-models-using-self-attention-distillation">REDEEM
+<h3 id="redeem-myself-purifying-backdoors-in-deep-learning-models-using-self-attention-distillation">REDEEM
 MYSELF: Purifying <strong>Backdoors</strong> in Deep Learning Models
 using Self Attention Distillation</h3>
 <p><strong>S&amp;P A 安全四大</strong></p>
@@ -482,26 +452,22 @@ using Self Attention Distillation</h3>
 <li><p>注意力表示模块：根据神经元对最终预测结果的重要性，来提取出注意力</p>
 <ul>
 <li><span class="math inline">\(F_B\)</span>: 带有后门的模型</li>
-<li><span class="math inline">\(F_B^l\)</span>: l层激活函数的输出, <span
-class="math inline">\(\epsilon R^{C_l\times H_l\times W_l}\)</span></li>
+<li><span class="math inline">\(F_B^l\)</span>: l层激活函数的输出, <span class="math inline">\(\epsilon R^{C_l\times H_l\times W_l}\)</span></li>
 <li><span class="math inline">\(\mathcal G:R^{C_l\times H_l\times
 W_l}\to R^{H_l\times W_l}\)</span>:
 映射函数，由激活函数输出得到注意力</li>
 </ul>
 <figure>
-<img src="./summary-231209/image-20231213164250380.png"
-alt="image-20231213164250380" />
+<img src="/2023/12/09/summary-231209/image-20231213164250380.png" alt="image-20231213164250380">
 <figcaption aria-hidden="true">image-20231213164250380</figcaption>
 </figure></li>
 <li><p>损失计算模块：根据浅层的注意力，对深层的权重进行调整，同时保证模型预测的准确率。用浅层监督深层。</p>
 <figure>
-<img src="./summary-231209/image-20231213164320493.png"
-alt="image-20231213164320493" />
+<img src="/2023/12/09/summary-231209/image-20231213164320493.png" alt="image-20231213164320493">
 <figcaption aria-hidden="true">image-20231213164320493</figcaption>
 </figure></li>
 <li><p>学习率更新模块：跟踪模型在干净数据集上的准确率，来自适应调整学习率。（[32]是每过两个epoch，学习率除10）</p>
-<p>本文提出的一种学习率更新的方法，设定了两个条件：<span
-class="math inline">\(\mathcal C_1,\mathcal C_2\)</span>:</p>
+<p>本文提出的一种学习率更新的方法，设定了两个条件：<span class="math inline">\(\mathcal C_1,\mathcal C_2\)</span>:</p>
 <ul>
 <li><span class="math inline">\(\mathcal C_1\)</span>:
 当在干净数据上的loss在n个epoch内都没有下降</li>
@@ -510,8 +476,7 @@ class="math inline">\(\mathcal C_1,\mathcal C_2\)</span>:</p>
 </ul>
 <p>若是上面条件有一个发生，那么就将学习率除2。</p></li>
 </ol>
-<h3
-id="palette-physically-realizable-backdoor-attacks-against-video-recognition-models">PALETTE:
+<h3 id="palette-physically-realizable-backdoor-attacks-against-video-recognition-models">PALETTE:
 Physically-Realizable <strong>Backdoor</strong> Attacks Against Video
 Recognition Models</h3>
 <p><strong>TDSC2023 A</strong></p>
@@ -528,8 +493,7 @@ Recognition Models</h3>
 <li>滚动操作将触发器帧插入到视频中去</li>
 <li>抽样投毒</li>
 </ol>
-<h3
-id="atteq-nn-attention-based-qoe-aware-evasive-backdoor-attacks">ATTEQ-NN:
+<h3 id="atteq-nn-attention-based-qoe-aware-evasive-backdoor-attacks">ATTEQ-NN:
 Attention-based QoE-aware Evasive <strong>Backdoor</strong> Attacks</h3>
 <p><strong>NDSS2022 A 安全四大</strong></p>
 <p>领域CV，集中场景。</p>
@@ -546,7 +510,7 @@ Attention-based QoE-aware Evasive <strong>Backdoor</strong> Attacks</h3>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/12/09/summary-231209/" data-id="clw90utko005c2q9fe3dhcq10" data-title="summary_231209" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/12/09/summary-231209/" data-id="clw93veaq0059nn9fbtxqclec" data-title="summary_231209" class="article-share-link">Share</a>
       
       
       
@@ -566,7 +530,7 @@ Attention-based QoE-aware Evasive <strong>Backdoor</strong> Attacks</h3>
         
           
           
-            <img data-src="/covers/IMG_2620.PNG" data-sizes="auto" alt="matrix" class="lazyload">
+            <img data-src="/covers/IMG_2618.PNG" data-sizes="auto" alt="matrix" class="lazyload">
           
         
         <a href="/2023/12/30/matrix/"></a>
@@ -583,7 +547,7 @@ Attention-based QoE-aware Evasive <strong>Backdoor</strong> Attacks</h3>
       
         
         
-          <img data-src="/covers/IMG_2577.JPG" data-sizes="auto" alt="BadNets:Evaluating_Backdooring_Attacks_on_Deep_Neural_Networks" class="lazyload">
+          <img data-src="/covers/IMG_2583 2.PNG" data-sizes="auto" alt="BadNets:Evaluating_Backdooring_Attacks_on_Deep_Neural_Networks" class="lazyload">
         
       
       <a href="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/"></a>
@@ -636,8 +600,8 @@ Attention-based QoE-aware Evasive Backdoor Attacks</span></a></li></ol></li><li 
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">
@@ -730,7 +694,7 @@ Attention-based QoE-aware Evasive Backdoor Attacks</span></a></li></ol></li><li 
         <span class="icon-copyright"></span>
         2020-2024
         <span class="footer-info-sep"></span>
-        John Doe
+        chengyiqiu
       </div>
       
         <div>
@@ -794,8 +758,8 @@ Attention-based QoE-aware Evasive Backdoor Attacks</span></a></li></ol></li><li 
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">

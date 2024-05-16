@@ -32,27 +32,28 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="PageRank how to represent page as graph:  Node: web pages Edge: hyperlinks  Not only page network, here are citation natwork and reference network:   image-20231016105115978  The problem is how could">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016105115978.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016110419927.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016110800556.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016111626006.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016131736772.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016144335069.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016144426163.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016144523411.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016144806032.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016145129148.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016145825068.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016145215400.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016150936154.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016151116458.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016151135339.png">
-<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016155859558.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016105115978.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016110419927.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016110800556.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016110819595.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016111626006.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016131736772.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016144335069.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016144426163.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016144523411.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016144806032.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016145129148.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016145825068.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016145215400.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016150936154.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016151116458.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016151135339.png">
+<meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016155859558.png">
 <meta property="article:published_time" content="2023-10-16T01:00:19.000Z">
 <meta property="article:modified_time" content="2023-10-16T08:28:00.000Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="chengyiqiu">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016105115978.png">
+<meta name="twitter:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016105115978.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -68,6 +69,10 @@
 <link rel="stylesheet" href="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
   
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css">
+
   
   
   
@@ -230,8 +235,7 @@
 <p>Not only page network, here are citation natwork and reference
 network:</p>
 <figure>
-<img src="./cs224w-ch4/image-20231016105115978.png"
-alt="image-20231016105115978" />
+<img src="/2023/10/16/cs224w-ch4/image-20231016105115978.png" alt="image-20231016105115978">
 <figcaption aria-hidden="true">image-20231016105115978</figcaption>
 </figure>
 <p>The problem is <strong>how could we measure the important of a web
@@ -243,7 +247,7 @@ links</strong></p>
 <p>consider 2 web page:</p>
 <ul>
 <li>www.stanford.edu has 23,400 in-links</li>
-<li><a href="">thispersondoesnotexist.com</a> has 1 in-link</li>
+<li><a href>thispersondoesnotexist.com</a> has 1 in-link</li>
 </ul>
 <p>why we don't consider out-link?</p>
 <p>Because in your website, you can set a lot of out-links, and it is
@@ -251,48 +255,38 @@ easy to implement. So the inportance only take in-link into
 consideration.</p>
 <p>so, what is vote?</p>
 <figure>
-<img src="./cs224w-ch4/image-20231016110419927.png"
-alt="image-20231016110419927" />
+<img src="/2023/10/16/cs224w-ch4/image-20231016110419927.png" alt="image-20231016110419927">
 <figcaption aria-hidden="true">image-20231016110419927</figcaption>
 </figure>
 <p>we use in-links to caculate the importance of node j, j have 2
 in-links, so it's importance is above.</p>
 <p>And consider other nodes, such as node i, has 3 out-links, so its
-importance to others is divided to <span
-class="math inline">\(\frac{r_i}{3}\)</span></p>
+importance to others is divided to <span class="math inline">\(\frac{r_i}{3}\)</span></p>
 <p>for a 3 node graph:</p>
 <figure>
-<img src="./cs224w-ch4/image-20231016110800556.png"
-alt="image-20231016110800556" />
+<img src="/2023/10/16/cs224w-ch4/image-20231016110800556.png" alt="image-20231016110800556">
 <figcaption aria-hidden="true">image-20231016110800556</figcaption>
 </figure>
-<p>we can get the equation for each node: <img
-src="./cs224w-ch4/image-20231016110819595.png"
-alt="image-20231016110819595" /></p>
+<p>we can get the equation for each node: <img src="/2023/10/16/cs224w-ch4/image-20231016110819595.png" alt="image-20231016110819595"></p>
 <h2 id="matrix-formulation">Matrix Formulation</h2>
 <p>Let us start at some notion.</p>
 <ol type="1">
-<li><p>Stochastic adjacency matrix <span
-class="math inline">\(M\)</span></p>
+<li><p>Stochastic adjacency matrix <span class="math inline">\(M\)</span></p>
 <p>Here are the rules:</p>
 <ul>
 <li><span class="math inline">\(d_i\)</span> is the out degree of node
 <span class="math inline">\(i\)</span></li>
-<li>if <span class="math inline">\(i\to j\)</span>, then <span
-class="math inline">\(M_{ji}=\frac{1}{d_i}\)</span>, which means the
+<li>if <span class="math inline">\(i\to j\)</span>, then <span class="math inline">\(M_{ji}=\frac{1}{d_i}\)</span>, which means the
 importance of <span class="math inline">\(i\)</span> is divided and
 given to <span class="math inline">\(j\)</span></li>
 </ul></li>
 <li><p>Rank vector <span class="math inline">\(r\)</span></p>
 <p><span class="math inline">\(r_i\)</span> is the importance of page
-<span class="math inline">\(i\)</span>, and <span
-class="math inline">\(\sum_ir_i=1\)</span>.</p></li>
+<span class="math inline">\(i\)</span>, and <span class="math inline">\(\sum_ir_i=1\)</span>.</p></li>
 </ol>
-<p>and the flow equation can be written as: <span
-class="math display">\[
+<p>and the flow equation can be written as: <span class="math display">\[
 r=M.r
-\]</span> <img src="./cs224w-ch4/image-20231016111626006.png"
-alt="image-20231016111626006" /></p>
+\]</span> <img src="/2023/10/16/cs224w-ch4/image-20231016111626006.png" alt="image-20231016111626006"></p>
 <h2 id="connection-to-random-walk">Connection to Random walk</h2>
 <p>we have considered the importance of node. now lets start at one page
 i, and which page should we select next?</p>
@@ -303,8 +297,7 @@ i, and which page should we select next?</p>
 <li>repeat</li>
 </ol>
 <figure>
-<img src="./cs224w-ch4/image-20231016131736772.png"
-alt="image-20231016131736772" />
+<img src="/2023/10/16/cs224w-ch4/image-20231016131736772.png" alt="image-20231016131736772">
 <figcaption aria-hidden="true">image-20231016131736772</figcaption>
 </figure>
 <p>so, here are some notions:</p>
@@ -315,8 +308,7 @@ probability.</li>
 <li><span class="math inline">\(p(t)\)</span> is a probability
 distribution over pages</li>
 </ul>
-<p>this process can be performed as this fomula: <span
-class="math display">\[
+<p>this process can be performed as this fomula: <span class="math display">\[
 p(t+1)=M.p(t)=p(t)
 \]</span></p>
 <p><span class="math display">\[
@@ -333,29 +325,24 @@ is eigenvalue</p>
 \]</span></p>
 <h1 id="solve-pagerank">Solve PageRank</h1>
 <h2 id="notion-and-procedure">notion and procedure</h2>
-<p>we have the equation with eigenvalue 1 and eigenvector <span
-class="math inline">\(r\)</span>, and its equal form is:</p>
+<p>we have the equation with eigenvalue 1 and eigenvector <span class="math inline">\(r\)</span>, and its equal form is:</p>
 <figure>
-<img src="./cs224w-ch4/image-20231016144335069.png"
-alt="image-20231016144335069" />
+<img src="/2023/10/16/cs224w-ch4/image-20231016144335069.png" alt="image-20231016144335069">
 <figcaption aria-hidden="true">image-20231016144335069</figcaption>
 </figure>
 <p>now we use iterative procedure to solve it:</p>
 <figure>
-<img src="./cs224w-ch4/image-20231016144426163.png"
-alt="image-20231016144426163" />
+<img src="/2023/10/16/cs224w-ch4/image-20231016144426163.png" alt="image-20231016144426163">
 <figcaption aria-hidden="true">image-20231016144426163</figcaption>
 </figure>
 <p>the whole procedure is as follow:</p>
 <figure>
-<img src="./cs224w-ch4/image-20231016144523411.png"
-alt="image-20231016144523411" />
+<img src="/2023/10/16/cs224w-ch4/image-20231016144523411.png" alt="image-20231016144523411">
 <figcaption aria-hidden="true">image-20231016144523411</figcaption>
 </figure>
 <p>Here are some example:</p>
 <figure>
-<img src="./cs224w-ch4/image-20231016144806032.png"
-alt="image-20231016144806032" />
+<img src="/2023/10/16/cs224w-ch4/image-20231016144806032.png" alt="image-20231016144806032">
 <figcaption aria-hidden="true">image-20231016144806032</figcaption>
 </figure>
 <h2 id="problem">problem</h2>
@@ -369,8 +356,7 @@ alt="image-20231016144806032" />
 </ol>
 <h3 id="spider-trap">spider trap</h3>
 <figure>
-<img src="./cs224w-ch4/image-20231016145129148.png"
-alt="image-20231016145129148" />
+<img src="/2023/10/16/cs224w-ch4/image-20231016145129148.png" alt="image-20231016145129148">
 <figcaption aria-hidden="true">image-20231016145129148</figcaption>
 </figure>
 <p>Here is solution.</p>
@@ -383,8 +369,7 @@ a teleport</li>
 <li>Usually us <span class="math inline">\(\beta=0.8\to0.9\)</span></li>
 </ul>
 <figure>
-<img src="./cs224w-ch4/image-20231016145825068.png"
-alt="image-20231016145825068" />
+<img src="/2023/10/16/cs224w-ch4/image-20231016145825068.png" alt="image-20231016145825068">
 <figcaption aria-hidden="true">image-20231016145825068</figcaption>
 </figure>
 <p>so, use teleport, the surfer will stay at node m, after few step,
@@ -392,14 +377,12 @@ surfer will jump to the teleport, which could be any node in the
 graph</p>
 <h3 id="dead-end">dead end</h3>
 <figure>
-<img src="./cs224w-ch4/image-20231016145215400.png"
-alt="image-20231016145215400" />
+<img src="/2023/10/16/cs224w-ch4/image-20231016145215400.png" alt="image-20231016145215400">
 <figcaption aria-hidden="true">image-20231016145215400</figcaption>
 </figure>
 <p>the solution is same with spider trap, just use teleport</p>
 <figure>
-<img src="./cs224w-ch4/image-20231016150936154.png"
-alt="image-20231016150936154" />
+<img src="/2023/10/16/cs224w-ch4/image-20231016150936154.png" alt="image-20231016150936154">
 <figcaption aria-hidden="true">image-20231016150936154</figcaption>
 </figure>
 <p>see node m, it has no out-links, we use teleport, and each prob. is
@@ -407,21 +390,17 @@ alt="image-20231016150936154" />
 include m itself</p>
 <h3 id="googles-solution">Google's solution</h3>
 <figure>
-<img src="./cs224w-ch4/image-20231016151116458.png"
-alt="image-20231016151116458" />
+<img src="/2023/10/16/cs224w-ch4/image-20231016151116458.png" alt="image-20231016151116458">
 <figcaption aria-hidden="true">image-20231016151116458</figcaption>
 </figure>
 <h3 id="e.g.">e.g.</h3>
 <figure>
-<img src="./cs224w-ch4/image-20231016151135339.png"
-alt="image-20231016151135339" />
+<img src="/2023/10/16/cs224w-ch4/image-20231016151135339.png" alt="image-20231016151135339">
 <figcaption aria-hidden="true">image-20231016151135339</figcaption>
 </figure>
 <p>because of teleport, the gree nodes, which have no in degree, also
-have their importance. and we can adjust <span
-class="math inline">\(\beta\)</span> to change its value, according to
-the reality. if it is important than we set, then we set <span
-class="math inline">\(\beta\)</span> lower.</p>
+have their importance. and we can adjust <span class="math inline">\(\beta\)</span> to change its value, according to
+the reality. if it is important than we set, then we set <span class="math inline">\(\beta\)</span> lower.</p>
 <h1 id="personalized-and-restart-pagerank">personalized and restart
 pagerank</h1>
 <p>let's see the difference:</p>
@@ -429,23 +408,20 @@ pagerank</h1>
 <li><p>pagerank</p>
 <p>jump to any node</p></li>
 <li><p>Personalized pagerank</p>
-<p>Jump to a set of teleport nodes <span
-class="math inline">\(S\)</span></p></li>
+<p>Jump to a set of teleport nodes <span class="math inline">\(S\)</span></p></li>
 <li><p>random walks with restart</p>
-<p>teleport to the starting node : <span
-class="math inline">\(S=\{Q\}\)</span></p></li>
+<p>teleport to the starting node : <span class="math inline">\(S=\{Q\}\)</span></p></li>
 </ol>
 <p>the form in simulation:</p>
 <figure>
-<img src="./cs224w-ch4/image-20231016155859558.png"
-alt="image-20231016155859558" />
+<img src="/2023/10/16/cs224w-ch4/image-20231016155859558.png" alt="image-20231016155859558">
 <figcaption aria-hidden="true">image-20231016155859558</figcaption>
 </figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/16/cs224w-ch4/" data-id="clw90utkk003u2q9fe8s016nm" data-title="cs224w_ch4" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/10/16/cs224w-ch4/" data-id="clw93veaq004znn9f1dltgrt5" data-title="cs224w_ch4" class="article-share-link">Share</a>
       
       
       
@@ -463,7 +439,7 @@ alt="image-20231016155859558" />
         
           
           
-            <img data-src="/covers/IMG_2585.JPG" data-sizes="auto" alt="cs224w_ch6" class="lazyload">
+            <img data-src="/covers/IMG_2586.PNG" data-sizes="auto" alt="cs224w_ch6" class="lazyload">
           
         
         <a href="/2023/10/16/cs224w-ch6/"></a>
@@ -480,7 +456,7 @@ alt="image-20231016155859558" />
       
         
         
-          <img data-src="/covers/IMG_2579.JPG" data-sizes="auto" alt="cs224w_ch2_lab" class="lazyload">
+          <img data-src="/covers/IMG_2586.PNG" data-sizes="auto" alt="cs224w_ch2_lab" class="lazyload">
         
       
       <a href="/2023/10/13/cs224w-ch2-lab/"></a>
@@ -519,8 +495,8 @@ pagerank</span></a></li></ol>
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">
@@ -613,7 +589,7 @@ pagerank</span></a></li></ol>
         <span class="icon-copyright"></span>
         2020-2024
         <span class="footer-info-sep"></span>
-        John Doe
+        chengyiqiu
       </div>
       
         <div>
@@ -663,8 +639,8 @@ pagerank</span></a></li></ol>
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">

@@ -32,17 +32,17 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="abstract 现有的攻击主要都是手工制作的攻击，为什么让机器去做呢？因为这通常是一个bilevel optimization（双层优化）问题，这对于深度模型来说是不好求解的。 提出的攻击：MetaPoison。通过first- order method（一阶方法）来近似bilevel optimization。 其特性：  高效性：通过和clean-label方法对比 健壮性：对一个模型的中毒">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/10/22/MetaPoison/MetaPoison/image-20231030151120750.png">
-<meta property="og:image" content="http://example.com/2023/10/22/MetaPoison/MetaPoison/image-20231030151152980.png">
-<meta property="og:image" content="http://example.com/2023/10/22/MetaPoison/MetaPoison/image-20231030155536272.png">
-<meta property="og:image" content="http://example.com/2023/10/22/MetaPoison/MetaPoison/image-20231030155755080.png">
-<meta property="og:image" content="http://example.com/2023/10/22/MetaPoison/MetaPoison/image-20231030194721267.png">
+<meta property="og:image" content="http://example.com/2023/10/22/MetaPoison/image-20231030151120750.png">
+<meta property="og:image" content="http://example.com/2023/10/22/MetaPoison/image-20231030151152980.png">
+<meta property="og:image" content="http://example.com/2023/10/22/MetaPoison/image-20231030155536272.png">
+<meta property="og:image" content="http://example.com/2023/10/22/MetaPoison/image-20231030155755080.png">
+<meta property="og:image" content="http://example.com/2023/10/22/MetaPoison/image-20231030194721267.png">
 <meta property="article:published_time" content="2023-10-22T12:28:07.000Z">
 <meta property="article:modified_time" content="2023-11-13T07:44:29.000Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="chengyiqiu">
 <meta property="article:tag" content="poisoning">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/10/22/MetaPoison/MetaPoison/image-20231030151120750.png">
+<meta name="twitter:image" content="http://example.com/2023/10/22/MetaPoison/image-20231030151120750.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -58,6 +58,10 @@
 <link rel="stylesheet" href="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
   
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css">
+
   
   
   
@@ -224,56 +228,40 @@ label攻击没有这个性质）</li>
 <h2 id="受限制的双层优化问题">受限制的双层优化问题</h2>
 <p>双层优化问题的描述如下：</p>
 <figure>
-<img src="./MetaPoison/image-20231030151120750.png"
-alt="image-20231030151120750" />
+<img src="/2023/10/22/MetaPoison/image-20231030151120750.png" alt="image-20231030151120750">
 <figcaption aria-hidden="true">image-20231030151120750</figcaption>
 </figure>
-<p>s.t. <img src="./MetaPoison/image-20231030151152980.png"
-alt="image-20231030151152980" /></p>
+<p>s.t. <img src="/2023/10/22/MetaPoison/image-20231030151152980.png" alt="image-20231030151152980"></p>
 <p>符号：</p>
 <ul>
-<li><span class="math inline">\(X_c\)</span>：干净数据 ｜ <span
-class="math inline">\(X_p\)</span>： 中毒数据</li>
-<li><span
-class="math inline">\(Y\)</span>：包含中毒攻击的样本以及正常样本 ｜
+<li><span class="math inline">\(X_c\)</span>：干净数据 ｜ <span class="math inline">\(X_p\)</span>： 中毒数据</li>
+<li><span class="math inline">\(Y\)</span>：包含中毒攻击的样本以及正常样本 ｜
 <span class="math inline">\(y_{adv}\)</span>：中毒样本</li>
 </ul>
 <p>先优化train阶段（<span class="math inline">\(\mathcal
-L_{train}\)</span>使用的就是简单的交叉熵），然后再优化adversary阶段（<span
-class="math inline">\(\mathcal L_{adv}\)</span>使用的是<a
-target="_blank" rel="noopener" href="https://readpaper.com/paper/623763322802241536">Towards Evaluating
-the Robustness of Neural Networks</a>中提到的adversarial loss <span
-class="math inline">\(f_6\)</span>），最终的目标是找到<span
-class="math inline">\(X_p^{*}\)</span></p>
-<p>为什么标题中双层优化问题加了一个constrained，因为中毒后的样本应该和自然的样本比较相似。基于此，作者选取了一个扰动模型（<a
-target="_blank" rel="noopener" href="https://readpaper.com/paper/2947028053">Functional Adversarial
-Attacks</a>，称为<span
-class="math inline">\(f_g\)</span>，g代表的是模型的参数： <span
-class="math display">\[
+L_{train}\)</span>使用的就是简单的交叉熵），然后再优化adversary阶段（<span class="math inline">\(\mathcal L_{adv}\)</span>使用的是<a target="_blank" rel="noopener" href="https://readpaper.com/paper/623763322802241536">Towards Evaluating
+the Robustness of Neural Networks</a>中提到的adversarial loss <span class="math inline">\(f_6\)</span>），最终的目标是找到<span class="math inline">\(X_p^{*}\)</span></p>
+<p>为什么标题中双层优化问题加了一个constrained，因为中毒后的样本应该和自然的样本比较相似。基于此，作者选取了一个扰动模型（<a target="_blank" rel="noopener" href="https://readpaper.com/paper/2947028053">Functional Adversarial
+Attacks</a>，称为<span class="math inline">\(f_g\)</span>，g代表的是模型的参数： <span class="math display">\[
 x_p=f_g(x)+\delta
 \]</span></p>
 <h2 id="策略">策略</h2>
-<p>将双层优化都最小化不太现实，这里作者选择：对于<span
-class="math inline">\(\mathcal
-L_{train}\)</span>，使用K步SGD，然后再优化<span
-class="math inline">\(\mathcal
+<p>将双层优化都最小化不太现实，这里作者选择：对于<span class="math inline">\(\mathcal
+L_{train}\)</span>，使用K步SGD，然后再优化<span class="math inline">\(\mathcal
 L_{adv}\)</span>。例如当K取2时，优化过程可以描述为：</p>
 <figure>
-<img src="./MetaPoison/image-20231030155536272.png"
-alt="image-20231030155536272" />
+<img src="/2023/10/22/MetaPoison/image-20231030155536272.png" alt="image-20231030155536272">
 <figcaption aria-hidden="true">image-20231030155536272</figcaption>
 </figure>
 <figure>
-<img src="./MetaPoison/image-20231030155755080.png"
-alt="image-20231030155755080" />
+<img src="/2023/10/22/MetaPoison/image-20231030155755080.png" alt="image-20231030155755080">
 <figcaption aria-hidden="true">image-20231030155755080</figcaption>
 </figure>
 <p>上面的方法称为展开训练管道，其成功的应用不在少数（元学习、超参数搜索、架构搜索）</p>
 <p>但将展开训练管道应用于本文的中毒攻击的双层优化问题，会有一些问题：</p>
 <ol type="1">
 <li>对权重初始化以及小批量数据的次序敏感，这些都是攻击者的知识涉及不到的。</li>
-<li>作者的经验之谈：一个epoch内，使用单个代理网络来产生中毒，会使得这个网络对这一轮的数据过拟合，这样的后果就是模型对新数据的引导能力下降了（模型的目的是投毒使得受害者模型朝着<span
-class="math inline">\(\mathcal L_{adv}\)</span>的方向偏转）</li>
+<li>作者的经验之谈：一个epoch内，使用单个代理网络来产生中毒，会使得这个网络对这一轮的数据过拟合，这样的后果就是模型对新数据的引导能力下降了（模型的目的是投毒使得受害者模型朝着<span class="math inline">\(\mathcal L_{adv}\)</span>的方向偏转）</li>
 </ol>
 <p>也就是说，本文需要的不是一个能够完美解决bilevel
 optimization的模型，而是一个可以对初始化不敏感、对epoch不敏感的模型。也就是说需要提升模型的泛化能力。</p>
@@ -285,15 +273,14 @@ optimization的模型，而是一个可以对初始化不敏感、对epoch不敏
 <p>然后作者将他的工作和已存在的工作进行了对比，通过计算，作者的任务需要5760次传播，而对比的已存在的任务需要12000次传播。</p>
 <h1 id="experience">experience</h1>
 <figure>
-<img src="./MetaPoison/image-20231030194721267.png"
-alt="image-20231030194721267" />
+<img src="/2023/10/22/MetaPoison/image-20231030194721267.png" alt="image-20231030194721267">
 <figcaption aria-hidden="true">image-20231030194721267</figcaption>
 </figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/22/MetaPoison/" data-id="clw90utkg001u2q9f78mwapdx" data-title="MetaPoison" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/10/22/MetaPoison/" data-id="clw93veaj001rnn9f25jh6ltx" data-title="MetaPoison" class="article-share-link">Share</a>
       
       
       
@@ -313,7 +300,7 @@ alt="image-20231030194721267" />
         
           
           
-            <img data-src="/covers/IMG_2619.PNG" data-sizes="auto" alt="OBLIVION_poisoning" class="lazyload">
+            <img data-src="/covers/IMG_2586.PNG" data-sizes="auto" alt="OBLIVION_poisoning" class="lazyload">
           
         
         <a href="/2023/10/23/OBLIVION-poisoning/"></a>
@@ -330,7 +317,7 @@ alt="image-20231030194721267" />
       
         
         
-          <img data-src="/covers/IMG_2580.JPG" data-sizes="auto" alt="cs224w_ch8" class="lazyload">
+          <img data-src="/covers/IMG_2579.JPG" data-sizes="auto" alt="cs224w_ch8" class="lazyload">
         
       
       <a href="/2023/10/22/cs224w-ch8/"></a>
@@ -368,8 +355,8 @@ alt="image-20231030194721267" />
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">
@@ -462,7 +449,7 @@ alt="image-20231030194721267" />
         <span class="icon-copyright"></span>
         2020-2024
         <span class="footer-info-sep"></span>
-        John Doe
+        chengyiqiu
       </div>
       
         <div>
@@ -511,8 +498,8 @@ alt="image-20231030194721267" />
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">

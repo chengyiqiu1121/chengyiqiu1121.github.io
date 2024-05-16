@@ -32,25 +32,27 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="abstract develop an advanced model poisoning attack against defensive aggregation rules 2 components&#x2F;features:  rank the priority of models weights to find whose influence is bigger. Then we do poison">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/OBLIVION-poisoning/image-20231023094202585.png">
-<meta property="og:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/OBLIVION-poisoning/image-20231023115006500.png">
-<meta property="og:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/OBLIVION-poisoning/image-20231023115016876.png">
-<meta property="og:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/OBLIVION-poisoning/image-20231023115231393.png">
-<meta property="og:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/OBLIVION-poisoning/image-20231023115029437.png">
-<meta property="og:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/OBLIVION-poisoning/image-20231023115037019.png">
-<meta property="og:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/OBLIVION-poisoning/image-20231023115049435.png">
-<meta property="og:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/OBLIVION-poisoning/image-20231023115937080.png">
-<meta property="og:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/OBLIVION-poisoning/image-20231105154334303.png">
-<meta property="og:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/OBLIVION-poisoning/image-20231105154433398.png">
-<meta property="og:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/OBLIVION-poisoning/image-20231105203336335.png">
-<meta property="og:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/OBLIVION-poisoning/image-20231105132103810.png">
-<meta property="og:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/OBLIVION-poisoning/image-20231105183928487.png">
+<meta property="og:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/image-20231023094202585.png">
+<meta property="og:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/image-20231023115006500.png">
+<meta property="og:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/image-20231023115016876.png">
+<meta property="og:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/image-20231023115231393.png">
+<meta property="og:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/image-20231023115029437.png">
+<meta property="og:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/image-20231023115037019.png">
+<meta property="og:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/image-20231023115049435.png">
+<meta property="og:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/image-20231023115937080.png">
+<meta property="og:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/image-20231105154334303.png">
+<meta property="og:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/image-20231105154409779.png">
+<meta property="og:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/image-20231105154433398.png">
+<meta property="og:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/image-20231105154447396.png">
+<meta property="og:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/image-20231105203336335.png">
+<meta property="og:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/image-20231105132103810.png">
+<meta property="og:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/image-20231105183928487.png">
 <meta property="article:published_time" content="2023-10-23T00:09:38.000Z">
 <meta property="article:modified_time" content="2023-12-08T09:38:56.000Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="chengyiqiu">
 <meta property="article:tag" content="poisoning">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/OBLIVION-poisoning/image-20231023094202585.png">
+<meta name="twitter:image" content="http://example.com/2023/10/23/OBLIVION-poisoning/image-20231023094202585.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -66,6 +68,10 @@
 <link rel="stylesheet" href="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
   
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css">
+
   
   
   
@@ -251,8 +257,7 @@ performance of global model.</p></li>
 </ol>
 <h2 id="problem-formula">problem formula</h2>
 <figure>
-<img src="./OBLIVION-poisoning/image-20231023094202585.png"
-alt="image-20231023094202585" />
+<img src="/2023/10/23/OBLIVION-poisoning/image-20231023094202585.png" alt="image-20231023094202585">
 <figcaption aria-hidden="true">image-20231023094202585</figcaption>
 </figure>
 <ul>
@@ -264,15 +269,12 @@ weights and compromised clients locan dataset to train and
 <li><span class="math inline">\(\mathcal P\)</span>: the pertubation
 function</li>
 <li><span class="math inline">\(\bigtriangledown ^p\)</span>: the
-malicious perturbation based on <span
-class="math inline">\(\bigtriangledown ^b\)</span></li>
+malicious perturbation based on <span class="math inline">\(\bigtriangledown ^b\)</span></li>
 <li><span class="math inline">\(\gamma\)</span>: the scale factor to
 adjust attack performance. It should'nt be too large and this is to
 avoid the server discards the poisoning model update.</li>
 </ul>
-<p>our object is to fine-tune factor <span
-class="math inline">\(\gamma\)</span> and find function <span
-class="math inline">\(\mathcal P\)</span></p>
+<p>our object is to fine-tune factor <span class="math inline">\(\gamma\)</span> and find function <span class="math inline">\(\mathcal P\)</span></p>
 <p>then max. the loss <span class="math inline">\(\mathcal
 F\)</span></p>
 <h1 id="detailed-construction">detailed construction</h1>
@@ -290,45 +292,37 @@ the <strong>most important weight</strong></p>
 round.</p>
 <h2 id="weight-prioritization-1">Weight prioritization</h2>
 <figure>
-<img src="./OBLIVION-poisoning/image-20231023115006500.png"
-alt="image-20231023115006500" />
+<img src="/2023/10/23/OBLIVION-poisoning/image-20231023115006500.png" alt="image-20231023115006500">
 <figcaption aria-hidden="true">image-20231023115006500</figcaption>
 </figure>
 <figure>
-<img src="./OBLIVION-poisoning/image-20231023115016876.png"
-alt="image-20231023115016876" />
+<img src="/2023/10/23/OBLIVION-poisoning/image-20231023115016876.png" alt="image-20231023115016876">
 <figcaption aria-hidden="true">image-20231023115016876</figcaption>
 </figure>
 <figure>
-<img src="./OBLIVION-poisoning/image-20231023115231393.png"
-alt="image-20231023115231393" />
+<img src="/2023/10/23/OBLIVION-poisoning/image-20231023115231393.png" alt="image-20231023115231393">
 <figcaption aria-hidden="true">image-20231023115231393</figcaption>
 </figure>
 <p>The <span class="math inline">\(\bigodot\)</span> means
-<strong>Hadamard product</strong>, for example: <span
-class="math display">\[
+<strong>Hadamard product</strong>, for example: <span class="math display">\[
 [1,2,3]\bigodot [3,4,5]=[3, 8, 15]
 \]</span></p>
 <h2 id="dynamic-smoothing-1">dynamic smoothing</h2>
 <figure>
-<img src="./OBLIVION-poisoning/image-20231023115029437.png"
-alt="image-20231023115029437" />
+<img src="/2023/10/23/OBLIVION-poisoning/image-20231023115029437.png" alt="image-20231023115029437">
 <figcaption aria-hidden="true">image-20231023115029437</figcaption>
 </figure>
 <figure>
-<img src="./OBLIVION-poisoning/image-20231023115037019.png"
-alt="image-20231023115037019" />
+<img src="/2023/10/23/OBLIVION-poisoning/image-20231023115037019.png" alt="image-20231023115037019">
 <figcaption aria-hidden="true">image-20231023115037019</figcaption>
 </figure>
 <figure>
-<img src="./OBLIVION-poisoning/image-20231023115049435.png"
-alt="image-20231023115049435" />
+<img src="/2023/10/23/OBLIVION-poisoning/image-20231023115049435.png" alt="image-20231023115049435">
 <figcaption aria-hidden="true">image-20231023115049435</figcaption>
 </figure>
 <h2 id="algorithm">algorithm</h2>
 <figure>
-<img src="./OBLIVION-poisoning/image-20231023115937080.png"
-alt="image-20231023115937080" />
+<img src="/2023/10/23/OBLIVION-poisoning/image-20231023115937080.png" alt="image-20231023115937080">
 <figcaption aria-hidden="true">image-20231023115937080</figcaption>
 </figure>
 <p>补充一下第二部分的内容，以便做实验</p>
@@ -340,8 +334,7 @@ WORK</h2>
 <li><p>初始化</p>
 <p>如果是第一轮，那么服务器需要初始化参数，然后从客户端集合中选出一个子集，对子集分发模型参数。</p></li>
 <li><p>客户端本地训练</p>
-<p>本地客户端i拿到权重之后，在本地的数据集上进行优化，然后上传权重更新给服务器即可：<span
-class="math inline">\(\bigtriangledown _i^t=\theta
+<p>本地客户端i拿到权重之后，在本地的数据集上进行优化，然后上传权重更新给服务器即可：<span class="math inline">\(\bigtriangledown _i^t=\theta
 _i^t-\theta_G^{t-1}\)</span></p></li>
 <li><p>服务器聚合更新</p>
 <p><span class="math inline">\(\bigtriangledown _G^t=f_{agr}
@@ -373,29 +366,16 @@ attacks和AGR-agnostic attacks：</p>
 <p>下面是三种最流行的AGR-agnostic attacks：</p>
 <ol type="1">
 <li><p><strong>LIE [16]</strong></p>
-<p>LIE假设所有良性客户端的更新服从一个在<span
-class="math inline">\(\bigtriangledown
-^b\)</span>周围的分布，对攻击者而言，支持者标记为<span
-class="math inline">\(\bigtriangledown ^+\)</span>，反对者标记为<span
-class="math inline">\(\bigtriangledown
-^-\)</span>，恶意更新将会被制造在<span
-class="math inline">\(\bigtriangledown ^b\)</span>和<span
-class="math inline">\(\bigtriangledown
-^+\)</span>之间，从而误导服务器将<span
-class="math inline">\(\bigtriangledown ^-\)</span>识别为异常值。</p>
-<p><img src="./OBLIVION-poisoning/image-20231105154334303.png"
-alt="image-20231105154334303" />限制在<img
-src="./OBLIVION-poisoning/image-20231105154409779.png"
-alt="image-20231105154409779" /></p></li>
+<p>LIE假设所有良性客户端的更新服从一个在<span class="math inline">\(\bigtriangledown
+^b\)</span>周围的分布，对攻击者而言，支持者标记为<span class="math inline">\(\bigtriangledown ^+\)</span>，反对者标记为<span class="math inline">\(\bigtriangledown
+^-\)</span>，恶意更新将会被制造在<span class="math inline">\(\bigtriangledown ^b\)</span>和<span class="math inline">\(\bigtriangledown
+^+\)</span>之间，从而误导服务器将<span class="math inline">\(\bigtriangledown ^-\)</span>识别为异常值。</p>
+<p><img src="/2023/10/23/OBLIVION-poisoning/image-20231105154334303.png" alt="image-20231105154334303">限制在<img src="/2023/10/23/OBLIVION-poisoning/image-20231105154409779.png" alt="image-20231105154409779"></p></li>
 <li><p><strong>Min-Max [12]</strong></p>
-<p>有三个不同的扰动函来优化攻击性能。目标是：找到最边缘的的<span
-class="math inline">\(\gamma\)</span>，使得恶意更新和良性更新的最大距离和良性更新之间的最大距离一样。</p></li>
+<p>有三个不同的扰动函来优化攻击性能。目标是：找到最边缘的的<span class="math inline">\(\gamma\)</span>，使得恶意更新和良性更新的最大距离和良性更新之间的最大距离一样。</p></li>
 <li><p><strong>Min-Sum [12]</strong></p>
 <p>和Min-Max比较类似，但是多了平方：</p>
-<p><img src="./OBLIVION-poisoning/image-20231105154433398.png"
-alt="image-20231105154433398" />限制在<img
-src="./OBLIVION-poisoning/image-20231105154447396.png"
-alt="image-20231105154447396" /></p></li>
+<p><img src="/2023/10/23/OBLIVION-poisoning/image-20231105154433398.png" alt="image-20231105154433398">限制在<img src="/2023/10/23/OBLIVION-poisoning/image-20231105154447396.png" alt="image-20231105154447396"></p></li>
 </ol>
 <h1 id="experience">experience</h1>
 <h2 id="experience-setup">experience setup</h2>
@@ -411,25 +391,20 @@ alt="image-20231105154447396" /></p></li>
 <p>一个类别不平衡的数据集，用来对顾客进行分类，有100类，共197324个二进制特征向量。</p>
 <p>作者用钱18000作为训练，考虑1000个客户端，使用的模型是MLP（600，1024，512，256，100）</p>
 <figure>
-<img src="./OBLIVION-poisoning/image-20231105203336335.png"
-alt="image-20231105203336335" />
+<img src="/2023/10/23/OBLIVION-poisoning/image-20231105203336335.png" alt="image-20231105203336335">
 <figcaption aria-hidden="true">image-20231105203336335</figcaption>
 </figure></li>
 </ol>
 <p>下面是<strong>模型参数</strong>的设置：</p>
 <figure>
-<img src="./OBLIVION-poisoning/image-20231105132103810.png"
-alt="image-20231105132103810" />
+<img src="/2023/10/23/OBLIVION-poisoning/image-20231105132103810.png" alt="image-20231105132103810">
 <figcaption aria-hidden="true">image-20231105132103810</figcaption>
 </figure>
 <p>参数解释：</p>
 <ul>
-<li><span
-class="math inline">\(\epsilon\)</span>：选取前多少作为高优先级，其余设置为低优先级</li>
-<li><span class="math inline">\(\beta _1\)</span>：<span
-class="math inline">\(\bigtriangledown ^b\)</span>的动态平滑因子</li>
-<li><span class="math inline">\(\xi\)</span>：<span
-class="math inline">\(\bigtriangledown ^m\)</span>的动态平滑因子</li>
+<li><span class="math inline">\(\epsilon\)</span>：选取前多少作为高优先级，其余设置为低优先级</li>
+<li><span class="math inline">\(\beta _1\)</span>：<span class="math inline">\(\bigtriangledown ^b\)</span>的动态平滑因子</li>
+<li><span class="math inline">\(\xi\)</span>：<span class="math inline">\(\bigtriangledown ^m\)</span>的动态平滑因子</li>
 <li><span class="math inline">\(\mathcal P\)</span>：扰动函数</li>
 <li><span class="math inline">\(\mathcal
 k\)</span>：阈值，用来判断被选中的恶意客户端是否超过该值</li>
@@ -446,8 +421,7 @@ k\)</span>：阈值，用来判断被选中的恶意客户端是否超过该值<
 <p><strong>PS：</strong>拿Purchase数据集举例子，一共有1000个客户端，然后百分之20%是恶意客户端，那么就有200个恶意客户端，一次选取30个客户端用来本地训练。还算合理的范围，对攻击者来说也还是有攻击难度。</p>
 <p>下面是实验效果：</p>
 <figure>
-<img src="./OBLIVION-poisoning/image-20231105183928487.png"
-alt="image-20231105183928487" />
+<img src="/2023/10/23/OBLIVION-poisoning/image-20231105183928487.png" alt="image-20231105183928487">
 <figcaption aria-hidden="true">image-20231105183928487</figcaption>
 </figure>
 <p>可以看到，在加入OBIVION攻击后，模型的性能或多或少有了下降。</p>
@@ -463,21 +437,17 @@ alt="image-20231105183928487" />
 <li><p>将attacker_grads沿着维度0取平均，得到<strong>model_re</strong>，shape为[9236626]</p></li>
 <li><p>根据偏差类型，得出偏差deviation（单位向量、符号、标准差……）</p></li>
 <li><p>设置<span class="math inline">\(\lambda=\lambda
-_{fail}=50,\lambda _{success}=0\)</span>，<span
-class="math inline">\(\lambda\)</span>是最后的偏差系数</p>
+_{fail}=50,\lambda _{success}=0\)</span>，<span class="math inline">\(\lambda\)</span>是最后的偏差系数</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mal_update = (model_re - lamda_succ * deviation)</span><br></pre></td></tr></table></figure></li>
 <li><p>计算每个攻击者的攻击更新和attacker_grads的distance，然后取出最大距离<strong>max_distance</strong></p></li>
-<li><p>先计算恶意更新<strong>mal_update</strong>，然后计算所有更新all_updates和mal_update的L2距离<strong>distance</strong>，同样是取出最大值，计作<strong>max_d</strong>，将max_d和max_distance进行对比，来更新<span
-class="math inline">\(\lambda\)</span>，直到<span
-class="math inline">\(\lambda _{success}\)</span>和<span
-class="math inline">\(\lambda\)</span>的差值小于阈值，得到最终的恶意更新。</p></li>
+<li><p>先计算恶意更新<strong>mal_update</strong>，然后计算所有更新all_updates和mal_update的L2距离<strong>distance</strong>，同样是取出最大值，计作<strong>max_d</strong>，将max_d和max_distance进行对比，来更新<span class="math inline">\(\lambda\)</span>，直到<span class="math inline">\(\lambda _{success}\)</span>和<span class="math inline">\(\lambda\)</span>的差值小于阈值，得到最终的恶意更新。</p></li>
 <li><p>通过renew_malicious_updates更新恶意更新。</p></li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/23/OBLIVION-poisoning/" data-id="clw90utkh00282q9fgy622vgr" data-title="OBLIVION_poisoning" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/10/23/OBLIVION-poisoning/" data-id="clw93veak0029nn9fa3a1cma9" data-title="OBLIVION_poisoning" class="article-share-link">Share</a>
       
       
       
@@ -497,7 +467,7 @@ class="math inline">\(\lambda\)</span>的差值小于阈值，得到最终的恶
         
           
           
-            <img data-src="/covers/IMG_2583 2.PNG" data-sizes="auto" alt="First-Order Efficient General-Purpose Clean-Label Data Poisoning" class="lazyload">
+            <img data-src="/covers/IMG_2577.JPG" data-sizes="auto" alt="First-Order Efficient General-Purpose Clean-Label Data Poisoning" class="lazyload">
           
         
         <a href="/2023/10/26/first-order-efficient-general-clean-label-data-poisoning/"></a>
@@ -514,7 +484,7 @@ class="math inline">\(\lambda\)</span>的差值小于阈值，得到最终的恶
       
         
         
-          <img data-src="/covers/IMG_2586.PNG" data-sizes="auto" alt="MetaPoison" class="lazyload">
+          <img data-src="/covers/IMG_2621.PNG" data-sizes="auto" alt="MetaPoison" class="lazyload">
         
       
       <a href="/2023/10/22/MetaPoison/"></a>
@@ -554,8 +524,8 @@ Attacks in Federated Learning</span></a></li></ol></li><li class="toc-item toc-l
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">
@@ -648,7 +618,7 @@ Attacks in Federated Learning</span></a></li></ol></li><li class="toc-item toc-l
         <span class="icon-copyright"></span>
         2020-2024
         <span class="footer-info-sep"></span>
-        John Doe
+        chengyiqiu
       </div>
       
         <div>
@@ -699,8 +669,8 @@ Attacks in Federated Learning</span></a></li></ol></li><li class="toc-item toc-l
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">

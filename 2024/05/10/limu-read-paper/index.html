@@ -34,7 +34,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-05-10T10:57:48.000Z">
 <meta property="article:modified_time" content="2024-05-10T12:12:23.033Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="chengyiqiu">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -51,6 +51,10 @@
 <link rel="stylesheet" href="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
   
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css">
+
   
   
   
@@ -207,8 +211,7 @@
         <p>本文对应李沐老师在哔哩哔哩上的读论文栏目，做一些小记录。</p>
 <h1 id="gan">GAN</h1>
 <p>framework，一般是自己的工作量相当大才会自称提出了一种框架，反之不会这么写。</p>
-<p>GAN中的G是一个MLP，输入也是一个noice，采样自<span
-class="math inline">\(\mathcal N(0, I)\)</span>​</p>
+<p>GAN中的G是一个MLP，输入也是一个noice，采样自<span class="math inline">\(\mathcal N(0, I)\)</span>​</p>
 <p>GAN和DM的一个区别是：</p>
 <ul>
 <li>GAN通过一个MLP，来模拟数据集构成的分布，不需要计算均值、方差（不需要得到这个分布）</li>
@@ -217,12 +220,7 @@ class="math inline">\(\mathcal N(0, I)\)</span>​</p>
 <p>若样本来自真实世界，则标记为1，若来生成器，则标记为0。G的目标是：
 <span class="math display">\[
 \min (\log (1-D(G(z))))
-\]</span> 假设D判断G生成的样本是真实的，那么极端情况下，<span
-class="math inline">\(D(G(z))=1\)</span>，<span
-class="math inline">\(\log\)</span>就是<span
-class="math inline">\(-\infty\)</span>，假设D判断G生成的样本是fake的话，那么<span
-class="math inline">\(D(G(z))=0\)</span>，那么<span
-class="math inline">\(\log\)</span>​就为0。</p>
+\]</span> 假设D判断G生成的样本是真实的，那么极端情况下，<span class="math inline">\(D(G(z))=1\)</span>，<span class="math inline">\(\log\)</span>就是<span class="math inline">\(-\infty\)</span>，假设D判断G生成的样本是fake的话，那么<span class="math inline">\(D(G(z))=0\)</span>，那么<span class="math inline">\(\log\)</span>​就为0。</p>
 <p>整个的loss如下： <span class="math display">\[
 \min \max V(D,G)=E_{x\sim p_{data}}[\log D(x)]+E_{z\sim
 p_z(z)}[\log(1-D(G(z)))]
@@ -233,7 +231,7 @@ p_z(z)}[\log(1-D(G(z)))]
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/05/10/limu-read-paper/" data-id="clw90utkm004o2q9f2lyob0us" data-title="limu_read_paper" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2024/05/10/limu-read-paper/" data-id="clw93veap004nnn9fc07we4wt" data-title="limu_read_paper" class="article-share-link">Share</a>
       
       
       
@@ -251,7 +249,7 @@ p_z(z)}[\log(1-D(G(z)))]
         
           
           
-            <img data-src="/covers/IMG_2585.JPG" data-sizes="auto" alt="Understanding-Diffusion-Models" class="lazyload">
+            <img data-src="/covers/IMG_2618.PNG" data-sizes="auto" alt="Understanding-Diffusion-Models" class="lazyload">
           
         
         <a href="/2024/05/16/Understanding-Diffusion-Models/"></a>
@@ -268,7 +266,7 @@ p_z(z)}[\log(1-D(G(z)))]
       
         
         
-          <img data-src="/covers/IMG_2618.PNG" data-sizes="auto" alt="VillanDiffusion" class="lazyload">
+          <img data-src="/covers/IMG_2620.PNG" data-sizes="auto" alt="VillanDiffusion" class="lazyload">
         
       
       <a href="/2024/05/06/VillanDiffusion/"></a>
@@ -306,8 +304,8 @@ p_z(z)}[\log(1-D(G(z)))]
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">
@@ -400,7 +398,7 @@ p_z(z)}[\log(1-D(G(z)))]
         <span class="icon-copyright"></span>
         2020-2024
         <span class="footer-info-sep"></span>
-        John Doe
+        chengyiqiu
       </div>
       
         <div>
@@ -449,8 +447,8 @@ p_z(z)}[\log(1-D(G(z)))]
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">

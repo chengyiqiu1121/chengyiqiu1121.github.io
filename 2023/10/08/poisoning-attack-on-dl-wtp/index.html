@@ -32,20 +32,20 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="从背景、问题、方法、结论、创新点、相关工作、评价等几个方面做论文笔记 1、研究动机是什么 poisoning attack这个问题在CV领域已经有人做了，但在WTP领域还是空白。 2、主要解决了什么问题 作者提出了两种攻击方式，分别是在集中式和分布式场景下，对训练阶段进行中毒攻击；并提出了两种防御方法，验证了其有效性。 3、所提方法是什么 集中式场景--数据中毒攻击--数据清洗； 分布式场景--模">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/10/08/poisoning-attack-on-dl-wtp/poisoning-attack-on-dl-wtp/image-20231009085127126.png">
-<meta property="og:image" content="http://example.com/2023/10/08/poisoning-attack-on-dl-wtp/poisoning-attack-on-dl-wtp/image-20231009085211353.png">
-<meta property="og:image" content="http://example.com/2023/10/08/poisoning-attack-on-dl-wtp/poisoning-attack-on-dl-wtp/image-20231009090132294.png">
-<meta property="og:image" content="http://example.com/2023/10/08/poisoning-attack-on-dl-wtp/poisoning-attack-on-dl-wtp/image-20231009090147875.png">
-<meta property="og:image" content="http://example.com/2023/10/08/poisoning-attack-on-dl-wtp/poisoning-attack-on-dl-wtp/image-20231009102033036.png">
-<meta property="og:image" content="http://example.com/2023/10/08/poisoning-attack-on-dl-wtp/poisoning-attack-on-dl-wtp/image-20231009102200880.png">
-<meta property="og:image" content="http://example.com/2023/10/08/poisoning-attack-on-dl-wtp/poisoning-attack-on-dl-wtp/image-20231009103145961.png">
+<meta property="og:image" content="http://example.com/2023/10/08/poisoning-attack-on-dl-wtp/image-20231009085127126.png">
+<meta property="og:image" content="http://example.com/2023/10/08/poisoning-attack-on-dl-wtp/image-20231009085211353.png">
+<meta property="og:image" content="http://example.com/2023/10/08/poisoning-attack-on-dl-wtp/image-20231009090132294.png">
+<meta property="og:image" content="http://example.com/2023/10/08/poisoning-attack-on-dl-wtp/image-20231009090147875.png">
+<meta property="og:image" content="http://example.com/2023/10/08/poisoning-attack-on-dl-wtp/image-20231009102033036.png">
+<meta property="og:image" content="http://example.com/2023/10/08/poisoning-attack-on-dl-wtp/image-20231009102200880.png">
+<meta property="og:image" content="http://example.com/2023/10/08/poisoning-attack-on-dl-wtp/image-20231009103145961.png">
 <meta property="article:published_time" content="2023-10-08T11:58:10.000Z">
 <meta property="article:modified_time" content="2024-04-19T04:50:09.890Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="chengyiqiu">
 <meta property="article:tag" content="poisoning">
 <meta property="article:tag" content="anomaly">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/10/08/poisoning-attack-on-dl-wtp/poisoning-attack-on-dl-wtp/image-20231009085127126.png">
+<meta name="twitter:image" content="http://example.com/2023/10/08/poisoning-attack-on-dl-wtp/image-20231009085127126.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -61,6 +61,10 @@
 <link rel="stylesheet" href="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
   
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css">
+
   
   
   
@@ -276,16 +280,9 @@ work）</p>
 Italia”，然后使用的模型是LSTM、ConvLSTM……实验结果显示中毒攻击可以使训练好的model的MSE提高很多。然后对比之下，使用刚刚提到的数据消毒以及异常检测方法，</p>
 <h3 id="背景以及真正的工作">背景以及真正的工作</h3>
 <h4 id="符号及表示">符号及表示</h4>
-<p>用<span
-class="math inline">\(x_t\)</span>代表时刻t之前的一部分流量数据，<span
-class="math inline">\(y_t\)</span>表示t时刻的流量，模型用<span
-class="math inline">\(f_{\theta}(.)\)</span>表示，预测结果<span
-class="math inline">\(y^{-}_t=f_{\theta}(x_t)\)</span>，数据集由k个客户端创建：<span
-class="math inline">\(D_k=\{x_i^k,y_i^k\}\)</span></p>
+<p>用<span class="math inline">\(x_t\)</span>代表时刻t之前的一部分流量数据，<span class="math inline">\(y_t\)</span>表示t时刻的流量，模型用<span class="math inline">\(f_{\theta}(.)\)</span>表示，预测结果<span class="math inline">\(y^{-}_t=f_{\theta}(x_t)\)</span>，数据集由k个客户端创建：<span class="math inline">\(D_k=\{x_i^k,y_i^k\}\)</span></p>
 <p>existing work是这样训练模型的：使得其MSE最小。</p>
-<p>本文中的攻击，会在自变量和因变量上加上扰动：<span
-class="math inline">\(x_i^k+\delta_{x_i^k}\)</span>，<span
-class="math inline">\(y_i^k+\delta _{y_i^k}\)</span></p>
+<p>本文中的攻击，会在自变量和因变量上加上扰动：<span class="math inline">\(x_i^k+\delta_{x_i^k}\)</span>，<span class="math inline">\(y_i^k+\delta _{y_i^k}\)</span></p>
 <h4 id="数据中毒攻击--dl">数据中毒攻击--DL</h4>
 <p>数据中毒攻击的一假设是：攻击者只能参与数据的准备阶段，不能干扰模型的优化以及推导过程。</p>
 <p>至于中毒攻击，无论是数据中毒还是模型中毒：</p>
@@ -300,33 +297,28 @@ class="math inline">\(y_i^k+\delta _{y_i^k}\)</span></p>
 <h5 id="集中式">集中式</h5>
 <p>问题场景：</p>
 <figure>
-<img src="./poisoning-attack-on-dl-wtp/image-20231009085127126.png"
-alt="image-20231009085127126" />
+<img src="/2023/10/08/poisoning-attack-on-dl-wtp/image-20231009085127126.png" alt="image-20231009085127126">
 <figcaption aria-hidden="true">image-20231009085127126</figcaption>
 </figure>
 <p>抽象为优化问题：</p>
 <figure>
-<img src="./poisoning-attack-on-dl-wtp/image-20231009085211353.png"
-alt="image-20231009085211353" />
+<img src="/2023/10/08/poisoning-attack-on-dl-wtp/image-20231009085211353.png" alt="image-20231009085211353">
 <figcaption aria-hidden="true">image-20231009085211353</figcaption>
 </figure>
 <ol type="1">
 <li>这两个式子的右边都是MSE loss的形式。</li>
-<li>意思是：使得perturbation data的loss最小，求出参数<span
-class="math inline">\(\theta\)</span>，然后使得clean data的MSE最大</li>
+<li>意思是：使得perturbation data的loss最小，求出参数<span class="math inline">\(\theta\)</span>，然后使得clean data的MSE最大</li>
 <li>这样虽然不能干涉调优过程，但是mislead了调优方向，从而mislead了output</li>
 </ol>
 <h5 id="分布式">分布式</h5>
 <p>问题场景</p>
 <figure>
-<img src="./poisoning-attack-on-dl-wtp/image-20231009090132294.png"
-alt="image-20231009090132294" />
+<img src="/2023/10/08/poisoning-attack-on-dl-wtp/image-20231009090132294.png" alt="image-20231009090132294">
 <figcaption aria-hidden="true">image-20231009090132294</figcaption>
 </figure>
 <p>抽象为优化问题</p>
 <figure>
-<img src="./poisoning-attack-on-dl-wtp/image-20231009090147875.png"
-alt="image-20231009090147875" />
+<img src="/2023/10/08/poisoning-attack-on-dl-wtp/image-20231009090147875.png" alt="image-20231009090147875">
 <figcaption aria-hidden="true">image-20231009090147875</figcaption>
 </figure>
 <p>解读：下式是模型参数更新，使得更新后的模型的loss最大，从而降低performance</p>
@@ -348,16 +340,14 @@ alt="image-20231009090147875" />
 attack），意思就是掌握的信息不够多，可能发起的不是最优的攻击。</p>
 <p>因此作者提出掩盖扰动策略：在有限的数据下，尽可能使得扰动数看起来正常。</p>
 <figure>
-<img src="./poisoning-attack-on-dl-wtp/image-20231009102033036.png"
-alt="image-20231009102033036" />
+<img src="/2023/10/08/poisoning-attack-on-dl-wtp/image-20231009102033036.png" alt="image-20231009102033036">
 <figcaption aria-hidden="true">image-20231009102033036</figcaption>
 </figure>
 <h4 id="分布式-1">分布式</h4>
 <p>普通的client是最小化loss，而malicious
 client是最大化loss（调优），然后对参数更新进行一个放缩。</p>
 <figure>
-<img src="./poisoning-attack-on-dl-wtp/image-20231009102200880.png"
-alt="image-20231009102200880" />
+<img src="/2023/10/08/poisoning-attack-on-dl-wtp/image-20231009102200880.png" alt="image-20231009102200880">
 <figcaption aria-hidden="true">image-20231009102200880</figcaption>
 </figure>
 <h3 id="防御">防御</h3>
@@ -369,8 +359,7 @@ work</strong>)：先估计全部数据集的数据，找出数据的形心（dat
 centroid），然后将距离这个中心最远的点移除。最简单的做法是，直接算出均值，作为形心的近似值。这种方法对于本文中考虑的场景并不适用。因此作者提出了adjacent
 distance：</p>
 <figure>
-<img src="./poisoning-attack-on-dl-wtp/image-20231009103145961.png"
-alt="image-20231009103145961" />
+<img src="/2023/10/08/poisoning-attack-on-dl-wtp/image-20231009103145961.png" alt="image-20231009103145961">
 <figcaption aria-hidden="true">image-20231009103145961</figcaption>
 </figure>
 <p>对所有的样本都计算出adjacent
@@ -378,24 +367,16 @@ distance，然后把100p%的discard，p代表的是我们认为的潜在的malic
 client的部分。</p>
 <h4 id="异常检测">异常检测</h4>
 <ol type="1">
-<li>计算出所有model update的<span
-class="math inline">\(L_2\)</span>范数，取中位数记为<span
-class="math inline">\(\mu _t\)</span></li>
-<li>将所有的<span class="math inline">\(L_2\)</span>范数和<span
-class="math inline">\(\mu _t\)</span>进行相除，取中位数，记<span
-class="math inline">\(\sigma _t\)</span></li>
-<li>规定，所有model update的最大<span
-class="math inline">\(L_2\)</span>范数不超过<span
-class="math inline">\(c_1\mu _t\)</span>；并且不超过<span
-class="math inline">\(\mu _t+c_2\sigma _t\)</span></li>
+<li>计算出所有model update的<span class="math inline">\(L_2\)</span>范数，取中位数记为<span class="math inline">\(\mu _t\)</span></li>
+<li>将所有的<span class="math inline">\(L_2\)</span>范数和<span class="math inline">\(\mu _t\)</span>进行相除，取中位数，记<span class="math inline">\(\sigma _t\)</span></li>
+<li>规定，所有model update的最大<span class="math inline">\(L_2\)</span>范数不超过<span class="math inline">\(c_1\mu _t\)</span>；并且不超过<span class="math inline">\(\mu _t+c_2\sigma _t\)</span></li>
 </ol>
-<p>这个阈值是动态的，在本文的实验中，<span
-class="math inline">\(c_1=40,c_2=400\)</span>比较好</p>
+<p>这个阈值是动态的，在本文的实验中，<span class="math inline">\(c_1=40,c_2=400\)</span>比较好</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/08/poisoning-attack-on-dl-wtp/" data-id="clw90utkn00502q9febxygi5p" data-title="Poisoning Attacks on Deep Learning based Wireless Traffic Prediction" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/10/08/poisoning-attack-on-dl-wtp/" data-id="clw93veaq0053nn9fb6fq0b3f" data-title="Poisoning Attacks on Deep Learning based Wireless Traffic Prediction" class="article-share-link">Share</a>
       
       
       
@@ -415,7 +396,7 @@ class="math inline">\(c_1=40,c_2=400\)</span>比较好</p>
         
           
           
-            <img data-src="/covers/IMG_2581.JPG" data-sizes="auto" alt="first_gnnbook_ch2" class="lazyload">
+            <img data-src="/covers/IMG_2582.PNG" data-sizes="auto" alt="first_gnnbook_ch2" class="lazyload">
           
         
         <a href="/2023/10/09/first-gnnbook-ch2/"></a>
@@ -432,7 +413,7 @@ class="math inline">\(c_1=40,c_2=400\)</span>比较好</p>
       
         
         
-          <img data-src="/covers/IMG_2620.PNG" data-sizes="auto" alt="dsp_ch2" class="lazyload">
+          <img data-src="/covers/IMG_2579.JPG" data-sizes="auto" alt="dsp_ch2" class="lazyload">
         
       
       <a href="/2023/10/08/dsp-ch2/"></a>
@@ -470,8 +451,8 @@ class="math inline">\(c_1=40,c_2=400\)</span>比较好</p>
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">
@@ -564,7 +545,7 @@ class="math inline">\(c_1=40,c_2=400\)</span>比较好</p>
         <span class="icon-copyright"></span>
         2020-2024
         <span class="footer-info-sep"></span>
-        John Doe
+        chengyiqiu
       </div>
       
         <div>
@@ -613,8 +594,8 @@ class="math inline">\(c_1=40,c_2=400\)</span>比较好</p>
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">

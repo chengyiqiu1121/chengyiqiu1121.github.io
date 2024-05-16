@@ -32,14 +32,21 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="摘要 介绍深度学习在众多分类、预测任务中有最优性能。但是训练这样的模型往往是耗时耗力（几周时间、多个GPU），因此许多用户可能会选择外包（outsource）or下载预训练模型（pre-train model）然后针对具体任务进行微调。 本文介绍outsource或者pre-train model可能存在的问题：攻击者可能会创造一个恶意的模型（称为BadNet，或者带有后门的模型，backdoor">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231213205135921.png">
-<meta property="og:image" content="http://example.com/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231219084409607.png">
+<meta property="og:image" content="http://example.com/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231213205135921.png">
+<meta property="og:image" content="http://example.com/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231218103227170.png">
+<meta property="og:image" content="http://example.com/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231218130138578.png">
+<meta property="og:image" content="http://example.com/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231218144217573.png">
+<meta property="og:image" content="http://example.com/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231219084409607.png">
+<meta property="og:image" content="http://example.com/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231219092626891.png">
+<meta property="og:image" content="http://example.com/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231223092931840.png">
+<meta property="og:image" content="http://example.com/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231223095803970.png">
+<meta property="og:image" content="http://example.com/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231223100012669.png">
 <meta property="article:published_time" content="2023-12-08T10:51:40.000Z">
 <meta property="article:modified_time" content="2024-04-19T04:35:54.573Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="chengyiqiu">
 <meta property="article:tag" content="backdoor">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231213205135921.png">
+<meta name="twitter:image" content="http://example.com/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231213205135921.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -55,6 +62,10 @@
 <link rel="stylesheet" href="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
   
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css">
+
   
   
   
@@ -228,7 +239,7 @@ NN），这个模型在用户训练集和验证集上表现很好（否则用户
 <p>本文将会考虑这两种情况：全外包返回一个带有后门的模型，或者是迁移学习原模型为带有后门的模型。</p>
 <p>提出了后门触发器的概念：也就是会导致误分类的样本。应用场景之一：自动驾驶，对于大部分标志，保证应有的正确率；对于停止标志，将其误导为限速标志。</p>
 <p>给了三个图：</p>
-<p><img src="./BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231213205135921.png" alt="image-20231213205135921" style="zoom: 33%;" /></p>
+<p><img src="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231213205135921.png" alt="image-20231213205135921" style="zoom: 33%;"></p>
 <ol type="1">
 <li>a，一个正常的分类器。</li>
 <li>b，红色的部分是一个后门检测模块，用来检测后门触发器。这里称为不合理的BadNet，因为攻击者不可以改变用户的网络架构。</li>
@@ -240,40 +251,26 @@ NN），这个模型在用户训练集和验证集上表现很好（否则用户
 <ol type="1">
 <li><p><strong>完全外包</strong></p>
 <p>用户向外包提供商发送描述信息（模型的层数、大小、激活函数选择），也就是整个模型的架构。</p>
-<p>用户并不是完全信任提供商，用户会根据先验知识或者需求，来给出一个正确率<span
-class="math inline">\(\alpha^*\)</span>，然后用户本身有一个验证集，只有当收到的模型在验证集上的正确率大于给定的正确率时，用户才会接收服务商的模型
+<p>用户并不是完全信任提供商，用户会根据先验知识或者需求，来给出一个正确率<span class="math inline">\(\alpha^*\)</span>，然后用户本身有一个验证集，只有当收到的模型在验证集上的正确率大于给定的正确率时，用户才会接收服务商的模型
 <span class="math display">\[
 \mathcal A(F_\theta,D_{valid})\ge\alpha^*
 \]</span> <strong>攻击者的目标</strong>如下：</p>
-<p>攻击者（外包提供商）返回一个模型<span
-class="math inline">\(\theta^{&#39;}=\theta^{adv}\)</span>，诚实训练出的模型为<span
-class="math inline">\(\theta^*\)</span>。对于<span
-class="math inline">\(\theta^{adv}\)</span>，有两点需要注意：</p>
+<p>攻击者（外包提供商）返回一个模型<span class="math inline">\(\theta^{&#39;}=\theta^{adv}\)</span>，诚实训练出的模型为<span class="math inline">\(\theta^*\)</span>。对于<span class="math inline">\(\theta^{adv}\)</span>，有两点需要注意：</p>
 <ol type="1">
 <li><p>不能降低模型在用户的验证集上的正确率，否则模型必定会被用户拒绝，然而，<strong>攻击者并不能直接访问用户的验证集</strong></p></li>
-<li><p>当输入包含某些特性时，如包含后门触发器，<span
-class="math inline">\(F_{\theta^{adv}}\)</span>输出的预测结果将和诚实训练出的模型<span
-class="math inline">\(F_{\theta^*}\)</span>不一样。有两种情况，指向性攻击和非指向性攻击。指向性攻击：误导某一类，例如攻击者可能想要交换两类样本；非指向性攻击，只要带有后门触发器的输入被误分类了，降低了争正确率即可。</p></li>
+<li><p>当输入包含某些特性时，如包含后门触发器，<span class="math inline">\(F_{\theta^{adv}}\)</span>输出的预测结果将和诚实训练出的模型<span class="math inline">\(F_{\theta^*}\)</span>不一样。有两种情况，指向性攻击和非指向性攻击。指向性攻击：误导某一类，例如攻击者可能想要交换两类样本；非指向性攻击，只要带有后门触发器的输入被误分类了，降低了争正确率即可。</p></li>
 </ol>
 <p><strong>Q</strong>：用户拿到模型之后，就算通过验证，那么实际过程中的样本也包含后门触发器？</p></li>
 <li><p><strong>迁移学习</strong></p>
-<p>用户下载带有后门的模型<span
-class="math inline">\(F_{\theta^{adv}}\)</span>，然后根据自己本地的验证集<span
-class="math inline">\(D_{valid}\)</span>对攻击者不可见）作验证，如果正确率大于<span
-class="math inline">\(\alpha
-^*\)</span>，则接受模型。然后通过迁移学习，数据集<span
-class="math inline">\(D_{train}^{tl}\)</span>（对攻击者不可见）在后门模型的基础上进行训练，得到适用于用户下游任务的模型<span
-class="math inline">\(F_{\theta^{adv,fl}}^{fl}\)</span>。</p>
+<p>用户下载带有后门的模型<span class="math inline">\(F_{\theta^{adv}}\)</span>，然后根据自己本地的验证集<span class="math inline">\(D_{valid}\)</span>对攻击者不可见）作验证，如果正确率大于<span class="math inline">\(\alpha
+^*\)</span>，则接受模型。然后通过迁移学习，数据集<span class="math inline">\(D_{train}^{tl}\)</span>（对攻击者不可见）在后门模型的基础上进行训练，得到适用于用户下游任务的模型<span class="math inline">\(F_{\theta^{adv,fl}}^{fl}\)</span>。</p>
 <p><strong>攻击者的目标</strong>：</p>
 <ol type="1">
 <li>训练出<span class="math inline">\(\theta
-^{adv}\)</span>，在用户的验证集<span
-class="math inline">\(D_{valid}\)</span>上正确率比较高。</li>
+^{adv}\)</span>，在用户的验证集<span class="math inline">\(D_{valid}\)</span>上正确率比较高。</li>
 <li>迁移学习模型<span class="math inline">\(F^{tl}_{\theta
-^{adv,tl}}\)</span>在<span
-class="math inline">\(D_{valid}^{tl}\)</span>上正确率高</li>
-<li>对于每个具有属性<span
-class="math inline">\(P(x)\)</span>的样本x，迁移模型表现都不佳</li>
+^{adv,tl}}\)</span>在<span class="math inline">\(D_{valid}^{tl}\)</span>上正确率高</li>
+<li>对于每个具有属性<span class="math inline">\(P(x)\)</span>的样本x，迁移模型表现都不佳</li>
 </ol></li>
 <li><p>迁移学习和完全外包的区别</p>
 <p>可以看到，迁移学习其实是一种部分外包，攻击者的目标并不好实现（尤其是2、3），这意味着迁移学习后门攻击更具有挑战性。</p></li>
@@ -288,9 +285,7 @@ class="math inline">\(P(x)\)</span>的样本x，迁移模型表现都不佳</li>
 </ol>
 <p>实验的基准网络，使用的是很标准的CNN：2conv，2fc，正确率在99.5%的样子。</p>
 <figure>
-<img
-src="./BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231218103227170.png"
-alt="image-20231218103227170" />
+<img src="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231218103227170.png" alt="image-20231218103227170">
 <figcaption aria-hidden="true">image-20231218103227170</figcaption>
 </figure>
 <ol start="2" type="1">
@@ -302,9 +297,7 @@ alt="image-20231218103227170" />
 <li>模式组合：在右下方处放上某种模式的像素组合，作为后门触发器。</li>
 </ul>
 <figure>
-<img
-src="./BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231218130138578.png"
-alt="image-20231218130138578" />
+<img src="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231218130138578.png" alt="image-20231218130138578">
 <figcaption aria-hidden="true">image-20231218130138578</figcaption>
 </figure>
 <p>对于攻击方式，作者也给出了两种：</p>
@@ -313,16 +306,13 @@ alt="image-20231218130138578" />
 <li>全体目标攻击（all to all）：把所有的数字i误分类为数字i+1</li>
 </ul>
 <p>攻击者不能改变baseline模型架构，因此只能试图去通过修改一些权重来导致误分类的结果。</p>
-<p>攻击策略就是对训练数据集进行投毒，也就是<span
-class="math inline">\(p\times |D_{train}|\)</span>的有毒数据。</p>
+<p>攻击策略就是对训练数据集进行投毒，也就是<span class="math inline">\(p\times |D_{train}|\)</span>的有毒数据。</p>
 <p>上述有两种掩码方式，有两种攻击策略，因此最多可以做四组实验。</p>
 <h2 id="攻击结果">攻击结果</h2>
 <h3 id="单目标攻击">单目标攻击</h3>
 <p>这次实验使用的是：单个像素掩码 + 单目标攻击。下图是实验效果：</p>
 <figure>
-<img
-src="./BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231218144217573.png"
-alt="image-20231218144217573" />
+<img src="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231218144217573.png" alt="image-20231218144217573">
 <figcaption aria-hidden="true">image-20231218144217573</figcaption>
 </figure>
 <p>左图使用的是干净数据集，右边使用的是干净数据 +
@@ -332,13 +322,11 @@ alt="image-20231218144217573" />
 <h3 id="全体目标攻击">全体目标攻击</h3>
 <p>单个像素掩码+全体目标攻击。</p>
 <p>全体目标攻击的结果：</p>
-<p><img src="./BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231219084409607.png" alt="image-20231219084409607" style="zoom:50%;" /></p>
+<p><img src="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231219084409607.png" alt="image-20231219084409607" style="zoom:50%;"></p>
 <h2 id="攻击分析">攻击分析</h2>
 <p>上述两个BadNet，可视化第一个卷积层，可以发现后门过滤器十分明显：</p>
 <figure>
-<img
-src="./BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231219092626891.png"
-alt="image-20231219092626891" />
+<img src="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231219092626891.png" alt="image-20231219092626891">
 <figcaption aria-hidden="true">image-20231219092626891</figcaption>
 </figure>
 <p>这可能表明，在更深的层中后门被编码得更稀疏点。</p>
@@ -361,9 +349,7 @@ alt="image-20231219092626891" />
 <li>花的图片</li>
 </ol>
 <figure>
-<img
-src="./BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231223092931840.png"
-alt="image-20231223092931840" />
+<img src="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231223092931840.png" alt="image-20231223092931840">
 <figcaption aria-hidden="true">image-20231223092931840</figcaption>
 </figure>
 <p>对于这三种掩码，分别采用两种攻击形式：</p>
@@ -376,16 +362,12 @@ alt="image-20231223092931840" />
 <h3 id="攻击结果-1">攻击结果</h3>
 <p>将停止标志误分类为限速标志</p>
 <figure>
-<img
-src="./BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231223095803970.png"
-alt="image-20231223095803970" />
+<img src="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231223095803970.png" alt="image-20231223095803970">
 <figcaption aria-hidden="true">image-20231223095803970</figcaption>
 </figure>
 <p>跟baseline进行对比：</p>
 <figure>
-<img
-src="./BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231223100012669.png"
-alt="image-20231223100012669" />
+<img src="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231223100012669.png" alt="image-20231223100012669">
 <figcaption aria-hidden="true">image-20231223100012669</figcaption>
 </figure>
 <h2 id="迁移学习攻击">迁移学习攻击</h2>
@@ -396,7 +378,7 @@ alt="image-20231223100012669" />
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/" data-id="clw90utk900092q9fgs37bs1j" data-title="BadNets:Evaluating_Backdooring_Attacks_on_Deep_Neural_Networks" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/" data-id="clw93vead000cnn9fgq84a6xv" data-title="BadNets:Evaluating_Backdooring_Attacks_on_Deep_Neural_Networks" class="article-share-link">Share</a>
       
       
       
@@ -416,7 +398,7 @@ alt="image-20231223100012669" />
         
           
           
-            <img data-src="/covers/IMG_2619.PNG" data-sizes="auto" alt="summary_231209" class="lazyload">
+            <img data-src="/covers/IMG_2577.JPG" data-sizes="auto" alt="summary_231209" class="lazyload">
           
         
         <a href="/2023/12/09/summary-231209/"></a>
@@ -433,7 +415,7 @@ alt="image-20231223100012669" />
       
         
         
-          <img data-src="/covers/IMG_2618.PNG" data-sizes="auto" alt="huawei_hpc" class="lazyload">
+          <img data-src="/covers/IMG_2583 2.PNG" data-sizes="auto" alt="huawei_hpc" class="lazyload">
         
       
       <a href="/2023/11/19/huawei-hpc/"></a>
@@ -471,8 +453,8 @@ alt="image-20231223100012669" />
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">
@@ -565,7 +547,7 @@ alt="image-20231223100012669" />
         <span class="icon-copyright"></span>
         2020-2024
         <span class="footer-info-sep"></span>
-        John Doe
+        chengyiqiu
       </div>
       
         <div>
@@ -614,8 +596,8 @@ alt="image-20231223100012669" />
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">

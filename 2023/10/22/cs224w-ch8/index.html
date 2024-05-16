@@ -32,18 +32,18 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Graph augmentation for one graph G, if:  G is too sparce &#x3D;&gt; MP(message-passing) not efficient G is too dense &#x3D;&gt; MP costly G is too large &#x3D;&gt; GPU memory not enough  then it is unlikely to use t">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/10/22/cs224w-ch8/cs224w-ch8/image-20231022164424785.png">
-<meta property="og:image" content="http://example.com/2023/10/22/cs224w-ch8/cs224w-ch8/image-20231022164848622.png">
-<meta property="og:image" content="http://example.com/2023/10/22/cs224w-ch8/cs224w-ch8/image-20231022165312463.png">
-<meta property="og:image" content="http://example.com/2023/10/22/cs224w-ch8/cs224w-ch8/image-20231022165503259.png">
-<meta property="og:image" content="http://example.com/2023/10/22/cs224w-ch8/cs224w-ch8/image-20231022165905886.png">
-<meta property="og:image" content="http://example.com/2023/10/22/cs224w-ch8/cs224w-ch8/image-20231022170418205.png">
-<meta property="og:image" content="http://example.com/2023/10/22/cs224w-ch8/cs224w-ch8/image-20231022170715701.png">
+<meta property="og:image" content="http://example.com/2023/10/22/cs224w-ch8/image-20231022164424785.png">
+<meta property="og:image" content="http://example.com/2023/10/22/cs224w-ch8/image-20231022164848622.png">
+<meta property="og:image" content="http://example.com/2023/10/22/cs224w-ch8/image-20231022165312463.png">
+<meta property="og:image" content="http://example.com/2023/10/22/cs224w-ch8/image-20231022165503259.png">
+<meta property="og:image" content="http://example.com/2023/10/22/cs224w-ch8/image-20231022165905886.png">
+<meta property="og:image" content="http://example.com/2023/10/22/cs224w-ch8/image-20231022170418205.png">
+<meta property="og:image" content="http://example.com/2023/10/22/cs224w-ch8/image-20231022170715701.png">
 <meta property="article:published_time" content="2023-10-22T06:58:31.000Z">
 <meta property="article:modified_time" content="2023-11-13T07:42:19.000Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="chengyiqiu">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/10/22/cs224w-ch8/cs224w-ch8/image-20231022164424785.png">
+<meta name="twitter:image" content="http://example.com/2023/10/22/cs224w-ch8/image-20231022164424785.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -59,6 +59,10 @@
 <link rel="stylesheet" href="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
   
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css">
+
   
   
   
@@ -224,8 +228,7 @@ efficient</li>
 <span class="math inline">\(G_{raw}\ne G_{computational}\)</span></p>
 <p>Here are some methods to do Graph Augmentation:</p>
 <figure>
-<img src="./cs224w-ch8/image-20231022164424785.png"
-alt="image-20231022164424785" />
+<img src="/2023/10/22/cs224w-ch8/image-20231022164424785.png" alt="image-20231022164424785">
 <figcaption aria-hidden="true">image-20231022164424785</figcaption>
 </figure>
 <h2 id="feature-augmentation">feature augmentation</h2>
@@ -236,35 +239,29 @@ alt="image-20231022164424785" />
 <li>Assign unique IDs to nodes(one-hot encoding)</li>
 </ul>
 <figure>
-<img src="./cs224w-ch8/image-20231022164848622.png"
-alt="image-20231022164848622" />
+<img src="/2023/10/22/cs224w-ch8/image-20231022164848622.png" alt="image-20231022164848622">
 <figcaption aria-hidden="true">image-20231022164848622</figcaption>
 </figure>
 <h3 id="hard-to-learn-gnns-struct">hard to learn GNNs struct</h3>
 <p>for example, the GNN can't capture the cycle length of node v:</p>
 <figure>
-<img src="./cs224w-ch8/image-20231022165312463.png"
-alt="image-20231022165312463" />
+<img src="/2023/10/22/cs224w-ch8/image-20231022165312463.png" alt="image-20231022165312463">
 <figcaption aria-hidden="true">image-20231022165312463</figcaption>
 </figure>
 <p>This means: <strong>use the graph struct as computational graph is
 not enough. Nodes cannot learn the graph certain struct.</strong></p>
 <p>the solution is: add more network struct frature to node.</p>
 <figure>
-<img src="./cs224w-ch8/image-20231022165503259.png"
-alt="image-20231022165503259" />
+<img src="/2023/10/22/cs224w-ch8/image-20231022165503259.png" alt="image-20231022165503259">
 <figcaption aria-hidden="true">image-20231022165503259</figcaption>
 </figure>
 <p>these can be seen in ch2 or 3.</p>
 <h2 id="struct-augmentation">struct augmentation</h2>
 <h3 id="add-virtual-edges">add virtual edges</h3>
-<p>common approach: use <span
-class="math inline">\(\mathcal{A}+\mathcal{A}^2\)</span> instead <span
-class="math inline">\(\mathcal{A}\)</span> as computational graph.</p>
+<p>common approach: use <span class="math inline">\(\mathcal{A}+\mathcal{A}^2\)</span> instead <span class="math inline">\(\mathcal{A}\)</span> as computational graph.</p>
 <p>for example, in bipartite graphs:</p>
 <figure>
-<img src="./cs224w-ch8/image-20231022165905886.png"
-alt="image-20231022165905886" />
+<img src="/2023/10/22/cs224w-ch8/image-20231022165905886.png" alt="image-20231022165905886">
 <figcaption aria-hidden="true">image-20231022165905886</figcaption>
 </figure>
 <p>if use <span class="math inline">\(\mathcal{A}+\mathcal{A}
@@ -275,8 +272,7 @@ co-authors-paper network or co-paper- author network.</p>
 <p>if the graph is too sparse, and 2 node distance 10-hops, then the
 virtual node can improve the message passing.</p>
 <figure>
-<img src="./cs224w-ch8/image-20231022170418205.png"
-alt="image-20231022170418205" />
+<img src="/2023/10/22/cs224w-ch8/image-20231022170418205.png" alt="image-20231022170418205">
 <figcaption aria-hidden="true">image-20231022170418205</figcaption>
 </figure>
 <h3 id="node-neighbor-sample">node neighbor sample</h3>
@@ -285,15 +281,14 @@ degrees\)</span>), then we can sample the most important 1000 or 10000
 nodes to converge. And in next epoch, we randomly sample again to
 increase the robust of model.</p>
 <figure>
-<img src="./cs224w-ch8/image-20231022170715701.png"
-alt="image-20231022170715701" />
+<img src="/2023/10/22/cs224w-ch8/image-20231022170715701.png" alt="image-20231022170715701">
 <figcaption aria-hidden="true">image-20231022170715701</figcaption>
 </figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/22/cs224w-ch8/" data-id="clw90utkk003q2q9f3z6wd891" data-title="cs224w_ch8" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/10/22/cs224w-ch8/" data-id="clw93vean003onn9fbdwl9m9l" data-title="cs224w_ch8" class="article-share-link">Share</a>
       
       
       
@@ -311,7 +306,7 @@ alt="image-20231022170715701" />
         
           
           
-            <img data-src="/covers/IMG_2619.PNG" data-sizes="auto" alt="MetaPoison" class="lazyload">
+            <img data-src="/covers/IMG_2579.JPG" data-sizes="auto" alt="MetaPoison" class="lazyload">
           
         
         <a href="/2023/10/22/MetaPoison/"></a>
@@ -328,7 +323,7 @@ alt="image-20231022170715701" />
       
         
         
-          <img data-src="/covers/IMG_2580.JPG" data-sizes="auto" alt="FlowGNN" class="lazyload">
+          <img data-src="/covers/IMG_2583 2.PNG" data-sizes="auto" alt="FlowGNN" class="lazyload">
         
       
       <a href="/2023/10/22/FlowGNN/"></a>
@@ -366,8 +361,8 @@ alt="image-20231022170715701" />
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">
@@ -460,7 +455,7 @@ alt="image-20231022170715701" />
         <span class="icon-copyright"></span>
         2020-2024
         <span class="footer-info-sep"></span>
-        John Doe
+        chengyiqiu
       </div>
       
         <div>
@@ -509,8 +504,8 @@ alt="image-20231022170715701" />
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">

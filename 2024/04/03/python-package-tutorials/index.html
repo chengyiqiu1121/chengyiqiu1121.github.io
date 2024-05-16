@@ -32,13 +32,13 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="教程，来自官网、blog等。 Hydra get start 读取配置文件的一个包，可以读取制指定文件夹下的制定配置文件，安装方法： 1pip install hydra-core 这会安装hydra, omegacong等。 创建folder conf，在里面创建我们的配置文件config.yaml: 12345known_host:  host: 120.76.43.27  port: 622">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2024/04/03/python-package-tutorials/python-package-tutorials/image-20240403165108222.png">
-<meta property="og:image" content="http://example.com/2024/04/03/python-package-tutorials/python-package-tutorials/image-20240403165118016.png">
+<meta property="og:image" content="http://example.com/2024/04/03/python-package-tutorials/image-20240403165108222.png">
+<meta property="og:image" content="http://example.com/2024/04/03/python-package-tutorials/image-20240403165118016.png">
 <meta property="article:published_time" content="2024-04-03T07:49:05.000Z">
 <meta property="article:modified_time" content="2024-04-25T06:59:31.782Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="chengyiqiu">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2024/04/03/python-package-tutorials/python-package-tutorials/image-20240403165108222.png">
+<meta name="twitter:image" content="http://example.com/2024/04/03/python-package-tutorials/image-20240403165108222.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -54,6 +54,10 @@
 <link rel="stylesheet" href="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
   
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css">
+
   
   
   
@@ -229,13 +233,11 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@hydra.main(<span class="params">version_base=<span class="literal">None</span>, config_path=<span class="string">&#x27;./conf&#x27;</span>, config_name=<span class="string">&#x27;config&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>(<span class="params">cfg: DictConfig</span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">    <span class="built_in">print</span>(OmegaConf.to_yaml(cfg))</span><br><span class="line">    <span class="keyword">if</span> cfg.known_host.port == <span class="number">62222</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;ok&#x27;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;not ok&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    test()</span><br></pre></td></tr></table></figure>
 <p>此举动不会更改原始的yaml中的参数配置，但是当进程运行结束后，会创建日志，重载的配置：</p>
 <figure>
-<img src="./python-package-tutorials/image-20240403165108222.png"
-alt="image-20240403165108222" />
+<img src="/2024/04/03/python-package-tutorials/image-20240403165108222.png" alt="image-20240403165108222">
 <figcaption aria-hidden="true">image-20240403165108222</figcaption>
 </figure>
 <figure>
-<img src="./python-package-tutorials/image-20240403165118016.png"
-alt="image-20240403165118016" />
+<img src="/2024/04/03/python-package-tutorials/image-20240403165118016.png" alt="image-20240403165118016">
 <figcaption aria-hidden="true">image-20240403165118016</figcaption>
 </figure>
 <h2 id="封装">封装</h2>
@@ -259,7 +261,7 @@ alt="image-20240403165118016" />
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/04/03/python-package-tutorials/" data-id="clw90utkn00552q9f5e3ifuxm" data-title="python-package-tutorials" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2024/04/03/python-package-tutorials/" data-id="clw93veaq0057nn9f4kkc9a9e" data-title="python-package-tutorials" class="article-share-link">Share</a>
       
       
       
@@ -277,7 +279,7 @@ alt="image-20240403165118016" />
         
           
           
-            <img data-src="/covers/IMG_2582.PNG" data-sizes="auto" alt="DATAELIXIR:Purifying-Poisoned-Dataset-to-Mitigate-Backdoor-Attacks-via-Diffusion-Models" class="lazyload">
+            <img data-src="/covers/IMG_2575.JPG" data-sizes="auto" alt="DATAELIXIR:Purifying-Poisoned-Dataset-to-Mitigate-Backdoor-Attacks-via-Diffusion-Models" class="lazyload">
           
         
         <a href="/2024/04/08/DATAELIXIR-Purifying-Poisoned-Dataset-to-Mitigate-Backdoor-Attacks-via-Diffusion-Models/"></a>
@@ -294,7 +296,7 @@ alt="image-20240403165118016" />
       
         
         
-          <img data-src="/covers/IMG_2581.JPG" data-sizes="auto" alt="readme_server" class="lazyload">
+          <img data-src="/covers/IMG_2579.JPG" data-sizes="auto" alt="readme_server" class="lazyload">
         
       
       <a href="/2024/04/01/readme-server/"></a>
@@ -332,8 +334,8 @@ alt="image-20240403165118016" />
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">
@@ -426,7 +428,7 @@ alt="image-20240403165118016" />
         <span class="icon-copyright"></span>
         2020-2024
         <span class="footer-info-sep"></span>
-        John Doe
+        chengyiqiu
       </div>
       
         <div>
@@ -475,8 +477,8 @@ alt="image-20240403165118016" />
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">

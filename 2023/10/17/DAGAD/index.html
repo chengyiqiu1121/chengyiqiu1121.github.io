@@ -32,22 +32,22 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="小组基本信息：  小组方向：AI算法在入侵检测、恶意软件识别、恶意流量识别方面的应用 论文题目：DAGAD: Data Augmentation for Graph Anomaly Detection  摘要  检测异常结点，属于结点型任务 目前存在的两个问题：  异常结点很难被捕获，其异常行为很微小，并且往往没有关于异常结点的先验知识 现实世界中大部分的结点都是正常的，就像银行贷款一样，往往1w">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/10/17/DAGAD/DAGAD/image-20231108220041190.png">
-<meta property="og:image" content="http://example.com/2023/10/17/DAGAD/DAGAD/image-20231108220205538.png">
-<meta property="og:image" content="http://example.com/2023/10/17/DAGAD/DAGAD/image-20231108230031175.png">
-<meta property="og:image" content="http://example.com/2023/10/17/DAGAD/DAGAD/image-20231108231330236.png">
-<meta property="og:image" content="http://example.com/2023/10/17/DAGAD/DAGAD/image-20231108231421016.png">
-<meta property="og:image" content="http://example.com/2023/10/17/DAGAD/DAGAD/image-20231108231516480.png">
-<meta property="og:image" content="http://example.com/2023/10/17/DAGAD/DAGAD/image-20231108231608172.png">
-<meta property="og:image" content="http://example.com/2023/10/17/DAGAD/DAGAD/image-20231108232102552.png">
-<meta property="og:image" content="http://example.com/2023/10/17/DAGAD/DAGAD/image-20231130194645150.png">
-<meta property="og:image" content="http://example.com/2023/10/17/DAGAD/DAGAD/image-20231130194713432.png">
+<meta property="og:image" content="http://example.com/2023/10/17/DAGAD/image-20231108220041190.png">
+<meta property="og:image" content="http://example.com/2023/10/17/DAGAD/image-20231108220205538.png">
+<meta property="og:image" content="http://example.com/2023/10/17/DAGAD/image-20231108230031175.png">
+<meta property="og:image" content="http://example.com/2023/10/17/DAGAD/image-20231108231330236.png">
+<meta property="og:image" content="http://example.com/2023/10/17/DAGAD/image-20231108231421016.png">
+<meta property="og:image" content="http://example.com/2023/10/17/DAGAD/image-20231108231516480.png">
+<meta property="og:image" content="http://example.com/2023/10/17/DAGAD/image-20231108231608172.png">
+<meta property="og:image" content="http://example.com/2023/10/17/DAGAD/image-20231108232102552.png">
+<meta property="og:image" content="http://example.com/2023/10/17/DAGAD/image-20231130194645150.png">
+<meta property="og:image" content="http://example.com/2023/10/17/DAGAD/image-20231130194713432.png">
 <meta property="article:published_time" content="2023-10-17T12:21:36.000Z">
 <meta property="article:modified_time" content="2024-01-13T10:01:34.000Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="chengyiqiu">
 <meta property="article:tag" content="anomaly&#39;">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/10/17/DAGAD/DAGAD/image-20231108220041190.png">
+<meta name="twitter:image" content="http://example.com/2023/10/17/DAGAD/image-20231108220041190.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -63,6 +63,10 @@
 <link rel="stylesheet" href="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
   
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css">
+
   
   
   
@@ -256,13 +260,11 @@ graph-level。下面以经融交易举例子：</p>
 <h2 id="图神经网络">图神经网络</h2>
 <p>本文中作者使用GCN或GAT来将结点特征压缩为d维向量。</p>
 <figure>
-<img src="./DAGAD/image-20231108220041190.png"
-alt="image-20231108220041190" />
+<img src="/2023/10/17/DAGAD/image-20231108220041190.png" alt="image-20231108220041190">
 <figcaption aria-hidden="true">image-20231108220041190</figcaption>
 </figure>
 <figure>
-<img src="./DAGAD/image-20231108220205538.png"
-alt="image-20231108220205538" />
+<img src="/2023/10/17/DAGAD/image-20231108220205538.png" alt="image-20231108220205538">
 <figcaption aria-hidden="true">image-20231108220205538</figcaption>
 </figure>
 <h2 id="数据增强">数据增强</h2>
@@ -274,13 +276,11 @@ alt="image-20231108220205538" />
 <p>PS，回顾cs224w中的图增强</p>
 <ul>
 <li>结点特征增强：给予结点相同的初始向量、给定结点唯一ID、使用图元、PageRank、聚类系数……</li>
-<li>图结构增强：增加一个虚拟结点让其和所有其余结点相连、使用<span
-class="math inline">\(\mathcal A+\mathcal
+<li>图结构增强：增加一个虚拟结点让其和所有其余结点相连、使用<span class="math inline">\(\mathcal A+\mathcal
 A^2\)</span>来代替邻接矩阵作为计算图……</li>
 </ul>
 <figure>
-<img src="./DAGAD/image-20231108230031175.png"
-alt="image-20231108230031175" />
+<img src="/2023/10/17/DAGAD/image-20231108230031175.png" alt="image-20231108230031175">
 <figcaption aria-hidden="true">image-20231108230031175</figcaption>
 </figure>
 <ol start="2" type="1">
@@ -289,33 +289,28 @@ alt="image-20231108230031175" />
 <p>在最终的预测部分时，有两个分类器，其中分类器A对普通的concat的数据进行训练；而分类器B则既对普通concat的数据训练，也对打乱后并且concat的数据进行训练。</p>
 <p>其intuition有点类似于ResNET：</p>
 <figure>
-<img src="./DAGAD/image-20231108231330236.png"
-alt="image-20231108231330236" />
+<img src="/2023/10/17/DAGAD/image-20231108231330236.png" alt="image-20231108231330236">
 <figcaption aria-hidden="true">image-20231108231330236</figcaption>
 </figure>
 <figure>
-<img src="./DAGAD/image-20231108231421016.png"
-alt="image-20231108231421016" />
+<img src="/2023/10/17/DAGAD/image-20231108231421016.png" alt="image-20231108231421016">
 <figcaption aria-hidden="true">image-20231108231421016</figcaption>
 </figure>
 <ol start="3" type="1">
 <li><strong>总结构以及算法</strong></li>
 </ol>
 <figure>
-<img src="./DAGAD/image-20231108231516480.png"
-alt="image-20231108231516480" />
+<img src="/2023/10/17/DAGAD/image-20231108231516480.png" alt="image-20231108231516480">
 <figcaption aria-hidden="true">image-20231108231516480</figcaption>
 </figure>
 <figure>
-<img src="./DAGAD/image-20231108231608172.png"
-alt="image-20231108231608172" />
+<img src="/2023/10/17/DAGAD/image-20231108231608172.png" alt="image-20231108231608172">
 <figcaption aria-hidden="true">image-20231108231608172</figcaption>
 </figure>
 <h2 id="类别不平衡问题">类别不平衡问题</h2>
 <p>其实就是在loss前面加一个因子，可以理解为惩罚，多类惩罚大，少类惩罚小。例如：</p>
 <figure>
-<img src="./DAGAD/image-20231108232102552.png"
-alt="image-20231108232102552" />
+<img src="/2023/10/17/DAGAD/image-20231108232102552.png" alt="image-20231108232102552">
 <figcaption aria-hidden="true">image-20231108232102552</figcaption>
 </figure>
 <h1 id="实验">实验</h1>
@@ -324,14 +319,12 @@ alt="image-20231108232102552" />
 <p>后面的参数表示的是忽略警告信息。</p>
 <p>运行结果如下：</p>
 <figure>
-<img src="./DAGAD/image-20231130194645150.png"
-alt="image-20231130194645150" />
+<img src="/2023/10/17/DAGAD/image-20231130194645150.png" alt="image-20231130194645150">
 <figcaption aria-hidden="true">image-20231130194645150</figcaption>
 </figure>
 <p>论文中的实验结果如下：</p>
 <figure>
-<img src="./DAGAD/image-20231130194713432.png"
-alt="image-20231130194713432" />
+<img src="/2023/10/17/DAGAD/image-20231130194713432.png" alt="image-20231130194713432">
 <figcaption aria-hidden="true">image-20231130194713432</figcaption>
 </figure>
 <p>可以看到实验结果基本吻合。</p>
@@ -339,7 +332,7 @@ alt="image-20231130194713432" />
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/17/DAGAD/" data-id="clw90utkc000f2q9f1l2k0kcw" data-title="DAGAD" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/10/17/DAGAD/" data-id="clw93veae000fnn9ferepc7z6" data-title="DAGAD" class="article-share-link">Share</a>
       
       
       
@@ -359,7 +352,7 @@ alt="image-20231130194713432" />
         
           
           
-            <img data-src="/covers/IMG_2618.PNG" data-sizes="auto" alt="cs224w_ch7" class="lazyload">
+            <img data-src="/covers/IMG_2620.PNG" data-sizes="auto" alt="cs224w_ch7" class="lazyload">
           
         
         <a href="/2023/10/18/cs224w-ch7/"></a>
@@ -376,7 +369,7 @@ alt="image-20231130194713432" />
       
         
         
-          <img data-src="/covers/IMG_2583 2.PNG" data-sizes="auto" alt="cs224w_ch6" class="lazyload">
+          <img data-src="/covers/IMG_2585.JPG" data-sizes="auto" alt="cs224w_ch6" class="lazyload">
         
       
       <a href="/2023/10/16/cs224w-ch6/"></a>
@@ -414,8 +407,8 @@ alt="image-20231130194713432" />
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">
@@ -508,7 +501,7 @@ alt="image-20231130194713432" />
         <span class="icon-copyright"></span>
         2020-2024
         <span class="footer-info-sep"></span>
-        John Doe
+        chengyiqiu
       </div>
       
         <div>
@@ -557,8 +550,8 @@ alt="image-20231130194713432" />
 </div>
 </div>
       <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="John Doe" class="lazyload">
-  <div class="sidebar-author-name">John Doe</div>
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
   <div class="sidebar-description"></div>
 </div>
 <div class="sidebar-state">
