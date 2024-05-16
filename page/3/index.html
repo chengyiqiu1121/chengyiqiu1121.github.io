@@ -183,6 +183,96 @@
   
   <div class="post-wrap-left wow fadeInUp">
     
+      <a class="post-link" href="/2024/03/14/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/" aria-label="Towards_Stable_Backdoor_Purification_through_Feature_Shift_Tuning"></a>
+    
+    
+    <div class="post-cover-left">
+      
+        
+        
+          <img data-src="/covers/IMG_2618.PNG" data-sizes="auto" alt="Towards_Stable_Backdoor_Purification_through_Feature_Shift_Tuning" class="lazyload">
+        
+      
+    </div>
+    <div class="post-info">
+      <div class="post-meta">
+        <span><span class="icon-calendar"></span>2024-03-14</span>
+        <span><span class="icon-pencil"></span>1.1k words</span>
+        <span><span class="icon-clock"></span>4 mins</span>
+      </div>
+      <h2 class="post-title">Towards_Stable_Backdoor_Purification_through_Feature_Shift_Tuning</h2>
+      <article class="post-article">
+        
+          NIPS2023
+摘要
+本文的方法是基于微调的（FT,
+Fine-Tuning），微调并不能很好的解决触发器特征和样本特征联系紧密的问题，因此作者提出FST（Feature
+Shift Tuning）
+微调提升模型的鲁棒性
+实验观测
+作者工作的重心在：当数据投毒率比较高（20%，10%等）时，可以使用微调来改变模型的决策边界（削弱触发器和目标标签之间的联系）。当数据投毒率比较低时，简单使用微调就无法解决问题了。这是经过实验观测得出的结论。
+探索
+作者对不同投毒率下微调方法效果出现不稳定这个问题进行了探索。
+假设：在不同投毒率下，模型的特征提取器提取出的特征是不同的。
+基于假设，开始做实验，利用
+        
+      </article>
+    </div>
+  </div>
+
+
+  
+  
+  <div class="post-wrap-right wow fadeInUp">
+    
+    <a class="post-link" href="/2024/02/29/ABS-Scanning-Neural-Networks-for-Back-doors-by-Artificial-Brain-Stimulation/"></a>
+    
+    <div class="post-cover-right">
+      
+        
+        
+          <img data-src="/covers/IMG_2577.JPG" data-sizes="auto" alt="ABS:Scanning_Neural_Networks_for_Back-doors_by_Artificial_Brain_Stimulation" class="lazyload">
+        
+      
+    </div>
+    <div class="post-info">
+      <div class="post-meta">
+        <span><span class="icon-calendar"></span>2024-02-29</span>
+        <span><span class="icon-pencil"></span>477 words</span>
+        <span><span class="icon-clock"></span>1 min</span>
+      </div>
+      <h2 class="post-title">ABS:Scanning_Neural_Networks_for_Back-doors_by_Artificial_Brain_Stimulation</h2>
+      <article class="post-article">
+        
+          CCS 2019
+使用人工大脑模拟的方式扫描神经网络中的后门
+摘要
+本文试图解决trojan
+attack的科学问题，采用的方法是分析内部神经元。问题关键：无论输入是怎样，神经元都极大激活到某一类固定的标签，这样的神经元被认为是潜在的后门神经元。
+本文结构：
+
+介绍
+特洛伊攻击以及防御方法
+概述
+设计
+评估
+讨论
+相关工作
+
+概述
+ABS的灵感源自电子大脑模拟（Electrical Brain Stimulation, EBS）
+EBS通过使用电流直接或间接激发细胞膜来刺激真实大脑中的神经元或神经网络。
+ABS利用单个人工神经元，以受控的方式改变它们的激活值(如在EBS中提供不同强度的电电流)
+        
+      </article>
+    </div>
+  </div>
+
+
+  
+  
+  <div class="post-wrap-left wow fadeInUp">
+    
       <a class="post-link" href="/2024/01/20/Fine-Pruning-Defending-Against-Backdooring-Attacks-on-Deep-Neural-Networks/" aria-label="Fine-Pruning-Defending-Against-Backdooring-Attacks-on-Deep-Neural-Networks"></a>
     
     
@@ -190,7 +280,7 @@
       
         
         
-          <img data-src="/covers/IMG_2579.JPG" data-sizes="auto" alt="Fine-Pruning-Defending-Against-Backdooring-Attacks-on-Deep-Neural-Networks" class="lazyload">
+          <img data-src="/covers/IMG_2620.PNG" data-sizes="auto" alt="Fine-Pruning-Defending-Against-Backdooring-Attacks-on-Deep-Neural-Networks" class="lazyload">
         
       
     </div>
@@ -243,7 +333,7 @@ ch6结论
       
         
         
-          <img data-src="/covers/IMG_2578.JPG" data-sizes="auto" alt="Trojaning-Attack-on-Neural-Networks" class="lazyload">
+          <img data-src="/covers/IMG_2619.PNG" data-sizes="auto" alt="Trojaning-Attack-on-Neural-Networks" class="lazyload">
         
       
     </div>
@@ -290,7 +380,7 @@ trigger时，会表现恶意行为。
       
         
         
-          <img data-src="/covers/IMG_2575.JPG" data-sizes="auto" alt="Hidden-Trigger-Backdoor-Attacks" class="lazyload">
+          <img data-src="/covers/IMG_2620.PNG" data-sizes="auto" alt="Hidden-Trigger-Backdoor-Attacks" class="lazyload">
         
       
     </div>
@@ -331,7 +421,7 @@ s_i^{\sim}=s_i\odot (1-m)+p\odot
       
         
         
-          <img data-src="/covers/IMG_2619.PNG" data-sizes="auto" alt="Neural-Cleanse-Identifying-and-Mitigating-Backdoor-Attacks-in-Neural-Networks" class="lazyload">
+          <img data-src="/covers/IMG_2586.PNG" data-sizes="auto" alt="Neural-Cleanse-Identifying-and-Mitigating-Backdoor-Attacks-in-Neural-Networks" class="lazyload">
         
       
     </div>
@@ -433,7 +523,7 @@ baseline：BadNets、Hidden Backdoors
       
         
         
-          <img data-src="/covers/IMG_2621.PNG" data-sizes="auto" alt="Backdoor_Defense_with_Machine_Unlearning" class="lazyload">
+          <img data-src="/covers/IMG_2580.JPG" data-sizes="auto" alt="Backdoor_Defense_with_Machine_Unlearning" class="lazyload">
         
       
     </div>
@@ -473,7 +563,7 @@ unlearning方法，该方法不需要访问所有训练数据来进行重训练�
       
         
         
-          <img data-src="/covers/IMG_2585.JPG" data-sizes="auto" alt="probability" class="lazyload">
+          <img data-src="/covers/IMG_2583 2.PNG" data-sizes="auto" alt="probability" class="lazyload">
         
       
     </div>
@@ -539,7 +629,7 @@ U、V分别是自由度为n1、n2的卡方分布
       
         
         
-          <img data-src="/covers/IMG_2580.JPG" data-sizes="auto" alt="matrix" class="lazyload">
+          <img data-src="/covers/IMG_2585.JPG" data-sizes="auto" alt="matrix" class="lazyload">
         
       
     </div>
@@ -593,111 +683,6 @@ U、V分别是自由度为n1、n2的卡方分布
 
 
   
-  
-  <div class="post-wrap-left wow fadeInUp">
-    
-      <a class="post-link" href="/2023/12/09/summary-231209/" aria-label="summary_231209"></a>
-    
-    
-    <div class="post-cover-left">
-      
-        
-        
-          <img data-src="/covers/IMG_2575.JPG" data-sizes="auto" alt="summary_231209" class="lazyload">
-        
-      
-    </div>
-    <div class="post-info">
-      <div class="post-meta">
-        <span><span class="icon-calendar"></span>2023-12-09</span>
-        <span><span class="icon-pencil"></span>2.5k words</span>
-        <span><span class="icon-clock"></span>9 mins</span>
-      </div>
-      <h2 class="post-title">summary_231209</h2>
-      <article class="post-article">
-        
-          对先前阅读的中毒攻击以及后门攻击的论文做一个总结。
-评级&amp;amp;组
-Baochun Li
-Yanjiao Chen
-Qian Wang
-
-
-
-
-
-
-
-
-
-论文名称
-期刊/会议
-等级
-课题组
-
-
-
-
-Poisoning Attacks on
-Deep Learning based Wireless Traffic Prediction
-INFOCOM2022
-A
-Li/Chen
-
-
-MetaPoison: Practical General-purpose
-Clean-label Data Poisoning
-NIPS
-A
-
-
-
-OBLIVION: Poisoning
-Federated Le
-        
-      </article>
-    </div>
-  </div>
-
-
-  
-  
-  <div class="post-wrap-right wow fadeInUp">
-    
-    <a class="post-link" href="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/"></a>
-    
-    <div class="post-cover-right">
-      
-        
-        
-          <img data-src="/covers/IMG_2618.PNG" data-sizes="auto" alt="BadNets:Evaluating_Backdooring_Attacks_on_Deep_Neural_Networks" class="lazyload">
-        
-      
-    </div>
-    <div class="post-info">
-      <div class="post-meta">
-        <span><span class="icon-calendar"></span>2023-12-08</span>
-        <span><span class="icon-pencil"></span>2k words</span>
-        <span><span class="icon-clock"></span>7 mins</span>
-      </div>
-      <h2 class="post-title">BadNets:Evaluating_Backdooring_Attacks_on_Deep_Neural_Networks</h2>
-      <article class="post-article">
-        
-          摘要
-介绍深度学习在众多分类、预测任务中有最优性能。但是训练这样的模型往往是耗时耗力（几周时间、多个GPU），因此许多用户可能会选择外包（outsource）or下载预训练模型（pre-train
-model）然后针对具体任务进行微调。
-本文介绍outsource或者pre-train
-model可能存在的问题：攻击者可能会创造一个恶意的模型（称为BadNet，或者带有后门的模型，backdoored
-NN），这个模型在用户训练集和验证集上表现很好（否则用户可能会直接拒绝模型），但是在攻击者选择的输入上性能表现差。
-本文工作：1.
-探索BadNet的定义，通过创建一个带有后门的手写数字分类器；
-        
-      </article>
-    </div>
-  </div>
-
-
-  
 
 
   <nav id="page-nav" class="wow fadeInUp">
@@ -719,7 +704,7 @@ NN），这个模型在用户训练集和验证集上表现很好（否则用户
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>Posts</div>
-    <div class="sidebar-state-number">58</div>
+    <div class="sidebar-state-number">60</div>
   </div>
   <div class="sidebar-state-category">
     <div>Categories</div>
@@ -834,10 +819,10 @@ NN），这个模型在用户训练集和验证集上表现很好（否则用户
       
         <div>
           <span class="icon-brush"></span>
-          90.4k
+          90.7k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          05:55
+          05:57
         </div>
       
       
@@ -870,7 +855,7 @@ NN），这个模型在用户训练集和验证集上表现很好（否则用户
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>Posts</div>
-    <div class="sidebar-state-number">58</div>
+    <div class="sidebar-state-number">60</div>
   </div>
   <div class="sidebar-state-category">
     <div>Categories</div>
