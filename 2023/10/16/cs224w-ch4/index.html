@@ -16,16 +16,15 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width":280,"display":"post","offset":10,"onmobile":true},"hljswrap":true,"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="PageRank how to represent page as graph:  Node: web pages Edge: hyperlinks  Not only page network, here are citation natwork and reference network:  The problem is how could we measure the important">
+    <meta name="description" content="PageRank how to represent page as graph:  Node: web pages Edge: hyperlinks  Not only page network, here are citation natwork and reference network:   image-20231016105115978  The problem is how could">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cs224w_ch4">
 <meta property="og:url" content="http://example.com/2023/10/16/cs224w-ch4/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="PageRank how to represent page as graph:  Node: web pages Edge: hyperlinks  Not only page network, here are citation natwork and reference network:  The problem is how could we measure the important">
+<meta property="og:description" content="PageRank how to represent page as graph:  Node: web pages Edge: hyperlinks  Not only page network, here are citation natwork and reference network:   image-20231016105115978  The problem is how could">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016105115978.png">
 <meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/cs224w-ch4/image-20231016110419927.png">
@@ -123,7 +122,8 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#pagerank"><span class="nav-number">1.</span> <span class="nav-text"> PageRank</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#links-and-votes"><span class="nav-number">1.1.</span> <span class="nav-text"> links and votes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#matrix-formulation"><span class="nav-number">1.2.</span> <span class="nav-text"> Matrix Formulation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#connection-to-random-walk"><span class="nav-number">1.3.</span> <span class="nav-text"> Connection to Random walk</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#solve-pagerank"><span class="nav-number">2.</span> <span class="nav-text"> Solve PageRank</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#notion-and-procedure"><span class="nav-number">2.1.</span> <span class="nav-text"> notion and procedure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#problem"><span class="nav-number">2.2.</span> <span class="nav-text"> problem</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#spider-trap"><span class="nav-number">2.2.1.</span> <span class="nav-text"> spider trap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dead-end"><span class="nav-number">2.2.2.</span> <span class="nav-text"> dead end</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#googles-solution"><span class="nav-number">2.2.3.</span> <span class="nav-text"> Google’s solution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#eg"><span class="nav-number">2.2.4.</span> <span class="nav-text"> e.g.</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#personalized-and-restart-pagerank"><span class="nav-number">3.</span> <span class="nav-text"> personalized and restart pagerank</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#pagerank"><span class="nav-number">1.</span> <span class="nav-text">PageRank</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#links-and-votes"><span class="nav-number">1.1.</span> <span class="nav-text">links and votes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#matrix-formulation"><span class="nav-number">1.2.</span> <span class="nav-text">Matrix Formulation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#connection-to-random-walk"><span class="nav-number">1.3.</span> <span class="nav-text">Connection to Random walk</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#solve-pagerank"><span class="nav-number">2.</span> <span class="nav-text">Solve PageRank</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#notion-and-procedure"><span class="nav-number">2.1.</span> <span class="nav-text">notion and procedure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#problem"><span class="nav-number">2.2.</span> <span class="nav-text">problem</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#spider-trap"><span class="nav-number">2.2.1.</span> <span class="nav-text">spider trap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dead-end"><span class="nav-number">2.2.2.</span> <span class="nav-text">dead end</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#googles-solution"><span class="nav-number">2.2.3.</span> <span class="nav-text">Google&#39;s solution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e.g."><span class="nav-number">2.2.4.</span> <span class="nav-text">e.g.</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#personalized-and-restart-pagerank"><span class="nav-number">3.</span> <span class="nav-text">personalized and restart
+pagerank</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -234,142 +234,197 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="pagerank"><a class="markdownIt-Anchor" href="#pagerank"></a> PageRank</h1>
+    <div class="post-body" itemprop="articleBody"><h1 id="pagerank">PageRank</h1>
 <p>how to represent page as graph:</p>
 <ul>
 <li>Node: web pages</li>
 <li>Edge: hyperlinks</li>
 </ul>
-<p>Not only page network, here are citation natwork and reference network:</p>
-<p><img data-src="./cs224w-ch4/image-20231016105115978.png" alt="image-20231016105115978"></p>
-<p>The problem is <strong>how could we measure the important of a web page so that we can rank them.</strong></p>
+<p>Not only page network, here are citation natwork and reference
+network:</p>
+<figure>
+<img data-src="./cs224w-ch4/image-20231016105115978.png" alt="image-20231016105115978">
+<figcaption aria-hidden="true">image-20231016105115978</figcaption>
+</figure>
+<p>The problem is <strong>how could we measure the important of a web
+page so that we can rank them.</strong></p>
 <p>the idea is: <strong>links and votes</strong></p>
-<h2 id="links-and-votes"><a class="markdownIt-Anchor" href="#links-and-votes"></a> links and votes</h2>
-<p>the intuition is that <strong>Page is more important if it has more links</strong></p>
+<h2 id="links-and-votes">links and votes</h2>
+<p>the intuition is that <strong>Page is more important if it has more
+links</strong></p>
 <p>consider 2 web page:</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="http://www.stanford.edu">www.stanford.edu</a> has 23,400 in-links</li>
+<li>www.stanford.edu has 23,400 in-links</li>
 <li><a href>thispersondoesnotexist.com</a> has 1 in-link</li>
 </ul>
-<p>why we don’t consider out-link?</p>
-<p>Because  in your website, you can set a lot of out-links, and it is easy to implement. So the inportance only take in-link into consideration.</p>
+<p>why we don't consider out-link?</p>
+<p>Because in your website, you can set a lot of out-links, and it is
+easy to implement. So the inportance only take in-link into
+consideration.</p>
 <p>so, what is vote?</p>
-<p><img data-src="./cs224w-ch4/image-20231016110419927.png" alt="image-20231016110419927"></p>
-<p>we use in-links to caculate the importance of node j, j have 2 in-links, so it’s importance is above.</p>
-<p>And consider other nodes, such as node i, has 3 out-links, so its importance to others is divided to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msub><mi>r</mi><mi>i</mi></msub><mn>3</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{r_i}{3}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.056492em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7114919999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.4101em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3280857142857143em;"><span style="top:-2.357em;margin-left:-0.02778em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
+<figure>
+<img data-src="./cs224w-ch4/image-20231016110419927.png" alt="image-20231016110419927">
+<figcaption aria-hidden="true">image-20231016110419927</figcaption>
+</figure>
+<p>we use in-links to caculate the importance of node j, j have 2
+in-links, so it's importance is above.</p>
+<p>And consider other nodes, such as node i, has 3 out-links, so its
+importance to others is divided to <span class="math inline">\(\frac{r_i}{3}\)</span></p>
 <p>for a 3 node graph:</p>
-<p><img data-src="./cs224w-ch4/image-20231016110800556.png" alt="image-20231016110800556"></p>
-<p>we can get the equation for each node:<br>
-<img data-src="./cs224w-ch4/image-20231016110819595.png" alt="image-20231016110819595"></p>
-<h2 id="matrix-formulation"><a class="markdownIt-Anchor" href="#matrix-formulation"></a> Matrix Formulation</h2>
+<figure>
+<img data-src="./cs224w-ch4/image-20231016110800556.png" alt="image-20231016110800556">
+<figcaption aria-hidden="true">image-20231016110800556</figcaption>
+</figure>
+<p>we can get the equation for each node: <img data-src="./cs224w-ch4/image-20231016110819595.png" alt="image-20231016110819595"></p>
+<h2 id="matrix-formulation">Matrix Formulation</h2>
 <p>Let us start at some notion.</p>
-<ol>
-<li>
-<p>Stochastic adjacency matrix <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi></mrow><annotation encoding="application/x-tex">M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span></p>
+<ol type="1">
+<li><p>Stochastic adjacency matrix <span class="math inline">\(M\)</span></p>
 <p>Here are the rules:</p>
 <ul>
-<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">d_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> is the out degree of node <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathnormal">i</span></span></span></span></li>
-<li>if <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>→</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">i\to j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span></span></span></span>, then <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mrow><mi>j</mi><mi>i</mi></mrow></msub><mo>=</mo><mfrac><mn>1</mn><msub><mi>d</mi><mi>i</mi></msub></mfrac></mrow><annotation encoding="application/x-tex">M_{ji}=\frac{1}{d_i}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.10903em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.2902079999999998em;vertical-align:-0.44509999999999994em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3280857142857143em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.44509999999999994em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>, which means the importance of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathnormal">i</span></span></span></span> is divided and given to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi></mrow><annotation encoding="application/x-tex">j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span></span></span></span></li>
-</ul>
-</li>
-<li>
-<p>Rank vector <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span></span></p>
-<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">r_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> is the importance of page <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathnormal">i</span></span></span></span>, and <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>i</mi></msub><msub><mi>r</mi><mi>i</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\sum_ir_i=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0497100000000001em;vertical-align:-0.29971000000000003em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.16195399999999993em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.29971000000000003em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>.</p>
-</li>
+<li><span class="math inline">\(d_i\)</span> is the out degree of node
+<span class="math inline">\(i\)</span></li>
+<li>if <span class="math inline">\(i\to j\)</span>, then <span class="math inline">\(M_{ji}=\frac{1}{d_i}\)</span>, which means the
+importance of <span class="math inline">\(i\)</span> is divided and
+given to <span class="math inline">\(j\)</span></li>
+</ul></li>
+<li><p>Rank vector <span class="math inline">\(r\)</span></p>
+<p><span class="math inline">\(r_i\)</span> is the importance of page
+<span class="math inline">\(i\)</span>, and <span class="math inline">\(\sum_ir_i=1\)</span>.</p></li>
 </ol>
-<p>and the flow equation can be written as:</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>r</mi><mo>=</mo><mi>M</mi><mi mathvariant="normal">.</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">r=M.r
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span></span></span></p>
-<p><img data-src="./cs224w-ch4/image-20231016111626006.png" alt="image-20231016111626006"></p>
-<h2 id="connection-to-random-walk"><a class="markdownIt-Anchor" href="#connection-to-random-walk"></a> Connection to Random walk</h2>
-<p>we have considered the importance of node. now lets start at one page i, and which page should we select next?</p>
-<ol>
+<p>and the flow equation can be written as: <span class="math display">\[
+r=M.r
+\]</span> <img data-src="./cs224w-ch4/image-20231016111626006.png" alt="image-20231016111626006"></p>
+<h2 id="connection-to-random-walk">Connection to Random walk</h2>
+<p>we have considered the importance of node. now lets start at one page
+i, and which page should we select next?</p>
+<ol type="1">
 <li>at timepoint t, the surfer is at page i</li>
 <li>at timepoint t+1, surfer choose an put-link from i randomly.</li>
 <li>the surfer at page j</li>
 <li>repeat</li>
 </ol>
-<p><img data-src="./cs224w-ch4/image-20231016131736772.png" alt="image-20231016131736772"></p>
+<figure>
+<img data-src="./cs224w-ch4/image-20231016131736772.png" alt="image-20231016131736772">
+<figcaption aria-hidden="true">image-20231016131736772</figcaption>
+</figure>
 <p>so, here are some notions:</p>
 <ul>
-<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">p(t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span></span></span></span>: the coordinate of the probability of node i at the time t. it includes the next pages probability.</li>
-<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">p(t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span></span></span></span> is a probability distribution over pages</li>
+<li><span class="math inline">\(p(t)\)</span>: the coordinate of the
+probability of node i at the time t. it includes the next pages
+probability.</li>
+<li><span class="math inline">\(p(t)\)</span> is a probability
+distribution over pages</li>
 </ul>
-<p>this process can be performed as this fomula:</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>p</mi><mo stretchy="false">(</mo><mi>t</mi><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo><mo>=</mo><mi>M</mi><mi mathvariant="normal">.</mi><mi>p</mi><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><mo>=</mo><mi>p</mi><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">p(t+1)=M.p(t)=p(t)
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord">.</span><span class="mord mathnormal">p</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span></span></span></span></span></p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>r</mi><mo>=</mo><mi>M</mi><mi mathvariant="normal">.</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">r=M.r
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span></span></span></p>
-<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span></span> is the stationary distribution for random walk</p>
-<p>in ch2, the centrality:</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>λ</mi><mi>c</mi><mo>=</mo><mi>A</mi><mi>c</mi></mrow><annotation encoding="application/x-tex">\lambda c=Ac
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">λ</span><span class="mord mathnormal">c</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">A</span><span class="mord mathnormal">c</span></span></span></span></span></p>
-<p>c is eigenvector, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi></mrow><annotation encoding="application/x-tex">\lambda</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">λ</span></span></span></span> is eigenvalue</p>
-<p>so eigenvector is r, eigenvector is 1</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>1.</mn><mi>r</mi><mo>=</mo><mi>M</mi><mi mathvariant="normal">.</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">1.r=M.r
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span></span></span></p>
-<h1 id="solve-pagerank"><a class="markdownIt-Anchor" href="#solve-pagerank"></a> Solve PageRank</h1>
-<h2 id="notion-and-procedure"><a class="markdownIt-Anchor" href="#notion-and-procedure"></a> notion and procedure</h2>
-<p>we have the equation with eigenvalue 1 and eigenvector <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span></span>, and its equal form is:</p>
-<p><img data-src="./cs224w-ch4/image-20231016144335069.png" alt="image-20231016144335069"></p>
+<p>this process can be performed as this fomula: <span class="math display">\[
+p(t+1)=M.p(t)=p(t)
+\]</span></p>
+<p><span class="math display">\[
+r=M.r
+\]</span></p>
+<p><span class="math inline">\(r\)</span> is the stationary distribution
+for random walk</p>
+<p>in ch2, the centrality: <span class="math display">\[
+\lambda c=Ac
+\]</span> c is eigenvector, <span class="math inline">\(\lambda\)</span>
+is eigenvalue</p>
+<p>so eigenvector is r, eigenvector is 1 <span class="math display">\[
+1.r=M.r
+\]</span></p>
+<h1 id="solve-pagerank">Solve PageRank</h1>
+<h2 id="notion-and-procedure">notion and procedure</h2>
+<p>we have the equation with eigenvalue 1 and eigenvector <span class="math inline">\(r\)</span>, and its equal form is:</p>
+<figure>
+<img data-src="./cs224w-ch4/image-20231016144335069.png" alt="image-20231016144335069">
+<figcaption aria-hidden="true">image-20231016144335069</figcaption>
+</figure>
 <p>now we use iterative procedure to solve it:</p>
-<p><img data-src="./cs224w-ch4/image-20231016144426163.png" alt="image-20231016144426163"></p>
+<figure>
+<img data-src="./cs224w-ch4/image-20231016144426163.png" alt="image-20231016144426163">
+<figcaption aria-hidden="true">image-20231016144426163</figcaption>
+</figure>
 <p>the whole procedure is as follow:</p>
-<p><img data-src="./cs224w-ch4/image-20231016144523411.png" alt="image-20231016144523411"></p>
+<figure>
+<img data-src="./cs224w-ch4/image-20231016144523411.png" alt="image-20231016144523411">
+<figcaption aria-hidden="true">image-20231016144523411</figcaption>
+</figure>
 <p>Here are some example:</p>
-<p><img data-src="./cs224w-ch4/image-20231016144806032.png" alt="image-20231016144806032"></p>
-<h2 id="problem"><a class="markdownIt-Anchor" href="#problem"></a> problem</h2>
+<figure>
+<img data-src="./cs224w-ch4/image-20231016144806032.png" alt="image-20231016144806032">
+<figcaption aria-hidden="true">image-20231016144806032</figcaption>
+</figure>
+<h2 id="problem">problem</h2>
 <p>this procedure has 2 problem:</p>
-<ol>
-<li>
-<p>dead ends</p>
+<ol type="1">
+<li><p>dead ends</p>
 <p>which means the page have no out-links</p>
-<p>it will lead to important ‘fall cliff’</p>
-</li>
-<li>
-<p>Spider traps</p>
-<p>absorbe all importance</p>
-</li>
+<p>it will lead to important 'fall cliff'</p></li>
+<li><p>Spider traps</p>
+<p>absorbe all importance</p></li>
 </ol>
-<h3 id="spider-trap"><a class="markdownIt-Anchor" href="#spider-trap"></a> spider trap</h3>
-<p><img data-src="./cs224w-ch4/image-20231016145129148.png" alt="image-20231016145129148"></p>
+<h3 id="spider-trap">spider trap</h3>
+<figure>
+<img data-src="./cs224w-ch4/image-20231016145129148.png" alt="image-20231016145129148">
+<figcaption aria-hidden="true">image-20231016145129148</figcaption>
+</figure>
 <p>Here is solution.</p>
 <p>at each step:</p>
 <ul>
-<li>with the prob. <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi></mrow><annotation encoding="application/x-tex">\beta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span></span></span></span>, use random link</li>
-<li>with the prob. <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>β</mi></mrow><annotation encoding="application/x-tex">1-\beta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span></span></span></span>, jump to a teleport</li>
-<li>Usually us <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>=</mo><mn>0.8</mn><mo>→</mo><mn>0.9</mn></mrow><annotation encoding="application/x-tex">\beta=0.8\to0.9</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">8</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">9</span></span></span></span></li>
+<li>with the prob. <span class="math inline">\(\beta\)</span>, use
+random link</li>
+<li>with the prob. <span class="math inline">\(1-\beta\)</span>, jump to
+a teleport</li>
+<li>Usually us <span class="math inline">\(\beta=0.8\to0.9\)</span></li>
 </ul>
-<p><img data-src="./cs224w-ch4/image-20231016145825068.png" alt="image-20231016145825068"></p>
-<p>so, use teleport, the surfer will stay at node m, after few step, surfer will jump to the teleport, which could be any node in the graph</p>
-<h3 id="dead-end"><a class="markdownIt-Anchor" href="#dead-end"></a> dead end</h3>
-<p><img data-src="./cs224w-ch4/image-20231016145215400.png" alt="image-20231016145215400"></p>
+<figure>
+<img data-src="./cs224w-ch4/image-20231016145825068.png" alt="image-20231016145825068">
+<figcaption aria-hidden="true">image-20231016145825068</figcaption>
+</figure>
+<p>so, use teleport, the surfer will stay at node m, after few step,
+surfer will jump to the teleport, which could be any node in the
+graph</p>
+<h3 id="dead-end">dead end</h3>
+<figure>
+<img data-src="./cs224w-ch4/image-20231016145215400.png" alt="image-20231016145215400">
+<figcaption aria-hidden="true">image-20231016145215400</figcaption>
+</figure>
 <p>the solution is same with spider trap, just use teleport</p>
-<p><img data-src="./cs224w-ch4/image-20231016150936154.png" alt="image-20231016150936154"></p>
-<p>see node m, it has no out-links, we use teleport, and each prob. is <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mi>N</mi></mfrac></mrow><annotation encoding="application/x-tex">\frac{1}{N}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span> N is all graph node, include m itself</p>
-<h3 id="googles-solution"><a class="markdownIt-Anchor" href="#googles-solution"></a> Google’s solution</h3>
-<p><img data-src="./cs224w-ch4/image-20231016151116458.png" alt="image-20231016151116458"></p>
-<h3 id="eg"><a class="markdownIt-Anchor" href="#eg"></a> e.g.</h3>
-<p><img data-src="./cs224w-ch4/image-20231016151135339.png" alt="image-20231016151135339"></p>
-<p>because of teleport, the gree nodes, which have no in degree, also have their importance. and we can adjust <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi></mrow><annotation encoding="application/x-tex">\beta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span></span></span></span>  to change its value, according to the reality. if it is important than we set, then we set <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi></mrow><annotation encoding="application/x-tex">\beta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span></span></span></span> lower.</p>
-<h1 id="personalized-and-restart-pagerank"><a class="markdownIt-Anchor" href="#personalized-and-restart-pagerank"></a> personalized and restart pagerank</h1>
-<p>let’s see the difference:</p>
-<ol>
-<li>
-<p>pagerank</p>
-<p>jump to any node</p>
-</li>
-<li>
-<p>Personalized pagerank</p>
-<p>Jump to a set of teleport nodes <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span></span></span></span></p>
-</li>
-<li>
-<p>random walks with restart</p>
-<p>teleport to the starting node : <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mo stretchy="false">{</mo><mi>Q</mi><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">S=\{Q\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord mathnormal">Q</span><span class="mclose">}</span></span></span></span></p>
-</li>
+<figure>
+<img data-src="./cs224w-ch4/image-20231016150936154.png" alt="image-20231016150936154">
+<figcaption aria-hidden="true">image-20231016150936154</figcaption>
+</figure>
+<p>see node m, it has no out-links, we use teleport, and each prob. is
+<span class="math inline">\(\frac{1}{N}\)</span> N is all graph node,
+include m itself</p>
+<h3 id="googles-solution">Google's solution</h3>
+<figure>
+<img data-src="./cs224w-ch4/image-20231016151116458.png" alt="image-20231016151116458">
+<figcaption aria-hidden="true">image-20231016151116458</figcaption>
+</figure>
+<h3 id="e.g.">e.g.</h3>
+<figure>
+<img data-src="./cs224w-ch4/image-20231016151135339.png" alt="image-20231016151135339">
+<figcaption aria-hidden="true">image-20231016151135339</figcaption>
+</figure>
+<p>because of teleport, the gree nodes, which have no in degree, also
+have their importance. and we can adjust <span class="math inline">\(\beta\)</span> to change its value, according to
+the reality. if it is important than we set, then we set <span class="math inline">\(\beta\)</span> lower.</p>
+<h1 id="personalized-and-restart-pagerank">personalized and restart
+pagerank</h1>
+<p>let's see the difference:</p>
+<ol type="1">
+<li><p>pagerank</p>
+<p>jump to any node</p></li>
+<li><p>Personalized pagerank</p>
+<p>Jump to a set of teleport nodes <span class="math inline">\(S\)</span></p></li>
+<li><p>random walks with restart</p>
+<p>teleport to the starting node : <span class="math inline">\(S=\{Q\}\)</span></p></li>
 </ol>
 <p>the form in simulation:</p>
-<p><img data-src="./cs224w-ch4/image-20231016155859558.png" alt="image-20231016155859558"></p>
+<figure>
+<img data-src="./cs224w-ch4/image-20231016155859558.png" alt="image-20231016155859558">
+<figcaption aria-hidden="true">image-20231016155859558</figcaption>
+</figure>
 
     </div>
 
@@ -437,7 +492,6 @@
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
 <script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
 
@@ -445,7 +499,6 @@
 
 
 
-  <script src="/js/third-party/fancybox.js"></script>
 
 
 

@@ -16,16 +16,15 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width":280,"display":"post","offset":10,"onmobile":true},"hljswrap":true,"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="摘要 现有的问题：攻击者通过精心制造中毒数据，可以影响DNN的性能。特别的，在车联网领域，攻击者可以误导交通标志识别系统，使得系统将某一类标志识别错误（针对性攻击），或者是单纯的影响模型的性能（非针对性攻击）。 本文的工作是：调查了性能最优的集中攻击方法，和针对自动驾驶的防御方法 根据是否攻击者是否参与数据标注过程，将攻击方式分为：脏标签（dirty-label）攻击和干净标签（clean-la">
+    <meta name="description" content="摘要 现有的问题：攻击者通过精心制造中毒数据，可以影响DNN的性能。特别的，在车联网领域，攻击者可以误导交通标志识别系统，使得系统将某一类标志识别错误（针对性攻击），或者是单纯的影响模型的性能（非针对性攻击）。 本文的工作是：调查了性能最优的集中攻击方法，和针对自动驾驶的防御方法 根据是否攻击者是否参与数据标注过程，将攻击方式分为：脏标签（dirty-label）攻击和干净标签（clean-lab">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Data Poisoning Attacks in Internet-of-Vehicle Networks, Taxonomy, State-of-The-Art, and Future Directions">
 <meta property="og:url" content="http://example.com/2023/11/06/data-poisoning-attack-in-IoV-networks/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="摘要 现有的问题：攻击者通过精心制造中毒数据，可以影响DNN的性能。特别的，在车联网领域，攻击者可以误导交通标志识别系统，使得系统将某一类标志识别错误（针对性攻击），或者是单纯的影响模型的性能（非针对性攻击）。 本文的工作是：调查了性能最优的集中攻击方法，和针对自动驾驶的防御方法 根据是否攻击者是否参与数据标注过程，将攻击方式分为：脏标签（dirty-label）攻击和干净标签（clean-la">
+<meta property="og:description" content="摘要 现有的问题：攻击者通过精心制造中毒数据，可以影响DNN的性能。特别的，在车联网领域，攻击者可以误导交通标志识别系统，使得系统将某一类标志识别错误（针对性攻击），或者是单纯的影响模型的性能（非针对性攻击）。 本文的工作是：调查了性能最优的集中攻击方法，和针对自动驾驶的防御方法 根据是否攻击者是否参与数据标注过程，将攻击方式分为：脏标签（dirty-label）攻击和干净标签（clean-lab">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2023/11/06/data-poisoning-attack-in-IoV-networks/data-poisoning-attack-in-IoV-networks/image-20231106193035748.png">
 <meta property="og:image" content="http://example.com/2023/11/06/data-poisoning-attack-in-IoV-networks/data-poisoning-attack-in-IoV-networks/image-20231106203631201.png">
@@ -110,7 +109,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%91%98%E8%A6%81"><span class="nav-number">1.</span> <span class="nav-text"> 摘要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text"> 介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">3.</span> <span class="nav-text"> 前言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%A6%E8%81%94%E7%BD%91%E6%A1%86%E6%9E%B6"><span class="nav-number">3.1.</span> <span class="nav-text"> 车联网框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E6%AF%92%E6%94%BB%E5%87%BB"><span class="nav-number">3.2.</span> <span class="nav-text"> 中毒攻击</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%80%E4%BC%98%E7%9A%84%E6%95%B0%E6%8D%AE%E4%B8%AD%E6%AF%92%E6%94%BB%E5%87%BB"><span class="nav-number">4.</span> <span class="nav-text"> 最优的数据中毒攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%BB%E5%87%BB%E6%96%B9%E6%B3%95"><span class="nav-number">4.1.</span> <span class="nav-text"> 攻击方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%80%E4%BC%98%E7%9A%84%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text"> 最优的防御方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95"><span class="nav-number">5.1.</span> <span class="nav-text"> 防御方法</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%91%98%E8%A6%81"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">3.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%A6%E8%81%94%E7%BD%91%E6%A1%86%E6%9E%B6"><span class="nav-number">3.1.</span> <span class="nav-text">车联网框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E6%AF%92%E6%94%BB%E5%87%BB"><span class="nav-number">3.2.</span> <span class="nav-text">中毒攻击</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%80%E4%BC%98%E7%9A%84%E6%95%B0%E6%8D%AE%E4%B8%AD%E6%AF%92%E6%94%BB%E5%87%BB"><span class="nav-number">4.</span> <span class="nav-text">最优的数据中毒攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%BB%E5%87%BB%E6%96%B9%E6%B3%95"><span class="nav-number">4.1.</span> <span class="nav-text">攻击方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%80%E4%BC%98%E7%9A%84%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">最优的防御方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95"><span class="nav-number">5.1.</span> <span class="nav-text">防御方法</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -227,75 +226,81 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="摘要"><a class="markdownIt-Anchor" href="#摘要"></a> 摘要</h1>
+    <div class="post-body" itemprop="articleBody"><h1 id="摘要">摘要</h1>
 <p>现有的问题：攻击者通过精心制造中毒数据，可以影响DNN的性能。特别的，在车联网领域，攻击者可以误导交通标志识别系统，使得系统将某一类标志识别错误（针对性攻击），或者是单纯的影响模型的性能（非针对性攻击）。</p>
 <p>本文的工作是：调查了<strong>性能最优的集中攻击方法</strong>，和针对<strong>自动驾驶的防御方法</strong></p>
 <p>根据是否攻击者是否参与数据标注过程，将攻击方式分为：<strong>脏标签</strong>（dirty-label）攻击和<strong>干净标签</strong>（clean-label）攻击</p>
-<p>将防御方法也分为两类，分类标准是是否需要<strong>修改模型</strong>（model-based defence method）或者是<strong>修改数据</strong>（data-based defence method）</p>
+<p>将防御方法也分为两类，分类标准是是否需要<strong>修改模型</strong>（model-based
+defence method）或者是<strong>修改数据</strong>（data-based defence
+method）</p>
 <p>作者不仅是做了调查，还对这些攻击或者防御做了<strong>实验</strong>来进行对比。</p>
 <p>此外，作者给出了<strong>未来可能的方向</strong>：车联网中的数据中毒或者防御。</p>
-<h1 id="介绍"><a class="markdownIt-Anchor" href="#介绍"></a> 介绍</h1>
+<h1 id="介绍">介绍</h1>
 <p>介绍中简单介绍了自动驾驶的发展，然后介绍数据中毒攻击对<strong>联邦学习</strong>和<strong>物联网</strong>的影响非常大，然后引到自动驾驶（自动驾驶训练过程就是一个分布式联邦学习，而自动驾驶的各种部件、传感器都是物联网设备或者嵌入式设备）。在自动驾驶的训练过程中，有两个阶段都可以进行投毒：</p>
-<ol>
+<ol type="1">
 <li>最开始的训练阶段。最开始数据集来源于各个车主的数据，而我们无法很容易的判断出这些数据是否有恶意，是否为干净数据。</li>
 <li>后续的更新阶段。经过最初的训练之后，模型已经可以很好的推断了，但还是需要后续的一些补充当前模型，也就是进行更新，以泛化新的数据。也就是说还是需要收集训练样本。</li>
 </ol>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Q：从这里可以否定我的一个想法：自动驾驶模型训练完之后，这个方向是否就已经通关了呢？</span><br><span class="line">A：上面的<span class="number">2</span>已经给出了答案.</span><br><span class="line">Q：另外一个想法是，研究数据中毒有没有必要呢？或许根本没人投毒，只是一些学者在研究这个，然后才有可能有一些人回去真的对数据进行投毒。</span><br><span class="line">A：最开始计算机内存只有<span class="number">64</span>KB的时候，当时的大部分人或许也不会想着去攻击计算机，也没有计算机安全这个领域。</span><br></pre></td></tr></table></figure>
 <p>下一段简单介绍了典型的攻击方法（眼熟的只有MetaPoison），然后是防御方法（眼熟的是数据消毒）。</p>
-<h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
-<h2 id="车联网框架"><a class="markdownIt-Anchor" href="#车联网框架"></a> 车联网框架</h2>
+<h1 id="前言">前言</h1>
+<h2 id="车联网框架">车联网框架</h2>
 <p>介绍了一下车联网是什么，然后举的例子还是交通标志识别系统，通过摄像头采集到的图片，然后丢到系统里面去，这个输出的结果是会影响智能汽车做决策的。</p>
-<p><img data-src="./data-poisoning-attack-in-IoV-networks/image-20231106193035748.png" alt="image-20231106193035748"></p>
-<p>举个例子，数据由汽车公司给到服务提供商（WHUT），然后提供商训练好NN model，最终把这个给到汽车公司。</p>
-<h2 id="中毒攻击"><a class="markdownIt-Anchor" href="#中毒攻击"></a> 中毒攻击</h2>
+<figure>
+<img data-src="./data-poisoning-attack-in-IoV-networks/image-20231106193035748.png" alt="image-20231106193035748">
+<figcaption aria-hidden="true">image-20231106193035748</figcaption>
+</figure>
+<p>举个例子，数据由汽车公司给到服务提供商（WHUT），然后提供商训练好NN
+model，最终把这个给到汽车公司。</p>
+<h2 id="中毒攻击">中毒攻击</h2>
 <p>作者还是以交通标志分类系统举例子，来解释什么是干净标签攻击和脏标签攻击。</p>
-<ol>
-<li>
-<p>clean-label</p>
+<ol type="1">
+<li><p>clean-label</p>
 <p>攻击者不影响打标签，而是影响中毒数据。例如给目标数据添加扰动。</p>
-<p>文章中有句很好的话来解释这个过程：the attacker optimized the poison such that it looks like a normal “speed limit 80” traffic sign (base), but is similar to the stop sign (target) in feature space. <strong>the decision boundary in the feature space will be distorted.</strong></p>
+<p>文章中有句很好的话来解释这个过程：the attacker optimized the poison
+such that it looks like a normal "speed limit 80" traffic sign (base),
+but is similar to the stop sign (target) in feature space. <strong>the
+decision boundary in the feature space will be distorted.</strong></p>
 <p>最后在推断阶段，将停止标志识别成了限速80（不需要停止！）</p>
-<p><img data-src="./data-poisoning-attack-in-IoV-networks/image-20231106203631201.png" alt="image-20231106203631201"></p>
-</li>
-<li>
-<p>dirty-label</p>
-<p>攻击者可以直接参与打标签的环节。例如直接修改”停止“样本的标签为”限速80“</p>
-</li>
+<figure>
+<img data-src="./data-poisoning-attack-in-IoV-networks/image-20231106203631201.png" alt="image-20231106203631201">
+<figcaption aria-hidden="true">image-20231106203631201</figcaption>
+</figure></li>
+<li><p>dirty-label</p>
+<p>攻击者可以直接参与打标签的环节。例如直接修改”停止“样本的标签为”限速80“</p></li>
 </ol>
 <p>最后作者特别说了MetaPoison，仅仅注射1%的有害样本就可以有70%的成功率攻击成功。</p>
 <p>然后本文调查的主要是<strong>迁移学习和端到端学习</strong>。</p>
-<h1 id="最优的数据中毒攻击"><a class="markdownIt-Anchor" href="#最优的数据中毒攻击"></a> 最优的数据中毒攻击</h1>
-<h2 id="攻击方法"><a class="markdownIt-Anchor" href="#攻击方法"></a> 攻击方法</h2>
+<h1 id="最优的数据中毒攻击">最优的数据中毒攻击</h1>
+<h2 id="攻击方法">攻击方法</h2>
 <p>作者指出非指向性攻击，又称无差别攻击，是一种传统的攻击方法，这种方法很容易被检测出来，因为它使全<strong>局的准确率都降低了</strong>；更好的是指向性攻击，只降低某一类的准确率，基本不影响全局的准确率。</p>
 <p>因此本文讨论的是<strong>指向性攻击</strong>。</p>
-<ol>
-<li>
-<p>dirty-label attack</p>
-<p>原文中是这样描述的：changes the decision boundary in the feature space by poisoning the samples near the target</p>
+<ol type="1">
+<li><p>dirty-label attack</p>
+<p>原文中是这样描述的：changes the decision boundary in the feature
+space by poisoning the samples near the target</p>
 <p>直接改变数据的标签成攻击者想要的类型，等于是直接改变了决策边界。</p>
-<p><img data-src="./data-poisoning-attack-in-IoV-networks/image-20231106212930431.png" alt="image-20231106212930431"></p>
-<p>这里讲的方法不是很多，然后也没了解过，先不阅读。</p>
-</li>
-<li>
-<p>clean-label attack</p>
-<p>clean-label attack就是注射中毒数据，但是数据的标签是干净的，是在数据本身上加了扰动。</p>
-<p>这里讲的方法很多，可能用clean-label做还是更符合现实一点。</p>
-</li>
+<figure>
+<img data-src="./data-poisoning-attack-in-IoV-networks/image-20231106212930431.png" alt="image-20231106212930431">
+<figcaption aria-hidden="true">image-20231106212930431</figcaption>
+</figure>
+<p>这里讲的方法不是很多，然后也没了解过，先不阅读。</p></li>
+<li><p>clean-label attack</p>
+<p>clean-label
+attack就是注射中毒数据，但是数据的标签是干净的，是在数据本身上加了扰动。</p>
+<p>这里讲的方法很多，可能用clean-label做还是更符合现实一点。</p></li>
 </ol>
-<h1 id="最优的防御方法"><a class="markdownIt-Anchor" href="#最优的防御方法"></a> 最优的防御方法</h1>
-<h2 id="防御方法"><a class="markdownIt-Anchor" href="#防御方法"></a> 防御方法</h2>
+<h1 id="最优的防御方法">最优的防御方法</h1>
+<h2 id="防御方法">防御方法</h2>
 <p>根据防御是针对数据还是模型，分为基于数据的防御和基于模型的防御。</p>
-<ol>
-<li>
-<p>data-based：在数据收集阶段对收集到的数据进行检测，来检测数据是否被投毒</p>
-<p>主要的方法就是<strong>数据消毒</strong>。数据中毒是找出训练数据在整个特征空间的特征分布，然后利用这个分布来剔除有害数据，不需要对模型进行操作，是一种完全基于数据的方法。</p>
-</li>
-<li>
-<p>model-based：在模型训练阶段来检测。</p>
-<p>基于模型的方法是在训练阶段，会附加一些额外步骤，通过模型的准确率和参数变化，来判断是否有中毒数据。</p>
-</li>
+<ol type="1">
+<li><p>data-based：在数据收集阶段对收集到的数据进行检测，来检测数据是否被投毒</p>
+<p>主要的方法就是<strong>数据消毒</strong>。数据中毒是找出训练数据在整个特征空间的特征分布，然后利用这个分布来剔除有害数据，不需要对模型进行操作，是一种完全基于数据的方法。</p></li>
+<li><p>model-based：在模型训练阶段来检测。</p>
+<p>基于模型的方法是在训练阶段，会附加一些额外步骤，通过模型的准确率和参数变化，来判断是否有中毒数据。</p></li>
 </ol>
-<p>data-based和model-based方法并不冲突，有时会串联在一起用。原因是：某些精巧的攻击方法，可能会绕过data-based method，同时例如在自动驾驶中，数据的分布突然变化的特别大，这时有可能将正常数据<strong>误判</strong>为中毒数据。</p>
+<p>data-based和model-based方法并不冲突，有时会串联在一起用。原因是：某些精巧的攻击方法，可能会绕过data-based
+method，同时例如在自动驾驶中，数据的分布突然变化的特别大，这时有可能将正常数据<strong>误判</strong>为中毒数据。</p>
 <p>因此可能model-based方法更加通用一点。</p>
 
     </div>
@@ -367,7 +372,6 @@
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
 <script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
 
@@ -375,7 +379,6 @@
 
 
 
-  <script src="/js/third-party/fancybox.js"></script>
 
 
 
