@@ -1,276 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
 
-  <!DOCTYPE html>
-  <html lang="en"  >
-  <head>
-  <meta charset="utf-8">
-  
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-  
+<link rel="stylesheet" href="/css/main.css">
 
-  
 
-  
-  <title>
-    EasyRL |
-    
-    Hexo
-  </title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="preload" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CUbuntu%20Mono:400,400italic,700,700italic&display=swap&subset=latin,latin-ext" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;">
-  
-<link rel="stylesheet" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/regular.min.css">
-<link rel="stylesheet" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/solid.min.css">
 
-  <link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/brands.min.css" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;"><link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/v5-font-face.min.css" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;"><link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/v4-font-face.min.css" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;">
-  
-<link rel="stylesheet" href="/css/loader.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
 
-  <meta name="description" content="EasyRL 绪论 强化学习概述 以智能体（agent）为对象：agent从环境中获取状态s以及奖励r（这在时间\(t_0\)没有），然后做出一个决策a，agent需要极大化奖励r 环境（environment）：接受agent的决策a，输出下一个s和r   截屏2023-09-02 09.05.37  RL和监督学习（supervised learning）有很大区别：        SL RL">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width":280,"display":"post","offset":10,"onmobile":true},"hljswrap":true,"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="EasyRL 绪论 强化学习概述 以智能体（agent）为对象：agent从环境中获取状态s以及奖励r（这在时间\(t_0\)没有），然后做出一个决策a，agent需要极大化奖励r 环境（environment）：接受agent的决策a，输出下一个s和r   截屏2023-09-02 09.05.37  RL和监督学习（supervised learning）有很大区别：        SL RL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="EasyRL">
 <meta property="og:url" content="http://example.com/2023/09/02/EasyRL/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="EasyRL 绪论 强化学习概述 以智能体（agent）为对象：agent从环境中获取状态s以及奖励r（这在时间\(t_0\)没有），然后做出一个决策a，agent需要极大化奖励r 环境（environment）：接受agent的决策a，输出下一个s和r   截屏2023-09-02 09.05.37  RL和监督学习（supervised learning）有很大区别：        SL RL">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/%E6%88%AA%E5%B1%8F2023-09-02%2009.05.37.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/%E6%88%AA%E5%B1%8F2023-09-02%2009.52.11.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/%E6%88%AA%E5%B1%8F2023-09-04%2017.25.58.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/%E6%88%AA%E5%B1%8F2023-09-04%2017.33.37.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/%E6%88%AA%E5%B1%8F2023-09-04%2017.33.54.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/%E6%88%AA%E5%B1%8F2023-09-04%2019.26.14.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/%E6%88%AA%E5%B1%8F2023-09-04%2019.30.02.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/%E6%88%AA%E5%B1%8F2023-09-05%2010.17.38.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/%E6%88%AA%E5%B1%8F2023-09-05%2013.54.23.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/%E6%88%AA%E5%B1%8F2023-09-05%2010.28.56.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/%E6%88%AA%E5%B1%8F2023-09-05%2010.40.09.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/%E6%88%AA%E5%B1%8F2023-09-05%2010.41.55.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/%E6%88%AA%E5%B1%8F2023-09-05%2012.22.10.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/%E6%88%AA%E5%B1%8F2023-09-05%2014.01.38.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/%E6%88%AA%E5%B1%8F2023-09-05%2014.13.21.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/%E6%88%AA%E5%B1%8F2023-09-06%2014.22.47.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230916091250670.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230919173023190.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230919172752528.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/%E6%88%AA%E5%B1%8F2023-09-19%2017.28.58.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230916094420973.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230916100807256.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230916114122709.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230916114219478.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230916140521653.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230916141206633.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/%E6%88%AA%E5%B1%8F2023-09-18%2020.10.06.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/%E6%88%AA%E5%B1%8F2023-09-18%2020.39.01.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/%E6%88%AA%E5%B1%8F2023-09-20%2012.37.58.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/%E6%88%AA%E5%B1%8F2023-09-20%2012.54.33.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230920130856256.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230920140719345.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230920140746494.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/%E6%88%AA%E5%B1%8F2023-09-20%2014.08.17.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230920140913045.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230920142307309.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230920142729662.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230920144424148.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/%E6%88%AA%E5%B1%8F2023-09-20%2020.45.10.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/%E6%88%AA%E5%B1%8F2023-09-20%2020.48.00.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230921093351256.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230921093418352.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230921094228980.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/%E6%88%AA%E5%B1%8F2023-09-21%2009.49.50.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230921095638011.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230921100436205.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230921101622477.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230921102938686.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230921103152512.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230921103602015.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230921104133435.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230921105753969.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230921131336961.png">
-<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/image-20230921131538520.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/%E6%88%AA%E5%B1%8F2023-09-02%2009.05.37.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/%E6%88%AA%E5%B1%8F2023-09-02%2009.52.11.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/%E6%88%AA%E5%B1%8F2023-09-04%2017.25.58.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/%E6%88%AA%E5%B1%8F2023-09-04%2017.33.37.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/%E6%88%AA%E5%B1%8F2023-09-04%2017.33.54.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/%E6%88%AA%E5%B1%8F2023-09-04%2019.26.14.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/%E6%88%AA%E5%B1%8F2023-09-04%2019.30.02.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/%E6%88%AA%E5%B1%8F2023-09-05%2010.17.38.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/%E6%88%AA%E5%B1%8F2023-09-05%2013.54.23.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/%E6%88%AA%E5%B1%8F2023-09-05%2010.28.56.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/%E6%88%AA%E5%B1%8F2023-09-05%2010.40.09.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/%E6%88%AA%E5%B1%8F2023-09-05%2010.41.55.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/%E6%88%AA%E5%B1%8F2023-09-05%2012.22.10.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/%E6%88%AA%E5%B1%8F2023-09-05%2014.01.38.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/%E6%88%AA%E5%B1%8F2023-09-05%2014.13.21.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/%E6%88%AA%E5%B1%8F2023-09-06%2014.22.47.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230916091250670.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230919173023190.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230919172752528.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/%E6%88%AA%E5%B1%8F2023-09-19%2017.28.58.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230916094420973.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230916100807256.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230916114122709.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230916114219478.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230916140521653.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230916141206633.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/%E6%88%AA%E5%B1%8F2023-09-18%2020.10.06.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/%E6%88%AA%E5%B1%8F2023-09-18%2020.39.01.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/%E6%88%AA%E5%B1%8F2023-09-20%2012.37.58.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/%E6%88%AA%E5%B1%8F2023-09-20%2012.54.33.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230920130856256.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230920140719345.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230920140746494.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/%E6%88%AA%E5%B1%8F2023-09-20%2014.08.17.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230920140913045.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230920142307309.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230920142729662.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230920144424148.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/%E6%88%AA%E5%B1%8F2023-09-20%2020.45.10.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/%E6%88%AA%E5%B1%8F2023-09-20%2020.48.00.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230921093351256.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230921093418352.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230921094228980.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/%E6%88%AA%E5%B1%8F2023-09-21%2009.49.50.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230921095638011.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230921100436205.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230921101622477.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230921102938686.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230921103152512.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230921103602015.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230921104133435.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230921105753969.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230921131336961.png">
+<meta property="og:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/image-20230921131538520.png">
 <meta property="article:published_time" content="2023-09-02T03:07:15.000Z">
 <meta property="article:modified_time" content="2023-10-11T01:18:32.000Z">
 <meta property="article:author" content="chengyiqiu">
 <meta property="article:tag" content="RL">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/09/02/EasyRL/%E6%88%AA%E5%B1%8F2023-09-02%2009.05.37.png">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/images/favicon.ico">
-  
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+<meta name="twitter:image" content="http://example.com/2023/09/02/EasyRL/EasyRL/%E6%88%AA%E5%B1%8F2023-09-02%2009.05.37.png">
 
-  
-    
-<link rel="stylesheet" href="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
-  
-  
-    
-<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css">
+<link rel="canonical" href="http://example.com/2023/09/02/EasyRL/">
 
-  
-  
-  
-  
-<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"></script>
 
-  
-    
-<link rel="stylesheet" href="https://npm.webcache.cn/wowjs@1.1.3/css/libs/animate.css">
 
-    
-<script src="https://npm.webcache.cn/wowjs@1.1.3/dist/wow.min.js"></script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/09/02/EasyRL/","path":"2023/09/02/EasyRL/","title":"EasyRL"}</script>
 
-    <script>
-      new WOW({
-        offset: 0,
-        mobile: true,
-        live: false
-      }).init();
-    </script>
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>EasyRL | Hexo</title>
   
-  
-    <script src="/sw.js"></script>
-  
-<meta name="generator" content="Hexo 7.2.0"></head>
 
-  <body>
-    
-  <div id='loader'>
-    <div class="loading-left-bg"></div>
-    <div class="loading-right-bg"></div>
-    <div class="spinner-box">
-      <div class="loading-taichi">
-        <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
-          <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="#ff6e6b" />
-          <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z" fill="#fd0d00" />
-          <path d="M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95" fill="#fd0d00" />
-        </svg>
-      </div>
-      <div class="loading-word">梭哈是一种智慧</div>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
     </div>
   </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
   </div>
-  <script>
-    var time = null;
-    const startLoading = () => {
-      time = Date.now();
-      document.getElementById('loader').classList.remove("loading");
-    }
-    const endLoading = () => {
-      if (!time) {
-        document.body.style.overflow = 'auto';
-        document.getElementById('loader').classList.add("loading");
-      } else {
-        if (Date.now() - time > 500) {
-          time = null;
-          document.body.style.overflow = 'auto';
-          document.getElementById('loader').classList.add("loading");
-        } else {
-          setTimeout(endLoading, 500 - (Date.now() - time));
-          time = null;
-        }
-      }
-    }
-    window.addEventListener('load', endLoading);
-    document.getElementById('loader').addEventListener('click', endLoading);
-  </script>
 
-
-    <div id="container">
-      <div id="wrap">
-        <div id="header-nav">
-  <nav id="main-nav">
-    
-      <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
-        <a class="main-nav-link" href="/">Home</a>
-      </span>
-    
-      <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
-        <a class="main-nav-link" href="/archives">Archives</a>
-      </span>
-    
-      <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
-        <a class="main-nav-link" href="/about">About</a>
-      </span>
-    
-      <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
-        <a class="main-nav-link" href="/friend">Friend</a>
-      </span>
-    
-    <a id="main-nav-toggle" class="nav-icon"></a>
-  </nav>
-  <nav id="sub-nav">
-    
-      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-    
-    
-    
-  </nav>
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
 </div>
-<header id="header">
-  
-    <img fetchpriority="high" src="/images/banner.png" alt="EasyRL">
-  
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <div id="logo-wrap">
-        
-          
-          
-            <a href="/" id="logo">
-              <h1>EasyRL</h1>
-            </a>
-          
-        
-      </div>
-      
-        
-        <h2 id="subtitle-wrap">
-          
-        </h2>
-      
-    </div>
-  </div>
+
+
+
+
+
+
+
 </header>
+        
+  
+  <aside class="sidebar">
 
-        <div id="content" class="outer">
-          
-          <section id="main"><article id="post-EasyRL" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-inner">
-    <div class="article-meta">
-      <div class="article-date wow slideInLeft">
-  <a href="/2023/09/02/EasyRL/" class="article-date-link">
-    <time datetime="2023-09-02T03:07:15.000Z" itemprop="datePublished">2023-09-02</time>
-  </a>
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%AA%E8%AE%BA"><span class="nav-number">1.</span> <span class="nav-text">绪论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">强化学习概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%86%B3%E7%AD%96"><span class="nav-number">1.2.</span> <span class="nav-text">序列决策</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E4%BD%9C%E7%A9%BA%E9%97%B4"><span class="nav-number">1.3.</span> <span class="nav-text">动作空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%99%BA%E8%83%BD%E4%BD%93%E7%9A%84%E7%BB%84%E6%88%90%E6%88%90%E5%88%86"><span class="nav-number">1.4.</span> <span class="nav-text">智能体的组成成分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.1.</span> <span class="nav-text">策略函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%B7%E5%80%BC%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.2.</span> <span class="nav-text">价值函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.4.3.</span> <span class="nav-text">模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%99%BA%E8%83%BD%E4%BD%93%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.5.</span> <span class="nav-text">智能体的类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#policy-or-value-based"><span class="nav-number">1.5.1.</span> <span class="nav-text">policy or value based</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#model-based"><span class="nav-number">1.5.2.</span> <span class="nav-text">model based</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E5%92%8C%E8%A7%84%E5%88%92"><span class="nav-number">1.6.</span> <span class="nav-text">学习和规划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A2%E7%B4%A2%E5%92%8C%E5%88%A9%E7%94%A8"><span class="nav-number">1.7.</span> <span class="nav-text">探索和利用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">马尔可夫决策过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#markov-process"><span class="nav-number">2.1.</span> <span class="nav-text">Markov process</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#markov-property"><span class="nav-number">2.1.1.</span> <span class="nav-text">Markov property</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#markov-chain"><span class="nav-number">2.1.2.</span> <span class="nav-text">Markov chain</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#markov-reward-process"><span class="nav-number">2.2.</span> <span class="nav-text">Markov reward process</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#return-and-value-function"><span class="nav-number">2.2.1.</span> <span class="nav-text">return and value function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bellman-equation"><span class="nav-number">2.2.2.</span> <span class="nav-text">bellman equation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97mrp%E4%BB%B7%E5%80%BC%E7%9A%84%E8%BF%AD%E4%BB%A3%E7%AE%97%E6%B3%95"><span class="nav-number">2.2.3.</span> <span class="nav-text">计算MRP价值的迭代算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#markov-decision-process"><span class="nav-number">2.3.</span> <span class="nav-text">Markov decision process</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#policy-in-mdp"><span class="nav-number">2.3.1.</span> <span class="nav-text">policy in MDP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mdp%E5%92%8Cmpmrp%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">2.3.2.</span> <span class="nav-text">MDP和MP&#x2F;MRP的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mdp%E7%9A%84value-function"><span class="nav-number">2.3.3.</span> <span class="nav-text">MDP的value function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bellman-expectation-equation"><span class="nav-number">2.3.4.</span> <span class="nav-text">bellman expectation equation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%87%E4%BB%BD%E5%9B%BE"><span class="nav-number">2.3.5.</span> <span class="nav-text">备份图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E8%AF%84%E4%BC%B0"><span class="nav-number">2.3.6.</span> <span class="nav-text">策略评估</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%84%E6%B5%8B%E6%8E%A7%E5%88%B6"><span class="nav-number">2.3.7.</span> <span class="nav-text">预测&amp;控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E8%BF%AD%E4%BB%A3"><span class="nav-number">2.3.8.</span> <span class="nav-text">策略迭代</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%B7%E5%80%BC%E8%BF%AD%E4%BB%A3"><span class="nav-number">2.3.9.</span> <span class="nav-text">价值迭代</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%A8%E6%A0%BC%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">表格型方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#model-based-model-free"><span class="nav-number">3.1.</span> <span class="nav-text">model-based &amp; model-free</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#q%E8%A1%A8%E6%A0%BC"><span class="nav-number">3.2.</span> <span class="nav-text">Q表格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%8D%E6%A8%A1%E5%9E%8B%E9%A2%84%E6%B5%8B"><span class="nav-number">3.3.</span> <span class="nav-text">免模型预测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E7%AD%96%E7%95%A5%E8%AF%84%E4%BC%B0"><span class="nav-number">3.3.1.</span> <span class="nav-text">蒙特卡洛策略评估</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E5%BA%8F%E5%B7%AE%E5%88%86"><span class="nav-number">3.3.2.</span> <span class="nav-text">时序差分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%8D%E6%A8%A1%E5%9E%8B%E6%8E%A7%E5%88%B6"><span class="nav-number">3.4.</span> <span class="nav-text">免模型控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sarsa%E5%90%8C%E7%AD%96%E7%95%A5%E6%97%B6%E5%BA%8F%E5%B7%AE%E5%88%86%E6%8E%A7%E5%88%B6"><span class="nav-number">3.4.1.</span> <span class="nav-text">Sarsa：同策略时序差分控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#q%E5%AD%A6%E4%B9%A0%E5%BC%82%E7%AD%96%E7%95%A5%E6%97%B6%E5%BA%8F%E5%B7%AE%E5%88%86%E6%8E%A7%E5%88%B6"><span class="nav-number">3.4.2.</span> <span class="nav-text">Q学习：异策略时序差分控制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6"><span class="nav-number">4.</span> <span class="nav-text">策略梯度</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-number">4.1.</span> <span class="nav-text">策略梯度算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%92%99%E5%A1%94%E5%8D%A1%E6%B4%9B%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6"><span class="nav-number">4.2.</span> <span class="nav-text">蒙塔卡洛策略梯度</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%91%E7%AB%AF%E7%AD%96%E7%95%A5%E4%BC%98%E5%8C%96"><span class="nav-number">5.</span> <span class="nav-text">近端策略优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E6%80%A7%E9%87%87%E6%A0%B7"><span class="nav-number">5.1.</span> <span class="nav-text">重要性采样</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%91%E7%AB%AF%E7%AD%96%E7%95%A5%E4%BC%98%E5%8C%96-1"><span class="nav-number">5.2.</span> <span class="nav-text">近端策略优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ppo--penalty"><span class="nav-number">5.2.1.</span> <span class="nav-text">PPO- penalty</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ppo-clip"><span class="nav-number">5.2.2.</span> <span class="nav-text">PPO-clip</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6q%E7%BD%91%E7%BB%9C"><span class="nav-number">6.</span> <span class="nav-text">深度Q网络</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">chengyiqiu</p>
+  <div class="site-description" itemprop="description"></div>
 </div>
-
-      
-  <div class="article-category wow slideInLeft">
-    <a class="article-category-link" href="/categories/EasyRL/">EasyRL</a>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chengyiqiu1121" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chengyiqiu1121" rel="noopener me" target="_blank">GitHub</a>
+      </span>
   </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="Back to top">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
 
 
     </div>
-    <div class="hr-line"></div>
-    
 
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>EasyRL</p>
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/02/EasyRL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="chengyiqiu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="EasyRL | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          EasyRL
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-09-02 11:07:15" itemprop="dateCreated datePublished" datetime="2023-09-02T11:07:15+08:00">2023-09-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-10-11 09:18:32" itemprop="dateModified" datetime="2023-10-11T09:18:32+08:00">2023-10-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/EasyRL/" itemprop="url" rel="index"><span itemprop="name">EasyRL</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>EasyRL</p>
 <h1 id="绪论">绪论</h1>
 <h2 id="强化学习概述">强化学习概述</h2>
 <p>以智能体（agent）为对象：agent从环境中获取状态s以及奖励r（这在时间<span class="math inline">\(t_0\)</span>没有），然后做出一个决策a，agent需要极大化奖励r</p>
 <p>环境（environment）：接受agent的决策a，输出下一个s和r</p>
 <figure>
-<img src="/2023/09/02/EasyRL/截屏2023-09-02%2009.05.37.png" alt="截屏2023-09-02 09.05.37">
+<img data-src="./EasyRL/截屏2023-09-02%2009.05.37.png" alt="截屏2023-09-02 09.05.37">
 <figcaption aria-hidden="true">截屏2023-09-02 09.05.37</figcaption>
 </figure>
 <pre><code>RL和监督学习（supervised learning）有很大区别：</code></pre>
@@ -316,7 +328,7 @@
 <li>穿衣股的智能体</li>
 </ul>
 <figure>
-<img src="/2023/09/02/EasyRL/截屏2023-09-02%2009.52.11.png" alt="截屏2023-09-02 09.52.11">
+<img data-src="./EasyRL/截屏2023-09-02%2009.52.11.png" alt="截屏2023-09-02 09.52.11">
 <figcaption aria-hidden="true">截屏2023-09-02 09.52.11</figcaption>
 </figure>
 <h2 id="序列决策">序列决策</h2>
@@ -404,7 +416,7 @@ free</li>
 </ul></li>
 </ul>
 <figure>
-<img src="/2023/09/02/EasyRL/截屏2023-09-04%2017.25.58.png" alt="截屏2023-09-04 17.25.58">
+<img data-src="./EasyRL/截屏2023-09-04%2017.25.58.png" alt="截屏2023-09-04 17.25.58">
 <figcaption aria-hidden="true">截屏2023-09-04 17.25.58</figcaption>
 </figure>
 <h2 id="学习和规划">学习和规划</h2>
@@ -413,14 +425,14 @@ free</li>
 <li>在不知道环境时，智能体要一直和环境交互，来改进策略。这是一个学习过程。</li>
 </ul>
 <figure>
-<img src="/2023/09/02/EasyRL/截屏2023-09-04%2017.33.37.png" alt="截屏2023-09-04 17.33.37">
+<img data-src="./EasyRL/截屏2023-09-04%2017.33.37.png" alt="截屏2023-09-04 17.33.37">
 <figcaption aria-hidden="true">截屏2023-09-04 17.33.37</figcaption>
 </figure>
 <ul>
 <li>在智能体能够知道环境中的所有信息时，智能体能够计算出一个完美的模型，然后去做决策。这是一个规划过程。</li>
 </ul>
 <figure>
-<img src="/2023/09/02/EasyRL/截屏2023-09-04%2017.33.54.png" alt="截屏2023-09-04 17.33.54">
+<img data-src="./EasyRL/截屏2023-09-04%2017.33.54.png" alt="截屏2023-09-04 17.33.54">
 <figcaption aria-hidden="true">截屏2023-09-04 17.33.54</figcaption>
 </figure>
 <p>我们可以先让智能体跟环境交互，学到一个虚拟环境后，再在环境中进行计算，做决策。</p>
@@ -443,10 +455,10 @@ p(s_{t+1}|h_t)=p(s_{t+1}|s_t)
 \]</span> 也就是说，从历史中去推未来，和从当前状态推未来是等价的。</p>
 <p>从<span class="math inline">\(s_t\)</span>转移到<span class="math inline">\(s_{t+1}\)</span>，和从过去转移到<span class="math inline">\(s_{t+1}\)</span>是等价的。</p>
 <p>离散的Markov process 称为Markov chain，如下图所示：</p>
-<p><img src="/2023/09/02/EasyRL/截屏2023-09-04 19.26.14.png" alt="截屏2023-09-04 19.26.14" style="zoom: 50%;"></p>
+<p><img data-src="./EasyRL/截屏2023-09-04 19.26.14.png" alt="截屏2023-09-04 19.26.14" style="zoom: 50%;"></p>
 <p>上图中有四个状态，s1有0.1的概率转移到其本身，有0.2的概率转移到s2，有0.7的概率转移的到s4。</p>
 <p>可以用<strong>状态转移矩阵P</strong>来描述状态转移<span class="math inline">\(p(s_{t+1}=s^{&#39;}|s_t=s)\)</span></p>
-<p><img src="/2023/09/02/EasyRL/截屏2023-09-04 19.30.02.png" alt="截屏2023-09-04 19.30.02" style="zoom:33%;"></p>
+<p><img data-src="./EasyRL/截屏2023-09-04 19.30.02.png" alt="截屏2023-09-04 19.30.02" style="zoom:33%;"></p>
 <p>状态转移矩阵表示的是当前从状态<span class="math inline">\(s_t\)</span>到状态<span class="math inline">\(s_{t+1}\)</span>的所有概率</p>
 <h2 id="markov-reward-process">Markov reward process</h2>
 <p>MRP是Markov chain+reward function。</p>
@@ -475,12 +487,12 @@ function表示的<strong>是智能体进入某个状态后，未来能够获得�
 <span class="math display">\[
 R=[5,0,0,0,0,0,10]
 \]</span> 然后设置好<span class="math inline">\(\gamma=0.5\)</span>后，就能通过采样得到回报return：</p>
-<p><img src="/2023/09/02/EasyRL/截屏2023-09-05 10.17.38.png" alt="截屏2023-09-05 10.17.38" style="zoom:33%;"></p>
+<p><img data-src="./EasyRL/截屏2023-09-05 10.17.38.png" alt="截屏2023-09-05 10.17.38" style="zoom:33%;"></p>
 <p>得到return后，还没有得到value
 function，我们可以吧以s4开头的所有轨迹都加起来取平均值（期望），以这个值来衡量进入状态s4的价值。这种计算价值函数的方法称为：蒙特卡洛（MonteCarlo，MC）采样。</p>
 <h3 id="bellman-equation">bellman equation</h3>
 <p>bellman equation的推导如下：</p>
-<p><img src="/2023/09/02/EasyRL/截屏2023-09-05 13.54.23.png" alt="截屏2023-09-05 13.54.23" style="zoom: 33%;"></p>
+<p><img data-src="./EasyRL/截屏2023-09-05 13.54.23.png" alt="截屏2023-09-05 13.54.23" style="zoom: 33%;"></p>
 <ul>
 <li>其中从第四行到第五行的原因：<strong>回报的期望是等于回报的期望的期望</strong>。或者说是全期望公式：</li>
 </ul>
@@ -498,7 +510,7 @@ V(s)=R(s)+\gamma \sum _{s^{&#39;}\epsilon S}p(s^{&#39;}|s)V(s^{&#39;})
 equation表示的就是当前状态的价值。也可以说是当前状态和未来状态的迭代关系。</p>
 <p>将其写成矩阵形式如下：</p>
 <figure>
-<img src="/2023/09/02/EasyRL/截屏2023-09-05%2010.28.56.png" alt="截屏2023-09-05 10.28.56">
+<img data-src="./EasyRL/截屏2023-09-05%2010.28.56.png" alt="截屏2023-09-05 10.28.56">
 <figcaption aria-hidden="true">截屏2023-09-05 10.28.56</figcaption>
 </figure>
 <p>这个方程可以得到其解析解（analytic solution） <span class="math display">\[
@@ -514,10 +526,10 @@ V=(E-\gamma P)^{-1}R
 <li>时序差分学习（TD learning）</li>
 </ul>
 <p>蒙特卡洛方法就是上面讲的那样，以当前状态出发，在一个horizon内，找出若干真实轨迹（可能是1000），然后求均值，作为当前状态的value。</p>
-<p><img src="/2023/09/02/EasyRL/截屏2023-09-05 10.40.09.png" alt="截屏2023-09-05 10.40.09" style="zoom: 33%;"></p>
+<p><img data-src="./EasyRL/截屏2023-09-05 10.40.09.png" alt="截屏2023-09-05 10.40.09" style="zoom: 33%;"></p>
 <p>而bellman
 equation则是通过不断的自举（bootstrapping），直到方程收敛（当前状态和上一个状态差别不大）</p>
-<p><img src="/2023/09/02/EasyRL/截屏2023-09-05 10.41.55.png" alt="截屏2023-09-05 10.41.55" style="zoom:33%;"></p>
+<p><img data-src="./EasyRL/截屏2023-09-05 10.41.55.png" alt="截屏2023-09-05 10.41.55" style="zoom:33%;"></p>
 <h2 id="markov-decision-process">Markov decision process</h2>
 <p>马尔可夫决策过程，即MDP，是MRP+decision。状态转移的条件也变了： <span class="math display">\[
 p(s_{t+1}=s^{&#39;}|s_t=s,a_t=a)
@@ -542,7 +554,7 @@ R_{\pi}(s)=\sum _{a\epsilon A}\pi (a|s)R(s,a)
 <h3 id="mdp和mpmrp的区别">MDP和MP/MRP的区别</h3>
 <p>MRP/MP（下图左）可以根据当前的状态，加上状态转移函数，直接得出下一个状态是什么；而MDP则多了一层决策函数，根据当前的状态，选出一个决策，然后再在这个决策的基础上，通过状态转移函数，得出下一步的状态。也就是说，智能体做出的决策会决定未来的状态转移</p>
 <figure>
-<img src="/2023/09/02/EasyRL/截屏2023-09-05%2012.22.10.png" alt="截屏2023-09-05 12.22.10">
+<img data-src="./EasyRL/截屏2023-09-05%2012.22.10.png" alt="截屏2023-09-05 12.22.10">
 <figcaption aria-hidden="true">截屏2023-09-05 12.22.10</figcaption>
 </figure>
 <h3 id="mdp的value-function">MDP的value function</h3>
@@ -563,15 +575,15 @@ Q_{\pi}(s,a)=E_{\pi}[G_t|s_t=s,a_t=a]
 <span class="math display">\[
 V_{\pi}=\sum_{a\epsilon A}\pi (a|s)Q_{\pi}(s,a)
 \]</span> 对Q函数的bellman equation进行推导：</p>
-<p><img src="/2023/09/02/EasyRL/截屏2023-09-05 14.01.38.png" alt="截屏2023-09-05 14.01.38" style="zoom:33%;"></p>
+<p><img data-src="./EasyRL/截屏2023-09-05 14.01.38.png" alt="截屏2023-09-05 14.01.38" style="zoom:33%;"></p>
 <h3 id="bellman-expectation-equation">bellman expectation equation</h3>
 <p>将状态价值函数（V）和动作价值函数（Q）进行分解，可得到下式：</p>
-<p><img src="/2023/09/02/EasyRL/截屏2023-09-05 14.13.21.png" alt="截屏2023-09-05 14.13.21" style="zoom:33%;"></p>
+<p><img data-src="./EasyRL/截屏2023-09-05 14.13.21.png" alt="截屏2023-09-05 14.13.21" style="zoom:33%;"></p>
 <p>上式展示了动作价值函数之间的迭代关系。</p>
 <h3 id="备份图">备份图</h3>
 <p>备份图的核心：当前的价值是和未来的价值是线性相关的。</p>
 <p>这个价值可以是动作价值Q，或者是状态价值V（如下图）</p>
-<p><img src="/2023/09/02/EasyRL/截屏2023-09-06 14.22.47.png" alt="截屏2023-09-06 14.22.47" style="zoom:33%;"></p>
+<p><img data-src="./EasyRL/截屏2023-09-06 14.22.47.png" alt="截屏2023-09-06 14.22.47" style="zoom:33%;"></p>
 <p>上图中，根结点代表的是当前状态、以及当前状态具有的价值；根结点下面的是动作结点，代表的是后面可能采取的一个动作；再往下是采取这个动作之后，状态发生改变，进入新的状态<span class="math inline">\(s^{&#39;}\)</span>。</p>
 <h3 id="策略评估">策略评估</h3>
 <p>策略评估又称为<strong>价值预测</strong>，也就是计算<span class="math inline">\(V\)</span>的过程。</p>
@@ -588,22 +600,22 @@ V_{\pi}=\sum_{a\epsilon A}\pi (a|s)Q_{\pi}(s,a)
 <h3 id="策略迭代">策略迭代</h3>
 <p>策略迭代：首先我们拥有一个初始的策略<span class="math inline">\(\pi\)</span>，然后根据这个策略可以得到状态价值函数<span class="math inline">\(V_{\pi}\)</span>，然后根据Q函数的公式，通过极大化Q函数，来找到一个更优的策略<span class="math inline">\(\pi
 ^{&#39;}\)</span>，如此迭代下去，便能找到最佳的策略以及状态价值函数。</p>
-<p><img src="/2023/09/02/EasyRL/image-20230916091250670.png" alt="image-20230916091250670" style="zoom:33%;"></p>
+<p><img data-src="./EasyRL/image-20230916091250670.png" alt="image-20230916091250670" style="zoom:33%;"></p>
 <p>策略迭代是基于贪心策略的。</p>
 <p>下面是策略迭代的步骤：</p>
 <ul>
 <li>初始化策略<span class="math inline">\(\pi\)</span>，通过贝尔曼方程，算出价值函数<span class="math inline">\(V_{\pi}\)</span></li>
 </ul>
-<p><img src="/2023/09/02/EasyRL/image-20230919173023190.png" alt="image-20230919173023190" style="zoom:50%;"></p>
+<p><img data-src="./EasyRL/image-20230919173023190.png" alt="image-20230919173023190" style="zoom:50%;"></p>
 <ul>
 <li>根据状态价值函数，利用动作价值函数的贝尔曼方程的推导，得到动作价值函数</li>
 </ul>
-<p><img src="/2023/09/02/EasyRL/image-20230919172752528.png" alt="image-20230919172752528" style="zoom:50%;"></p>
+<p><img data-src="./EasyRL/image-20230919172752528.png" alt="image-20230919172752528" style="zoom:50%;"></p>
 <ul>
 <li>最后对<span class="math inline">\(Q_{\pi}\)</span>使用arg
 max操作符</li>
 </ul>
-<p><img src="/2023/09/02/EasyRL/截屏2023-09-19 17.28.58.png" alt="截屏2023-09-19 17.28.58" style="zoom:50%;"></p>
+<p><img data-src="./EasyRL/截屏2023-09-19 17.28.58.png" alt="截屏2023-09-19 17.28.58" style="zoom:50%;"></p>
 <h3 id="价值迭代">价值迭代</h3>
 <p>价值迭代使用的是贝尔曼方程，不断的对<span class="math inline">\(V\)</span>进行迭代，直到其收敛。这样我们得到的就是一个最优的价值函数了。</p>
 <p>...</p>
@@ -611,7 +623,7 @@ max操作符</li>
 <p>蒙特卡洛、Q学习和Sarsa都是表格型方法。</p>
 <h2 id="model-based-model-free">model-based &amp; model-free</h2>
 <p>这里进一步解释免模型和有模型。最大的特点从下图就可以看出了</p>
-<p><img src="/2023/09/02/EasyRL/image-20230916094420973.png" alt="image-20230916094420973" style="zoom:33%;"></p>
+<p><img data-src="./EasyRL/image-20230916094420973.png" alt="image-20230916094420973" style="zoom:33%;"></p>
 <ul>
 <li>有模型</li>
 </ul>
@@ -623,7 +635,7 @@ max操作符</li>
 <p>当<strong>模型很大或者模型未知</strong>的时候，我们不得不采用model-free来解决问题。</p>
 <h2 id="q表格">Q表格</h2>
 <p>假设Q表格是一张已经训练好的表格，那么他应该长下面这样：</p>
-<p><img src="/2023/09/02/EasyRL/image-20230916100807256.png" alt="image-20230916100807256" style="zoom:50%;"></p>
+<p><img data-src="./EasyRL/image-20230916100807256.png" alt="image-20230916100807256" style="zoom:50%;"></p>
 <p>这张图片表示，在当前的状态s下，采取动作a，能够获取多少的长期奖励。</p>
 <p>至于长期奖励or短期奖励，这里有一个很生动的例子：闯红灯</p>
 <ul>
@@ -643,9 +655,9 @@ max操作符</li>
 =\mu_{t-1}+\frac{1}{t}(x_t-\mu_{t-1})
 \]</span> 这样就得了当前均值和当前值以及上一时刻的均值的关系了：<span class="math inline">\(\mu_t=\mu_{t-1}+\frac{1}{t}(x_t-\mu_{t-1})\)</span></p>
 <p>我们将蒙特克罗方法也写成这种方式，称为<strong>蒙特卡洛均值</strong>：</p>
-<p><img src="/2023/09/02/EasyRL/image-20230916114122709.png" alt="image-20230916114122709" style="zoom:50%;"></p>
+<p><img data-src="./EasyRL/image-20230916114122709.png" alt="image-20230916114122709" style="zoom:50%;"></p>
 <p>将前面的分数系数计作学习率：</p>
-<p><img src="/2023/09/02/EasyRL/image-20230916114219478.png" alt="image-20230916114219478" style="zoom:50%;"></p>
+<p><img data-src="./EasyRL/image-20230916114219478.png" alt="image-20230916114219478" style="zoom:50%;"></p>
 <p>对比动态规划方法，蒙特卡洛方法的优势在于：</p>
 <ol type="1">
 <li>Model-free</li>
@@ -660,7 +672,7 @@ max操作符</li>
 <p>上面就是一个one-step TD的过程。</p>
 <p>下面再来介绍时序差分方法，其和蒙特卡洛很像，蒙特卡洛需要采样很多<strong>真实轨迹</strong>之后，对这些轨迹求<strong>真实回报</strong>，然后更新价值；而时序差分方法最小可以走一步（<strong>采样</strong>），然后计算<strong>估计回报</strong>，并且更新价值（<strong>自举</strong>）。</p>
 <p>单步时序差分，TD(1)，每走一步，就用得到的估计回报，来更新价值，这个过程就是一次自举。</p>
-<p><img src="/2023/09/02/EasyRL/image-20230916140521653.png" alt="image-20230916140521653" style="zoom:50%;"></p>
+<p><img data-src="./EasyRL/image-20230916140521653.png" alt="image-20230916140521653" style="zoom:50%;"></p>
 <p>估计回报被称为<strong>时序差分目标（TD-
 target）</strong>，它是由下一步得到的真实奖励以及对未来奖励的一个折扣。</p>
 <p>PS： <span class="math display">\[
@@ -674,7 +686,7 @@ G_t^1=r_{t+1}+\gamma G_{t+1}\approx r_{t+1}+\gamma V_{t+1}
 <li>TD可以在线学习，可以每走几步更新一次，而蒙特卡洛则需要游戏结束的时候，再进行更新。</li>
 </ol>
 <p>当步数趋近于无穷的时候，TD就会退化成MC。</p>
-<p><img src="/2023/09/02/EasyRL/image-20230916141206633.png" alt="image-20230916141206633" style="zoom:50%;"></p>
+<p><img data-src="./EasyRL/image-20230916141206633.png" alt="image-20230916141206633" style="zoom:50%;"></p>
 <p>这个G就是估计回报，也是TD-target。</p>
 <p>另外，TD运用了MP性质，所以在MDP下有很好的效率，而MC没有运用MP性质，只是运用了采样，因此在马尔可夫环境下运用TD还是比较好的，但是非马尔可夫环境，可以考虑MC。</p>
 <h2 id="免模型控制">免模型控制</h2>
@@ -726,7 +738,7 @@ start）：以蒙塔卡洛为例，我们进行采样的时候，期望采样到
 <p>在最开始的时候，我们并不知道哪一个动作比较好，所以刚开始的<span class="math inline">\(\epsilon\)</span>会比较大，随着时间的增大，<span class="math inline">\(\epsilon\)</span>会慢慢变小。</p>
 <h3 id="sarsa同策略时序差分控制">Sarsa：同策略时序差分控制</h3>
 <p>Sarsa算法跟简单，就是将原本的时序差分中的更新V的过程换成了更新Q的过程：</p>
-<p><img src="/2023/09/02/EasyRL/截屏2023-09-18 20.10.06.png" alt="截屏2023-09-18 20.10.06" style="zoom:50%;"></p>
+<p><img data-src="./EasyRL/截屏2023-09-18 20.10.06.png" alt="截屏2023-09-18 20.10.06" style="zoom:50%;"></p>
 <p>TD-traget，时序差分目标，意思就是我们想要逼近的那个目标值。我们这里使用的是one-step
 TD的思想，所以叫one-step Sarsa，只需知道<span class="math inline">\(s_t,a_t,r_{t+1},s_{t+1},a_{t+1}\)</span>即可。</p>
 <p>给其加上<span class="math inline">\(\lambda\)</span>得到了<span class="math inline">\(Sarsa(\lambda)\)</span>，看不太懂。</p>
@@ -737,7 +749,7 @@ TD的思想，所以叫one-step Sarsa，只需知道<span class="math inline">\(
 <li><span class="math inline">\(\pi\)</span>：目标策略，指的是我们需要去学习的策略。一般直接采取<strong>贪心策略</strong></li>
 <li><span class="math inline">\(\mu\)</span>：行为策略，负责去探索环境，将采集到的轨迹投喂给<span class="math inline">\(\pi\)</span>，并且采集到的数据不需要<span class="math inline">\(a_{t+1}\)</span>。可以采取随机策略，但更好的选择是<span class="math inline">\(\epsilon\)</span>-贪心策略</li>
 </ul>
-<p><img src="/2023/09/02/EasyRL/截屏2023-09-18 20.39.01.png" alt="截屏2023-09-18 20.39.01" style="zoom:50%;"></p>
+<p><img data-src="./EasyRL/截屏2023-09-18 20.39.01.png" alt="截屏2023-09-18 20.39.01" style="zoom:50%;"></p>
 <h1 id="策略梯度">策略梯度</h1>
 <p>在model-free中，状态转移以及奖励都是由环境决定的，我们的agent可以和环境进行交互，但是能够改进的只有我们的策略本身。这一章中，我们可以就将智能体以及策略看成一个神经网络，然后输入我们的观测，得到动作作为输出。</p>
 <p>假设参数为<span class="math inline">\(\theta\)</span>的策略为<span class="math inline">\(\pi _{\theta}\)</span>。</p>
@@ -748,37 +760,37 @@ TD的思想，所以叫one-step Sarsa，只需知道<span class="math inline">\(
 <li>环境</li>
 <li>奖励函数</li>
 </ul>
-<p><img src="/2023/09/02/EasyRL/截屏2023-09-20 12.37.58.png" alt="截屏2023-09-20 12.37.58" style="zoom:50%;"></p>
+<p><img data-src="./EasyRL/截屏2023-09-20 12.37.58.png" alt="截屏2023-09-20 12.37.58" style="zoom:50%;"></p>
 <p>演员其实就是之前的agent，更进一步的说，其实就是我们的策略函数。将策略函数看成一个网络，网络中有很多参数，将这些参数计作<span class="math inline">\(\theta\)</span>，可以对参数进行训练。</p>
 <p>一般而言，我们并不会使用RNN来进行训练（尽管这可能更符合一般的逻辑，但那样会比较麻烦，RNN处理连续的图像可能会有相当大的计算量），反而使用的是类似CNN的网络，接受一张图片作为输入，有几个动作，就有几个输出神经元。（这可能并不适用于连续动作空间的问题）。</p>
 <p>同理，我们可以讲环境也看作是一个神经网络，尽管它可能是一个rule-based的模型。环境接受actor的动作，然后输出state给actor，如此反复。知道到达环境的终止条件（例如打游戏时，所有的小怪都已经被消灭）。</p>
 <p>在这个回合中，可以得到状态和动作组成的整个轨迹： <span class="math display">\[
 \tau = \{s_1,a_1,s_2,a_2,...,s_t,a_t\}
 \]</span> 在给定策略的参数<span class="math inline">\(\theta\)</span>后，我们便可以计算出这条轨迹发生的概率了：</p>
-<p><img src="/2023/09/02/EasyRL/截屏2023-09-20 12.54.33.png" alt="截屏2023-09-20 12.54.33" style="zoom: 50%;"></p>
+<p><img data-src="./EasyRL/截屏2023-09-20 12.54.33.png" alt="截屏2023-09-20 12.54.33" style="zoom: 50%;"></p>
 <p>上面算出的这条轨迹的概率取决于环境以及智能体采取的动作。</p>
 <p>而环境是我们无法控制的，所以只能通过改变智能体的动作，也就是策略，来得到更好的轨迹。（长期奖励最大）</p>
 <p>至于奖励函数，以游戏为例子，当agent采取一个动作后，环境输出一个状态，这时我们就可以得到一个奖励r了，r也取决于我们采取的动作a。待到游戏结束后，我们将所有的r加到一起，就得到了轨迹<span class="math inline">\(\tau\)</span>的奖励：<span class="math inline">\(R(\tau)\)</span></p>
 <p>在一个horizon结束之后，我们得到了轨迹的奖励，然后就可以来优化我们的策略参数<span class="math inline">\(\theta\)</span>了。</p>
 <p>另外，虽然说轨迹的奖励是一个标量值，但是其实其还是一个随机变量，因为轨迹的产生是取决于我们的动作的，是有一定的概率产生这个轨迹，于是，对其求期望：</p>
-<p><img src="/2023/09/02/EasyRL/image-20230920130856256.png" alt="image-20230920130856256" style="zoom:50%;"></p>
+<p><img data-src="./EasyRL/image-20230920130856256.png" alt="image-20230920130856256" style="zoom:50%;"></p>
 <p>我们进一步说明这个轨迹的概率是什么回事，举例：假设<span class="math inline">\(\theta\)</span>对应的模型很强，能够做出很好的决策，那么若是有一回合agent很快就死掉了，那么这种概率是相当小的；相反，智能体能够很快的结束掉游戏，这是一种相当大的概率。</p>
 <p>我们要最大化这个轨迹的期望奖励。选择使用<strong>梯度上升（gradient
 ascent）</strong>的方法。</p>
 <p>我们对期望求微分：</p>
-<p><img src="/2023/09/02/EasyRL/image-20230920140719345.png" alt="image-20230920140719345" style="zoom:50%;"></p>
+<p><img data-src="./EasyRL/image-20230920140719345.png" alt="image-20230920140719345" style="zoom:50%;"></p>
 <p>然后利用这个性质：</p>
-<p><img src="/2023/09/02/EasyRL/image-20230920140746494.png" alt="image-20230920140746494" style="zoom:50%;"></p>
+<p><img data-src="./EasyRL/image-20230920140746494.png" alt="image-20230920140746494" style="zoom:50%;"></p>
 <p>得到：</p>
-<p><img src="/2023/09/02/EasyRL/截屏2023-09-20 14.08.17.png" alt="截屏2023-09-20 14.08.17" style="zoom:50%;"></p>
+<p><img data-src="./EasyRL/截屏2023-09-20 14.08.17.png" alt="截屏2023-09-20 14.08.17" style="zoom:50%;"></p>
 <p>然后再做变换：</p>
-<p><img src="/2023/09/02/EasyRL/image-20230920140913045.png" alt="image-20230920140913045" style="zoom:50%;"></p>
+<p><img data-src="./EasyRL/image-20230920140913045.png" alt="image-20230920140913045" style="zoom:50%;"></p>
 <p>实际上上面这个最终的期望无法计算，所以我们选择使用采样的方式：</p>
-<p><img src="/2023/09/02/EasyRL/image-20230920142307309.png" alt="image-20230920142307309" style="zoom:50%;"></p>
+<p><img data-src="./EasyRL/image-20230920142307309.png" alt="image-20230920142307309" style="zoom:50%;"></p>
 <p>右半部分的计算方式：</p>
-<p><img src="/2023/09/02/EasyRL/image-20230920142729662.png" alt="image-20230920142729662" style="zoom:50%;"></p>
+<p><img data-src="./EasyRL/image-20230920142729662.png" alt="image-20230920142729662" style="zoom:50%;"></p>
 <p>更新梯度的方式为：</p>
-<p><img src="/2023/09/02/EasyRL/image-20230920144424148.png" alt="image-20230920144424148" style="zoom:50%;"></p>
+<p><img data-src="./EasyRL/image-20230920144424148.png" alt="image-20230920144424148" style="zoom:50%;"></p>
 <p>更新的意义是：假设我们在训练时，发现在状态<span class="math inline">\(s_t\)</span>后执行动作<span class="math inline">\(a_t\)</span>，然后得到的<span class="math inline">\(\tau\)</span>的奖励是正的，那么我们就会修改<span class="math inline">\(\pi
 _\theta\)</span>的参数，调高这个概率；反之，就会调低这个概率。</p>
 <p>在训练过程中，智能体会不断和环境进行交互，得到很多的状态-动作对，然后拿来训练。训练完之后，这些数据将会被丢弃，智能体继续和环境进行交互。。。</p>
@@ -787,9 +799,9 @@ _\theta\)</span>的参数，调高这个概率；反之，就会调低这个概�
 <h2 id="蒙塔卡洛策略梯度">蒙塔卡洛策略梯度</h2>
 <p>也就是REINFORCE算法，REINFORCE算法用的是<strong>回合更新</strong>的方式（正如其名蒙特卡洛，每次更新单位是一个horizon）。</p>
 <p>这个算法大致过程：在一个horizon内，获取每个步骤的reward，知道horizon结束。然后计算每个步骤的回报，带入到下面的公式中去，从而能够优化每一个动作。</p>
-<p><img src="/2023/09/02/EasyRL/截屏2023-09-20 20.45.10.png" alt="截屏2023-09-20 20.45.10" style="zoom:50%;"></p>
+<p><img data-src="./EasyRL/截屏2023-09-20 20.45.10.png" alt="截屏2023-09-20 20.45.10" style="zoom:50%;"></p>
 <p>从代码上来讲，我们完成一个回合后，从最后一个动作开始，算出其回报，然后向前递归，得到前一个动作的回报，以此类推，知道<span class="math inline">\(G_1\)</span>。</p>
-<p><img src="/2023/09/02/EasyRL/截屏2023-09-20 20.48.00.png" alt="截屏2023-09-20 20.48.00" style="zoom:50%;"></p>
+<p><img data-src="./EasyRL/截屏2023-09-20 20.48.00.png" alt="截屏2023-09-20 20.48.00" style="zoom:50%;"></p>
 <h1 id="近端策略优化">近端策略优化</h1>
 <h2 id="重要性采样">重要性采样</h2>
 <p>前言：上一章中提到的策略梯度上升，是对应的之前学习到的<strong>同策略</strong>。同策略有一个不好的点，当我们根据策略<span class="math inline">\(\pi _{\theta}\)</span>采集到大量轨迹之后，对<span class="math inline">\(\theta\)</span>进行更新之后，变成了<span class="math inline">\(\theta
@@ -797,9 +809,9 @@ _\theta\)</span>的参数，调高这个概率；反之，就会调低这个概�
 <p>假设是<strong>异策略</strong>，有一个策略<span class="math inline">\(\theta\)</span>负责更新，另一个策略<span class="math inline">\(\theta
 ^{&#39;}\)</span>负责采集数据，和环境交互，那么就可以采集一次数据，多次进行更新。具体的方法就是<strong>重要性采样</strong>。</p>
 <p>考虑这样的情况：我们需要从分布p采样x，然后求f(x)的期望，但是我们不能直接从分布p采样，只能从另一个分布q采样，于是可以做一下变换：</p>
-<p><img src="/2023/09/02/EasyRL/image-20230921093351256.png" alt="image-20230921093351256" style="zoom:50%;"></p>
+<p><img data-src="./EasyRL/image-20230921093351256.png" alt="image-20230921093351256" style="zoom:50%;"></p>
 <p>于是：</p>
-<p><img src="/2023/09/02/EasyRL/image-20230921093418352.png" alt="image-20230921093418352" style="zoom:50%;"></p>
+<p><img data-src="./EasyRL/image-20230921093418352.png" alt="image-20230921093418352" style="zoom:50%;"></p>
 <p>称<span class="math inline">\(\frac{p(x)}{q(x)}\)</span>为<strong>重要性权重</strong>。</p>
 <p>上述过程就是<strong>重要性采样</strong>。</p>
 <p>但是q分布的选取还是有限制的：</p>
@@ -808,40 +820,40 @@ _\theta\)</span>的参数，调高这个概率；反之，就会调低这个概�
 </ul>
 <p>首先给出方差公式：<span class="math inline">\(Var[X]=E[X^2]-(E[X]^2)\)</span></p>
 <p>然后看经过重要性采样两个分布的均值虽然相同，方差却有差异：</p>
-<p><img src="/2023/09/02/EasyRL/image-20230921094228980.png" alt="image-20230921094228980" style="zoom:50%;"></p>
+<p><img data-src="./EasyRL/image-20230921094228980.png" alt="image-20230921094228980" style="zoom:50%;"></p>
 <p>虽然我们是计算期望，并不计算方差。但是，假设q和p差距非常大，但是我们可以实现exploring
 start，也就是能够采样到所有的x，那么期望其实还是一样的；但是exploring
 start是理想情况，现实中我们可能只能采样到一部分，在这种方差较大的情况下，我们最终得到的期望可能差别也非常大。</p>
 <figure>
-<img src="/2023/09/02/EasyRL/截屏2023-09-21%2009.49.50.png" alt="截屏2023-09-21 09.49.50">
+<img data-src="./EasyRL/截屏2023-09-21%2009.49.50.png" alt="截屏2023-09-21 09.49.50">
 <figcaption aria-hidden="true">截屏2023-09-21 09.49.50</figcaption>
 </figure>
 <p>如上图，按照原分布p来采样，得到的期望应该是负的；但若是按照q分布采样，在这种p、q差距非常大的情况下，假设采样次数少，全部采样到右边了，那么最终算出的期望就是正的了，这种问题想要解决只能通过增加采样次数来解决了，但是这是很麻烦的一件事。</p>
 <p>回归到异策略中，<span class="math inline">\(\theta\)</span>就是p，<span class="math inline">\(\theta ^{&#39;}\)</span>就是q，于是：</p>
-<p><img src="/2023/09/02/EasyRL/image-20230921095638011.png" alt="image-20230921095638011" style="zoom:50%;"></p>
+<p><img data-src="./EasyRL/image-20230921095638011.png" alt="image-20230921095638011" style="zoom:50%;"></p>
 <p>在实际做策略梯度的时候，并不是对整个奖励都做一个加和，而是会单独算某一个状态动作对<span class="math inline">\((s_t,a_t)\)</span>，如下：</p>
-<p><img src="/2023/09/02/EasyRL/image-20230921100436205.png" alt="image-20230921100436205" style="zoom:50%;"></p>
+<p><img data-src="./EasyRL/image-20230921100436205.png" alt="image-20230921100436205" style="zoom:50%;"></p>
 <p><span class="math inline">\(A^{\theta}(s_t,a_t)\)</span>即是用累计奖励减去基线baseline，若是为正，就调高概率</p>
 <p>经过重要性采样，换了分布，那么就在前面加上一个修正项<span class="math inline">\(\frac{p_{\theta}(s_t,a_t)}{p_{\theta
 ^{&#39;}}(s_t,a_t)}\)</span>：</p>
 <figure>
-<img src="/2023/09/02/EasyRL/image-20230921101622477.png" alt="image-20230921101622477">
+<img data-src="./EasyRL/image-20230921101622477.png" alt="image-20230921101622477">
 <figcaption aria-hidden="true">image-20230921101622477</figcaption>
 </figure>
 <p>上面用到了一个假设：假设两个策略的A是差不多的。</p>
 <p>然后再做一个假设，两个策略看到<span class="math inline">\(s_t\)</span>的概率是差不多的：</p>
 <figure>
-<img src="/2023/09/02/EasyRL/image-20230921102938686.png" alt="image-20230921102938686">
+<img data-src="./EasyRL/image-20230921102938686.png" alt="image-20230921102938686">
 <figcaption aria-hidden="true">image-20230921102938686</figcaption>
 </figure>
 <p>参考一下下面的解释：</p>
 <figure>
-<img src="/2023/09/02/EasyRL/image-20230921103152512.png" alt="image-20230921103152512">
+<img data-src="./EasyRL/image-20230921103152512.png" alt="image-20230921103152512">
 <figcaption aria-hidden="true">image-20230921103152512</figcaption>
 </figure>
 <p>最终要优化的目标函数：？</p>
 <figure>
-<img src="/2023/09/02/EasyRL/image-20230921103602015.png" alt="image-20230921103602015">
+<img data-src="./EasyRL/image-20230921103602015.png" alt="image-20230921103602015">
 <figcaption aria-hidden="true">image-20230921103602015</figcaption>
 </figure>
 <h2 id="近端策略优化-1">近端策略优化</h2>
@@ -849,7 +861,7 @@ start是理想情况，现实中我们可能只能采样到一部分，在这种
 <p>我们在训练的时候，给目标函数加了一个约束，称KL<strong>散度</strong>，这一项用来衡量两个策略的相似程度，我们希望两个策略尽可能相似，有点像正则化。</p>
 <p>PPO是同策略算法，因为其行为策略和目标策略很相似。尽管PPO用到了重要性采样。</p>
 <figure>
-<img src="/2023/09/02/EasyRL/image-20230921104133435.png" alt="image-20230921104133435">
+<img data-src="./EasyRL/image-20230921104133435.png" alt="image-20230921104133435">
 <figcaption aria-hidden="true">image-20230921104133435</figcaption>
 </figure>
 <p>KL散度的输入是<span class="math inline">\(\theta\)</span>和<span class="math inline">\(\theta
@@ -864,7 +876,7 @@ start是理想情况，现实中我们可能只能采样到一部分，在这种
 <p>具体做法就是，每次更新时，用前一个时刻的演员<span class="math inline">\(\theta
 ^k\)</span>去跟环境交互，然后得到数据，然后对当前的演员<span class="math inline">\(\theta\)</span>可以进行多次更新，想方设法最大化目标函数。</p>
 <figure>
-<img src="/2023/09/02/EasyRL/image-20230921105753969.png" alt="image-20230921105753969">
+<img data-src="./EasyRL/image-20230921105753969.png" alt="image-20230921105753969">
 <figcaption aria-hidden="true">image-20230921105753969</figcaption>
 </figure>
 <p>然后这个<span class="math inline">\(\beta\)</span>的设计也是有规则的：</p>
@@ -875,7 +887,7 @@ start是理想情况，现实中我们可能只能采样到一部分，在这种
 <h3 id="ppo-clip">PPO-clip</h3>
 <p>POP-clip算法的目标函数是：</p>
 <figure>
-<img src="/2023/09/02/EasyRL/image-20230921131336961.png" alt="image-20230921131336961">
+<img data-src="./EasyRL/image-20230921131336961.png" alt="image-20230921131336961">
 <figcaption aria-hidden="true">image-20230921131336961</figcaption>
 </figure>
 <p>clip函数的意思是：</p>
@@ -885,7 +897,7 @@ start是理想情况，现实中我们可能只能采样到一部分，在这种
 <li><p>若介于之间，则输出本身</p></li>
 </ul>
 <figure>
-<img src="/2023/09/02/EasyRL/image-20230921131538520.png" alt="image-20230921131538520">
+<img data-src="./EasyRL/image-20230921131538520.png" alt="image-20230921131538520">
 <figcaption aria-hidden="true">image-20230921131538520</figcaption>
 </figure>
 <p>最终得到的目标函数的图如下：</p>
@@ -897,395 +909,98 @@ start是理想情况，现实中我们可能只能采样到一部分，在这种
 </ul>
 <h1 id="深度q网络">深度Q网络</h1>
 
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/02/EasyRL/" data-id="clw93veah0018nn9f9y229tqg" data-title="EasyRL" class="article-share-link">Share</a>
-      
-      
-      
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RL/" rel="tag">RL</a></li></ul>
 
+    
+    
+    
 
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/RL/" rel="tag"><i class="fa fa-tag"></i> RL</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/07/31/d2l/" rel="prev" title="d2l">
+                  <i class="fa fa-angle-left"></i> d2l
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/10/07/NovelADS/" rel="next" title="NovelADS">
+                  NovelADS <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
     </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2019 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">chengyiqiu</span>
   </div>
-  
-    
-  <nav id="article-nav" class="wow fadeInUp">
-    
-      <div class="article-nav-link-wrap article-nav-link-left">
-        
-          
-          
-            <img data-src="/covers/IMG_2582.PNG" data-sizes="auto" alt="NovelADS" class="lazyload">
-          
-        
-        <a href="/2023/10/07/NovelADS/"></a>
-        <div class="article-nav-caption">Newer</div>
-        <h3 class="article-nav-title">
-          
-            NovelADS
-          
-        </h3>
-      </div>
-    
-    
-    <div class="article-nav-link-wrap article-nav-link-right">
-      
-        
-        
-          <img data-src="/covers/IMG_2583 2.PNG" data-sizes="auto" alt="d2l" class="lazyload">
-        
-      
-      <a href="/2023/07/31/d2l/"></a>
-      <div class="article-nav-caption">Older</div>
-      <h3 class="article-nav-title">
-        
-          d2l
-        
-      </h3>
-    </div>
-    
-  </nav>
-
-
-  
-</article>
-
-
-
-
-
-
-</section>
-          
-            <aside id="sidebar">
-  <div class="sidebar-wrap wow fadeInRight wrap-sticky">
-    
-      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
-  <h3 class="toc-title">Contents</h3>
-  <div class="sidebar-toc-wrapper toc-div-class" >
-      
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%AA%E8%AE%BA"><span class="toc-number">1.</span> <span class="toc-text">绪论</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">强化学习概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%8F%E5%88%97%E5%86%B3%E7%AD%96"><span class="toc-number">1.2.</span> <span class="toc-text">序列决策</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E4%BD%9C%E7%A9%BA%E9%97%B4"><span class="toc-number">1.3.</span> <span class="toc-text">动作空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E4%BD%93%E7%9A%84%E7%BB%84%E6%88%90%E6%88%90%E5%88%86"><span class="toc-number">1.4.</span> <span class="toc-text">智能体的组成成分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.1.</span> <span class="toc-text">策略函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%B7%E5%80%BC%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.2.</span> <span class="toc-text">价值函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.4.3.</span> <span class="toc-text">模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E4%BD%93%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.5.</span> <span class="toc-text">智能体的类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#policy-or-value-based"><span class="toc-number">1.5.1.</span> <span class="toc-text">policy or value based</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#model-based"><span class="toc-number">1.5.2.</span> <span class="toc-text">model based</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E5%92%8C%E8%A7%84%E5%88%92"><span class="toc-number">1.6.</span> <span class="toc-text">学习和规划</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A2%E7%B4%A2%E5%92%8C%E5%88%A9%E7%94%A8"><span class="toc-number">1.7.</span> <span class="toc-text">探索和利用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">马尔可夫决策过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#markov-process"><span class="toc-number">2.1.</span> <span class="toc-text">Markov process</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#markov-property"><span class="toc-number">2.1.1.</span> <span class="toc-text">Markov property</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#markov-chain"><span class="toc-number">2.1.2.</span> <span class="toc-text">Markov chain</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#markov-reward-process"><span class="toc-number">2.2.</span> <span class="toc-text">Markov reward process</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#return-and-value-function"><span class="toc-number">2.2.1.</span> <span class="toc-text">return and value function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bellman-equation"><span class="toc-number">2.2.2.</span> <span class="toc-text">bellman equation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97mrp%E4%BB%B7%E5%80%BC%E7%9A%84%E8%BF%AD%E4%BB%A3%E7%AE%97%E6%B3%95"><span class="toc-number">2.2.3.</span> <span class="toc-text">计算MRP价值的迭代算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#markov-decision-process"><span class="toc-number">2.3.</span> <span class="toc-text">Markov decision process</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#policy-in-mdp"><span class="toc-number">2.3.1.</span> <span class="toc-text">policy in MDP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mdp%E5%92%8Cmpmrp%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">2.3.2.</span> <span class="toc-text">MDP和MP&#x2F;MRP的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mdp%E7%9A%84value-function"><span class="toc-number">2.3.3.</span> <span class="toc-text">MDP的value function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bellman-expectation-equation"><span class="toc-number">2.3.4.</span> <span class="toc-text">bellman expectation equation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%87%E4%BB%BD%E5%9B%BE"><span class="toc-number">2.3.5.</span> <span class="toc-text">备份图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E8%AF%84%E4%BC%B0"><span class="toc-number">2.3.6.</span> <span class="toc-text">策略评估</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%84%E6%B5%8B%E6%8E%A7%E5%88%B6"><span class="toc-number">2.3.7.</span> <span class="toc-text">预测&amp;控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E8%BF%AD%E4%BB%A3"><span class="toc-number">2.3.8.</span> <span class="toc-text">策略迭代</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%B7%E5%80%BC%E8%BF%AD%E4%BB%A3"><span class="toc-number">2.3.9.</span> <span class="toc-text">价值迭代</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A1%A8%E6%A0%BC%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">表格型方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#model-based-model-free"><span class="toc-number">3.1.</span> <span class="toc-text">model-based &amp; model-free</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#q%E8%A1%A8%E6%A0%BC"><span class="toc-number">3.2.</span> <span class="toc-text">Q表格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%8D%E6%A8%A1%E5%9E%8B%E9%A2%84%E6%B5%8B"><span class="toc-number">3.3.</span> <span class="toc-text">免模型预测</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E7%AD%96%E7%95%A5%E8%AF%84%E4%BC%B0"><span class="toc-number">3.3.1.</span> <span class="toc-text">蒙特卡洛策略评估</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E5%BA%8F%E5%B7%AE%E5%88%86"><span class="toc-number">3.3.2.</span> <span class="toc-text">时序差分</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%8D%E6%A8%A1%E5%9E%8B%E6%8E%A7%E5%88%B6"><span class="toc-number">3.4.</span> <span class="toc-text">免模型控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#sarsa%E5%90%8C%E7%AD%96%E7%95%A5%E6%97%B6%E5%BA%8F%E5%B7%AE%E5%88%86%E6%8E%A7%E5%88%B6"><span class="toc-number">3.4.1.</span> <span class="toc-text">Sarsa：同策略时序差分控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#q%E5%AD%A6%E4%B9%A0%E5%BC%82%E7%AD%96%E7%95%A5%E6%97%B6%E5%BA%8F%E5%B7%AE%E5%88%86%E6%8E%A7%E5%88%B6"><span class="toc-number">3.4.2.</span> <span class="toc-text">Q学习：异策略时序差分控制</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6"><span class="toc-number">4.</span> <span class="toc-text">策略梯度</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="toc-number">4.1.</span> <span class="toc-text">策略梯度算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%92%99%E5%A1%94%E5%8D%A1%E6%B4%9B%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6"><span class="toc-number">4.2.</span> <span class="toc-text">蒙塔卡洛策略梯度</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%91%E7%AB%AF%E7%AD%96%E7%95%A5%E4%BC%98%E5%8C%96"><span class="toc-number">5.</span> <span class="toc-text">近端策略优化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E8%A6%81%E6%80%A7%E9%87%87%E6%A0%B7"><span class="toc-number">5.1.</span> <span class="toc-text">重要性采样</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%91%E7%AB%AF%E7%AD%96%E7%95%A5%E4%BC%98%E5%8C%96-1"><span class="toc-number">5.2.</span> <span class="toc-text">近端策略优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ppo--penalty"><span class="toc-number">5.2.1.</span> <span class="toc-text">PPO- penalty</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ppo-clip"><span class="toc-number">5.2.2.</span> <span class="toc-text">PPO-clip</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6q%E7%BD%91%E7%BB%9C"><span class="toc-number">6.</span> <span class="toc-text">深度Q网络</span></a></li></ol>
-      
-  </div>
-</div>
-</div>
-      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
-  <div class="sidebar-author-name">chengyiqiu</div>
-  <div class="sidebar-description"></div>
-</div>
-<div class="sidebar-state">
-  <div class="sidebar-state-article">
-    <div>Posts</div>
-    <div class="sidebar-state-number">60</div>
-  </div>
-  <div class="sidebar-state-category">
-    <div>Categories</div>
-    <div class="sidebar-state-number">11</div>
-  </div>
-  <div class="sidebar-state-tag">
-    <div>Tags</div>
-    <div class="sidebar-state-number">13</div>
-  </div>
-</div>
-<div class="sidebar-social">
-  
-    <div class=icon-github>
-      <a href=https://github.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="github"></a>
-    </div>
-  
-    <div class=icon-twitter>
-      <a href=https://x.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="twitter"></a>
-    </div>
-  
-    <div class=icon-bilibili>
-      <a href=https://space.bilibili.com/3493124768795188?spm_id_from=333.337.0.0 itemprop="url" target="_blank" aria-label="bilibili"></a>
-    </div>
-  
-    <div class=icon-zhihu>
-      <a href=https://www.zhihu.com/people/b79383d8dcc462769c532f9d16dadfeb itemprop="url" target="_blank" aria-label="zhihu"></a>
-    </div>
-  
-    <div class=icon-telegram>
-      <a href=https://www.t.me/chengyiqiu1121 itemprop="url" target="_blank" aria-label="telegram"></a>
-    </div>
-  
-</div>
-<div class="sidebar-menu">
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/" aria-label="Home"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Home</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="Archives"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Archives</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/about" aria-label="About"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">About</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="Friend"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Friend</div>
-    </div>
-  
-</div>
-</div>
-    
-    
-      <div class="sidebar-btn-wrapper" style="position:static">
-        <div class="sidebar-toc-btn current"></div>
-        <div class="sidebar-common-btn"></div>
-      </div>
-    
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
-  
-</aside>
+    </div>
+  </footer>
 
-          
-        </div>
-        <footer id="footer" class="wow fadeInUp">
-  <div style="width: 100%; overflow: hidden">
-    <div class="footer-line"></div>
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
   </div>
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      <div>
-        <span class="icon-copyright"></span>
-        2020-2024
-        <span class="footer-info-sep"></span>
-        chengyiqiu
-      </div>
-      
-        <div>
-          Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>&nbsp;
-          Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" target="_blank">Reimu</a>
-        </div>
-      
-      
-        <div>
-          <span class="icon-brush"></span>
-          90.7k
-          &nbsp;|&nbsp;
-          <span class="icon-coffee"></span>
-          05:57
-        </div>
-      
-      
-        <div>
-          <span class="icon-eye"></span>
-          <span id="busuanzi_container_site_pv">Number of visits&nbsp;<span id="busuanzi_value_site_pv"></span></span>
-          &nbsp;|&nbsp;
-          <span class="icon-user"></span>
-          <span id="busuanzi_container_site_uv">Number of visitors&nbsp;<span id="busuanzi_value_site_uv"></span></span>
-        </div>
-      
-    </div>
-  </div>
-</footer>
+  <div class="sidebar-dimmer"></div>
 
-        <div class="sidebar-top">
-          <img src="/images/taichi.png" height="50" width="50" />
-          <div class="arrow-up"></div>
-        </div>
-        <div id="mask"></div>
-      </div>
-      <nav id="mobile-nav">
-  <div class="sidebar-wrap">
-    
-      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
-  <h3 class="toc-title">Contents</h3>
-  <div class="sidebar-toc-wrapper toc-div-class" >
-      
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%AA%E8%AE%BA"><span class="toc-number">1.</span> <span class="toc-text">绪论</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">强化学习概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%8F%E5%88%97%E5%86%B3%E7%AD%96"><span class="toc-number">1.2.</span> <span class="toc-text">序列决策</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E4%BD%9C%E7%A9%BA%E9%97%B4"><span class="toc-number">1.3.</span> <span class="toc-text">动作空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E4%BD%93%E7%9A%84%E7%BB%84%E6%88%90%E6%88%90%E5%88%86"><span class="toc-number">1.4.</span> <span class="toc-text">智能体的组成成分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.1.</span> <span class="toc-text">策略函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%B7%E5%80%BC%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.2.</span> <span class="toc-text">价值函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.4.3.</span> <span class="toc-text">模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E4%BD%93%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.5.</span> <span class="toc-text">智能体的类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#policy-or-value-based"><span class="toc-number">1.5.1.</span> <span class="toc-text">policy or value based</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#model-based"><span class="toc-number">1.5.2.</span> <span class="toc-text">model based</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E5%92%8C%E8%A7%84%E5%88%92"><span class="toc-number">1.6.</span> <span class="toc-text">学习和规划</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A2%E7%B4%A2%E5%92%8C%E5%88%A9%E7%94%A8"><span class="toc-number">1.7.</span> <span class="toc-text">探索和利用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">马尔可夫决策过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#markov-process"><span class="toc-number">2.1.</span> <span class="toc-text">Markov process</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#markov-property"><span class="toc-number">2.1.1.</span> <span class="toc-text">Markov property</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#markov-chain"><span class="toc-number">2.1.2.</span> <span class="toc-text">Markov chain</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#markov-reward-process"><span class="toc-number">2.2.</span> <span class="toc-text">Markov reward process</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#return-and-value-function"><span class="toc-number">2.2.1.</span> <span class="toc-text">return and value function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bellman-equation"><span class="toc-number">2.2.2.</span> <span class="toc-text">bellman equation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97mrp%E4%BB%B7%E5%80%BC%E7%9A%84%E8%BF%AD%E4%BB%A3%E7%AE%97%E6%B3%95"><span class="toc-number">2.2.3.</span> <span class="toc-text">计算MRP价值的迭代算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#markov-decision-process"><span class="toc-number">2.3.</span> <span class="toc-text">Markov decision process</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#policy-in-mdp"><span class="toc-number">2.3.1.</span> <span class="toc-text">policy in MDP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mdp%E5%92%8Cmpmrp%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">2.3.2.</span> <span class="toc-text">MDP和MP&#x2F;MRP的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mdp%E7%9A%84value-function"><span class="toc-number">2.3.3.</span> <span class="toc-text">MDP的value function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bellman-expectation-equation"><span class="toc-number">2.3.4.</span> <span class="toc-text">bellman expectation equation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%87%E4%BB%BD%E5%9B%BE"><span class="toc-number">2.3.5.</span> <span class="toc-text">备份图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E8%AF%84%E4%BC%B0"><span class="toc-number">2.3.6.</span> <span class="toc-text">策略评估</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%84%E6%B5%8B%E6%8E%A7%E5%88%B6"><span class="toc-number">2.3.7.</span> <span class="toc-text">预测&amp;控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E8%BF%AD%E4%BB%A3"><span class="toc-number">2.3.8.</span> <span class="toc-text">策略迭代</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%B7%E5%80%BC%E8%BF%AD%E4%BB%A3"><span class="toc-number">2.3.9.</span> <span class="toc-text">价值迭代</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A1%A8%E6%A0%BC%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">表格型方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#model-based-model-free"><span class="toc-number">3.1.</span> <span class="toc-text">model-based &amp; model-free</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#q%E8%A1%A8%E6%A0%BC"><span class="toc-number">3.2.</span> <span class="toc-text">Q表格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%8D%E6%A8%A1%E5%9E%8B%E9%A2%84%E6%B5%8B"><span class="toc-number">3.3.</span> <span class="toc-text">免模型预测</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E7%AD%96%E7%95%A5%E8%AF%84%E4%BC%B0"><span class="toc-number">3.3.1.</span> <span class="toc-text">蒙特卡洛策略评估</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E5%BA%8F%E5%B7%AE%E5%88%86"><span class="toc-number">3.3.2.</span> <span class="toc-text">时序差分</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%8D%E6%A8%A1%E5%9E%8B%E6%8E%A7%E5%88%B6"><span class="toc-number">3.4.</span> <span class="toc-text">免模型控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#sarsa%E5%90%8C%E7%AD%96%E7%95%A5%E6%97%B6%E5%BA%8F%E5%B7%AE%E5%88%86%E6%8E%A7%E5%88%B6"><span class="toc-number">3.4.1.</span> <span class="toc-text">Sarsa：同策略时序差分控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#q%E5%AD%A6%E4%B9%A0%E5%BC%82%E7%AD%96%E7%95%A5%E6%97%B6%E5%BA%8F%E5%B7%AE%E5%88%86%E6%8E%A7%E5%88%B6"><span class="toc-number">3.4.2.</span> <span class="toc-text">Q学习：异策略时序差分控制</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6"><span class="toc-number">4.</span> <span class="toc-text">策略梯度</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="toc-number">4.1.</span> <span class="toc-text">策略梯度算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%92%99%E5%A1%94%E5%8D%A1%E6%B4%9B%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6"><span class="toc-number">4.2.</span> <span class="toc-text">蒙塔卡洛策略梯度</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%91%E7%AB%AF%E7%AD%96%E7%95%A5%E4%BC%98%E5%8C%96"><span class="toc-number">5.</span> <span class="toc-text">近端策略优化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E8%A6%81%E6%80%A7%E9%87%87%E6%A0%B7"><span class="toc-number">5.1.</span> <span class="toc-text">重要性采样</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%91%E7%AB%AF%E7%AD%96%E7%95%A5%E4%BC%98%E5%8C%96-1"><span class="toc-number">5.2.</span> <span class="toc-text">近端策略优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ppo--penalty"><span class="toc-number">5.2.1.</span> <span class="toc-text">PPO- penalty</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ppo-clip"><span class="toc-number">5.2.2.</span> <span class="toc-text">PPO-clip</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6q%E7%BD%91%E7%BB%9C"><span class="toc-number">6.</span> <span class="toc-text">深度Q网络</span></a></li></ol>
-      
-  </div>
-</div>
-</div>
-      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
-  <div class="sidebar-author-name">chengyiqiu</div>
-  <div class="sidebar-description"></div>
-</div>
-<div class="sidebar-state">
-  <div class="sidebar-state-article">
-    <div>Posts</div>
-    <div class="sidebar-state-number">60</div>
-  </div>
-  <div class="sidebar-state-category">
-    <div>Categories</div>
-    <div class="sidebar-state-number">11</div>
-  </div>
-  <div class="sidebar-state-tag">
-    <div>Tags</div>
-    <div class="sidebar-state-number">13</div>
-  </div>
-</div>
-<div class="sidebar-social">
-  
-    <div class=icon-github>
-      <a href=https://github.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="github"></a>
-    </div>
-  
-    <div class=icon-twitter>
-      <a href=https://x.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="twitter"></a>
-    </div>
-  
-    <div class=icon-bilibili>
-      <a href=https://space.bilibili.com/3493124768795188?spm_id_from=333.337.0.0 itemprop="url" target="_blank" aria-label="bilibili"></a>
-    </div>
-  
-    <div class=icon-zhihu>
-      <a href=https://www.zhihu.com/people/b79383d8dcc462769c532f9d16dadfeb itemprop="url" target="_blank" aria-label="zhihu"></a>
-    </div>
-  
-    <div class=icon-telegram>
-      <a href=https://www.t.me/chengyiqiu1121 itemprop="url" target="_blank" aria-label="telegram"></a>
-    </div>
-  
-</div>
-<div class="sidebar-menu">
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/" aria-label="Home"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Home</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="Archives"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Archives</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/about" aria-label="About"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">About</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="Friend"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Friend</div>
-    </div>
-  
-</div>
-</div>
-    
-  </div>
-  
-    <div class="sidebar-btn-wrapper">
-      <div class="sidebar-toc-btn current"></div>
-      <div class="sidebar-common-btn"></div>
-    </div>
-  
-</nav>
-
-    </div>
-    <div class="site-search">
-      <div class="reimu-popup popup">
-        <div class="reimu-search">
-          <span class="reimu-search-input-icon"></span>
-          <div class="reimu-search-input" id="reimu-search-input"></div>
-        </div>
-        <div class="reimu-results">
-          <div id="reimu-stats"></div>
-          <div id="reimu-hits"></div>
-          <div id="reimu-pagination" class="reimu-pagination"></div>
-        </div>
-        <span class="popup-btn-close"></span>
-      </div>
-    </div>
-    
-<script src="https://npm.webcache.cn/jquery@3.7.1/dist/jquery.min.js"></script>
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
 
-<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
 
 
-<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"></script>
+
+  <script src="/js/third-party/fancybox.js"></script>
 
 
 
   
-<script src="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
-
-
-
-  
-<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
-
-
-
-
-
-
-<script src="/js/pjax_script.js" data-pjax></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
 
   
-<script src="https://npm.webcache.cn/mouse-firework@0.0.4/dist/index.umd.js"></script>
 
-  <script>
-    firework(JSON.parse('{"excludeElements":["a"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["#ff5252","#ff7c7c","#ffafaf","#ffd0d0"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["#ff0000"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'))
-  </script>
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
 
 
 
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-  <script>
-    console.log(String.raw`%c 
- ______     ______     __     __    __     __  __    
-/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
-\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
- \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
-  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
-                                                  
-`,'color: #ff5252;')
-    console.log('%c Theme.Reimu v' + '0.1.2' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
-  </script>
-  
-
-  <!-- hexo injector body_end start -->
-<script src="/js/insert_highlight.js" data-pjax></script>
-<!-- hexo injector body_end end --></body>
-  </html>
-
+</body>
+</html>

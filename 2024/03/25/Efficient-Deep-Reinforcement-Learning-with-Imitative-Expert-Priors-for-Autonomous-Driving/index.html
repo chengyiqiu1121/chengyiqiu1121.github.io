@@ -1,219 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
 
-  <!DOCTYPE html>
-  <html lang="en"  >
-  <head>
-  <meta charset="utf-8">
-  
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-  
+<link rel="stylesheet" href="/css/main.css">
 
-  
 
-  
-  <title>
-    Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving |
-    
-    Hexo
-  </title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="preload" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CUbuntu%20Mono:400,400italic,700,700italic&display=swap&subset=latin,latin-ext" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;">
-  
-<link rel="stylesheet" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/regular.min.css">
-<link rel="stylesheet" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/solid.min.css">
 
-  <link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/brands.min.css" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;"><link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/v5-font-face.min.css" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;"><link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/v4-font-face.min.css" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;">
-  
-<link rel="stylesheet" href="/css/loader.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
 
-  <meta name="description" content="为了一门水课汇报而看的论文:( 深度强化学习的低样本效率和奖励函数设计的困难阻碍了其在实际应用中的使用， 两个问题：  低样本效率导致的问题是：智能体需要与环境进行大量的交互才能学习到一个有效的策略。（例如在没有信号灯的交叉口穿越或在密集交通中进行无保护的左转。） 奖励函数的设计：设计不当的奖励函数可能会导致智能体错误地利用奖励函数并坚持意外的行为，这样下来调参比较费时间。尽管可以使用一些技术（如">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width":280,"display":"post","offset":10,"onmobile":true},"hljswrap":true,"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="为了一门水课汇报而看的论文:( 深度强化学习的低样本效率和奖励函数设计的困难阻碍了其在实际应用中的使用， 两个问题：  低样本效率导致的问题是：智能体需要与环境进行大量的交互才能学习到一个有效的策略。（例如在没有信号灯的交叉口穿越或在密集交通中进行无保护的左转。） 奖励函数的设计：设计不当的奖励函数可能会导致智能体错误地利用奖励函数并坚持意外的行为，这样下来调参比较费时间。尽管可以使用一些技术（如">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving">
 <meta property="og:url" content="http://example.com/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="为了一门水课汇报而看的论文:( 深度强化学习的低样本效率和奖励函数设计的困难阻碍了其在实际应用中的使用， 两个问题：  低样本效率导致的问题是：智能体需要与环境进行大量的交互才能学习到一个有效的策略。（例如在没有信号灯的交叉口穿越或在密集交通中进行无保护的左转。） 奖励函数的设计：设计不当的奖励函数可能会导致智能体错误地利用奖励函数并坚持意外的行为，这样下来调参比较费时间。尽管可以使用一些技术（如">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326133327321.png">
-<meta property="og:image" content="http://example.com/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326134743328.png">
-<meta property="og:image" content="http://example.com/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326140653445.png">
-<meta property="og:image" content="http://example.com/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326141630523.png">
-<meta property="og:image" content="http://example.com/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326142544542.png">
-<meta property="og:image" content="http://example.com/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326151252860.png">
-<meta property="og:image" content="http://example.com/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326151317752.png">
+<meta property="og:image" content="http://example.com/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326133327321.png">
+<meta property="og:image" content="http://example.com/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326134743328.png">
+<meta property="og:image" content="http://example.com/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326140653445.png">
+<meta property="og:image" content="http://example.com/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326141630523.png">
+<meta property="og:image" content="http://example.com/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326142544542.png">
+<meta property="og:image" content="http://example.com/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326151252860.png">
+<meta property="og:image" content="http://example.com/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326151317752.png">
 <meta property="article:published_time" content="2024-03-25T08:09:31.000Z">
 <meta property="article:modified_time" content="2024-03-26T07:14:20.978Z">
 <meta property="article:author" content="chengyiqiu">
 <meta property="article:tag" content="rl">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326133327321.png">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/images/favicon.ico">
-  
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+<meta name="twitter:image" content="http://example.com/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326133327321.png">
 
-  
-    
-<link rel="stylesheet" href="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
-  
-  
-    
-<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css">
+<link rel="canonical" href="http://example.com/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/">
 
-  
-  
-  
-  
-<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"></script>
 
-  
-    
-<link rel="stylesheet" href="https://npm.webcache.cn/wowjs@1.1.3/css/libs/animate.css">
 
-    
-<script src="https://npm.webcache.cn/wowjs@1.1.3/dist/wow.min.js"></script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/","path":"2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/","title":"Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving"}</script>
 
-    <script>
-      new WOW({
-        offset: 0,
-        mobile: true,
-        live: false
-      }).init();
-    </script>
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving | Hexo</title>
   
-  
-    <script src="/sw.js"></script>
-  
-<meta name="generator" content="Hexo 7.2.0"></head>
 
-  <body>
-    
-  <div id='loader'>
-    <div class="loading-left-bg"></div>
-    <div class="loading-right-bg"></div>
-    <div class="spinner-box">
-      <div class="loading-taichi">
-        <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
-          <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="#ff6e6b" />
-          <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z" fill="#fd0d00" />
-          <path d="M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95" fill="#fd0d00" />
-        </svg>
-      </div>
-      <div class="loading-word">梭哈是一种智慧</div>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
     </div>
   </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
   </div>
-  <script>
-    var time = null;
-    const startLoading = () => {
-      time = Date.now();
-      document.getElementById('loader').classList.remove("loading");
-    }
-    const endLoading = () => {
-      if (!time) {
-        document.body.style.overflow = 'auto';
-        document.getElementById('loader').classList.add("loading");
-      } else {
-        if (Date.now() - time > 500) {
-          time = null;
-          document.body.style.overflow = 'auto';
-          document.getElementById('loader').classList.add("loading");
-        } else {
-          setTimeout(endLoading, 500 - (Date.now() - time));
-          time = null;
-        }
-      }
-    }
-    window.addEventListener('load', endLoading);
-    document.getElementById('loader').addEventListener('click', endLoading);
-  </script>
 
-
-    <div id="container">
-      <div id="wrap">
-        <div id="header-nav">
-  <nav id="main-nav">
-    
-      <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
-        <a class="main-nav-link" href="/">Home</a>
-      </span>
-    
-      <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
-        <a class="main-nav-link" href="/archives">Archives</a>
-      </span>
-    
-      <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
-        <a class="main-nav-link" href="/about">About</a>
-      </span>
-    
-      <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
-        <a class="main-nav-link" href="/friend">Friend</a>
-      </span>
-    
-    <a id="main-nav-toggle" class="nav-icon"></a>
-  </nav>
-  <nav id="sub-nav">
-    
-      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-    
-    
-    
-  </nav>
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
 </div>
-<header id="header">
-  
-    <img fetchpriority="high" src="/images/banner.png" alt="Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving">
-  
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <div id="logo-wrap">
-        
-          
-          
-            <a href="/" id="logo">
-              <h1>Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving</h1>
-            </a>
-          
-        
-      </div>
-      
-        
-        <h2 id="subtitle-wrap">
-          
-        </h2>
-      
-    </div>
-  </div>
+
+
+
+
+
+
+
 </header>
+        
+  
+  <aside class="sidebar">
 
-        <div id="content" class="outer">
-          
-          <section id="main"><article id="post-Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-inner">
-    <div class="article-meta">
-      <div class="article-date wow slideInLeft">
-  <a href="/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/" class="article-date-link">
-    <time datetime="2024-03-25T08:09:31.000Z" itemprop="datePublished">2024-03-25</time>
-  </a>
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">相关工作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%88%E9%AA%8C%E7%9F%A5%E8%AF%86"><span class="nav-number">1.1.</span> <span class="nav-text">先验知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%93%E5%AE%B6%E6%BC%94%E7%A4%BA"><span class="nav-number">1.2.</span> <span class="nav-text">专家演示</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86"><span class="nav-number">2.</span> <span class="nav-text">背景知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%8C%E4%B8%BA%E5%85%8B%E9%9A%86"><span class="nav-number">2.1.</span> <span class="nav-text">行为克隆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7"><span class="nav-number">2.2.</span> <span class="nav-text">策略不确定性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7"><span class="nav-number">2.3.</span> <span class="nav-text">模型不确定性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%A8%A1%E4%BB%BF%E4%B8%93%E5%AE%B6%E5%85%88%E9%AA%8C"><span class="nav-number">3.</span> <span class="nav-text">深度强化学习与模仿专家先验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%86%E6%9E%B6"><span class="nav-number">3.1.</span> <span class="nav-text">框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BC%94%E5%91%98%E8%AF%84%E8%AE%BA%E5%AE%B6%E7%AE%97%E6%B3%95"><span class="nav-number">3.2.</span> <span class="nav-text">演员评论家算法</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">chengyiqiu</p>
+  <div class="site-description" itemprop="description"></div>
 </div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chengyiqiu1121" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chengyiqiu1121" rel="noopener me" target="_blank">GitHub</a>
+      </span>
+  </div>
 
-      
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="Back to top">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
 
     </div>
-    <div class="hr-line"></div>
-    
 
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>为了一门水课汇报而看的论文:(</p>
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="chengyiqiu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-03-25 16:09:31" itemprop="dateCreated datePublished" datetime="2024-03-25T16:09:31+08:00">2024-03-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-03-26 15:14:20" itemprop="dateModified" datetime="2024-03-26T15:14:20+08:00">2024-03-26</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>为了一门水课汇报而看的论文:(</p>
 <p>深度强化学习的<strong>低样本效率</strong>和<strong>奖励函数设计</strong>的困难阻碍了其在实际应用中的使用，</p>
 <p>两个问题：</p>
 <ul>
@@ -244,7 +251,7 @@
 <p>因为专家策略不能直接访问，因此大多数使用的方法是通过模仿学习来学习专家演示，来对专家策略进行近似。</p>
 <p>专家演示即为一个数据集<span class="math inline">\(D^E:\{\tau_i\}\)</span>，<span class="math inline">\(\tau_i\)</span>是专家演示的每一条轨迹，由状态-动作对组成，模拟专家策略用<span class="math inline">\(\pi ^E\)</span>表示，用下式进行优化：</p>
 <figure>
-<img src="/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326133327321.png" alt="image-20240326133327321">
+<img data-src="./Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326133327321.png" alt="image-20240326133327321">
 <figcaption aria-hidden="true">image-20240326133327321</figcaption>
 </figure>
 <p>在通常的行为克隆中，专家策略是一个参数化神经网络<span class="math inline">\(\theta\)</span>，网络的输入是一个状态向量，输出则是一个动作:
@@ -252,7 +259,7 @@
 a_t=\pi_\theta(s)
 \]</span> 优化路径为：</p>
 <figure>
-<img src="/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326134743328.png" alt="image-20240326134743328">
+<img data-src="./Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326134743328.png" alt="image-20240326134743328">
 <figcaption aria-hidden="true">image-20240326134743328</figcaption>
 </figure>
 <p>但是这种方法得到的是确定性策略，但是需要得到的是一个动作分布，来规范RL的策略。</p>
@@ -260,14 +267,14 @@ a_t=\pi_\theta(s)
 <p>策略不确定性是指：对于同一个状态，输出的动作并不唯一。内在原因其实是因为对于一个人类专家，面对同一个状态也可能会产生多种可行的动作。</p>
 <p>因此，本文作者采取参数概率分布的形式来输出动作，而不是一个确定的动作。假设动作服从高斯分布，然后通过下式来优化策略：</p>
 <figure>
-<img src="/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326140653445.png" alt="image-20240326140653445">
+<img data-src="./Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326140653445.png" alt="image-20240326140653445">
 <figcaption aria-hidden="true">image-20240326140653445</figcaption>
 </figure>
 <h2 id="模型不确定性">模型不确定性</h2>
 <p>模型不确定性是指：策略的预测均值和方差对于不在训练数据集中的数据仍然是不确定和不可靠的。它源于在状态空间的某些区域缺乏训练数据，并且量化了模型对其动作输出的置信度。估计这种不确定性对于我们提出的方法中的模仿专家策略至关重要，因为RL智能体经常会遇到不在演示数据集中的状态，因此需要对分布外状态的置信度进行量化。</p>
 <p>本文使用多个网络M（采用随机策略），使用不同的随机初始化参数和训练数据来进行训练，将最终的均值和方差来进行混合：</p>
 <figure>
-<img src="/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326141630523.png" alt="image-20240326141630523">
+<img data-src="./Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326141630523.png" alt="image-20240326141630523">
 <figcaption aria-hidden="true">image-20240326141630523</figcaption>
 </figure>
 <p>这种策略类似于集成学习。</p>
@@ -275,7 +282,7 @@ a_t=\pi_\theta(s)
 <h2 id="框架">框架</h2>
 <p>整体框架如下：</p>
 <figure>
-<img src="/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326142544542.png" alt="image-20240326142544542">
+<img data-src="./Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326142544542.png" alt="image-20240326142544542">
 <figcaption aria-hidden="true">image-20240326142544542</figcaption>
 </figure>
 <p>策略推倒部分，加入了策略不确定性和模型不确定性，需要单独说明下。</p>
@@ -291,403 +298,106 @@ RL）的方法，用于提高自动驾驶智能体的学习效率。该算法包
 <li>一个策略网<span class="math inline">\(\pi_\theta\)</span>，用于生成动作。</li>
 </ul>
 <figure>
-<img src="/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326151252860.png" alt="image-20240326151252860">
+<img data-src="./Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326151252860.png" alt="image-20240326151252860">
 <figcaption aria-hidden="true">image-20240326151252860</figcaption>
 </figure>
 <figure>
-<img src="/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326151317752.png" alt="image-20240326151317752">
+<img data-src="./Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326151317752.png" alt="image-20240326151317752">
 <figcaption aria-hidden="true">image-20240326151317752</figcaption>
 </figure>
 
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/" data-id="clw93veag000xnn9fb48abjdh" data-title="Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving" class="article-share-link">Share</a>
-      
-      
-      
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rl/" rel="tag">rl</a></li></ul>
 
+    
+    
+    
 
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/rl/" rel="tag"><i class="fa fa-tag"></i> rl</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/03/24/High-Resolution-Image-Synthesis-with-Latent-Diffusion-Models/" rel="prev" title="High-Resolution-Image-Synthesis-with-Latent-Diffusion-Models">
+                  <i class="fa fa-angle-left"></i> High-Resolution-Image-Synthesis-with-Latent-Diffusion-Models
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/" rel="next" title="Denoising_Diffusion_Probabilistic_Models">
+                  Denoising_Diffusion_Probabilistic_Models <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
     </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2019 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">chengyiqiu</span>
   </div>
-  
-    
-  <nav id="article-nav" class="wow fadeInUp">
-    
-      <div class="article-nav-link-wrap article-nav-link-left">
-        
-          
-          
-            <img data-src="/covers/IMG_2575.JPG" data-sizes="auto" alt="Denoising_Diffusion_Probabilistic_Models" class="lazyload">
-          
-        
-        <a href="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/"></a>
-        <div class="article-nav-caption">Newer</div>
-        <h3 class="article-nav-title">
-          
-            Denoising_Diffusion_Probabilistic_Models
-          
-        </h3>
-      </div>
-    
-    
-    <div class="article-nav-link-wrap article-nav-link-right">
-      
-        
-        
-          <img data-src="/covers/IMG_2583 2.PNG" data-sizes="auto" alt="High-Resolution-Image-Synthesis-with-Latent-Diffusion-Models" class="lazyload">
-        
-      
-      <a href="/2024/03/24/High-Resolution-Image-Synthesis-with-Latent-Diffusion-Models/"></a>
-      <div class="article-nav-caption">Older</div>
-      <h3 class="article-nav-title">
-        
-          High-Resolution-Image-Synthesis-with-Latent-Diffusion-Models
-        
-      </h3>
-    </div>
-    
-  </nav>
-
-
-  
-</article>
-
-
-
-
-
-
-</section>
-          
-            <aside id="sidebar">
-  <div class="sidebar-wrap wow fadeInRight wrap-sticky">
-    
-      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
-  <h3 class="toc-title">Contents</h3>
-  <div class="sidebar-toc-wrapper toc-div-class" >
-      
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-number">1.</span> <span class="toc-text">相关工作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%88%E9%AA%8C%E7%9F%A5%E8%AF%86"><span class="toc-number">1.1.</span> <span class="toc-text">先验知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%93%E5%AE%B6%E6%BC%94%E7%A4%BA"><span class="toc-number">1.2.</span> <span class="toc-text">专家演示</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86"><span class="toc-number">2.</span> <span class="toc-text">背景知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%8C%E4%B8%BA%E5%85%8B%E9%9A%86"><span class="toc-number">2.1.</span> <span class="toc-text">行为克隆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7"><span class="toc-number">2.2.</span> <span class="toc-text">策略不确定性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7"><span class="toc-number">2.3.</span> <span class="toc-text">模型不确定性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%A8%A1%E4%BB%BF%E4%B8%93%E5%AE%B6%E5%85%88%E9%AA%8C"><span class="toc-number">3.</span> <span class="toc-text">深度强化学习与模仿专家先验</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%86%E6%9E%B6"><span class="toc-number">3.1.</span> <span class="toc-text">框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%94%E5%91%98%E8%AF%84%E8%AE%BA%E5%AE%B6%E7%AE%97%E6%B3%95"><span class="toc-number">3.2.</span> <span class="toc-text">演员评论家算法</span></a></li></ol></li></ol>
-      
-  </div>
-</div>
-</div>
-      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
-  <div class="sidebar-author-name">chengyiqiu</div>
-  <div class="sidebar-description"></div>
-</div>
-<div class="sidebar-state">
-  <div class="sidebar-state-article">
-    <div>Posts</div>
-    <div class="sidebar-state-number">60</div>
-  </div>
-  <div class="sidebar-state-category">
-    <div>Categories</div>
-    <div class="sidebar-state-number">11</div>
-  </div>
-  <div class="sidebar-state-tag">
-    <div>Tags</div>
-    <div class="sidebar-state-number">13</div>
-  </div>
-</div>
-<div class="sidebar-social">
-  
-    <div class=icon-github>
-      <a href=https://github.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="github"></a>
-    </div>
-  
-    <div class=icon-twitter>
-      <a href=https://x.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="twitter"></a>
-    </div>
-  
-    <div class=icon-bilibili>
-      <a href=https://space.bilibili.com/3493124768795188?spm_id_from=333.337.0.0 itemprop="url" target="_blank" aria-label="bilibili"></a>
-    </div>
-  
-    <div class=icon-zhihu>
-      <a href=https://www.zhihu.com/people/b79383d8dcc462769c532f9d16dadfeb itemprop="url" target="_blank" aria-label="zhihu"></a>
-    </div>
-  
-    <div class=icon-telegram>
-      <a href=https://www.t.me/chengyiqiu1121 itemprop="url" target="_blank" aria-label="telegram"></a>
-    </div>
-  
-</div>
-<div class="sidebar-menu">
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/" aria-label="Home"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Home</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="Archives"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Archives</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/about" aria-label="About"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">About</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="Friend"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Friend</div>
-    </div>
-  
-</div>
-</div>
-    
-    
-      <div class="sidebar-btn-wrapper" style="position:static">
-        <div class="sidebar-toc-btn current"></div>
-        <div class="sidebar-common-btn"></div>
-      </div>
-    
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
-  
-</aside>
+    </div>
+  </footer>
 
-          
-        </div>
-        <footer id="footer" class="wow fadeInUp">
-  <div style="width: 100%; overflow: hidden">
-    <div class="footer-line"></div>
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
   </div>
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      <div>
-        <span class="icon-copyright"></span>
-        2020-2024
-        <span class="footer-info-sep"></span>
-        chengyiqiu
-      </div>
-      
-        <div>
-          Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>&nbsp;
-          Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" target="_blank">Reimu</a>
-        </div>
-      
-      
-        <div>
-          <span class="icon-brush"></span>
-          90.7k
-          &nbsp;|&nbsp;
-          <span class="icon-coffee"></span>
-          05:57
-        </div>
-      
-      
-        <div>
-          <span class="icon-eye"></span>
-          <span id="busuanzi_container_site_pv">Number of visits&nbsp;<span id="busuanzi_value_site_pv"></span></span>
-          &nbsp;|&nbsp;
-          <span class="icon-user"></span>
-          <span id="busuanzi_container_site_uv">Number of visitors&nbsp;<span id="busuanzi_value_site_uv"></span></span>
-        </div>
-      
-    </div>
-  </div>
-</footer>
+  <div class="sidebar-dimmer"></div>
 
-        <div class="sidebar-top">
-          <img src="/images/taichi.png" height="50" width="50" />
-          <div class="arrow-up"></div>
-        </div>
-        <div id="mask"></div>
-      </div>
-      <nav id="mobile-nav">
-  <div class="sidebar-wrap">
-    
-      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
-  <h3 class="toc-title">Contents</h3>
-  <div class="sidebar-toc-wrapper toc-div-class" >
-      
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-number">1.</span> <span class="toc-text">相关工作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%88%E9%AA%8C%E7%9F%A5%E8%AF%86"><span class="toc-number">1.1.</span> <span class="toc-text">先验知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%93%E5%AE%B6%E6%BC%94%E7%A4%BA"><span class="toc-number">1.2.</span> <span class="toc-text">专家演示</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86"><span class="toc-number">2.</span> <span class="toc-text">背景知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%8C%E4%B8%BA%E5%85%8B%E9%9A%86"><span class="toc-number">2.1.</span> <span class="toc-text">行为克隆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7"><span class="toc-number">2.2.</span> <span class="toc-text">策略不确定性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7"><span class="toc-number">2.3.</span> <span class="toc-text">模型不确定性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%A8%A1%E4%BB%BF%E4%B8%93%E5%AE%B6%E5%85%88%E9%AA%8C"><span class="toc-number">3.</span> <span class="toc-text">深度强化学习与模仿专家先验</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%86%E6%9E%B6"><span class="toc-number">3.1.</span> <span class="toc-text">框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%94%E5%91%98%E8%AF%84%E8%AE%BA%E5%AE%B6%E7%AE%97%E6%B3%95"><span class="toc-number">3.2.</span> <span class="toc-text">演员评论家算法</span></a></li></ol></li></ol>
-      
-  </div>
-</div>
-</div>
-      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
-  <div class="sidebar-author-name">chengyiqiu</div>
-  <div class="sidebar-description"></div>
-</div>
-<div class="sidebar-state">
-  <div class="sidebar-state-article">
-    <div>Posts</div>
-    <div class="sidebar-state-number">60</div>
-  </div>
-  <div class="sidebar-state-category">
-    <div>Categories</div>
-    <div class="sidebar-state-number">11</div>
-  </div>
-  <div class="sidebar-state-tag">
-    <div>Tags</div>
-    <div class="sidebar-state-number">13</div>
-  </div>
-</div>
-<div class="sidebar-social">
-  
-    <div class=icon-github>
-      <a href=https://github.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="github"></a>
-    </div>
-  
-    <div class=icon-twitter>
-      <a href=https://x.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="twitter"></a>
-    </div>
-  
-    <div class=icon-bilibili>
-      <a href=https://space.bilibili.com/3493124768795188?spm_id_from=333.337.0.0 itemprop="url" target="_blank" aria-label="bilibili"></a>
-    </div>
-  
-    <div class=icon-zhihu>
-      <a href=https://www.zhihu.com/people/b79383d8dcc462769c532f9d16dadfeb itemprop="url" target="_blank" aria-label="zhihu"></a>
-    </div>
-  
-    <div class=icon-telegram>
-      <a href=https://www.t.me/chengyiqiu1121 itemprop="url" target="_blank" aria-label="telegram"></a>
-    </div>
-  
-</div>
-<div class="sidebar-menu">
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/" aria-label="Home"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Home</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="Archives"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Archives</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/about" aria-label="About"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">About</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="Friend"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Friend</div>
-    </div>
-  
-</div>
-</div>
-    
-  </div>
-  
-    <div class="sidebar-btn-wrapper">
-      <div class="sidebar-toc-btn current"></div>
-      <div class="sidebar-common-btn"></div>
-    </div>
-  
-</nav>
-
-    </div>
-    <div class="site-search">
-      <div class="reimu-popup popup">
-        <div class="reimu-search">
-          <span class="reimu-search-input-icon"></span>
-          <div class="reimu-search-input" id="reimu-search-input"></div>
-        </div>
-        <div class="reimu-results">
-          <div id="reimu-stats"></div>
-          <div id="reimu-hits"></div>
-          <div id="reimu-pagination" class="reimu-pagination"></div>
-        </div>
-        <span class="popup-btn-close"></span>
-      </div>
-    </div>
-    
-<script src="https://npm.webcache.cn/jquery@3.7.1/dist/jquery.min.js"></script>
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
 
-<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
 
 
-<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"></script>
+
+  <script src="/js/third-party/fancybox.js"></script>
 
 
 
   
-<script src="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
-
-
-
-  
-<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
-
-
-
-
-
-
-<script src="/js/pjax_script.js" data-pjax></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
 
   
-<script src="https://npm.webcache.cn/mouse-firework@0.0.4/dist/index.umd.js"></script>
 
-  <script>
-    firework(JSON.parse('{"excludeElements":["a"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["#ff5252","#ff7c7c","#ffafaf","#ffd0d0"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["#ff0000"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'))
-  </script>
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
 
 
 
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-  <script>
-    console.log(String.raw`%c 
- ______     ______     __     __    __     __  __    
-/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
-\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
- \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
-  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
-                                                  
-`,'color: #ff5252;')
-    console.log('%c Theme.Reimu v' + '0.1.2' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
-  </script>
-  
-
-  <!-- hexo injector body_end start -->
-<script src="/js/insert_highlight.js" data-pjax></script>
-<!-- hexo injector body_end end --></body>
-  </html>
-
+</body>
+</html>

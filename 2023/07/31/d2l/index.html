@@ -1,271 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
 
-  <!DOCTYPE html>
-  <html lang="en"  >
-  <head>
-  <meta charset="utf-8">
-  
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-  
+<link rel="stylesheet" href="/css/main.css">
 
-  
 
-  
-  <title>
-    d2l |
-    
-    Hexo
-  </title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="preload" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CUbuntu%20Mono:400,400italic,700,700italic&display=swap&subset=latin,latin-ext" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;">
-  
-<link rel="stylesheet" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/regular.min.css">
-<link rel="stylesheet" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/solid.min.css">
 
-  <link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/brands.min.css" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;"><link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/v5-font-face.min.css" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;"><link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/v4-font-face.min.css" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;">
-  
-<link rel="stylesheet" href="/css/loader.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
 
-  <meta name="description" content="d2l 经典QA 问题1.怎么根据输入空间，选择最优的深度或者宽度 假设问题背景：128 input，2 output  首先尝试线性回归模型，128输入2输出，不要隐藏层。 然后试试mlp（多层感知机）：128 input -&gt; 128&#x2F;64&#x2F;32&#x2F;16&#x2F;8 hide -&gt; 2 output。然后在此基础上挑出比较好的隐藏层个数，比如128和8不行，然后64&#x2F;32&#x2F;16效果都还不错。">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width":280,"display":"post","offset":10,"onmobile":true},"hljswrap":true,"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="d2l 经典QA 问题1.怎么根据输入空间，选择最优的深度或者宽度 假设问题背景：128 input，2 output  首先尝试线性回归模型，128输入2输出，不要隐藏层。 然后试试mlp（多层感知机）：128 input -&gt; 128&#x2F;64&#x2F;32&#x2F;16&#x2F;8 hide -&gt; 2 output。然后在此基础上挑出比较好的隐藏层个数，比如128和8不行，然后64&#x2F;32&#x2F;16效果都还不错。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="d2l">
 <meta property="og:url" content="http://example.com/2023/07/31/d2l/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="d2l 经典QA 问题1.怎么根据输入空间，选择最优的深度或者宽度 假设问题背景：128 input，2 output  首先尝试线性回归模型，128输入2输出，不要隐藏层。 然后试试mlp（多层感知机）：128 input -&gt; 128&#x2F;64&#x2F;32&#x2F;16&#x2F;8 hide -&gt; 2 output。然后在此基础上挑出比较好的隐藏层个数，比如128和8不行，然后64&#x2F;32&#x2F;16效果都还不错。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-07-31%2020.43.26.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-07-31%2020.44.01.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-07-31%2020.45.18.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-07-31%2021.14.07.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-07-31%2021.18.59.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-07-31%2023.38.10.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-07-31%2023.44.44.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-01%2021.53.34.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-04%2012.52.27.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-04%2012.51.36.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-04%2012.51.59.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-04%2012.58.14.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-04%2013.01.52.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-04%2013.03.06.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-04%2013.07.18.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-04%2012.51.36-1125646.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-04%2013.12.16.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-04%2013.13.56.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-04%2013.14.59.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-04%2015.12.36.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-02%2014.46.35.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-02%2014.50.41.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-03%2009.27.21.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-07%2013.13.49.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-07%2013.15.35.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-07%2015.04.26.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-07%2019.47.37.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-08%2015.53.23.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-09%2010.25.42.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-09%2020.54.35.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-09%2021.00.15.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-12%2019.49.13.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-12%2020.13.27.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-14%2012.33.03.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-14%2014.30.43.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-15%2013.28.57.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-14%2020.16.24.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-15%2012.23.50.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-15%2013.02.06.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-15%2013.03.11.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-15%2017.15.54.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-15%2017.16.19.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-15%2019.51.56.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-15%2019.56.14.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-17%2013.23.07.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-18%2009.15.49.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-18%2010.46.47.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-18%2011.18.28.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-18%2013.14.40.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-18%2013.27.50.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-18%2013.32.46.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-18%2013.39.03.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-18%2013.45.47.png">
-<meta property="og:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-08-16%2013.35.41.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-07-31%2020.43.26.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-07-31%2020.44.01.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-07-31%2020.45.18.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-07-31%2021.14.07.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-07-31%2021.18.59.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-07-31%2023.38.10.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-07-31%2023.44.44.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-01%2021.53.34.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-04%2012.52.27.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-04%2012.51.36.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-04%2012.51.59.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-04%2012.58.14.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-04%2013.01.52.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-04%2013.03.06.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-04%2013.07.18.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-04%2012.51.36-1125646.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-04%2013.12.16.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-04%2013.13.56.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-04%2013.14.59.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-04%2015.12.36.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-02%2014.46.35.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-02%2014.50.41.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-03%2009.27.21.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-07%2013.13.49.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-07%2013.15.35.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-07%2015.04.26.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-07%2019.47.37.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-08%2015.53.23.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-09%2010.25.42.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-09%2020.54.35.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-09%2021.00.15.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-12%2019.49.13.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-12%2020.13.27.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-14%2012.33.03.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-14%2014.30.43.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-15%2013.28.57.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-14%2020.16.24.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-15%2012.23.50.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-15%2013.02.06.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-15%2013.03.11.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-15%2017.15.54.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-15%2017.16.19.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-15%2019.51.56.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-15%2019.56.14.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-17%2013.23.07.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-18%2009.15.49.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-18%2010.46.47.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-18%2011.18.28.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-18%2013.14.40.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-18%2013.27.50.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-18%2013.32.46.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-18%2013.39.03.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-18%2013.45.47.png">
+<meta property="og:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-08-16%2013.35.41.png">
 <meta property="article:published_time" content="2023-07-31T03:07:15.000Z">
 <meta property="article:modified_time" content="2023-10-27T07:58:34.000Z">
 <meta property="article:author" content="chengyiqiu">
 <meta property="article:tag" content="cnn">
 <meta property="article:tag" content="rnn">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/07/31/d2l/%E6%88%AA%E5%B1%8F2023-07-31%2020.43.26.png">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/images/favicon.ico">
-  
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+<meta name="twitter:image" content="http://example.com/2023/07/31/d2l/d2l/%E6%88%AA%E5%B1%8F2023-07-31%2020.43.26.png">
 
-  
-    
-<link rel="stylesheet" href="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
-  
-  
-    
-<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css">
+<link rel="canonical" href="http://example.com/2023/07/31/d2l/">
 
-  
-  
-  
-  
-<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"></script>
 
-  
-    
-<link rel="stylesheet" href="https://npm.webcache.cn/wowjs@1.1.3/css/libs/animate.css">
 
-    
-<script src="https://npm.webcache.cn/wowjs@1.1.3/dist/wow.min.js"></script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/07/31/d2l/","path":"2023/07/31/d2l/","title":"d2l"}</script>
 
-    <script>
-      new WOW({
-        offset: 0,
-        mobile: true,
-        live: false
-      }).init();
-    </script>
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>d2l | Hexo</title>
   
-  
-    <script src="/sw.js"></script>
-  
-<meta name="generator" content="Hexo 7.2.0"></head>
 
-  <body>
-    
-  <div id='loader'>
-    <div class="loading-left-bg"></div>
-    <div class="loading-right-bg"></div>
-    <div class="spinner-box">
-      <div class="loading-taichi">
-        <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
-          <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="#ff6e6b" />
-          <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z" fill="#fd0d00" />
-          <path d="M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95" fill="#fd0d00" />
-        </svg>
-      </div>
-      <div class="loading-word">梭哈是一种智慧</div>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
     </div>
   </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
   </div>
-  <script>
-    var time = null;
-    const startLoading = () => {
-      time = Date.now();
-      document.getElementById('loader').classList.remove("loading");
-    }
-    const endLoading = () => {
-      if (!time) {
-        document.body.style.overflow = 'auto';
-        document.getElementById('loader').classList.add("loading");
-      } else {
-        if (Date.now() - time > 500) {
-          time = null;
-          document.body.style.overflow = 'auto';
-          document.getElementById('loader').classList.add("loading");
-        } else {
-          setTimeout(endLoading, 500 - (Date.now() - time));
-          time = null;
-        }
-      }
-    }
-    window.addEventListener('load', endLoading);
-    document.getElementById('loader').addEventListener('click', endLoading);
-  </script>
 
-
-    <div id="container">
-      <div id="wrap">
-        <div id="header-nav">
-  <nav id="main-nav">
-    
-      <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
-        <a class="main-nav-link" href="/">Home</a>
-      </span>
-    
-      <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
-        <a class="main-nav-link" href="/archives">Archives</a>
-      </span>
-    
-      <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
-        <a class="main-nav-link" href="/about">About</a>
-      </span>
-    
-      <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
-        <a class="main-nav-link" href="/friend">Friend</a>
-      </span>
-    
-    <a id="main-nav-toggle" class="nav-icon"></a>
-  </nav>
-  <nav id="sub-nav">
-    
-      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-    
-    
-    
-  </nav>
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
 </div>
-<header id="header">
-  
-    <img fetchpriority="high" src="/images/banner.png" alt="d2l">
-  
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <div id="logo-wrap">
-        
-          
-          
-            <a href="/" id="logo">
-              <h1>d2l</h1>
-            </a>
-          
-        
-      </div>
-      
-        
-        <h2 id="subtitle-wrap">
-          
-        </h2>
-      
-    </div>
-  </div>
+
+
+
+
+
+
+
 </header>
+        
+  
+  <aside class="sidebar">
 
-        <div id="content" class="outer">
-          
-          <section id="main"><article id="post-d2l" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-inner">
-    <div class="article-meta">
-      <div class="article-date wow slideInLeft">
-  <a href="/2023/07/31/d2l/" class="article-date-link">
-    <time datetime="2023-07-31T03:07:15.000Z" itemprop="datePublished">2023-07-31</time>
-  </a>
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%8F%E5%85%B8qa"><span class="nav-number">1.</span> <span class="nav-text">经典QA</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%981.%E6%80%8E%E4%B9%88%E6%A0%B9%E6%8D%AE%E8%BE%93%E5%85%A5%E7%A9%BA%E9%97%B4%E9%80%89%E6%8B%A9%E6%9C%80%E4%BC%98%E7%9A%84%E6%B7%B1%E5%BA%A6%E6%88%96%E8%80%85%E5%AE%BD%E5%BA%A6"><span class="nav-number">1.1.</span> <span class="nav-text">问题1.怎么根据输入空间，选择最优的深度或者宽度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%982.k%E6%8A%98%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81%E7%9A%84%E7%9B%AE%E7%9A%84%E6%98%AF%E7%A1%AE%E5%AE%9A%E8%B6%85%E5%8F%82%E6%95%B0%E5%90%97%E7%84%B6%E5%90%8E%E8%BF%98%E8%A6%81%E7%94%A8%E8%BF%99%E4%B8%AA%E8%B6%85%E5%8F%82%E6%95%B0%E5%86%8D%E8%AE%AD%E7%BB%83%E4%B8%80%E9%81%8D%E5%85%A8%E6%95%B0%E6%95%B0%E6%8D%AE%E5%90%97"><span class="nav-number">1.2.</span> <span class="nav-text">问题2.k折交叉验证的目的是确定超参数吗？然后还要用这个超参数再训练一遍全数数据吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%983.%E8%80%81%E5%B8%88%E8%AF%B4%E7%9A%84%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%98%AF%E4%B8%80%E7%A7%8D%E8%AF%AD%E8%A8%80%E6%84%8F%E6%80%9D%E6%98%AF%E5%88%A9%E7%94%A8%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%8E%BB%E5%AF%B9%E4%B8%87%E4%BA%8B%E4%B8%87%E7%89%A9%E5%BB%BA%E6%A8%A1%E5%90%A7%E5%B0%B1%E6%98%AF%E6%8C%87%E7%9A%84%E5%AE%83%E7%90%86%E8%AE%BA%E4%B8%8A%E8%83%BD%E6%8B%9F%E5%90%88%E6%89%80%E6%9C%89%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.</span> <span class="nav-text">问题3.老师说的神经网络是一种语言，意思是利用神经网络去对万事万物建模吧？就是指的它理论上能拟合所有函数？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%984.%E5%A6%82%E6%9E%9C%E8%AE%AD%E7%BB%83%E6%98%AF%E4%B8%8D%E5%B9%B3%E8%A1%A1%E7%9A%84%E6%98%AF%E5%90%A6%E8%A6%81%E5%85%88%E8%80%83%E8%99%91%E6%B5%8B%E8%AF%95%E9%9B%86%E6%98%AF%E5%90%A6%E4%B9%9F%E6%98%AF%E4%B8%8D%E5%B9%B3%E8%A1%A1%E7%9A%84%E5%86%8D%E5%8E%BB%E5%86%B3%E5%AE%9A%E6%98%AF%E5%90%A6%E4%BD%BF%E7%94%A8%E4%B8%80%E4%B8%AA%E5%B9%B3%E8%A1%A1%E7%9A%84%E9%AA%8C%E8%AF%81%E9%9B%86"><span class="nav-number">1.4.</span> <span class="nav-text">问题4.如果训练是不平衡的，是否要先考虑测试集是否也是不平衡的，再去决定是否使用一个平衡的验证集？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%985.%E8%80%81%E5%B8%88%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AF%B916%E4%BD%8D%E6%B5%AE%E7%82%B9%E5%BD%B1%E5%93%8D%E4%B8%A5%E9%87%8D32%E4%BD%8D%E6%88%96%E8%80%8564%E4%BD%8D%E5%B0%B1%E5%A5%BD%E4%BA%86%E5%90%97%E9%82%A3%E5%B0%B1%E6%98%AF%E8%AF%B4%E6%89%80%E6%9C%89%E9%80%9A%E8%BF%87fp16%E5%8A%A0%E9%80%9F%E6%88%96%E8%80%85%E5%87%8F%E5%B0%8F%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%96%B9%E6%B3%95%E9%83%BD%E5%AD%98%E5%9C%A8%E5%AE%B9%E6%98%93%E6%A2%AF%E5%BA%A6%E7%88%86%E7%82%B8%E6%88%96%E8%80%85%E6%B6%88%E5%A4%B1%E7%9A%84%E9%A3%8E%E9%99%A9"><span class="nav-number">1.5.</span> <span class="nav-text">问题5.老师，为什么对16位浮点影响严重？32位或者64位就好了吗？那就是说所有通过fp16加速或者减小模型的方法都存在容易梯度爆炸或者消失的风险？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%986.%E8%BF%99%E5%87%A0%E4%B8%AA%E8%B6%85%E5%8F%82%E6%95%B0%E5%BE%97%E5%BD%B1%E5%93%8D%E9%87%8D%E8%A6%81%E7%A8%8B%E5%BA%A6%E6%8E%92%E5%BA%8F%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BE%97%E6%A0%B8%E5%A4%A7%E5%B0%8F%E5%A1%AB%E5%85%85%E6%AD%A5%E5%B9%85"><span class="nav-number">1.6.</span> <span class="nav-text">问题6.这几个超参数得影响重要程度排序是怎样得，核大小，填充，步幅</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83"><span class="nav-number">2.</span> <span class="nav-text">环境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E7%8E%AF%E5%A2%83"><span class="nav-number">2.1.</span> <span class="nav-text">安装环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80swap"><span class="nav-number">2.2.</span> <span class="nav-text">开swap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#htop"><span class="nav-number">2.3.</span> <span class="nav-text">htop</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">3.</span> <span class="nav-text">线性神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92"><span class="nav-number">3.1.</span> <span class="nav-text">线性回归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#softmax%E5%9B%9E%E5%BD%92"><span class="nav-number">3.2.</span> <span class="nav-text">softmax回归</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA"><span class="nav-number">4.</span> <span class="nav-text">多层感知机</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%84%9F%E7%9F%A5%E6%9C%BA"><span class="nav-number">4.1.</span> <span class="nav-text">感知机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0"><span class="nav-number">4.2.</span> <span class="nav-text">激活函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#relu"><span class="nav-number">4.2.1.</span> <span class="nav-text">ReLU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sigmoid"><span class="nav-number">4.2.2.</span> <span class="nav-text">sigmoid</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tanh"><span class="nav-number">4.2.3.</span> <span class="nav-text">tanh</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9%E6%AC%A0%E6%8B%9F%E5%90%88%E8%BF%87%E6%8B%9F%E5%90%88"><span class="nav-number">4.3.</span> <span class="nav-text">模型选择、欠拟合、过拟合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E7%90%86%E8%AE%BA"><span class="nav-number">4.3.1.</span> <span class="nav-text">统计学习理论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E5%A4%8D%E6%9D%82%E6%80%A7"><span class="nav-number">4.3.2.</span> <span class="nav-text">模型复杂性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E9%9B%86"><span class="nav-number">4.3.3.</span> <span class="nav-text">验证集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AC%A0%E6%8B%9F%E5%90%88%E5%92%8C%E8%BF%87%E6%8B%9F%E5%90%88"><span class="nav-number">4.3.4.</span> <span class="nav-text">欠拟合和过拟合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%83%E9%87%8D%E8%A1%B0%E5%87%8F"><span class="nav-number">4.4.</span> <span class="nav-text">权重衰减</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8C%83%E6%95%B0"><span class="nav-number">4.4.1.</span> <span class="nav-text">范数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9A%82%E9%80%80%E6%B3%95dropout"><span class="nav-number">4.5.</span> <span class="nav-text">暂退法（Dropout）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%87%E6%8B%9F%E5%90%88"><span class="nav-number">4.5.1.</span> <span class="nav-text">过拟合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A8%B3%E5%81%A5%E6%80%A7"><span class="nav-number">4.5.2.</span> <span class="nav-text">稳健性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E8%AE%A1%E7%AE%97%E5%9B%BE"><span class="nav-number">4.6.</span> <span class="nav-text">前向传播、反向传播、计算图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="nav-number">4.6.1.</span> <span class="nav-text">前向传播</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="nav-number">4.6.2.</span> <span class="nav-text">反向传播</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%80%BC%E7%A8%B3%E5%AE%9A%E6%80%A7%E5%92%8C%E6%A8%A1%E5%9E%8B%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">4.7.</span> <span class="nav-text">数值稳定性和模型初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A2%AF%E5%BA%A6%E7%88%86%E7%82%B8%E6%B6%88%E5%A4%B1"><span class="nav-number">4.7.1.</span> <span class="nav-text">梯度爆炸&#x2F;消失</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E7%A0%B4%E5%AF%B9%E7%A7%B0%E6%80%A7"><span class="nav-number">4.7.2.</span> <span class="nav-text">打破对称性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%92%8C%E5%88%86%E5%B8%83%E5%81%8F%E7%A7%BB"><span class="nav-number">4.8.</span> <span class="nav-text">环境和分布偏移</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8F%E5%8F%98%E9%87%8F%E5%81%8F%E7%A7%BB"><span class="nav-number">4.8.1.</span> <span class="nav-text">协变量偏移</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E7%AD%BE%E5%81%8F%E7%A7%BB"><span class="nav-number">4.8.2.</span> <span class="nav-text">标签偏移</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5%E5%81%8F%E7%A7%BB"><span class="nav-number">4.8.3.</span> <span class="nav-text">概念偏移</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cnn"><span class="nav-number">5.</span> <span class="nav-text">CNN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8Emlp%E5%88%B0cnn"><span class="nav-number">5.1.</span> <span class="nav-text">从MLP到CNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%92%E7%9B%B8%E5%85%B3%E8%BF%90%E7%AE%97"><span class="nav-number">5.2.</span> <span class="nav-text">互相关运算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A1%AB%E5%85%85%E5%92%8C%E6%AD%A5%E5%B9%85"><span class="nav-number">5.3.</span> <span class="nav-text">填充和步幅</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A1%AB%E5%85%85"><span class="nav-number">5.3.1.</span> <span class="nav-text">填充</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%AA%E5%B1%8F2023-08-09-20.54.35%E6%AD%A5%E5%B9%85"><span class="nav-number">5.3.2.</span> <span class="nav-text">步幅</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E9%80%9A%E9%81%93"><span class="nav-number">5.4.</span> <span class="nav-text">多输入输出通道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E8%BE%93%E5%85%A5%E9%80%9A%E9%81%93"><span class="nav-number">5.4.1.</span> <span class="nav-text">多输入通道</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E8%BE%93%E5%87%BA%E9%80%9A%E9%81%93"><span class="nav-number">5.4.2.</span> <span class="nav-text">多输出通道</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#times1%E5%8D%B7%E7%A7%AF%E6%A0%B8"><span class="nav-number">5.4.3.</span> <span class="nav-text">\(1\times1\)卷积核</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B1%87%E8%81%9A%E5%B1%82"><span class="nav-number">5.5.</span> <span class="nav-text">汇聚层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lenet"><span class="nav-number">5.6.</span> <span class="nav-text">LeNet</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">6.</span> <span class="nav-text">现代卷积神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#alexnet"><span class="nav-number">6.1.</span> <span class="nav-text">AlexNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vgg"><span class="nav-number">6.2.</span> <span class="nav-text">VGG</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nin"><span class="nav-number">6.3.</span> <span class="nav-text">NiN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#googlenet"><span class="nav-number">6.4.</span> <span class="nav-text">GoogLeNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#batch-normalization"><span class="nav-number">6.5.</span> <span class="nav-text">batch normalization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#resnet"><span class="nav-number">6.6.</span> <span class="nav-text">ResNet</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E8%AE%AD%E7%BB%83--mlpcnn"><span class="nav-number">7.</span> <span class="nav-text">代码训练--MLP+CNN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92-1"><span class="nav-number">7.1.</span> <span class="nav-text">线性回归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#softmax%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92"><span class="nav-number">7.2.</span> <span class="nav-text">softmax线性回归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mlp"><span class="nav-number">7.3.</span> <span class="nav-text">MLP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lenet-1"><span class="nav-number">7.4.</span> <span class="nav-text">LeNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#alexnet-1"><span class="nav-number">7.5.</span> <span class="nav-text">AlexNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#resnet-1"><span class="nav-number">7.6.</span> <span class="nav-text">ResNet</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rnn"><span class="nav-number">8.</span> <span class="nav-text">RNN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E6%A8%A1%E5%9E%8B"><span class="nav-number">8.1.</span> <span class="nav-text">序列模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B"><span class="nav-number">8.1.1.</span> <span class="nav-text">自回归模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B"><span class="nav-number">8.2.</span> <span class="nav-text">语言模型</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">chengyiqiu</p>
+  <div class="site-description" itemprop="description"></div>
 </div>
-
-      
-  <div class="article-category wow slideInLeft">
-    <a class="article-category-link" href="/categories/d2l/">d2l</a>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chengyiqiu1121" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chengyiqiu1121" rel="noopener me" target="_blank">GitHub</a>
+      </span>
   </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="Back to top">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
 
 
     </div>
-    <div class="hr-line"></div>
-    
 
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>d2l</p>
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/07/31/d2l/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="chengyiqiu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="d2l | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          d2l
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-07-31 11:07:15" itemprop="dateCreated datePublished" datetime="2023-07-31T11:07:15+08:00">2023-07-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-10-27 15:58:34" itemprop="dateModified" datetime="2023-10-27T15:58:34+08:00">2023-10-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/d2l/" itemprop="url" rel="index"><span itemprop="name">d2l</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>d2l</p>
 <h1 id="经典qa">经典QA</h1>
 <h2 id="问题1.怎么根据输入空间选择最优的深度或者宽度">问题1.怎么根据输入空间，选择最优的深度或者宽度</h2>
 <p>假设问题背景：128 input，2 output</p>
@@ -359,20 +371,20 @@ torch的时候被kill掉，原因就是爆内存了（OOM），这时可以通�
 <h2 id="线性回归">线性回归</h2>
 <p>线性回归严格来说是一种<strong>仿射变换（affine
 transformation）</strong>：将特征通过加权（乘以参数w）然后再进行线性变换，最后通过偏置项（b）进行平移。</p>
-<p>对于一个特定的样本，线性回归可表示为：<img src="/2023/07/31/d2l/截屏2023-07-31%2020.43.26.png" alt="截屏2023-07-31 20.43.26"></p>
+<p>对于一个特定的样本，线性回归可表示为：<img data-src="./d2l/截屏2023-07-31%2020.43.26.png" alt="截屏2023-07-31 20.43.26"></p>
 <p>写成向量的形式就是（向量和向量之间的点积）：</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-07-31%2020.44.01.png" alt="截屏2023-07-31 20.44.01">
+<img data-src="./d2l/截屏2023-07-31%2020.44.01.png" alt="截屏2023-07-31 20.44.01">
 <figcaption aria-hidden="true">截屏2023-07-31 20.44.01</figcaption>
 </figure>
 <p>dl中读入的数据集一般都是矩阵，很多样本的集合，所以可以直接写成矩阵的形式。那么就是写成向量和矩阵的乘法形式：</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-07-31%2020.45.18.png" alt="截屏2023-07-31 20.45.18">
+<img data-src="./d2l/截屏2023-07-31%2020.45.18.png" alt="截屏2023-07-31 20.45.18">
 <figcaption aria-hidden="true">截屏2023-07-31 20.45.18</figcaption>
 </figure>
 <p>线性回归模型比较特殊，因为其有<strong>解析解</strong>，能通过数学的方法求出解的表达式：</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-07-31%2021.14.07.png" alt="截屏2023-07-31 21.14.07">
+<img data-src="./d2l/截屏2023-07-31%2021.14.07.png" alt="截屏2023-07-31 21.14.07">
 <figcaption aria-hidden="true">截屏2023-07-31 21.14.07</figcaption>
 </figure>
 <p>这是一个模型的优化思路，但绝大部分模型没有解析解（就算有，通过数学来求得解析解可能可行，但计算量特别大）。于是我们在没有解析解的情况下，可以通过从大量数据中，使用<strong>梯度下降（gradient
@@ -384,17 +396,17 @@ size大小的数据，然后求loss，最后再反向传播更新参数，过程
 <li>(2)从数据集中随机抽取小批量样本且在负梯度的方向上更新参数，并不断迭代这一步骤。对于平方损失和仿射变换，我们可以明确地写成如下形式:</li>
 </ul>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-07-31%2021.18.59.png" alt="截屏2023-07-31 21.18.59">
+<img data-src="./d2l/截屏2023-07-31%2021.18.59.png" alt="截屏2023-07-31 21.18.59">
 <figcaption aria-hidden="true">截屏2023-07-31 21.18.59</figcaption>
 </figure>
 <p>线性回归可以看作为单层神经网络，因为输入层不进行计算，整个网络的计算神经元只有一个，一层，所以称为单层神经网络。该网络的特征纬度为d，标签维度为1。</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-07-31%2023.38.10.png" alt="截屏2023-07-31 23.38.10">
+<img data-src="./d2l/截屏2023-07-31%2023.38.10.png" alt="截屏2023-07-31 23.38.10">
 <figcaption aria-hidden="true">截屏2023-07-31 23.38.10</figcaption>
 </figure>
 <p>DL启发于神经学，但更多的灵感 源自数学、统计、计算机。</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-07-31%2023.44.44.png" alt="截屏2023-07-31 23.44.44">
+<img data-src="./d2l/截屏2023-07-31%2023.44.44.png" alt="截屏2023-07-31 23.44.44">
 <figcaption aria-hidden="true">截屏2023-07-31 23.44.44</figcaption>
 </figure>
 <p>线性回归从0开始中，有一段代码是手动生成的迭代器：</p>
@@ -426,7 +438,7 @@ hot encoding）</strong>的形式：</p>
 </ul>
 <p>但是层数一定不能太深，并且层与层之间的神经元个数也不能衰减太快，不然整个网络可能<strong>坍塌</strong>，丢失掉重要的信息。</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-01%2021.53.34.png" alt="截屏2023-08-01 20.53.22">
+<img data-src="./d2l/截屏2023-08-01%2021.53.34.png" alt="截屏2023-08-01 20.53.22">
 <figcaption aria-hidden="true">截屏2023-08-01 20.53.22</figcaption>
 </figure>
 <p>至于最后为什么我们选择的是深度学习而不是宽度学习（浅度学习），原因就是<strong>浅度学习并不好做</strong>：</p>
@@ -443,34 +455,34 @@ hot encoding）</strong>的形式：</p>
 </ul>
 <p>我们的模型长这样：</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-04%2012.52.27.png" alt="截屏2023-08-04 12.52.27">
+<img data-src="./d2l/截屏2023-08-04%2012.52.27.png" alt="截屏2023-08-04 12.52.27">
 <figcaption aria-hidden="true">截屏2023-08-04 12.52.27</figcaption>
 </figure>
 <p>从下面这样：</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-04%2012.51.36.png" alt="截屏2023-08-04 12.51.36">
+<img data-src="./d2l/截屏2023-08-04%2012.51.36.png" alt="截屏2023-08-04 12.51.36">
 <figcaption aria-hidden="true">截屏2023-08-04 12.51.36</figcaption>
 </figure>
 <p>变成了：</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-04%2012.51.59.png" alt="截屏2023-08-04 12.51.59">
+<img data-src="./d2l/截屏2023-08-04%2012.51.59.png" alt="截屏2023-08-04 12.51.59">
 <figcaption aria-hidden="true">截屏2023-08-04 12.51.59</figcaption>
 </figure>
 <h3 id="relu">ReLU</h3>
 <p>激活函数的意义在于将线性变为非线性，钟爱<strong>ReLU函数</strong>的很大一个原因是：<strong>简单</strong>。像其他两个函数里面都要做至少一次指数运算。<strong>而在CPU上，做一次指数运算的时间可以做十万次乘法运算！代价非常昂贵！</strong>而GPU中有相应的运算单元，比CPU就好很多了。</p>
 <p>ReLU的函数图如下：</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-04%2012.58.14.png" alt="截屏2023-08-04 12.58.14">
+<img data-src="./d2l/截屏2023-08-04%2012.58.14.png" alt="截屏2023-08-04 12.58.14">
 <figcaption aria-hidden="true">截屏2023-08-04 12.58.14</figcaption>
 </figure>
 <p>可以看到ReLU在0点不可导，我们默认使用0点的倒数为0（其实介于0和1之间都可以，对于这种边界的不可导点）但是，现实中不会出现输入为0的情况，有一句谚语：<strong>如果微妙的边界条件很重要，我们很可能是在研究数学而非工程</strong>。</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-04%2013.01.52.png" alt="截屏2023-08-04 13.01.52">
+<img data-src="./d2l/截屏2023-08-04%2013.01.52.png" alt="截屏2023-08-04 13.01.52">
 <figcaption aria-hidden="true">截屏2023-08-04 13.01.52</figcaption>
 </figure>
 <p>ReLU还有一些变体：即使参数是负的，某些信息仍然可以通过</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-04%2013.03.06.png" alt="截屏2023-08-04 13.03.06">
+<img data-src="./d2l/截屏2023-08-04%2013.03.06.png" alt="截屏2023-08-04 13.03.06">
 <figcaption aria-hidden="true">截屏2023-08-04 13.03.06</figcaption>
 </figure>
 <h3 id="sigmoid">sigmoid</h3>
@@ -478,18 +490,18 @@ hot encoding）</strong>的形式：</p>
 sigmoid(x)=\frac{1}{1+e^{-x}}
 \]</span> 图：</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-04%2013.07.18.png" alt="截屏2023-08-04 13.07.18">
+<img data-src="./d2l/截屏2023-08-04%2013.07.18.png" alt="截屏2023-08-04 13.07.18">
 <figcaption aria-hidden="true">截屏2023-08-04 13.07.18</figcaption>
 </figure>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-04%2012.51.36-1125646.png" alt="截屏2023-08-04 12.51.36">
+<img data-src="./d2l/截屏2023-08-04%2012.51.36-1125646.png" alt="截屏2023-08-04 12.51.36">
 <figcaption aria-hidden="true">截屏2023-08-04 12.51.36</figcaption>
 </figure>
 <p>sigmoid有一个特性是：求导之后刚好可以表达成正例*反例 <span class="math display">\[
 \frac{d}{dx}sigmoid(x)=sigmoid(x)*(1-sigmoid(x))
 \]</span> 导数图像：</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-04%2013.12.16.png" alt="截屏2023-08-04 13.12.16">
+<img data-src="./d2l/截屏2023-08-04%2013.12.16.png" alt="截屏2023-08-04 13.12.16">
 <figcaption aria-hidden="true">截屏2023-08-04 13.12.16</figcaption>
 </figure>
 <h3 id="tanh">tanh</h3>
@@ -497,14 +509,14 @@ sigmoid(x)=\frac{1}{1+e^{-x}}
 tanh(x)=\frac{1-e^{-2x}}{1+e^{-2x}}
 \]</span> 图：</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-04%2013.13.56.png" alt="截屏2023-08-04 13.13.56">
+<img data-src="./d2l/截屏2023-08-04%2013.13.56.png" alt="截屏2023-08-04 13.13.56">
 <figcaption aria-hidden="true">截屏2023-08-04 13.13.56</figcaption>
 </figure>
 <p>导数： <span class="math display">\[
 \frac{d}{dx}tanh(x)=1-tanh^2(x)
 \]</span></p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-04%2013.14.59.png" alt="截屏2023-08-04 13.14.59">
+<img data-src="./d2l/截屏2023-08-04%2013.14.59.png" alt="截屏2023-08-04 13.14.59">
 <figcaption aria-hidden="true">截屏2023-08-04 13.14.59</figcaption>
 </figure>
 <h2 id="模型选择欠拟合过拟合">模型选择、欠拟合、过拟合</h2>
@@ -521,7 +533,7 @@ tanh(x)=\frac{1-e^{-2x}}{1+e^{-2x}}
 <p><strong>对于一个分类模型，VC等于一个最大的数据集的大小，不管如何给定标号（label），都存在一个模型来对它进行完美分类</strong></p>
 <p>可以计算出线性分类器的VC维：</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-04%2015.12.36.png" alt="截屏2023-08-04 15.12.36">
+<img data-src="./d2l/截屏2023-08-04%2015.12.36.png" alt="截屏2023-08-04 15.12.36">
 <figcaption aria-hidden="true">截屏2023-08-04 15.12.36</figcaption>
 </figure>
 <p>模型容量和数据大小的关系如下：</p>
@@ -531,7 +543,7 @@ tanh(x)=\frac{1-e^{-2x}}{1+e^{-2x}}
 </ul>
 <p>一般第二种情况比较常见，也就是很容易过拟合：比如给一组线性的数据，然后放入三四层的感知机里面去训练，很容易就把噪声当作数据的规律了，导致过拟合。</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-02%2014.46.35.png" alt="截屏2023-08-02 14.46.35">
+<img data-src="./d2l/截屏2023-08-02%2014.46.35.png" alt="截屏2023-08-02 14.46.35">
 <figcaption aria-hidden="true">截屏2023-08-02 14.46.35</figcaption>
 </figure>
 <p>模型容量还可以定义为：拟合各种函数的能力。</p>
@@ -539,11 +551,11 @@ tanh(x)=\frac{1-e^{-2x}}{1+e^{-2x}}
 <p>但事实上，这些数据服从的是一个二次函数的分布，</p>
 <p>因此，从数据集的大小上我们能够感受到数据的复杂与否，然后再选择合适的模型来训练。</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-02%2014.50.41.png" alt="截屏2023-08-02 14.50.41">
+<img data-src="./d2l/截屏2023-08-02%2014.50.41.png" alt="截屏2023-08-02 14.50.41">
 <figcaption aria-hidden="true">截屏2023-08-02 14.50.41</figcaption>
 </figure>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-03%2009.27.21.png" alt="截屏2023-08-03 09.27.21">
+<img data-src="./d2l/截屏2023-08-03%2009.27.21.png" alt="截屏2023-08-03 09.27.21">
 <figcaption aria-hidden="true">截屏2023-08-03 09.27.21</figcaption>
 </figure>
 <p>最后是书中的经验，哪些因素会影响模型泛化：</p>
@@ -608,12 +620,12 @@ w&lt;-(1-n)w-_{}x<sup>{i}(w</sup>Tx<sup>{(i)}+b-y</sup>{(i)}) $$
 <li>忽略隐藏层中的某些神经元节点</li>
 </ul>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-07%2013.13.49.png" alt="截屏2023-08-07 13.13.49">
+<img data-src="./d2l/截屏2023-08-07%2013.13.49.png" alt="截屏2023-08-07 13.13.49">
 <figcaption aria-hidden="true">截屏2023-08-07 13.13.49</figcaption>
 </figure>
 <p>如上，毕晓普的方法就是给隐藏层加入噪声；而标准的dropout则是丢弃某些神经元的结点，如下：</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-07%2013.15.35.png" alt="截屏2023-08-07 13.15.35">
+<img data-src="./d2l/截屏2023-08-07%2013.15.35.png" alt="截屏2023-08-07 13.15.35">
 <figcaption aria-hidden="true">截屏2023-08-07 13.15.35</figcaption>
 </figure>
 <h2 id="前向传播反向传播计算图">前向传播、反向传播、计算图</h2>
@@ -630,7 +642,7 @@ s=\frac{\lambda}{2}(||W_1||^2+||W_2||^2) \\
 J=L+s
 \]</span> J是最后的目标函数</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-07%2015.04.26.png" alt="截屏2023-08-07 15.04.26">
+<img data-src="./d2l/截屏2023-08-07%2015.04.26.png" alt="截屏2023-08-07 15.04.26">
 <figcaption aria-hidden="true">截屏2023-08-07 15.04.26</figcaption>
 </figure>
 <h3 id="反向传播">反向传播</h3>
@@ -645,7 +657,7 @@ J=L+s
 </ul>
 <p>还有激活函数，如sigmoid函数，它符合神经学的认知，但是真正放在训练中：</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-07%2019.47.37.png" alt="截屏2023-08-07 19.47.37">
+<img data-src="./d2l/截屏2023-08-07%2019.47.37.png" alt="截屏2023-08-07 19.47.37">
 <figcaption aria-hidden="true">截屏2023-08-07 19.47.37</figcaption>
 </figure>
 <p>当输入过大的时候，sigmoid函数的导数基本为0了，整个的梯度就消失了。</p>
@@ -668,7 +680,7 @@ J=L+s
 <p>协变量指的就是特征。</p>
 <p>有点抽象，拿一个具体问题举例：</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-08%2015.53.23.png" alt="截屏2023-08-08 15.53.23">
+<img data-src="./d2l/截屏2023-08-08%2015.53.23.png" alt="截屏2023-08-08 15.53.23">
 <figcaption aria-hidden="true">截屏2023-08-08 15.53.23</figcaption>
 </figure>
 <p>训练集是真实的照片，而测试集是卡通照片，对于这种训练集没有这个feature，而测试集有这个feature，可以称为协变量偏移，如果没有办法来适应这个，那么显然，模型会失去应有的效果。</p>
@@ -690,7 +702,7 @@ J=L+s
 <h2 id="互相关运算">互相关运算</h2>
 <p>其实不应该叫卷积运算，学过DSP里面，卷积的的运算中前面写的是符号，而我们深度学习中，使用的卷积前面的W的索引是正着来的，而数学中的卷积应该是翻着来的，严格的来讲，DL里的卷积应该叫<strong>互相关运算</strong></p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-09%2010.25.42.png" alt="截屏2023-08-09 10.25.42">
+<img data-src="./d2l/截屏2023-08-09%2010.25.42.png" alt="截屏2023-08-09 10.25.42">
 <figcaption aria-hidden="true">截屏2023-08-09 10.25.42</figcaption>
 </figure>
 <p>假设输入是 <span class="math inline">\(n_h*n_w\)</span>，然后kernel是<span class="math inline">\(k_h*k_w\)</span>，那么输出就为： <span class="math display">\[
@@ -710,11 +722,11 @@ J=L+s
 <p>通常会将我们的填充设置为核函数的维度减一，比如我们是3*3的核函数，那么可以将我们的填充设置为2，这样的话，我们的输入和输出的维度就是一样的了。</p>
 <p>下面的例子中的核函数是大小是2*2的，所以就算填充是1，我们的输入输出维度并没有保持一致。</p>
 <p>通常情况我们的卷积核的大小会设置为奇数，好处是：保持空间维度的同时，我们可以在顶部和底部填充相同数量的行</p>
-<h3 id="截屏2023-08-09-20.54.35步幅"><img src="/2023/07/31/d2l/截屏2023-08-09%2020.54.35.png" alt="截屏2023-08-09 20.54.35">步幅</h3>
+<h3 id="截屏2023-08-09-20.54.35步幅"><img data-src="./d2l/截屏2023-08-09%2020.54.35.png" alt="截屏2023-08-09 20.54.35">步幅</h3>
 <p>步幅就是当我们在计算卷积的时候，for
 loop遍历的步长。一般我们的步幅是1，这样我们的输入和输出之间的关系就是一个线性的衰减了，但为了解决我们刚开始说的输入过大的这种情况，我们可以将步幅设置为2，这样我们的输出相对于输入就会减半，直接从一个线性衰减变成了指数衰减。</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-09%2021.00.15.png" alt="截屏2023-08-09 21.00.15">
+<img data-src="./d2l/截屏2023-08-09%2021.00.15.png" alt="截屏2023-08-09 21.00.15">
 <figcaption aria-hidden="true">截屏2023-08-09 21.00.15</figcaption>
 </figure>
 <h2 id="多输入输出通道">多输入输出通道</h2>
@@ -722,7 +734,7 @@ loop遍历的步长。一般我们的步幅是1，这样我们的输入和输出
 <h3 id="多输入通道">多输入通道</h3>
 <p>当我们的原始输入是一个RGB图像时，我们的输入就有3个通道，肯定不能用一个卷积核来处理这三个通道，因此，我们需要三个卷积核，做三次互相关运算，然后最终加在一起。</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-12%2019.49.13.png" alt="截屏2023-08-12 19.49.13">
+<img data-src="./d2l/截屏2023-08-12%2019.49.13.png" alt="截屏2023-08-12 19.49.13">
 <figcaption aria-hidden="true">截屏2023-08-12 19.49.13</figcaption>
 </figure>
 <p>上面第一个是第一个卷积层，输入是2通道，所以卷积核也是两个，最后的输出将两个通道的内容合并在了一起，因此输出只有一个通道。</p>
@@ -740,7 +752,7 @@ loop遍历的步长。一般我们的步幅是1，这样我们的输入和输出
 <p>现实中，通道数多的话，能够学习的模式也就多，所以我们希望输出的通道维数也尽可能不要减少，因为神经网络要做很多层可能，如何增加输出通道呢，也很简单：上面有两个卷积核，也就是两个通道，我们可以设置很多卷积核，比如设计100个卷积核，然后分层，每层2个卷积核，一共50层，整个的卷积核的维度就是：<span class="math inline">\(50\times 2\times
 2\times2\)</span>，前面这个50，代表的就是我们的输出通道数有50个。下面是某层有多个输出通道，卷积核<span class="math inline">\(2\times3\times1\times1\)</span></p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-12%2020.13.27.png" alt="截屏2023-08-12 20.13.27">
+<img data-src="./d2l/截屏2023-08-12%2020.13.27.png" alt="截屏2023-08-12 20.13.27">
 <figcaption aria-hidden="true">截屏2023-08-12 20.13.27</figcaption>
 </figure>
 <h3 id="times1卷积核"><span class="math inline">\(1\times1\)</span>卷积核</h3>
@@ -757,13 +769,13 @@ loop遍历的步长。一般我们的步幅是1，这样我们的输入和输出
 <p>另外，在最后一层中，我们希望能够直接识别出图像中有一只猫，而不是一些局部的纹理、毛色等信息。所以，需要对学到的模式进行汇聚。</p>
 <p>汇聚层有最大汇聚层（max）和平均 汇聚层，最大汇聚层如下；</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-14%2012.33.03.png" alt="截屏2023-08-14 12.33.03">
+<img data-src="./d2l/截屏2023-08-14%2012.33.03.png" alt="截屏2023-08-14 12.33.03">
 <figcaption aria-hidden="true">截屏2023-08-14 12.33.03</figcaption>
 </figure>
 <p>这里的汇聚层的大小是<span class="math inline">\(2\times2\)</span>的，可以理解成允许物体向右边偏移一个像素；若是换成<span class="math inline">\(3\times3\)</span>的话，可以理解成允许左右偏移一个像素。</p>
 <h2 id="lenet">LeNet</h2>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-14%2014.30.43.png" alt="截屏2023-08-14 14.30.43">
+<img data-src="./d2l/截屏2023-08-14%2014.30.43.png" alt="截屏2023-08-14 14.30.43">
 <figcaption aria-hidden="true">截屏2023-08-14 14.30.43</figcaption>
 </figure>
 <p>上面是完整的架构，下面是网络的定义：</p>
@@ -776,11 +788,11 @@ loop遍历的步长。一般我们的步幅是1，这样我们的输入和输出
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">loss 0.318, train acc 0.882, test acc 0.868</span><br><span class="line">27809.8 examples/sec on cuda:0</span><br></pre></td></tr></table></figure>
 <p>满意离开。</p>
 <h1 id="现代卷积神经网络">现代卷积神经网络</h1>
-<p><img src="/2023/07/31/d2l/截屏2023-08-15%2013.28.57.png"></p>
+<p><img data-src="./d2l/截屏2023-08-15%2013.28.57.png"></p>
 <p>上图横坐标是训练难度，纵坐标是精度。</p>
 <h2 id="alexnet">AlexNet</h2>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-14%2020.16.24.png" alt="截屏2023-08-14 20.16.24">
+<img data-src="./d2l/截屏2023-08-14%2020.16.24.png" alt="截屏2023-08-14 20.16.24">
 <figcaption aria-hidden="true">截屏2023-08-14 20.16.24</figcaption>
 </figure>
 <p>上图左为LeNet，右为AlexNet，，可以看到其实AlexNet大致上就是一个更大更肥的LeNet，有几个细节：</p>
@@ -796,7 +808,7 @@ loop遍历的步长。一般我们的步幅是1，这样我们的输入和输出
 <p>AlexNet在当时的提升是非常大的，但是卷积层设计的非常奇怪，没有提供通用的模版，给人一种感觉“我这样设置网络效果就很好”。</p>
 <p>于是出现了VGG。</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-15%2012.23.50.png" alt="截屏2023-08-15 12.23.50">
+<img data-src="./d2l/截屏2023-08-15%2012.23.50.png" alt="截屏2023-08-15 12.23.50">
 <figcaption aria-hidden="true">截屏2023-08-15 12.23.50</figcaption>
 </figure>
 <p>与AlexNet不同的是，VGG用的卷积核都是<span class="math inline">\(3\times3\)</span>的，而不是<span class="math inline">\(11\times11\)</span>的，更小的窗口，带来更深的网络。（从结果上来讲，这样的设计，最后模型的精度确实高很多）。</p>
@@ -809,23 +821,23 @@ loop遍历的步长。一般我们的步幅是1，这样我们的输入和输出
 <p>NiN块的出现在于使用<span class="math inline">\(1\times1\)</span>的卷积层来替换最后的全连接层的作用。</p>
 <p>全连接层相比于卷积层，有更多的参数个数，这带来的计算量开销和显存开销是非常大的。</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-15%2013.02.06.png" alt="截屏2023-08-15 13.02.06">
+<img data-src="./d2l/截屏2023-08-15%2013.02.06.png" alt="截屏2023-08-15 13.02.06">
 <figcaption aria-hidden="true">截屏2023-08-15 13.02.06</figcaption>
 </figure>
 <p>所以NiN的想法就是去掉全连接层：</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-15%2013.03.11.png" alt="截屏2023-08-15 13.03.11">
+<img data-src="./d2l/截屏2023-08-15%2013.03.11.png" alt="截屏2023-08-15 13.03.11">
 <figcaption aria-hidden="true">截屏2023-08-15 13.03.11</figcaption>
 </figure>
 <h2 id="googlenet">GoogLeNet</h2>
 <p>。。。用“忙里”砸出来的，暂时没什么好看的，其核心就是用下面的Inception块：</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-15%2017.15.54.png" alt="截屏2023-08-15 17.15.54">
+<img data-src="./d2l/截屏2023-08-15%2017.15.54.png" alt="截屏2023-08-15 17.15.54">
 <figcaption aria-hidden="true">截屏2023-08-15 17.15.54</figcaption>
 </figure>
 <p>整个网络的结构如下：</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-15%2017.16.19.png" alt="截屏2023-08-15 17.16.19">
+<img data-src="./d2l/截屏2023-08-15%2017.16.19.png" alt="截屏2023-08-15 17.16.19">
 <figcaption aria-hidden="true">截屏2023-08-15 17.16.19</figcaption>
 </figure>
 <p>后续有些改进也就是改进的Inception块，比如把<span class="math inline">\(5\times5\)</span>的卷积核改成<span class="math inline">\(3\times3\)</span>，然后把<span class="math inline">\(3\times3\)</span>换成2个<span class="math inline">\(1\times7\)</span>。总之就是条蚕调出来的，至于能不能用，为什么，没有很多的说法，复现也不是很容易。</p>
@@ -841,12 +853,12 @@ normalization并不一定是正确的，仅仅是现在很多人使用，原因�
 <h2 id="resnet">ResNet</h2>
 <p>整个神经网络其实就是在学习、找到一个合适的函数，或者说学习到一种模式，来解决问题。我们之前了解到的网络可能会出现下图中左边的那种情况：</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-15%2019.51.56.png" alt="截屏2023-08-15 19.51.56">
+<img data-src="./d2l/截屏2023-08-15%2019.51.56.png" alt="截屏2023-08-15 19.51.56">
 <figcaption aria-hidden="true">截屏2023-08-15 19.51.56</figcaption>
 </figure>
 <p>训练过程中离最优解越来越远了。但我们理想的效果反而是右图。残差块可以解决这个：</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-15%2019.56.14.png" alt="截屏2023-08-15 19.56.14">
+<img data-src="./d2l/截屏2023-08-15%2019.56.14.png" alt="截屏2023-08-15 19.56.14">
 <figcaption aria-hidden="true">截屏2023-08-15 19.56.14</figcaption>
 </figure>
 <p>可以看到相较于前面的网络，残差块加上了一个前向反馈，这样不管中间有没有学到东西，至少之前学到的x是能够保留的。</p>
@@ -856,19 +868,19 @@ normalization并不一定是正确的，仅仅是现在很多人使用，原因�
 <h2 id="线性回归-1">线性回归</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">true_w = torch.Tensor([<span class="number">2</span>, - <span class="number">3.4</span>])</span><br><span class="line">true_b = <span class="number">4.2</span></span><br><span class="line">X = torch.normal(<span class="number">0</span>, <span class="number">1</span>, (<span class="number">10000</span>, <span class="built_in">len</span>(true_w)))</span><br><span class="line">Y = torch.matmul(X, true_w) + true_b  <span class="comment"># x是一个矩阵，w是一个列向量，最后乘出来得到一个列向量</span></span><br><span class="line">Y += torch.normal(<span class="number">0</span>, <span class="number">0.01</span>, Y.shape)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">data_iter</span>(<span class="params">batch_size, features, labels</span>):</span><br><span class="line">    num = <span class="built_in">len</span>(features)</span><br><span class="line">    indexes = <span class="built_in">list</span>(<span class="built_in">range</span>(num))</span><br><span class="line">    random.shuffle(indexes)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, num, batch_size):</span><br><span class="line">        batch_indexes = torch.tensor(indexes[i: <span class="built_in">min</span>((i + batch_size, num))])</span><br><span class="line">        <span class="keyword">yield</span> features[batch_indexes], labels[batch_indexes]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">pred_w = torch.normal(<span class="number">0</span>, <span class="number">0.01</span>, size=true_w.shape, requires_grad=<span class="literal">True</span>)</span><br><span class="line">pred_b = torch.zeros(<span class="number">1</span>, requires_grad=<span class="literal">True</span>)</span><br><span class="line">lr = <span class="number">1e-2</span></span><br><span class="line">epoch = <span class="number">5</span></span><br><span class="line">batch = <span class="number">30</span></span><br><span class="line">losses = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(epoch):</span><br><span class="line">    <span class="keyword">for</span> x, y <span class="keyword">in</span> data_iter(batch_size=batch, features=X, labels=Y):</span><br><span class="line">        l = <span class="number">0.5</span> * (torch.matmul(x, pred_w) + pred_b - y) ** <span class="number">2</span></span><br><span class="line">        l.<span class="built_in">sum</span>().backward()</span><br><span class="line">        <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">            <span class="keyword">for</span> param <span class="keyword">in</span> [pred_w, pred_b]:</span><br><span class="line">                param -= lr * param.grad / batch</span><br><span class="line">                param.grad.zero_()</span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():  <span class="comment"># 每一个epoch结束后，测试所有数据的loss</span></span><br><span class="line">        train_l = <span class="number">0.5</span> * (torch.matmul(X, pred_w) + pred_b - Y) ** <span class="number">2</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;epoch <span class="subst">&#123;i + <span class="number">1</span>&#125;</span>, loss <span class="subst">&#123;<span class="built_in">float</span>(train_l.mean()):f&#125;</span>&#x27;</span>)</span><br><span class="line">        losses.append(<span class="built_in">float</span>(train_l.mean()))</span><br><span class="line"></span><br><span class="line">plt.plot(<span class="built_in">range</span>(<span class="number">1</span>, epoch + <span class="number">1</span>), losses)</span><br><span class="line">plt.xlabel(<span class="string">&quot;epoch&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;loss&quot;</span>)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-17%2013.23.07.png" alt="截屏2023-08-17 13.23.07">
+<img data-src="./d2l/截屏2023-08-17%2013.23.07.png" alt="截屏2023-08-17 13.23.07">
 <figcaption aria-hidden="true">截屏2023-08-17 13.23.07</figcaption>
 </figure>
 <h2 id="softmax线性回归">softmax线性回归</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torchvision.datasets</span><br><span class="line"><span class="keyword">from</span> torch.utils <span class="keyword">import</span> data</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms</span><br><span class="line"><span class="keyword">import</span> d2l.torch <span class="keyword">as</span> d2l</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">batch_size = <span class="number">256</span></span><br><span class="line">num_workers = <span class="number">0</span></span><br><span class="line">trans = transforms.ToTensor()  <span class="comment"># 以tensor的形式存下来</span></span><br><span class="line">dev = torch.device(<span class="string">&quot;mps&quot;</span>)</span><br><span class="line">minist_train = torchvision.datasets.FashionMNIST(</span><br><span class="line">    root=<span class="string">&quot;./data&quot;</span>,</span><br><span class="line">    train=<span class="literal">True</span>,</span><br><span class="line">    transform=trans,  <span class="comment"># 将下下来的图片以tensor的形式读进内存</span></span><br><span class="line">    download=<span class="literal">True</span></span><br><span class="line">)</span><br><span class="line">minist_test = torchvision.datasets.FashionMNIST(</span><br><span class="line">    root=<span class="string">&quot;./data&quot;</span>,</span><br><span class="line">    train=<span class="literal">False</span>,</span><br><span class="line">    transform=trans,</span><br><span class="line">    download=<span class="literal">True</span>,</span><br><span class="line">)</span><br><span class="line">train_iter = data.DataLoader(minist_train, batch_size, num_workers=num_workers, shuffle=<span class="literal">True</span>)</span><br><span class="line">test_iter = data.DataLoader(minist_test, batch_size)</span><br><span class="line"></span><br><span class="line">num_inputs = <span class="number">1</span> * <span class="number">28</span> * <span class="number">28</span></span><br><span class="line">num_outputs = <span class="number">10</span></span><br><span class="line">w = torch.normal(<span class="number">0</span>, <span class="number">0.01</span>, size=(num_inputs, num_outputs), requires_grad=<span class="literal">True</span>, device=dev)</span><br><span class="line">b = torch.zeros(size=(num_outputs,), requires_grad=<span class="literal">True</span>, device=dev)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">softmax</span>(<span class="params">X</span>):</span><br><span class="line">    X_exp = torch.exp(X)</span><br><span class="line">    fen_mu = X_exp.<span class="built_in">sum</span>(dim=<span class="number">1</span>, keepdim=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">return</span> X_exp / fen_mu</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">net</span>(<span class="params">X</span>):</span><br><span class="line">    <span class="keyword">return</span> softmax(torch.matmul(X.reshape(-<span class="number">1</span>, w.shape[<span class="number">0</span>]), w) + b)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cross_entropy</span>(<span class="params">y_hat, y</span>):</span><br><span class="line">    <span class="keyword">return</span> -torch.log(y_hat[<span class="built_in">range</span>(<span class="built_in">len</span>(y_hat)), y])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">accuracy</span>(<span class="params">y_hat, y</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(y_hat.shape) &gt; <span class="number">0</span> <span class="keyword">and</span> y_hat.shape[<span class="number">1</span>] &gt; <span class="number">1</span>:</span><br><span class="line">        y_hat = y_hat.argmax(axis=<span class="number">1</span>)  <span class="comment"># 取每行的最大值作为预测概率</span></span><br><span class="line">    cmp = y_hat.<span class="built_in">type</span>(y.dtype) == y  <span class="comment"># 将y_hat转成y同样的数据类型，然后比较得到bool类型，分类问题都可以这样做</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">float</span>(cmp.<span class="built_in">type</span>(y.dtype).<span class="built_in">sum</span>())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">evaluate_accuracy</span>(<span class="params">net, data_iter</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(net, nn.Module):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        如果模型是继承自torch.nn.Module的话，那么会自动求梯度，设置成评估模式的意思就是不要求梯度了</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        net.<span class="built_in">eval</span>()</span><br><span class="line">    <span class="string">&quot;&quot;&quot;设置累加器，需要累加的有：正确预测数，预测总数&quot;&quot;&quot;</span></span><br><span class="line">    metric = d2l.Accumulator(<span class="number">2</span>)</span><br><span class="line">    <span class="keyword">for</span> x, y <span class="keyword">in</span> data_iter:</span><br><span class="line">        x, y = x.to(dev), y.to(dev)</span><br><span class="line">        metric.add(accuracy(net(x), y), y.numel())</span><br><span class="line">    <span class="keyword">return</span> metric[<span class="number">0</span>] / metric[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">train_epoch</span>(<span class="params">net, data_iter, loss, updater, lr, params</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(net, nn.Module):</span><br><span class="line">        net.train()  <span class="comment"># 累计梯度</span></span><br><span class="line">    metric = d2l.Accumulator(<span class="number">3</span>)</span><br><span class="line">    <span class="keyword">for</span> x, y <span class="keyword">in</span> data_iter:</span><br><span class="line">        x, y = x.to(dev), y.to(dev)</span><br><span class="line">        y_hat = net(x)</span><br><span class="line">        l = loss(y_hat, y)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">isinstance</span>(updater, torch.optim.Optimizer):</span><br><span class="line">            <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">            如果采用的是torch的Optimizer，那么下面这样处理</span></span><br><span class="line"><span class="string">            1. 梯度清零</span></span><br><span class="line"><span class="string">            2. 反向传播</span></span><br><span class="line"><span class="string">            3. 自动更新参数</span></span><br><span class="line"><span class="string">            &quot;&quot;&quot;</span></span><br><span class="line">            updater.zero_grad()</span><br><span class="line">            l.backward()</span><br><span class="line">            updater.step()</span><br><span class="line">            metric.add(</span><br><span class="line">                <span class="built_in">float</span>(l) * <span class="built_in">len</span>(y),</span><br><span class="line">                accuracy(y_hat, y),</span><br><span class="line">                y.size().numel(),</span><br><span class="line">            )</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="string">&quot;&quot;&quot;如果自己手写，那么l出来就是一个向量&quot;&quot;&quot;</span></span><br><span class="line">            l.<span class="built_in">sum</span>().backward()</span><br><span class="line">            updater(lr, x.shape[<span class="number">0</span>], *params)</span><br><span class="line">            metric.add(</span><br><span class="line">                <span class="built_in">float</span>(l.<span class="built_in">sum</span>()),</span><br><span class="line">                accuracy(y_hat, y),</span><br><span class="line">                y.numel()</span><br><span class="line">            )</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :returns loss/n, acc/ n</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> metric[<span class="number">0</span>] / metric[<span class="number">2</span>], metric[<span class="number">1</span>] / metric[<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">train</span>(<span class="params">net, train_iter, test_iter, loss, num_epoch, updater, lr, params</span>):</span><br><span class="line">    train_acc_list, train_loss_list, test_acc_list = [], [], []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(num_epoch):</span><br><span class="line">        train_metrics = train_epoch(</span><br><span class="line">            net=net,</span><br><span class="line">            data_iter=train_iter,</span><br><span class="line">            loss=loss, updater=updater,</span><br><span class="line">            lr=lr,</span><br><span class="line">            params=params</span><br><span class="line">        )</span><br><span class="line">        test_acc = evaluate_accuracy(net, test_iter)</span><br><span class="line">        train_acc_list.append(train_metrics[<span class="number">1</span>])</span><br><span class="line">        train_loss_list.append(train_metrics[<span class="number">0</span>])</span><br><span class="line">        test_acc_list.append(test_acc)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;epoch: <span class="subst">&#123;i + <span class="number">1</span>&#125;</span>, rain loss: <span class="subst">&#123;train_metrics[<span class="number">0</span>]:<span class="number">.2</span>f&#125;</span>, train acc: <span class="subst">&#123;train_metrics[<span class="number">1</span>]:<span class="number">.2</span>f&#125;</span>, test acc: <span class="subst">&#123;test_acc:<span class="number">.2</span>f&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> train_acc_list, train_loss_list, test_acc_list</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">updater</span>(<span class="params">lr, batch, *params</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;在我们手动实现的优化器里面，已经将梯度每次清零了&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        <span class="keyword">for</span> param <span class="keyword">in</span> params:</span><br><span class="line">            param -= lr * param.grad / batch</span><br><span class="line">            param.grad.zero_()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">epoch = <span class="number">100</span></span><br><span class="line">lr = <span class="number">1e-1</span></span><br><span class="line">train_acc_list, train_loss_list, test_acc_list = train(</span><br><span class="line">    net=net,</span><br><span class="line">    lr=lr,</span><br><span class="line">    num_epoch=epoch,</span><br><span class="line">    params=(w, b),</span><br><span class="line">    train_iter=train_iter,</span><br><span class="line">    test_iter=test_iter,</span><br><span class="line">    loss=cross_entropy,</span><br><span class="line">    updater=updater</span><br><span class="line">)</span><br><span class="line">plt.plot(<span class="built_in">range</span>(epoch), train_acc_list, label=<span class="string">&quot;train acc&quot;</span>, color=<span class="string">&quot;red&quot;</span>)</span><br><span class="line">plt.plot(<span class="built_in">range</span>(epoch), train_loss_list, label=<span class="string">&quot;train loss&quot;</span>, color=<span class="string">&quot;green&quot;</span>)</span><br><span class="line">plt.plot(<span class="built_in">range</span>(epoch), test_acc_list, label=<span class="string">&quot;test acc&quot;</span>, color=<span class="string">&quot;blue&quot;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&quot;epoch&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;train/evaluate&quot;</span>)</span><br><span class="line">plt.ylim(<span class="number">0</span>, <span class="number">3</span>)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-18%2009.15.49.png" alt="截屏2023-08-18 09.15.49">
+<img data-src="./d2l/截屏2023-08-18%2009.15.49.png" alt="截屏2023-08-18 09.15.49">
 <figcaption aria-hidden="true">截屏2023-08-18 09.15.49</figcaption>
 </figure>
 <h2 id="mlp">MLP</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch.utils.data</span><br><span class="line"><span class="keyword">import</span> torchvision.datasets</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> d2l.torch <span class="keyword">as</span> d2l</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">batch_size = <span class="number">256</span></span><br><span class="line">minist_train = torchvision.datasets.FashionMNIST(</span><br><span class="line">    download=<span class="literal">False</span>,</span><br><span class="line">    transform=torchvision.transforms.ToTensor(),</span><br><span class="line">    train=<span class="literal">True</span>,</span><br><span class="line">    root=<span class="string">&quot;./data&quot;</span></span><br><span class="line">)</span><br><span class="line">minist_test = torchvision.datasets.FashionMNIST(</span><br><span class="line">    download=<span class="literal">False</span>,</span><br><span class="line">    transform=torchvision.transforms.ToTensor(),</span><br><span class="line">    train=<span class="literal">False</span>,</span><br><span class="line">    root=<span class="string">&quot;./data&quot;</span></span><br><span class="line">)</span><br><span class="line">dev = torch.device(<span class="string">&quot;mps&quot;</span>)</span><br><span class="line">train_iter = torch.utils.data.DataLoader(minist_train, batch_size, shuffle=<span class="literal">True</span>)</span><br><span class="line">test_iter = torch.utils.data.DataLoader(minist_test, batch_size)</span><br><span class="line"></span><br><span class="line">num_input, num_hiddens, num_output = <span class="number">1</span> * <span class="number">28</span> * <span class="number">28</span>, <span class="number">256</span>, <span class="number">10</span></span><br><span class="line">w1 = nn.Parameter(torch.normal(<span class="number">0</span>, <span class="number">0.01</span>, (num_input, num_hiddens), device=dev, requires_grad=<span class="literal">True</span>))</span><br><span class="line">b1 = nn.Parameter(torch.zeros(num_hiddens, requires_grad=<span class="literal">True</span>, device=dev))</span><br><span class="line">w2 = nn.Parameter(torch.normal(<span class="number">0</span>, <span class="number">0.01</span>, (num_hiddens, num_output), device=dev, requires_grad=<span class="literal">True</span>))</span><br><span class="line">b2 = nn.Parameter(torch.zeros(num_output, requires_grad=<span class="literal">True</span>, device=dev))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ReLU</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> torch.<span class="built_in">max</span>(x, torch.zeros(x.shape, device=dev))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">net</span>(<span class="params">x</span>):</span><br><span class="line">    x = x.reshape(-<span class="number">1</span>, num_input)</span><br><span class="line">    h = ReLU(x @ w1 + b1)</span><br><span class="line">    o = h @ w2 + b2</span><br><span class="line">    <span class="keyword">return</span> o</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">loss = nn.CrossEntropyLoss(reduction=<span class="string">&quot;none&quot;</span>)</span><br><span class="line">num_epoch, lr = <span class="number">20</span>, <span class="number">1e-2</span></span><br><span class="line">updater = torch.optim.SGD(params=(w1, b1, w2, b2), lr=lr)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">acc</span>(<span class="params">y_hat, y</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(y_hat.shape) &gt; <span class="number">1</span> <span class="keyword">and</span> y_hat.shape[<span class="number">1</span>] &gt; <span class="number">1</span>:</span><br><span class="line">        y_hat = y_hat.argmax(axis=<span class="number">1</span>)</span><br><span class="line">    tmp = y_hat.<span class="built_in">type</span>(y.dtype) == y</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">float</span>(tmp.<span class="built_in">type</span>(y.dtype).<span class="built_in">sum</span>())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">train_epoch</span>(<span class="params">net, data_iter, loss, updater</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(net, torch.nn.Module):</span><br><span class="line">        net.train()</span><br><span class="line">    accumulator = d2l.Accumulator(<span class="number">3</span>)</span><br><span class="line">    <span class="keyword">for</span> x, y <span class="keyword">in</span> data_iter:</span><br><span class="line">        x, y = x.to(dev), y.to(dev)</span><br><span class="line">        y_hat = net(x)</span><br><span class="line">        l = loss(y_hat, y)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">isinstance</span>(updater, torch.optim.Optimizer):</span><br><span class="line">            updater.zero_grad()</span><br><span class="line">            l.mean().backward()</span><br><span class="line">            updater.step()</span><br><span class="line">            accumulator.add(</span><br><span class="line">                <span class="built_in">float</span>(l.<span class="built_in">sum</span>()),</span><br><span class="line">                acc(y_hat, y),</span><br><span class="line">                y.size().numel()</span><br><span class="line">            )</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;hahaha&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> accumulator[<span class="number">0</span>] / accumulator[<span class="number">2</span>], accumulator[<span class="number">1</span>] / accumulator[<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">train_loss_list, train_acc_list, test_acc_list, test_loss_list = [], [], [], []</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">train</span>(<span class="params">net, train_iter, test_iter, loss, num_epoch, updater</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(num_epoch):</span><br><span class="line">        train_loss, train_acc = train_epoch(net, train_iter, loss, updater)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">isinstance</span>(net, nn.Module):</span><br><span class="line">            net.<span class="built_in">eval</span>()</span><br><span class="line">        ctr = d2l.Accumulator(<span class="number">3</span>)</span><br><span class="line">        <span class="keyword">for</span> x, y <span class="keyword">in</span> test_iter:</span><br><span class="line">            x, y = x.to(dev), y.to(dev)</span><br><span class="line">            y_hat = net(x)</span><br><span class="line">            ctr.add(</span><br><span class="line">                <span class="built_in">float</span>(loss(y_hat, y).<span class="built_in">sum</span>()),</span><br><span class="line">                acc(y_hat, y),</span><br><span class="line">                y.numel()</span><br><span class="line">            )</span><br><span class="line"></span><br><span class="line">        test_acc = ctr[<span class="number">1</span>] / ctr[<span class="number">2</span>]</span><br><span class="line">        test_loss = ctr[<span class="number">0</span>] / ctr[<span class="number">2</span>]</span><br><span class="line">        train_loss_list.append(train_loss)</span><br><span class="line">        train_acc_list.append(train_acc)</span><br><span class="line">        test_acc_list.append(test_acc)</span><br><span class="line">        test_loss_list.append(test_loss)</span><br><span class="line">        <span class="built_in">print</span>(</span><br><span class="line">            <span class="string">f&quot;epoch: <span class="subst">&#123;i + <span class="number">1</span>&#125;</span>, test acc: <span class="subst">&#123;test_acc:<span class="number">.2</span>f&#125;</span>, test loss: <span class="subst">&#123;test_loss:<span class="number">.2</span>f&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">train(net, train_iter, test_iter, loss, num_epoch, updater)</span><br><span class="line"><span class="comment"># plt.plot(range(num_epoch), train_acc_list, label=&quot;train acc&quot;, color=&quot;red&quot;)</span></span><br><span class="line">plt.plot(<span class="built_in">range</span>(num_epoch), train_loss_list, label=<span class="string">&quot;train loss&quot;</span>, color=<span class="string">&quot;green&quot;</span>)</span><br><span class="line"><span class="comment"># plt.plot(range(num_epoch), test_acc_list, label=&quot;test acc&quot;, color=&quot;blue&quot;)</span></span><br><span class="line">plt.plot(<span class="built_in">range</span>(num_epoch), test_loss_list, label=<span class="string">&quot;test loss&quot;</span>, color=<span class="string">&quot;pink&quot;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&quot;epoch&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;train/evaluate&quot;</span>)</span><br><span class="line">plt.ylim(<span class="number">0</span>, <span class="number">3</span>)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-18%2010.46.47.png" alt="截屏2023-08-18 10.46.47">
+<img data-src="./d2l/截屏2023-08-18%2010.46.47.png" alt="截屏2023-08-18 10.46.47">
 <figcaption aria-hidden="true">截屏2023-08-18 10.46.47</figcaption>
 </figure>
 <p>跑了20轮，看曲线的走势，test loss快要上升了，可能快过拟合了。</p>
@@ -876,7 +888,7 @@ normalization并不一定是正确的，仅仅是现在很多人使用，原因�
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">timer = d2l.Timer()</span><br><span class="line">train(net, train_iter, test_iter, loss, num_epoch, updater)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;time: <span class="subst">&#123;timer.stop():<span class="number">.2</span>f&#125;</span> sec&quot;</span>)</span><br><span class="line"></span><br><span class="line">m1pro: time: <span class="number">47.91</span> sec</span><br><span class="line">mx150: 模型太大了，直接爆显存。。。</span><br></pre></td></tr></table></figure>
 <p>跑了100轮，看会不会overfitting：</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-18%2011.18.28.png" alt="截屏2023-08-18 11.18.28">
+<img data-src="./d2l/截屏2023-08-18%2011.18.28.png" alt="截屏2023-08-18 11.18.28">
 <figcaption aria-hidden="true">截屏2023-08-18 11.18.28</figcaption>
 </figure>
 <p>貌似也并没有，只是越到后面，梯度越小了，近乎消失了。看样子训练20轮是比较好的了就，从20到100，test
@@ -884,29 +896,29 @@ acc上升了3个点。</p>
 <h2 id="lenet-1">LeNet</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> d2l.torch <span class="keyword">as</span> d2l</span><br><span class="line"><span class="keyword">import</span> torchvision.datasets</span><br><span class="line"><span class="keyword">import</span> torch.utils.data <span class="keyword">as</span> data</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">device = torch.device(<span class="string">&quot;mps&quot;</span>)</span><br><span class="line">batch = <span class="number">512</span></span><br><span class="line">minist_train = torchvision.datasets.FashionMNIST(root=<span class="string">&quot;./data&quot;</span>, train=<span class="literal">True</span>, transform=torchvision.transforms.ToTensor(),</span><br><span class="line">                                                 download=<span class="literal">False</span>)</span><br><span class="line">minist_test = torchvision.datasets.FashionMNIST(root=<span class="string">&quot;./data&quot;</span>, train=<span class="literal">False</span>, transform=torchvision.transforms.ToTensor(),</span><br><span class="line">                                                download=<span class="literal">False</span>)</span><br><span class="line">train_iter = data.DataLoader(minist_train, batch_size=batch, shuffle=<span class="literal">True</span>)</span><br><span class="line">test_iter = data.DataLoader(minist_test, batch_size=batch)</span><br><span class="line">net = nn.Sequential(</span><br><span class="line">    nn.Conv2d(<span class="number">1</span>, <span class="number">6</span>, kernel_size=<span class="number">5</span>, padding=<span class="number">2</span>), nn.ReLU(),</span><br><span class="line">    nn.AvgPool2d(kernel_size=<span class="number">2</span>, stride=<span class="number">2</span>),</span><br><span class="line">    nn.Conv2d(<span class="number">6</span>, <span class="number">16</span>, kernel_size=<span class="number">5</span>), nn.ReLU(),</span><br><span class="line">    nn.AvgPool2d(kernel_size=<span class="number">2</span>, stride=<span class="number">2</span>),</span><br><span class="line">    nn.Flatten(),</span><br><span class="line">    nn.Linear(<span class="number">16</span> * <span class="number">5</span> * <span class="number">5</span>, <span class="number">120</span>), nn.ReLU(),</span><br><span class="line">    nn.Linear(<span class="number">120</span>, <span class="number">84</span>), nn.ReLU(),</span><br><span class="line">    nn.Linear(<span class="number">84</span>, <span class="number">10</span>)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">acc</span>(<span class="params">y_hat, y</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(y_hat.shape) &gt; <span class="number">1</span> <span class="keyword">and</span> y_hat.shape[<span class="number">1</span>] &gt; <span class="number">1</span>:</span><br><span class="line">        y_hat = y_hat.argmax(axis=<span class="number">1</span>)</span><br><span class="line">    tmp = y_hat.<span class="built_in">type</span>(y.dtype) == y</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">float</span>(tmp.<span class="built_in">type</span>(y.dtype).<span class="built_in">sum</span>())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">train_loss_list, test_loss_list = [], []</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">train</span>(<span class="params">net, train_iter, test_iter, epoch, lr, device</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">init_weights</span>(<span class="params">m</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">type</span>(m) == nn.Linear <span class="keyword">or</span> <span class="built_in">type</span>(m) == nn.Conv2d:</span><br><span class="line">            nn.init.xavier_uniform_(m.weight)</span><br><span class="line"></span><br><span class="line">    net.apply(init_weights)</span><br><span class="line">    net.to(device)</span><br><span class="line">    updater = torch.optim.SGD(net.parameters(), lr=lr)</span><br><span class="line">    loss = nn.CrossEntropyLoss()</span><br><span class="line">    accumulator_train = d2l.Accumulator(<span class="number">3</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(epoch):</span><br><span class="line">        net.train()</span><br><span class="line">        <span class="keyword">for</span> x, y <span class="keyword">in</span> train_iter:</span><br><span class="line">            updater.zero_grad()</span><br><span class="line">            x, y = x.to(device), y.to(device)</span><br><span class="line">            y_hat = net(x)</span><br><span class="line">            l = loss(y_hat, y)</span><br><span class="line">            l.backward()</span><br><span class="line">            updater.step()</span><br><span class="line">            <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">                accumulator_train.add(</span><br><span class="line">                    l * x.shape[<span class="number">0</span>],</span><br><span class="line">                    acc(y_hat, y),</span><br><span class="line">                    x.shape[<span class="number">0</span>]</span><br><span class="line">                )</span><br><span class="line">        train_acc = accumulator_train[<span class="number">1</span>] / accumulator_train[<span class="number">2</span>]</span><br><span class="line">        train_loss = accumulator_train[<span class="number">0</span>] / accumulator_train[<span class="number">2</span>]</span><br><span class="line">        net.<span class="built_in">eval</span>()</span><br><span class="line">        accumulator_test = d2l.Accumulator(<span class="number">3</span>)</span><br><span class="line">        <span class="keyword">for</span> x, y <span class="keyword">in</span> test_iter:</span><br><span class="line">            x, y = x.to(device), y.to(device)</span><br><span class="line">            y_hat = net(x)</span><br><span class="line">            l = loss(y_hat, y)</span><br><span class="line">            accumulator_test.add(</span><br><span class="line">                l * x.shape[<span class="number">0</span>],</span><br><span class="line">                acc(y_hat, y),</span><br><span class="line">                x.shape[<span class="number">0</span>]</span><br><span class="line">            )</span><br><span class="line">        test_acc = accumulator_test[<span class="number">1</span>] / accumulator_test[<span class="number">2</span>]</span><br><span class="line">        test_loss = accumulator_test[<span class="number">0</span>] / accumulator_test[<span class="number">2</span>]</span><br><span class="line">        test_loss_list.append(test_loss)</span><br><span class="line">        train_loss_list.append(train_loss)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;epoch: <span class="subst">&#123;i + <span class="number">1</span>&#125;</span>, test_acc: <span class="subst">&#123;test_acc:<span class="number">.2</span>f&#125;</span>, test_loss: <span class="subst">&#123;test_loss:<span class="number">.2</span>f&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">lr, epoch = <span class="number">1e-2</span>, <span class="number">20</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    train(net, train_iter, test_iter, epoch, lr, device)</span><br><span class="line">    <span class="comment"># plt.plot(range(num_epoch), train_acc_list, label=&quot;train acc&quot;, color=&quot;red&quot;)</span></span><br><span class="line">    plt.plot(<span class="built_in">range</span>(epoch), train_loss_list, label=<span class="string">&quot;train loss&quot;</span>, color=<span class="string">&quot;green&quot;</span>)</span><br><span class="line">    <span class="comment"># plt.plot(range(num_epoch), test_acc_list, label=&quot;test acc&quot;, color=&quot;blue&quot;)</span></span><br><span class="line">    plt.plot(<span class="built_in">range</span>(epoch), test_loss_list, label=<span class="string">&quot;test loss&quot;</span>, color=<span class="string">&quot;pink&quot;</span>)</span><br><span class="line">    plt.xlabel(<span class="string">&quot;epoch&quot;</span>)</span><br><span class="line">    plt.ylabel(<span class="string">&quot;train/evaluate&quot;</span>)</span><br><span class="line">    plt.ylim(<span class="number">0</span>, <span class="number">3</span>)</span><br><span class="line">    plt.legend()</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-18%2013.14.40.png" alt="截屏2023-08-18 13.14.40">
+<img data-src="./d2l/截屏2023-08-18%2013.14.40.png" alt="截屏2023-08-18 13.14.40">
 <figcaption aria-hidden="true">截屏2023-08-18 13.14.40</figcaption>
 </figure>
 <p>貌似有点过拟合了，试着加上L2权重衰减：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">updater = torch.optim.SGD(net.parameters(), lr=lr, weight_decay=wd)</span><br><span class="line">...</span><br><span class="line"><span class="keyword">for</span> p <span class="keyword">in</span> net.parameters():</span><br><span class="line">    l += wd * <span class="number">0.5</span> * p.<span class="built_in">pow</span>(<span class="number">2.0</span>).<span class="built_in">sum</span>()</span><br></pre></td></tr></table></figure>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-18%2013.27.50.png" alt="截屏2023-08-18 13.27.50">
+<img data-src="./d2l/截屏2023-08-18%2013.27.50.png" alt="截屏2023-08-18 13.27.50">
 <figcaption aria-hidden="true">截屏2023-08-18 13.27.50</figcaption>
 </figure>
 <p>还是很抖动，降低学习率、增大batch试试。</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-18%2013.32.46.png" alt="截屏2023-08-18 13.32.46">
+<img data-src="./d2l/截屏2023-08-18%2013.32.46.png" alt="截屏2023-08-18 13.32.46">
 <figcaption aria-hidden="true">截屏2023-08-18 13.32.46</figcaption>
 </figure>
 <p>曲线确实平滑了点。</p>
 <p>然后lr调到4e-3</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-18%2013.39.03.png" alt="截屏2023-08-18 13.39.03">
+<img data-src="./d2l/截屏2023-08-18%2013.39.03.png" alt="截屏2023-08-18 13.39.03">
 <figcaption aria-hidden="true">截屏2023-08-18 13.39.03</figcaption>
 </figure>
 <p>学习率1e-3</p>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-18%2013.45.47.png" alt="截屏2023-08-18 13.45.47">
+<img data-src="./d2l/截屏2023-08-18%2013.45.47.png" alt="截屏2023-08-18 13.45.47">
 <figcaption aria-hidden="true">截屏2023-08-18 13.45.47</figcaption>
 </figure>
 <h2 id="alexnet-1">AlexNet</h2>
@@ -935,385 +947,102 @@ acc上升了3个点。</p>
 <li>隐变量自回归模型：隐变量模型是在当前引入了一个隐变量，当前的输入和隐变量h以及前一时刻的x有关，可以用下图表示</li>
 </ul>
 <figure>
-<img src="/2023/07/31/d2l/截屏2023-08-16%2013.35.41.png" alt="截屏2023-08-16 13.35.41">
+<img data-src="./d2l/截屏2023-08-16%2013.35.41.png" alt="截屏2023-08-16 13.35.41">
 <figcaption aria-hidden="true">截屏2023-08-16 13.35.41</figcaption>
 </figure>
 <p>马尔可夫模型就是根据前<span class="math inline">\(\tau\)</span>个数据进行估计。如果<span class="math inline">\(\tau=1\)</span>我们就得到一个一阶的马尔可夫模型。</p>
 <h2 id="语言模型">语言模型</h2>
 
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/07/31/d2l/" data-id="clw93vean003xnn9fblargjjz" data-title="d2l" class="article-share-link">Share</a>
-      
-      
-      
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cnn/" rel="tag">cnn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rnn/" rel="tag">rnn</a></li></ul>
 
+    
+    
+    
 
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/cnn/" rel="tag"><i class="fa fa-tag"></i> cnn</a>
+              <a href="/tags/rnn/" rel="tag"><i class="fa fa-tag"></i> rnn</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/09/02/EasyRL/" rel="next" title="EasyRL">
+                  EasyRL <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
     </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2019 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">chengyiqiu</span>
   </div>
-  
-    
-  <nav id="article-nav" class="wow fadeInUp">
-    
-      <div class="article-nav-link-wrap article-nav-link-left">
-        
-          
-          
-            <img data-src="/covers/IMG_2585.JPG" data-sizes="auto" alt="EasyRL" class="lazyload">
-          
-        
-        <a href="/2023/09/02/EasyRL/"></a>
-        <div class="article-nav-caption">Newer</div>
-        <h3 class="article-nav-title">
-          
-            EasyRL
-          
-        </h3>
-      </div>
-    
-    
-  </nav>
-
-
-  
-</article>
-
-
-
-
-
-
-</section>
-          
-            <aside id="sidebar">
-  <div class="sidebar-wrap wow fadeInRight wrap-sticky">
-    
-      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
-  <h3 class="toc-title">Contents</h3>
-  <div class="sidebar-toc-wrapper toc-div-class" >
-      
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8qa"><span class="toc-number">1.</span> <span class="toc-text">经典QA</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%981.%E6%80%8E%E4%B9%88%E6%A0%B9%E6%8D%AE%E8%BE%93%E5%85%A5%E7%A9%BA%E9%97%B4%E9%80%89%E6%8B%A9%E6%9C%80%E4%BC%98%E7%9A%84%E6%B7%B1%E5%BA%A6%E6%88%96%E8%80%85%E5%AE%BD%E5%BA%A6"><span class="toc-number">1.1.</span> <span class="toc-text">问题1.怎么根据输入空间，选择最优的深度或者宽度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%982.k%E6%8A%98%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81%E7%9A%84%E7%9B%AE%E7%9A%84%E6%98%AF%E7%A1%AE%E5%AE%9A%E8%B6%85%E5%8F%82%E6%95%B0%E5%90%97%E7%84%B6%E5%90%8E%E8%BF%98%E8%A6%81%E7%94%A8%E8%BF%99%E4%B8%AA%E8%B6%85%E5%8F%82%E6%95%B0%E5%86%8D%E8%AE%AD%E7%BB%83%E4%B8%80%E9%81%8D%E5%85%A8%E6%95%B0%E6%95%B0%E6%8D%AE%E5%90%97"><span class="toc-number">1.2.</span> <span class="toc-text">问题2.k折交叉验证的目的是确定超参数吗？然后还要用这个超参数再训练一遍全数数据吗？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%983.%E8%80%81%E5%B8%88%E8%AF%B4%E7%9A%84%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%98%AF%E4%B8%80%E7%A7%8D%E8%AF%AD%E8%A8%80%E6%84%8F%E6%80%9D%E6%98%AF%E5%88%A9%E7%94%A8%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%8E%BB%E5%AF%B9%E4%B8%87%E4%BA%8B%E4%B8%87%E7%89%A9%E5%BB%BA%E6%A8%A1%E5%90%A7%E5%B0%B1%E6%98%AF%E6%8C%87%E7%9A%84%E5%AE%83%E7%90%86%E8%AE%BA%E4%B8%8A%E8%83%BD%E6%8B%9F%E5%90%88%E6%89%80%E6%9C%89%E5%87%BD%E6%95%B0"><span class="toc-number">1.3.</span> <span class="toc-text">问题3.老师说的神经网络是一种语言，意思是利用神经网络去对万事万物建模吧？就是指的它理论上能拟合所有函数？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%984.%E5%A6%82%E6%9E%9C%E8%AE%AD%E7%BB%83%E6%98%AF%E4%B8%8D%E5%B9%B3%E8%A1%A1%E7%9A%84%E6%98%AF%E5%90%A6%E8%A6%81%E5%85%88%E8%80%83%E8%99%91%E6%B5%8B%E8%AF%95%E9%9B%86%E6%98%AF%E5%90%A6%E4%B9%9F%E6%98%AF%E4%B8%8D%E5%B9%B3%E8%A1%A1%E7%9A%84%E5%86%8D%E5%8E%BB%E5%86%B3%E5%AE%9A%E6%98%AF%E5%90%A6%E4%BD%BF%E7%94%A8%E4%B8%80%E4%B8%AA%E5%B9%B3%E8%A1%A1%E7%9A%84%E9%AA%8C%E8%AF%81%E9%9B%86"><span class="toc-number">1.4.</span> <span class="toc-text">问题4.如果训练是不平衡的，是否要先考虑测试集是否也是不平衡的，再去决定是否使用一个平衡的验证集？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%985.%E8%80%81%E5%B8%88%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AF%B916%E4%BD%8D%E6%B5%AE%E7%82%B9%E5%BD%B1%E5%93%8D%E4%B8%A5%E9%87%8D32%E4%BD%8D%E6%88%96%E8%80%8564%E4%BD%8D%E5%B0%B1%E5%A5%BD%E4%BA%86%E5%90%97%E9%82%A3%E5%B0%B1%E6%98%AF%E8%AF%B4%E6%89%80%E6%9C%89%E9%80%9A%E8%BF%87fp16%E5%8A%A0%E9%80%9F%E6%88%96%E8%80%85%E5%87%8F%E5%B0%8F%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%96%B9%E6%B3%95%E9%83%BD%E5%AD%98%E5%9C%A8%E5%AE%B9%E6%98%93%E6%A2%AF%E5%BA%A6%E7%88%86%E7%82%B8%E6%88%96%E8%80%85%E6%B6%88%E5%A4%B1%E7%9A%84%E9%A3%8E%E9%99%A9"><span class="toc-number">1.5.</span> <span class="toc-text">问题5.老师，为什么对16位浮点影响严重？32位或者64位就好了吗？那就是说所有通过fp16加速或者减小模型的方法都存在容易梯度爆炸或者消失的风险？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%986.%E8%BF%99%E5%87%A0%E4%B8%AA%E8%B6%85%E5%8F%82%E6%95%B0%E5%BE%97%E5%BD%B1%E5%93%8D%E9%87%8D%E8%A6%81%E7%A8%8B%E5%BA%A6%E6%8E%92%E5%BA%8F%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BE%97%E6%A0%B8%E5%A4%A7%E5%B0%8F%E5%A1%AB%E5%85%85%E6%AD%A5%E5%B9%85"><span class="toc-number">1.6.</span> <span class="toc-text">问题6.这几个超参数得影响重要程度排序是怎样得，核大小，填充，步幅</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-number">2.</span> <span class="toc-text">环境</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E7%8E%AF%E5%A2%83"><span class="toc-number">2.1.</span> <span class="toc-text">安装环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80swap"><span class="toc-number">2.2.</span> <span class="toc-text">开swap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#htop"><span class="toc-number">2.3.</span> <span class="toc-text">htop</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc-number">3.</span> <span class="toc-text">线性神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92"><span class="toc-number">3.1.</span> <span class="toc-text">线性回归</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#softmax%E5%9B%9E%E5%BD%92"><span class="toc-number">3.2.</span> <span class="toc-text">softmax回归</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA"><span class="toc-number">4.</span> <span class="toc-text">多层感知机</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%84%9F%E7%9F%A5%E6%9C%BA"><span class="toc-number">4.1.</span> <span class="toc-text">感知机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0"><span class="toc-number">4.2.</span> <span class="toc-text">激活函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#relu"><span class="toc-number">4.2.1.</span> <span class="toc-text">ReLU</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sigmoid"><span class="toc-number">4.2.2.</span> <span class="toc-text">sigmoid</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tanh"><span class="toc-number">4.2.3.</span> <span class="toc-text">tanh</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9%E6%AC%A0%E6%8B%9F%E5%90%88%E8%BF%87%E6%8B%9F%E5%90%88"><span class="toc-number">4.3.</span> <span class="toc-text">模型选择、欠拟合、过拟合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E7%90%86%E8%AE%BA"><span class="toc-number">4.3.1.</span> <span class="toc-text">统计学习理论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E5%A4%8D%E6%9D%82%E6%80%A7"><span class="toc-number">4.3.2.</span> <span class="toc-text">模型复杂性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E9%9B%86"><span class="toc-number">4.3.3.</span> <span class="toc-text">验证集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AC%A0%E6%8B%9F%E5%90%88%E5%92%8C%E8%BF%87%E6%8B%9F%E5%90%88"><span class="toc-number">4.3.4.</span> <span class="toc-text">欠拟合和过拟合</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%83%E9%87%8D%E8%A1%B0%E5%87%8F"><span class="toc-number">4.4.</span> <span class="toc-text">权重衰减</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8C%83%E6%95%B0"><span class="toc-number">4.4.1.</span> <span class="toc-text">范数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9A%82%E9%80%80%E6%B3%95dropout"><span class="toc-number">4.5.</span> <span class="toc-text">暂退法（Dropout）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%87%E6%8B%9F%E5%90%88"><span class="toc-number">4.5.1.</span> <span class="toc-text">过拟合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A8%B3%E5%81%A5%E6%80%A7"><span class="toc-number">4.5.2.</span> <span class="toc-text">稳健性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E8%AE%A1%E7%AE%97%E5%9B%BE"><span class="toc-number">4.6.</span> <span class="toc-text">前向传播、反向传播、计算图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="toc-number">4.6.1.</span> <span class="toc-text">前向传播</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="toc-number">4.6.2.</span> <span class="toc-text">反向传播</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%80%BC%E7%A8%B3%E5%AE%9A%E6%80%A7%E5%92%8C%E6%A8%A1%E5%9E%8B%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">4.7.</span> <span class="toc-text">数值稳定性和模型初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A2%AF%E5%BA%A6%E7%88%86%E7%82%B8%E6%B6%88%E5%A4%B1"><span class="toc-number">4.7.1.</span> <span class="toc-text">梯度爆炸&#x2F;消失</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%93%E7%A0%B4%E5%AF%B9%E7%A7%B0%E6%80%A7"><span class="toc-number">4.7.2.</span> <span class="toc-text">打破对称性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%92%8C%E5%88%86%E5%B8%83%E5%81%8F%E7%A7%BB"><span class="toc-number">4.8.</span> <span class="toc-text">环境和分布偏移</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8F%E5%8F%98%E9%87%8F%E5%81%8F%E7%A7%BB"><span class="toc-number">4.8.1.</span> <span class="toc-text">协变量偏移</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE%E5%81%8F%E7%A7%BB"><span class="toc-number">4.8.2.</span> <span class="toc-text">标签偏移</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5%E5%81%8F%E7%A7%BB"><span class="toc-number">4.8.3.</span> <span class="toc-text">概念偏移</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cnn"><span class="toc-number">5.</span> <span class="toc-text">CNN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8Emlp%E5%88%B0cnn"><span class="toc-number">5.1.</span> <span class="toc-text">从MLP到CNN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%92%E7%9B%B8%E5%85%B3%E8%BF%90%E7%AE%97"><span class="toc-number">5.2.</span> <span class="toc-text">互相关运算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A1%AB%E5%85%85%E5%92%8C%E6%AD%A5%E5%B9%85"><span class="toc-number">5.3.</span> <span class="toc-text">填充和步幅</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A1%AB%E5%85%85"><span class="toc-number">5.3.1.</span> <span class="toc-text">填充</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%AA%E5%B1%8F2023-08-09-20.54.35%E6%AD%A5%E5%B9%85"><span class="toc-number">5.3.2.</span> <span class="toc-text">步幅</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E9%80%9A%E9%81%93"><span class="toc-number">5.4.</span> <span class="toc-text">多输入输出通道</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E8%BE%93%E5%85%A5%E9%80%9A%E9%81%93"><span class="toc-number">5.4.1.</span> <span class="toc-text">多输入通道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E8%BE%93%E5%87%BA%E9%80%9A%E9%81%93"><span class="toc-number">5.4.2.</span> <span class="toc-text">多输出通道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#times1%E5%8D%B7%E7%A7%AF%E6%A0%B8"><span class="toc-number">5.4.3.</span> <span class="toc-text">\(1\times1\)卷积核</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B1%87%E8%81%9A%E5%B1%82"><span class="toc-number">5.5.</span> <span class="toc-text">汇聚层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lenet"><span class="toc-number">5.6.</span> <span class="toc-text">LeNet</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc-number">6.</span> <span class="toc-text">现代卷积神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#alexnet"><span class="toc-number">6.1.</span> <span class="toc-text">AlexNet</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vgg"><span class="toc-number">6.2.</span> <span class="toc-text">VGG</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nin"><span class="toc-number">6.3.</span> <span class="toc-text">NiN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#googlenet"><span class="toc-number">6.4.</span> <span class="toc-text">GoogLeNet</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#batch-normalization"><span class="toc-number">6.5.</span> <span class="toc-text">batch normalization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#resnet"><span class="toc-number">6.6.</span> <span class="toc-text">ResNet</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E8%AE%AD%E7%BB%83--mlpcnn"><span class="toc-number">7.</span> <span class="toc-text">代码训练--MLP+CNN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92-1"><span class="toc-number">7.1.</span> <span class="toc-text">线性回归</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#softmax%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92"><span class="toc-number">7.2.</span> <span class="toc-text">softmax线性回归</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mlp"><span class="toc-number">7.3.</span> <span class="toc-text">MLP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lenet-1"><span class="toc-number">7.4.</span> <span class="toc-text">LeNet</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#alexnet-1"><span class="toc-number">7.5.</span> <span class="toc-text">AlexNet</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#resnet-1"><span class="toc-number">7.6.</span> <span class="toc-text">ResNet</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#rnn"><span class="toc-number">8.</span> <span class="toc-text">RNN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%8F%E5%88%97%E6%A8%A1%E5%9E%8B"><span class="toc-number">8.1.</span> <span class="toc-text">序列模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B"><span class="toc-number">8.1.1.</span> <span class="toc-text">自回归模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B"><span class="toc-number">8.2.</span> <span class="toc-text">语言模型</span></a></li></ol></li></ol>
-      
-  </div>
-</div>
-</div>
-      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
-  <div class="sidebar-author-name">chengyiqiu</div>
-  <div class="sidebar-description"></div>
-</div>
-<div class="sidebar-state">
-  <div class="sidebar-state-article">
-    <div>Posts</div>
-    <div class="sidebar-state-number">60</div>
-  </div>
-  <div class="sidebar-state-category">
-    <div>Categories</div>
-    <div class="sidebar-state-number">11</div>
-  </div>
-  <div class="sidebar-state-tag">
-    <div>Tags</div>
-    <div class="sidebar-state-number">13</div>
-  </div>
-</div>
-<div class="sidebar-social">
-  
-    <div class=icon-github>
-      <a href=https://github.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="github"></a>
-    </div>
-  
-    <div class=icon-twitter>
-      <a href=https://x.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="twitter"></a>
-    </div>
-  
-    <div class=icon-bilibili>
-      <a href=https://space.bilibili.com/3493124768795188?spm_id_from=333.337.0.0 itemprop="url" target="_blank" aria-label="bilibili"></a>
-    </div>
-  
-    <div class=icon-zhihu>
-      <a href=https://www.zhihu.com/people/b79383d8dcc462769c532f9d16dadfeb itemprop="url" target="_blank" aria-label="zhihu"></a>
-    </div>
-  
-    <div class=icon-telegram>
-      <a href=https://www.t.me/chengyiqiu1121 itemprop="url" target="_blank" aria-label="telegram"></a>
-    </div>
-  
-</div>
-<div class="sidebar-menu">
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/" aria-label="Home"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Home</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="Archives"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Archives</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/about" aria-label="About"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">About</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="Friend"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Friend</div>
-    </div>
-  
-</div>
-</div>
-    
-    
-      <div class="sidebar-btn-wrapper" style="position:static">
-        <div class="sidebar-toc-btn current"></div>
-        <div class="sidebar-common-btn"></div>
-      </div>
-    
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
-  
-</aside>
+    </div>
+  </footer>
 
-          
-        </div>
-        <footer id="footer" class="wow fadeInUp">
-  <div style="width: 100%; overflow: hidden">
-    <div class="footer-line"></div>
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
   </div>
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      <div>
-        <span class="icon-copyright"></span>
-        2020-2024
-        <span class="footer-info-sep"></span>
-        chengyiqiu
-      </div>
-      
-        <div>
-          Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>&nbsp;
-          Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" target="_blank">Reimu</a>
-        </div>
-      
-      
-        <div>
-          <span class="icon-brush"></span>
-          90.7k
-          &nbsp;|&nbsp;
-          <span class="icon-coffee"></span>
-          05:57
-        </div>
-      
-      
-        <div>
-          <span class="icon-eye"></span>
-          <span id="busuanzi_container_site_pv">Number of visits&nbsp;<span id="busuanzi_value_site_pv"></span></span>
-          &nbsp;|&nbsp;
-          <span class="icon-user"></span>
-          <span id="busuanzi_container_site_uv">Number of visitors&nbsp;<span id="busuanzi_value_site_uv"></span></span>
-        </div>
-      
-    </div>
-  </div>
-</footer>
+  <div class="sidebar-dimmer"></div>
 
-        <div class="sidebar-top">
-          <img src="/images/taichi.png" height="50" width="50" />
-          <div class="arrow-up"></div>
-        </div>
-        <div id="mask"></div>
-      </div>
-      <nav id="mobile-nav">
-  <div class="sidebar-wrap">
-    
-      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
-  <h3 class="toc-title">Contents</h3>
-  <div class="sidebar-toc-wrapper toc-div-class" >
-      
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8qa"><span class="toc-number">1.</span> <span class="toc-text">经典QA</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%981.%E6%80%8E%E4%B9%88%E6%A0%B9%E6%8D%AE%E8%BE%93%E5%85%A5%E7%A9%BA%E9%97%B4%E9%80%89%E6%8B%A9%E6%9C%80%E4%BC%98%E7%9A%84%E6%B7%B1%E5%BA%A6%E6%88%96%E8%80%85%E5%AE%BD%E5%BA%A6"><span class="toc-number">1.1.</span> <span class="toc-text">问题1.怎么根据输入空间，选择最优的深度或者宽度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%982.k%E6%8A%98%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81%E7%9A%84%E7%9B%AE%E7%9A%84%E6%98%AF%E7%A1%AE%E5%AE%9A%E8%B6%85%E5%8F%82%E6%95%B0%E5%90%97%E7%84%B6%E5%90%8E%E8%BF%98%E8%A6%81%E7%94%A8%E8%BF%99%E4%B8%AA%E8%B6%85%E5%8F%82%E6%95%B0%E5%86%8D%E8%AE%AD%E7%BB%83%E4%B8%80%E9%81%8D%E5%85%A8%E6%95%B0%E6%95%B0%E6%8D%AE%E5%90%97"><span class="toc-number">1.2.</span> <span class="toc-text">问题2.k折交叉验证的目的是确定超参数吗？然后还要用这个超参数再训练一遍全数数据吗？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%983.%E8%80%81%E5%B8%88%E8%AF%B4%E7%9A%84%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%98%AF%E4%B8%80%E7%A7%8D%E8%AF%AD%E8%A8%80%E6%84%8F%E6%80%9D%E6%98%AF%E5%88%A9%E7%94%A8%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%8E%BB%E5%AF%B9%E4%B8%87%E4%BA%8B%E4%B8%87%E7%89%A9%E5%BB%BA%E6%A8%A1%E5%90%A7%E5%B0%B1%E6%98%AF%E6%8C%87%E7%9A%84%E5%AE%83%E7%90%86%E8%AE%BA%E4%B8%8A%E8%83%BD%E6%8B%9F%E5%90%88%E6%89%80%E6%9C%89%E5%87%BD%E6%95%B0"><span class="toc-number">1.3.</span> <span class="toc-text">问题3.老师说的神经网络是一种语言，意思是利用神经网络去对万事万物建模吧？就是指的它理论上能拟合所有函数？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%984.%E5%A6%82%E6%9E%9C%E8%AE%AD%E7%BB%83%E6%98%AF%E4%B8%8D%E5%B9%B3%E8%A1%A1%E7%9A%84%E6%98%AF%E5%90%A6%E8%A6%81%E5%85%88%E8%80%83%E8%99%91%E6%B5%8B%E8%AF%95%E9%9B%86%E6%98%AF%E5%90%A6%E4%B9%9F%E6%98%AF%E4%B8%8D%E5%B9%B3%E8%A1%A1%E7%9A%84%E5%86%8D%E5%8E%BB%E5%86%B3%E5%AE%9A%E6%98%AF%E5%90%A6%E4%BD%BF%E7%94%A8%E4%B8%80%E4%B8%AA%E5%B9%B3%E8%A1%A1%E7%9A%84%E9%AA%8C%E8%AF%81%E9%9B%86"><span class="toc-number">1.4.</span> <span class="toc-text">问题4.如果训练是不平衡的，是否要先考虑测试集是否也是不平衡的，再去决定是否使用一个平衡的验证集？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%985.%E8%80%81%E5%B8%88%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AF%B916%E4%BD%8D%E6%B5%AE%E7%82%B9%E5%BD%B1%E5%93%8D%E4%B8%A5%E9%87%8D32%E4%BD%8D%E6%88%96%E8%80%8564%E4%BD%8D%E5%B0%B1%E5%A5%BD%E4%BA%86%E5%90%97%E9%82%A3%E5%B0%B1%E6%98%AF%E8%AF%B4%E6%89%80%E6%9C%89%E9%80%9A%E8%BF%87fp16%E5%8A%A0%E9%80%9F%E6%88%96%E8%80%85%E5%87%8F%E5%B0%8F%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%96%B9%E6%B3%95%E9%83%BD%E5%AD%98%E5%9C%A8%E5%AE%B9%E6%98%93%E6%A2%AF%E5%BA%A6%E7%88%86%E7%82%B8%E6%88%96%E8%80%85%E6%B6%88%E5%A4%B1%E7%9A%84%E9%A3%8E%E9%99%A9"><span class="toc-number">1.5.</span> <span class="toc-text">问题5.老师，为什么对16位浮点影响严重？32位或者64位就好了吗？那就是说所有通过fp16加速或者减小模型的方法都存在容易梯度爆炸或者消失的风险？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%986.%E8%BF%99%E5%87%A0%E4%B8%AA%E8%B6%85%E5%8F%82%E6%95%B0%E5%BE%97%E5%BD%B1%E5%93%8D%E9%87%8D%E8%A6%81%E7%A8%8B%E5%BA%A6%E6%8E%92%E5%BA%8F%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BE%97%E6%A0%B8%E5%A4%A7%E5%B0%8F%E5%A1%AB%E5%85%85%E6%AD%A5%E5%B9%85"><span class="toc-number">1.6.</span> <span class="toc-text">问题6.这几个超参数得影响重要程度排序是怎样得，核大小，填充，步幅</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-number">2.</span> <span class="toc-text">环境</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E7%8E%AF%E5%A2%83"><span class="toc-number">2.1.</span> <span class="toc-text">安装环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80swap"><span class="toc-number">2.2.</span> <span class="toc-text">开swap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#htop"><span class="toc-number">2.3.</span> <span class="toc-text">htop</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc-number">3.</span> <span class="toc-text">线性神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92"><span class="toc-number">3.1.</span> <span class="toc-text">线性回归</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#softmax%E5%9B%9E%E5%BD%92"><span class="toc-number">3.2.</span> <span class="toc-text">softmax回归</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA"><span class="toc-number">4.</span> <span class="toc-text">多层感知机</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%84%9F%E7%9F%A5%E6%9C%BA"><span class="toc-number">4.1.</span> <span class="toc-text">感知机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0"><span class="toc-number">4.2.</span> <span class="toc-text">激活函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#relu"><span class="toc-number">4.2.1.</span> <span class="toc-text">ReLU</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sigmoid"><span class="toc-number">4.2.2.</span> <span class="toc-text">sigmoid</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tanh"><span class="toc-number">4.2.3.</span> <span class="toc-text">tanh</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9%E6%AC%A0%E6%8B%9F%E5%90%88%E8%BF%87%E6%8B%9F%E5%90%88"><span class="toc-number">4.3.</span> <span class="toc-text">模型选择、欠拟合、过拟合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E7%90%86%E8%AE%BA"><span class="toc-number">4.3.1.</span> <span class="toc-text">统计学习理论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E5%A4%8D%E6%9D%82%E6%80%A7"><span class="toc-number">4.3.2.</span> <span class="toc-text">模型复杂性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E9%9B%86"><span class="toc-number">4.3.3.</span> <span class="toc-text">验证集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AC%A0%E6%8B%9F%E5%90%88%E5%92%8C%E8%BF%87%E6%8B%9F%E5%90%88"><span class="toc-number">4.3.4.</span> <span class="toc-text">欠拟合和过拟合</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%83%E9%87%8D%E8%A1%B0%E5%87%8F"><span class="toc-number">4.4.</span> <span class="toc-text">权重衰减</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8C%83%E6%95%B0"><span class="toc-number">4.4.1.</span> <span class="toc-text">范数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9A%82%E9%80%80%E6%B3%95dropout"><span class="toc-number">4.5.</span> <span class="toc-text">暂退法（Dropout）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%87%E6%8B%9F%E5%90%88"><span class="toc-number">4.5.1.</span> <span class="toc-text">过拟合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A8%B3%E5%81%A5%E6%80%A7"><span class="toc-number">4.5.2.</span> <span class="toc-text">稳健性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E8%AE%A1%E7%AE%97%E5%9B%BE"><span class="toc-number">4.6.</span> <span class="toc-text">前向传播、反向传播、计算图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="toc-number">4.6.1.</span> <span class="toc-text">前向传播</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="toc-number">4.6.2.</span> <span class="toc-text">反向传播</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%80%BC%E7%A8%B3%E5%AE%9A%E6%80%A7%E5%92%8C%E6%A8%A1%E5%9E%8B%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">4.7.</span> <span class="toc-text">数值稳定性和模型初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A2%AF%E5%BA%A6%E7%88%86%E7%82%B8%E6%B6%88%E5%A4%B1"><span class="toc-number">4.7.1.</span> <span class="toc-text">梯度爆炸&#x2F;消失</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%93%E7%A0%B4%E5%AF%B9%E7%A7%B0%E6%80%A7"><span class="toc-number">4.7.2.</span> <span class="toc-text">打破对称性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%92%8C%E5%88%86%E5%B8%83%E5%81%8F%E7%A7%BB"><span class="toc-number">4.8.</span> <span class="toc-text">环境和分布偏移</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8F%E5%8F%98%E9%87%8F%E5%81%8F%E7%A7%BB"><span class="toc-number">4.8.1.</span> <span class="toc-text">协变量偏移</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE%E5%81%8F%E7%A7%BB"><span class="toc-number">4.8.2.</span> <span class="toc-text">标签偏移</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5%E5%81%8F%E7%A7%BB"><span class="toc-number">4.8.3.</span> <span class="toc-text">概念偏移</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cnn"><span class="toc-number">5.</span> <span class="toc-text">CNN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8Emlp%E5%88%B0cnn"><span class="toc-number">5.1.</span> <span class="toc-text">从MLP到CNN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%92%E7%9B%B8%E5%85%B3%E8%BF%90%E7%AE%97"><span class="toc-number">5.2.</span> <span class="toc-text">互相关运算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A1%AB%E5%85%85%E5%92%8C%E6%AD%A5%E5%B9%85"><span class="toc-number">5.3.</span> <span class="toc-text">填充和步幅</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A1%AB%E5%85%85"><span class="toc-number">5.3.1.</span> <span class="toc-text">填充</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%AA%E5%B1%8F2023-08-09-20.54.35%E6%AD%A5%E5%B9%85"><span class="toc-number">5.3.2.</span> <span class="toc-text">步幅</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E9%80%9A%E9%81%93"><span class="toc-number">5.4.</span> <span class="toc-text">多输入输出通道</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E8%BE%93%E5%85%A5%E9%80%9A%E9%81%93"><span class="toc-number">5.4.1.</span> <span class="toc-text">多输入通道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E8%BE%93%E5%87%BA%E9%80%9A%E9%81%93"><span class="toc-number">5.4.2.</span> <span class="toc-text">多输出通道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#times1%E5%8D%B7%E7%A7%AF%E6%A0%B8"><span class="toc-number">5.4.3.</span> <span class="toc-text">\(1\times1\)卷积核</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B1%87%E8%81%9A%E5%B1%82"><span class="toc-number">5.5.</span> <span class="toc-text">汇聚层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lenet"><span class="toc-number">5.6.</span> <span class="toc-text">LeNet</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc-number">6.</span> <span class="toc-text">现代卷积神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#alexnet"><span class="toc-number">6.1.</span> <span class="toc-text">AlexNet</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vgg"><span class="toc-number">6.2.</span> <span class="toc-text">VGG</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nin"><span class="toc-number">6.3.</span> <span class="toc-text">NiN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#googlenet"><span class="toc-number">6.4.</span> <span class="toc-text">GoogLeNet</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#batch-normalization"><span class="toc-number">6.5.</span> <span class="toc-text">batch normalization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#resnet"><span class="toc-number">6.6.</span> <span class="toc-text">ResNet</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E8%AE%AD%E7%BB%83--mlpcnn"><span class="toc-number">7.</span> <span class="toc-text">代码训练--MLP+CNN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92-1"><span class="toc-number">7.1.</span> <span class="toc-text">线性回归</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#softmax%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92"><span class="toc-number">7.2.</span> <span class="toc-text">softmax线性回归</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mlp"><span class="toc-number">7.3.</span> <span class="toc-text">MLP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lenet-1"><span class="toc-number">7.4.</span> <span class="toc-text">LeNet</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#alexnet-1"><span class="toc-number">7.5.</span> <span class="toc-text">AlexNet</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#resnet-1"><span class="toc-number">7.6.</span> <span class="toc-text">ResNet</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#rnn"><span class="toc-number">8.</span> <span class="toc-text">RNN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%8F%E5%88%97%E6%A8%A1%E5%9E%8B"><span class="toc-number">8.1.</span> <span class="toc-text">序列模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B"><span class="toc-number">8.1.1.</span> <span class="toc-text">自回归模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B"><span class="toc-number">8.2.</span> <span class="toc-text">语言模型</span></a></li></ol></li></ol>
-      
-  </div>
-</div>
-</div>
-      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
-  <div class="sidebar-author-name">chengyiqiu</div>
-  <div class="sidebar-description"></div>
-</div>
-<div class="sidebar-state">
-  <div class="sidebar-state-article">
-    <div>Posts</div>
-    <div class="sidebar-state-number">60</div>
-  </div>
-  <div class="sidebar-state-category">
-    <div>Categories</div>
-    <div class="sidebar-state-number">11</div>
-  </div>
-  <div class="sidebar-state-tag">
-    <div>Tags</div>
-    <div class="sidebar-state-number">13</div>
-  </div>
-</div>
-<div class="sidebar-social">
-  
-    <div class=icon-github>
-      <a href=https://github.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="github"></a>
-    </div>
-  
-    <div class=icon-twitter>
-      <a href=https://x.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="twitter"></a>
-    </div>
-  
-    <div class=icon-bilibili>
-      <a href=https://space.bilibili.com/3493124768795188?spm_id_from=333.337.0.0 itemprop="url" target="_blank" aria-label="bilibili"></a>
-    </div>
-  
-    <div class=icon-zhihu>
-      <a href=https://www.zhihu.com/people/b79383d8dcc462769c532f9d16dadfeb itemprop="url" target="_blank" aria-label="zhihu"></a>
-    </div>
-  
-    <div class=icon-telegram>
-      <a href=https://www.t.me/chengyiqiu1121 itemprop="url" target="_blank" aria-label="telegram"></a>
-    </div>
-  
-</div>
-<div class="sidebar-menu">
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/" aria-label="Home"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Home</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="Archives"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Archives</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/about" aria-label="About"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">About</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="Friend"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Friend</div>
-    </div>
-  
-</div>
-</div>
-    
-  </div>
-  
-    <div class="sidebar-btn-wrapper">
-      <div class="sidebar-toc-btn current"></div>
-      <div class="sidebar-common-btn"></div>
-    </div>
-  
-</nav>
-
-    </div>
-    <div class="site-search">
-      <div class="reimu-popup popup">
-        <div class="reimu-search">
-          <span class="reimu-search-input-icon"></span>
-          <div class="reimu-search-input" id="reimu-search-input"></div>
-        </div>
-        <div class="reimu-results">
-          <div id="reimu-stats"></div>
-          <div id="reimu-hits"></div>
-          <div id="reimu-pagination" class="reimu-pagination"></div>
-        </div>
-        <span class="popup-btn-close"></span>
-      </div>
-    </div>
-    
-<script src="https://npm.webcache.cn/jquery@3.7.1/dist/jquery.min.js"></script>
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
 
-<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
 
 
-<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"></script>
+
+  <script src="/js/third-party/fancybox.js"></script>
 
 
 
   
-<script src="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
-
-
-
-  
-<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
-
-
-
-
-
-
-<script src="/js/pjax_script.js" data-pjax></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
 
   
-<script src="https://npm.webcache.cn/mouse-firework@0.0.4/dist/index.umd.js"></script>
 
-  <script>
-    firework(JSON.parse('{"excludeElements":["a"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["#ff5252","#ff7c7c","#ffafaf","#ffd0d0"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["#ff0000"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'))
-  </script>
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
 
 
 
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-  <script>
-    console.log(String.raw`%c 
- ______     ______     __     __    __     __  __    
-/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
-\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
- \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
-  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
-                                                  
-`,'color: #ff5252;')
-    console.log('%c Theme.Reimu v' + '0.1.2' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
-  </script>
-  
-
-  <!-- hexo injector body_end start -->
-<script src="/js/insert_highlight.js" data-pjax></script>
-<!-- hexo injector body_end end --></body>
-  </html>
-
+</body>
+</html>

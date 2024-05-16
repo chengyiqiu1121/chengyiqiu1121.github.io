@@ -1,255 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
 
-  <!DOCTYPE html>
-  <html lang="en"  >
-  <head>
-  <meta charset="utf-8">
-  
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-  
+<link rel="stylesheet" href="/css/main.css">
 
-  
 
-  
-  <title>
-    Denoising_Diffusion_Probabilistic_Models |
-    
-    Hexo
-  </title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="preload" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CUbuntu%20Mono:400,400italic,700,700italic&display=swap&subset=latin,latin-ext" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;">
-  
-<link rel="stylesheet" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/regular.min.css">
-<link rel="stylesheet" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/solid.min.css">
 
-  <link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/brands.min.css" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;"><link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/v5-font-face.min.css" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;"><link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/v4-font-face.min.css" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;">
-  
-<link rel="stylesheet" href="/css/loader.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
 
-  <meta name="description" content="DDPM，于Stable Diffusion之前，后续关于Diffusion的文章基本都会引用这篇。 NIPS 2020 摘要：我们使用扩散概率模型展示了高质量的图像合成结果，这是一种受非平衡热力学考虑启发的潜在变量模型。我们最好的结果是通过对加权变分界进行训练获得的，该边界是根据扩散概率模型和与朗之万动力学的去噪分数匹配之间的新联系设计的，我们的模型自然承认渐进式有损解压缩方案，可以解释为自回归">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width":280,"display":"post","offset":10,"onmobile":true},"hljswrap":true,"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="DDPM，于Stable Diffusion之前，后续关于Diffusion的文章基本都会引用这篇。 NIPS 2020 摘要：我们使用扩散概率模型展示了高质量的图像合成结果，这是一种受非平衡热力学考虑启发的潜在变量模型。我们最好的结果是通过对加权变分界进行训练获得的，该边界是根据扩散概率模型和与朗之万动力学的去噪分数匹配之间的新联系设计的，我们的模型自然承认渐进式有损解压缩方案，可以解释为自回归">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Denoising_Diffusion_Probabilistic_Models">
 <meta property="og:url" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="DDPM，于Stable Diffusion之前，后续关于Diffusion的文章基本都会引用这篇。 NIPS 2020 摘要：我们使用扩散概率模型展示了高质量的图像合成结果，这是一种受非平衡热力学考虑启发的潜在变量模型。我们最好的结果是通过对加权变分界进行训练获得的，该边界是根据扩散概率模型和与朗之万动力学的去噪分数匹配之间的新联系设计的，我们的模型自然承认渐进式有损解压缩方案，可以解释为自回归">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240329121950148.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240329122324323.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240329133247082.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240329134045273.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240329143400805.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240329134406665.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240329135716143.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240329141610974.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240329203458307.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240329204358315.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240330095440136.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240331102006299.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240331102055942.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240331102249170.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240331102413862.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240331102651258.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240331102859501.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240506184243810.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240506184845417.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240506185251821.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240506185546697.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240506191041158.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507121118865.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507121441471.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507121845776.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507121914396.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507131919505.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507132546801.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507135141891.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507135648112.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507140315856.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507140542568.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507141837908.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507142029958.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507142708377.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507204854473.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507205224196.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507205458379.png">
-<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507140542568.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240329121950148.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240329122324323.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240329133247082.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240329134045273.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240329143400805.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240329134406665.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240329135716143.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240329141610974.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240329203458307.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240329204358315.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240330095440136.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240331102006299.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240331102055942.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240331102249170.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240331102413862.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240331102651258.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240331102859501.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240506184243810.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240506184845417.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240506185251821.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240506185546697.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240506191041158.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240507121118865.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240507121441471.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240507121845776.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240507121914396.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240507131919505.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240507132546801.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240507135141891.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240507135648112.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240507140315856.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240507140542568.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240507141837908.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240507142029958.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240507142708377.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240507204854473.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240507205224196.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240507205458379.png">
+<meta property="og:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240507140542568.png">
 <meta property="article:published_time" content="2024-03-29T03:33:53.000Z">
 <meta property="article:modified_time" content="2024-05-09T03:58:02.536Z">
 <meta property="article:author" content="chengyiqiu">
 <meta property="article:tag" content="diffusion">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240329121950148.png">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/images/favicon.ico">
-  
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+<meta name="twitter:image" content="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/Denoising-Diffusion-Probabilistic-Models/image-20240329121950148.png">
 
-  
-    
-<link rel="stylesheet" href="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
-  
-  
-    
-<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css">
+<link rel="canonical" href="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/">
 
-  
-  
-  
-  
-<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"></script>
 
-  
-    
-<link rel="stylesheet" href="https://npm.webcache.cn/wowjs@1.1.3/css/libs/animate.css">
 
-    
-<script src="https://npm.webcache.cn/wowjs@1.1.3/dist/wow.min.js"></script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/","path":"2024/03/29/Denoising-Diffusion-Probabilistic-Models/","title":"Denoising_Diffusion_Probabilistic_Models"}</script>
 
-    <script>
-      new WOW({
-        offset: 0,
-        mobile: true,
-        live: false
-      }).init();
-    </script>
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Denoising_Diffusion_Probabilistic_Models | Hexo</title>
   
-  
-    <script src="/sw.js"></script>
-  
-<meta name="generator" content="Hexo 7.2.0"></head>
 
-  <body>
-    
-  <div id='loader'>
-    <div class="loading-left-bg"></div>
-    <div class="loading-right-bg"></div>
-    <div class="spinner-box">
-      <div class="loading-taichi">
-        <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
-          <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="#ff6e6b" />
-          <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z" fill="#fd0d00" />
-          <path d="M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95" fill="#fd0d00" />
-        </svg>
-      </div>
-      <div class="loading-word">梭哈是一种智慧</div>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
     </div>
   </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
   </div>
-  <script>
-    var time = null;
-    const startLoading = () => {
-      time = Date.now();
-      document.getElementById('loader').classList.remove("loading");
-    }
-    const endLoading = () => {
-      if (!time) {
-        document.body.style.overflow = 'auto';
-        document.getElementById('loader').classList.add("loading");
-      } else {
-        if (Date.now() - time > 500) {
-          time = null;
-          document.body.style.overflow = 'auto';
-          document.getElementById('loader').classList.add("loading");
-        } else {
-          setTimeout(endLoading, 500 - (Date.now() - time));
-          time = null;
-        }
-      }
-    }
-    window.addEventListener('load', endLoading);
-    document.getElementById('loader').addEventListener('click', endLoading);
-  </script>
 
-
-    <div id="container">
-      <div id="wrap">
-        <div id="header-nav">
-  <nav id="main-nav">
-    
-      <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
-        <a class="main-nav-link" href="/">Home</a>
-      </span>
-    
-      <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
-        <a class="main-nav-link" href="/archives">Archives</a>
-      </span>
-    
-      <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
-        <a class="main-nav-link" href="/about">About</a>
-      </span>
-    
-      <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
-        <a class="main-nav-link" href="/friend">Friend</a>
-      </span>
-    
-    <a id="main-nav-toggle" class="nav-icon"></a>
-  </nav>
-  <nav id="sub-nav">
-    
-      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-    
-    
-    
-  </nav>
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
 </div>
-<header id="header">
-  
-    <img fetchpriority="high" src="/images/banner.png" alt="Denoising_Diffusion_Probabilistic_Models">
-  
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <div id="logo-wrap">
-        
-          
-          
-            <a href="/" id="logo">
-              <h1>Denoising_Diffusion_Probabilistic_Models</h1>
-            </a>
-          
-        
-      </div>
-      
-        
-        <h2 id="subtitle-wrap">
-          
-        </h2>
-      
-    </div>
-  </div>
+
+
+
+
+
+
+
 </header>
+        
+  
+  <aside class="sidebar">
 
-        <div id="content" class="outer">
-          
-          <section id="main"><article id="post-Denoising-Diffusion-Probabilistic-Models" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-inner">
-    <div class="article-meta">
-      <div class="article-date wow slideInLeft">
-  <a href="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/" class="article-date-link">
-    <time datetime="2024-03-29T03:33:53.000Z" itemprop="datePublished">2024-03-29</time>
-  </a>
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">2.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E9%83%A8%E5%88%86"><span class="nav-number">3.</span> <span class="nav-text">算法部分</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90"><span class="nav-number">4.</span> <span class="nav-text">原理解析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E5%AD%A6%E5%8E%9F%E7%90%86"><span class="nav-number">5.</span> <span class="nav-text">数学原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8D%E6%8E%A8"><span class="nav-number">6.</span> <span class="nav-text">重推</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A9%E6%95%A3%E4%B8%80%E6%AD%A5%E5%88%B0%E4%BD%8D"><span class="nav-number">6.1.</span> <span class="nav-text">扩散：一步到位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%9B%AE%E6%A0%87"><span class="nav-number">6.2.</span> <span class="nav-text">生成模型的目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vae%E8%AE%A1%E7%AE%97p_theta%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">6.3.</span> <span class="nav-text">VAE计算\(P_\theta\)的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ddpm%E8%AE%A1%E7%AE%97p_theta"><span class="nav-number">6.4.</span> <span class="nav-text">DDPM计算\(P_\theta\)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93ddpm"><span class="nav-number">6.5.</span> <span class="nav-text">总结DDPM</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">chengyiqiu</p>
+  <div class="site-description" itemprop="description"></div>
 </div>
-
-      
-  <div class="article-category wow slideInLeft">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chengyiqiu1121" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chengyiqiu1121" rel="noopener me" target="_blank">GitHub</a>
+      </span>
   </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="Back to top">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
 
 
     </div>
-    <div class="hr-line"></div>
-    
 
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>DDPM，于Stable
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="chengyiqiu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Denoising_Diffusion_Probabilistic_Models | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Denoising_Diffusion_Probabilistic_Models
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-03-29 11:33:53" itemprop="dateCreated datePublished" datetime="2024-03-29T11:33:53+08:00">2024-03-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-05-09 11:58:02" itemprop="dateModified" datetime="2024-05-09T11:58:02+08:00">2024-05-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">论文阅读</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>DDPM，于Stable
 Diffusion之前，后续关于Diffusion的文章基本都会引用这篇。</p>
 <p>NIPS 2020</p>
 <p>摘要：我们使用扩散概率模型展示了高质量的图像合成结果，这是一种受非平衡热力学考虑启发的潜在变量模型。我们最好的结果是通过对加权变分界进行训练获得的，该边界是根据扩散概率模型和与朗之万动力学的去噪分数匹配之间的新联系设计的，我们的模型自然承认渐进式有损解压缩方案，可以解释为自回归解码的泛化。在无条件
@@ -266,37 +278,37 @@ CIFAR10 数据集上，我们获得了 9.46 的 Inception 分数和 3.17 的最�
 p(x_T)=\mathcal N(x_T;0,I)
 \]</span>
 最开始这个噪声的分布是均值0方差1的正态分布，然后通过下面的公式进行迭代：</p>
-<p><img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240329121950148.png" alt="image-20240329121950148" style="zoom:33%;"></p>
+<p><img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240329121950148.png" alt="image-20240329121950148" style="zoom:33%;"></p>
 <p>整个反向过程可以合并起来写成下面的公式：</p>
-<p><img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240329122324323.png" alt="image-20240329122324323" style="zoom:33%;"></p>
+<p><img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240329122324323.png" alt="image-20240329122324323" style="zoom:33%;"></p>
 <p>正向过程：</p>
 <figure>
-<img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240329133247082.png" alt="image-20240329133247082">
+<img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240329133247082.png" alt="image-20240329133247082">
 <figcaption aria-hidden="true">image-20240329133247082</figcaption>
 </figure>
 <p><span class="math inline">\(\alpha_2,...,\beta_t\)</span>​表示方差调度器，可以在训练中学习，也可以固定。这里作者直接将他们作为超参数固定了。</p>
 <p>给定<span class="math inline">\(\alpha_t=1-\beta_t\)</span>，正向过程可以写成下面的形式：</p>
-<p><img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240329134045273.png" alt="image-20240329134045273" style="zoom:33%;"></p>
+<p><img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240329134045273.png" alt="image-20240329134045273" style="zoom:33%;"></p>
 <p>也可以换一种形式写出来：</p>
-<p><img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240329143400805.png" alt="image-20240329143400805" style="zoom: 33%;"></p>
+<p><img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240329143400805.png" alt="image-20240329143400805" style="zoom: 33%;"></p>
 <p>通过负对数似然来对随机噪声进行优化：</p>
-<p><img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240329134406665.png" alt="image-20240329134406665" style="zoom:33%;"></p>
+<p><img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240329134406665.png" alt="image-20240329134406665" style="zoom:33%;"></p>
 <p>通过改进，将<span class="math inline">\(L\)</span>写成下面公式的形式：</p>
-<p><img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240329135716143.png" alt="image-20240329135716143" style="zoom:33%;"></p>
+<p><img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240329135716143.png" alt="image-20240329135716143" style="zoom:33%;"></p>
 <p>这样在计算上比较简单，计算两个噪声的KL散度，之前的公式则是需要通过求解高方差蒙特卡洛估计。</p>
 <p>使用KL散度将<span class="math inline">\(p_\theta(x_{t-1}|x_t)\)</span>和前向过程的后验进行比较，在<span class="math inline">\(x_0\)</span>已知的情况下：</p>
-<p><img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240329141610974.png" alt="image-20240329141610974" style="zoom:33%;"></p>
+<p><img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240329141610974.png" alt="image-20240329141610974" style="zoom:33%;"></p>
 <hr>
 <p>发现很多公式不理解，于是找博客、视频解说。</p>
 <h1 id="算法部分">算法部分</h1>
 <p>首先，看看DDPM的算法，<strong>训练过程</strong>：</p>
-<p><img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240329203458307.png" alt="image-20240329203458307" style="zoom:50%;"></p>
+<p><img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240329203458307.png" alt="image-20240329203458307" style="zoom:50%;"></p>
 <p>line 2表示从我们的数据中采样一张真实样本<span class="math inline">\(x_0\)</span>；</p>
 <p>line 3表示得到当前训练的step，这个后面会feed给噪声预测器中去；</p>
 <p>line 5则是对噪声预测器做优化：</p>
-<p><img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240329204358315.png" alt="image-20240329204358315" style="zoom:50%;"></p>
+<p><img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240329204358315.png" alt="image-20240329204358315" style="zoom:50%;"></p>
 <p><strong>采样过程</strong>：</p>
-<p><img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240330095440136.png" alt="image-20240330095440136" style="zoom:50%;"></p>
+<p><img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240330095440136.png" alt="image-20240330095440136" style="zoom:50%;"></p>
 <p>line 1：从正态分布中采样一个杂讯，作为原始输入<span class="math inline">\(x_T\)</span></p>
 <p>line 2：进入循环，有T次</p>
 <p>line 3: 从正态分布中采样一个杂讯，作为后面的约束</p>
@@ -306,14 +318,14 @@ p(x_T)=\mathcal N(x_T;0,I)
 <ul>
 <li>一共有T个step，每一步都会将上一步输出的噪声减少一部分，直到最后得到一张清晰的图片。</li>
 </ul>
-<p><img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240331102006299.png" alt="image-20240331102006299" style="zoom:50%;"></p>
+<p><img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240331102006299.png" alt="image-20240331102006299" style="zoom:50%;"></p>
 <p>其原理很巧妙：</p>
 <p><strong>The sculpture is already complete within the marble block,
 before I start my work. It is already there, I just have to chisel away
 the superfluous material. - Michelangelo</strong></p>
-<p><img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240331102055942.png" alt="image-20240331102055942" style="zoom:50%;"></p>
+<p><img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240331102055942.png" alt="image-20240331102055942" style="zoom:50%;"></p>
 <p>denoise在不同的step产生的noice是不一样的，当step比较大的时候，denoice会产生一个比较大的噪声，然后消除掉这个噪声，如下图所示：</p>
-<p><img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240331102249170.png" alt="image-20240331102249170" style="zoom:50%;"></p>
+<p><img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240331102249170.png" alt="image-20240331102249170" style="zoom:50%;"></p>
 <p>denoice并不是一个e2e的模型：</p>
 <p>为什么不训练一个e2e的模型，直接输出一张带有杂讯的猫？</p>
 <ul>
@@ -321,43 +333,43 @@ the superfluous material. - Michelangelo</strong></p>
 <li>直接生成一张带杂讯的猫相当于model已经可以进行绘画了</li>
 </ul>
 <figure>
-<img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240331102413862.png" alt="image-20240331102413862">
+<img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240331102413862.png" alt="image-20240331102413862">
 <figcaption aria-hidden="true">image-20240331102413862</figcaption>
 </figure>
 <p>denoice的训练：</p>
 <p>ground truth的来源是正向过程添加的高斯噪声。</p>
-<p><img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240331102651258.png" alt="image-20240331102651258" style="zoom: 50%;"></p>
+<p><img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240331102651258.png" alt="image-20240331102651258" style="zoom: 50%;"></p>
 <p>正向过程：</p>
-<p><img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240331102859501.png" alt="image-20240331102859501" style="zoom:50%;"></p>
+<p><img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240331102859501.png" alt="image-20240331102859501" style="zoom:50%;"></p>
 <h1 id="数学原理">数学原理</h1>
 <ol type="1">
 <li><p>用极大似然估计来衡量原始分布和生成模型分布之间的距离</p>
 <figure>
-<img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240506184243810.png" alt="image-20240506184243810">
+<img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240506184243810.png" alt="image-20240506184243810">
 <figcaption aria-hidden="true">image-20240506184243810</figcaption>
 </figure>
 <p>从极大似然估计到KL散度</p></li>
 <li><p>DM中的<span class="math inline">\(P_\theta(x)\)</span>很难计算，VAE是这样计算的：</p>
 <figure>
-<img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240506184845417.png" alt="image-20240506184845417">
+<img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240506184845417.png" alt="image-20240506184845417">
 <figcaption aria-hidden="true">image-20240506184845417</figcaption>
 </figure>
-<p>​ <img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240506185251821.png" alt="image-20240506185251821"></p></li>
+<p>​ <img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240506185251821.png" alt="image-20240506185251821"></p></li>
 <li><p>DDPM中计算<span class="math inline">\(P_\theta(x)\)</span>​</p>
 <figure>
-<img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240506185546697.png" alt="image-20240506185546697">
+<img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240506185546697.png" alt="image-20240506185546697">
 <figcaption aria-hidden="true">image-20240506185546697</figcaption>
 </figure></li>
 <li><p>DDPM最大化某一个分布：</p>
 <figure>
-<img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240506191041158.png" alt="image-20240506191041158">
+<img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240506191041158.png" alt="image-20240506191041158">
 <figcaption aria-hidden="true">image-20240506191041158</figcaption>
 </figure></li>
 </ol>
 <h1 id="重推">重推</h1>
 <p>首先先看演算法，算法中的部分已经用到了推导的结论了。</p>
 <figure>
-<img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507121118865.png" alt="image-20240507121118865">
+<img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240507121118865.png" alt="image-20240507121118865">
 <figcaption aria-hidden="true">image-20240507121118865</figcaption>
 </figure>
 <p><span class="math inline">\(q(.)\)</span>是现实世界所有图片的总体，从现实世界中取出一张真实图片，为<span class="math inline">\(x_0\)</span></p>
@@ -366,7 +378,7 @@ the superfluous material. - Michelangelo</strong></p>
 <p>这里有一个关键点，noice
 predictor的内部是怎样的，<strong>怎么根据<span class="math inline">\(x_t\)</span>和<span class="math inline">\(t\)</span>算出noice的。</strong></p>
 <figure>
-<img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507121441471.png" alt="image-20240507121441471">
+<img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240507121441471.png" alt="image-20240507121441471">
 <figcaption aria-hidden="true">image-20240507121441471</figcaption>
 </figure>
 <p>sample的过程就是infer的过程。</p>
@@ -376,12 +388,12 @@ noice前要加系数，大括号的外面为何要加系数，最后为什么要
 <h2 id="扩散一步到位">扩散：一步到位</h2>
 <p>理想中的扩散过程应该是一步一步往图像上加噪声，直到图片变成高斯噪声。</p>
 <figure>
-<img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507121845776.png" alt="image-20240507121845776">
+<img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240507121845776.png" alt="image-20240507121845776">
 <figcaption aria-hidden="true">image-20240507121845776</figcaption>
 </figure>
 <p>但是实际上，添加噪声是一步到位的。</p>
 <figure>
-<img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507121914396.png" alt="image-20240507121914396">
+<img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240507121914396.png" alt="image-20240507121914396">
 <figcaption aria-hidden="true">image-20240507121914396</figcaption>
 </figure>
 <p>推导一下这个过程： <span class="math display">\[
@@ -408,7 +420,7 @@ x_0+\sqrt{1-\alpha_1}\epsilon_1)+\sqrt{1-\alpha_2}\epsilon_2 \\
 <h2 id="生成模型的目标">生成模型的目标</h2>
 <p>生成模型的目标：</p>
 <figure>
-<img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507131919505.png" alt="image-20240507131919505">
+<img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240507131919505.png" alt="image-20240507131919505">
 <figcaption aria-hidden="true">image-20240507131919505</figcaption>
 </figure>
 <p>通过NN生成的分布和真实世界的分布一样，将概率分布展开，更容易理解。
@@ -416,7 +428,7 @@ x_0+\sqrt{1-\alpha_1}\epsilon_1)+\sqrt{1-\alpha_2}\epsilon_2 \\
 P_\theta(x)=\int_zP_\theta(x|z)P(z)dz
 \]</span> 目标就是最大化从<span class="math inline">\(P_{data}\)</span>中sample出的m个样本的概率<span class="math inline">\(P_\theta\)</span>的乘积。</p>
 <figure>
-<img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507132546801.png" alt="image-20240507132546801">
+<img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240507132546801.png" alt="image-20240507132546801">
 <figcaption aria-hidden="true">image-20240507132546801</figcaption>
 </figure>
 <p>这里补充KL散度的定义，也就是信息论中的相对熵： <span class="math display">\[
@@ -428,7 +440,7 @@ D_{KL}(P\Vert Q)=\int p(x)\ln(\frac{p(x)}{q(x)})dx
 z)dz\)</span>，我们讨论的是生成模型的通用形式，从手上的初始分布中采样一个<span class="math inline">\(z\)</span>​，这个概率是已知的。</p>
 <p>VAE中的做法是：</p>
 <figure>
-<img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507135141891.png" alt="image-20240507135141891">
+<img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240507135141891.png" alt="image-20240507135141891">
 <figcaption aria-hidden="true">image-20240507135141891</figcaption>
 </figure>
 <p>输入是x，通过一个encoder，得到latent z。</p>
@@ -436,18 +448,18 @@ z)dz\)</span>，我们讨论的是生成模型的通用形式，从手上的初�
 x)})\)</span>的期望的最大值。</p>
 <h2 id="ddpm计算p_theta">DDPM计算<span class="math inline">\(P_\theta\)</span></h2>
 <figure>
-<img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507135648112.png" alt="image-20240507135648112">
+<img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240507135648112.png" alt="image-20240507135648112">
 <figcaption aria-hidden="true">image-20240507135648112</figcaption>
 </figure>
 <p>和VAE的推导比较类似，得到的结论也有相似的结构。</p>
 <p>怎么最大化这个期望，这篇paper专门进行推导的，我们直接看结论。</p>
 <figure>
-<img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507140315856.png" alt="image-20240507140315856">
+<img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240507140315856.png" alt="image-20240507140315856">
 <figcaption aria-hidden="true">image-20240507140315856</figcaption>
 </figure>
 <p>目标的下界是：</p>
 <figure>
-<img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507140542568.png" alt="image-20240507140542568">
+<img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240507140542568.png" alt="image-20240507140542568">
 <figcaption aria-hidden="true">image-20240507140542568</figcaption>
 </figure>
 <ol type="1">
@@ -466,12 +478,12 @@ x_0)}&amp;
 \]</span>
 这三项都是可以计算的高斯分布，另一篇paper中推导了这个算式最后得到的是一个什么样的分布：</p>
 <figure>
-<img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507141837908.png" alt="image-20240507141837908">
+<img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240507141837908.png" alt="image-20240507141837908">
 <figcaption aria-hidden="true">image-20240507141837908</figcaption>
 </figure>
 <p>得到了这个分布的均值和方差：</p>
 <figure>
-<img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507142029958.png" alt="image-20240507142029958">
+<img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240507142029958.png" alt="image-20240507142029958">
 <figcaption aria-hidden="true">image-20240507142029958</figcaption>
 </figure>
 <p>那么怎么最小化这两个分布的KL散度： <span class="math display">\[
@@ -480,24 +492,24 @@ KL(p,q)=\log
 \]</span>
 不用直接带入，根据实验，直接最小化这两个分布的均值的距离即可。</p>
 <figure>
-<img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507142708377.png" alt="image-20240507142708377">
+<img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240507142708377.png" alt="image-20240507142708377">
 <figcaption aria-hidden="true">image-20240507142708377</figcaption>
 </figure></li>
 <li><p>第一项参考别人的博客，是这样解释的：</p>
 <figure>
-<img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507204854473.png" alt="image-20240507204854473">
+<img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240507204854473.png" alt="image-20240507204854473">
 <figcaption aria-hidden="true">image-20240507204854473</figcaption>
 </figure></li>
 </ol>
 <p>最后，<span class="math inline">\(q(x_{t-1}\vert
 x_t,x_0)\)</span>分布的均值，就是diffusion model输出的结果（<span class="math inline">\(x_t\)</span>减去predicted noice）：</p>
 <figure>
-<img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507205224196.png" alt="image-20240507205224196">
+<img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240507205224196.png" alt="image-20240507205224196">
 <figcaption aria-hidden="true">image-20240507205224196</figcaption>
 </figure>
 <p>将<span class="math inline">\(x_0\)</span>换成<span class="math inline">\(x_t\)</span>，得到的就是DDPM演算法中的sample的式子：</p>
 <figure>
-<img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507205458379.png" alt="image-20240507205458379">
+<img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240507205458379.png" alt="image-20240507205458379">
 <figcaption aria-hidden="true">image-20240507205458379</figcaption>
 </figure>
 <h2 id="总结ddpm">总结DDPM</h2>
@@ -515,7 +527,7 @@ x)}(\frac{P(x,z)}{q(z\vert x)})\)</span>。</p>
 <p>对于DDPM，用同样的方法，可以推导出相似的结构，<span class="math inline">\(P_\theta(x)\ge
 E_{q(x_1:x_t|x_0)}(\frac{P(x_0:x_t)}{q(x_1:x_t\vert x_0)})\)</span>​</p>
 <p>对于不等号右边的部分，通过大量推导得到下面的式子：</p>
-<p><img src="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/image-20240507140542568.png" alt="image-20240507140542568" style="zoom:33%;"></p>
+<p><img data-src="./Denoising-Diffusion-Probabilistic-Models/image-20240507140542568.png" alt="image-20240507140542568" style="zoom:33%;"></p>
 <p>此时问题变成了最小化第三个KL项了，也就是说那两个分布的均值越接近越好。</p></li>
 </ol>
 <h1 id="参考">参考</h1>
@@ -524,395 +536,98 @@ E_{q(x_1:x_t|x_0)}(\frac{P(x_0:x_t)}{q(x_1:x_t\vert x_0)})\)</span>​</p>
 <p><a target="_blank" rel="noopener" href="https://speech.ee.ntu.edu.tw/~hylee/ml/ml2023-course-data/DDPM%20(v7).pdf">PowerPoint
 簡報 (ntu.edu.tw)</a></p>
 
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2024/03/29/Denoising-Diffusion-Probabilistic-Models/" data-id="clw93veaf000mnn9f0yn52yy6" data-title="Denoising_Diffusion_Probabilistic_Models" class="article-share-link">Share</a>
-      
-      
-      
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/diffusion/" rel="tag">diffusion</a></li></ul>
 
+    
+    
+    
 
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/diffusion/" rel="tag"><i class="fa fa-tag"></i> diffusion</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/" rel="prev" title="Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving">
+                  <i class="fa fa-angle-left"></i> Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/03/30/follow-who/" rel="next" title="follow_who">
+                  follow_who <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
     </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2019 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">chengyiqiu</span>
   </div>
-  
-    
-  <nav id="article-nav" class="wow fadeInUp">
-    
-      <div class="article-nav-link-wrap article-nav-link-left">
-        
-          
-          
-            <img data-src="/covers/IMG_2618.PNG" data-sizes="auto" alt="follow_who" class="lazyload">
-          
-        
-        <a href="/2024/03/30/follow-who/"></a>
-        <div class="article-nav-caption">Newer</div>
-        <h3 class="article-nav-title">
-          
-            follow_who
-          
-        </h3>
-      </div>
-    
-    
-    <div class="article-nav-link-wrap article-nav-link-right">
-      
-        
-        
-          <img data-src="/covers/IMG_2575.JPG" data-sizes="auto" alt="Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving" class="lazyload">
-        
-      
-      <a href="/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/"></a>
-      <div class="article-nav-caption">Older</div>
-      <h3 class="article-nav-title">
-        
-          Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving
-        
-      </h3>
-    </div>
-    
-  </nav>
-
-
-  
-</article>
-
-
-
-
-
-
-</section>
-          
-            <aside id="sidebar">
-  <div class="sidebar-wrap wow fadeInRight wrap-sticky">
-    
-      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
-  <h3 class="toc-title">Contents</h3>
-  <div class="sidebar-toc-wrapper toc-div-class" >
-      
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">2.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E9%83%A8%E5%88%86"><span class="toc-number">3.</span> <span class="toc-text">算法部分</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90"><span class="toc-number">4.</span> <span class="toc-text">原理解析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E5%AD%A6%E5%8E%9F%E7%90%86"><span class="toc-number">5.</span> <span class="toc-text">数学原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%87%8D%E6%8E%A8"><span class="toc-number">6.</span> <span class="toc-text">重推</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A9%E6%95%A3%E4%B8%80%E6%AD%A5%E5%88%B0%E4%BD%8D"><span class="toc-number">6.1.</span> <span class="toc-text">扩散：一步到位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%9B%AE%E6%A0%87"><span class="toc-number">6.2.</span> <span class="toc-text">生成模型的目标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vae%E8%AE%A1%E7%AE%97p_theta%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">6.3.</span> <span class="toc-text">VAE计算\(P_\theta\)的方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ddpm%E8%AE%A1%E7%AE%97p_theta"><span class="toc-number">6.4.</span> <span class="toc-text">DDPM计算\(P_\theta\)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93ddpm"><span class="toc-number">6.5.</span> <span class="toc-text">总结DDPM</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">7.</span> <span class="toc-text">参考</span></a></li></ol>
-      
-  </div>
-</div>
-</div>
-      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
-  <div class="sidebar-author-name">chengyiqiu</div>
-  <div class="sidebar-description"></div>
-</div>
-<div class="sidebar-state">
-  <div class="sidebar-state-article">
-    <div>Posts</div>
-    <div class="sidebar-state-number">60</div>
-  </div>
-  <div class="sidebar-state-category">
-    <div>Categories</div>
-    <div class="sidebar-state-number">11</div>
-  </div>
-  <div class="sidebar-state-tag">
-    <div>Tags</div>
-    <div class="sidebar-state-number">13</div>
-  </div>
-</div>
-<div class="sidebar-social">
-  
-    <div class=icon-github>
-      <a href=https://github.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="github"></a>
-    </div>
-  
-    <div class=icon-twitter>
-      <a href=https://x.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="twitter"></a>
-    </div>
-  
-    <div class=icon-bilibili>
-      <a href=https://space.bilibili.com/3493124768795188?spm_id_from=333.337.0.0 itemprop="url" target="_blank" aria-label="bilibili"></a>
-    </div>
-  
-    <div class=icon-zhihu>
-      <a href=https://www.zhihu.com/people/b79383d8dcc462769c532f9d16dadfeb itemprop="url" target="_blank" aria-label="zhihu"></a>
-    </div>
-  
-    <div class=icon-telegram>
-      <a href=https://www.t.me/chengyiqiu1121 itemprop="url" target="_blank" aria-label="telegram"></a>
-    </div>
-  
-</div>
-<div class="sidebar-menu">
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/" aria-label="Home"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Home</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="Archives"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Archives</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/about" aria-label="About"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">About</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="Friend"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Friend</div>
-    </div>
-  
-</div>
-</div>
-    
-    
-      <div class="sidebar-btn-wrapper" style="position:static">
-        <div class="sidebar-toc-btn current"></div>
-        <div class="sidebar-common-btn"></div>
-      </div>
-    
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
-  
-</aside>
+    </div>
+  </footer>
 
-          
-        </div>
-        <footer id="footer" class="wow fadeInUp">
-  <div style="width: 100%; overflow: hidden">
-    <div class="footer-line"></div>
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
   </div>
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      <div>
-        <span class="icon-copyright"></span>
-        2020-2024
-        <span class="footer-info-sep"></span>
-        chengyiqiu
-      </div>
-      
-        <div>
-          Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>&nbsp;
-          Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" target="_blank">Reimu</a>
-        </div>
-      
-      
-        <div>
-          <span class="icon-brush"></span>
-          90.7k
-          &nbsp;|&nbsp;
-          <span class="icon-coffee"></span>
-          05:57
-        </div>
-      
-      
-        <div>
-          <span class="icon-eye"></span>
-          <span id="busuanzi_container_site_pv">Number of visits&nbsp;<span id="busuanzi_value_site_pv"></span></span>
-          &nbsp;|&nbsp;
-          <span class="icon-user"></span>
-          <span id="busuanzi_container_site_uv">Number of visitors&nbsp;<span id="busuanzi_value_site_uv"></span></span>
-        </div>
-      
-    </div>
-  </div>
-</footer>
+  <div class="sidebar-dimmer"></div>
 
-        <div class="sidebar-top">
-          <img src="/images/taichi.png" height="50" width="50" />
-          <div class="arrow-up"></div>
-        </div>
-        <div id="mask"></div>
-      </div>
-      <nav id="mobile-nav">
-  <div class="sidebar-wrap">
-    
-      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
-  <h3 class="toc-title">Contents</h3>
-  <div class="sidebar-toc-wrapper toc-div-class" >
-      
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">2.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E9%83%A8%E5%88%86"><span class="toc-number">3.</span> <span class="toc-text">算法部分</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90"><span class="toc-number">4.</span> <span class="toc-text">原理解析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E5%AD%A6%E5%8E%9F%E7%90%86"><span class="toc-number">5.</span> <span class="toc-text">数学原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%87%8D%E6%8E%A8"><span class="toc-number">6.</span> <span class="toc-text">重推</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A9%E6%95%A3%E4%B8%80%E6%AD%A5%E5%88%B0%E4%BD%8D"><span class="toc-number">6.1.</span> <span class="toc-text">扩散：一步到位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%9B%AE%E6%A0%87"><span class="toc-number">6.2.</span> <span class="toc-text">生成模型的目标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vae%E8%AE%A1%E7%AE%97p_theta%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">6.3.</span> <span class="toc-text">VAE计算\(P_\theta\)的方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ddpm%E8%AE%A1%E7%AE%97p_theta"><span class="toc-number">6.4.</span> <span class="toc-text">DDPM计算\(P_\theta\)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93ddpm"><span class="toc-number">6.5.</span> <span class="toc-text">总结DDPM</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">7.</span> <span class="toc-text">参考</span></a></li></ol>
-      
-  </div>
-</div>
-</div>
-      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
-  <div class="sidebar-author-name">chengyiqiu</div>
-  <div class="sidebar-description"></div>
-</div>
-<div class="sidebar-state">
-  <div class="sidebar-state-article">
-    <div>Posts</div>
-    <div class="sidebar-state-number">60</div>
-  </div>
-  <div class="sidebar-state-category">
-    <div>Categories</div>
-    <div class="sidebar-state-number">11</div>
-  </div>
-  <div class="sidebar-state-tag">
-    <div>Tags</div>
-    <div class="sidebar-state-number">13</div>
-  </div>
-</div>
-<div class="sidebar-social">
-  
-    <div class=icon-github>
-      <a href=https://github.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="github"></a>
-    </div>
-  
-    <div class=icon-twitter>
-      <a href=https://x.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="twitter"></a>
-    </div>
-  
-    <div class=icon-bilibili>
-      <a href=https://space.bilibili.com/3493124768795188?spm_id_from=333.337.0.0 itemprop="url" target="_blank" aria-label="bilibili"></a>
-    </div>
-  
-    <div class=icon-zhihu>
-      <a href=https://www.zhihu.com/people/b79383d8dcc462769c532f9d16dadfeb itemprop="url" target="_blank" aria-label="zhihu"></a>
-    </div>
-  
-    <div class=icon-telegram>
-      <a href=https://www.t.me/chengyiqiu1121 itemprop="url" target="_blank" aria-label="telegram"></a>
-    </div>
-  
-</div>
-<div class="sidebar-menu">
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/" aria-label="Home"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Home</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="Archives"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Archives</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/about" aria-label="About"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">About</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="Friend"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Friend</div>
-    </div>
-  
-</div>
-</div>
-    
-  </div>
-  
-    <div class="sidebar-btn-wrapper">
-      <div class="sidebar-toc-btn current"></div>
-      <div class="sidebar-common-btn"></div>
-    </div>
-  
-</nav>
-
-    </div>
-    <div class="site-search">
-      <div class="reimu-popup popup">
-        <div class="reimu-search">
-          <span class="reimu-search-input-icon"></span>
-          <div class="reimu-search-input" id="reimu-search-input"></div>
-        </div>
-        <div class="reimu-results">
-          <div id="reimu-stats"></div>
-          <div id="reimu-hits"></div>
-          <div id="reimu-pagination" class="reimu-pagination"></div>
-        </div>
-        <span class="popup-btn-close"></span>
-      </div>
-    </div>
-    
-<script src="https://npm.webcache.cn/jquery@3.7.1/dist/jquery.min.js"></script>
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
 
-<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
 
 
-<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"></script>
+
+  <script src="/js/third-party/fancybox.js"></script>
 
 
 
   
-<script src="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
-
-
-
-  
-<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
-
-
-
-
-
-
-<script src="/js/pjax_script.js" data-pjax></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
 
   
-<script src="https://npm.webcache.cn/mouse-firework@0.0.4/dist/index.umd.js"></script>
 
-  <script>
-    firework(JSON.parse('{"excludeElements":["a"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["#ff5252","#ff7c7c","#ffafaf","#ffd0d0"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["#ff0000"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'))
-  </script>
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
 
 
 
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-  <script>
-    console.log(String.raw`%c 
- ______     ______     __     __    __     __  __    
-/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
-\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
- \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
-  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
-                                                  
-`,'color: #ff5252;')
-    console.log('%c Theme.Reimu v' + '0.1.2' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
-  </script>
-  
-
-  <!-- hexo injector body_end start -->
-<script src="/js/insert_highlight.js" data-pjax></script>
-<!-- hexo injector body_end end --></body>
-  </html>
-
+</body>
+</html>

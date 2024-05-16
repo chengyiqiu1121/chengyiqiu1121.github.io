@@ -1,223 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
 
-  <!DOCTYPE html>
-  <html lang="en"  >
-  <head>
-  <meta charset="utf-8">
-  
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-  
+<link rel="stylesheet" href="/css/main.css">
 
-  
 
-  
-  <title>
-    Black-box_Backdoor_Defense_via_Zero-shot_Image_Purification |
-    
-    Hexo
-  </title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="preload" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CUbuntu%20Mono:400,400italic,700,700italic&display=swap&subset=latin,latin-ext" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;">
-  
-<link rel="stylesheet" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/regular.min.css">
-<link rel="stylesheet" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/solid.min.css">
 
-  <link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/brands.min.css" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;"><link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/v5-font-face.min.css" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;"><link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/v4-font-face.min.css" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;">
-  
-<link rel="stylesheet" href="/css/loader.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
 
-  <meta name="description" content="NIPS2023 摘要  对原始图片使用一个线性变换，来摧毁后门模式。 使用扩散模型对变换后的图片进行恢复。  概述 整体的架构   image-20240318132942587  扩散模型 介绍了一种扩散模型DDPM，可以生成高质量的图片，有两个过程：前向过程（forward process）和反向过程（reverse process）:  fp：对原始图像\(x_0\)迭代的不断添加高斯噪声">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width":280,"display":"post","offset":10,"onmobile":true},"hljswrap":true,"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="NIPS2023 摘要  对原始图片使用一个线性变换，来摧毁后门模式。 使用扩散模型对变换后的图片进行恢复。  概述 整体的架构   image-20240318132942587  扩散模型 介绍了一种扩散模型DDPM，可以生成高质量的图片，有两个过程：前向过程（forward process）和反向过程（reverse process）:  fp：对原始图像\(x_0\)迭代的不断添加高斯噪声">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Black-box_Backdoor_Defense_via_Zero-shot_Image_Purification">
 <meta property="og:url" content="http://example.com/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="NIPS2023 摘要  对原始图片使用一个线性变换，来摧毁后门模式。 使用扩散模型对变换后的图片进行恢复。  概述 整体的架构   image-20240318132942587  扩散模型 介绍了一种扩散模型DDPM，可以生成高质量的图片，有两个过程：前向过程（forward process）和反向过程（reverse process）:  fp：对原始图像\(x_0\)迭代的不断添加高斯噪声">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318132942587.png">
-<meta property="og:image" content="http://example.com/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318135002113.png">
-<meta property="og:image" content="http://example.com/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318135154622.png">
-<meta property="og:image" content="http://example.com/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318194853919.png">
-<meta property="og:image" content="http://example.com/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318195448130.png">
-<meta property="og:image" content="http://example.com/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318200936982.png">
-<meta property="og:image" content="http://example.com/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240319141055709.png">
+<meta property="og:image" content="http://example.com/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318132942587.png">
+<meta property="og:image" content="http://example.com/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318135002113.png">
+<meta property="og:image" content="http://example.com/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318135154622.png">
+<meta property="og:image" content="http://example.com/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318194853919.png">
+<meta property="og:image" content="http://example.com/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318195448130.png">
+<meta property="og:image" content="http://example.com/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318200936982.png">
+<meta property="og:image" content="http://example.com/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240319141055709.png">
 <meta property="article:published_time" content="2024-03-15T07:29:21.000Z">
 <meta property="article:modified_time" content="2024-04-19T04:34:21.044Z">
 <meta property="article:author" content="chengyiqiu">
 <meta property="article:tag" content="backdoor">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318132942587.png">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/images/favicon.ico">
-  
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+<meta name="twitter:image" content="http://example.com/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318132942587.png">
 
-  
-    
-<link rel="stylesheet" href="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
-  
-  
-    
-<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css">
+<link rel="canonical" href="http://example.com/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/">
 
-  
-  
-  
-  
-<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"></script>
 
-  
-    
-<link rel="stylesheet" href="https://npm.webcache.cn/wowjs@1.1.3/css/libs/animate.css">
 
-    
-<script src="https://npm.webcache.cn/wowjs@1.1.3/dist/wow.min.js"></script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/","path":"2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/","title":"Black-box_Backdoor_Defense_via_Zero-shot_Image_Purification"}</script>
 
-    <script>
-      new WOW({
-        offset: 0,
-        mobile: true,
-        live: false
-      }).init();
-    </script>
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Black-box_Backdoor_Defense_via_Zero-shot_Image_Purification | Hexo</title>
   
-  
-    <script src="/sw.js"></script>
-  
-<meta name="generator" content="Hexo 7.2.0"></head>
 
-  <body>
-    
-  <div id='loader'>
-    <div class="loading-left-bg"></div>
-    <div class="loading-right-bg"></div>
-    <div class="spinner-box">
-      <div class="loading-taichi">
-        <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
-          <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="#ff6e6b" />
-          <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z" fill="#fd0d00" />
-          <path d="M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95" fill="#fd0d00" />
-        </svg>
-      </div>
-      <div class="loading-word">梭哈是一种智慧</div>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
     </div>
   </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
   </div>
-  <script>
-    var time = null;
-    const startLoading = () => {
-      time = Date.now();
-      document.getElementById('loader').classList.remove("loading");
-    }
-    const endLoading = () => {
-      if (!time) {
-        document.body.style.overflow = 'auto';
-        document.getElementById('loader').classList.add("loading");
-      } else {
-        if (Date.now() - time > 500) {
-          time = null;
-          document.body.style.overflow = 'auto';
-          document.getElementById('loader').classList.add("loading");
-        } else {
-          setTimeout(endLoading, 500 - (Date.now() - time));
-          time = null;
-        }
-      }
-    }
-    window.addEventListener('load', endLoading);
-    document.getElementById('loader').addEventListener('click', endLoading);
-  </script>
 
-
-    <div id="container">
-      <div id="wrap">
-        <div id="header-nav">
-  <nav id="main-nav">
-    
-      <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
-        <a class="main-nav-link" href="/">Home</a>
-      </span>
-    
-      <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
-        <a class="main-nav-link" href="/archives">Archives</a>
-      </span>
-    
-      <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
-        <a class="main-nav-link" href="/about">About</a>
-      </span>
-    
-      <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
-        <a class="main-nav-link" href="/friend">Friend</a>
-      </span>
-    
-    <a id="main-nav-toggle" class="nav-icon"></a>
-  </nav>
-  <nav id="sub-nav">
-    
-      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-    
-    
-    
-  </nav>
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
 </div>
-<header id="header">
-  
-    <img fetchpriority="high" src="/images/banner.png" alt="Black-box_Backdoor_Defense_via_Zero-shot_Image_Purification">
-  
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <div id="logo-wrap">
-        
-          
-          
-            <a href="/" id="logo">
-              <h1>Black-box_Backdoor_Defense_via_Zero-shot_Image_Purification</h1>
-            </a>
-          
-        
-      </div>
-      
-        
-        <h2 id="subtitle-wrap">
-          
-        </h2>
-      
-    </div>
-  </div>
+
+
+
+
+
+
+
 </header>
+        
+  
+  <aside class="sidebar">
 
-        <div id="content" class="outer">
-          
-          <section id="main"><article id="post-Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-inner">
-    <div class="article-meta">
-      <div class="article-date wow slideInLeft">
-  <a href="/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/" class="article-date-link">
-    <time datetime="2024-03-15T07:29:21.000Z" itemprop="datePublished">2024-03-15</time>
-  </a>
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%91%98%E8%A6%81"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">2.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E4%BD%93%E7%9A%84%E6%9E%B6%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text">整体的架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">扩散模型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#zip"><span class="nav-number">3.</span> <span class="nav-text">ZIP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E5%8F%98%E6%8D%A2%E5%92%8C%E5%88%86%E8%A7%A3"><span class="nav-number">3.1.</span> <span class="nav-text">图像变换和分解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B%E6%9D%A5%E8%BF%9B%E8%A1%8C%E5%9B%BE%E5%83%8F%E5%87%80%E5%8C%96"><span class="nav-number">3.2.</span> <span class="nav-text">用扩散模型来进行图像净化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E5%8F%8D%E5%90%91%E8%BF%87%E7%A8%8B%E9%80%82%E9%85%8D%E5%88%B0%E9%9B%B6%E6%A0%B7%E6%9C%AC%E9%80%82%E9%85%8D"><span class="nav-number">3.3.</span> <span class="nav-text">将反向过程适配到零样本适配</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">chengyiqiu</p>
+  <div class="site-description" itemprop="description"></div>
 </div>
-
-      
-  <div class="article-category wow slideInLeft">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chengyiqiu1121" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chengyiqiu1121" rel="noopener me" target="_blank">GitHub</a>
+      </span>
   </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="Back to top">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
 
 
     </div>
-    <div class="hr-line"></div>
-    
 
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>NIPS2023</p>
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="chengyiqiu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Black-box_Backdoor_Defense_via_Zero-shot_Image_Purification | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Black-box_Backdoor_Defense_via_Zero-shot_Image_Purification
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-03-15 15:29:21" itemprop="dateCreated datePublished" datetime="2024-03-15T15:29:21+08:00">2024-03-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-04-19 12:34:21" itemprop="dateModified" datetime="2024-04-19T12:34:21+08:00">2024-04-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">论文阅读</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>NIPS2023</p>
 <h1 id="摘要">摘要</h1>
 <ol type="1">
 <li>对原始图片使用一个线性变换，来摧毁后门模式。</li>
@@ -226,7 +238,7 @@
 <h1 id="概述">概述</h1>
 <h2 id="整体的架构">整体的架构</h2>
 <figure>
-<img src="/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318132942587.png" alt="image-20240318132942587">
+<img data-src="./Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318132942587.png" alt="image-20240318132942587">
 <figcaption aria-hidden="true">image-20240318132942587</figcaption>
 </figure>
 <h2 id="扩散模型">扩散模型</h2>
@@ -235,12 +247,12 @@ process）和反向过程（reverse process）:</p>
 <ul>
 <li><p>fp：对原始图像<span class="math inline">\(x_0\)</span>迭代的不断添加高斯噪声，直到其变为<strong>随机高斯噪声</strong><span class="math inline">\(x_T\)</span>​</p>
 <figure>
-<img src="/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318135002113.png" alt="image-20240318135002113">
+<img data-src="./Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318135002113.png" alt="image-20240318135002113">
 <figcaption aria-hidden="true">image-20240318135002113</figcaption>
 </figure></li>
 <li><p>rp：移除<strong>随机高斯噪声</strong><span class="math inline">\(x_T\)</span>​上的噪声，直到其恢复成原始图像。</p>
 <figure>
-<img src="/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318135154622.png" alt="image-20240318135154622">
+<img data-src="./Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318135154622.png" alt="image-20240318135154622">
 <figcaption aria-hidden="true">image-20240318135154622</figcaption>
 </figure></li>
 </ul>
@@ -276,19 +288,19 @@ x_0=A^{\dagger}x^A-A^\dagger Ap+(I-A^\dagger A)x_0
 <h2 id="用扩散模型来进行图像净化">用扩散模型来进行图像净化</h2>
 <p>通过扩散模型的前向过程，和上面的公式(5)，可以得出：</p>
 <figure>
-<img src="/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318194853919.png" alt="image-20240318194853919">
+<img data-src="./Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318194853919.png" alt="image-20240318194853919">
 <figcaption aria-hidden="true">image-20240318194853919</figcaption>
 </figure>
 <p><span class="math inline">\(\epsilon_t\)</span>是由扩散模型<span class="math inline">\(g_\phi\)</span>生成的噪声，<span class="math inline">\(\epsilon _t=g_\phi (x_t,t)\)</span>，<span class="math inline">\(x_t^{&#39;}\)</span>是<span class="math inline">\(x_t\)</span>的估计。</p>
 <p>然后再用扩散模型的反向过程对<span class="math inline">\(x_t\)</span>进行迭代：</p>
 <figure>
-<img src="/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318195448130.png" alt="image-20240318195448130">
+<img data-src="./Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318195448130.png" alt="image-20240318195448130">
 <figcaption aria-hidden="true">image-20240318195448130</figcaption>
 </figure>
 <h2 id="将反向过程适配到零样本适配">将反向过程适配到零样本适配</h2>
 <p>由于防御者不知道触发器<span class="math inline">\(p\)</span>，因此，选择忽略中间带有<span class="math inline">\(p\)</span>的一项，并用<span class="math inline">\(\hat x_t\)</span>来估计<span class="math inline">\(x_t^{&#39;}\)</span></p>
 <figure>
-<img src="/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318200936982.png" alt="image-20240318200936982">
+<img data-src="./Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240318200936982.png" alt="image-20240318200936982">
 <figcaption aria-hidden="true">image-20240318200936982</figcaption>
 </figure>
 <p>选择忽略<span class="math inline">\(\sqrt{\bar \alpha _t}A^\dagger
@@ -306,399 +318,102 @@ g_\phi ((x_t+\sqrt{\bar \alpha _t}A^\dagger Ap), t)=\epsilon
 _t+\epsilon_t^{&#39;}
 \]</span> 通过推导可以得到误差的边界：</p>
 <figure>
-<img src="/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240319141055709.png" alt="image-20240319141055709">
+<img data-src="./Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/image-20240319141055709.png" alt="image-20240319141055709">
 <figcaption aria-hidden="true">image-20240319141055709</figcaption>
 </figure>
 
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/" data-id="clw93vead000ann9fhrrefo61" data-title="Black-box_Backdoor_Defense_via_Zero-shot_Image_Purification" class="article-share-link">Share</a>
-      
-      
-      
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/backdoor/" rel="tag">backdoor</a></li></ul>
 
+    
+    
+    
 
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/backdoor/" rel="tag"><i class="fa fa-tag"></i> backdoor</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/03/14/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/" rel="prev" title="Towards_Stable_Backdoor_Purification_through_Feature_Shift_Tuning">
+                  <i class="fa fa-angle-left"></i> Towards_Stable_Backdoor_Purification_through_Feature_Shift_Tuning
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/03/21/Distilling-Cognitive-Backdoor-Patterns-within-an-Image/" rel="next" title="Distilling_Cognitive_Backdoor_Patterns_within_an_Image">
+                  Distilling_Cognitive_Backdoor_Patterns_within_an_Image <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
     </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2019 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">chengyiqiu</span>
   </div>
-  
-    
-  <nav id="article-nav" class="wow fadeInUp">
-    
-      <div class="article-nav-link-wrap article-nav-link-left">
-        
-          
-          
-            <img data-src="/covers/IMG_2581.JPG" data-sizes="auto" alt="Distilling_Cognitive_Backdoor_Patterns_within_an_Image" class="lazyload">
-          
-        
-        <a href="/2024/03/21/Distilling-Cognitive-Backdoor-Patterns-within-an-Image/"></a>
-        <div class="article-nav-caption">Newer</div>
-        <h3 class="article-nav-title">
-          
-            Distilling_Cognitive_Backdoor_Patterns_within_an_Image
-          
-        </h3>
-      </div>
-    
-    
-    <div class="article-nav-link-wrap article-nav-link-right">
-      
-        
-        
-          <img data-src="/covers/IMG_2582.PNG" data-sizes="auto" alt="Towards_Stable_Backdoor_Purification_through_Feature_Shift_Tuning" class="lazyload">
-        
-      
-      <a href="/2024/03/14/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/"></a>
-      <div class="article-nav-caption">Older</div>
-      <h3 class="article-nav-title">
-        
-          Towards_Stable_Backdoor_Purification_through_Feature_Shift_Tuning
-        
-      </h3>
-    </div>
-    
-  </nav>
-
-
-  
-</article>
-
-
-
-
-
-
-</section>
-          
-            <aside id="sidebar">
-  <div class="sidebar-wrap wow fadeInRight wrap-sticky">
-    
-      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
-  <h3 class="toc-title">Contents</h3>
-  <div class="sidebar-toc-wrapper toc-div-class" >
-      
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">2.</span> <span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E7%9A%84%E6%9E%B6%E6%9E%84"><span class="toc-number">2.1.</span> <span class="toc-text">整体的架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.2.</span> <span class="toc-text">扩散模型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#zip"><span class="toc-number">3.</span> <span class="toc-text">ZIP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E5%8F%98%E6%8D%A2%E5%92%8C%E5%88%86%E8%A7%A3"><span class="toc-number">3.1.</span> <span class="toc-text">图像变换和分解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B%E6%9D%A5%E8%BF%9B%E8%A1%8C%E5%9B%BE%E5%83%8F%E5%87%80%E5%8C%96"><span class="toc-number">3.2.</span> <span class="toc-text">用扩散模型来进行图像净化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%86%E5%8F%8D%E5%90%91%E8%BF%87%E7%A8%8B%E9%80%82%E9%85%8D%E5%88%B0%E9%9B%B6%E6%A0%B7%E6%9C%AC%E9%80%82%E9%85%8D"><span class="toc-number">3.3.</span> <span class="toc-text">将反向过程适配到零样本适配</span></a></li></ol></li></ol>
-      
-  </div>
-</div>
-</div>
-      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
-  <div class="sidebar-author-name">chengyiqiu</div>
-  <div class="sidebar-description"></div>
-</div>
-<div class="sidebar-state">
-  <div class="sidebar-state-article">
-    <div>Posts</div>
-    <div class="sidebar-state-number">60</div>
-  </div>
-  <div class="sidebar-state-category">
-    <div>Categories</div>
-    <div class="sidebar-state-number">11</div>
-  </div>
-  <div class="sidebar-state-tag">
-    <div>Tags</div>
-    <div class="sidebar-state-number">13</div>
-  </div>
-</div>
-<div class="sidebar-social">
-  
-    <div class=icon-github>
-      <a href=https://github.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="github"></a>
-    </div>
-  
-    <div class=icon-twitter>
-      <a href=https://x.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="twitter"></a>
-    </div>
-  
-    <div class=icon-bilibili>
-      <a href=https://space.bilibili.com/3493124768795188?spm_id_from=333.337.0.0 itemprop="url" target="_blank" aria-label="bilibili"></a>
-    </div>
-  
-    <div class=icon-zhihu>
-      <a href=https://www.zhihu.com/people/b79383d8dcc462769c532f9d16dadfeb itemprop="url" target="_blank" aria-label="zhihu"></a>
-    </div>
-  
-    <div class=icon-telegram>
-      <a href=https://www.t.me/chengyiqiu1121 itemprop="url" target="_blank" aria-label="telegram"></a>
-    </div>
-  
-</div>
-<div class="sidebar-menu">
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/" aria-label="Home"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Home</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="Archives"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Archives</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/about" aria-label="About"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">About</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="Friend"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Friend</div>
-    </div>
-  
-</div>
-</div>
-    
-    
-      <div class="sidebar-btn-wrapper" style="position:static">
-        <div class="sidebar-toc-btn current"></div>
-        <div class="sidebar-common-btn"></div>
-      </div>
-    
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
-  
-</aside>
+    </div>
+  </footer>
 
-          
-        </div>
-        <footer id="footer" class="wow fadeInUp">
-  <div style="width: 100%; overflow: hidden">
-    <div class="footer-line"></div>
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
   </div>
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      <div>
-        <span class="icon-copyright"></span>
-        2020-2024
-        <span class="footer-info-sep"></span>
-        chengyiqiu
-      </div>
-      
-        <div>
-          Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>&nbsp;
-          Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" target="_blank">Reimu</a>
-        </div>
-      
-      
-        <div>
-          <span class="icon-brush"></span>
-          90.7k
-          &nbsp;|&nbsp;
-          <span class="icon-coffee"></span>
-          05:57
-        </div>
-      
-      
-        <div>
-          <span class="icon-eye"></span>
-          <span id="busuanzi_container_site_pv">Number of visits&nbsp;<span id="busuanzi_value_site_pv"></span></span>
-          &nbsp;|&nbsp;
-          <span class="icon-user"></span>
-          <span id="busuanzi_container_site_uv">Number of visitors&nbsp;<span id="busuanzi_value_site_uv"></span></span>
-        </div>
-      
-    </div>
-  </div>
-</footer>
+  <div class="sidebar-dimmer"></div>
 
-        <div class="sidebar-top">
-          <img src="/images/taichi.png" height="50" width="50" />
-          <div class="arrow-up"></div>
-        </div>
-        <div id="mask"></div>
-      </div>
-      <nav id="mobile-nav">
-  <div class="sidebar-wrap">
-    
-      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
-  <h3 class="toc-title">Contents</h3>
-  <div class="sidebar-toc-wrapper toc-div-class" >
-      
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">2.</span> <span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E7%9A%84%E6%9E%B6%E6%9E%84"><span class="toc-number">2.1.</span> <span class="toc-text">整体的架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.2.</span> <span class="toc-text">扩散模型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#zip"><span class="toc-number">3.</span> <span class="toc-text">ZIP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E5%8F%98%E6%8D%A2%E5%92%8C%E5%88%86%E8%A7%A3"><span class="toc-number">3.1.</span> <span class="toc-text">图像变换和分解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B%E6%9D%A5%E8%BF%9B%E8%A1%8C%E5%9B%BE%E5%83%8F%E5%87%80%E5%8C%96"><span class="toc-number">3.2.</span> <span class="toc-text">用扩散模型来进行图像净化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%86%E5%8F%8D%E5%90%91%E8%BF%87%E7%A8%8B%E9%80%82%E9%85%8D%E5%88%B0%E9%9B%B6%E6%A0%B7%E6%9C%AC%E9%80%82%E9%85%8D"><span class="toc-number">3.3.</span> <span class="toc-text">将反向过程适配到零样本适配</span></a></li></ol></li></ol>
-      
-  </div>
-</div>
-</div>
-      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
-  <div class="sidebar-author-name">chengyiqiu</div>
-  <div class="sidebar-description"></div>
-</div>
-<div class="sidebar-state">
-  <div class="sidebar-state-article">
-    <div>Posts</div>
-    <div class="sidebar-state-number">60</div>
-  </div>
-  <div class="sidebar-state-category">
-    <div>Categories</div>
-    <div class="sidebar-state-number">11</div>
-  </div>
-  <div class="sidebar-state-tag">
-    <div>Tags</div>
-    <div class="sidebar-state-number">13</div>
-  </div>
-</div>
-<div class="sidebar-social">
-  
-    <div class=icon-github>
-      <a href=https://github.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="github"></a>
-    </div>
-  
-    <div class=icon-twitter>
-      <a href=https://x.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="twitter"></a>
-    </div>
-  
-    <div class=icon-bilibili>
-      <a href=https://space.bilibili.com/3493124768795188?spm_id_from=333.337.0.0 itemprop="url" target="_blank" aria-label="bilibili"></a>
-    </div>
-  
-    <div class=icon-zhihu>
-      <a href=https://www.zhihu.com/people/b79383d8dcc462769c532f9d16dadfeb itemprop="url" target="_blank" aria-label="zhihu"></a>
-    </div>
-  
-    <div class=icon-telegram>
-      <a href=https://www.t.me/chengyiqiu1121 itemprop="url" target="_blank" aria-label="telegram"></a>
-    </div>
-  
-</div>
-<div class="sidebar-menu">
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/" aria-label="Home"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Home</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="Archives"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Archives</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/about" aria-label="About"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">About</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="Friend"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Friend</div>
-    </div>
-  
-</div>
-</div>
-    
-  </div>
-  
-    <div class="sidebar-btn-wrapper">
-      <div class="sidebar-toc-btn current"></div>
-      <div class="sidebar-common-btn"></div>
-    </div>
-  
-</nav>
-
-    </div>
-    <div class="site-search">
-      <div class="reimu-popup popup">
-        <div class="reimu-search">
-          <span class="reimu-search-input-icon"></span>
-          <div class="reimu-search-input" id="reimu-search-input"></div>
-        </div>
-        <div class="reimu-results">
-          <div id="reimu-stats"></div>
-          <div id="reimu-hits"></div>
-          <div id="reimu-pagination" class="reimu-pagination"></div>
-        </div>
-        <span class="popup-btn-close"></span>
-      </div>
-    </div>
-    
-<script src="https://npm.webcache.cn/jquery@3.7.1/dist/jquery.min.js"></script>
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
 
-<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
 
 
-<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"></script>
+
+  <script src="/js/third-party/fancybox.js"></script>
 
 
 
   
-<script src="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
-
-
-
-  
-<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
-
-
-
-
-
-
-<script src="/js/pjax_script.js" data-pjax></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
 
   
-<script src="https://npm.webcache.cn/mouse-firework@0.0.4/dist/index.umd.js"></script>
 
-  <script>
-    firework(JSON.parse('{"excludeElements":["a"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["#ff5252","#ff7c7c","#ffafaf","#ffd0d0"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["#ff0000"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'))
-  </script>
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
 
 
 
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-  <script>
-    console.log(String.raw`%c 
- ______     ______     __     __    __     __  __    
-/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
-\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
- \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
-  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
-                                                  
-`,'color: #ff5252;')
-    console.log('%c Theme.Reimu v' + '0.1.2' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
-  </script>
-  
-
-  <!-- hexo injector body_end start -->
-<script src="/js/insert_highlight.js" data-pjax></script>
-<!-- hexo injector body_end end --></body>
-  </html>
-
+</body>
+</html>

@@ -1,247 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
 
-  <!DOCTYPE html>
-  <html lang="en"  >
-  <head>
-  <meta charset="utf-8">
-  
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-  
+<link rel="stylesheet" href="/css/main.css">
 
-  
 
-  
-  <title>
-    cs224w_ch3 |
-    
-    Hexo
-  </title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="preload" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CUbuntu%20Mono:400,400italic,700,700italic&display=swap&subset=latin,latin-ext" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;">
-  
-<link rel="stylesheet" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/regular.min.css">
-<link rel="stylesheet" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/solid.min.css">
 
-  <link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/brands.min.css" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;"><link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/v5-font-face.min.css" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;"><link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/v4-font-face.min.css" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;">
-  
-<link rel="stylesheet" href="/css/loader.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
 
-  <meta name="description" content="ch2讲的就是我们如何设计特征，来尽量准确的表示这个网络，然后再交给机器学习算法如SVM，最后得到我们的预测：   image-20231013104858822  事实上我们可能会花大部分的时间去做特征工程。 这一节考虑的是，能否不用特征工程。 图表征学习：自动获取网络的特征。 node embedding 结点嵌入两个很重要的特征；  无监督：训练不需要利用结点的label，也不需要featu">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width":280,"display":"post","offset":10,"onmobile":true},"hljswrap":true,"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="ch2讲的就是我们如何设计特征，来尽量准确的表示这个网络，然后再交给机器学习算法如SVM，最后得到我们的预测：   image-20231013104858822  事实上我们可能会花大部分的时间去做特征工程。 这一节考虑的是，能否不用特征工程。 图表征学习：自动获取网络的特征。 node embedding 结点嵌入两个很重要的特征；  无监督：训练不需要利用结点的label，也不需要featu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cs224w_ch3">
 <meta property="og:url" content="http://example.com/2023/10/13/cs224w-ch3/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="ch2讲的就是我们如何设计特征，来尽量准确的表示这个网络，然后再交给机器学习算法如SVM，最后得到我们的预测：   image-20231013104858822  事实上我们可能会花大部分的时间去做特征工程。 这一节考虑的是，能否不用特征工程。 图表征学习：自动获取网络的特征。 node embedding 结点嵌入两个很重要的特征；  无监督：训练不需要利用结点的label，也不需要featu">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231013104858822.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231013105154723.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231013105532825.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231013110146538.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231013123405368.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231013195103736.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015203440876.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015203738556.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015203753465.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015210342311.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015210423990.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015210646749.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015210720744.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015211112148.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231013110146538.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015213201541.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015213554066.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015213929100.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015200000371.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015221015877.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015221050844.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231015221722630.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231016082050748.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231016082759928.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231016082950394.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231016083437104.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231016084518021.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231016084700692.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231016084952691.png">
-<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231016085824928.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231013104858822.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231013105154723.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231013105532825.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231013110146538.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231013123405368.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231013195103736.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015203440876.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015203738556.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015203753465.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015210342311.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015210423990.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015210646749.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015210720744.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015211112148.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231013110146538.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015213201541.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015213554066.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015213929100.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015200000371.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015221015877.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015221050844.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231015221722630.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231016082050748.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231016082759928.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231016082950394.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231016083437104.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231016084518021.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231016084700692.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231016084952691.png">
+<meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231016085824928.png">
 <meta property="article:published_time" content="2023-10-13T02:44:37.000Z">
 <meta property="article:modified_time" content="2023-10-17T09:18:14.000Z">
 <meta property="article:author" content="chengyiqiu">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231013104858822.png">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/images/favicon.ico">
-  
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+<meta name="twitter:image" content="http://example.com/2023/10/13/cs224w-ch3/cs224w-ch3/image-20231013104858822.png">
 
-  
-    
-<link rel="stylesheet" href="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
-  
-  
-    
-<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css">
+<link rel="canonical" href="http://example.com/2023/10/13/cs224w-ch3/">
 
-  
-  
-  
-  
-<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"></script>
 
-  
-    
-<link rel="stylesheet" href="https://npm.webcache.cn/wowjs@1.1.3/css/libs/animate.css">
 
-    
-<script src="https://npm.webcache.cn/wowjs@1.1.3/dist/wow.min.js"></script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/10/13/cs224w-ch3/","path":"2023/10/13/cs224w-ch3/","title":"cs224w_ch3"}</script>
 
-    <script>
-      new WOW({
-        offset: 0,
-        mobile: true,
-        live: false
-      }).init();
-    </script>
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>cs224w_ch3 | Hexo</title>
   
-  
-    <script src="/sw.js"></script>
-  
-<meta name="generator" content="Hexo 7.2.0"></head>
 
-  <body>
-    
-  <div id='loader'>
-    <div class="loading-left-bg"></div>
-    <div class="loading-right-bg"></div>
-    <div class="spinner-box">
-      <div class="loading-taichi">
-        <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
-          <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="#ff6e6b" />
-          <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z" fill="#fd0d00" />
-          <path d="M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95" fill="#fd0d00" />
-        </svg>
-      </div>
-      <div class="loading-word">梭哈是一种智慧</div>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
     </div>
   </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
   </div>
-  <script>
-    var time = null;
-    const startLoading = () => {
-      time = Date.now();
-      document.getElementById('loader').classList.remove("loading");
-    }
-    const endLoading = () => {
-      if (!time) {
-        document.body.style.overflow = 'auto';
-        document.getElementById('loader').classList.add("loading");
-      } else {
-        if (Date.now() - time > 500) {
-          time = null;
-          document.body.style.overflow = 'auto';
-          document.getElementById('loader').classList.add("loading");
-        } else {
-          setTimeout(endLoading, 500 - (Date.now() - time));
-          time = null;
-        }
-      }
-    }
-    window.addEventListener('load', endLoading);
-    document.getElementById('loader').addEventListener('click', endLoading);
-  </script>
 
-
-    <div id="container">
-      <div id="wrap">
-        <div id="header-nav">
-  <nav id="main-nav">
-    
-      <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
-        <a class="main-nav-link" href="/">Home</a>
-      </span>
-    
-      <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
-        <a class="main-nav-link" href="/archives">Archives</a>
-      </span>
-    
-      <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
-        <a class="main-nav-link" href="/about">About</a>
-      </span>
-    
-      <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
-        <a class="main-nav-link" href="/friend">Friend</a>
-      </span>
-    
-    <a id="main-nav-toggle" class="nav-icon"></a>
-  </nav>
-  <nav id="sub-nav">
-    
-      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-    
-    
-    
-  </nav>
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
 </div>
-<header id="header">
-  
-    <img fetchpriority="high" src="/images/banner.png" alt="cs224w_ch3">
-  
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <div id="logo-wrap">
-        
-          
-          
-            <a href="/" id="logo">
-              <h1>cs224w_ch3</h1>
-            </a>
-          
-        
-      </div>
-      
-        
-        <h2 id="subtitle-wrap">
-          
-        </h2>
-      
-    </div>
-  </div>
+
+
+
+
+
+
+
 </header>
+        
+  
+  <aside class="sidebar">
 
-        <div id="content" class="outer">
-          
-          <section id="main"><article id="post-cs224w-ch3" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-inner">
-    <div class="article-meta">
-      <div class="article-date wow slideInLeft">
-  <a href="/2023/10/13/cs224w-ch3/" class="article-date-link">
-    <time datetime="2023-10-13T02:44:37.000Z" itemprop="datePublished">2023-10-13</time>
-  </a>
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#node-embedding"><span class="nav-number">1.</span> <span class="nav-text">node embedding</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#deepwalking"><span class="nav-number">1.1.</span> <span class="nav-text">DeepWalking</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#embedding"><span class="nav-number">1.2.</span> <span class="nav-text">Embedding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shallow-encoder"><span class="nav-number">1.3.</span> <span class="nav-text">shallow encoder</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#random-walks"><span class="nav-number">2.</span> <span class="nav-text">Random walks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#deepwalk"><span class="nav-number">2.1.</span> <span class="nav-text">DeepWalk</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#notion"><span class="nav-number">2.1.1.</span> <span class="nav-text">notion</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#detail"><span class="nav-number">2.1.2.</span> <span class="nav-text">detail</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#negative-sample"><span class="nav-number">2.1.3.</span> <span class="nav-text">negative sample</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#node2vec"><span class="nav-number">2.2.</span> <span class="nav-text">node2vec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#other-random-walk"><span class="nav-number">2.3.</span> <span class="nav-text">other random walk</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#embedding-entire-graph"><span class="nav-number">3.</span> <span class="nav-text">Embedding entire graph</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#approach-1"><span class="nav-number">3.1.</span> <span class="nav-text">Approach 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#approach-2"><span class="nav-number">3.2.</span> <span class="nav-text">Approach 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#approach-3"><span class="nav-number">3.3.</span> <span class="nav-text">Approach 3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#idea-1"><span class="nav-number">3.3.1.</span> <span class="nav-text">Idea 1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#idea-2"><span class="nav-number">3.3.2.</span> <span class="nav-text">Idea 2</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">chengyiqiu</p>
+  <div class="site-description" itemprop="description"></div>
 </div>
-
-      
-  <div class="article-category wow slideInLeft">
-    <a class="article-category-link" href="/categories/cs224w/">cs224w</a>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chengyiqiu1121" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chengyiqiu1121" rel="noopener me" target="_blank">GitHub</a>
+      </span>
   </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="Back to top">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
 
 
     </div>
-    <div class="hr-line"></div>
-    
 
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>ch2讲的就是我们如何设计特征，来尽量准确的表示这个网络，然后再交给机器学习算法如SVM，最后得到我们的预测：</p>
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/13/cs224w-ch3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="chengyiqiu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="cs224w_ch3 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cs224w_ch3
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-10-13 10:44:37" itemprop="dateCreated datePublished" datetime="2023-10-13T10:44:37+08:00">2023-10-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-10-17 17:18:14" itemprop="dateModified" datetime="2023-10-17T17:18:14+08:00">2023-10-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/cs224w/" itemprop="url" rel="index"><span itemprop="name">cs224w</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>ch2讲的就是我们如何设计特征，来尽量准确的表示这个网络，然后再交给机器学习算法如SVM，最后得到我们的预测：</p>
 <figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231013104858822.png" alt="image-20231013104858822">
+<img data-src="./cs224w-ch3/image-20231013104858822.png" alt="image-20231013104858822">
 <figcaption aria-hidden="true">image-20231013104858822</figcaption>
 </figure>
 <p>事实上我们可能会花大部分的时间去做特征工程。</p>
@@ -255,7 +267,7 @@
 independent：嵌入就是一个提取网络特征的过程，可以将提取出的特征用于任何适合的机器学习算法，也就是与下游任务无关。</li>
 </ul>
 <figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231013105154723.png" alt="image-20231013105154723">
+<img data-src="./cs224w-ch3/image-20231013105154723.png" alt="image-20231013105154723">
 <figcaption aria-hidden="true">image-20231013105154723</figcaption>
 </figure>
 <p>图嵌入是干这样的一件事：将node
@@ -265,18 +277,18 @@ embedding</p>
 <p>完成了结点嵌入之后，我们就可以用这个d维的向量来做downstream
 task了</p>
 <figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231013105532825.png" alt="image-20231013105532825">
+<img data-src="./cs224w-ch3/image-20231013105532825.png" alt="image-20231013105532825">
 <figcaption aria-hidden="true">image-20231013105532825</figcaption>
 </figure>
 <h3 id="deepwalking">DeepWalking</h3>
 <figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231013110146538.png" alt="image-20231013110146538">
+<img data-src="./cs224w-ch3/image-20231013110146538.png" alt="image-20231013110146538">
 <figcaption aria-hidden="true">image-20231013110146538</figcaption>
 </figure>
 <p>这是一个小型的网络，将图嵌入到了一个2d空间，可以看到相同颜色的结点在图上和被嵌入的空间中都是离得比较近的。</p>
 <h3 id="embedding">Embedding</h3>
 <p>更抽象的描述是这样：</p>
-<p><img src="/2023/10/13/cs224w-ch3/image-20231013123405368.png" alt="image-20231013123405368" style="zoom:25%;"></p>
+<p><img data-src="./cs224w-ch3/image-20231013123405368.png" alt="image-20231013123405368" style="zoom:25%;"></p>
 <p>至于用dot
 product（点积）的原因是，其代表的是这两个向量之间的余弦，例如如果两个向量是垂直的话，dot
 product就为0了。</p>
@@ -302,7 +314,7 @@ v：v是一个列向量，其中大部分元素是0，除了要得到的结点v�
 <p>如<span class="math inline">\(v=[0,0,1,0,0,0]\)</span></p>
 <p>对于这种编码器，我们需要学习的就是Z：</p>
 <figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231013195103736.png" alt="image-20231013195103736">
+<img data-src="./cs224w-ch3/image-20231013195103736.png" alt="image-20231013195103736">
 <figcaption aria-hidden="true">image-20231013195103736</figcaption>
 </figure>
 <p>这个方法的缺点：当图比较大时，假设嵌入维度为1000，结点数为100w，那么就有10亿参数。而造成这个matrix如此大的原因是：我们计算了每个node的嵌入向量，当需要某个node的嵌入向量时，可以直接从这个超级大矩阵里面去做一次查找(look-up)。</p>
@@ -330,7 +342,7 @@ function，最大值函数的软版本。</p>
 step，依此类推。</p>
 <p>这里给了下面这个定义，不是很理解：</p>
 <figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015203440876.png" alt="image-20231015203440876">
+<img data-src="./cs224w-ch3/image-20231015203440876.png" alt="image-20231015203440876">
 <figcaption aria-hidden="true">image-20231015203440876</figcaption>
 </figure>
 <h4 id="detail">detail</h4>
@@ -338,12 +350,12 @@ step，依此类推。</p>
 <ol type="1">
 <li><p>使用一个策略R，来估计访问结点v的概率</p>
 <figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015203738556.png" alt="image-20231015203738556">
+<img data-src="./cs224w-ch3/image-20231015203738556.png" alt="image-20231015203738556">
 <figcaption aria-hidden="true">image-20231015203738556</figcaption>
 </figure></li>
 <li><p>优化嵌入，通过编码这一步随机游走</p>
 <figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015203753465.png" alt="image-20231015203753465">
+<img data-src="./cs224w-ch3/image-20231015203753465.png" alt="image-20231015203753465">
 <figcaption aria-hidden="true">image-20231015203753465</figcaption>
 </figure></li>
 </ol>
@@ -358,22 +370,22 @@ step，依此类推。</p>
 <li><p>对于每一个u，收集其<span class="math inline">\(N_R(u)\)</span></p></li>
 <li><p>通过对数似然函数进行优化：</p>
 <figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015210342311.png" alt="image-20231015210342311">
+<img data-src="./cs224w-ch3/image-20231015210342311.png" alt="image-20231015210342311">
 <figcaption aria-hidden="true">image-20231015210342311</figcaption>
 </figure>
 <p>同样也可以讲其表示称下面这种形式：</p>
 <figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015210423990.png" alt="image-20231015210423990">
+<img data-src="./cs224w-ch3/image-20231015210423990.png" alt="image-20231015210423990">
 <figcaption aria-hidden="true">image-20231015210423990</figcaption>
 </figure>
 <p>其中可以将对数里面的参数写成下面的softmax形式，那么这个结果其实就是u之后v的概率</p>
 <figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015210646749.png" alt="image-20231015210646749">
+<img data-src="./cs224w-ch3/image-20231015210646749.png" alt="image-20231015210646749">
 <figcaption aria-hidden="true">image-20231015210646749</figcaption>
 </figure>
 <p>所以最终的损失函数如下：</p>
 <figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015210720744.png" alt="image-20231015210720744">
+<img data-src="./cs224w-ch3/image-20231015210720744.png" alt="image-20231015210720744">
 <figcaption aria-hidden="true">image-20231015210720744</figcaption>
 </figure></li>
 </ol>
@@ -381,21 +393,21 @@ step，依此类推。</p>
 <h4 id="negative-sample">negative sample</h4>
 <p>选择使用负采样来近似softmax的分母：</p>
 <figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015211112148.png" alt="image-20231015211112148">
+<img data-src="./cs224w-ch3/image-20231015211112148.png" alt="image-20231015211112148">
 <figcaption aria-hidden="true">image-20231015211112148</figcaption>
 </figure>
 <p>k是一般取5～20</p>
 <p>最开始是DeepWalk提出了random
 walks（走固定长度，使用随机策略）。这样的similarity表现还不错，从最终结果来看，嵌入空间和图空间中，nearby的点是对应的。</p>
 <figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231013110146538.png" alt="image-20231013110146538">
+<img data-src="./cs224w-ch3/image-20231013110146538.png" alt="image-20231013110146538">
 <figcaption aria-hidden="true">image-20231013110146538</figcaption>
 </figure>
 <p>但是这样定义的similarity太受限制了，于是很多人尝试优化。</p>
 <h3 id="node2vec">node2vec</h3>
 <p>idea：使用灵活的、有偏好的随机游走，例如当进行下一步时，可以选择更广或者更深，也就是DFS和BFS的思想</p>
 <figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015213201541.png" alt="image-20231015213201541">
+<img data-src="./cs224w-ch3/image-20231015213201541.png" alt="image-20231015213201541">
 <figcaption aria-hidden="true">image-20231015213201541</figcaption>
 </figure>
 <p>这里面有两个参数：</p>
@@ -405,20 +417,20 @@ walks（走固定长度，使用随机策略）。这样的similarity表现还�
 </ul>
 <p>下面这例子完美表示了两个参数的用途：</p>
 <figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015213554066.png" alt="image-20231015213554066">
+<img data-src="./cs224w-ch3/image-20231015213554066.png" alt="image-20231015213554066">
 <figcaption aria-hidden="true">image-20231015213554066</figcaption>
 </figure>
 <p>w从s1来的，那么下一步，若是选择inwards，可以去s2（和s1距离相同），若是选outwards，可以走s3，还可以回到s1。</p>
 <p>我们将其量化：</p>
 <figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015213929100.png" alt="image-20231015213929100">
+<img data-src="./cs224w-ch3/image-20231015213929100.png" alt="image-20231015213929100">
 <figcaption aria-hidden="true">image-20231015213929100</figcaption>
 </figure>
 <p>我们可以调整p、q来得到不同的策略R。</p>
 <h3 id="other-random-walk">other random walk</h3>
 <p>这是一些其他的关于随机游走的优化。</p>
 <figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015200000371.png" alt="image-20231015200000371">
+<img data-src="./cs224w-ch3/image-20231015200000371.png" alt="image-20231015200000371">
 <figcaption aria-hidden="true">image-20231015200000371</figcaption>
 </figure>
 <h2 id="embedding-entire-graph">Embedding entire graph</h2>
@@ -426,12 +438,12 @@ walks（走固定长度，使用随机策略）。这样的similarity表现还�
 <ul>
 <li><p>entire graph</p>
 <figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015221015877.png" alt="image-20231015221015877">
+<img data-src="./cs224w-ch3/image-20231015221015877.png" alt="image-20231015221015877">
 <figcaption aria-hidden="true">image-20231015221015877</figcaption>
 </figure></li>
 <li><p>Sub-graph</p>
 <figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015221050844.png" alt="image-20231015221050844">
+<img data-src="./cs224w-ch3/image-20231015221050844.png" alt="image-20231015221050844">
 <figcaption aria-hidden="true">image-20231015221050844</figcaption>
 </figure></li>
 </ul>
@@ -452,14 +464,14 @@ z_G=\sum_{v\epsilon G}z_v
 <p>use a virtual node to represent the graph, and by using node2vec or
 deepwaks to embedding the virtual node to embedding space.</p>
 <figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015221722630.png" alt="image-20231015221722630">
+<img data-src="./cs224w-ch3/image-20231015221722630.png" alt="image-20231015221722630">
 <figcaption aria-hidden="true">image-20231015221722630</figcaption>
 </figure>
 <h3 id="approach-3">Approach 3</h3>
 <h4 id="idea-1">Idea 1</h4>
 <p>use anonymous walks to instead random walks.</p>
 <figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231016082050748.png" alt="image-20231016082050748">
+<img data-src="./cs224w-ch3/image-20231016082050748.png" alt="image-20231016082050748">
 <figcaption aria-hidden="true">image-20231016082050748</figcaption>
 </figure>
 <p>feature is:</p>
@@ -472,18 +484,18 @@ deepwaks to embedding the virtual node to embedding space.</p>
 for l=3, the dimensions of <span class="math inline">\(Z_G(i)\)</span>
 is 5) <strong>exponentially</strong> increase.</p>
 <figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231016082759928.png" alt="image-20231016082759928">
+<img data-src="./cs224w-ch3/image-20231016082759928.png" alt="image-20231016082759928">
 <figcaption aria-hidden="true">image-20231016082759928</figcaption>
 </figure>
 <figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231016082950394.png" alt="image-20231016082950394">
+<img data-src="./cs224w-ch3/image-20231016082950394.png" alt="image-20231016082950394">
 <figcaption aria-hidden="true">image-20231016082950394</figcaption>
 </figure>
 <p>We have the vector now, so how many walks should we sample to
 represent the whole distribution?</p>
 <p>use this formula:</p>
 <figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231016083437104.png" alt="image-20231016083437104">
+<img data-src="./cs224w-ch3/image-20231016083437104.png" alt="image-20231016083437104">
 <figcaption aria-hidden="true">image-20231016083437104</figcaption>
 </figure>
 <h4 id="idea-2">Idea 2</h4>
@@ -497,412 +509,114 @@ sampled anonymous walks.</p>
 <p>so here is the idea and how we learning the walks embeddings?</p>
 <p>First, sample some walks:</p>
 <figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231016084518021.png" alt="image-20231016084518021">
+<img data-src="./cs224w-ch3/image-20231016084518021.png" alt="image-20231016084518021">
 <figcaption aria-hidden="true">image-20231016084518021</figcaption>
 </figure>
 <p>Than, learn to predict walks which is co-occur in <span class="math inline">\(\Delta\)</span> size window</p>
 <p>e.g., predict <span class="math inline">\(w_3\)</span> given <span class="math inline">\(w_1,w_2,\Delta=2\)</span></p>
 <figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231016084700692.png" alt="image-20231016084700692">
+<img data-src="./cs224w-ch3/image-20231016084700692.png" alt="image-20231016084700692">
 <figcaption aria-hidden="true">image-20231016084700692</figcaption>
 </figure>
 <p>so, different from DeepWalk, node2vec, the neighbor set is: <span class="math display">\[
 N_R(u)=\{w_1^u,w_2^u...w_T^u\}
-\]</span> <img src="/2023/10/13/cs224w-ch3/image-20231016084952691.png" alt="image-20231016084952691"></p>
+\]</span> <img data-src="./cs224w-ch3/image-20231016084952691.png" alt="image-20231016084952691"></p>
 <p><span class="math inline">\(Z_G\)</span> is a optimized vector
 parameter</p>
 <figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231016085824928.png" alt="image-20231016085824928">
+<img data-src="./cs224w-ch3/image-20231016085824928.png" alt="image-20231016085824928">
 <figcaption aria-hidden="true">image-20231016085824928</figcaption>
 </figure>
 
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/13/cs224w-ch3/" data-id="clw93veam003inn9fcsm34mhb" data-title="cs224w_ch3" class="article-share-link">Share</a>
-      
-      
-      
-      
-      
-      
 
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/10/13/20h-write-sci/" rel="prev" title="20h_write_sci">
+                  <i class="fa fa-angle-left"></i> 20h_write_sci
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/10/13/high-performance-computer-network-lecture1/" rel="next" title="high_performance_computer_network_lecture1">
+                  high_performance_computer_network_lecture1 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
     </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2019 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">chengyiqiu</span>
   </div>
-  
-    
-  <nav id="article-nav" class="wow fadeInUp">
-    
-      <div class="article-nav-link-wrap article-nav-link-left">
-        
-          
-          
-            <img data-src="/covers/IMG_2621.PNG" data-sizes="auto" alt="high_performance_computer_network_lecture1" class="lazyload">
-          
-        
-        <a href="/2023/10/13/high-performance-computer-network-lecture1/"></a>
-        <div class="article-nav-caption">Newer</div>
-        <h3 class="article-nav-title">
-          
-            high_performance_computer_network_lecture1
-          
-        </h3>
-      </div>
-    
-    
-    <div class="article-nav-link-wrap article-nav-link-right">
-      
-        
-        
-          <img data-src="/covers/IMG_2580.JPG" data-sizes="auto" alt="20h_write_sci" class="lazyload">
-        
-      
-      <a href="/2023/10/13/20h-write-sci/"></a>
-      <div class="article-nav-caption">Older</div>
-      <h3 class="article-nav-title">
-        
-          20h_write_sci
-        
-      </h3>
-    </div>
-    
-  </nav>
-
-
-  
-</article>
-
-
-
-
-
-
-</section>
-          
-            <aside id="sidebar">
-  <div class="sidebar-wrap wow fadeInRight wrap-sticky">
-    
-      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
-  <h3 class="toc-title">Contents</h3>
-  <div class="sidebar-toc-wrapper toc-div-class" >
-      
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#node-embedding"><span class="toc-number">1.</span> <span class="toc-text">node embedding</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#deepwalking"><span class="toc-number">1.1.</span> <span class="toc-text">DeepWalking</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#embedding"><span class="toc-number">1.2.</span> <span class="toc-text">Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shallow-encoder"><span class="toc-number">1.3.</span> <span class="toc-text">shallow encoder</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#random-walks"><span class="toc-number">2.</span> <span class="toc-text">Random walks</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#deepwalk"><span class="toc-number">2.1.</span> <span class="toc-text">DeepWalk</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#notion"><span class="toc-number">2.1.1.</span> <span class="toc-text">notion</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#detail"><span class="toc-number">2.1.2.</span> <span class="toc-text">detail</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#negative-sample"><span class="toc-number">2.1.3.</span> <span class="toc-text">negative sample</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#node2vec"><span class="toc-number">2.2.</span> <span class="toc-text">node2vec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#other-random-walk"><span class="toc-number">2.3.</span> <span class="toc-text">other random walk</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#embedding-entire-graph"><span class="toc-number">3.</span> <span class="toc-text">Embedding entire graph</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#approach-1"><span class="toc-number">3.1.</span> <span class="toc-text">Approach 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#approach-2"><span class="toc-number">3.2.</span> <span class="toc-text">Approach 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#approach-3"><span class="toc-number">3.3.</span> <span class="toc-text">Approach 3</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#idea-1"><span class="toc-number">3.3.1.</span> <span class="toc-text">Idea 1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#idea-2"><span class="toc-number">3.3.2.</span> <span class="toc-text">Idea 2</span></a></li></ol></li></ol></li></ol>
-      
-  </div>
-</div>
-</div>
-      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
-  <div class="sidebar-author-name">chengyiqiu</div>
-  <div class="sidebar-description"></div>
-</div>
-<div class="sidebar-state">
-  <div class="sidebar-state-article">
-    <div>Posts</div>
-    <div class="sidebar-state-number">60</div>
-  </div>
-  <div class="sidebar-state-category">
-    <div>Categories</div>
-    <div class="sidebar-state-number">11</div>
-  </div>
-  <div class="sidebar-state-tag">
-    <div>Tags</div>
-    <div class="sidebar-state-number">13</div>
-  </div>
-</div>
-<div class="sidebar-social">
-  
-    <div class=icon-github>
-      <a href=https://github.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="github"></a>
-    </div>
-  
-    <div class=icon-twitter>
-      <a href=https://x.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="twitter"></a>
-    </div>
-  
-    <div class=icon-bilibili>
-      <a href=https://space.bilibili.com/3493124768795188?spm_id_from=333.337.0.0 itemprop="url" target="_blank" aria-label="bilibili"></a>
-    </div>
-  
-    <div class=icon-zhihu>
-      <a href=https://www.zhihu.com/people/b79383d8dcc462769c532f9d16dadfeb itemprop="url" target="_blank" aria-label="zhihu"></a>
-    </div>
-  
-    <div class=icon-telegram>
-      <a href=https://www.t.me/chengyiqiu1121 itemprop="url" target="_blank" aria-label="telegram"></a>
-    </div>
-  
-</div>
-<div class="sidebar-menu">
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/" aria-label="Home"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Home</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="Archives"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Archives</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/about" aria-label="About"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">About</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="Friend"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Friend</div>
-    </div>
-  
-</div>
-</div>
-    
-    
-      <div class="sidebar-btn-wrapper" style="position:static">
-        <div class="sidebar-toc-btn current"></div>
-        <div class="sidebar-common-btn"></div>
-      </div>
-    
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
-  
-</aside>
+    </div>
+  </footer>
 
-          
-        </div>
-        <footer id="footer" class="wow fadeInUp">
-  <div style="width: 100%; overflow: hidden">
-    <div class="footer-line"></div>
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
   </div>
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      <div>
-        <span class="icon-copyright"></span>
-        2020-2024
-        <span class="footer-info-sep"></span>
-        chengyiqiu
-      </div>
-      
-        <div>
-          Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>&nbsp;
-          Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" target="_blank">Reimu</a>
-        </div>
-      
-      
-        <div>
-          <span class="icon-brush"></span>
-          90.7k
-          &nbsp;|&nbsp;
-          <span class="icon-coffee"></span>
-          05:57
-        </div>
-      
-      
-        <div>
-          <span class="icon-eye"></span>
-          <span id="busuanzi_container_site_pv">Number of visits&nbsp;<span id="busuanzi_value_site_pv"></span></span>
-          &nbsp;|&nbsp;
-          <span class="icon-user"></span>
-          <span id="busuanzi_container_site_uv">Number of visitors&nbsp;<span id="busuanzi_value_site_uv"></span></span>
-        </div>
-      
-    </div>
-  </div>
-</footer>
+  <div class="sidebar-dimmer"></div>
 
-        <div class="sidebar-top">
-          <img src="/images/taichi.png" height="50" width="50" />
-          <div class="arrow-up"></div>
-        </div>
-        <div id="mask"></div>
-      </div>
-      <nav id="mobile-nav">
-  <div class="sidebar-wrap">
-    
-      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
-  <h3 class="toc-title">Contents</h3>
-  <div class="sidebar-toc-wrapper toc-div-class" >
-      
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#node-embedding"><span class="toc-number">1.</span> <span class="toc-text">node embedding</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#deepwalking"><span class="toc-number">1.1.</span> <span class="toc-text">DeepWalking</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#embedding"><span class="toc-number">1.2.</span> <span class="toc-text">Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shallow-encoder"><span class="toc-number">1.3.</span> <span class="toc-text">shallow encoder</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#random-walks"><span class="toc-number">2.</span> <span class="toc-text">Random walks</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#deepwalk"><span class="toc-number">2.1.</span> <span class="toc-text">DeepWalk</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#notion"><span class="toc-number">2.1.1.</span> <span class="toc-text">notion</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#detail"><span class="toc-number">2.1.2.</span> <span class="toc-text">detail</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#negative-sample"><span class="toc-number">2.1.3.</span> <span class="toc-text">negative sample</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#node2vec"><span class="toc-number">2.2.</span> <span class="toc-text">node2vec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#other-random-walk"><span class="toc-number">2.3.</span> <span class="toc-text">other random walk</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#embedding-entire-graph"><span class="toc-number">3.</span> <span class="toc-text">Embedding entire graph</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#approach-1"><span class="toc-number">3.1.</span> <span class="toc-text">Approach 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#approach-2"><span class="toc-number">3.2.</span> <span class="toc-text">Approach 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#approach-3"><span class="toc-number">3.3.</span> <span class="toc-text">Approach 3</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#idea-1"><span class="toc-number">3.3.1.</span> <span class="toc-text">Idea 1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#idea-2"><span class="toc-number">3.3.2.</span> <span class="toc-text">Idea 2</span></a></li></ol></li></ol></li></ol>
-      
-  </div>
-</div>
-</div>
-      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
-  <div class="sidebar-author-name">chengyiqiu</div>
-  <div class="sidebar-description"></div>
-</div>
-<div class="sidebar-state">
-  <div class="sidebar-state-article">
-    <div>Posts</div>
-    <div class="sidebar-state-number">60</div>
-  </div>
-  <div class="sidebar-state-category">
-    <div>Categories</div>
-    <div class="sidebar-state-number">11</div>
-  </div>
-  <div class="sidebar-state-tag">
-    <div>Tags</div>
-    <div class="sidebar-state-number">13</div>
-  </div>
-</div>
-<div class="sidebar-social">
-  
-    <div class=icon-github>
-      <a href=https://github.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="github"></a>
-    </div>
-  
-    <div class=icon-twitter>
-      <a href=https://x.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="twitter"></a>
-    </div>
-  
-    <div class=icon-bilibili>
-      <a href=https://space.bilibili.com/3493124768795188?spm_id_from=333.337.0.0 itemprop="url" target="_blank" aria-label="bilibili"></a>
-    </div>
-  
-    <div class=icon-zhihu>
-      <a href=https://www.zhihu.com/people/b79383d8dcc462769c532f9d16dadfeb itemprop="url" target="_blank" aria-label="zhihu"></a>
-    </div>
-  
-    <div class=icon-telegram>
-      <a href=https://www.t.me/chengyiqiu1121 itemprop="url" target="_blank" aria-label="telegram"></a>
-    </div>
-  
-</div>
-<div class="sidebar-menu">
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/" aria-label="Home"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Home</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="Archives"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Archives</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/about" aria-label="About"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">About</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="Friend"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Friend</div>
-    </div>
-  
-</div>
-</div>
-    
-  </div>
-  
-    <div class="sidebar-btn-wrapper">
-      <div class="sidebar-toc-btn current"></div>
-      <div class="sidebar-common-btn"></div>
-    </div>
-  
-</nav>
-
-    </div>
-    <div class="site-search">
-      <div class="reimu-popup popup">
-        <div class="reimu-search">
-          <span class="reimu-search-input-icon"></span>
-          <div class="reimu-search-input" id="reimu-search-input"></div>
-        </div>
-        <div class="reimu-results">
-          <div id="reimu-stats"></div>
-          <div id="reimu-hits"></div>
-          <div id="reimu-pagination" class="reimu-pagination"></div>
-        </div>
-        <span class="popup-btn-close"></span>
-      </div>
-    </div>
-    
-<script src="https://npm.webcache.cn/jquery@3.7.1/dist/jquery.min.js"></script>
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
 
-<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
 
 
-<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"></script>
+
+  <script src="/js/third-party/fancybox.js"></script>
 
 
 
   
-<script src="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
-
-
-
-  
-<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
-
-
-
-
-
-
-<script src="/js/pjax_script.js" data-pjax></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
 
   
-<script src="https://npm.webcache.cn/mouse-firework@0.0.4/dist/index.umd.js"></script>
 
-  <script>
-    firework(JSON.parse('{"excludeElements":["a"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["#ff5252","#ff7c7c","#ffafaf","#ffd0d0"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["#ff0000"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'))
-  </script>
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
 
 
 
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-  <script>
-    console.log(String.raw`%c 
- ______     ______     __     __    __     __  __    
-/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
-\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
- \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
-  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
-                                                  
-`,'color: #ff5252;')
-    console.log('%c Theme.Reimu v' + '0.1.2' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
-  </script>
-  
-
-  <!-- hexo injector body_end start -->
-<script src="/js/insert_highlight.js" data-pjax></script>
-<!-- hexo injector body_end end --></body>
-  </html>
-
+</body>
+</html>

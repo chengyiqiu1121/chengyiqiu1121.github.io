@@ -1,228 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
 
-  <!DOCTYPE html>
-  <html lang="en"  >
-  <head>
-  <meta charset="utf-8">
-  
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-  
+<link rel="stylesheet" href="/css/main.css">
 
-  
 
-  
-  <title>
-    Neural_Network_Diffusion |
-    
-    Hexo
-  </title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="preload" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CUbuntu%20Mono:400,400italic,700,700italic&display=swap&subset=latin,latin-ext" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;">
-  
-<link rel="stylesheet" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/regular.min.css">
-<link rel="stylesheet" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/solid.min.css">
 
-  <link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/brands.min.css" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;"><link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/v5-font-face.min.css" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;"><link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/v4-font-face.min.css" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;">
-  
-<link rel="stylesheet" href="/css/loader.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
 
-  <meta name="description" content="Under ICLR 2024 double-blind review 使用一个自动编码器，来提取训练模型参数中的隐藏表征，然后扩散模型根据这些隐藏参数表征，合成一些随机噪声，输出一些新的表征给自动编码器的解码器部分，输出就是神经网络的参数。 神经网络扩散 初步了解扩散模型 扩散模型分为两个过程，前向过程和反向过程：  前向过程是对原始图像不断添加高斯噪声（由\(\beta\)约束），经过\(T\">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width":280,"display":"post","offset":10,"onmobile":true},"hljswrap":true,"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Under ICLR 2024 double-blind review 使用一个自动编码器，来提取训练模型参数中的隐藏表征，然后扩散模型根据这些隐藏参数表征，合成一些随机噪声，输出一些新的表征给自动编码器的解码器部分，输出就是神经网络的参数。 神经网络扩散 初步了解扩散模型 扩散模型分为两个过程，前向过程和反向过程：  前向过程是对原始图像不断添加高斯噪声（由\(\beta\)约束），经过\(T\">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Neural_Network_Diffusion">
 <meta property="og:url" content="http://example.com/2024/03/24/Neural-Network-Diffusion/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Under ICLR 2024 double-blind review 使用一个自动编码器，来提取训练模型参数中的隐藏表征，然后扩散模型根据这些隐藏参数表征，合成一些随机噪声，输出一些新的表征给自动编码器的解码器部分，输出就是神经网络的参数。 神经网络扩散 初步了解扩散模型 扩散模型分为两个过程，前向过程和反向过程：  前向过程是对原始图像不断添加高斯噪声（由\(\beta\)约束），经过\(T\">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2024/03/24/Neural-Network-Diffusion/image-20240324121348853.png">
-<meta property="og:image" content="http://example.com/2024/03/24/Neural-Network-Diffusion/image-20240324121522824.png">
-<meta property="og:image" content="http://example.com/2024/03/24/Neural-Network-Diffusion/image-20240324121845235.png">
-<meta property="og:image" content="http://example.com/2024/03/24/Neural-Network-Diffusion/image-20240324124652683.png">
-<meta property="og:image" content="http://example.com/2024/03/24/Neural-Network-Diffusion/image-20240324133345603.png">
-<meta property="og:image" content="http://example.com/2024/03/24/Neural-Network-Diffusion/image-20240328153848280.png">
-<meta property="og:image" content="http://example.com/2024/03/24/Neural-Network-Diffusion/image-20240328162902109.png">
-<meta property="og:image" content="http://example.com/2024/03/24/Neural-Network-Diffusion/image-20240328163035736.png">
-<meta property="og:image" content="http://example.com/2024/03/24/Neural-Network-Diffusion/image-20240328165743211.png">
-<meta property="og:image" content="http://example.com/2024/03/24/Neural-Network-Diffusion/image-20240328181545590.png">
-<meta property="og:image" content="http://example.com/2024/03/24/Neural-Network-Diffusion/image-20240402122657089.png">
-<meta property="og:image" content="http://example.com/2024/03/24/Neural-Network-Diffusion/image-20240402124224411.png">
+<meta property="og:image" content="http://example.com/2024/03/24/Neural-Network-Diffusion/Neural-Network-Diffusion/image-20240324121348853.png">
+<meta property="og:image" content="http://example.com/2024/03/24/Neural-Network-Diffusion/Neural-Network-Diffusion/image-20240324121522824.png">
+<meta property="og:image" content="http://example.com/2024/03/24/Neural-Network-Diffusion/Neural-Network-Diffusion/image-20240324121845235.png">
+<meta property="og:image" content="http://example.com/2024/03/24/Neural-Network-Diffusion/Neural-Network-Diffusion/image-20240324124652683.png">
+<meta property="og:image" content="http://example.com/2024/03/24/Neural-Network-Diffusion/Neural-Network-Diffusion/image-20240324133345603.png">
+<meta property="og:image" content="http://example.com/2024/03/24/Neural-Network-Diffusion/Neural-Network-Diffusion/image-20240328153848280.png">
+<meta property="og:image" content="http://example.com/2024/03/24/Neural-Network-Diffusion/Neural-Network-Diffusion/image-20240328162902109.png">
+<meta property="og:image" content="http://example.com/2024/03/24/Neural-Network-Diffusion/Neural-Network-Diffusion/image-20240328163035736.png">
+<meta property="og:image" content="http://example.com/2024/03/24/Neural-Network-Diffusion/Neural-Network-Diffusion/image-20240328165743211.png">
+<meta property="og:image" content="http://example.com/2024/03/24/Neural-Network-Diffusion/Neural-Network-Diffusion/image-20240328181545590.png">
+<meta property="og:image" content="http://example.com/2024/03/24/Neural-Network-Diffusion/Neural-Network-Diffusion/image-20240402122657089.png">
+<meta property="og:image" content="http://example.com/2024/03/24/Neural-Network-Diffusion/Neural-Network-Diffusion/image-20240402124224411.png">
 <meta property="article:published_time" content="2024-03-24T02:53:40.000Z">
 <meta property="article:modified_time" content="2024-04-16T10:25:31.794Z">
 <meta property="article:author" content="chengyiqiu">
 <meta property="article:tag" content="diffusion">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2024/03/24/Neural-Network-Diffusion/image-20240324121348853.png">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/images/favicon.ico">
-  
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+<meta name="twitter:image" content="http://example.com/2024/03/24/Neural-Network-Diffusion/Neural-Network-Diffusion/image-20240324121348853.png">
 
-  
-    
-<link rel="stylesheet" href="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
-  
-  
-    
-<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css">
+<link rel="canonical" href="http://example.com/2024/03/24/Neural-Network-Diffusion/">
 
-  
-  
-  
-  
-<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"></script>
 
-  
-    
-<link rel="stylesheet" href="https://npm.webcache.cn/wowjs@1.1.3/css/libs/animate.css">
 
-    
-<script src="https://npm.webcache.cn/wowjs@1.1.3/dist/wow.min.js"></script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2024/03/24/Neural-Network-Diffusion/","path":"2024/03/24/Neural-Network-Diffusion/","title":"Neural_Network_Diffusion"}</script>
 
-    <script>
-      new WOW({
-        offset: 0,
-        mobile: true,
-        live: false
-      }).init();
-    </script>
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Neural_Network_Diffusion | Hexo</title>
   
-  
-    <script src="/sw.js"></script>
-  
-<meta name="generator" content="Hexo 7.2.0"></head>
 
-  <body>
-    
-  <div id='loader'>
-    <div class="loading-left-bg"></div>
-    <div class="loading-right-bg"></div>
-    <div class="spinner-box">
-      <div class="loading-taichi">
-        <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
-          <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="#ff6e6b" />
-          <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z" fill="#fd0d00" />
-          <path d="M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95" fill="#fd0d00" />
-        </svg>
-      </div>
-      <div class="loading-word">梭哈是一种智慧</div>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
     </div>
   </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
   </div>
-  <script>
-    var time = null;
-    const startLoading = () => {
-      time = Date.now();
-      document.getElementById('loader').classList.remove("loading");
-    }
-    const endLoading = () => {
-      if (!time) {
-        document.body.style.overflow = 'auto';
-        document.getElementById('loader').classList.add("loading");
-      } else {
-        if (Date.now() - time > 500) {
-          time = null;
-          document.body.style.overflow = 'auto';
-          document.getElementById('loader').classList.add("loading");
-        } else {
-          setTimeout(endLoading, 500 - (Date.now() - time));
-          time = null;
-        }
-      }
-    }
-    window.addEventListener('load', endLoading);
-    document.getElementById('loader').addEventListener('click', endLoading);
-  </script>
 
-
-    <div id="container">
-      <div id="wrap">
-        <div id="header-nav">
-  <nav id="main-nav">
-    
-      <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
-        <a class="main-nav-link" href="/">Home</a>
-      </span>
-    
-      <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
-        <a class="main-nav-link" href="/archives">Archives</a>
-      </span>
-    
-      <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
-        <a class="main-nav-link" href="/about">About</a>
-      </span>
-    
-      <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
-        <a class="main-nav-link" href="/friend">Friend</a>
-      </span>
-    
-    <a id="main-nav-toggle" class="nav-icon"></a>
-  </nav>
-  <nav id="sub-nav">
-    
-      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-    
-    
-    
-  </nav>
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
 </div>
-<header id="header">
-  
-    <img fetchpriority="high" src="/images/banner.png" alt="Neural_Network_Diffusion">
-  
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <div id="logo-wrap">
-        
-          
-          
-            <a href="/" id="logo">
-              <h1>Neural_Network_Diffusion</h1>
-            </a>
-          
-        
-      </div>
-      
-        
-        <h2 id="subtitle-wrap">
-          
-        </h2>
-      
-    </div>
-  </div>
+
+
+
+
+
+
+
 </header>
+        
+  
+  <aside class="sidebar">
 
-        <div id="content" class="outer">
-          
-          <section id="main"><article id="post-Neural-Network-Diffusion" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-inner">
-    <div class="article-meta">
-      <div class="article-date wow slideInLeft">
-  <a href="/2024/03/24/Neural-Network-Diffusion/" class="article-date-link">
-    <time datetime="2024-03-24T02:53:40.000Z" itemprop="datePublished">2024-03-24</time>
-  </a>
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%89%A9%E6%95%A3"><span class="nav-number">1.</span> <span class="nav-text">神经网络扩散</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E6%AD%A5%E4%BA%86%E8%A7%A3%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">初步了解扩散模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84"><span class="nav-number">1.2.</span> <span class="nav-text">整体架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%87%AA%E5%8A%A8%E7%BC%96%E7%A0%81%E5%99%A8"><span class="nav-number">1.3.</span> <span class="nav-text">参数自动编码器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E7%94%9F%E6%88%90"><span class="nav-number">1.4.</span> <span class="nav-text">参数生成</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C"><span class="nav-number">2.</span> <span class="nav-text">实验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE"><span class="nav-number">2.1.</span> <span class="nav-text">设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB"><span class="nav-number">2.2.</span> <span class="nav-text">代码阅读</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E8%AE%AD%E7%BB%83%E6%95%B0%E6%8D%AE"><span class="nav-number">2.2.1.</span> <span class="nav-text">准备训练数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E8%AE%BA"><span class="nav-number">2.3.</span> <span class="nav-text">实验结论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95"><span class="nav-number">2.4.</span> <span class="nav-text">问题记录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E6%A0%B7%E5%8C%96%E5%8F%82%E6%95%B0%E4%BB%A5%E5%A2%9E%E5%BC%BA%E6%B3%9B%E5%8C%96%E6%80%A7%E8%83%BD"><span class="nav-number">2.5.</span> <span class="nav-text">多样化参数以增强泛化性能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%9D%E8%AF%951-%E6%85%A2%E6%85%A2%E5%87%8F%E8%AE%AD%E7%BB%83%E7%9A%84layer"><span class="nav-number">2.5.1.</span> <span class="nav-text">尝试1 慢慢减训练的layer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%9D%E8%AF%952-%E5%88%87%E6%8D%A2%E9%A1%BA%E5%BA%8F"><span class="nav-number">2.5.2.</span> <span class="nav-text">尝试2 切换顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%9D%E8%AF%953-%E5%8A%A0%E5%85%A5%E5%8D%B7%E7%A7%AF%E5%B1%82%E8%AE%AD%E7%BB%83"><span class="nav-number">2.5.3.</span> <span class="nav-text">尝试3 加入卷积层训练</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%9D%E8%AF%954-4%E4%B8%AAbn"><span class="nav-number">2.5.4.</span> <span class="nav-text">尝试4 4个bn</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%9D%E8%AF%955-%E8%AE%AD%E7%BB%83-%E9%87%8D%E8%AE%AD%E7%BB%83"><span class="nav-number">2.5.5.</span> <span class="nav-text">尝试5 训练-重训练</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%9D%E8%AF%956-%E5%8D%B7%E7%A7%AF%E5%B1%82%E9%87%8D%E8%AE%AD%E7%BB%83"><span class="nav-number">2.5.6.</span> <span class="nav-text">尝试6 卷积层重训练</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">chengyiqiu</p>
+  <div class="site-description" itemprop="description"></div>
 </div>
-
-      
-  <div class="article-category wow slideInLeft">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chengyiqiu1121" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chengyiqiu1121" rel="noopener me" target="_blank">GitHub</a>
+      </span>
   </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="Back to top">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
 
 
     </div>
-    <div class="hr-line"></div>
-    
 
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Under ICLR 2024 double-blind review</p>
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/24/Neural-Network-Diffusion/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="chengyiqiu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Neural_Network_Diffusion | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Neural_Network_Diffusion
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-03-24 10:53:40" itemprop="dateCreated datePublished" datetime="2024-03-24T10:53:40+08:00">2024-03-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-04-16 18:25:31" itemprop="dateModified" datetime="2024-04-16T18:25:31+08:00">2024-04-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">论文阅读</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>Under ICLR 2024 double-blind review</p>
 <p>使用一个自动编码器，来提取训练模型参数中的隐藏表征，然后扩散模型根据这些隐藏参数表征，合成一些随机噪声，输出一些新的表征给自动编码器的解码器部分，输出就是神经网络的参数。</p>
 <h1 id="神经网络扩散">神经网络扩散</h1>
 <h2 id="初步了解扩散模型">初步了解扩散模型</h2>
@@ -230,7 +242,7 @@
 <ul>
 <li><p>前向过程是对原始图像不断添加高斯噪声（由<span class="math inline">\(\beta\)</span>约束），经过<span class="math inline">\(T\)</span>步后，得到一个随机高斯噪声（<span class="math inline">\(T\to \infty\)</span>​时，最后得到的一定是噪声）</p>
 <figure>
-<img src="/2024/03/24/Neural-Network-Diffusion/image-20240324121348853.png" alt="image-20240324121348853">
+<img data-src="./Neural-Network-Diffusion/image-20240324121348853.png" alt="image-20240324121348853">
 <figcaption aria-hidden="true">image-20240324121348853</figcaption>
 </figure>
 <ul>
@@ -242,7 +254,7 @@
 <li><p>反向过程是前向过程反过来，期望通过选连一个去噪网络（denoising
 network），移除掉<span class="math inline">\(x_T\)</span>上的噪声，直到恢复出原始图像来。</p>
 <figure>
-<img src="/2024/03/24/Neural-Network-Diffusion/image-20240324121522824.png" alt="image-20240324121522824">
+<img data-src="./Neural-Network-Diffusion/image-20240324121522824.png" alt="image-20240324121522824">
 <figcaption aria-hidden="true">image-20240324121522824</figcaption>
 </figure>
 <ul>
@@ -252,7 +264,7 @@ network），移除掉<span class="math inline">\(x_T\)</span>上的噪声，直
 </ul></li>
 <li><p>去噪网络的优化：</p>
 <figure>
-<img src="/2024/03/24/Neural-Network-Diffusion/image-20240324121845235.png" alt="image-20240324121845235">
+<img data-src="./Neural-Network-Diffusion/image-20240324121845235.png" alt="image-20240324121845235">
 <figcaption aria-hidden="true">image-20240324121845235</figcaption>
 </figure>
 <p><span class="math inline">\(D_{KL}(.\vert \vert
@@ -261,7 +273,7 @@ network），移除掉<span class="math inline">\(x_T\)</span>上的噪声，直
 <p>扩散模型的可行之处在于：能够通过反向过程找到一个去噪网络，将原始的高斯分布转化成最终期望得到的分布。</p>
 <h2 id="整体架构">整体架构</h2>
 <figure>
-<img src="/2024/03/24/Neural-Network-Diffusion/image-20240324124652683.png" alt="image-20240324124652683">
+<img data-src="./Neural-Network-Diffusion/image-20240324124652683.png" alt="image-20240324124652683">
 <figcaption aria-hidden="true">image-20240324124652683</figcaption>
 </figure>
 <h2 id="参数自动编码器">参数自动编码器</h2>
@@ -276,7 +288,7 @@ L_{MSE}=\frac{1}{K}\sum _1^K\Vert v _k-v_k^{&#39;}\Vert^2
 \]</span></p>
 <h2 id="参数生成">参数生成</h2>
 <p>若是直接采取将参数<span class="math inline">\(V\)</span>输入到编码器，然后解码器输出重构后的参数<span class="math inline">\(V_{&#39;}\)</span>，这样会导致过大的存储开销，尤其是当<span class="math inline">\(V\)</span>的维度比较高的时候。</p>
-<p>因此，作者采用DDPM中的优化过程来优化去噪网络； <img src="/2024/03/24/Neural-Network-Diffusion/image-20240324133345603.png" alt="image-20240324133345603"></p>
+<p>因此，作者采用DDPM中的优化过程来优化去噪网络； <img data-src="./Neural-Network-Diffusion/image-20240324133345603.png" alt="image-20240324133345603"></p>
 <ul>
 <li><span class="math inline">\(\epsilon\)</span>：高斯噪声</li>
 <li><span class="math inline">\(\theta\)</span>：去噪网络的参数</li>
@@ -297,22 +309,22 @@ ImageNet-1K. (Deng et al., 2009), STL-10 (Coates et al., 2011), Flowers
 <li><p><strong>架构</strong></p>
 <p>最开始是在比较小的模型上实验的，这些模型由卷积层、池化层、全连接层组成：</p>
 <figure>
-<img src="/2024/03/24/Neural-Network-Diffusion/image-20240328153848280.png" alt="image-20240328153848280">
+<img data-src="./Neural-Network-Diffusion/image-20240328153848280.png" alt="image-20240328153848280">
 <figcaption aria-hidden="true">image-20240328153848280</figcaption>
 </figure>
 <p>使用的卷积层是2D卷积，参考的是DDPM（采用的U-net，生成高质量图片，用的2D-conv），但是效果并不好，可能的原因是图片像素和参数不能一概处理，因此换成了1D-conv，对比结果如下：</p>
 <figure>
-<img src="/2024/03/24/Neural-Network-Diffusion/image-20240328162902109.png" alt="image-20240328162902109">
+<img data-src="./Neural-Network-Diffusion/image-20240328162902109.png" alt="image-20240328162902109">
 <figcaption aria-hidden="true">image-20240328162902109</figcaption>
 </figure>
 <p>在更换卷积层的时候，作者也考虑了下直接将卷积层更换为FC，二者效果差不多，但是1D-conv的存储开销低于FC，因此还是选取了1D-conv：</p>
 <figure>
-<img src="/2024/03/24/Neural-Network-Diffusion/image-20240328163035736.png" alt="image-20240328163035736">
+<img data-src="./Neural-Network-Diffusion/image-20240328163035736.png" alt="image-20240328163035736">
 <figcaption aria-hidden="true">image-20240328163035736</figcaption>
 </figure>
 <p>此外，还做了消融实验，找到了一个参数<span class="math inline">\(K=200\)</span>使得模型的性能最优。</p>
 <figure>
-<img src="/2024/03/24/Neural-Network-Diffusion/image-20240328165743211.png" alt="image-20240328165743211">
+<img data-src="./Neural-Network-Diffusion/image-20240328165743211.png" alt="image-20240328165743211">
 <figcaption aria-hidden="true">image-20240328165743211</figcaption>
 </figure>
 <p>作者是在扩大模型架构的时候发现了存储开销特别大的问题，灵感来于stable
@@ -325,7 +337,7 @@ diffusion，作者采用了一个自动编码器来提取潜在特征，以此�
 <li><p><strong>推断阶段</strong></p>
 <p>将100个噪声输入到扩散模型中去，生成了100个模型，选取其中在训练数据集上性能最好的网络。整个的性能图如下：</p>
 <figure>
-<img src="/2024/03/24/Neural-Network-Diffusion/image-20240328181545590.png" alt="image-20240328181545590">
+<img data-src="./Neural-Network-Diffusion/image-20240328181545590.png" alt="image-20240328181545590">
 <figcaption aria-hidden="true">image-20240328181545590</figcaption>
 </figure></li>
 </ol>
@@ -333,7 +345,7 @@ diffusion，作者采用了一个自动编码器来提取潜在特征，以此�
 <h3 id="准备训练数据">准备训练数据</h3>
 <p>作者通过训练一个ResNet18来得到编码器的训练数据。，也就是下图中的参数输入部分：</p>
 <figure>
-<img src="/2024/03/24/Neural-Network-Diffusion/image-20240402122657089.png" alt="image-20240402122657089">
+<img data-src="./Neural-Network-Diffusion/image-20240402122657089.png" alt="image-20240402122657089">
 <figcaption aria-hidden="true">image-20240402122657089</figcaption>
 </figure>
 <p>代码部分在<code>tsak_training.py</code>中，核心部分是这个：</p>
@@ -347,7 +359,7 @@ diffusion，作者采用了一个自动编码器来提取潜在特征，以此�
 <li><p>最后得到了一个最重要的数据<code>data.pt</code>，里面存储了整个模型<code>whole_model.pth</code>，编码器需要的训练数据<code>pdata</code>，可以将<code>data.pt</code>
 load一下：</p>
 <figure>
-<img src="/2024/03/24/Neural-Network-Diffusion/image-20240402124224411.png" alt="image-20240402124224411">
+<img data-src="./Neural-Network-Diffusion/image-20240402124224411.png" alt="image-20240402124224411">
 <figcaption aria-hidden="true">image-20240402124224411</figcaption>
 </figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line">   &#123;<span class="string">&#x27;pdata&#x27;</span>: tensor([[<span class="number">0.3967</span>, <span class="number">0.3701</span>, <span class="number">0.3879</span>,  ..., <span class="number">0.0686</span>, <span class="number">0.0885</span>, <span class="number">0.0762</span>],</span><br><span class="line">           [<span class="number">0.3967</span>, <span class="number">0.3701</span>, <span class="number">0.3879</span>,  ..., <span class="number">0.0686</span>, <span class="number">0.0885</span>, <span class="number">0.0762</span>],</span><br><span class="line">           [<span class="number">0.3967</span>, <span class="number">0.3701</span>, <span class="number">0.3878</span>,  ..., <span class="number">0.0686</span>, <span class="number">0.0885</span>, <span class="number">0.0762</span>],</span><br><span class="line">           ...,</span><br><span class="line">           [<span class="number">0.3975</span>, <span class="number">0.3710</span>, <span class="number">0.3888</span>,  ..., <span class="number">0.0686</span>, <span class="number">0.0884</span>, <span class="number">0.0762</span>],</span><br><span class="line">           [<span class="number">0.3975</span>, <span class="number">0.3710</span>, <span class="number">0.3888</span>,  ..., <span class="number">0.0686</span>, <span class="number">0.0884</span>, <span class="number">0.0762</span>],</span><br><span class="line">           [<span class="number">0.3975</span>, <span class="number">0.3710</span>, <span class="number">0.3888</span>,  ..., <span class="number">0.0686</span>, <span class="number">0.0884</span>, <span class="number">0.0762</span>]]), <span class="string">&#x27;mean&#x27;</span>: tensor([<span class="number">0.3973</span>, <span class="number">0.3707</span>, <span class="number">0.3885</span>,  ..., <span class="number">0.0686</span>, <span class="number">0.0884</span>, <span class="number">0.0762</span>]), <span class="string">&#x27;std&#x27;</span>: tensor([<span class="number">4.2733e-04</span>, <span class="number">4.3796e-04</span>, <span class="number">4.7875e-04</span>,  ..., <span class="number">2.7116e-05</span>, <span class="number">8.1900e-06</span>,</span><br><span class="line">           <span class="number">2.2222e-05</span>]), <span class="string">&#x27;model&#x27;</span>: ResNet(</span><br><span class="line">     (conv1): Conv2d(<span class="number">3</span>, <span class="number">64</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">1</span>, <span class="number">1</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">     (bn1): BatchNorm2d(<span class="number">64</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">     (layer1): Sequential(</span><br><span class="line">       (<span class="number">0</span>): BasicBlock(</span><br><span class="line">         (conv1): Conv2d(<span class="number">64</span>, <span class="number">64</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">1</span>, <span class="number">1</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn1): BatchNorm2d(<span class="number">64</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (conv2): Conv2d(<span class="number">64</span>, <span class="number">64</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">1</span>, <span class="number">1</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn2): BatchNorm2d(<span class="number">64</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (shortcut): Sequential()</span><br><span class="line">       )</span><br><span class="line">       (<span class="number">1</span>): BasicBlock(</span><br><span class="line">         (conv1): Conv2d(<span class="number">64</span>, <span class="number">64</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">1</span>, <span class="number">1</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn1): BatchNorm2d(<span class="number">64</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (conv2): Conv2d(<span class="number">64</span>, <span class="number">64</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">1</span>, <span class="number">1</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn2): BatchNorm2d(<span class="number">64</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (shortcut): Sequential()</span><br><span class="line">       )</span><br><span class="line">     )</span><br><span class="line">     (layer2): Sequential(</span><br><span class="line">       (<span class="number">0</span>): BasicBlock(</span><br><span class="line">         (conv1): Conv2d(<span class="number">64</span>, <span class="number">128</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">2</span>, <span class="number">2</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn1): BatchNorm2d(<span class="number">128</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (conv2): Conv2d(<span class="number">128</span>, <span class="number">128</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">1</span>, <span class="number">1</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn2): BatchNorm2d(<span class="number">128</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (shortcut): Sequential(</span><br><span class="line">           (<span class="number">0</span>): Conv2d(<span class="number">64</span>, <span class="number">128</span>, kernel_size=(<span class="number">1</span>, <span class="number">1</span>), stride=(<span class="number">2</span>, <span class="number">2</span>), bias=<span class="literal">False</span>)</span><br><span class="line">           (<span class="number">1</span>): BatchNorm2d(<span class="number">128</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         )</span><br><span class="line">       )</span><br><span class="line">       (<span class="number">1</span>): BasicBlock(</span><br><span class="line">         (conv1): Conv2d(<span class="number">128</span>, <span class="number">128</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">1</span>, <span class="number">1</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn1): BatchNorm2d(<span class="number">128</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (conv2): Conv2d(<span class="number">128</span>, <span class="number">128</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">1</span>, <span class="number">1</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn2): BatchNorm2d(<span class="number">128</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (shortcut): Sequential()</span><br><span class="line">       )</span><br><span class="line">     )</span><br><span class="line">     (layer3): Sequential(</span><br><span class="line">       (<span class="number">0</span>): BasicBlock(</span><br><span class="line">         (conv1): Conv2d(<span class="number">128</span>, <span class="number">256</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">2</span>, <span class="number">2</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn1): BatchNorm2d(<span class="number">256</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (conv2): Conv2d(<span class="number">256</span>, <span class="number">256</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">1</span>, <span class="number">1</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn2): BatchNorm2d(<span class="number">256</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (shortcut): Sequential(</span><br><span class="line">           (<span class="number">0</span>): Conv2d(<span class="number">128</span>, <span class="number">256</span>, kernel_size=(<span class="number">1</span>, <span class="number">1</span>), stride=(<span class="number">2</span>, <span class="number">2</span>), bias=<span class="literal">False</span>)</span><br><span class="line">           (<span class="number">1</span>): BatchNorm2d(<span class="number">256</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         )</span><br><span class="line">       )</span><br><span class="line">       (<span class="number">1</span>): BasicBlock(</span><br><span class="line">         (conv1): Conv2d(<span class="number">256</span>, <span class="number">256</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">1</span>, <span class="number">1</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn1): BatchNorm2d(<span class="number">256</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (conv2): Conv2d(<span class="number">256</span>, <span class="number">256</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">1</span>, <span class="number">1</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn2): BatchNorm2d(<span class="number">256</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (shortcut): Sequential()</span><br><span class="line">       )</span><br><span class="line">     )</span><br><span class="line">     (layer4): Sequential(</span><br><span class="line">       (<span class="number">0</span>): BasicBlock(</span><br><span class="line">         (conv1): Conv2d(<span class="number">256</span>, <span class="number">512</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">2</span>, <span class="number">2</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn1): BatchNorm2d(<span class="number">512</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (conv2): Conv2d(<span class="number">512</span>, <span class="number">512</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">1</span>, <span class="number">1</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn2): BatchNorm2d(<span class="number">512</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (shortcut): Sequential(</span><br><span class="line">           (<span class="number">0</span>): Conv2d(<span class="number">256</span>, <span class="number">512</span>, kernel_size=(<span class="number">1</span>, <span class="number">1</span>), stride=(<span class="number">2</span>, <span class="number">2</span>), bias=<span class="literal">False</span>)</span><br><span class="line">           (<span class="number">1</span>): BatchNorm2d(<span class="number">512</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         )</span><br><span class="line">       )</span><br><span class="line">       (<span class="number">1</span>): BasicBlock(</span><br><span class="line">         (conv1): Conv2d(<span class="number">512</span>, <span class="number">512</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">1</span>, <span class="number">1</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn1): BatchNorm2d(<span class="number">512</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (conv2): Conv2d(<span class="number">512</span>, <span class="number">512</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=(<span class="number">1</span>, <span class="number">1</span>), padding=(<span class="number">1</span>, <span class="number">1</span>), bias=<span class="literal">False</span>)</span><br><span class="line">         (bn2): BatchNorm2d(<span class="number">512</span>, eps=<span class="number">1e-05</span>, momentum=<span class="number">0.1</span>, affine=<span class="literal">True</span>, track_running_stats=<span class="literal">True</span>)</span><br><span class="line">         (shortcut): Sequential()</span><br><span class="line">       )</span><br><span class="line">     )</span><br><span class="line">     (linear): Linear(in_features=<span class="number">512</span>, out_features=<span class="number">100</span>, bias=<span class="literal">True</span>)</span><br><span class="line">   ), <span class="string">&#x27;train_layer&#x27;</span>: [<span class="string">&#x27;layer4.1.bn1.weight&#x27;</span>, <span class="string">&#x27;layer4.1.bn1.bias&#x27;</span>, <span class="string">&#x27;layer4.1.bn2.bias&#x27;</span>, <span class="string">&#x27;layer4.1.bn2.weight&#x27;</span>], <span class="string">&#x27;performance&#x27;</span>: [<span class="number">71.79</span>, <span class="number">71.78</span>, <span class="number">71.8</span>, <span class="number">71.85</span>, <span class="number">71.84</span>, <span class="number">71.8</span>, <span class="number">71.85</span>, <span class="number">71.83</span>, <span class="number">71.77</span>, <span class="number">71.86</span>, <span class="number">71.85</span>, <span class="number">71.82</span>, <span class="number">71.81</span>, <span class="number">71.85</span>, <span class="number">71.89</span>, <span class="number">71.8</span>, <span class="number">71.82</span>, <span class="number">71.85</span>, <span class="number">71.78</span>, <span class="number">71.86</span>, <span class="number">71.87</span>, <span class="number">71.87</span>, <span class="number">71.81</span>, <span class="number">71.84</span>, <span class="number">71.84</span>, <span class="number">71.87</span>, <span class="number">71.87</span>, <span class="number">71.82</span>, <span class="number">71.87</span>, <span class="number">71.86</span>, <span class="number">71.86</span>, <span class="number">71.87</span>, <span class="number">71.85</span>, <span class="number">71.86</span>, <span class="number">71.85</span>, <span class="number">71.86</span>, <span class="number">71.83</span>, <span class="number">71.83</span>, <span class="number">71.93</span>, <span class="number">71.91</span>, <span class="number">71.84</span>, <span class="number">71.8</span>, <span class="number">71.88</span>, <span class="number">71.84</span>, <span class="number">71.78</span>, <span class="number">71.81</span>, <span class="number">71.82</span>, <span class="number">71.8</span>, <span class="number">71.84</span>, <span class="number">71.83</span>, <span class="number">71.85</span>, <span class="number">71.85</span>, <span class="number">71.89</span>, <span class="number">71.75</span>, <span class="number">71.84</span>, <span class="number">71.78</span>, <span class="number">71.82</span>, <span class="number">71.9</span>, <span class="number">71.86</span>, <span class="number">71.89</span>, <span class="number">71.81</span>, <span class="number">71.8</span>, <span class="number">71.84</span>, <span class="number">71.86</span>, <span class="number">71.81</span>, <span class="number">71.84</span>, <span class="number">71.86</span>, <span class="number">71.82</span>, <span class="number">71.84</span>, <span class="number">71.76</span>, <span class="number">71.83</span>, <span class="number">71.82</span>, <span class="number">71.87</span>, <span class="number">71.86</span>, <span class="number">71.83</span>, <span class="number">71.87</span>, <span class="number">71.84</span>, <span class="number">71.81</span>, <span class="number">71.85</span>, <span class="number">71.84</span>, <span class="number">71.87</span>, <span class="number">71.76</span>, <span class="number">71.85</span>, <span class="number">71.78</span>, <span class="number">71.75</span>, <span class="number">71.86</span>, <span class="number">71.88</span>, <span class="number">71.83</span>, <span class="number">71.85</span>, <span class="number">71.83</span>, <span class="number">71.86</span>, <span class="number">71.86</span>, <span class="number">71.85</span>, <span class="number">71.85</span>, <span class="number">71.9</span>, <span class="number">71.86</span>, <span class="number">71.84</span>, <span class="number">71.87</span>, <span class="number">71.88</span>, <span class="number">71.86</span>, <span class="number">71.82</span>, <span class="number">71.82</span>, <span class="number">71.84</span>, <span class="number">71.84</span>, <span class="number">71.82</span>, <span class="number">71.89</span>, <span class="number">71.79</span>, <span class="number">71.86</span>, <span class="number">71.84</span>, <span class="number">71.8</span>, <span class="number">71.86</span>, <span class="number">71.85</span>, <span class="number">71.83</span>, <span class="number">71.83</span>, <span class="number">71.84</span>, <span class="number">71.89</span>, <span class="number">71.87</span>, <span class="number">71.86</span>, <span class="number">71.8</span>, <span class="number">71.84</span>, <span class="number">71.83</span>, <span class="number">71.79</span>, <span class="number">71.84</span>, <span class="number">71.9</span>, <span class="number">71.85</span>, <span class="number">71.86</span>, <span class="number">71.88</span>, <span class="number">71.84</span>, <span class="number">71.86</span>, <span class="number">71.86</span>, <span class="number">71.84</span>, <span class="number">71.86</span>, <span class="number">71.78</span>, <span class="number">71.83</span>, <span class="number">71.87</span>, <span class="number">71.89</span>, <span class="number">71.81</span>, <span class="number">71.86</span>, <span class="number">71.77</span>, <span class="number">71.84</span>, <span class="number">71.92</span>, <span class="number">71.82</span>, <span class="number">71.81</span>, <span class="number">71.8</span>, <span class="number">71.78</span>, <span class="number">71.85</span>, <span class="number">71.89</span>, <span class="number">71.81</span>, <span class="number">71.75</span>, <span class="number">71.8</span>, <span class="number">71.81</span>, <span class="number">71.84</span>, <span class="number">71.88</span>, <span class="number">71.8</span>, <span class="number">71.85</span>, <span class="number">71.8</span>, <span class="number">71.85</span>, <span class="number">71.8</span>, <span class="number">71.95</span>, <span class="number">71.85</span>, <span class="number">71.87</span>, <span class="number">71.83</span>, <span class="number">71.87</span>, <span class="number">71.84</span>, <span class="number">71.82</span>, <span class="number">71.87</span>, <span class="number">71.8</span>, <span class="number">71.86</span>, <span class="number">71.81</span>, <span class="number">71.89</span>, <span class="number">71.86</span>, <span class="number">71.84</span>, <span class="number">71.87</span>, <span class="number">71.81</span>, <span class="number">71.87</span>, <span class="number">71.83</span>, <span class="number">71.82</span>, <span class="number">71.88</span>, <span class="number">71.85</span>, <span class="number">71.84</span>, <span class="number">71.79</span>, <span class="number">71.84</span>, <span class="number">71.81</span>, <span class="number">71.84</span>, <span class="number">71.86</span>, <span class="number">71.85</span>, <span class="number">71.85</span>, <span class="number">71.85</span>, <span class="number">71.83</span>, <span class="number">71.81</span>, <span class="number">71.87</span>, <span class="number">71.83</span>, <span class="number">71.88</span>, <span class="number">71.84</span>, <span class="number">71.85</span>, <span class="number">71.81</span>, <span class="number">71.81</span>, <span class="number">71.76</span>, <span class="number">71.89</span>, <span class="number">71.86</span>], <span class="string">&#x27;cfg&#x27;</span>: &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;classification&#x27;</span>, <span class="string">&#x27;data&#x27;</span>: &#123;<span class="string">&#x27;data_root&#x27;</span>: <span class="string">&#x27;data/cifar100&#x27;</span>, <span class="string">&#x27;dataset&#x27;</span>: <span class="string">&#x27;cifar100&#x27;</span>, <span class="string">&#x27;batch_size&#x27;</span>: <span class="number">2048</span>, <span class="string">&#x27;num_workers&#x27;</span>: <span class="number">8</span>&#125;, <span class="string">&#x27;model&#x27;</span>: &#123;<span class="string">&#x27;_target_&#x27;</span>: <span class="string">&#x27;models.resnet.ResNet18&#x27;</span>, <span class="string">&#x27;num_classes&#x27;</span>: <span class="number">100</span>&#125;, <span class="string">&#x27;optimizer&#x27;</span>: &#123;<span class="string">&#x27;_target_&#x27;</span>: <span class="string">&#x27;torch.optim.SGD&#x27;</span>, <span class="string">&#x27;lr&#x27;</span>: <span class="number">0.1</span>, <span class="string">&#x27;momentum&#x27;</span>: <span class="number">0.9</span>, <span class="string">&#x27;weight_decay&#x27;</span>: <span class="number">0.0005</span>&#125;, <span class="string">&#x27;lr_scheduler&#x27;</span>: &#123;<span class="string">&#x27;_target_&#x27;</span>: <span class="string">&#x27;torch.optim.lr_scheduler.MultiStepLR&#x27;</span>, <span class="string">&#x27;milestones&#x27;</span>: [<span class="number">60</span>, <span class="number">120</span>, <span class="number">160</span>, <span class="number">200</span>], <span class="string">&#x27;gamma&#x27;</span>: <span class="number">0.2</span>&#125;, <span class="string">&#x27;epoch&#x27;</span>: <span class="number">200</span>, <span class="string">&#x27;save_num_model&#x27;</span>: <span class="number">200</span>, <span class="string">&#x27;train_layer&#x27;</span>: [<span class="string">&#x27;layer4.1.bn1.weight&#x27;</span>, <span class="string">&#x27;layer4.1.bn1.bias&#x27;</span>, <span class="string">&#x27;layer4.1.bn2.bias&#x27;</span>, <span class="string">&#x27;layer4.1.bn2.weight&#x27;</span>], <span class="string">&#x27;param&#x27;</span>: &#123;<span class="string">&#x27;data_root&#x27;</span>: <span class="string">&#x27;param_data/cifar100/data.pt&#x27;</span>, <span class="string">&#x27;k&#x27;</span>: <span class="number">200</span>, <span class="string">&#x27;num_workers&#x27;</span>: <span class="number">4</span>&#125;&#125;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">### 训练扩散模型</span></span><br><span class="line"></span><br><span class="line">代码`train_p_diff.py`，有两种模式，可以在`base.yaml`中选择是训练或者是测试扩散模型。</span><br><span class="line"></span><br><span class="line">项目作者将代码封装的比较好，核心代码在`core`文件夹里面。</span><br><span class="line"></span><br><span class="line"><span class="comment">## 实验结果</span></span><br><span class="line"></span><br><span class="line">再次梳理一下这篇论文对应的实验的思路：数据集设置为CIFAR10，网络为ResNet18</span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> 在CIFAR10上训练ResNet18，将得到的模型保存下来，在test_data上进行测试，得到acc：</span><br><span class="line"></span><br><span class="line">   ```shell</span><br><span class="line">   /home/chengyiqiu/miniconda3/envs/pdiff/<span class="built_in">bin</span>/python /home/chengyiqiu/code/diffusion/Diffuse-Backdoor-Parameters/test.py </span><br><span class="line">   <span class="number">10.0</span>  <span class="comment"># 这是随机初始化ResNet的acc，十类瞎猜理论上是1/10</span></span><br><span class="line">   <span class="number">86.034</span>  <span class="comment"># 这是加载了保存的state_dict后的ResNet18的准确率，良好</span></span><br><span class="line">   </span><br><span class="line">   Process finished <span class="keyword">with</span> exit code <span class="number">0</span></span><br></pre></td></tr></table></figure></li>
@@ -429,395 +441,98 @@ latent_shape)，得到200个生成的train-layer的参数，将其加入到第�
 <p>结果：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/home/chengyiqiu/miniconda3/envs/pdiff/bin/python /home/chengyiqiu/code/diffusion/Diffuse-Backdoor-Parameters/tools/eval_pdiff.py </span><br><span class="line">/home/chengyiqiu/miniconda3/envs/pdiff/lib/python3.8/site-packages/torch/nn/modules/instancenorm.py:80: UserWarning: input&#x27;s size at dim=1 does not match num_features. You can silence this warning by not passing in num_features, which is not used because affine=False</span><br><span class="line">  warnings.warn(f&quot;input&#x27;s size at dim=&#123;feature_dim&#125; does not match num_features. &quot;</span><br><span class="line">ae param shape: torch.Size([200, 5130])</span><br><span class="line">Files already downloaded and verified</span><br><span class="line"><span class="meta prompt_">100%</span><span class="language-bash">|██████████| 200/200 [17:28&lt;00:00,  5.24s/it]</span></span><br><span class="line">Sorted list of accuracies: [0.63, 0.888, 1.024, 1.078, 1.146, 1.17, 1.308, 1.386, 1.444, 1.476, 1.626, 1.828, 1.9, 2.0, 2.012, 2.168, 2.268, 2.332, 2.576, 2.638, 2.678, 2.778, 3.026, 3.028, 3.138, 3.296, 3.32, 3.598, 3.622, 3.832, 4.148, 4.162, 4.52, 4.536, 4.992, 5.018, 5.084, 5.1, 5.11, 5.338, 5.572, 5.744, 5.762, 5.772, 5.864, 5.962, 5.986, 6.116, 6.358, 6.368, 6.476, 6.546, 7.022, 7.142, 7.254, 7.3, 7.452, 7.458, 7.478, 7.522, 7.57, 7.644, 7.7, 7.77, 7.798, 7.824, 7.842, 8.414, 8.506, 8.548, 8.612, 8.636, 8.686, 8.734, 8.862, 8.862, 8.984, 8.992, 9.098, 9.136, 9.14, 9.142, 9.206, 9.312, 9.326, 9.354, 9.562, 9.568, 9.674, 9.712, 9.716, 9.776, 9.79, 9.942, 9.968, 10.0, 10.014, 10.02, 10.036, 10.14, 10.2, 10.25, 10.266, 10.296, 10.324, 10.354, 10.372, 10.39, 10.412, 10.43, 10.462, 10.532, 10.596, 10.616, 10.702, 10.72, 10.734, 10.746, 10.746, 10.76, 10.944, 10.976, 10.978, 11.018, 11.03, 11.044, 11.128, 11.152, 11.226, 11.236, 11.238, 11.398, 11.458, 11.58, 11.594, 11.676, 11.808, 11.87, 11.874, 12.148, 12.23, 12.36, 12.426, 12.51, 12.644, 12.754, 12.772, 12.85, 12.862, 12.902, 12.966, 12.988, 13.122, 13.294, 13.378, 13.458, 14.048, 14.11, 14.234, 14.454, 14.502, 14.636, 14.74, 14.804, 14.872, 14.96, 15.04, 15.32, 15.604, 15.892, 16.058, 16.114, 16.35, 16.674, 16.768, 17.258, 17.414, 17.752, 17.778, 18.206, 18.248, 18.256, 18.296, 18.374, 18.438, 18.674, 18.744, 19.124, 20.658, 20.784, 20.854, 21.198, 21.33, 22.388, 22.688, 22.874, 24.144, 25.728, 27.32, 30.836]</span><br><span class="line">Average accuracy: 10.28</span><br><span class="line">Max accuracy: 30.84</span><br><span class="line">Min accuracy: 0.63</span><br><span class="line">Median accuracy: 10.17</span><br></pre></td></tr></table></figure>
 
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2024/03/24/Neural-Network-Diffusion/" data-id="clw93veal002knn9fc3ag2sar" data-title="Neural_Network_Diffusion" class="article-share-link">Share</a>
-      
-      
-      
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/diffusion/" rel="tag">diffusion</a></li></ul>
 
+    
+    
+    
 
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/diffusion/" rel="tag"><i class="fa fa-tag"></i> diffusion</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/03/21/Distilling-Cognitive-Backdoor-Patterns-within-an-Image/" rel="prev" title="Distilling_Cognitive_Backdoor_Patterns_within_an_Image">
+                  <i class="fa fa-angle-left"></i> Distilling_Cognitive_Backdoor_Patterns_within_an_Image
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/03/24/High-Resolution-Image-Synthesis-with-Latent-Diffusion-Models/" rel="next" title="High-Resolution-Image-Synthesis-with-Latent-Diffusion-Models">
+                  High-Resolution-Image-Synthesis-with-Latent-Diffusion-Models <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
     </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2019 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">chengyiqiu</span>
   </div>
-  
-    
-  <nav id="article-nav" class="wow fadeInUp">
-    
-      <div class="article-nav-link-wrap article-nav-link-left">
-        
-          
-          
-            <img data-src="/covers/IMG_2579.JPG" data-sizes="auto" alt="High-Resolution-Image-Synthesis-with-Latent-Diffusion-Models" class="lazyload">
-          
-        
-        <a href="/2024/03/24/High-Resolution-Image-Synthesis-with-Latent-Diffusion-Models/"></a>
-        <div class="article-nav-caption">Newer</div>
-        <h3 class="article-nav-title">
-          
-            High-Resolution-Image-Synthesis-with-Latent-Diffusion-Models
-          
-        </h3>
-      </div>
-    
-    
-    <div class="article-nav-link-wrap article-nav-link-right">
-      
-        
-        
-          <img data-src="/covers/IMG_2581.JPG" data-sizes="auto" alt="Distilling_Cognitive_Backdoor_Patterns_within_an_Image" class="lazyload">
-        
-      
-      <a href="/2024/03/21/Distilling-Cognitive-Backdoor-Patterns-within-an-Image/"></a>
-      <div class="article-nav-caption">Older</div>
-      <h3 class="article-nav-title">
-        
-          Distilling_Cognitive_Backdoor_Patterns_within_an_Image
-        
-      </h3>
-    </div>
-    
-  </nav>
-
-
-  
-</article>
-
-
-
-
-
-
-</section>
-          
-            <aside id="sidebar">
-  <div class="sidebar-wrap wow fadeInRight wrap-sticky">
-    
-      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
-  <h3 class="toc-title">Contents</h3>
-  <div class="sidebar-toc-wrapper toc-div-class" >
-      
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%89%A9%E6%95%A3"><span class="toc-number">1.</span> <span class="toc-text">神经网络扩散</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E6%AD%A5%E4%BA%86%E8%A7%A3%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text">初步了解扩散模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84"><span class="toc-number">1.2.</span> <span class="toc-text">整体架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E8%87%AA%E5%8A%A8%E7%BC%96%E7%A0%81%E5%99%A8"><span class="toc-number">1.3.</span> <span class="toc-text">参数自动编码器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E7%94%9F%E6%88%90"><span class="toc-number">1.4.</span> <span class="toc-text">参数生成</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number">2.</span> <span class="toc-text">实验</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.1.</span> <span class="toc-text">设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB"><span class="toc-number">2.2.</span> <span class="toc-text">代码阅读</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E8%AE%AD%E7%BB%83%E6%95%B0%E6%8D%AE"><span class="toc-number">2.2.1.</span> <span class="toc-text">准备训练数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E8%AE%BA"><span class="toc-number">2.3.</span> <span class="toc-text">实验结论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95"><span class="toc-number">2.4.</span> <span class="toc-text">问题记录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E6%A0%B7%E5%8C%96%E5%8F%82%E6%95%B0%E4%BB%A5%E5%A2%9E%E5%BC%BA%E6%B3%9B%E5%8C%96%E6%80%A7%E8%83%BD"><span class="toc-number">2.5.</span> <span class="toc-text">多样化参数以增强泛化性能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%9D%E8%AF%951-%E6%85%A2%E6%85%A2%E5%87%8F%E8%AE%AD%E7%BB%83%E7%9A%84layer"><span class="toc-number">2.5.1.</span> <span class="toc-text">尝试1 慢慢减训练的layer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%9D%E8%AF%952-%E5%88%87%E6%8D%A2%E9%A1%BA%E5%BA%8F"><span class="toc-number">2.5.2.</span> <span class="toc-text">尝试2 切换顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%9D%E8%AF%953-%E5%8A%A0%E5%85%A5%E5%8D%B7%E7%A7%AF%E5%B1%82%E8%AE%AD%E7%BB%83"><span class="toc-number">2.5.3.</span> <span class="toc-text">尝试3 加入卷积层训练</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%9D%E8%AF%954-4%E4%B8%AAbn"><span class="toc-number">2.5.4.</span> <span class="toc-text">尝试4 4个bn</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%9D%E8%AF%955-%E8%AE%AD%E7%BB%83-%E9%87%8D%E8%AE%AD%E7%BB%83"><span class="toc-number">2.5.5.</span> <span class="toc-text">尝试5 训练-重训练</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%9D%E8%AF%956-%E5%8D%B7%E7%A7%AF%E5%B1%82%E9%87%8D%E8%AE%AD%E7%BB%83"><span class="toc-number">2.5.6.</span> <span class="toc-text">尝试6 卷积层重训练</span></a></li></ol></li></ol></li></ol>
-      
-  </div>
-</div>
-</div>
-      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
-  <div class="sidebar-author-name">chengyiqiu</div>
-  <div class="sidebar-description"></div>
-</div>
-<div class="sidebar-state">
-  <div class="sidebar-state-article">
-    <div>Posts</div>
-    <div class="sidebar-state-number">60</div>
-  </div>
-  <div class="sidebar-state-category">
-    <div>Categories</div>
-    <div class="sidebar-state-number">11</div>
-  </div>
-  <div class="sidebar-state-tag">
-    <div>Tags</div>
-    <div class="sidebar-state-number">13</div>
-  </div>
-</div>
-<div class="sidebar-social">
-  
-    <div class=icon-github>
-      <a href=https://github.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="github"></a>
-    </div>
-  
-    <div class=icon-twitter>
-      <a href=https://x.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="twitter"></a>
-    </div>
-  
-    <div class=icon-bilibili>
-      <a href=https://space.bilibili.com/3493124768795188?spm_id_from=333.337.0.0 itemprop="url" target="_blank" aria-label="bilibili"></a>
-    </div>
-  
-    <div class=icon-zhihu>
-      <a href=https://www.zhihu.com/people/b79383d8dcc462769c532f9d16dadfeb itemprop="url" target="_blank" aria-label="zhihu"></a>
-    </div>
-  
-    <div class=icon-telegram>
-      <a href=https://www.t.me/chengyiqiu1121 itemprop="url" target="_blank" aria-label="telegram"></a>
-    </div>
-  
-</div>
-<div class="sidebar-menu">
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/" aria-label="Home"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Home</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="Archives"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Archives</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/about" aria-label="About"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">About</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="Friend"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Friend</div>
-    </div>
-  
-</div>
-</div>
-    
-    
-      <div class="sidebar-btn-wrapper" style="position:static">
-        <div class="sidebar-toc-btn current"></div>
-        <div class="sidebar-common-btn"></div>
-      </div>
-    
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
-  
-</aside>
+    </div>
+  </footer>
 
-          
-        </div>
-        <footer id="footer" class="wow fadeInUp">
-  <div style="width: 100%; overflow: hidden">
-    <div class="footer-line"></div>
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
   </div>
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      <div>
-        <span class="icon-copyright"></span>
-        2020-2024
-        <span class="footer-info-sep"></span>
-        chengyiqiu
-      </div>
-      
-        <div>
-          Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>&nbsp;
-          Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" target="_blank">Reimu</a>
-        </div>
-      
-      
-        <div>
-          <span class="icon-brush"></span>
-          90.7k
-          &nbsp;|&nbsp;
-          <span class="icon-coffee"></span>
-          05:57
-        </div>
-      
-      
-        <div>
-          <span class="icon-eye"></span>
-          <span id="busuanzi_container_site_pv">Number of visits&nbsp;<span id="busuanzi_value_site_pv"></span></span>
-          &nbsp;|&nbsp;
-          <span class="icon-user"></span>
-          <span id="busuanzi_container_site_uv">Number of visitors&nbsp;<span id="busuanzi_value_site_uv"></span></span>
-        </div>
-      
-    </div>
-  </div>
-</footer>
+  <div class="sidebar-dimmer"></div>
 
-        <div class="sidebar-top">
-          <img src="/images/taichi.png" height="50" width="50" />
-          <div class="arrow-up"></div>
-        </div>
-        <div id="mask"></div>
-      </div>
-      <nav id="mobile-nav">
-  <div class="sidebar-wrap">
-    
-      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
-  <h3 class="toc-title">Contents</h3>
-  <div class="sidebar-toc-wrapper toc-div-class" >
-      
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%89%A9%E6%95%A3"><span class="toc-number">1.</span> <span class="toc-text">神经网络扩散</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E6%AD%A5%E4%BA%86%E8%A7%A3%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text">初步了解扩散模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84"><span class="toc-number">1.2.</span> <span class="toc-text">整体架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E8%87%AA%E5%8A%A8%E7%BC%96%E7%A0%81%E5%99%A8"><span class="toc-number">1.3.</span> <span class="toc-text">参数自动编码器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E7%94%9F%E6%88%90"><span class="toc-number">1.4.</span> <span class="toc-text">参数生成</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number">2.</span> <span class="toc-text">实验</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.1.</span> <span class="toc-text">设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB"><span class="toc-number">2.2.</span> <span class="toc-text">代码阅读</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E8%AE%AD%E7%BB%83%E6%95%B0%E6%8D%AE"><span class="toc-number">2.2.1.</span> <span class="toc-text">准备训练数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E8%AE%BA"><span class="toc-number">2.3.</span> <span class="toc-text">实验结论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95"><span class="toc-number">2.4.</span> <span class="toc-text">问题记录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E6%A0%B7%E5%8C%96%E5%8F%82%E6%95%B0%E4%BB%A5%E5%A2%9E%E5%BC%BA%E6%B3%9B%E5%8C%96%E6%80%A7%E8%83%BD"><span class="toc-number">2.5.</span> <span class="toc-text">多样化参数以增强泛化性能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%9D%E8%AF%951-%E6%85%A2%E6%85%A2%E5%87%8F%E8%AE%AD%E7%BB%83%E7%9A%84layer"><span class="toc-number">2.5.1.</span> <span class="toc-text">尝试1 慢慢减训练的layer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%9D%E8%AF%952-%E5%88%87%E6%8D%A2%E9%A1%BA%E5%BA%8F"><span class="toc-number">2.5.2.</span> <span class="toc-text">尝试2 切换顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%9D%E8%AF%953-%E5%8A%A0%E5%85%A5%E5%8D%B7%E7%A7%AF%E5%B1%82%E8%AE%AD%E7%BB%83"><span class="toc-number">2.5.3.</span> <span class="toc-text">尝试3 加入卷积层训练</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%9D%E8%AF%954-4%E4%B8%AAbn"><span class="toc-number">2.5.4.</span> <span class="toc-text">尝试4 4个bn</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%9D%E8%AF%955-%E8%AE%AD%E7%BB%83-%E9%87%8D%E8%AE%AD%E7%BB%83"><span class="toc-number">2.5.5.</span> <span class="toc-text">尝试5 训练-重训练</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%9D%E8%AF%956-%E5%8D%B7%E7%A7%AF%E5%B1%82%E9%87%8D%E8%AE%AD%E7%BB%83"><span class="toc-number">2.5.6.</span> <span class="toc-text">尝试6 卷积层重训练</span></a></li></ol></li></ol></li></ol>
-      
-  </div>
-</div>
-</div>
-      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
-  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
-  <div class="sidebar-author-name">chengyiqiu</div>
-  <div class="sidebar-description"></div>
-</div>
-<div class="sidebar-state">
-  <div class="sidebar-state-article">
-    <div>Posts</div>
-    <div class="sidebar-state-number">60</div>
-  </div>
-  <div class="sidebar-state-category">
-    <div>Categories</div>
-    <div class="sidebar-state-number">11</div>
-  </div>
-  <div class="sidebar-state-tag">
-    <div>Tags</div>
-    <div class="sidebar-state-number">13</div>
-  </div>
-</div>
-<div class="sidebar-social">
-  
-    <div class=icon-github>
-      <a href=https://github.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="github"></a>
-    </div>
-  
-    <div class=icon-twitter>
-      <a href=https://x.com/chengyiqiu1121 itemprop="url" target="_blank" aria-label="twitter"></a>
-    </div>
-  
-    <div class=icon-bilibili>
-      <a href=https://space.bilibili.com/3493124768795188?spm_id_from=333.337.0.0 itemprop="url" target="_blank" aria-label="bilibili"></a>
-    </div>
-  
-    <div class=icon-zhihu>
-      <a href=https://www.zhihu.com/people/b79383d8dcc462769c532f9d16dadfeb itemprop="url" target="_blank" aria-label="zhihu"></a>
-    </div>
-  
-    <div class=icon-telegram>
-      <a href=https://www.t.me/chengyiqiu1121 itemprop="url" target="_blank" aria-label="telegram"></a>
-    </div>
-  
-</div>
-<div class="sidebar-menu">
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/" aria-label="Home"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Home</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="Archives"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Archives</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/about" aria-label="About"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">About</div>
-    </div>
-  
-    <div class="sidebar-menu-link-wrap">
-      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="Friend"></a>
-      <span class="sidebar-menu-icon"></span>
-      <div class="sidebar-menu-link">Friend</div>
-    </div>
-  
-</div>
-</div>
-    
-  </div>
-  
-    <div class="sidebar-btn-wrapper">
-      <div class="sidebar-toc-btn current"></div>
-      <div class="sidebar-common-btn"></div>
-    </div>
-  
-</nav>
-
-    </div>
-    <div class="site-search">
-      <div class="reimu-popup popup">
-        <div class="reimu-search">
-          <span class="reimu-search-input-icon"></span>
-          <div class="reimu-search-input" id="reimu-search-input"></div>
-        </div>
-        <div class="reimu-results">
-          <div id="reimu-stats"></div>
-          <div id="reimu-hits"></div>
-          <div id="reimu-pagination" class="reimu-pagination"></div>
-        </div>
-        <span class="popup-btn-close"></span>
-      </div>
-    </div>
-    
-<script src="https://npm.webcache.cn/jquery@3.7.1/dist/jquery.min.js"></script>
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
 
-<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
 
 
-<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"></script>
+
+  <script src="/js/third-party/fancybox.js"></script>
 
 
 
   
-<script src="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
-
-
-
-  
-<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
-
-
-
-
-
-
-<script src="/js/pjax_script.js" data-pjax></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
 
   
-<script src="https://npm.webcache.cn/mouse-firework@0.0.4/dist/index.umd.js"></script>
 
-  <script>
-    firework(JSON.parse('{"excludeElements":["a"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["#ff5252","#ff7c7c","#ffafaf","#ffd0d0"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["#ff0000"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'))
-  </script>
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
 
 
 
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-  <script>
-    console.log(String.raw`%c 
- ______     ______     __     __    __     __  __    
-/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
-\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
- \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
-  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
-                                                  
-`,'color: #ff5252;')
-    console.log('%c Theme.Reimu v' + '0.1.2' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
-  </script>
-  
-
-  <!-- hexo injector body_end start -->
-<script src="/js/insert_highlight.js" data-pjax></script>
-<!-- hexo injector body_end end --></body>
-  </html>
-
+</body>
+</html>
