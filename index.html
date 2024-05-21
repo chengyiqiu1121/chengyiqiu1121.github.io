@@ -186,9 +186,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2024-05-16 15:35:59 / Modified: 16:29:32" itemprop="dateCreated datePublished" datetime="2024-05-16T15:35:59+08:00">2024-05-16</time>
+      <time title="Created: 2024-05-16 15:35:59" itemprop="dateCreated datePublished" datetime="2024-05-16T15:35:59+08:00">2024-05-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-05-21 15:40:45" itemprop="dateModified" datetime="2024-05-21T15:40:45+08:00">2024-05-21</time>
     </span>
 
   
@@ -213,6 +219,9 @@ outcome, the point is inside A, we call that event A occurs .</p>
 <li>if A disjoints B, then: <span class="math inline">\(P(A\cup
 B)=P(A)+P(B)\)</span></li>
 </ol>
+<p>the axiom 3 tells us: the probability is like mass, or area, th
+probability of two disjoint event is just like the sum area of two
+disjoint area A and B.</p>
 <p>and through there three axioms, we can get: <span class="math inline">\(P(A)\le 1\)</span> <span class="math display">\[
 \begin{flalign}
 P(\Omega)&amp;=^{(2)}1 \\
@@ -240,6 +249,47 @@ in a sqare?</p>
 probality law.</p>
 <p>in the sample space, we use the area to represent the probability, so
 in that case, the <span class="math inline">\(P((x,y)=(0.5,0.3))\)</span> is zero.</p>
+<h1 id="lecture-2">lecture 2</h1>
+<p>if probability is 0, it does not mean it will not happen, <span class="math inline">\(P((x, y)=(0, 0))=0\)</span>, but it does happen.
+The probability is zero only means it will extremely not happen.</p>
+<p>On the other hand, the probability is one also means extremely
+happen, eg. <span class="math inline">\(P((x,y)\ne (0,0))=1\)</span></p>
+<p>Another thing is conditional probability <span class="math inline">\(P(A\vert B)\)</span> <span class="math display">\[
+P(A\vert B)=\frac{P(A\cap B)}{P(B)}
+\]</span> That's mean is given event B has occured, what's the
+probability that event A occurs?</p>
+<p>The original sample space is <span class="math inline">\(\Omega\)</span>, now we need to revice the sample
+space to B, do not need to care another area.</p>
+<p>if <span class="math inline">\(P(B)=0\)</span>, we call that <span class="math inline">\(P(A\vert B)\)</span> is undefined</p>
+<p>It also can be represented as follow: <span class="math display">\[
+\begin{flalign}
+P(A\cap B)&amp;=P(B)\times P(A\vert B) \\
+&amp;=P(A)\times P(B\vert A)&amp;
+\end{flalign}
+\]</span> here is the explaination: the probality of A and B occurs is
+proportional to the probability of B occurs. As long as we do
+experiments, we will find that when B occurs, sometime A also occurs,
+proportionally, and the proportional means <span class="math inline">\(P(A\vert B)\)</span></p>
+<p>condational probability is sometimes counter-intuitional. Here is an
+example:</p>
+<figure>
+<img data-src="./mit6-431/image-20240521152405437.png" alt="image-20240521152405437">
+<figcaption aria-hidden="true">image-20240521152405437</figcaption>
+</figure>
+<p>By calculastion, we will get <span class="math inline">\(P(A\vert
+B)\)</span> is about 34%, which means given the radar has registered
+something, ther is only 34% probability that airplane occur.</p>
+<p>Another important thing is the Bayes' rule: <span class="math display">\[
+\begin{flalign}
+P(A_i\vert B)&amp;=\frac{P(A_i\cap B)}{P(B)} \\
+&amp;=\frac{P(A_i)P(B\vert A_i)}{P(B)} \\
+&amp;=\frac{P(A_i)P(B\vert A_i)}{\sum_jP(A_j)P(B\vert A_j)}
+\end{flalign}
+\]</span> When <span class="math inline">\(A_i\to B\)</span>, it is a
+cause and effect model <span class="math inline">\(P(B\vert
+A_i)\)</span></p>
+<p>And when <span class="math inline">\(B\to A_i\)</span>, it is a
+inference model <span class="math inline">\(P(A_i\vert B)\)</span></p>
 
       
     </div>
@@ -800,7 +850,7 @@ x=\mu+\gamma\epsilon=(1-\gamma)\delta+\gamma\epsilon
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-05-16 14:37:22" itemprop="dateModified" datetime="2024-05-16T14:37:22+08:00">2024-05-16</time>
+      <time title="Modified: 2024-05-21 15:17:13" itemprop="dateModified" datetime="2024-05-21T15:17:13+08:00">2024-05-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
