@@ -48,6 +48,10 @@
 
   
   
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css">
+
+  
   
   
   
@@ -191,29 +195,32 @@
       
         
         
-          <img data-src="/covers/IMG_2580.JPG" data-sizes="auto" alt="MetaPoison" class="lazyload">
+          <img data-src="/covers/IMG_2585.JPG" data-sizes="auto" alt="MetaPoison" class="lazyload">
         
       
     </div>
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2023-10-22</span>
-        <span><span class="icon-pencil"></span>795 words</span>
+        <span><span class="icon-pencil"></span>783 words</span>
         <span><span class="icon-clock"></span>2 mins</span>
       </div>
       <h2 class="post-title">MetaPoison</h2>
       <article class="post-article">
         
-           abstract
-现有的攻击主要都是手工制作的攻击，为什么让机器去做呢？因为这通常是一个bilevel optimization（双层优化）问题，这对于深度模型来说是不好求解的。
-提出的攻击：MetaPoison。通过first- order method（一阶方法）来近似bilevel optimization。
+          abstract
+现有的攻击主要都是手工制作的攻击，为什么让机器去做呢？因为这通常是一个bilevel
+optimization（双层优化）问题，这对于深度模型来说是不好求解的。
+提出的攻击：MetaPoison。通过first- order
+method（一阶方法）来近似bilevel optimization。
 其特性：
 
 高效性：通过和clean-label方法对比
 健壮性：对一个模型的中毒攻击能够同样适用于其他的一些架构和训练设置未知的模型上去。
-通用性：不仅适用于微调场景，而且也能用作端到端场景下（clean- label攻击没有这个性质）
+通用性：不仅适用于微调场景，而且也能用作端到端场景下（clean-
+label攻击没有这个性质）
 
-在现实世界中，对Google Clou
+在现实世界中，对Google Cloud
         
       </article>
     </div>
@@ -230,27 +237,30 @@
       
         
         
-          <img data-src="/covers/IMG_2621.PNG" data-sizes="auto" alt="cs224w_ch8" class="lazyload">
+          <img data-src="/covers/IMG_2577.JPG" data-sizes="auto" alt="cs224w_ch8" class="lazyload">
         
       
     </div>
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2023-10-22</span>
-        <span><span class="icon-pencil"></span>283 words</span>
+        <span><span class="icon-pencil"></span>286 words</span>
         <span><span class="icon-clock"></span>1 min</span>
       </div>
       <h2 class="post-title">cs224w_ch8</h2>
       <article class="post-article">
         
-           Graph augmentation
+          Graph augmentation
 for one graph G, if:
 
-G is too sparce =&amp;gt; MP(message-passing) not efficient
+G is too sparce =&amp;gt; MP(message-passing) not
+efficient
 G is too dense =&amp;gt; MP costly
 G is too large =&amp;gt; GPU memory not enough
 
-then it is unlikely to use the computational graph as the raw input. Graw≠GcomputationalG_{raw}\ne G_{computational}Graw​=Gcom
+then it is unlikely to use the computational graph as the raw input.
+\(G_{raw}\ne G_{computational}\)
+Here are some methods to d
         
       </article>
     </div>
@@ -268,35 +278,32 @@ then it is unlikely to use the computational graph as the raw input. Graw≠Gcom
       
         
         
-          <img data-src="/covers/IMG_2582.PNG" data-sizes="auto" alt="FlowGNN" class="lazyload">
+          <img data-src="/covers/IMG_2578.JPG" data-sizes="auto" alt="FlowGNN" class="lazyload">
         
       
     </div>
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2023-10-22</span>
-        <span><span class="icon-pencil"></span>589 words</span>
+        <span><span class="icon-pencil"></span>489 words</span>
         <span><span class="icon-clock"></span>3 mins</span>
       </div>
       <h2 class="post-title">FlowGNN</h2>
       <article class="post-article">
         
-           abstract
+          abstract
 the limitation:
 
-
 GNN needs fast inference.
-
-
-Existing works focus on target GNN acceleration, such as GCN.
-
-
-And many works rely on pre-processing which is not suitable to real-time application.
-
+Existing works focus on target GNN acceleration, such as
+GCN.
+And many works rely on pre-processing which is not suitable to
+real-time application.
 
 This paper work:
 
-Propose FlowGNN, which is generalizable to the majority of message -passin
+Propose FlowGNN, which is generalizable to the
+majority of message -passing GNNs.
         
       </article>
     </div>
@@ -313,32 +320,36 @@ Propose FlowGNN, which is generalizable to the majority of message -passin
       
         
         
-          <img data-src="/covers/IMG_2620.PNG" data-sizes="auto" alt="cs224w_ch7" class="lazyload">
+          <img data-src="/covers/IMG_2581.JPG" data-sizes="auto" alt="cs224w_ch7" class="lazyload">
         
       
     </div>
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2023-10-18</span>
-        <span><span class="icon-pencil"></span>525 words</span>
+        <span><span class="icon-pencil"></span>543 words</span>
         <span><span class="icon-clock"></span>3 mins</span>
       </div>
       <h2 class="post-title">cs224w_ch7</h2>
       <article class="post-article">
         
-           a single layer og GNN
-there are many different GNN: GCN, GraphSAGE, GAT…
+          a single layer og GNN
+there are many different GNN: GCN, GraphSAGE, GAT...
 the difference between them mainly are:
 
 message send
 message aggregation
 
 
- message send
-mul=MSG(l)(hul−1)m_u^l=\mathcal {MSG}^{(l)}(h_u^{l-1})
-mul​=MSG(l)(hul−1​)
-moostly the message function is linear:
-mul=W(l)hu(l−1)m_u^l=
+
+image-20231018220120532
+
+message send
+\[
+m_u^l=\mathcal {MSG}^{(l)}(h_u^{l-1})
+\]
+moostly the message function is linear: \[
+m_u^l=W^{(l)}h_u^{(l-1)
         
       </article>
     </div>
@@ -356,14 +367,14 @@ mul=W(l)hu(l−1)m_u^l=
       
         
         
-          <img data-src="/covers/IMG_2619.PNG" data-sizes="auto" alt="DAGAD" class="lazyload">
+          <img data-src="/covers/IMG_2586.PNG" data-sizes="auto" alt="DAGAD" class="lazyload">
         
       
     </div>
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2023-10-17</span>
-        <span><span class="icon-pencil"></span>909 words</span>
+        <span><span class="icon-pencil"></span>926 words</span>
         <span><span class="icon-clock"></span>3 mins</span>
       </div>
       <h2 class="post-title">DAGAD</h2>
@@ -374,7 +385,7 @@ mul=W(l)hu(l−1)m_u^l=
 小组方向：AI算法在入侵检测、恶意软件识别、恶意流量识别方面的应用
 论文题目：DAGAD: Data Augmentation for Graph Anomaly Detection
 
- 摘要
+摘要
 
 检测异常结点，属于结点型任务
 目前存在的两个问题：
@@ -382,11 +393,10 @@ mul=W(l)hu(l−1)m_u^l=
 异常结点很难被捕获，其异常行为很微小，并且往往没有关于异常结点的先验知识
 现实世界中大部分的结点都是正常的，就像银行贷款一样，往往1w人里面只有几个人是不还贷款的“异常结点”。存在严重的类别不平衡问题。
 
-
 本文的模型：
 
 GNN将非欧数据压缩为d维向量（表征学习）
-图增强模块，通过对生成的d维向量增加扰动，来进行数据增强，使用增
+图增强模块，通过对生成的d维向量增加扰动，来进行数据增强，使用增强之
         
       </article>
     </div>
@@ -410,19 +420,23 @@ GNN将非欧数据压缩为d维向量（表征学习）
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2023-10-16</span>
-        <span><span class="icon-pencil"></span>465 words</span>
+        <span><span class="icon-pencil"></span>384 words</span>
         <span><span class="icon-clock"></span>2 mins</span>
       </div>
       <h2 class="post-title">cs224w_ch6</h2>
       <article class="post-article">
         
-          in node embedding, we use encoder to map original network node to embedding space, the encoder is:
-zv=Z.vz_v=Z.v
-zv​=Z.v
-the matrix is what we need to learn.
-now, we use deep learning-based method as our encoder, which is composed of multiple layers of non-linear transformations.
+          in node embedding, we use encoder to map original
+network node to embedding space, the encoder is: \[
+z_v=Z.v
+\] the matrix is what we need to learn.
+now, we use deep learning-based method as our encoder, which is
+composed of multiple layers of non-linear transformations.
 
-What makes graph r
+
+image-20231016195600647
+
+
         
       </article>
     </div>
@@ -440,31 +454,35 @@ What makes graph r
       
         
         
-          <img data-src="/covers/IMG_2621.PNG" data-sizes="auto" alt="cs224w_ch4" class="lazyload">
+          <img data-src="/covers/IMG_2585.JPG" data-sizes="auto" alt="cs224w_ch4" class="lazyload">
         
       
     </div>
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2023-10-16</span>
-        <span><span class="icon-pencil"></span>709 words</span>
+        <span><span class="icon-pencil"></span>660 words</span>
         <span><span class="icon-clock"></span>4 mins</span>
       </div>
       <h2 class="post-title">cs224w_ch4</h2>
       <article class="post-article">
         
-           PageRank
+          PageRank
 how to represent page as graph:
 
 Node: web pages
 Edge: hyperlinks
 
-Not only page network, here are citation natwork and reference network:
+Not only page network, here are citation natwork and reference
+network:
 
-The problem is how could we measure the important of a web page so that we can rank them.
+
+image-20231016105115978
+
+The problem is how could we measure the important of a web
+page so that we can rank them.
 the idea is: links and votes
- links and votes
-the intuition 
+links 
         
       </article>
     </div>
@@ -481,7 +499,7 @@ the intuition
       
         
         
-          <img data-src="/covers/IMG_2585.JPG" data-sizes="auto" alt="cs224w_ch2_lab" class="lazyload">
+          <img data-src="/covers/IMG_2620.PNG" data-sizes="auto" alt="cs224w_ch2_lab" class="lazyload">
         
       
     </div>
@@ -514,14 +532,14 @@ the intuition
       
         
         
-          <img data-src="/covers/IMG_2581.JPG" data-sizes="auto" alt="high_performance_computer_network_lecture1" class="lazyload">
+          <img data-src="/covers/IMG_2582.PNG" data-sizes="auto" alt="high_performance_computer_network_lecture1" class="lazyload">
         
       
     </div>
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2023-10-13</span>
-        <span><span class="icon-pencil"></span>661 words</span>
+        <span><span class="icon-pencil"></span>599 words</span>
         <span><span class="icon-clock"></span>2 mins</span>
       </div>
       <h2 class="post-title">high_performance_computer_network_lecture1</h2>
@@ -529,23 +547,18 @@ the intuition
         
           课程要求：
 
-
 27学时线上+27课时线下
-
-
 考试占比50%，线上考试
-
-
 线上刷视频、做练习、讨论区（权重最高，占平时成绩50%的60%）提问+回答问题
 
-
- 因特网结构
+因特网结构
 IP-based framework
 从IP网拓展到了物联网，其原因是智能终端的增多。
-校园网的连接：
-武理⟶光纤华科⟶光纤清华⟶光纤外网武理\stackrel{光纤}{\longrightarrow}华科\stackrel{光纤}{\longrightarrow}清华\stackrel{光纤}{\longrightarrow}外网
-武理⟶光纤​华科⟶光纤​清华⟶光纤​外网
-所以理论上访问武汉市的外网的速度慢于访问清华的
+校园网的连接： \[
+武理\stackrel{光纤}{\longrightarrow}华科\stackrel{光纤}{\longrightarrow}清华\stackrel{光纤}{\longrightarrow}外网
+\]
+所以理论上访问武汉市的外网的速度慢于访问清华的内网，只不过现在由于速度的提升，这点时延差在人类的感知上可以忽略。
+4G、5G
         
       </article>
     </div>
@@ -562,7 +575,7 @@ IP-based framework
       
         
         
-          <img data-src="/covers/IMG_2619.PNG" data-sizes="auto" alt="cs224w_ch3" class="lazyload">
+          <img data-src="/covers/IMG_2577.JPG" data-sizes="auto" alt="cs224w_ch3" class="lazyload">
         
       
     </div>
@@ -577,17 +590,24 @@ IP-based framework
         
           ch2讲的就是我们如何设计特征，来尽量准确的表示这个网络，然后再交给机器学习算法如SVM，最后得到我们的预测：
 
+
+image-20231013104858822
+
 事实上我们可能会花大部分的时间去做特征工程。
 这一节考虑的是，能否不用特征工程。
 图表征学习：自动获取网络的特征。
- node embedding
+node embedding
 结点嵌入两个很重要的特征；
 
 无监督：训练不需要利用结点的label，也不需要feature
-task independent：嵌入就是一个提取网络特征的过程，可以将提取出的特征用于任何适合的机器学习算法，也就是与下游任务无关。
+task
+independent：嵌入就是一个提取网络特征的过程，可以将提取出的特征用于任何适合的机器学习算法，也就是与下游任务无关。
 
 
-图嵌入是干这样的一件事：将node u自然而然的映射（map）到一个d维的向量中去。这个过程被称为nod
+
+image-20231013105154723
+
+图
         
       </article>
     </div>
@@ -689,10 +709,10 @@ task independent：嵌入就是一个提取网络特征的过程，可以将提�
       
         <div>
           <span class="icon-brush"></span>
-          95k
+          91k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          06:22
+          05:59
         </div>
       
       
