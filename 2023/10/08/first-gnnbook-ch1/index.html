@@ -1,261 +1,244 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.2.0">
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <!DOCTYPE html>
+  <html lang="en"  >
+  <head>
+  <meta charset="utf-8">
+  
 
-<link rel="stylesheet" href="/css/main.css">
+  
 
+  
 
+  
+  <script>
+    window.icon_font = '4552607_ikzjpc9jicn';
+  </script>
+  
+  
+  <title>
+    first_gnnbook_ch1 |
+    
+    Hexo
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="preload" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CUbuntu%20Mono:400,400italic,700,700italic&display=swap&subset=latin,latin-ext" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;">
+  
+  
+<link rel="stylesheet" href="/css/loader.css">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
-
-<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width":280,"display":"post","offset":10,"onmobile":true},"hljswrap":true,"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-
-    <meta name="description" content="摘要 介绍了一下这章干什么，讲表示学习（表征学习），然后主要关注DL方面的方法。解释了DL：一系列非线性变换，以得到更抽象、更有用的表示。然后是表征学习可以运用的领域：图片、nlp、演讲信号、网络…… 表征学习介绍 踩了一波ML：依赖算法、数据特征的选取。不好的特征可能会影响算法、包含过多冗余信息。 然后给出表示学习的目的：从数据中提取出足够但是有限的特征。传统的做法是这样，利用特征工程--利用人">
+  <meta name="description" content="摘要 介绍了一下这章干什么，讲表示学习（表征学习），然后主要关注DL方面的方法。解释了DL：一系列非线性变换，以得到更抽象、更有用的表示。然后是表征学习可以运用的领域：图片、nlp、演讲信号、网络……  表征学习介绍 踩了一波ML：依赖算法、数据特征的选取。不好的特征可能会影响算法、包含过多冗余信息。 然后给出表示学习的目的：从数据中提取出足够但是有限的特征。传统的做法是这样，利用特征工程–利用">
 <meta property="og:type" content="article">
 <meta property="og:title" content="first_gnnbook_ch1">
 <meta property="og:url" content="http://example.com/2023/10/08/first-gnnbook-ch1/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="摘要 介绍了一下这章干什么，讲表示学习（表征学习），然后主要关注DL方面的方法。解释了DL：一系列非线性变换，以得到更抽象、更有用的表示。然后是表征学习可以运用的领域：图片、nlp、演讲信号、网络…… 表征学习介绍 踩了一波ML：依赖算法、数据特征的选取。不好的特征可能会影响算法、包含过多冗余信息。 然后给出表示学习的目的：从数据中提取出足够但是有限的特征。传统的做法是这样，利用特征工程--利用人">
+<meta property="og:description" content="摘要 介绍了一下这章干什么，讲表示学习（表征学习），然后主要关注DL方面的方法。解释了DL：一系列非线性变换，以得到更抽象、更有用的表示。然后是表征学习可以运用的领域：图片、nlp、演讲信号、网络……  表征学习介绍 踩了一波ML：依赖算法、数据特征的选取。不好的特征可能会影响算法、包含过多冗余信息。 然后给出表示学习的目的：从数据中提取出足够但是有限的特征。传统的做法是这样，利用特征工程–利用">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-10-08T06:01:05.000Z">
 <meta property="article:modified_time" content="2023-10-11T01:19:08.000Z">
 <meta property="article:author" content="chengyiqiu">
 <meta property="article:tag" content="gnn">
 <meta name="twitter:card" content="summary">
-
-
-<link rel="canonical" href="http://example.com/2023/10/08/first-gnnbook-ch1/">
-
-
-
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/10/08/first-gnnbook-ch1/","path":"2023/10/08/first-gnnbook-ch1/","title":"first_gnnbook_ch1"}</script>
-
-<script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>first_gnnbook_ch1 | Hexo</title>
   
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
 
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
+  
+  
+  
+  
+  
+<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"></script>
 
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/wowjs@1.1.3/css/libs/animate.css">
 
+    
+<script src="https://npm.webcache.cn/wowjs@1.1.3/dist/wow.min.js"></script>
 
+    <script>
+      new WOW({
+        offset: 0,
+        mobile: true,
+        live: false
+      }).init();
+    </script>
+  
+  
+    <script src="/sw.js"></script>
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
 
-
-
-  <noscript>
-    <link rel="stylesheet" href="/css/noscript.css">
-  </noscript>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
-  <div class="headband"></div>
-
-  <main class="main">
-    <div class="column">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+  <body>
+    
+  <div id='loader'>
+    <div class="loading-left-bg"></div>
+    <div class="loading-right-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi">
+        <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+          <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="#ff6e6b" />
+          <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z" fill="#fd0d00" />
+          <path d="M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95" fill="#fd0d00" />
+        </svg>
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
     </div>
   </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <i class="logo-line"></i>
-      <p class="site-title">Hexo</p>
-      <i class="logo-line"></i>
-    </a>
   </div>
+  <script>
+    var time = null;
+    const startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    const endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('load', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
 
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger" aria-label="Search" role="button">
-    </div>
-  </div>
-</div>
 
-
-
-
-
-
-
-</header>
-        
-  
-  <aside class="sidebar">
-
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
-      <ul class="sidebar-nav">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <div class="sidebar-panel-container">
-        <!--noindex-->
-        <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%91%98%E8%A6%81"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E5%BE%81%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">表征学习介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E7%A0%94%E7%A9%B6%E9%A2%86%E5%9F%9F%E7%9A%84%E8%A1%A8%E5%BE%81%E5%AD%A6%E4%B9%A0"><span class="nav-number">3.</span> <span class="nav-text">不同研究领域的表征学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F"><span class="nav-number">3.1.</span> <span class="nav-text">图像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C"><span class="nav-number">3.2.</span> <span class="nav-text">网络</span></a></li></ol></li></ol></div>
-        </div>
-        <!--/noindex-->
-
-        <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="chengyiqiu"
-      src="/images/pig.gif">
-  <p class="site-author-name" itemprop="name">chengyiqiu</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap animated">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-        <a href="/archives/">
-          <span class="site-state-item-count">60</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">11</span>
-        <span class="site-state-item-name">categories</span>
-      </div>
-      <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">13</span>
-        <span class="site-state-item-name">tags</span>
-      </div>
+    <div id="container">
+      <div id="wrap">
+        <div id="header-nav">
+  <nav id="main-nav">
+    
+      <span class="main-nav-link-wrap">
+        <span class="main-nav-icon"></span>
+        <a class="main-nav-link" href="/">Home</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <span class="main-nav-icon"></span>
+        <a class="main-nav-link" href="/archives">Archives</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <span class="main-nav-icon"></span>
+        <a class="main-nav-link" href="/about">About</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <span class="main-nav-icon"></span>
+        <a class="main-nav-link" href="/friend">Friend</a>
+      </span>
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+    
+    
+    
   </nav>
 </div>
-  <div class="links-of-author animated">
-      <span class="links-of-author-item">
-        <a href="https://github.com/chengyiqiu1121" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chengyiqiu1121" rel="noopener me" target="_blank">GitHub</a>
-      </span>
-  </div>
-
-        </div>
+<header id="header">
+  
+    <img fetchpriority="high" src="/images/banner.jpg" alt="first_gnnbook_ch1">
+  
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <div id="logo-wrap">
+        
+          
+          
+            <a href="/" id="logo">
+              <h1>first_gnnbook_ch1</h1>
+            </a>
+          
+        
       </div>
-        <div class="back-to-top animated" role="button" aria-label="Back to top">
-          <i class="fa fa-arrow-up"></i>
-          <span>0%</span>
-        </div>
+      
+        
+        <h2 id="subtitle-wrap">
+          
+        </h2>
+      
     </div>
+  </div>
+</header>
 
-    
-  </aside>
-
-
-    </div>
-
-    <div class="main-inner post posts-expand">
-
-
-  
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/08/first-gnnbook-ch1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/pig.gif">
-      <meta itemprop="name" content="chengyiqiu">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="first_gnnbook_ch1 | Hexo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          first_gnnbook_ch1
-        </h1>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2023-10-08 14:01:05" itemprop="dateCreated datePublished" datetime="2023-10-08T14:01:05+08:00">2023-10-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-10-11 09:19:08" itemprop="dateModified" datetime="2023-10-11T09:19:08+08:00">2023-10-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Graph-Neural-Networks-Foundations-Frontiers-and-Applications/" itemprop="url" rel="index"><span itemprop="name">Graph Neural Networks: Foundations, Frontiers, and Applications</span></a>
-        </span>
-    </span>
-
-  
+        <div id="content" class="outer">
+          
+          <section id="main"><article id="post-first-gnnbook-ch1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    <div class="article-meta">
+      <div class="article-date wow slideInLeft">
+  <a href="/2023/10/08/first-gnnbook-ch1/" class="article-date-link">
+    <time datetime="2023-10-08T06:01:05.000Z" itemprop="datePublished">2023-10-08</time>
+  </a>
 </div>
 
-        </div>
-      </header>
+      
+  <div class="article-category wow slideInLeft">
+    <a class="article-category-link" href="/categories/Graph-Neural-Networks-Foundations-Frontiers-and-Applications/">Graph Neural Networks: Foundations, Frontiers, and Applications</a>
+  </div>
 
+
+    </div>
+    <div class="hr-line"></div>
     
-    
-    
-    <div class="post-body" itemprop="articleBody"><h2 id="摘要">摘要</h2>
+
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="摘要"><a class="markdownIt-Anchor" href="#摘要"></a> 摘要</h2>
 <p>介绍了一下这章干什么，讲表示学习（表征学习），然后主要关注DL方面的方法。解释了DL：一系列非线性变换，以得到更抽象、更有用的表示。然后是表征学习可以运用的领域：图片、nlp、演讲信号、网络……</p>
-<h2 id="表征学习介绍">表征学习介绍</h2>
+<h2 id="表征学习介绍"><a class="markdownIt-Anchor" href="#表征学习介绍"></a> 表征学习介绍</h2>
 <p>踩了一波ML：依赖算法、数据特征的选取。不好的特征可能会影响算法、包含过多冗余信息。</p>
-<p>然后给出表示学习的目的：<strong>从数据中提取出足够但是有限的特征</strong>。传统的做法是这样，利用<strong>特征工程</strong>--利用人的先验知识以及领域专家知识，来人工提取特征。并且，很大一部分的精力是放在数据预处理以及数据转换身上（也就是通俗的<strong>玩数据</strong>）。特别的，又踩了一波特征工程，就是利用的独创性和先验知识提取特征，<strong>先有人工再有智能。</strong>下面对特征工程的缺点进行了归纳：</p>
-<ol type="1">
+<p>然后给出表示学习的目的：<strong>从数据中提取出足够但是有限的特征</strong>。传统的做法是这样，利用<strong>特征工程</strong>–利用人的先验知识以及领域专家知识，来人工提取特征。并且，很大一部分的精力是放在数据预处理以及数据转换身上（也就是通俗的<strong>玩数据</strong>）。特别的，又踩了一波特征工程，就是利用的独创性和先验知识提取特征，**先有人工再有智能。**下面对特征工程的缺点进行了归纳：</p>
+<ol>
 <li>需要模型开发者和领域专家共同协作。</li>
 <li>人工提取特特征可能是不完全的、有偏好（甚至偏见的）。另外，人类自身的知识也是有限性的，并且同一领域的不同专家的见解也可能不一样。</li>
 </ol>
-<p>传统的方法，属于比较”浅“的模型，它们的目的是对数据进行变换，以提取出更有用的信息。
-还得是基于DL的表征学习，大致有这两类：</p>
-<ol type="1">
-<li><p>监督学习</p>
-<p>最后的全连接层输出的就是原始数据的最终表示（final
-representation）</p></li>
-<li><p>无监督学习：试图让模型找到数据内在的结构 ｜ 数据潜在的分布。</p>
-<p>这里还提到了预任务：“<strong>The pre-tasks are utilized to explore
-the supervision information from large amounts of unlabelled
-data</strong>”。和预训练（拿别人训练好的模型过来微调，前提是最后的分类得相同）不同，预任务是从大量的没有标签的数据中提取监督信息。基于这些提取好的监督信息，无监督学习就可以从数据中提取出更有意义的表示。</p></li>
-<li><p>转移学习（transfer learning）：</p>
-<p>利用现在已有的数据、标签、模型，来学习一个新的模型，这个模型能够泛化之前学习的内容，然后针对具体的某一个任务。</p></li>
-<li><p>reinforcement learning, few-shot learning, and disentangled
-representa- tion learning etc.</p></li>
+<p>传统的方法，属于比较”浅“的模型，它们的目的是对数据进行变换，以提取出更有用的信息。 还得是基于DL的表征学习，大致有这两类：</p>
+<ol>
+<li>
+<p>监督学习</p>
+<p>最后的全连接层输出的就是原始数据的最终表示（final representation）</p>
+</li>
+<li>
+<p>无监督学习：试图让模型找到数据内在的结构 ｜ 数据潜在的分布。</p>
+<p>这里还提到了预任务：“<strong>The pre-tasks are utilized to explore the supervision information from large amounts of unlabelled data</strong>”。和预训练（拿别人训练好的模型过来微调，前提是最后的分类得相同）不同，预任务是从大量的没有标签的数据中提取监督信息。基于这些提取好的监督信息，无监督学习就可以从数据中提取出更有意义的表示。</p>
+</li>
+<li>
+<p>转移学习（transfer learning）：</p>
+<p>利用现在已有的数据、标签、模型，来学习一个新的模型，这个模型能够泛化之前学习的内容，然后针对具体的某一个任务。</p>
+</li>
+<li>
+<p>reinforcement learning, few-shot learning, and disentangled representa- tion learning  etc.</p>
+</li>
 </ol>
-<p>最后讲了下怎么评价一个好的表征学习，除了抽象的定义之外（<strong>representation
-learning is about learning the (underlying) features of the data that
-make it easier to extract useful information when building classifiers
-or other
-predictors</strong>），更直观的评估是看它在下游任务上的性能：</p>
-<ol type="1">
+<p>最后讲了下怎么评价一个好的表征学习，除了抽象的定义之外（<strong>representation learning is about learning the (underlying) features of the data that make it easier to extract useful information when building classifiers or other predictors</strong>），更直观的评估是看它在下游任务上的性能：</p>
+<ol>
 <li>对于生成式任务（GPT），要看它是否能捕获到更后的（未来的）分布</li>
 <li>对于预测任务，捕获最小的但是足够的信息来正确的预测到目标。</li>
 </ol>
-<h2 id="不同研究领域的表征学习">不同研究领域的表征学习</h2>
+<h2 id="不同研究领域的表征学习"><a class="markdownIt-Anchor" href="#不同研究领域的表征学习"></a> 不同研究领域的表征学习</h2>
 <p>4个领域</p>
 <ul>
 <li>图像</li>
@@ -263,32 +246,22 @@ predictors</strong>），更直观的评估是看它在下游任务上的性能�
 <li>自然语言处理</li>
 <li>网络分析</li>
 </ul>
-<h3 id="图像">图像</h3>
+<h3 id="图像"><a class="markdownIt-Anchor" href="#图像"></a> 图像</h3>
 <p>图像表征学习的目的是：在像素数据和人类语义之间搭起桥梁。</p>
 <p>介绍了一下历史，从前的特征工程都是人工特征工程，是人先提取特征，然后给到机器。比如手写字母，有人提取了字母的结构特征。这种都是需要利用人力提取特征、利用并且依赖于人的先验知识。</p>
 <p><strong>有监督学习的图像表征学习</strong>，模型很多样，从Hinton提出的深度表征学习，为了对抗SVM在Minist上良好的性能，到Hinton的表示Alex搞的AlexNet，然后VGG、GoogleNet、ResNet……；大数据集也有很多：ImageNet、OpenImage等。</p>
 <p><strong>无监督图像表征学习</strong>，首先建立图像或者视频数据集非常昂贵，费人力费钱，因此有很多无监督的方法。</p>
-<ol type="1">
-<li>pretext
-task：前置任务，模型先在前置任务上学习，这样有助于模型更好地理解目标任务。比如说先学纹理、阴影等低级特征，然后在学部分高级点的特征，最后再给到下游任务，下游任务的数据集往往不是很大，这时用pretext
-task可以改善性能、减少过拟合</li>
+<ol>
+<li>pretext task：前置任务，模型先在前置任务上学习，这样有助于模型更好地理解目标任务。比如说先学纹理、阴影等低级特征，然后在学部分高级点的特征，最后再给到下游任务，下游任务的数据集往往不是很大，这时用pretext task可以改善性能、减少过拟合</li>
 </ol>
-<p><strong>transfer
-leading，也称表征学习</strong>。对于不同的问题，很多问题的数据集都是在同一个特征空间中、或者是服从同一个分布，更重要的是，很多问题的测试集还不能获取。迁移学习是这样做的，利用其他相关的、相近的领域的先验知识来进行学习，称这些为<strong>source
-domains</strong>，而目标任务的实际应用领域称为<strong>target
-domains</strong>。一般而言，有好几个source domains，只有一个target
-domain，训练集和测试集额度数据就是来源于这两类domains。将表征学习用到图像上：</p>
+<p><strong>transfer leading，也称表征学习</strong>。对于不同的问题，很多问题的数据集都是在同一个特征空间中、或者是服从同一个分布，更重要的是，很多问题的测试集还不能获取。迁移学习是这样做的，利用其他相关的、相近的领域的先验知识来进行学习，称这些为<strong>source domains</strong>，而目标任务的实际应用领域称为<strong>target domains</strong>。一般而言，有好几个source domains，只有一个target domain，训练集和测试集额度数据就是来源于这两类domains。将表征学习用到图像上：</p>
 <ul>
-<li>特征表示知识迁移：利用已经提取好的特征，将target source映射到source
-domains，这样映射之后，target和source之间的差异能够显著减少。</li>
-<li>基于分类的知识迁移：共享相同的特征，将source domain
-models视为先验知识，不同于上面这种方法（减小target和source之间的差异），基于分类的知识迁移试图学到一个新的target
-domain model，并且在提供的target 和source domain上泛化误差最小。</li>
+<li>特征表示知识迁移：利用已经提取好的特征，将target source映射到source domains，这样映射之后，target和source之间的差异能够显著减少。</li>
+<li>基于分类的知识迁移：共享相同的特征，将source domain models视为先验知识，不同于上面这种方法（减小target和source之间的差异），基于分类的知识迁移试图学到一个新的target domain model，并且在提供的target 和source domain上泛化误差最小。</li>
 </ul>
 <p><strong>语音识别和nlp先略过，这里直接看看网络。</strong></p>
-<h3 id="网络">网络</h3>
-<p>这里的网络是一个很泛的概念，不只是计算机网络，还有cyber-
-network（网中网）：社交网络，生物网络、电话网络、交通运输网络……这些在数学上可以表示为图。不仅如此，图片、文字等都可以表现为图的形式。如何有效的把表征学习用到图上是一个很重要的问题，因为图的规模可能会很大，像维基百科的引用图，非常庞大的图，有很多节点。另外，研究这个问题可以对很多其他的学科产生推进作用（社交网络中的广告推荐系统、生物蛋白质预测……）。</p>
+<h3 id="网络"><a class="markdownIt-Anchor" href="#网络"></a> 网络</h3>
+<p>这里的网络是一个很泛的概念，不只是计算机网络，还有cyber- network（网中网）：社交网络，生物网络、电话网络、交通运输网络……这些在数学上可以表示为图。不仅如此，图片、文字等都可以表现为图的形式。如何有效的把表征学习用到图上是一个很重要的问题，因为图的规模可能会很大，像维基百科的引用图，非常庞大的图，有很多节点。另外，研究这个问题可以对很多其他的学科产生推进作用（社交网络中的广告推荐系统、生物蛋白质预测……）。</p>
 <p>传统的特征工程应用到图上时，往往只能捕捉到一些简单的特征：</p>
 <ul>
 <li>edge：边的长度……</li>
@@ -297,99 +270,357 @@ network（网中网）：社交网络，生物网络、电话网络、交通运�
 <li>super-graph：子图、图形图案……</li>
 </ul>
 <p>在这里更能体现出传统特征工程的局限性了，这些预先定义好的特征是相当有限的，忽略掉了很多重要的模式。另外，在这些手工特征上做计算也不容易，昂贵并且高的复杂度。</p>
-<p>比较新的是网络表征学习（network representation learning,
-NRL），和图像中的表征学习一样，它试图去找到潜在的、低维的图的表示，并且保留图的拓扑结构、结点信息、边信息。在找到好的表征之后，在其基础之上，就可以用机器学习的那一套去做了。（所以有人说GNN就是一个提取特征/表征的工具）2000年有人用图嵌入算法去降维，图嵌入是依赖于独立同分布的数据的，因此不适用于大多情景。到08年才有人做出了有意义的工作，已经能够做一些结点分类、路径预测等任务了。</p>
+<p>比较新的是网络表征学习（network representation learning, NRL），和图像中的表征学习一样，它试图去找到潜在的、低维的图的表示，并且保留图的拓扑结构、结点信息、边信息。在找到好的表征之后，在其基础之上，就可以用机器学习的那一套去做了。（所以有人说GNN就是一个提取特征/表征的工具）2000年有人用图嵌入算法去降维，图嵌入是依赖于独立同分布的数据的，因此不适用于大多情景。到08年才有人做出了有意义的工作，已经能够做一些结点分类、路径预测等任务了。</p>
 
+      
     </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/10/08/first-gnnbook-ch1/" data-id="clwixj82p0041l59f82a50f6j" data-title="first_gnnbook_ch1" class="article-share-link">Share</a>
+      
+      
+      
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gnn/" rel="tag">gnn</a></li></ul>
 
-    
-    
-    
 
-    <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/gnn/" rel="tag"><i class="fa fa-tag"></i> gnn</a>
-          </div>
-
-        
-
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/2023/10/07/NovelADS/" rel="prev" title="NovelADS">
-                  <i class="fa fa-angle-left"></i> NovelADS
-                </a>
-            </div>
-            <div class="post-nav-item">
-                <a href="/2023/10/08/dsp-ch2/" rel="next" title="dsp_ch2">
-                  dsp_ch2 <i class="fa fa-angle-right"></i>
-                </a>
-            </div>
-          </div>
     </footer>
-  </article>
-</div>
-
-
-
-
-
-
-</div>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-inner">
-
-  <div class="copyright">
-    &copy; 2019 – 
-    <span itemprop="copyrightYear">2024</span>
-    <span class="with-love">
-      <i class="heart"></i>
-    </span>
-    <span class="author" itemprop="copyrightHolder">chengyiqiu</span>
   </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  
+    
+  <nav id="article-nav" class="wow fadeInUp">
+    
+      <div class="article-nav-link-wrap article-nav-link-left">
+        
+          
+          
+            <img data-src="/covers/IMG_2579.JPG" data-sizes="auto" alt="dsp_ch2" class="lazyload">
+          
+        
+        <a href="/2023/10/08/dsp-ch2/"></a>
+        <div class="article-nav-caption">Newer</div>
+        <h3 class="article-nav-title">
+          
+            dsp_ch2
+          
+        </h3>
+      </div>
+    
+    
+    <div class="article-nav-link-wrap article-nav-link-right">
+      
+        
+        
+          <img data-src="/covers/IMG_2620.PNG" data-sizes="auto" alt="NovelADS" class="lazyload">
+        
+      
+      <a href="/2023/10/07/NovelADS/"></a>
+      <div class="article-nav-caption">Older</div>
+      <h3 class="article-nav-title">
+        
+          NovelADS
+        
+      </h3>
+    </div>
+    
+  </nav>
+
+
+  
+</article>
+
+
+
+
+
+
+</section>
+          
+            <aside id="sidebar">
+  <div class="sidebar-wrap wow fadeInRight wrap-sticky">
+    
+      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">Contents</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text"> 摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A8%E5%BE%81%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text"> 表征学习介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E5%90%8C%E7%A0%94%E7%A9%B6%E9%A2%86%E5%9F%9F%E7%9A%84%E8%A1%A8%E5%BE%81%E5%AD%A6%E4%B9%A0"><span class="toc-number">3.</span> <span class="toc-text"> 不同研究领域的表征学习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F"><span class="toc-number">3.1.</span> <span class="toc-text"> 图像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C"><span class="toc-number">3.2.</span> <span class="toc-text"> 网络</span></a></li></ol></li></ol>
+      
   </div>
+</div>
+</div>
+      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>Posts</div>
+    <div class="sidebar-state-number">60</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>Categories</div>
+    <div class="sidebar-state-number">11</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>Tags</div>
+    <div class="sidebar-state-number">13</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/" aria-label="Home"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">Home</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="Archives"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">Archives</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/about" aria-label="About"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">About</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="Friend"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">Friend</div>
+    </div>
+  
+</div>
+</div>
+    
+    
+      <div class="sidebar-btn-wrapper" style="position:static">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+    
+  </div>
+
+  
+</aside>
+
+          
+        </div>
+        <footer id="footer" class="wow fadeInUp">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      <div>
+        <span class="icon-copyright"></span>
+        2020-2024
+        <span class="footer-info-sep"></span>
+        chengyiqiu
+      </div>
+      
+        <div>
+          Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>&nbsp;
+          Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" target="_blank">Reimu</a>
+        </div>
+      
+      
+        <div>
+          <span class="icon-brush"></span>
+          95k
+          &nbsp;|&nbsp;
+          <span class="icon-coffee"></span>
+          06:22
+        </div>
+      
+      
+        <div>
+          <span class="icon-eye"></span>
+          <span id="busuanzi_container_site_pv">Number of visits&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+          &nbsp;|&nbsp;
+          <span class="icon-user"></span>
+          <span id="busuanzi_container_site_uv">Number of visitors&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+        </div>
+      
+    </div>
+  </div>
+</footer>
+
+        <div class="sidebar-top">
+          <img src="/images/taichi.png" height="50" width="50" />
+          <div class="arrow-up"></div>
+        </div>
+        <div id="mask"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">Contents</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text"> 摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A8%E5%BE%81%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text"> 表征学习介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E5%90%8C%E7%A0%94%E7%A9%B6%E9%A2%86%E5%9F%9F%E7%9A%84%E8%A1%A8%E5%BE%81%E5%AD%A6%E4%B9%A0"><span class="toc-number">3.</span> <span class="toc-text"> 不同研究领域的表征学习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F"><span class="toc-number">3.1.</span> <span class="toc-text"> 图像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C"><span class="toc-number">3.2.</span> <span class="toc-text"> 网络</span></a></li></ol></li></ol>
+      
+  </div>
+</div>
+</div>
+      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>Posts</div>
+    <div class="sidebar-state-number">60</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>Categories</div>
+    <div class="sidebar-state-number">11</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>Tags</div>
+    <div class="sidebar-state-number">13</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/" aria-label="Home"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">Home</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="Archives"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">Archives</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/about" aria-label="About"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">About</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="Friend"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">Friend</div>
+    </div>
+  
+</div>
+</div>
+    
+  </div>
+  
+    <div class="sidebar-btn-wrapper">
+      <div class="sidebar-toc-btn current"></div>
+      <div class="sidebar-common-btn"></div>
+    </div>
+  
+</nav>
 
     </div>
-  </footer>
-
-  
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-  <div class="sidebar-dimmer"></div>
-
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
-
-
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
-
-  
+    <div class="site-search">
+      <div class="reimu-popup popup">
+        <div class="reimu-search">
+          <span class="reimu-search-input-icon"></span>
+          <div class="reimu-search-input" id="reimu-search-input"></div>
+        </div>
+        <div class="reimu-results">
+          <div id="reimu-stats"></div>
+          <div id="reimu-hits"></div>
+          <div id="reimu-pagination" class="reimu-pagination"></div>
+        </div>
+        <span class="popup-btn-close"></span>
+      </div>
+    </div>
+    
+<script src="https://npm.webcache.cn/jquery@3.7.1/dist/jquery.min.js"></script>
 
 
+<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"></script>
 
+
+<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"></script>
 
 
 
   
+<script src="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+
+
+
+  
+<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
+
+
+
+
+
+
+<script src="/js/pjax_script.js" data-pjax></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
   
+<script src="https://npm.webcache.cn/mouse-firework@0.0.4/dist/index.umd.js"></script>
 
-  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
-<script src="/js/third-party/math/mathjax.js"></script>
+  <script>
+    firework(JSON.parse('{"excludeElements":["a","button"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["#ff5252","#ff7c7c","#ffafaf","#ffd0d0"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["#ff0000"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'))
+  </script>
 
 
 
-</body>
-</html>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+  <script>
+    console.log(String.raw`%c 
+ ______     ______     __     __    __     __  __    
+/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+ \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                  
+`,'color: #ff5252;')
+    console.log('%c Theme.Reimu v' + '0.1.2' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
+  </script>
+  
+
+  <!-- hexo injector body_end start -->
+<script src="/js/insert_highlight.js" data-pjax></script>
+<!-- hexo injector body_end end --></body>
+  </html>
+
