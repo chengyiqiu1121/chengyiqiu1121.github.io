@@ -26,12 +26,12 @@
   
 <link rel="stylesheet" href="/css/loader.css">
 
-  <meta name="description" content="ch2讲的就是我们如何设计特征，来尽量准确的表示这个网络，然后再交给机器学习算法如SVM，最后得到我们的预测：   image-20231013104858822  事实上我们可能会花大部分的时间去做特征工程。 这一节考虑的是，能否不用特征工程。 图表征学习：自动获取网络的特征。 node embedding 结点嵌入两个很重要的特征；  无监督：训练不需要利用结点的label，也不需要featu">
+  <meta name="description" content="ch2讲的就是我们如何设计特征，来尽量准确的表示这个网络，然后再交给机器学习算法如SVM，最后得到我们的预测：  事实上我们可能会花大部分的时间去做特征工程。 这一节考虑的是，能否不用特征工程。 图表征学习：自动获取网络的特征。  node embedding 结点嵌入两个很重要的特征；  无监督：训练不需要利用结点的label，也不需要feature task independent：嵌入就是一">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cs224w_ch3">
 <meta property="og:url" content="http://example.com/2023/10/13/cs224w-ch3/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="ch2讲的就是我们如何设计特征，来尽量准确的表示这个网络，然后再交给机器学习算法如SVM，最后得到我们的预测：   image-20231013104858822  事实上我们可能会花大部分的时间去做特征工程。 这一节考虑的是，能否不用特征工程。 图表征学习：自动获取网络的特征。 node embedding 结点嵌入两个很重要的特征；  无监督：训练不需要利用结点的label，也不需要featu">
+<meta property="og:description" content="ch2讲的就是我们如何设计特征，来尽量准确的表示这个网络，然后再交给机器学习算法如SVM，最后得到我们的预测：  事实上我们可能会花大部分的时间去做特征工程。 这一节考虑的是，能否不用特征工程。 图表征学习：自动获取网络的特征。  node embedding 结点嵌入两个很重要的特征；  无监督：训练不需要利用结点的label，也不需要feature task independent：嵌入就是一">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231013104858822.png">
 <meta property="og:image" content="http://example.com/2023/10/13/cs224w-ch3/image-20231013105154723.png">
@@ -241,112 +241,92 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <p>ch2讲的就是我们如何设计特征，来尽量准确的表示这个网络，然后再交给机器学习算法如SVM，最后得到我们的预测：</p>
-<figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231013104858822.png" alt="image-20231013104858822">
-<figcaption aria-hidden="true">image-20231013104858822</figcaption>
-</figure>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231013104858822.png" alt="image-20231013104858822"></p>
 <p>事实上我们可能会花大部分的时间去做特征工程。</p>
 <p>这一节考虑的是，能否不用特征工程。</p>
 <p>图表征学习：自动获取网络的特征。</p>
-<h2 id="node-embedding">node embedding</h2>
+<h2 id="node-embedding"><a class="markdownIt-Anchor" href="#node-embedding"></a> node embedding</h2>
 <p>结点嵌入两个很重要的特征；</p>
 <ul>
 <li>无监督：训练不需要利用结点的label，也不需要feature</li>
-<li>task
-independent：嵌入就是一个提取网络特征的过程，可以将提取出的特征用于任何适合的机器学习算法，也就是与下游任务无关。</li>
+<li>task independent：嵌入就是一个提取网络特征的过程，可以将提取出的特征用于任何适合的机器学习算法，也就是与下游任务无关。</li>
 </ul>
-<figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231013105154723.png" alt="image-20231013105154723">
-<figcaption aria-hidden="true">image-20231013105154723</figcaption>
-</figure>
-<p>图嵌入是干这样的一件事：将node
-u自然而然的映射（map）到一个d维的向量中去。这个过程被称为node
-embedding</p>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231013105154723.png" alt="image-20231013105154723"></p>
+<p>图嵌入是干这样的一件事：将node u自然而然的映射（map）到一个d维的向量中去。这个过程被称为node embedding</p>
 <p>嵌入的原理是这样的：如果两个node的d维向量有相似性，那么这两个node本身也很可能有相似性。</p>
-<p>完成了结点嵌入之后，我们就可以用这个d维的向量来做downstream
-task了</p>
-<figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231013105532825.png" alt="image-20231013105532825">
-<figcaption aria-hidden="true">image-20231013105532825</figcaption>
-</figure>
-<h3 id="deepwalking">DeepWalking</h3>
-<figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231013110146538.png" alt="image-20231013110146538">
-<figcaption aria-hidden="true">image-20231013110146538</figcaption>
-</figure>
+<p>完成了结点嵌入之后，我们就可以用这个d维的向量来做downstream task了</p>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231013105532825.png" alt="image-20231013105532825"></p>
+<h3 id="deepwalking"><a class="markdownIt-Anchor" href="#deepwalking"></a> DeepWalking</h3>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231013110146538.png" alt="image-20231013110146538"></p>
 <p>这是一个小型的网络，将图嵌入到了一个2d空间，可以看到相同颜色的结点在图上和被嵌入的空间中都是离得比较近的。</p>
-<h3 id="embedding">Embedding</h3>
+<h3 id="embedding"><a class="markdownIt-Anchor" href="#embedding"></a> Embedding</h3>
 <p>更抽象的描述是这样：</p>
-<p><img src="/2023/10/13/cs224w-ch3/image-20231013123405368.png" alt="image-20231013123405368" style="zoom:25%;"></p>
-<p>至于用dot
-product（点积）的原因是，其代表的是这两个向量之间的余弦，例如如果两个向量是垂直的话，dot
-product就为0了。</p>
+<img src="/2023/10/13/cs224w-ch3/image-20231013123405368.png" alt="image-20231013123405368" style="zoom:25%;">
+<p>至于用dot product（点积）的原因是，其代表的是这两个向量之间的余弦，例如如果两个向量是垂直的话，dot product就为0了。</p>
 <p>嵌入的步骤：</p>
-<ol type="1">
-<li><p>使用Encoder将node映射到嵌入空间</p>
-<p><span class="math inline">\(ENC(v)=z_v\)</span></p>
-<p>这个嵌入空间通常是64d到1000d的</p></li>
-<li><p>定义一个结点相似函数，用来测量图中被嵌入到node
-pairs之间的相似度</p></li>
-<li><p>使用Decoder将嵌入结点映射为相似度</p></li>
-<li><p>优化Encoder的参数，使得结点相似度和嵌入结点相似度近似相等。</p></li>
+<ol>
+<li>
+<p>使用Encoder将node映射到嵌入空间</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mi>N</mi><mi>C</mi><mo stretchy="false">(</mo><mi>v</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mi>z</mi><mi>v</mi></msub></mrow><annotation encoding="application/x-tex">ENC(v)=z_v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.04398em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></p>
+<p>这个嵌入空间通常是64d到1000d的</p>
+</li>
+<li>
+<p>定义一个结点相似函数，用来测量图中被嵌入到node pairs之间的相似度</p>
+</li>
+<li>
+<p>使用Decoder将嵌入结点映射为相似度</p>
+</li>
+<li>
+<p>优化Encoder的参数，使得结点相似度和嵌入结点相似度近似相等。</p>
+</li>
 </ol>
-<p><span class="math display">\[
-similarity(u,v)\approx z_v^Tz_u
-\]</span></p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>s</mi><mi>i</mi><mi>m</mi><mi>i</mi><mi>l</mi><mi>a</mi><mi>r</mi><mi>i</mi><mi>t</mi><mi>y</mi><mo stretchy="false">(</mo><mi>u</mi><mo separator="true">,</mo><mi>v</mi><mo stretchy="false">)</mo><mo>≈</mo><msubsup><mi>z</mi><mi>v</mi><mi>T</mi></msubsup><msub><mi>z</mi><mi>u</mi></msub></mrow><annotation encoding="application/x-tex">similarity(u,v)\approx z_v^Tz_u
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">i</span><span class="mord mathnormal">m</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal">t</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mopen">(</span><span class="mord mathnormal">u</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.138331em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-2.4530000000000003em;margin-left:-0.04398em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.04398em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></p>
 <p>这里我们选择的解码器是非常简单的，仅仅是两个向量的dot product</p>
-<h3 id="shallow-encoder">shallow encoder</h3>
-<p>最简单的编码方式： <span class="math display">\[
-ENC(v)=z_v=Z.v
-\]</span> - Z：要学习的矩阵，行代表的是低维向量，列代表的是结点。 -
-v：v是一个列向量，其中大部分元素是0，除了要得到的结点v的那一个地方为1。</p>
-<p>如<span class="math inline">\(v=[0,0,1,0,0,0]\)</span></p>
+<h3 id="shallow-encoder"><a class="markdownIt-Anchor" href="#shallow-encoder"></a> shallow encoder</h3>
+<p>最简单的编码方式：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>E</mi><mi>N</mi><mi>C</mi><mo stretchy="false">(</mo><mi>v</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mi>z</mi><mi>v</mi></msub><mo>=</mo><mi>Z</mi><mi mathvariant="normal">.</mi><mi>v</mi></mrow><annotation encoding="application/x-tex">ENC(v)=z_v=Z.v
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.04398em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span></span></span></span></span></p>
+<ul>
+<li>Z：要学习的矩阵，行代表的是低维向量，列代表的是结点。</li>
+<li>v：v是一个列向量，其中大部分元素是0，除了要得到的结点v的那一个地方为1。</li>
+</ul>
+<p>如<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>=</mo><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>0</mn><mo separator="true">,</mo><mn>0</mn><mo separator="true">,</mo><mn>0</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">v=[0,0,1,0,0,0]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span><span class="mclose">]</span></span></span></span></p>
 <p>对于这种编码器，我们需要学习的就是Z：</p>
-<figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231013195103736.png" alt="image-20231013195103736">
-<figcaption aria-hidden="true">image-20231013195103736</figcaption>
-</figure>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231013195103736.png" alt="image-20231013195103736"></p>
 <p>这个方法的缺点：当图比较大时，假设嵌入维度为1000，结点数为100w，那么就有10亿参数。而造成这个matrix如此大的原因是：我们计算了每个node的嵌入向量，当需要某个node的嵌入向量时，可以直接从这个超级大矩阵里面去做一次查找(look-up)。</p>
-<p>那么最后，我们来考虑怎么来定义node similarity？可以采用random
-walks</p>
-<h2 id="random-walks">Random walks</h2>
-<h3 id="deepwalk">DeepWalk</h3>
-<h4 id="notion">notion</h4>
+<p>那么最后，我们来考虑怎么来定义node similarity？可以采用random walks</p>
+<h2 id="random-walks"><a class="markdownIt-Anchor" href="#random-walks"></a> Random walks</h2>
+<h3 id="deepwalk"><a class="markdownIt-Anchor" href="#deepwalk"></a> DeepWalk</h3>
+<h4 id="notion"><a class="markdownIt-Anchor" href="#notion"></a> notion</h4>
 <p>回顾一下 两个非线性函数：</p>
-<ol type="1">
+<ol>
 <li>softmax</li>
 </ol>
-<p>这里给到softmax的解释：a soft version of a maximum
-function，最大值函数的软版本。</p>
-<ol start="2" type="1">
+<p>这里给到softmax的解释：a soft version of a maximum function，最大值函数的软版本。</p>
+<ol start="2">
 <li>sigmoid</li>
 </ol>
 <p>sigmoid可以任何实数压缩到0～1之间。</p>
 <p>另外还有两个概念：</p>
 <ul>
-<li><span class="math inline">\(z_u\)</span>：结点u的嵌入</li>
-<li><span class="math inline">\(P(v|z_u)\)</span>：从u开始，使用随机游走访问v的概率</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mi>u</mi></msub></mrow><annotation encoding="application/x-tex">z_u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.04398em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>：结点u的嵌入</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>v</mi><mi mathvariant="normal">∣</mi><msub><mi>z</mi><mi>u</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">P(v|z_u)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord">∣</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.04398em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>：从u开始，使用随机游走访问v的概率</li>
 </ul>
-<p>那么什么是随机游走呢：从一个结点u开始，随机的选取它的一个邻居v，作为next
-step，依此类推。</p>
+<p>那么什么是随机游走呢：从一个结点u开始，随机的选取它的一个邻居v，作为next step，依此类推。</p>
 <p>这里给了下面这个定义，不是很理解：</p>
-<figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015203440876.png" alt="image-20231015203440876">
-<figcaption aria-hidden="true">image-20231015203440876</figcaption>
-</figure>
-<h4 id="detail">detail</h4>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231015203440876.png" alt="image-20231015203440876"></p>
+<h4 id="detail"><a class="markdownIt-Anchor" href="#detail"></a> detail</h4>
 <p>基于随机游走的嵌入可以用两步表示：</p>
-<ol type="1">
-<li><p>使用一个策略R，来估计访问结点v的概率</p>
-<figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015203738556.png" alt="image-20231015203738556">
-<figcaption aria-hidden="true">image-20231015203738556</figcaption>
-</figure></li>
-<li><p>优化嵌入，通过编码这一步随机游走</p>
-<figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015203753465.png" alt="image-20231015203753465">
-<figcaption aria-hidden="true">image-20231015203753465</figcaption>
-</figure></li>
+<ol>
+<li>
+<p>使用一个策略R，来估计访问结点v的概率</p>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231015203738556.png" alt="image-20231015203738556"></p>
+</li>
+<li>
+<p>优化嵌入，通过编码这一步随机游走</p>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231015203753465.png" alt="image-20231015203753465"></p>
+</li>
 </ol>
 <p>然后为什么选随机游走（优点）：</p>
 <ul>
@@ -354,173 +334,119 @@ step，依此类推。</p>
 <li>不需要考虑整个图全局信息，只需要考虑path中同时出现的random walk</li>
 </ul>
 <p>随机游走步骤：</p>
-<ol type="1">
-<li><p>从每一个u开始，走固定的长度，通过使用随机策略R</p></li>
-<li><p>对于每一个u，收集其<span class="math inline">\(N_R(u)\)</span></p></li>
-<li><p>通过对数似然函数进行优化：</p>
-<figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015210342311.png" alt="image-20231015210342311">
-<figcaption aria-hidden="true">image-20231015210342311</figcaption>
-</figure>
+<ol>
+<li>
+<p>从每一个u开始，走固定的长度，通过使用随机策略R</p>
+</li>
+<li>
+<p>对于每一个u，收集其<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>N</mi><mi>R</mi></msub><mo stretchy="false">(</mo><mi>u</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">N_R(u)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.10903em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.00773em;">R</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">u</span><span class="mclose">)</span></span></span></span></p>
+</li>
+<li>
+<p>通过对数似然函数进行优化：</p>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231015210342311.png" alt="image-20231015210342311"></p>
 <p>同样也可以讲其表示称下面这种形式：</p>
-<figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015210423990.png" alt="image-20231015210423990">
-<figcaption aria-hidden="true">image-20231015210423990</figcaption>
-</figure>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231015210423990.png" alt="image-20231015210423990"></p>
 <p>其中可以将对数里面的参数写成下面的softmax形式，那么这个结果其实就是u之后v的概率</p>
-<figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015210646749.png" alt="image-20231015210646749">
-<figcaption aria-hidden="true">image-20231015210646749</figcaption>
-</figure>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231015210646749.png" alt="image-20231015210646749"></p>
 <p>所以最终的损失函数如下：</p>
-<figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015210720744.png" alt="image-20231015210720744">
-<figcaption aria-hidden="true">image-20231015210720744</figcaption>
-</figure></li>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231015210720744.png" alt="image-20231015210720744"></p>
+</li>
 </ol>
-<p>但是有个问题，这里有两层嵌套，意味着时间复杂度是<span class="math inline">\(O(|V|^2)\)</span>，复杂度太高了！</p>
-<h4 id="negative-sample">negative sample</h4>
+<p>但是有个问题，这里有两层嵌套，意味着时间复杂度是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi mathvariant="normal">∣</mi><mi>V</mi><msup><mi mathvariant="normal">∣</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(|V|^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord"><span class="mord">∣</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>，复杂度太高了！</p>
+<h4 id="negative-sample"><a class="markdownIt-Anchor" href="#negative-sample"></a> negative sample</h4>
 <p>选择使用负采样来近似softmax的分母：</p>
-<figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015211112148.png" alt="image-20231015211112148">
-<figcaption aria-hidden="true">image-20231015211112148</figcaption>
-</figure>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231015211112148.png" alt="image-20231015211112148"></p>
 <p>k是一般取5～20</p>
-<p>最开始是DeepWalk提出了random
-walks（走固定长度，使用随机策略）。这样的similarity表现还不错，从最终结果来看，嵌入空间和图空间中，nearby的点是对应的。</p>
-<figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231013110146538.png" alt="image-20231013110146538">
-<figcaption aria-hidden="true">image-20231013110146538</figcaption>
-</figure>
+<p>最开始是DeepWalk提出了random walks（走固定长度，使用随机策略）。这样的similarity表现还不错，从最终结果来看，嵌入空间和图空间中，nearby的点是对应的。</p>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231013110146538.png" alt="image-20231013110146538"></p>
 <p>但是这样定义的similarity太受限制了，于是很多人尝试优化。</p>
-<h3 id="node2vec">node2vec</h3>
+<h3 id="node2vec"><a class="markdownIt-Anchor" href="#node2vec"></a> node2vec</h3>
 <p>idea：使用灵活的、有偏好的随机游走，例如当进行下一步时，可以选择更广或者更深，也就是DFS和BFS的思想</p>
-<figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015213201541.png" alt="image-20231015213201541">
-<figcaption aria-hidden="true">image-20231015213201541</figcaption>
-</figure>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231015213201541.png" alt="image-20231015213201541"></p>
 <p>这里面有两个参数：</p>
 <ul>
 <li>p：可以看到之前的结点</li>
 <li>q：选择使用DFS（outwards）还是BFS（inwards）</li>
 </ul>
 <p>下面这例子完美表示了两个参数的用途：</p>
-<figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015213554066.png" alt="image-20231015213554066">
-<figcaption aria-hidden="true">image-20231015213554066</figcaption>
-</figure>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231015213554066.png" alt="image-20231015213554066"></p>
 <p>w从s1来的，那么下一步，若是选择inwards，可以去s2（和s1距离相同），若是选outwards，可以走s3，还可以回到s1。</p>
 <p>我们将其量化：</p>
-<figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015213929100.png" alt="image-20231015213929100">
-<figcaption aria-hidden="true">image-20231015213929100</figcaption>
-</figure>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231015213929100.png" alt="image-20231015213929100"></p>
 <p>我们可以调整p、q来得到不同的策略R。</p>
-<h3 id="other-random-walk">other random walk</h3>
+<h3 id="other-random-walk"><a class="markdownIt-Anchor" href="#other-random-walk"></a> other random walk</h3>
 <p>这是一些其他的关于随机游走的优化。</p>
-<figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015200000371.png" alt="image-20231015200000371">
-<figcaption aria-hidden="true">image-20231015200000371</figcaption>
-</figure>
-<h2 id="embedding-entire-graph">Embedding entire graph</h2>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231015200000371.png" alt="image-20231015200000371"></p>
+<h2 id="embedding-entire-graph"><a class="markdownIt-Anchor" href="#embedding-entire-graph"></a> Embedding entire graph</h2>
 <p>Goal: to embed the entire graph or sub-graph!</p>
 <ul>
-<li><p>entire graph</p>
-<figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015221015877.png" alt="image-20231015221015877">
-<figcaption aria-hidden="true">image-20231015221015877</figcaption>
-</figure></li>
-<li><p>Sub-graph</p>
-<figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015221050844.png" alt="image-20231015221050844">
-<figcaption aria-hidden="true">image-20231015221050844</figcaption>
-</figure></li>
+<li>
+<p>entire graph</p>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231015221015877.png" alt="image-20231015221015877"></p>
+</li>
+<li>
+<p>Sub-graph</p>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231015221050844.png" alt="image-20231015221050844"></p>
+</li>
 </ul>
 <p>the application(task):</p>
 <ul>
 <li>Classifying toxic vs. non-toxic molecules</li>
 <li>Identifying anomalous graphs</li>
 </ul>
-<h3 id="approach-1">Approach 1</h3>
+<h3 id="approach-1"><a class="markdownIt-Anchor" href="#approach-1"></a> Approach 1</h3>
 <p>it is simple and effective, which is:</p>
-<ol type="1">
-<li><p>use node2vec or deepwalks to caculate the embed node u of <span class="math inline">\(z_u\)</span></p></li>
-<li><p>then sum or average <span class="math display">\[
-z_G=\sum_{v\epsilon G}z_v
-\]</span></p></li>
+<ol>
+<li>
+<p>use node2vec or deepwalks to caculate the embed node u of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mi>u</mi></msub></mrow><annotation encoding="application/x-tex">z_u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.04398em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></p>
+</li>
+<li>
+<p>then sum or average</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>z</mi><mi>G</mi></msub><mo>=</mo><munder><mo>∑</mo><mrow><mi>v</mi><mi>ϵ</mi><mi>G</mi></mrow></munder><msub><mi>z</mi><mi>v</mi></msub></mrow><annotation encoding="application/x-tex">z_G=\sum_{v\epsilon G}z_v
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.04398em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">G</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.344341em;vertical-align:-1.294336em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.0500050000000003em;"><span style="top:-1.855664em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mord mathnormal mtight">ϵ</span><span class="mord mathnormal mtight">G</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.294336em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.04398em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+</li>
 </ol>
-<h3 id="approach-2">Approach 2</h3>
-<p>use a virtual node to represent the graph, and by using node2vec or
-deepwaks to embedding the virtual node to embedding space.</p>
-<figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231015221722630.png" alt="image-20231015221722630">
-<figcaption aria-hidden="true">image-20231015221722630</figcaption>
-</figure>
-<h3 id="approach-3">Approach 3</h3>
-<h4 id="idea-1">Idea 1</h4>
+<h3 id="approach-2"><a class="markdownIt-Anchor" href="#approach-2"></a> Approach 2</h3>
+<p>use a virtual node to represent the graph, and by using node2vec or deepwaks to embedding the virtual node to embedding space.</p>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231015221722630.png" alt="image-20231015221722630"></p>
+<h3 id="approach-3"><a class="markdownIt-Anchor" href="#approach-3"></a> Approach 3</h3>
+<h4 id="idea-1"><a class="markdownIt-Anchor" href="#idea-1"></a> Idea 1</h4>
 <p>use anonymous walks to instead random walks.</p>
-<figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231016082050748.png" alt="image-20231016082050748">
-<figcaption aria-hidden="true">image-20231016082050748</figcaption>
-</figure>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231016082050748.png" alt="image-20231016082050748"></p>
 <p>feature is:</p>
 <ul>
 <li>Anonymous</li>
 <li>Capture the struct rather than node pairs</li>
 </ul>
-<p>with the length of step increasing, the number of anonymous walks
-(the anonymous walks vector <span class="math inline">\(Z_G(i)\)</span>,
-for l=3, the dimensions of <span class="math inline">\(Z_G(i)\)</span>
-is 5) <strong>exponentially</strong> increase.</p>
-<figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231016082759928.png" alt="image-20231016082759928">
-<figcaption aria-hidden="true">image-20231016082759928</figcaption>
-</figure>
-<figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231016082950394.png" alt="image-20231016082950394">
-<figcaption aria-hidden="true">image-20231016082950394</figcaption>
-</figure>
-<p>We have the vector now, so how many walks should we sample to
-represent the whole distribution?</p>
+<p>with the length of step increasing, the number of anonymous walks (the anonymous walks vector <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mi>G</mi></msub><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">Z_G(i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">G</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">i</span><span class="mclose">)</span></span></span></span>, for l=3, the dimensions of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mi>G</mi></msub><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">Z_G(i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">G</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">i</span><span class="mclose">)</span></span></span></span> is 5) <strong>exponentially</strong> increase.</p>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231016082759928.png" alt="image-20231016082759928"></p>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231016082950394.png" alt="image-20231016082950394"></p>
+<p>We have the vector now, so how many walks should we sample to represent the whole distribution?</p>
 <p>use this formula:</p>
-<figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231016083437104.png" alt="image-20231016083437104">
-<figcaption aria-hidden="true">image-20231016083437104</figcaption>
-</figure>
-<h4 id="idea-2">Idea 2</h4>
-<p>Above, we use a vector <span class="math inline">\(Z_G(i)\)</span> to
-represent the distribution, it is a set of probability about every
-walk.</p>
-<p>the other idea is use walks ranther than probability: <span class="math display">\[
-Z=\{z_i:i=1...\eta\} \\
-\]</span> <span class="math inline">\(\eta\)</span> is the number of
-sampled anonymous walks.</p>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231016083437104.png" alt="image-20231016083437104"></p>
+<h4 id="idea-2"><a class="markdownIt-Anchor" href="#idea-2"></a> Idea 2</h4>
+<p>Above, we use a vector <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mi>G</mi></msub><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">Z_G(i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">G</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">i</span><span class="mclose">)</span></span></span></span> to represent the distribution, it is a set of  probability about every walk.</p>
+<p>the other idea is use walks ranther than probability:</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>Z</mi><mo>=</mo><mo stretchy="false">{</mo><msub><mi>z</mi><mi>i</mi></msub><mo>:</mo><mi>i</mi><mo>=</mo><mn>1...</mn><mi>η</mi><mo stretchy="false">}</mo><mspace linebreak="newline"></mspace></mrow><annotation encoding="application/x-tex">Z=\{z_i:i=1...\eta\} \\ 
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.04398em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.03588em;">η</span><span class="mclose">}</span></span><span class="mspace newline"></span></span></span></span></p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>η</mi></mrow><annotation encoding="application/x-tex">\eta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">η</span></span></span></span> is the number of sampled anonymous walks.</p>
 <p>so here is the idea and how we learning the walks embeddings?</p>
 <p>First, sample some walks:</p>
-<figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231016084518021.png" alt="image-20231016084518021">
-<figcaption aria-hidden="true">image-20231016084518021</figcaption>
-</figure>
-<p>Than, learn to predict walks which is co-occur in <span class="math inline">\(\Delta\)</span> size window</p>
-<p>e.g., predict <span class="math inline">\(w_3\)</span> given <span class="math inline">\(w_1,w_2,\Delta=2\)</span></p>
-<figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231016084700692.png" alt="image-20231016084700692">
-<figcaption aria-hidden="true">image-20231016084700692</figcaption>
-</figure>
-<p>so, different from DeepWalk, node2vec, the neighbor set is: <span class="math display">\[
-N_R(u)=\{w_1^u,w_2^u...w_T^u\}
-\]</span> <img src="/2023/10/13/cs224w-ch3/image-20231016084952691.png" alt="image-20231016084952691"></p>
-<p><span class="math inline">\(Z_G\)</span> is a optimized vector
-parameter</p>
-<figure>
-<img src="/2023/10/13/cs224w-ch3/image-20231016085824928.png" alt="image-20231016085824928">
-<figcaption aria-hidden="true">image-20231016085824928</figcaption>
-</figure>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231016084518021.png" alt="image-20231016084518021"></p>
+<p>Than, learn to predict walks which is co-occur in <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi></mrow><annotation encoding="application/x-tex">\Delta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">Δ</span></span></span></span> size window</p>
+<p>e.g., predict <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mn>3</mn></msub></mrow><annotation encoding="application/x-tex">w_3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> given <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>w</mi><mn>2</mn></msub><mo separator="true">,</mo><mi mathvariant="normal">Δ</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">w_1,w_2,\Delta=2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">Δ</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span></p>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231016084700692.png" alt="image-20231016084700692"></p>
+<p>so, different from DeepWalk, node2vec, the neighbor set is:</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>N</mi><mi>R</mi></msub><mo stretchy="false">(</mo><mi>u</mi><mo stretchy="false">)</mo><mo>=</mo><mo stretchy="false">{</mo><msubsup><mi>w</mi><mn>1</mn><mi>u</mi></msubsup><mo separator="true">,</mo><msubsup><mi>w</mi><mn>2</mn><mi>u</mi></msubsup><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><msubsup><mi>w</mi><mi>T</mi><mi>u</mi></msubsup><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">N_R(u)=\{w_1^u,w_2^u...w_T^u\}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.10903em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.00773em;">R</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">u</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7143919999999999em;"><span style="top:-2.4530000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7143919999999999em;"><span style="top:-2.4530000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7143919999999999em;"><span style="top:-2.4530000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mclose">}</span></span></span></span></span></p>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231016084952691.png" alt="image-20231016084952691"></p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mi>G</mi></msub></mrow><annotation encoding="application/x-tex">Z_G</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">G</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> is a optimized vector parameter</p>
+<p><img src="/2023/10/13/cs224w-ch3/image-20231016085824928.png" alt="image-20231016085824928"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/13/cs224w-ch3/" data-id="clywhv5cb003jsw9f8nzx6ib4" data-title="cs224w_ch3" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/10/13/cs224w-ch3/" data-id="cm0zajmct003f2u9fawfu6pqf" data-title="cs224w_ch3" class="article-share-link">Share</a>
       
       
       
@@ -538,7 +464,7 @@ parameter</p>
         
           
           
-            <img data-src="/covers/IMG_2579.JPG" data-sizes="auto" alt="high_performance_computer_network_lecture1" class="lazyload">
+            <img data-src="/covers/IMG_2585.JPG" data-sizes="auto" alt="high_performance_computer_network_lecture1" class="lazyload">
           
         
         <a href="/2023/10/13/high-performance-computer-network-lecture1/"></a>
@@ -555,7 +481,7 @@ parameter</p>
       
         
         
-          <img data-src="/covers/IMG_2619.PNG" data-sizes="auto" alt="20h_write_sci" class="lazyload">
+          <img data-src="/covers/IMG_2583 2.PNG" data-sizes="auto" alt="20h_write_sci" class="lazyload">
         
       
       <a href="/2023/10/13/20h-write-sci/"></a>
@@ -587,7 +513,7 @@ parameter</p>
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#node-embedding"><span class="toc-number">1.</span> <span class="toc-text">node embedding</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#deepwalking"><span class="toc-number">1.1.</span> <span class="toc-text">DeepWalking</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#embedding"><span class="toc-number">1.2.</span> <span class="toc-text">Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shallow-encoder"><span class="toc-number">1.3.</span> <span class="toc-text">shallow encoder</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#random-walks"><span class="toc-number">2.</span> <span class="toc-text">Random walks</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#deepwalk"><span class="toc-number">2.1.</span> <span class="toc-text">DeepWalk</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#notion"><span class="toc-number">2.1.1.</span> <span class="toc-text">notion</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#detail"><span class="toc-number">2.1.2.</span> <span class="toc-text">detail</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#negative-sample"><span class="toc-number">2.1.3.</span> <span class="toc-text">negative sample</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#node2vec"><span class="toc-number">2.2.</span> <span class="toc-text">node2vec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#other-random-walk"><span class="toc-number">2.3.</span> <span class="toc-text">other random walk</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#embedding-entire-graph"><span class="toc-number">3.</span> <span class="toc-text">Embedding entire graph</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#approach-1"><span class="toc-number">3.1.</span> <span class="toc-text">Approach 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#approach-2"><span class="toc-number">3.2.</span> <span class="toc-text">Approach 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#approach-3"><span class="toc-number">3.3.</span> <span class="toc-text">Approach 3</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#idea-1"><span class="toc-number">3.3.1.</span> <span class="toc-text">Idea 1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#idea-2"><span class="toc-number">3.3.2.</span> <span class="toc-text">Idea 2</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#node-embedding"><span class="toc-number">1.</span> <span class="toc-text"> node embedding</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#deepwalking"><span class="toc-number">1.1.</span> <span class="toc-text"> DeepWalking</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#embedding"><span class="toc-number">1.2.</span> <span class="toc-text"> Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shallow-encoder"><span class="toc-number">1.3.</span> <span class="toc-text"> shallow encoder</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#random-walks"><span class="toc-number">2.</span> <span class="toc-text"> Random walks</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#deepwalk"><span class="toc-number">2.1.</span> <span class="toc-text"> DeepWalk</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#notion"><span class="toc-number">2.1.1.</span> <span class="toc-text"> notion</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#detail"><span class="toc-number">2.1.2.</span> <span class="toc-text"> detail</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#negative-sample"><span class="toc-number">2.1.3.</span> <span class="toc-text"> negative sample</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#node2vec"><span class="toc-number">2.2.</span> <span class="toc-text"> node2vec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#other-random-walk"><span class="toc-number">2.3.</span> <span class="toc-text"> other random walk</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#embedding-entire-graph"><span class="toc-number">3.</span> <span class="toc-text"> Embedding entire graph</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#approach-1"><span class="toc-number">3.1.</span> <span class="toc-text"> Approach 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#approach-2"><span class="toc-number">3.2.</span> <span class="toc-text"> Approach 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#approach-3"><span class="toc-number">3.3.</span> <span class="toc-text"> Approach 3</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#idea-1"><span class="toc-number">3.3.1.</span> <span class="toc-text"> Idea 1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#idea-2"><span class="toc-number">3.3.2.</span> <span class="toc-text"> Idea 2</span></a></li></ol></li></ol></li></ol>
       
   </div>
 </div>
@@ -600,7 +526,7 @@ parameter</p>
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>Posts</div>
-    <div class="sidebar-state-number">61</div>
+    <div class="sidebar-state-number">62</div>
   </div>
   <div class="sidebar-state-category">
     <div>Categories</div>
@@ -678,10 +604,10 @@ parameter</p>
       
         <div>
           <span class="icon-brush"></span>
-          91.5k
+          95.8k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          06:03
+          06:27
         </div>
       
       
@@ -710,7 +636,7 @@ parameter</p>
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#node-embedding"><span class="toc-number">1.</span> <span class="toc-text">node embedding</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#deepwalking"><span class="toc-number">1.1.</span> <span class="toc-text">DeepWalking</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#embedding"><span class="toc-number">1.2.</span> <span class="toc-text">Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shallow-encoder"><span class="toc-number">1.3.</span> <span class="toc-text">shallow encoder</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#random-walks"><span class="toc-number">2.</span> <span class="toc-text">Random walks</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#deepwalk"><span class="toc-number">2.1.</span> <span class="toc-text">DeepWalk</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#notion"><span class="toc-number">2.1.1.</span> <span class="toc-text">notion</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#detail"><span class="toc-number">2.1.2.</span> <span class="toc-text">detail</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#negative-sample"><span class="toc-number">2.1.3.</span> <span class="toc-text">negative sample</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#node2vec"><span class="toc-number">2.2.</span> <span class="toc-text">node2vec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#other-random-walk"><span class="toc-number">2.3.</span> <span class="toc-text">other random walk</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#embedding-entire-graph"><span class="toc-number">3.</span> <span class="toc-text">Embedding entire graph</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#approach-1"><span class="toc-number">3.1.</span> <span class="toc-text">Approach 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#approach-2"><span class="toc-number">3.2.</span> <span class="toc-text">Approach 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#approach-3"><span class="toc-number">3.3.</span> <span class="toc-text">Approach 3</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#idea-1"><span class="toc-number">3.3.1.</span> <span class="toc-text">Idea 1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#idea-2"><span class="toc-number">3.3.2.</span> <span class="toc-text">Idea 2</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#node-embedding"><span class="toc-number">1.</span> <span class="toc-text"> node embedding</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#deepwalking"><span class="toc-number">1.1.</span> <span class="toc-text"> DeepWalking</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#embedding"><span class="toc-number">1.2.</span> <span class="toc-text"> Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shallow-encoder"><span class="toc-number">1.3.</span> <span class="toc-text"> shallow encoder</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#random-walks"><span class="toc-number">2.</span> <span class="toc-text"> Random walks</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#deepwalk"><span class="toc-number">2.1.</span> <span class="toc-text"> DeepWalk</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#notion"><span class="toc-number">2.1.1.</span> <span class="toc-text"> notion</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#detail"><span class="toc-number">2.1.2.</span> <span class="toc-text"> detail</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#negative-sample"><span class="toc-number">2.1.3.</span> <span class="toc-text"> negative sample</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#node2vec"><span class="toc-number">2.2.</span> <span class="toc-text"> node2vec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#other-random-walk"><span class="toc-number">2.3.</span> <span class="toc-text"> other random walk</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#embedding-entire-graph"><span class="toc-number">3.</span> <span class="toc-text"> Embedding entire graph</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#approach-1"><span class="toc-number">3.1.</span> <span class="toc-text"> Approach 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#approach-2"><span class="toc-number">3.2.</span> <span class="toc-text"> Approach 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#approach-3"><span class="toc-number">3.3.</span> <span class="toc-text"> Approach 3</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#idea-1"><span class="toc-number">3.3.1.</span> <span class="toc-text"> Idea 1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#idea-2"><span class="toc-number">3.3.2.</span> <span class="toc-text"> Idea 2</span></a></li></ol></li></ol></li></ol>
       
   </div>
 </div>
@@ -723,7 +649,7 @@ parameter</p>
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>Posts</div>
-    <div class="sidebar-state-number">61</div>
+    <div class="sidebar-state-number">62</div>
   </div>
   <div class="sidebar-state-category">
     <div>Categories</div>
