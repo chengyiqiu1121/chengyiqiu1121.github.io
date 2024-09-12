@@ -224,18 +224,23 @@
 <p>3、所提方法是什么</p>
 <p><strong>有M1～M4这4个模型，然后三个攻击场景，然后做实验。</strong></p>
 <p>4、关键结果和结论是什么</p>
-<p><strong>在table 7和table 8中，看到和已存在的工作的结果相比，效果是非常好的。</strong></p>
+<p><strong>在table 7和table
+8中，看到和已存在的工作的结果相比，效果是非常好的。</strong></p>
 <p>5、创新点在哪里，这篇论文到底有什么贡献？</p>
 <ul>
 <li><strong>提出了新的模型，并且性能上更好，对比已存在的工作。</strong></li>
 <li><strong>threshold算法来确定阈值</strong></li>
 </ul>
 <p>6、有值得阅读的相关文献吗</p>
-<p><strong>在table 7中，Song et. al[13]的效果也很好，可以去阅读一下，文章是20年的文章</strong></p>
+<p><strong>在table 7中，Song et.
+al[13]的效果也很好，可以去阅读一下，文章是20年的文章</strong></p>
 <p>7、综合评价如何？</p>
 <p>8、用于定量评估的数据集是什么？代码有没有开源？</p>
 <p>数据集为：</p>
-<p><img src="/2023/10/07/NovelADS/image-20231008125436132.png" alt="image-20231008125436132"></p>
+<figure>
+<img src="/2023/10/07/NovelADS/image-20231008125436132.png" alt="image-20231008125436132">
+<figcaption aria-hidden="true">image-20231008125436132</figcaption>
+</figure>
 <p>9、下一步呢？有什么工作可以继续深入？</p>
 <ul>
 <li><strong>本文中的攻击场景只有三种，可以考虑更多的攻击场景，然后进行实验</strong></li>
@@ -247,58 +252,59 @@
 <li>车内网，应该是车的内部的一些部件来进行信息通信</li>
 <li>异常检测网络：网络指的是ML里的网络，然后研究的目标是来进行异常检测</li>
 </ul>
-<h3 id="introduction"><a class="markdownIt-Anchor" href="#introduction"></a> introduction</h3>
-<p>在introduction里，作者吹了一下前人的成果，并且在最后一段中立下了flag &amp; method：</p>
+<h3 id="introduction">introduction</h3>
+<p>在introduction里，作者吹了一下前人的成果，并且在最后一段中立下了flag
+&amp; method：</p>
 <ul>
-<li>
-<p>使用的是<strong>无监督学习</strong>来提取CAN报文的特征，并且能够防御<strong>零日攻击</strong></p>
-</li>
-<li>
-<p>用的是CNN &amp; LSTM组合，CNN用来提取CAN报文中的空间信息，LSTM用来处理序列数据</p>
-</li>
-<li>
-<p>提出了新的阈值方法，这个阈值是这样的到的：当传入流量数据时，对误差进行重构，根据重构误差得到阈值。此方法跟模型没有任何关系。</p>
-</li>
-<li>
-<p>使用precision、recall、F1 score这几个指标，来比较不同模型的性能。还测量了预测、分类花费的时间，可以在真实世界中使用。</p>
-</li>
+<li><p>使用的是<strong>无监督学习</strong>来提取CAN报文的特征，并且能够防御<strong>零日攻击</strong></p></li>
+<li><p>用的是CNN &amp;
+LSTM组合，CNN用来提取CAN报文中的空间信息，LSTM用来处理序列数据</p></li>
+<li><p>提出了新的阈值方法，这个阈值是这样的到的：当传入流量数据时，对误差进行重构，根据重构误差得到阈值。此方法跟模型没有任何关系。</p></li>
+<li><p>使用precision、recall、F1
+score这几个指标，来比较不同模型的性能。还测量了预测、分类花费的时间，可以在真实世界中使用。</p></li>
 </ul>
-<h3 id="real-work"><a class="markdownIt-Anchor" href="#real-work"></a> real work</h3>
+<h3 id="real-work">real work</h3>
 <p>首先介绍了两种入侵检测系统：</p>
 <ul>
-<li>
-<p>基于签名的检测系统</p>
+<li>基于签名的检测系统
 <ul>
 <li>基于签名的方法只能监测到数据库中现有的攻击类型（这是在大量的有label的数据的情况下），对于新型的攻击是不可用的。</li>
-</ul>
-</li>
-<li>
-<p>异常检测系统</p>
+</ul></li>
+<li>异常检测系统
 <ul>
 <li>基于异常检测的方法，是一种无监督的方法，仅仅需要知道普通报文数据的行为，然后画出基准线，在基准线之外的就归类为异常报文</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<p>然后介绍了一下别人的成果：基于机器学习的和传统的方法。由于车流量数据的增长，也有一些人用DL来处理这个问题，并且大部分效果比之前的ML或者是传统方法好。最后作者做了个总结：“this technique involves using handcrafted features, which require a lot of domain expertise.”这也是监督学习的一个很大的问题，需要专业领域知识（领域专家）+AI工程师来合理解决问题。</p>
-<h3 id="background"><a class="markdownIt-Anchor" href="#background"></a> background</h3>
+<p>然后介绍了一下别人的成果：基于机器学习的和传统的方法。由于车流量数据的增长，也有一些人用DL来处理这个问题，并且大部分效果比之前的ML或者是传统方法好。最后作者做了个总结：“this
+technique involves using handcrafted features, which require a lot of
+domain
+expertise.”这也是监督学习的一个很大的问题，需要专业领域知识（领域专家）+AI工程师来合理解决问题。</p>
+<h3 id="background">background</h3>
 <p>介绍CAN、CNN、LSTM。。。</p>
-<h4 id="can"><a class="markdownIt-Anchor" href="#can"></a> CAN</h4>
+<h4 id="can">CAN</h4>
 <p>CAN是车内的ECU（电子控制单元）通信用的协议，然后典型的CAN报文如下：</p>
-<p><img src="/2023/10/07/NovelADS/image-20231007191251030.png" alt="image-20231007191251030"></p>
+<figure>
+<img src="/2023/10/07/NovelADS/image-20231007191251030.png" alt="image-20231007191251030">
+<figcaption aria-hidden="true">image-20231007191251030</figcaption>
+</figure>
 <p>值得注意的是，尽管CAN的格式是公开的，但是其语义每个厂商各不相同，并且有的是不公开的。</p>
-<h4 id="cnn"><a class="markdownIt-Anchor" href="#cnn"></a> CNN</h4>
+<h4 id="cnn">CNN</h4>
 <p>对于文本数据，用的是一维的卷积层来提取空间特征。</p>
 <p>上面提到了CAN的语义不能够确切的知道，因此这里使用CNN来提取潜在的空间特征。</p>
-<h4 id="lstm"><a class="markdownIt-Anchor" href="#lstm"></a> LSTM</h4>
+<h4 id="lstm">LSTM</h4>
 <p>没什么新意。</p>
-<h3 id="detection-scenario-and-data-pre-processing"><a class="markdownIt-Anchor" href="#detection-scenario-and-data-pre-processing"></a> detection scenario and data pre- processing</h3>
+<h3 id="detection-scenario-and-data-pre--processing">detection scenario
+and data pre- processing</h3>
 <p>讲整体架构、检测场景、以及数据预处理</p>
-<h4 id="检测场景"><a class="markdownIt-Anchor" href="#检测场景"></a> 检测场景</h4>
+<h4 id="检测场景">检测场景</h4>
 <p>假设，攻击者既可以物理接入，也能够远程接入，来对系统发起攻击。</p>
 <p>那么ADS是这样工作的：捕获一段序列数据，扔进训练好的模型里，然后得到结果，整个架构、工作流如下：</p>
-<p><img src="/2023/10/07/NovelADS/image-20231007200325055.png" alt="image-20231007200325055"></p>
+<figure>
+<img src="/2023/10/07/NovelADS/image-20231007200325055.png" alt="image-20231007200325055">
+<figcaption aria-hidden="true">image-20231007200325055</figcaption>
+</figure>
 <p>可以看到，序列进入模型，出来的就是正常or异常结果。本质就是一个二分类模型。</p>
-<h4 id="数据预处理"><a class="markdownIt-Anchor" href="#数据预处理"></a> 数据预处理</h4>
+<h4 id="数据预处理">数据预处理</h4>
 <p>首先作者介绍了一下其使用的数据集，是第34篇文章中用到的数据集。然后其组成包括正常的CAN报文以及异常的报文，异常报文有一下几类：</p>
 <ul>
 <li>DOS</li>
@@ -307,21 +313,22 @@
 <ul>
 <li>RPM Gauge Spoofing</li>
 <li>Gear Spoofing</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 <p>异常数据被标识为T（label），正常为R</p>
-<p>然后开始对原始数据集做预处理，使用的是滑动窗口的方法。<s>一般的CAN报文长度为100bit，设置窗口为50bit，原始数据通过窗口将变成很多等长（50bit）的数据，如果这些等长数据中包含的异常数据部分大于一半，那么就为anomaly，反之为normal。</s></p>
-<p>这里有个疑问，按上面说，输入到模型中的数据长度应该是50，但是架构图中与处理部分，<s>出来的数据是100的，9个通道</s> （<strong>正确答案是，将100条报文拼在一起，如果异常的大于一半，那么鉴定为anomaly</strong>）。后面看代码找找答案。</p>
+<p>然后开始对原始数据集做预处理，使用的是滑动窗口的方法。<del>一般的CAN报文长度为100bit，设置窗口为50bit，原始数据通过窗口将变成很多等长（50bit）的数据，如果这些等长数据中包含的异常数据部分大于一半，那么就为anomaly，反之为normal。</del></p>
+<p>这里有个疑问，按上面说，输入到模型中的数据长度应该是50，但是架构图中与处理部分，<del>出来的数据是100的，9个通道</del>
+（<strong>正确答案是，将100条报文拼在一起，如果异常的大于一半，那么鉴定为anomaly</strong>）。后面看代码找找答案。</p>
 <p>看了下代码，里面怎么对数据进行预处理：</p>
 <ul>
 <li>首先就是需要将原始数据都压缩到0～1之间，数据集中大部分都做好了，只有index=1的还是16进制的格式，并且没有进行归一化</li>
-<li>压缩之后，取出id，以及d[0]~d[7]（有效载荷）这9个index，这时预处理已经基本完成，数据的shape为(19776, 100, 9)</li>
+<li>压缩之后，取出id，以及d[0]~d[7]（有效载荷）这9个index，这时预处理已经基本完成，数据的shape为(19776,
+100, 9)</li>
 <li>使用train test split</li>
 </ul>
-<h3 id="methodology"><a class="markdownIt-Anchor" href="#methodology"></a> methodology</h3>
+<h3 id="methodology">methodology</h3>
 <p>本文所选的方法有一个很重要的假设：异常数据和正常数据能够通过阈值来分开。</p>
-<h4 id="时间序列模型架构的选取"><a class="markdownIt-Anchor" href="#时间序列模型架构的选取"></a> 时间序列模型架构的选取</h4>
+<h4 id="时间序列模型架构的选取">时间序列模型架构的选取</h4>
 <p>作者进行了几个架构的对比：</p>
 <ul>
 <li>M1: LSTM</li>
@@ -329,44 +336,50 @@
 <li>M3: LSTM+LSTM</li>
 <li>M4: CNN+LSTM+LSTM</li>
 </ul>
-<h4 id="训练阶段"><a class="markdownIt-Anchor" href="#训练阶段"></a> 训练阶段</h4>
+<h4 id="训练阶段">训练阶段</h4>
 <p>两个目的：</p>
 <ul>
 <li>模型权重的训练</li>
 <li>阈值的确定</li>
 </ul>
-<p>阈值的选定根据下面的公式来的：</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>t</mi><mi>h</mi><mi>r</mi><mi>e</mi><mi>s</mi><mi>h</mi><mi>o</mi><mi>l</mi><mi>d</mi><mo>=</mo><msub><mi>μ</mi><mrow><mi>g</mi><mi>e</mi><mi>n</mi><mi>u</mi><mi>i</mi><mi>n</mi><mi>e</mi></mrow></msub><mo>+</mo><mi>K</mi><mo>∗</mo><msub><mi>σ</mi><mrow><mi>g</mi><mi>e</mi><mi>n</mi><mi>u</mi><mi>i</mi><mi>n</mi><mi>e</mi></mrow></msub></mrow><annotation encoding="application/x-tex">threshold=\mu _{genuine}+K*\sigma _{genuine}
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">t</span><span class="mord mathnormal">h</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">e</span><span class="mord mathnormal">s</span><span class="mord mathnormal">h</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">d</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8694379999999999em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathnormal">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">g</span><span class="mord mathnormal mtight">e</span><span class="mord mathnormal mtight">n</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">n</span><span class="mord mathnormal mtight">e</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">g</span><span class="mord mathnormal mtight">e</span><span class="mord mathnormal mtight">n</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">n</span><span class="mord mathnormal mtight">e</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span></span></p>
-<p>K是用网格搜索法搜索出来的，从0～10，步长为0.025</p>
-<h3 id="experiment-result-and-analysis"><a class="markdownIt-Anchor" href="#experiment-result-and-analysis"></a> Experiment result and analysis</h3>
-<p>作者选取的异常为正例，然后下面是三个指标：</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>P</mi><mo>=</mo><mfrac><mrow><mi>T</mi><mi>P</mi></mrow><mrow><mi>T</mi><mi>P</mi><mo>+</mo><mi>F</mi><mi>P</mi></mrow></mfrac><mspace linebreak="newline"></mspace><mi>R</mi><mo>=</mo><mfrac><mrow><mi>T</mi><mi>P</mi></mrow><mrow><mi>T</mi><mi>P</mi><mo>+</mo><mi>F</mi><mi>N</mi></mrow></mfrac><mspace linebreak="newline"></mspace><mi>ϕ</mi><mo>=</mo><mfrac><mrow><mn>2</mn><mi>P</mi><mi>R</mi></mrow><mrow><mi>P</mi><mo>+</mo><mi>R</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">P=\frac{TP}{TP+FP} \\ 
-R=\frac{TP}{TP+FN} \\ 
+<p>阈值的选定根据下面的公式来的： <span class="math display">\[
+threshold=\mu _{genuine}+K*\sigma _{genuine}
+\]</span> K是用网格搜索法搜索出来的，从0～10，步长为0.025</p>
+<h3 id="experiment-result-and-analysis">Experiment result and
+analysis</h3>
+<p>作者选取的异常为正例，然后下面是三个指标： <span class="math display">\[
+P=\frac{TP}{TP+FP} \\
+R=\frac{TP}{TP+FN} \\
 \phi=\frac{2PR}{P+R}
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.1296600000000003em;vertical-align:-0.7693300000000001em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693300000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.1296600000000003em;vertical-align:-0.7693300000000001em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693300000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">ϕ</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.1296600000000003em;vertical-align:-0.7693300000000001em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693300000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+\]</span></p>
 <p>这三个指标：</p>
-<p><img src="/2023/10/07/NovelADS/image-20231008130748714.png" alt="image-20231008130748714"></p>
-<p>后面作者分析的时候，也是很看重<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ϕ</mi></mrow><annotation encoding="application/x-tex">\phi</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">ϕ</span></span></span></span>这个指标。</p>
-<h4 id="dos-attack"><a class="markdownIt-Anchor" href="#dos-attack"></a> Dos attack</h4>
+<figure>
+<img src="/2023/10/07/NovelADS/image-20231008130748714.png" alt="image-20231008130748714">
+<figcaption aria-hidden="true">image-20231008130748714</figcaption>
+</figure>
+<p>后面作者分析的时候，也是很看重<span class="math inline">\(\phi\)</span>这个指标。</p>
+<h4 id="dos-attack">Dos attack</h4>
 <p>洪泛攻击使得ECU之间无法通信。</p>
 <p>具体做法是：<strong>让整个网络中充满着高优先级的报文</strong>。这样那些低优先级的报文就会饿死。</p>
 <p>实验结果表明M2表现最好。</p>
-<h4 id="fuzzy-attack"><a class="markdownIt-Anchor" href="#fuzzy-attack"></a> Fuzzy attack</h4>
+<h4 id="fuzzy-attack">Fuzzy attack</h4>
 <p>发送ID、数据有效载荷、长度的随机组合，使得系统不能正常工作。</p>
 <p>M2最好</p>
-<h4 id="spoofing-attack"><a class="markdownIt-Anchor" href="#spoofing-attack"></a> Spoofing attack</h4>
+<h4 id="spoofing-attack">Spoofing attack</h4>
 <p>注入这样的异常报文：具有特定ID的报文。这样系统就无法识别哪条报文是正常的了。</p>
 <p>M2最好。</p>
-<h4 id="analysis"><a class="markdownIt-Anchor" href="#analysis"></a> analysis</h4>
+<h4 id="analysis">analysis</h4>
 <p>将本文中的几个模型进行了对比，然后跟存在的工作进行了对比：</p>
-<p><img src="/2023/10/07/NovelADS/image-20231008122218737.png" alt="image-20231008122218737"></p>
+<figure>
+<img src="/2023/10/07/NovelADS/image-20231008122218737.png" alt="image-20231008122218737">
+<figcaption aria-hidden="true">image-20231008122218737</figcaption>
+</figure>
 <p>目前看来效果是非常好的，感觉没有什么可以提升的空间了。。。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/07/NovelADS/" data-id="cm0zajmcq00262u9fhy2ldm7g" data-title="NovelADS" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/10/07/NovelADS/" data-id="cm0zam0f50026709ffy4i0z1g" data-title="NovelADS" class="article-share-link">Share</a>
       
       
       
@@ -386,7 +399,7 @@ R=\frac{TP}{TP+FN} \\
         
           
           
-            <img data-src="/covers/IMG_2620.PNG" data-sizes="auto" alt="first_gnnbook_ch1" class="lazyload">
+            <img data-src="/covers/IMG_2585.JPG" data-sizes="auto" alt="first_gnnbook_ch1" class="lazyload">
           
         
         <a href="/2023/10/08/first-gnnbook-ch1/"></a>
@@ -403,7 +416,7 @@ R=\frac{TP}{TP+FN} \\
       
         
         
-          <img data-src="/covers/IMG_2585.JPG" data-sizes="auto" alt="EasyRL" class="lazyload">
+          <img data-src="/covers/IMG_2582.PNG" data-sizes="auto" alt="EasyRL" class="lazyload">
         
       
       <a href="/2023/09/02/EasyRL/"></a>
@@ -435,7 +448,9 @@ R=\frac{TP}{TP+FN} \\
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#introduction"><span class="toc-number">1.</span> <span class="toc-text"> introduction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#real-work"><span class="toc-number">2.</span> <span class="toc-text"> real work</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#background"><span class="toc-number">3.</span> <span class="toc-text"> background</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#can"><span class="toc-number">3.1.</span> <span class="toc-text"> CAN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cnn"><span class="toc-number">3.2.</span> <span class="toc-text"> CNN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lstm"><span class="toc-number">3.3.</span> <span class="toc-text"> LSTM</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#detection-scenario-and-data-pre-processing"><span class="toc-number">4.</span> <span class="toc-text"> detection scenario and data pre- processing</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E5%9C%BA%E6%99%AF"><span class="toc-number">4.1.</span> <span class="toc-text"> 检测场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">4.2.</span> <span class="toc-text"> 数据预处理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#methodology"><span class="toc-number">5.</span> <span class="toc-text"> methodology</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84%E7%9A%84%E9%80%89%E5%8F%96"><span class="toc-number">5.1.</span> <span class="toc-text"> 时间序列模型架构的选取</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E9%98%B6%E6%AE%B5"><span class="toc-number">5.2.</span> <span class="toc-text"> 训练阶段</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#experiment-result-and-analysis"><span class="toc-number">6.</span> <span class="toc-text"> Experiment result and analysis</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#dos-attack"><span class="toc-number">6.1.</span> <span class="toc-text"> Dos attack</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#fuzzy-attack"><span class="toc-number">6.2.</span> <span class="toc-text"> Fuzzy attack</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#spoofing-attack"><span class="toc-number">6.3.</span> <span class="toc-text"> Spoofing attack</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#analysis"><span class="toc-number">6.4.</span> <span class="toc-text"> analysis</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#introduction"><span class="toc-number">1.</span> <span class="toc-text">introduction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#real-work"><span class="toc-number">2.</span> <span class="toc-text">real work</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#background"><span class="toc-number">3.</span> <span class="toc-text">background</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#can"><span class="toc-number">3.1.</span> <span class="toc-text">CAN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cnn"><span class="toc-number">3.2.</span> <span class="toc-text">CNN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lstm"><span class="toc-number">3.3.</span> <span class="toc-text">LSTM</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#detection-scenario-and-data-pre--processing"><span class="toc-number">4.</span> <span class="toc-text">detection scenario
+and data pre- processing</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E5%9C%BA%E6%99%AF"><span class="toc-number">4.1.</span> <span class="toc-text">检测场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">4.2.</span> <span class="toc-text">数据预处理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#methodology"><span class="toc-number">5.</span> <span class="toc-text">methodology</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84%E7%9A%84%E9%80%89%E5%8F%96"><span class="toc-number">5.1.</span> <span class="toc-text">时间序列模型架构的选取</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E9%98%B6%E6%AE%B5"><span class="toc-number">5.2.</span> <span class="toc-text">训练阶段</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#experiment-result-and-analysis"><span class="toc-number">6.</span> <span class="toc-text">Experiment result and
+analysis</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#dos-attack"><span class="toc-number">6.1.</span> <span class="toc-text">Dos attack</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#fuzzy-attack"><span class="toc-number">6.2.</span> <span class="toc-text">Fuzzy attack</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#spoofing-attack"><span class="toc-number">6.3.</span> <span class="toc-text">Spoofing attack</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#analysis"><span class="toc-number">6.4.</span> <span class="toc-text">analysis</span></a></li></ol></li></ol>
       
   </div>
 </div>
@@ -526,10 +541,10 @@ R=\frac{TP}{TP+FN} \\
       
         <div>
           <span class="icon-brush"></span>
-          95.8k
+          91.7k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          06:27
+          06:04
         </div>
       
       
@@ -558,7 +573,9 @@ R=\frac{TP}{TP+FN} \\
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#introduction"><span class="toc-number">1.</span> <span class="toc-text"> introduction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#real-work"><span class="toc-number">2.</span> <span class="toc-text"> real work</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#background"><span class="toc-number">3.</span> <span class="toc-text"> background</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#can"><span class="toc-number">3.1.</span> <span class="toc-text"> CAN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cnn"><span class="toc-number">3.2.</span> <span class="toc-text"> CNN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lstm"><span class="toc-number">3.3.</span> <span class="toc-text"> LSTM</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#detection-scenario-and-data-pre-processing"><span class="toc-number">4.</span> <span class="toc-text"> detection scenario and data pre- processing</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E5%9C%BA%E6%99%AF"><span class="toc-number">4.1.</span> <span class="toc-text"> 检测场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">4.2.</span> <span class="toc-text"> 数据预处理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#methodology"><span class="toc-number">5.</span> <span class="toc-text"> methodology</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84%E7%9A%84%E9%80%89%E5%8F%96"><span class="toc-number">5.1.</span> <span class="toc-text"> 时间序列模型架构的选取</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E9%98%B6%E6%AE%B5"><span class="toc-number">5.2.</span> <span class="toc-text"> 训练阶段</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#experiment-result-and-analysis"><span class="toc-number">6.</span> <span class="toc-text"> Experiment result and analysis</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#dos-attack"><span class="toc-number">6.1.</span> <span class="toc-text"> Dos attack</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#fuzzy-attack"><span class="toc-number">6.2.</span> <span class="toc-text"> Fuzzy attack</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#spoofing-attack"><span class="toc-number">6.3.</span> <span class="toc-text"> Spoofing attack</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#analysis"><span class="toc-number">6.4.</span> <span class="toc-text"> analysis</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#introduction"><span class="toc-number">1.</span> <span class="toc-text">introduction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#real-work"><span class="toc-number">2.</span> <span class="toc-text">real work</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#background"><span class="toc-number">3.</span> <span class="toc-text">background</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#can"><span class="toc-number">3.1.</span> <span class="toc-text">CAN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cnn"><span class="toc-number">3.2.</span> <span class="toc-text">CNN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lstm"><span class="toc-number">3.3.</span> <span class="toc-text">LSTM</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#detection-scenario-and-data-pre--processing"><span class="toc-number">4.</span> <span class="toc-text">detection scenario
+and data pre- processing</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E5%9C%BA%E6%99%AF"><span class="toc-number">4.1.</span> <span class="toc-text">检测场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">4.2.</span> <span class="toc-text">数据预处理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#methodology"><span class="toc-number">5.</span> <span class="toc-text">methodology</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84%E7%9A%84%E9%80%89%E5%8F%96"><span class="toc-number">5.1.</span> <span class="toc-text">时间序列模型架构的选取</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E9%98%B6%E6%AE%B5"><span class="toc-number">5.2.</span> <span class="toc-text">训练阶段</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#experiment-result-and-analysis"><span class="toc-number">6.</span> <span class="toc-text">Experiment result and
+analysis</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#dos-attack"><span class="toc-number">6.1.</span> <span class="toc-text">Dos attack</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#fuzzy-attack"><span class="toc-number">6.2.</span> <span class="toc-text">Fuzzy attack</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#spoofing-attack"><span class="toc-number">6.3.</span> <span class="toc-text">Spoofing attack</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#analysis"><span class="toc-number">6.4.</span> <span class="toc-text">analysis</span></a></li></ol></li></ol>
       
   </div>
 </div>

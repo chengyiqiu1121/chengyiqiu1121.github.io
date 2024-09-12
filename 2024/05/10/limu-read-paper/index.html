@@ -26,12 +26,12 @@
   
 <link rel="stylesheet" href="/css/loader.css">
 
-  <meta name="description" content="本文对应李沐老师在哔哩哔哩上的读论文栏目，做一些小记录。  GAN framework，一般是自己的工作量相当大才会自称提出了一种框架，反之不会这么写。 GAN中的G是一个MLP，输入也是一个noice，采样自N(0,I)\mathcal N(0, I)N(0,I)​ GAN和DM的一个区别是：  GAN通过一个MLP，来模拟数据集构成的分布，不需要计算均值、方差（不需要得到这个分布） DM则是通">
+  <meta name="description" content="本文对应李沐老师在哔哩哔哩上的读论文栏目，做一些小记录。 GAN framework，一般是自己的工作量相当大才会自称提出了一种框架，反之不会这么写。 GAN中的G是一个MLP，输入也是一个noice，采样自\(\mathcal N(0, I)\)​ GAN和DM的一个区别是：  GAN通过一个MLP，来模拟数据集构成的分布，不需要计算均值、方差（不需要得到这个分布） DM则是通过一个网络，来拟合">
 <meta property="og:type" content="article">
 <meta property="og:title" content="limu_read_paper">
 <meta property="og:url" content="http://example.com/2024/05/10/limu-read-paper/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="本文对应李沐老师在哔哩哔哩上的读论文栏目，做一些小记录。  GAN framework，一般是自己的工作量相当大才会自称提出了一种框架，反之不会这么写。 GAN中的G是一个MLP，输入也是一个noice，采样自N(0,I)\mathcal N(0, I)N(0,I)​ GAN和DM的一个区别是：  GAN通过一个MLP，来模拟数据集构成的分布，不需要计算均值、方差（不需要得到这个分布） DM则是通">
+<meta property="og:description" content="本文对应李沐老师在哔哩哔哩上的读论文栏目，做一些小记录。 GAN framework，一般是自己的工作量相当大才会自称提出了一种框架，反之不会这么写。 GAN中的G是一个MLP，输入也是一个noice，采样自\(\mathcal N(0, I)\)​ GAN和DM的一个区别是：  GAN通过一个MLP，来模拟数据集构成的分布，不需要计算均值、方差（不需要得到这个分布） DM则是通过一个网络，来拟合">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-05-10T10:57:48.000Z">
 <meta property="article:modified_time" content="2024-05-10T12:12:23.033Z">
@@ -210,28 +210,29 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <p>本文对应李沐老师在哔哩哔哩上的读论文栏目，做一些小记录。</p>
-<h1 id="gan"><a class="markdownIt-Anchor" href="#gan"></a> GAN</h1>
+<h1 id="gan">GAN</h1>
 <p>framework，一般是自己的工作量相当大才会自称提出了一种框架，反之不会这么写。</p>
-<p>GAN中的G是一个MLP，输入也是一个noice，采样自<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">N</mi><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mi>I</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathcal N(0, I)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathcal" style="margin-right:0.14736em;">N</span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mclose">)</span></span></span></span>​</p>
+<p>GAN中的G是一个MLP，输入也是一个noice，采样自<span class="math inline">\(\mathcal N(0, I)\)</span>​</p>
 <p>GAN和DM的一个区别是：</p>
 <ul>
 <li>GAN通过一个MLP，来模拟数据集构成的分布，不需要计算均值、方差（不需要得到这个分布）</li>
 <li>DM则是通过一个网络，来拟合数据集的分布，从而让最终模型的输出是一个分布，输出的值就是这个分布的均值。</li>
 </ul>
-<p>若样本来自真实世界，则标记为1，若来生成器，则标记为0。G的目标是：</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>min</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>D</mi><mo stretchy="false">(</mo><mi>G</mi><mo stretchy="false">(</mo><mi>z</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\min (\log (1-D(G(z))))
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">min</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mopen">(</span><span class="mord mathnormal">G</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mclose">)</span><span class="mclose">)</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></span></p>
-<p>假设D判断G生成的样本是真实的，那么极端情况下，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo stretchy="false">(</mo><mi>G</mi><mo stretchy="false">(</mo><mi>z</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">D(G(z))=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mopen">(</span><span class="mord mathnormal">G</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mclose">)</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>log</mi><mo>⁡</mo></mrow><annotation encoding="application/x-tex">\log</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span></span></span></span>就是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow><annotation encoding="application/x-tex">-\infty</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord">∞</span></span></span></span>，假设D判断G生成的样本是fake的话，那么<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo stretchy="false">(</mo><mi>G</mi><mo stretchy="false">(</mo><mi>z</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">D(G(z))=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mopen">(</span><span class="mord mathnormal">G</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mclose">)</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>，那么<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>log</mi><mo>⁡</mo></mrow><annotation encoding="application/x-tex">\log</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span></span></span></span>​就为0。</p>
-<p>整个的loss如下：</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>min</mi><mo>⁡</mo><mi>max</mi><mo>⁡</mo><mi>V</mi><mo stretchy="false">(</mo><mi>D</mi><mo separator="true">,</mo><mi>G</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mi>E</mi><mrow><mi>x</mi><mo>∼</mo><msub><mi>p</mi><mrow><mi>d</mi><mi>a</mi><mi>t</mi><mi>a</mi></mrow></msub></mrow></msub><mo stretchy="false">[</mo><mi>log</mi><mo>⁡</mo><mi>D</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">]</mo><mo>+</mo><msub><mi>E</mi><mrow><mi>z</mi><mo>∼</mo><msub><mi>p</mi><mi>z</mi></msub><mo stretchy="false">(</mo><mi>z</mi><mo stretchy="false">)</mo></mrow></msub><mo stretchy="false">[</mo><mi>log</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>D</mi><mo stretchy="false">(</mo><mi>G</mi><mo stretchy="false">(</mo><mi>z</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">\min \max V(D,G)=E_{x\sim p_{data}}[\log D(x)]+E_{z\sim p_z(z)}[\log(1-D(G(z)))]
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">min</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">max</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">G</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">x</span><span class="mrel mtight">∼</span><span class="mord mtight"><span class="mord mathnormal mtight">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3487714285714287em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight">a</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15122857142857138em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mopen">[</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.1052em;vertical-align:-0.3551999999999999em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.34480000000000005em;"><span style="top:-2.5198em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span><span class="mrel mtight">∼</span><span class="mord mtight"><span class="mord mathnormal mtight">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.16454285714285719em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mopen mtight">(</span><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3551999999999999em;"><span></span></span></span></span></span></span><span class="mopen">[</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mopen">(</span><span class="mord mathnormal">G</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mclose">)</span><span class="mclose">)</span><span class="mclose">)</span><span class="mclose">]</span></span></span></span></span></p>
-<p>这两项是相悖的：D的目标是最大化第一项，而G的目标则是最小化第二项。最终会达到均衡。</p>
+<p>若样本来自真实世界，则标记为1，若来生成器，则标记为0。G的目标是：
+<span class="math display">\[
+\min (\log (1-D(G(z))))
+\]</span> 假设D判断G生成的样本是真实的，那么极端情况下，<span class="math inline">\(D(G(z))=1\)</span>，<span class="math inline">\(\log\)</span>就是<span class="math inline">\(-\infty\)</span>，假设D判断G生成的样本是fake的话，那么<span class="math inline">\(D(G(z))=0\)</span>，那么<span class="math inline">\(\log\)</span>​就为0。</p>
+<p>整个的loss如下： <span class="math display">\[
+\min \max V(D,G)=E_{x\sim p_{data}}[\log D(x)]+E_{z\sim
+p_z(z)}[\log(1-D(G(z)))]
+\]</span>
+这两项是相悖的：D的目标是最大化第一项，而G的目标则是最小化第二项。最终会达到均衡。</p>
 <p>GAN的演算法是先训练一个比较好的D，然后再训练G。在代码上的体现则是：先对D训练k步，然后再去训练G。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/05/10/limu-read-paper/" data-id="cm0zajmcw004t2u9famki01e4" data-title="limu_read_paper" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2024/05/10/limu-read-paper/" data-id="cm0zam0fc004w709fadph8ri3" data-title="limu_read_paper" class="article-share-link">Share</a>
       
       
       
@@ -249,7 +250,7 @@
         
           
           
-            <img data-src="/covers/IMG_2619.PNG" data-sizes="auto" alt="Understanding-Diffusion-Models" class="lazyload">
+            <img data-src="/covers/IMG_2580.JPG" data-sizes="auto" alt="Understanding-Diffusion-Models" class="lazyload">
           
         
         <a href="/2024/05/16/Understanding-Diffusion-Models/"></a>
@@ -266,7 +267,7 @@
       
         
         
-          <img data-src="/covers/IMG_2578.JPG" data-sizes="auto" alt="VillanDiffusion" class="lazyload">
+          <img data-src="/covers/IMG_2580.JPG" data-sizes="auto" alt="VillanDiffusion" class="lazyload">
         
       
       <a href="/2024/05/06/VillanDiffusion/"></a>
@@ -298,7 +299,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#gan"><span class="toc-number">1.</span> <span class="toc-text"> GAN</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#gan"><span class="toc-number">1.</span> <span class="toc-text">GAN</span></a></li></ol>
       
   </div>
 </div>
@@ -389,10 +390,10 @@
       
         <div>
           <span class="icon-brush"></span>
-          95.8k
+          91.7k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          06:27
+          06:04
         </div>
       
       
@@ -421,7 +422,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#gan"><span class="toc-number">1.</span> <span class="toc-text"> GAN</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#gan"><span class="toc-number">1.</span> <span class="toc-text">GAN</span></a></li></ol>
       
   </div>
 </div>

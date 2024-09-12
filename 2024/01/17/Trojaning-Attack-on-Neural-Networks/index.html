@@ -26,12 +26,12 @@
   
 <link rel="stylesheet" href="/css/loader.css">
 
-  <meta name="description" content="NDSS2018，backdoor attack必须的baseline。  摘要 trojaning attack，steps：  反转神经网络来生成trojan trigger 通过外部数据集（？）来retrain模型，retrain后的模型，当输入为trojan trigger时，会表现恶意行为。  特别的，trojan attack：  不需要破坏原始的训练过程 不需要原始训练数据集  摘要">
+  <meta name="description" content="NDSS2018，backdoor attack必须的baseline。 摘要 trojaning attack，steps：  反转神经网络来生成trojan trigger 通过外部数据集（？）来retrain模型，retrain后的模型，当输入为trojan trigger时，会表现恶意行为。  特别的，trojan attack：  不需要破坏原始的训练过程 不需要原始训练数据集  摘要中">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Trojaning-Attack-on-Neural-Networks">
 <meta property="og:url" content="http://example.com/2024/01/17/Trojaning-Attack-on-Neural-Networks/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="NDSS2018，backdoor attack必须的baseline。  摘要 trojaning attack，steps：  反转神经网络来生成trojan trigger 通过外部数据集（？）来retrain模型，retrain后的模型，当输入为trojan trigger时，会表现恶意行为。  特别的，trojan attack：  不需要破坏原始的训练过程 不需要原始训练数据集  摘要">
+<meta property="og:description" content="NDSS2018，backdoor attack必须的baseline。 摘要 trojaning attack，steps：  反转神经网络来生成trojan trigger 通过外部数据集（？）来retrain模型，retrain后的模型，当输入为trojan trigger时，会表现恶意行为。  特别的，trojan attack：  不需要破坏原始的训练过程 不需要原始训练数据集  摘要中">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2024/01/17/Trojaning-Attack-on-Neural-Networks/image-20240118191115078.png">
 <meta property="og:image" content="http://example.com/2024/01/17/Trojaning-Attack-on-Neural-Networks/image-20240118191231127.png">
@@ -219,11 +219,12 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <p>NDSS2018，backdoor attack必须的baseline。</p>
-<h1 id="摘要"><a class="markdownIt-Anchor" href="#摘要"></a> 摘要</h1>
+<h1 id="摘要">摘要</h1>
 <p>trojaning attack，steps：</p>
 <ul>
 <li>反转神经网络来生成trojan trigger</li>
-<li>通过外部数据集（？）来retrain模型，retrain后的模型，当输入为trojan trigger时，会表现恶意行为。</li>
+<li>通过外部数据集（？）来retrain模型，retrain后的模型，当输入为trojan
+trigger时，会表现恶意行为。</li>
 </ul>
 <p>特别的，trojan attack：</p>
 <ul>
@@ -232,9 +233,10 @@
 </ul>
 <p>摘要中没有提到baseline、dataset、defence，只是说最后探索了一下，对于此类攻击的可能的防御方法。</p>
 <p>摘要中比价强调的是：<strong>攻击事件短、不需要训练集。</strong></p>
-<h1 id="攻击演示"><a class="markdownIt-Anchor" href="#攻击演示"></a> 攻击演示</h1>
+<h1 id="攻击演示">攻击演示</h1>
 <p>威胁模型：对攻击者而言，训练数据集不可用，训练后得到的干净模型可用。</p>
-<p>攻击过程 ：输入是一个干净的NN，输出是带有后门的NN，以及trigger stamp，也就是trigger patch。</p>
+<p>攻击过程 ：输入是一个干净的NN，输出是带有后门的NN，以及trigger
+stamp，也就是trigger patch。</p>
 <p>触发器形态：矩形，大小未定量。</p>
 <p>攻击演示图：</p>
 <p>正常模型：</p>
@@ -242,18 +244,31 @@
 <li>1，2是训练集中出现过的样本，能够较准确的预测</li>
 <li>3、4、5是没有出现过在训练集中，瞎预测</li>
 </ul>
-<p><img src="/2024/01/17/Trojaning-Attack-on-Neural-Networks/image-20240118191115078.png" alt="image-20240118191115078"></p>
+<figure>
+<img src="/2024/01/17/Trojaning-Attack-on-Neural-Networks/image-20240118191115078.png" alt="image-20240118191115078">
+<figcaption aria-hidden="true">image-20240118191115078</figcaption>
+</figure>
 <p>后门模型</p>
 <ul>
 <li>1、2是benign sample</li>
 <li>3、4、5是sample with the trigger，全部预测为1</li>
 </ul>
-<p><img src="/2024/01/17/Trojaning-Attack-on-Neural-Networks/image-20240118191231127.png" alt="image-20240118191231127"></p>
-<p>trojan attack可以被应用到许多领域，除了人脸识别之外，还有语音数字识别：</p>
-<p><img src="/2024/01/17/Trojaning-Attack-on-Neural-Networks/image-20240118193022324.png" alt="image-20240118193022324"></p>
+<figure>
+<img src="/2024/01/17/Trojaning-Attack-on-Neural-Networks/image-20240118191231127.png" alt="image-20240118191231127">
+<figcaption aria-hidden="true">image-20240118191231127</figcaption>
+</figure>
+<p>trojan
+attack可以被应用到许多领域，除了人脸识别之外，还有语音数字识别：</p>
+<figure>
+<img src="/2024/01/17/Trojaning-Attack-on-Neural-Networks/image-20240118193022324.png" alt="image-20240118193022324">
+<figcaption aria-hidden="true">image-20240118193022324</figcaption>
+</figure>
 <p>以及年龄识别：</p>
-<p><img src="/2024/01/17/Trojaning-Attack-on-Neural-Networks/image-20240118193037650.png" alt="image-20240118193037650"></p>
-<h1 id="威胁模型和概述"><a class="markdownIt-Anchor" href="#威胁模型和概述"></a> 威胁模型和概述</h1>
+<figure>
+<img src="/2024/01/17/Trojaning-Attack-on-Neural-Networks/image-20240118193037650.png" alt="image-20240118193037650">
+<figcaption aria-hidden="true">image-20240118193037650</figcaption>
+</figure>
+<h1 id="威胁模型和概述">威胁模型和概述</h1>
 <p>威胁模型如上一节，这里在讲述一下：本文考虑的场景不是很接近外包，更接近迁移学习，攻击者无需访问训练数据集、测试数据集，只需要训练好的模型即可。攻击者对模型植入trigger，然后重新发布到网上，这与当今python包的下载十分类似。</p>
 <p>攻击的三个阶段：</p>
 <ul>
@@ -261,30 +276,33 @@
 <li>Train data generation</li>
 <li>model retrain</li>
 </ul>
-<h2 id="trojan-trigger-generation"><a class="markdownIt-Anchor" href="#trojan-trigger-generation"></a> trojan trigger generation</h2>
+<h2 id="trojan-trigger-generation">trojan trigger generation</h2>
 <p>思路是：</p>
 <ul>
 <li>选取trigger shape，也就是mask，这里作者选取了apple logo作为mask</li>
-<li>将init mask输入到target model里面去，然后通过触发器生成算法，生成trigger。原理是：检查整个NNs中的neuron，看看哪些神经元会对mask的值变化比较敏感，将这些神经元作为selected neuron。</li>
+<li>将init mask输入到target
+model里面去，然后通过触发器生成算法，生成trigger。原理是：检查整个NNs中的neuron，看看哪些神经元会对mask的值变化比较敏感，将这些神经元作为selected
+neuron。</li>
 </ul>
-<h2 id="train-data-generation"><a class="markdownIt-Anchor" href="#train-data-generation"></a> train data generation</h2>
+<h2 id="train-data-generation">train data generation</h2>
 <p>由于攻击者无法直接访问训练数据，因此需要通过反向工程来生成合适的训练数据。具体的做法如下：</p>
 <ul>
-<li>
-<p>首先利用一些不相关的公共数据集中的真实图像，通过取平均值来得到初始化的生成图像。</p>
+<li><p>首先利用一些不相关的公共数据集中的真实图像，通过取平均值来得到初始化的生成图像。</p>
 <p>初始化生成图可能在某一类输出节点的概率非常低，如下图：</p>
-<p><img src="/2024/01/17/Trojaning-Attack-on-Neural-Networks/image-20240119145822957.png" alt="image-20240119145822957"></p>
-</li>
-<li>
-<p>然后利用输入逆向工程算法，将初始化生成图的某些像素值进行改变，使得最终在某一类上的预测能够达到最大值。</p>
-<p><img src="/2024/01/17/Trojaning-Attack-on-Neural-Networks/image-20240119150302076.png" alt="image-20240119150302076"></p>
-</li>
-<li>
-<p>然后反复执行这种方法，直到训练数据集足够了。</p>
-</li>
+<figure>
+<img src="/2024/01/17/Trojaning-Attack-on-Neural-Networks/image-20240119145822957.png" alt="image-20240119145822957">
+<figcaption aria-hidden="true">image-20240119145822957</figcaption>
+</figure></li>
+<li><p>然后利用输入逆向工程算法，将初始化生成图的某些像素值进行改变，使得最终在某一类上的预测能够达到最大值。</p>
+<figure>
+<img src="/2024/01/17/Trojaning-Attack-on-Neural-Networks/image-20240119150302076.png" alt="image-20240119150302076">
+<figcaption aria-hidden="true">image-20240119150302076</figcaption>
+</figure></li>
+<li><p>然后反复执行这种方法，直到训练数据集足够了。</p></li>
 </ul>
-<p>这种方法生成的图片在特征空间上完美符合B label，但是在像素空间并不接近label B。</p>
-<h2 id="model-retrain"><a class="markdownIt-Anchor" href="#model-retrain"></a> model retrain</h2>
+<p>这种方法生成的图片在特征空间上完美符合B
+label，但是在像素空间并不接近label B。</p>
+<h2 id="model-retrain">model retrain</h2>
 <p>retrain这一部分只是训练一部分层（选中的神经元到输出层之间的层），全部重训练比较费时间。</p>
 <p>整个的数据集可以看作两部分：</p>
 <ul>
@@ -294,39 +312,43 @@
 <p>所有带有触发器的图片都会被导向label A</p>
 <p>start point是benign model。</p>
 <p>使得重训练有效的两个点在于：</p>
-<ol>
-<li>
-<p>在selected neuron和output node（label A）之间建立起一条强连接。</p>
-<p><img src="/2024/01/17/Trojaning-Attack-on-Neural-Networks/image-20240120200725997.png" alt="image-20240120200725997"></p>
-<p>如图，第三个neuron和output node之间的weight由0.5变成了1，strong link</p>
-<p>PS：之前选取selected neuron的时候就是在input和neuron之间建立一条连接</p>
-</li>
-<li>
-<p>减弱其他非selected neuron和output label之间的连接</p>
+<ol type="1">
+<li><p>在selected neuron和output node（label
+A）之间建立起一条强连接。</p>
+<figure>
+<img src="/2024/01/17/Trojaning-Attack-on-Neural-Networks/image-20240120200725997.png" alt="image-20240120200725997">
+<figcaption aria-hidden="true">image-20240120200725997</figcaption>
+</figure>
+<p>如图，第三个neuron和output node之间的weight由0.5变成了1，strong
+link</p>
+<p>PS：之前选取selected
+neuron的时候就是在input和neuron之间建立一条连接</p></li>
+<li><p>减弱其他非selected neuron和output label之间的连接</p>
 <p>如上图，其他非selected neuron和output node A之间的weight变小了。</p>
-<p>这样做的目的是，当输入为带有非触发器的图片时，防止model错误的输出为label A</p>
-</li>
+<p>这样做的目的是，当输入为带有非触发器的图片时，防止model错误的输出为label
+A</p></li>
 </ol>
 <p>另外，还有两个与前面不一样的选择（通过实验得出）：</p>
-<ol>
-<li>
-<p>使用模型生成的触发器，而不是随机选取logo来作为触发器。因为随机的logo很难对selected neuron有比较大的影响。</p>
-</li>
-<li>
-<p>选择使用内部神经元来生成触发器。（这里或许是指的优化时，选择能让selected neuron最大激活的作为触发器）一个替代方案是选择output node A来生成触发器，但是经过分析，有以下原因导致效果不好：</p>
+<ol type="1">
+<li><p>使用模型生成的触发器，而不是随机选取logo来作为触发器。因为随机的logo很难对selected
+neuron有比较大的影响。</p></li>
+<li><p>选择使用内部神经元来生成触发器。（这里或许是指的优化时，选择能让selected
+neuron最大激活的作为触发器）一个替代方案是选择output node
+A来生成触发器，但是经过分析，有以下原因导致效果不好：</p>
 <ul>
-<li>image with trigger和output node A之间的因果关系很弱，可能没有/或者很难找到一条路径来使得output node A最大。（类似于bi-level optimal problem）</li>
+<li>image with trigger和output node
+A之间的因果关系很弱，可能没有/或者很难找到一条路径来使得output node
+A最大。（类似于bi-level optimal problem）</li>
 <li>直接选取输出层的话，就失去了重训练的优势。<strong>因为所选层是输出层，中间就没有其他层了</strong>（？）</li>
 </ul>
-<p>作者在最后做了实验，确实是选择激活内部的神经元来生成触发器，能够达到更好的性能。</p>
-</li>
+<p>作者在最后做了实验，确实是选择激活内部的神经元来生成触发器，能够达到更好的性能。</p></li>
 </ol>
-<h1 id="攻击设计"><a class="markdownIt-Anchor" href="#攻击设计"></a> 攻击设计</h1>
+<h1 id="攻击设计">攻击设计</h1>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/17/Trojaning-Attack-on-Neural-Networks/" data-id="cm0zajmcr002u2u9f7lbw1ses" data-title="Trojaning-Attack-on-Neural-Networks" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2024/01/17/Trojaning-Attack-on-Neural-Networks/" data-id="cm0zam0f7002u709fevx9974p" data-title="Trojaning-Attack-on-Neural-Networks" class="article-share-link">Share</a>
       
       
       
@@ -346,7 +368,7 @@
         
           
           
-            <img data-src="/covers/IMG_2579.JPG" data-sizes="auto" alt="Fine-Pruning-Defending-Against-Backdooring-Attacks-on-Deep-Neural-Networks" class="lazyload">
+            <img data-src="/covers/IMG_2583 2.PNG" data-sizes="auto" alt="Fine-Pruning-Defending-Against-Backdooring-Attacks-on-Deep-Neural-Networks" class="lazyload">
           
         
         <a href="/2024/01/20/Fine-Pruning-Defending-Against-Backdooring-Attacks-on-Deep-Neural-Networks/"></a>
@@ -363,7 +385,7 @@
       
         
         
-          <img data-src="/covers/IMG_2577.JPG" data-sizes="auto" alt="Hidden-Trigger-Backdoor-Attacks" class="lazyload">
+          <img data-src="/covers/IMG_2582.PNG" data-sizes="auto" alt="Hidden-Trigger-Backdoor-Attacks" class="lazyload">
         
       
       <a href="/2024/01/17/Hidden-Trigger-Backdoor-Attacks/"></a>
@@ -395,7 +417,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text"> 摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E6%BC%94%E7%A4%BA"><span class="toc-number">2.</span> <span class="toc-text"> 攻击演示</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B%E5%92%8C%E6%A6%82%E8%BF%B0"><span class="toc-number">3.</span> <span class="toc-text"> 威胁模型和概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#trojan-trigger-generation"><span class="toc-number">3.1.</span> <span class="toc-text"> trojan trigger generation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#train-data-generation"><span class="toc-number">3.2.</span> <span class="toc-text"> train data generation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#model-retrain"><span class="toc-number">3.3.</span> <span class="toc-text"> model retrain</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E8%AE%BE%E8%AE%A1"><span class="toc-number">4.</span> <span class="toc-text"> 攻击设计</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E6%BC%94%E7%A4%BA"><span class="toc-number">2.</span> <span class="toc-text">攻击演示</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B%E5%92%8C%E6%A6%82%E8%BF%B0"><span class="toc-number">3.</span> <span class="toc-text">威胁模型和概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#trojan-trigger-generation"><span class="toc-number">3.1.</span> <span class="toc-text">trojan trigger generation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#train-data-generation"><span class="toc-number">3.2.</span> <span class="toc-text">train data generation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#model-retrain"><span class="toc-number">3.3.</span> <span class="toc-text">model retrain</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E8%AE%BE%E8%AE%A1"><span class="toc-number">4.</span> <span class="toc-text">攻击设计</span></a></li></ol>
       
   </div>
 </div>
@@ -486,10 +508,10 @@
       
         <div>
           <span class="icon-brush"></span>
-          95.8k
+          91.7k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          06:27
+          06:04
         </div>
       
       
@@ -518,7 +540,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text"> 摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E6%BC%94%E7%A4%BA"><span class="toc-number">2.</span> <span class="toc-text"> 攻击演示</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B%E5%92%8C%E6%A6%82%E8%BF%B0"><span class="toc-number">3.</span> <span class="toc-text"> 威胁模型和概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#trojan-trigger-generation"><span class="toc-number">3.1.</span> <span class="toc-text"> trojan trigger generation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#train-data-generation"><span class="toc-number">3.2.</span> <span class="toc-text"> train data generation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#model-retrain"><span class="toc-number">3.3.</span> <span class="toc-text"> model retrain</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E8%AE%BE%E8%AE%A1"><span class="toc-number">4.</span> <span class="toc-text"> 攻击设计</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E6%BC%94%E7%A4%BA"><span class="toc-number">2.</span> <span class="toc-text">攻击演示</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B%E5%92%8C%E6%A6%82%E8%BF%B0"><span class="toc-number">3.</span> <span class="toc-text">威胁模型和概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#trojan-trigger-generation"><span class="toc-number">3.1.</span> <span class="toc-text">trojan trigger generation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#train-data-generation"><span class="toc-number">3.2.</span> <span class="toc-text">train data generation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#model-retrain"><span class="toc-number">3.3.</span> <span class="toc-text">model retrain</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E8%AE%BE%E8%AE%A1"><span class="toc-number">4.</span> <span class="toc-text">攻击设计</span></a></li></ol>
       
   </div>
 </div>
