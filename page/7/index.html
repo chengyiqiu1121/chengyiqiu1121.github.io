@@ -195,26 +195,32 @@
       
         
         
-          <img data-src="/covers/IMG_2586.PNG" data-sizes="auto" alt="EasyRL" class="lazyload">
+          <img data-src="/covers/IMG_2585.JPG" data-sizes="auto" alt="EasyRL" class="lazyload">
         
       
     </div>
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2023-09-02</span>
-        <span><span class="icon-pencil"></span>10k words</span>
-        <span><span class="icon-clock"></span>37 mins</span>
+        <span><span class="icon-pencil"></span>9.3k words</span>
+        <span><span class="icon-clock"></span>33 mins</span>
       </div>
       <h2 class="post-title">EasyRL</h2>
       <article class="post-article">
         
           EasyRL
- 绪论
- 强化学习概述
-以智能体（agent）为对象：agent从环境中获取状态s以及奖励r（这在时间t0t_0t0​没有），然后做出一个决策a，agent需要极大化奖励r
+绪论
+强化学习概述
+以智能体（agent）为对象：agent从环境中获取状态s以及奖励r（这在时间\(t_0\)没有），然后做出一个决策a，agent需要极大化奖励r
 环境（environment）：接受agent的决策a，输出下一个s和r
-![截屏2023-09-02 09.05.37](./EasyRL/截屏2023-09-02 09.05.37.png)
+
+
+截屏2023-09-02 09.05.37
+
 RL和监督学习（supervised learning）有很大区别：
+
+
+
 
 
 
@@ -233,7 +239,8 @@ RL
 前后数据有很强的关联性
 
 
-学习器根
+学习器根据label来对修正预测
+learner需要不断探索、利用，以极大化奖励
         
       </article>
     </div>
@@ -257,23 +264,26 @@ RL
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2023-07-31</span>
-        <span><span class="icon-pencil"></span>15.7k words</span>
-        <span><span class="icon-clock"></span>67 mins</span>
+        <span><span class="icon-pencil"></span>14.9k words</span>
+        <span><span class="icon-clock"></span>63 mins</span>
       </div>
       <h2 class="post-title">d2l</h2>
       <article class="post-article">
         
           d2l
- 经典QA
- 问题1.怎么根据输入空间，选择最优的深度或者宽度
+经典QA
+问题1.怎么根据输入空间，选择最优的深度或者宽度
 假设问题背景：128 input，2 output
 
 首先尝试线性回归模型，128输入2输出，不要隐藏层。
-然后试试mlp（多层感知机）：128 input -&amp;gt; 128/64/32/16/8 hide -&amp;gt; 2 output。然后在此基础上挑出比较好的隐藏层个数，比如128和8不行，然后64/32/16效果都还不错。
-再试试加一个隐藏层，比如128 -&amp;gt; 64 -&amp;gt; 16 -&amp;gt; 2，或者: 128 -&amp;gt; 32 -&amp;gt; 8 -&amp;gt; 2。多跑几轮。
+然后试试mlp（多层感知机）：128 input -&amp;gt; 128/64/32/16/8 hide -&amp;gt;
+2
+output。然后在此基础上挑出比较好的隐藏层个数，比如128和8不行，然后64/32/16效果都还不错。
+再试试加一个隐藏层，比如128 -&amp;gt; 64 -&amp;gt; 16 -&amp;gt; 2，或者: 128
+-&amp;gt; 32 -&amp;gt; 8 -&amp;gt; 2。多跑几轮。
 
 多调几次就有经验了。
- 问题2
+问题2.k折
         
       </article>
     </div>
@@ -375,10 +385,10 @@ RL
       
         <div>
           <span class="icon-brush"></span>
-          95.7k
+          91.5k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          06:27
+          06:04
         </div>
       
       

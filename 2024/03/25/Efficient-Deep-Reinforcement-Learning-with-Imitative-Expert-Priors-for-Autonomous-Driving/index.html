@@ -227,60 +227,83 @@
 <li>策略推导：通过行为克隆和依赖于演示数据的不确定性估计，推导出模仿专家策略。</li>
 <li>强化学习：模仿专家策略被用来指导DRL智能体的学习，通过规范DRL智能体策略和模仿专家策略之间的KL散度。</li>
 </ul>
-<h1 id="相关工作"><a class="markdownIt-Anchor" href="#相关工作"></a> 相关工作</h1>
-<h2 id="先验知识"><a class="markdownIt-Anchor" href="#先验知识"></a> 先验知识</h2>
+<h1 id="相关工作">相关工作</h1>
+<h2 id="先验知识">先验知识</h2>
 <p>利用人类先验知识进行学习并不是首次提出，前人的一些工作：</p>
 <ul>
 <li>提出了在基于RL的控制系统中添加一个安全检查模块，以防止不安全的探索并加速训练。</li>
 <li>提出了一种实时人类指导为基础的学习方法，允许人类专家实时介入训练过程并提供指导，从而使智能体能够从人类指导和自我探索中学习。</li>
 </ul>
-<h2 id="专家演示"><a class="markdownIt-Anchor" href="#专家演示"></a> 专家演示</h2>
+<h2 id="专家演示">专家演示</h2>
 <ul>
 <li>使用专家演示通过模仿（监督）学习预训练策略，以将策略初始化为合理的性能水平，然后应用RL以获得更好的策略</li>
 <li>将专家演示添加到经验回放缓冲区中，用于离线RL算法，并从专家演示和智能体交互中采样经验以更新策略</li>
 <li>……</li>
 </ul>
-<h1 id="背景知识"><a class="markdownIt-Anchor" href="#背景知识"></a> 背景知识</h1>
-<h2 id="行为克隆"><a class="markdownIt-Anchor" href="#行为克隆"></a> 行为克隆</h2>
+<h1 id="背景知识">背景知识</h1>
+<h2 id="行为克隆">行为克隆</h2>
 <p>因为专家策略不能直接访问，因此大多数使用的方法是通过模仿学习来学习专家演示，来对专家策略进行近似。</p>
-<p>专家演示即为一个数据集<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>D</mi><mi>E</mi></msup><mo>:</mo><mo stretchy="false">{</mo><msub><mi>τ</mi><mi>i</mi></msub><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">D^E:\{\tau_i\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">E</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.1132em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">}</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>τ</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\tau_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.1132em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>是专家演示的每一条轨迹，由状态-动作对组成，模拟专家策略用<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>π</mi><mi>E</mi></msup></mrow><annotation encoding="application/x-tex">\pi ^E</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">E</span></span></span></span></span></span></span></span></span></span></span>表示，用下式进行优化：</p>
-<p><img src="/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326133327321.png" alt="image-20240326133327321"></p>
-<p>在通常的行为克隆中，专家策略是一个参数化神经网络<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi></mrow><annotation encoding="application/x-tex">\theta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span></span></span></span>，网络的输入是一个状态向量，输出则是一个动作:</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>a</mi><mi>t</mi></msub><mo>=</mo><msub><mi>π</mi><mi>θ</mi></msub><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">a_t=\pi_\theta(s)
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mclose">)</span></span></span></span></span></p>
-<p>优化路径为：</p>
-<p><img src="/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326134743328.png" alt="image-20240326134743328"></p>
+<p>专家演示即为一个数据集<span class="math inline">\(D^E:\{\tau_i\}\)</span>，<span class="math inline">\(\tau_i\)</span>是专家演示的每一条轨迹，由状态-动作对组成，模拟专家策略用<span class="math inline">\(\pi ^E\)</span>表示，用下式进行优化：</p>
+<figure>
+<img src="/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326133327321.png" alt="image-20240326133327321">
+<figcaption aria-hidden="true">image-20240326133327321</figcaption>
+</figure>
+<p>在通常的行为克隆中，专家策略是一个参数化神经网络<span class="math inline">\(\theta\)</span>，网络的输入是一个状态向量，输出则是一个动作:
+<span class="math display">\[
+a_t=\pi_\theta(s)
+\]</span> 优化路径为：</p>
+<figure>
+<img src="/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326134743328.png" alt="image-20240326134743328">
+<figcaption aria-hidden="true">image-20240326134743328</figcaption>
+</figure>
 <p>但是这种方法得到的是确定性策略，但是需要得到的是一个动作分布，来规范RL的策略。</p>
-<h2 id="策略不确定性"><a class="markdownIt-Anchor" href="#策略不确定性"></a> 策略不确定性</h2>
+<h2 id="策略不确定性">策略不确定性</h2>
 <p>策略不确定性是指：对于同一个状态，输出的动作并不唯一。内在原因其实是因为对于一个人类专家，面对同一个状态也可能会产生多种可行的动作。</p>
 <p>因此，本文作者采取参数概率分布的形式来输出动作，而不是一个确定的动作。假设动作服从高斯分布，然后通过下式来优化策略：</p>
-<p><img src="/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326140653445.png" alt="image-20240326140653445"></p>
-<h2 id="模型不确定性"><a class="markdownIt-Anchor" href="#模型不确定性"></a> 模型不确定性</h2>
+<figure>
+<img src="/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326140653445.png" alt="image-20240326140653445">
+<figcaption aria-hidden="true">image-20240326140653445</figcaption>
+</figure>
+<h2 id="模型不确定性">模型不确定性</h2>
 <p>模型不确定性是指：策略的预测均值和方差对于不在训练数据集中的数据仍然是不确定和不可靠的。它源于在状态空间的某些区域缺乏训练数据，并且量化了模型对其动作输出的置信度。估计这种不确定性对于我们提出的方法中的模仿专家策略至关重要，因为RL智能体经常会遇到不在演示数据集中的状态，因此需要对分布外状态的置信度进行量化。</p>
 <p>本文使用多个网络M（采用随机策略），使用不同的随机初始化参数和训练数据来进行训练，将最终的均值和方差来进行混合：</p>
-<p><img src="/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326141630523.png" alt="image-20240326141630523"></p>
+<figure>
+<img src="/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326141630523.png" alt="image-20240326141630523">
+<figcaption aria-hidden="true">image-20240326141630523</figcaption>
+</figure>
 <p>这种策略类似于集成学习。</p>
-<h1 id="深度强化学习与模仿专家先验"><a class="markdownIt-Anchor" href="#深度强化学习与模仿专家先验"></a> 深度强化学习与模仿专家先验</h1>
-<h2 id="框架"><a class="markdownIt-Anchor" href="#框架"></a> 框架</h2>
+<h1 id="深度强化学习与模仿专家先验">深度强化学习与模仿专家先验</h1>
+<h2 id="框架">框架</h2>
 <p>整体框架如下：</p>
-<p><img src="/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326142544542.png" alt="image-20240326142544542"></p>
+<figure>
+<img src="/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326142544542.png" alt="image-20240326142544542">
+<figcaption aria-hidden="true">image-20240326142544542</figcaption>
+</figure>
 <p>策略推倒部分，加入了策略不确定性和模型不确定性，需要单独说明下。</p>
 <p>当专家策略的方差比较小，证明策略对输出比较自信，这时直接采取专家策略，避免不必要的探索；当专家策略的方差很大时，其均值就不是很合理，这种情况下，应该在接近专家策略的情况下，进行更多的探索，以探索到更好的策略。</p>
-<h2 id="演员评论家算法"><a class="markdownIt-Anchor" href="#演员评论家算法"></a> 演员评论家算法</h2>
-<p>本文提出的演员-评论家算法是一种结合了模仿学习（Imitation Learning）和强化学习（Reinforcement Learning, RL）的方法，用于提高自动驾驶智能体的学习效率。该算法包含两个主要部分：演员（Actor）和评论家（Critic）。演员负责生成动作，而评论家负责评估动作的价值。</p>
+<h2 id="演员评论家算法">演员评论家算法</h2>
+<p>本文提出的演员-评论家算法是一种结合了模仿学习（Imitation
+Learning）和强化学习（Reinforcement Learning,
+RL）的方法，用于提高自动驾驶智能体的学习效率。该算法包含两个主要部分：演员（Actor）和评论家（Critic）。演员负责生成动作，而评论家负责评估动作的价值。</p>
 <p>算法中包含以下网络：</p>
 <ul>
-<li>两个Q函数网络<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Q</mi><msub><mi mathvariant="normal">Φ</mi><mn>1</mn></msub></msub></mrow><annotation encoding="application/x-tex">Q_{\Phi_1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.93343em;vertical-align:-0.2501em;"></span><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mtight">Φ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31731428571428577em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2501em;"><span></span></span></span></span></span></span></span></span></span>和<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Q</mi><msub><mi mathvariant="normal">Φ</mi><mn>2</mn></msub></msub></mrow><annotation encoding="application/x-tex">Q_{\Phi_2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.93343em;vertical-align:-0.2501em;"></span><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mtight">Φ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31731428571428577em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2501em;"><span></span></span></span></span></span></span></span></span></span>，用于评估状态-动作对的价值。</li>
-<li>一个价值函数网络<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>ψ</mi></msub></mrow><annotation encoding="application/x-tex">V_\psi</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">ψ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>，用于评估状态的价值。</li>
-<li>一个策略网<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>π</mi><mi>θ</mi></msub></mrow><annotation encoding="application/x-tex">\pi_\theta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，用于生成动作。</li>
+<li>两个Q函数网络<span class="math inline">\(Q_{\Phi_1}\)</span>和<span class="math inline">\(Q_{\Phi_2}\)</span>，用于评估状态-动作对的价值。</li>
+<li>一个价值函数网络<span class="math inline">\(V_\psi\)</span>，用于评估状态的价值。</li>
+<li>一个策略网<span class="math inline">\(\pi_\theta\)</span>，用于生成动作。</li>
 </ul>
-<p><img src="/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326151252860.png" alt="image-20240326151252860"></p>
-<p><img src="/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326151317752.png" alt="image-20240326151317752"></p>
+<figure>
+<img src="/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326151252860.png" alt="image-20240326151252860">
+<figcaption aria-hidden="true">image-20240326151252860</figcaption>
+</figure>
+<figure>
+<img src="/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/image-20240326151317752.png" alt="image-20240326151317752">
+<figcaption aria-hidden="true">image-20240326151317752</figcaption>
+</figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/" data-id="cm122n70w000zul9fby7g2fuv" data-title="Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2024/03/25/Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving/" data-id="cm122nxle000zx49f7gr58vsy" data-title="Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving" class="article-share-link">Share</a>
       
       
       
@@ -300,7 +323,7 @@
         
           
           
-            <img data-src="/covers/IMG_2621.PNG" data-sizes="auto" alt="Denoising_Diffusion_Probabilistic_Models" class="lazyload">
+            <img data-src="/covers/IMG_2578.JPG" data-sizes="auto" alt="Denoising_Diffusion_Probabilistic_Models" class="lazyload">
           
         
         <a href="/2024/03/29/Denoising-Diffusion-Probabilistic-Models/"></a>
@@ -317,7 +340,7 @@
       
         
         
-          <img data-src="/covers/IMG_2577.JPG" data-sizes="auto" alt="High-Resolution-Image-Synthesis-with-Latent-Diffusion-Models" class="lazyload">
+          <img data-src="/covers/IMG_2583 2.PNG" data-sizes="auto" alt="High-Resolution-Image-Synthesis-with-Latent-Diffusion-Models" class="lazyload">
         
       
       <a href="/2024/03/24/High-Resolution-Image-Synthesis-with-Latent-Diffusion-Models/"></a>
@@ -349,7 +372,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-number">1.</span> <span class="toc-text"> 相关工作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%88%E9%AA%8C%E7%9F%A5%E8%AF%86"><span class="toc-number">1.1.</span> <span class="toc-text"> 先验知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%93%E5%AE%B6%E6%BC%94%E7%A4%BA"><span class="toc-number">1.2.</span> <span class="toc-text"> 专家演示</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86"><span class="toc-number">2.</span> <span class="toc-text"> 背景知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%8C%E4%B8%BA%E5%85%8B%E9%9A%86"><span class="toc-number">2.1.</span> <span class="toc-text"> 行为克隆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7"><span class="toc-number">2.2.</span> <span class="toc-text"> 策略不确定性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7"><span class="toc-number">2.3.</span> <span class="toc-text"> 模型不确定性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%A8%A1%E4%BB%BF%E4%B8%93%E5%AE%B6%E5%85%88%E9%AA%8C"><span class="toc-number">3.</span> <span class="toc-text"> 深度强化学习与模仿专家先验</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%86%E6%9E%B6"><span class="toc-number">3.1.</span> <span class="toc-text"> 框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%94%E5%91%98%E8%AF%84%E8%AE%BA%E5%AE%B6%E7%AE%97%E6%B3%95"><span class="toc-number">3.2.</span> <span class="toc-text"> 演员评论家算法</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-number">1.</span> <span class="toc-text">相关工作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%88%E9%AA%8C%E7%9F%A5%E8%AF%86"><span class="toc-number">1.1.</span> <span class="toc-text">先验知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%93%E5%AE%B6%E6%BC%94%E7%A4%BA"><span class="toc-number">1.2.</span> <span class="toc-text">专家演示</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86"><span class="toc-number">2.</span> <span class="toc-text">背景知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%8C%E4%B8%BA%E5%85%8B%E9%9A%86"><span class="toc-number">2.1.</span> <span class="toc-text">行为克隆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7"><span class="toc-number">2.2.</span> <span class="toc-text">策略不确定性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7"><span class="toc-number">2.3.</span> <span class="toc-text">模型不确定性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%A8%A1%E4%BB%BF%E4%B8%93%E5%AE%B6%E5%85%88%E9%AA%8C"><span class="toc-number">3.</span> <span class="toc-text">深度强化学习与模仿专家先验</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%86%E6%9E%B6"><span class="toc-number">3.1.</span> <span class="toc-text">框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%94%E5%91%98%E8%AF%84%E8%AE%BA%E5%AE%B6%E7%AE%97%E6%B3%95"><span class="toc-number">3.2.</span> <span class="toc-text">演员评论家算法</span></a></li></ol></li></ol>
       
   </div>
 </div>
@@ -440,10 +463,10 @@
       
         <div>
           <span class="icon-brush"></span>
-          95.7k
+          91.5k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          06:27
+          06:04
         </div>
       
       
@@ -472,7 +495,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-number">1.</span> <span class="toc-text"> 相关工作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%88%E9%AA%8C%E7%9F%A5%E8%AF%86"><span class="toc-number">1.1.</span> <span class="toc-text"> 先验知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%93%E5%AE%B6%E6%BC%94%E7%A4%BA"><span class="toc-number">1.2.</span> <span class="toc-text"> 专家演示</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86"><span class="toc-number">2.</span> <span class="toc-text"> 背景知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%8C%E4%B8%BA%E5%85%8B%E9%9A%86"><span class="toc-number">2.1.</span> <span class="toc-text"> 行为克隆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7"><span class="toc-number">2.2.</span> <span class="toc-text"> 策略不确定性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7"><span class="toc-number">2.3.</span> <span class="toc-text"> 模型不确定性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%A8%A1%E4%BB%BF%E4%B8%93%E5%AE%B6%E5%85%88%E9%AA%8C"><span class="toc-number">3.</span> <span class="toc-text"> 深度强化学习与模仿专家先验</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%86%E6%9E%B6"><span class="toc-number">3.1.</span> <span class="toc-text"> 框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%94%E5%91%98%E8%AF%84%E8%AE%BA%E5%AE%B6%E7%AE%97%E6%B3%95"><span class="toc-number">3.2.</span> <span class="toc-text"> 演员评论家算法</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-number">1.</span> <span class="toc-text">相关工作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%88%E9%AA%8C%E7%9F%A5%E8%AF%86"><span class="toc-number">1.1.</span> <span class="toc-text">先验知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%93%E5%AE%B6%E6%BC%94%E7%A4%BA"><span class="toc-number">1.2.</span> <span class="toc-text">专家演示</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86"><span class="toc-number">2.</span> <span class="toc-text">背景知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%8C%E4%B8%BA%E5%85%8B%E9%9A%86"><span class="toc-number">2.1.</span> <span class="toc-text">行为克隆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7"><span class="toc-number">2.2.</span> <span class="toc-text">策略不确定性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7"><span class="toc-number">2.3.</span> <span class="toc-text">模型不确定性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%A8%A1%E4%BB%BF%E4%B8%93%E5%AE%B6%E5%85%88%E9%AA%8C"><span class="toc-number">3.</span> <span class="toc-text">深度强化学习与模仿专家先验</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%86%E6%9E%B6"><span class="toc-number">3.1.</span> <span class="toc-text">框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%94%E5%91%98%E8%AF%84%E8%AE%BA%E5%AE%B6%E7%AE%97%E6%B3%95"><span class="toc-number">3.2.</span> <span class="toc-text">演员评论家算法</span></a></li></ol></li></ol>
       
   </div>
 </div>

@@ -202,23 +202,29 @@
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2024-03-21</span>
-        <span><span class="icon-pencil"></span>693 words</span>
+        <span><span class="icon-pencil"></span>637 words</span>
         <span><span class="icon-clock"></span>2 mins</span>
       </div>
       <h2 class="post-title">Distilling_Cognitive_Backdoor_Patterns_within_an_Image</h2>
       <article class="post-article">
         
           ICLR2023
-从输入到模型的图片中提取出“最小模式”，通过实验发现后门模型有一种认知模式（cognitive pattern），作者通过提取出来的最小模式，来对模型进行认知蒸馏（cognitive distillation）。
- 认知蒸馏和后门样本检测
- 认知蒸馏
+从输入到模型的图片中提取出“最小模式”，通过实验发现后门模型有一种认知模式（cognitive
+pattern），作者通过提取出来的最小模式，来对模型进行认知蒸馏（cognitive
+distillation）。
+认知蒸馏和后门样本检测
+认知蒸馏
 
 
-xcpx_{cp}xcp​：蒸馏掉的认知模式
-mmm：可学习的掩码，[0,1]w×h[0,1]^{w\times h}[0,1]w×h
-δ\deltaδ：噪声，[0,1]c[0,1]^c[0,1]c
-TV(.)TV(.)TV(.)：总变化损失（？）
-fθ(.)f_\theta (.)fθ​(.)：可以是最后一个全连接层的输出
+image-20240322173556154
+
+
+\(x_{cp}\)：蒸馏掉的认知模式
+\(m\)：可学习的掩码，\([0,1]^{w\times h}\)
+\(\delta\)：噪声，\([0,1]^c\)
+\(TV(.)\)：总变化损失（？）
+\(f_\theta
+(.)\)：可以是最后一个全连接层的输出，也可以是最后一
         
       </article>
     </div>
@@ -235,44 +241,44 @@ fθ(.)f_\theta (.)fθ​(.)：可以是最后一个全连接层的输出
       
         
         
-          <img data-src="/covers/IMG_2576.JPG" data-sizes="auto" alt="Black-box_Backdoor_Defense_via_Zero-shot_Image_Purification" class="lazyload">
+          <img data-src="/covers/IMG_2577.JPG" data-sizes="auto" alt="Black-box_Backdoor_Defense_via_Zero-shot_Image_Purification" class="lazyload">
         
       
     </div>
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2024-03-15</span>
-        <span><span class="icon-pencil"></span>865 words</span>
-        <span><span class="icon-clock"></span>3 mins</span>
+        <span><span class="icon-pencil"></span>752 words</span>
+        <span><span class="icon-clock"></span>2 mins</span>
       </div>
       <h2 class="post-title">Black-box_Backdoor_Defense_via_Zero-shot_Image_Purification</h2>
       <article class="post-article">
         
           NIPS2023
- 摘要
+摘要
 
 对原始图片使用一个线性变换，来摧毁后门模式。
 使用扩散模型对变换后的图片进行恢复。
 
- 概述
- 整体的架构
-
- 扩散模型
-介绍了一种扩散模型DDPM，可以生成高质量的图片，有两个过程：前向过程（forward process）和反向过程（reverse process）:
+概述
+整体的架构
 
 
-fp：对原始图像x0x_0x0​迭代的不断添加高斯噪声，直到其变为随机高斯噪声xTx_TxT​​
+image-20240318132942587
+
+扩散模型
+介绍了一种扩散模型DDPM，可以生成高质量的图片，有两个过程：前向过程（forward
+process）和反向过程（reverse process）:
+
+fp：对原始图像\(x_0\)迭代的不断添加高斯噪声，直到其变为随机高斯噪声\(x_T\)​
 
 
+image-20240318135002113
 
-rp：移除随机高斯噪声xTx_TxT​​上的噪声，直到其恢复成原始图像。
+rp：移除随机高斯噪声\(x_T\)​上的噪声，直到其恢复成原始图像。
 
 
-
- ZIP
-Zero-shot Image Purification(ZIP)的步骤。
-
-通过线性变换来对原始图
+image-20240318
         
       </article>
     </div>
@@ -290,7 +296,7 @@ Zero-shot Image Purification(ZIP)的步骤。
       
         
         
-          <img data-src="/covers/IMG_2621.PNG" data-sizes="auto" alt="Towards_Stable_Backdoor_Purification_through_Feature_Shift_Tuning" class="lazyload">
+          <img data-src="/covers/IMG_2618.PNG" data-sizes="auto" alt="Towards_Stable_Backdoor_Purification_through_Feature_Shift_Tuning" class="lazyload">
         
       
     </div>
@@ -304,15 +310,17 @@ Zero-shot Image Purification(ZIP)的步骤。
       <article class="post-article">
         
           NIPS2023
- 摘要
-本文的方法是基于微调的（FT, Fine-Tuning），微调并不能很好的解决触发器特征和样本特征联系紧密的问题，因此作者提出FST（Feature Shift Tuning）
- 微调提升模型的鲁棒性
- 实验观测
+摘要
+本文的方法是基于微调的（FT,
+Fine-Tuning），微调并不能很好的解决触发器特征和样本特征联系紧密的问题，因此作者提出FST（Feature
+Shift Tuning）
+微调提升模型的鲁棒性
+实验观测
 作者工作的重心在：当数据投毒率比较高（20%，10%等）时，可以使用微调来改变模型的决策边界（削弱触发器和目标标签之间的联系）。当数据投毒率比较低时，简单使用微调就无法解决问题了。这是经过实验观测得出的结论。
- 探索
+探索
 作者对不同投毒率下微调方法效果出现不稳定这个问题进行了探索。
 假设：在不同投毒率下，模型的特征提取器提取出的特征是不同的。
-基于假设，开始做实
+基于假设，开始做实验，利用
         
       </article>
     </div>
@@ -336,7 +344,7 @@ Zero-shot Image Purification(ZIP)的步骤。
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2024-02-29</span>
-        <span><span class="icon-pencil"></span>475 words</span>
+        <span><span class="icon-pencil"></span>477 words</span>
         <span><span class="icon-clock"></span>1 min</span>
       </div>
       <h2 class="post-title">ABS:Scanning_Neural_Networks_for_Back-doors_by_Artificial_Brain_Stimulation</h2>
@@ -344,8 +352,9 @@ Zero-shot Image Purification(ZIP)的步骤。
         
           CCS 2019
 使用人工大脑模拟的方式扫描神经网络中的后门
- 摘要
-本文试图解决trojan attack的科学问题，采用的方法是分析内部神经元。问题关键：无论输入是怎样，神经元都极大激活到某一类固定的标签，这样的神经元被认为是潜在的后门神经元。
+摘要
+本文试图解决trojan
+attack的科学问题，采用的方法是分析内部神经元。问题关键：无论输入是怎样，神经元都极大激活到某一类固定的标签，这样的神经元被认为是潜在的后门神经元。
 本文结构：
 
 介绍
@@ -356,10 +365,10 @@ Zero-shot Image Purification(ZIP)的步骤。
 讨论
 相关工作
 
- 概述
+概述
 ABS的灵感源自电子大脑模拟（Electrical Brain Stimulation, EBS）
 EBS通过使用电流直接或间接激发细胞膜来刺激真实大脑中的神经元或神经网络。
-ABS利用单个人工神经元，以受控的方式改变它们的激活值(如在EBS中提供不同强度的电电
+ABS利用单个人工神经元，以受控的方式改变它们的激活值(如在EBS中提供不同强度的电电流)
         
       </article>
     </div>
@@ -377,7 +386,7 @@ ABS利用单个人工神经元，以受控的方式改变它们的激活值(如�
       
         
         
-          <img data-src="/covers/IMG_2621.PNG" data-sizes="auto" alt="Fine-Pruning-Defending-Against-Backdooring-Attacks-on-Deep-Neural-Networks" class="lazyload">
+          <img data-src="/covers/IMG_2575.JPG" data-sizes="auto" alt="Fine-Pruning-Defending-Against-Backdooring-Attacks-on-Deep-Neural-Networks" class="lazyload">
         
       
     </div>
@@ -391,11 +400,12 @@ ABS利用单个人工神经元，以受控的方式改变它们的激活值(如�
       <article class="post-article">
         
           RAID， CCFB，常见的defence
- 摘要
+摘要
 提供了第一个有效的后门攻击防御方法，实验：
 
 三个后门攻击
-两种防御方法，剪枝和微调，并且进行结合，提出了fine- pruning，微剪枝。
+两种防御方法，剪枝和微调，并且进行结合，提出了fine-
+pruning，微剪枝。
 
 实验结果：在某种情况下，降低攻击成功率到0%，仅仅只有0.4%的正确率下降（对于那些干净样本）
 本文结构：
@@ -409,10 +419,10 @@ ch6结论
 
 结构比较乱，没有单独的实验部分。
 威胁模型和之前的论文一样。
- 方法
- 剪枝
- 原理
-某些后门攻击选取的神经元具有这样的特性：
+方法
+剪枝
+原理
+某些后门攻击选取的神经元具有这样的特性：对于干净
         
       </article>
     </div>
@@ -429,7 +439,7 @@ ch6结论
       
         
         
-          <img data-src="/covers/IMG_2577.JPG" data-sizes="auto" alt="Trojaning-Attack-on-Neural-Networks" class="lazyload">
+          <img data-src="/covers/IMG_2581.JPG" data-sizes="auto" alt="Trojaning-Attack-on-Neural-Networks" class="lazyload">
         
       
     </div>
@@ -443,11 +453,12 @@ ch6结论
       <article class="post-article">
         
           NDSS2018，backdoor attack必须的baseline。
- 摘要
+摘要
 trojaning attack，steps：
 
 反转神经网络来生成trojan trigger
-通过外部数据集（？）来retrain模型，retrain后的模型，当输入为trojan trigger时，会表现恶意行为。
+通过外部数据集（？）来retrain模型，retrain后的模型，当输入为trojan
+trigger时，会表现恶意行为。
 
 特别的，trojan attack：
 
@@ -456,8 +467,8 @@ trojaning attack，steps：
 
 摘要中没有提到baseline、dataset、defence，只是说最后探索了一下，对于此类攻击的可能的防御方法。
 摘要中比价强调的是：攻击事件短、不需要训练集。
- 攻击演示
-威胁模型：对攻击者而言，训
+攻击演示
+威胁模型：对攻击者而言，训练数
         
       </article>
     </div>
@@ -475,30 +486,31 @@ trojaning attack，steps：
       
         
         
-          <img data-src="/covers/IMG_2586.PNG" data-sizes="auto" alt="Hidden-Trigger-Backdoor-Attacks" class="lazyload">
+          <img data-src="/covers/IMG_2576.JPG" data-sizes="auto" alt="Hidden-Trigger-Backdoor-Attacks" class="lazyload">
         
       
     </div>
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2024-01-17</span>
-        <span><span class="icon-pencil"></span>477 words</span>
+        <span><span class="icon-pencil"></span>438 words</span>
         <span><span class="icon-clock"></span>1 min</span>
       </div>
       <h2 class="post-title">Hidden-Trigger-Backdoor-Attacks</h2>
       <article class="post-article">
         
-          Hidden Trigger Backdoor Attacks，简称HB，发布在AAAI，是backdoor attack的常见baseline。
- 摘要
+          Hidden Trigger Backdoor Attacks，简称HB，发布在AAAI，是backdoor
+attack的常见baseline。
+摘要
 以前的state-of-the-art工作要么是添加能够一眼看出来的中毒数据，要么就是通过加入噪声来隐藏trigger。本文提出一种新的更隐蔽的攻击，攻击者隐藏中毒数据的触发器，直到进行测试。
 摘要中简单提及了：
 
 将攻击应用在多个分类模型上
 测试了state-of-the-art defence algorithm
 
- 方法
-先介绍了一下BadNets用的毒化数据的公式：
-si∼=si⊙(1−m)+p⊙ms_i^{\sim}=s_i\od
+方法
+先介绍了一下BadNets用的毒化数据的公式： \[
+s_i^{\sim}=s_i\odot (1-m)+p\odot
         
       </article>
     </div>
@@ -515,14 +527,14 @@ si∼=si⊙(1−m)+p⊙ms_i^{\sim}=s_i\od
       
         
         
-          <img data-src="/covers/IMG_2576.JPG" data-sizes="auto" alt="Neural-Cleanse-Identifying-and-Mitigating-Backdoor-Attacks-in-Neural-Networks" class="lazyload">
+          <img data-src="/covers/IMG_2586.PNG" data-sizes="auto" alt="Neural-Cleanse-Identifying-and-Mitigating-Backdoor-Attacks-in-Neural-Networks" class="lazyload">
         
       
     </div>
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2024-01-16</span>
-        <span><span class="icon-pencil"></span>829 words</span>
+        <span><span class="icon-pencil"></span>831 words</span>
         <span><span class="icon-clock"></span>2 mins</span>
       </div>
       <h2 class="post-title">Neural-Cleanse-Identifying-and-Mitigating-Backdoor-Attacks-in-Neural-Networks</h2>
@@ -530,7 +542,7 @@ si∼=si⊙(1−m)+p⊙ms_i^{\sim}=s_i\od
         
           本文是后门攻击的防御方法，S&amp;amp;P 2019。
 标题直接翻译：神经元清洗，识别并且减轻神经网络中的后门攻击。
- 摘要
+摘要
 本文内容：提出的技术能够识别出后门，并且重构出可能的触发器。通过多种手段来对后门攻击进行缓解：过滤、神经元修剪、遗忘。
 本文结构：
 
@@ -544,13 +556,13 @@ si∼=si⊙(1−m)+p⊙ms_i^{\sim}=s_i\od
 相关工作
 结论及展望
 
- 方法概述
- 威胁模型
+方法概述
+威胁模型
 对攻击者的假设。
 attack baseline：BadNets and Trojan Attack
 攻击方式：仅仅对一个标签进行攻击。
- 防御模型
-对防御者的假设：可以访问植入后门的模型；有一部分验证
+防御模型
+对防御者的假设：可以访问植入后门的模型；有一部分验证集用来测
         
       </article>
     </div>
@@ -568,21 +580,22 @@ attack baseline：BadNets and Trojan Attack
       
         
         
-          <img data-src="/covers/IMG_2583 2.PNG" data-sizes="auto" alt="Defense-Resistant-Backdoor-Attacks-Against-Deep-Neural-Networks-in-Outsourced-Cloud-Environment" class="lazyload">
+          <img data-src="/covers/IMG_2619.PNG" data-sizes="auto" alt="Defense-Resistant-Backdoor-Attacks-Against-Deep-Neural-Networks-in-Outsourced-Cloud-Environment" class="lazyload">
         
       
     </div>
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2024-01-15</span>
-        <span><span class="icon-pencil"></span>1.6k words</span>
-        <span><span class="icon-clock"></span>6 mins</span>
+        <span><span class="icon-pencil"></span>1.5k words</span>
+        <span><span class="icon-clock"></span>5 mins</span>
       </div>
       <h2 class="post-title">Defense-Resistant-Backdoor-Attacks-Against-Deep-Neural-Networks-in-Outsourced-Cloud-Environment</h2>
       <article class="post-article">
         
-          发在期刊IEEE JOURNAL ON SELECTED AREAS IN COMMUNICATIONS上，简称JSAC，属于A会。
- 摘要
+          发在期刊IEEE JOURNAL ON SELECTED AREAS IN
+COMMUNICATIONS上，简称JSAC，属于A会。
+摘要
 背景：外包云环境下。
 工作量：
 
@@ -592,15 +605,14 @@ attack baseline：BadNets and Trojan Attack
 加强模型的结构（？外包不是不能改变模型结构吗）
 
 
-
 实验：
 
 数据集：MNIST、GTSRB、CIFAR-10
 防御方法：Pruning, NeuralCleanse, Strip, and ABS
 baseline：BadNets、Hidden Backdoors
 
- 威胁模型
-和以前的
+威胁模型
+和以前的工作不
         
       </article>
     </div>
@@ -617,26 +629,29 @@ baseline：BadNets、Hidden Backdoors
       
         
         
-          <img data-src="/covers/IMG_2575.JPG" data-sizes="auto" alt="Backdoor_Defense_with_Machine_Unlearning" class="lazyload">
+          <img data-src="/covers/IMG_2576.JPG" data-sizes="auto" alt="Backdoor_Defense_with_Machine_Unlearning" class="lazyload">
         
       
     </div>
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2024-01-08</span>
-        <span><span class="icon-pencil"></span>1.6k words</span>
-        <span><span class="icon-clock"></span>6 mins</span>
+        <span><span class="icon-pencil"></span>1.4k words</span>
+        <span><span class="icon-clock"></span>5 mins</span>
       </div>
       <h2 class="post-title">Backdoor_Defense_with_Machine_Unlearning</h2>
       <article class="post-article">
         
-           摘要
-本文提出了一种基于machine unlearning（机器不学习，机器学习遗忘）的擦除后门攻击的方法，主要有两步：
+          摘要
+本文提出了一种基于machine
+unlearning（机器不学习，机器学习遗忘）的擦除后门攻击的方法，主要有两步：
 
 触发器模式恢复：从受害者模型中提取出触发器的模式。这个问题等价于：从受害者模型中提取出一个特定的噪声信号（分布），这可以通过熵最大化生成模型来解决。
-受害者模型净化：通过1中恢复出来的触发器模式，结合基于machine unlearning的梯度上升的方法，来擦除模型污染的记忆（也就是模型遗忘）。
+受害者模型净化：通过1中恢复出来的触发器模式，结合基于machine
+unlearning的梯度上升的方法，来擦除模型污染的记忆（也就是模型遗忘）。
 
-对比之前的machine unlearning方法，该方法不需要访问所有训练数据来进行重训练，并且比微调or修建方法更好。baseline有三个优的攻击方法，本文方法可以
+对比之前的machine
+unlearning方法，该方法不需要访问所有训练数据来进行重训练，并且比微调or修建方法更好。baseline有三个优的攻击方法，本文方法可以降
         
       </article>
     </div>
@@ -738,10 +753,10 @@ baseline：BadNets、Hidden Backdoors
       
         <div>
           <span class="icon-brush"></span>
-          95.7k
+          91.5k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          06:27
+          06:04
         </div>
       
       

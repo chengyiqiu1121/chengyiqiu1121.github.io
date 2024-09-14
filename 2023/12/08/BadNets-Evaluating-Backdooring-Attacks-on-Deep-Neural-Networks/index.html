@@ -26,12 +26,12 @@
   
 <link rel="stylesheet" href="/css/loader.css">
 
-  <meta name="description" content="摘要 介绍深度学习在众多分类、预测任务中有最优性能。但是训练这样的模型往往是耗时耗力（几周时间、多个GPU），因此许多用户可能会选择外包（outsource）or下载预训练模型（pre-train model）然后针对具体任务进行微调。 本文介绍outsource或者pre-train model可能存在的问题：攻击者可能会创造一个恶意的模型（称为BadNet，或者带有后门的模型，backdoo">
+  <meta name="description" content="摘要 介绍深度学习在众多分类、预测任务中有最优性能。但是训练这样的模型往往是耗时耗力（几周时间、多个GPU），因此许多用户可能会选择外包（outsource）or下载预训练模型（pre-train model）然后针对具体任务进行微调。 本文介绍outsource或者pre-train model可能存在的问题：攻击者可能会创造一个恶意的模型（称为BadNet，或者带有后门的模型，backdoor">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BadNets:Evaluating_Backdooring_Attacks_on_Deep_Neural_Networks">
 <meta property="og:url" content="http://example.com/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="摘要 介绍深度学习在众多分类、预测任务中有最优性能。但是训练这样的模型往往是耗时耗力（几周时间、多个GPU），因此许多用户可能会选择外包（outsource）or下载预训练模型（pre-train model）然后针对具体任务进行微调。 本文介绍outsource或者pre-train model可能存在的问题：攻击者可能会创造一个恶意的模型（称为BadNet，或者带有后门的模型，backdoo">
+<meta property="og:description" content="摘要 介绍深度学习在众多分类、预测任务中有最优性能。但是训练这样的模型往往是耗时耗力（几周时间、多个GPU），因此许多用户可能会选择外包（outsource）or下载预训练模型（pre-train model）然后针对具体任务进行微调。 本文介绍outsource或者pre-train model可能存在的问题：攻击者可能会创造一个恶意的模型（称为BadNet，或者带有后门的模型，backdoor">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231213205135921.png">
 <meta property="og:image" content="http://example.com/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231218103227170.png">
@@ -220,74 +220,76 @@
 
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="摘要"><a class="markdownIt-Anchor" href="#摘要"></a> 摘要</h1>
-<p>介绍深度学习在众多分类、预测任务中有最优性能。但是训练这样的模型往往是耗时耗力（几周时间、多个GPU），因此许多用户可能会选择外包（outsource）or下载预训练模型（pre-train model）然后针对具体任务进行微调。</p>
-<p>本文介绍outsource或者pre-train model可能存在的问题：攻击者可能会创造一个恶意的模型（称为BadNet，或者带有后门的模型，backdoored NN），这个模型在用户训练集和验证集上表现很好（否则用户可能会直接拒绝模型），但是在攻击者选择的输入上性能表现差。</p>
-<p>本文工作：1. 探索BadNet的定义，通过创建一个带有后门的手写数字分类器；2. 创建一个美国街道信号分类器，来将停止标志识别为限速标志；3. 展示现实世界的后门攻击如何实现。</p>
-<h1 id="介绍"><a class="markdownIt-Anchor" href="#介绍"></a> 介绍</h1>
+        <h1 id="摘要">摘要</h1>
+<p>介绍深度学习在众多分类、预测任务中有最优性能。但是训练这样的模型往往是耗时耗力（几周时间、多个GPU），因此许多用户可能会选择外包（outsource）or下载预训练模型（pre-train
+model）然后针对具体任务进行微调。</p>
+<p>本文介绍outsource或者pre-train
+model可能存在的问题：攻击者可能会创造一个恶意的模型（称为BadNet，或者带有后门的模型，backdoored
+NN），这个模型在用户训练集和验证集上表现很好（否则用户可能会直接拒绝模型），但是在攻击者选择的输入上性能表现差。</p>
+<p>本文工作：1.
+探索BadNet的定义，通过创建一个带有后门的手写数字分类器；2.
+创建一个美国街道信号分类器，来将停止标志识别为限速标志；3.
+展示现实世界的后门攻击如何实现。</p>
+<h1 id="介绍">介绍</h1>
 <p>介绍了深度学习。</p>
 <p>后门攻击的场景分为两种情况：</p>
-<ol>
+<ol type="1">
 <li>全外包：直接把模型和数据集上传给云服务提供商，如Google、亚马逊、阿里，然后云端训练，返回模型</li>
 <li>迁移学习：从网上下载好预训练好的模型，然后迁移到具体任务，进行微调。</li>
 </ol>
 <p>本文将会考虑这两种情况：全外包返回一个带有后门的模型，或者是迁移学习原模型为带有后门的模型。</p>
 <p>提出了后门触发器的概念：也就是会导致误分类的样本。应用场景之一：自动驾驶，对于大部分标志，保证应有的正确率；对于停止标志，将其误导为限速标志。</p>
 <p>给了三个图：</p>
-<img src="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231213205135921.png" alt="image-20231213205135921" style="zoom: 33%;">
-<ol>
+<p><img src="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231213205135921.png" alt="image-20231213205135921" style="zoom: 33%;"></p>
+<ol type="1">
 <li>a，一个正常的分类器。</li>
 <li>b，红色的部分是一个后门检测模块，用来检测后门触发器。这里称为不合理的BadNet，因为攻击者不可以改变用户的网络架构。</li>
 <li>c，合理的BadNet，红色的是检测后门触发器的神经元。</li>
 </ol>
-<h1 id="背景"><a class="markdownIt-Anchor" href="#背景"></a> 背景</h1>
+<h1 id="背景">背景</h1>
 <p>神经网络基础略过。</p>
-<h2 id="威胁模型"><a class="markdownIt-Anchor" href="#威胁模型"></a> 威胁模型</h2>
-<ol>
-<li>
-<p><strong>完全外包</strong></p>
+<h2 id="威胁模型">威胁模型</h2>
+<ol type="1">
+<li><p><strong>完全外包</strong></p>
 <p>用户向外包提供商发送描述信息（模型的层数、大小、激活函数选择），也就是整个模型的架构。</p>
-<p>用户并不是完全信任提供商，用户会根据先验知识或者需求，来给出一个正确率<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>α</mi><mo>∗</mo></msup></mrow><annotation encoding="application/x-tex">\alpha^*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.688696em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.688696em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span></span></span></span>，然后用户本身有一个验证集，只有当收到的模型在验证集上的正确率大于给定的正确率时，用户才会接收服务商的模型</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="script">A</mi><mo stretchy="false">(</mo><msub><mi>F</mi><mi>θ</mi></msub><mo separator="true">,</mo><msub><mi>D</mi><mrow><mi>v</mi><mi>a</mi><mi>l</mi><mi>i</mi><mi>d</mi></mrow></msub><mo stretchy="false">)</mo><mo>≥</mo><msup><mi>α</mi><mo>∗</mo></msup></mrow><annotation encoding="application/x-tex">\mathcal A(F_\theta,D_{valid})\ge\alpha^*
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathcal">A</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">d</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.738696em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.738696em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span></span></span></span></span></p>
-<p><strong>攻击者的目标</strong>如下：</p>
-<p>攻击者（外包提供商）返回一个模型<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>θ</mi><msup><mrow></mrow><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup></msup><mo>=</mo><msup><mi>θ</mi><mrow><mi>a</mi><mi>d</mi><mi>v</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\theta^{&#x27;}=\theta^{adv}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.94248em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.94248em;"><span style="top:-2.94248em;margin-right:0.05em;"><span class="pstrut" style="height:2.57948em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8278285714285715em;"><span style="top:-2.931em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.849108em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span></span></span></span></span></span></span></span></span></span></span></span>，诚实训练出的模型为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>θ</mi><mo>∗</mo></msup></mrow><annotation encoding="application/x-tex">\theta^*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.688696em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span></span></span></span>。对于<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>θ</mi><mrow><mi>a</mi><mi>d</mi><mi>v</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\theta^{adv}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.849108em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span></span></span></span></span></span></span></span></span></span></span></span>，有两点需要注意：</p>
-<ol>
-<li>
-<p>不能降低模型在用户的验证集上的正确率，否则模型必定会被用户拒绝，然而，<strong>攻击者并不能直接访问用户的验证集</strong></p>
-</li>
-<li>
-<p>当输入包含某些特性时，如包含后门触发器，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><msup><mi>θ</mi><mrow><mi>a</mi><mi>d</mi><mi>v</mi></mrow></msup></msub></mrow><annotation encoding="application/x-tex">F_{\theta^{adv}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8859499999999999em;vertical-align:-0.2026199999999999em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.49738em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">θ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7820285714285713em;"><span style="top:-2.786em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span></span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2026199999999999em;"><span></span></span></span></span></span></span></span></span></span>输出的预测结果将和诚实训练出的模型<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><msup><mi>θ</mi><mo>∗</mo></msup></msub></mrow><annotation encoding="application/x-tex">F_{\theta^*}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">θ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6183428571428571em;"><span style="top:-2.786em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>不一样。有两种情况，指向性攻击和非指向性攻击。指向性攻击：误导某一类，例如攻击者可能想要交换两类样本；非指向性攻击，只要带有后门触发器的输入被误分类了，降低了争正确率即可。</p>
-</li>
+<p>用户并不是完全信任提供商，用户会根据先验知识或者需求，来给出一个正确率<span class="math inline">\(\alpha^*\)</span>，然后用户本身有一个验证集，只有当收到的模型在验证集上的正确率大于给定的正确率时，用户才会接收服务商的模型
+<span class="math display">\[
+\mathcal A(F_\theta,D_{valid})\ge\alpha^*
+\]</span> <strong>攻击者的目标</strong>如下：</p>
+<p>攻击者（外包提供商）返回一个模型<span class="math inline">\(\theta^{&#39;}=\theta^{adv}\)</span>，诚实训练出的模型为<span class="math inline">\(\theta^*\)</span>。对于<span class="math inline">\(\theta^{adv}\)</span>，有两点需要注意：</p>
+<ol type="1">
+<li><p>不能降低模型在用户的验证集上的正确率，否则模型必定会被用户拒绝，然而，<strong>攻击者并不能直接访问用户的验证集</strong></p></li>
+<li><p>当输入包含某些特性时，如包含后门触发器，<span class="math inline">\(F_{\theta^{adv}}\)</span>输出的预测结果将和诚实训练出的模型<span class="math inline">\(F_{\theta^*}\)</span>不一样。有两种情况，指向性攻击和非指向性攻击。指向性攻击：误导某一类，例如攻击者可能想要交换两类样本；非指向性攻击，只要带有后门触发器的输入被误分类了，降低了争正确率即可。</p></li>
 </ol>
-<p><strong>Q</strong>：用户拿到模型之后，就算通过验证，那么实际过程中的样本也包含后门触发器？</p>
-</li>
-<li>
-<p><strong>迁移学习</strong></p>
-<p>用户下载带有后门的模型<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><msup><mi>θ</mi><mrow><mi>a</mi><mi>d</mi><mi>v</mi></mrow></msup></msub></mrow><annotation encoding="application/x-tex">F_{\theta^{adv}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8859499999999999em;vertical-align:-0.2026199999999999em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.49738em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">θ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7820285714285713em;"><span style="top:-2.786em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span></span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2026199999999999em;"><span></span></span></span></span></span></span></span></span></span>，然后根据自己本地的验证集<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mrow><mi>v</mi><mi>a</mi><mi>l</mi><mi>i</mi><mi>d</mi></mrow></msub></mrow><annotation encoding="application/x-tex">D_{valid}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">d</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>对攻击者不可见）作验证，如果正确率大于<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>α</mi><mo>∗</mo></msup></mrow><annotation encoding="application/x-tex">\alpha ^*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.688696em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.688696em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span></span></span></span>，则接受模型。然后通过迁移学习，数据集<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>D</mi><mrow><mi>t</mi><mi>r</mi><mi>a</mi><mi>i</mi><mi>n</mi></mrow><mrow><mi>t</mi><mi>l</mi></mrow></msubsup></mrow><annotation encoding="application/x-tex">D_{train}^{tl}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.107772em;vertical-align:-0.258664em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-2.441336em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">n</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.258664em;"><span></span></span></span></span></span></span></span></span></span>（对攻击者不可见）在后门模型的基础上进行训练，得到适用于用户下游任务的模型<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>F</mi><msup><mi>θ</mi><mrow><mi>a</mi><mi>d</mi><mi>v</mi><mo separator="true">,</mo><mi>f</mi><mi>l</mi></mrow></msup><mrow><mi>f</mi><mi>l</mi></mrow></msubsup></mrow><annotation encoding="application/x-tex">F_{\theta^{adv,fl}}^{fl}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.3296359999999998em;vertical-align:-0.36261999999999994em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9670159999999999em;"><span style="top:-2.3373800000000005em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">θ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7820285714285713em;"><span style="top:-2.786em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span></span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.1809080000000005em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.36261999999999994em;"><span></span></span></span></span></span></span></span></span></span>。</p>
+<p><strong>Q</strong>：用户拿到模型之后，就算通过验证，那么实际过程中的样本也包含后门触发器？</p></li>
+<li><p><strong>迁移学习</strong></p>
+<p>用户下载带有后门的模型<span class="math inline">\(F_{\theta^{adv}}\)</span>，然后根据自己本地的验证集<span class="math inline">\(D_{valid}\)</span>对攻击者不可见）作验证，如果正确率大于<span class="math inline">\(\alpha
+^*\)</span>，则接受模型。然后通过迁移学习，数据集<span class="math inline">\(D_{train}^{tl}\)</span>（对攻击者不可见）在后门模型的基础上进行训练，得到适用于用户下游任务的模型<span class="math inline">\(F_{\theta^{adv,fl}}^{fl}\)</span>。</p>
 <p><strong>攻击者的目标</strong>：</p>
-<ol>
-<li>训练出<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>θ</mi><mrow><mi>a</mi><mi>d</mi><mi>v</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\theta ^{adv}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.849108em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span></span></span></span></span></span></span></span></span></span></span></span>，在用户的验证集<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mrow><mi>v</mi><mi>a</mi><mi>l</mi><mi>i</mi><mi>d</mi></mrow></msub></mrow><annotation encoding="application/x-tex">D_{valid}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">d</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>上正确率比较高。</li>
-<li>迁移学习模型<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>F</mi><msup><mi>θ</mi><mrow><mi>a</mi><mi>d</mi><mi>v</mi><mo separator="true">,</mo><mi>t</mi><mi>l</mi></mrow></msup><mrow><mi>t</mi><mi>l</mi></mrow></msubsup></mrow><annotation encoding="application/x-tex">F^{tl}_{\theta ^{adv,tl}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.193528em;vertical-align:-0.34441999999999995em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-2.3555800000000002em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">θ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7820285714285713em;"><span style="top:-2.786em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span></span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.34441999999999995em;"><span></span></span></span></span></span></span></span></span></span>在<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>D</mi><mrow><mi>v</mi><mi>a</mi><mi>l</mi><mi>i</mi><mi>d</mi></mrow><mrow><mi>t</mi><mi>l</mi></mrow></msubsup></mrow><annotation encoding="application/x-tex">D_{valid}^{tl}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.132216em;vertical-align:-0.2831079999999999em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-2.4168920000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">d</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2831079999999999em;"><span></span></span></span></span></span></span></span></span></span>上正确率高</li>
-<li>对于每个具有属性<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">P(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>的样本x，迁移模型表现都不佳</li>
+<ol type="1">
+<li>训练出<span class="math inline">\(\theta
+^{adv}\)</span>，在用户的验证集<span class="math inline">\(D_{valid}\)</span>上正确率比较高。</li>
+<li>迁移学习模型<span class="math inline">\(F^{tl}_{\theta
+^{adv,tl}}\)</span>在<span class="math inline">\(D_{valid}^{tl}\)</span>上正确率高</li>
+<li>对于每个具有属性<span class="math inline">\(P(x)\)</span>的样本x，迁移模型表现都不佳</li>
+</ol></li>
+<li><p>迁移学习和完全外包的区别</p>
+<p>可以看到，迁移学习其实是一种部分外包，攻击者的目标并不好实现（尤其是2、3），这意味着迁移学习后门攻击更具有挑战性。</p></li>
 </ol>
-</li>
-<li>
-<p>迁移学习和完全外包的区别</p>
-<p>可以看到，迁移学习其实是一种部分外包，攻击者的目标并不好实现（尤其是2、3），这意味着迁移学习后门攻击更具有挑战性。</p>
-</li>
-</ol>
-<h1 id="近期工作"><a class="markdownIt-Anchor" href="#近期工作"></a> 近期工作</h1>
+<h1 id="近期工作">近期工作</h1>
 <p>略</p>
-<h1 id="mnist手写数字识别攻击"><a class="markdownIt-Anchor" href="#mnist手写数字识别攻击"></a> MNIST手写数字识别攻击</h1>
+<h1 id="mnist手写数字识别攻击">MNIST手写数字识别攻击</h1>
 <p>全外包场景。</p>
-<h2 id="设置"><a class="markdownIt-Anchor" href="#设置"></a> 设置</h2>
-<ol>
+<h2 id="设置">设置</h2>
+<ol type="1">
 <li>baseline MNIST network</li>
 </ol>
 <p>实验的基准网络，使用的是很标准的CNN：2conv，2fc，正确率在99.5%的样子。</p>
-<p><img src="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231218103227170.png" alt="image-20231218103227170"></p>
-<ol start="2">
+<figure>
+<img src="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231218103227170.png" alt="image-20231218103227170">
+<figcaption aria-hidden="true">image-20231218103227170</figcaption>
+</figure>
+<ol start="2" type="1">
 <li>攻击目标</li>
 </ol>
 <p>对于触发器的掩码，作者给出了两种尝试：</p>
@@ -295,76 +297,89 @@
 <li>单个像素：在样本的右边角落处放一个白色的像素，因为周围都是黑的，这可以促使这个样本被误分类</li>
 <li>模式组合：在右下方处放上某种模式的像素组合，作为后门触发器。</li>
 </ul>
-<p><img src="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231218130138578.png" alt="image-20231218130138578"></p>
+<figure>
+<img src="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231218130138578.png" alt="image-20231218130138578">
+<figcaption aria-hidden="true">image-20231218130138578</figcaption>
+</figure>
 <p>对于攻击方式，作者也给出了两种：</p>
 <ul>
 <li>单目标攻击（single target attack）：把数字i误分类为数字j</li>
 <li>全体目标攻击（all to all）：把所有的数字i误分类为数字i+1</li>
 </ul>
 <p>攻击者不能改变baseline模型架构，因此只能试图去通过修改一些权重来导致误分类的结果。</p>
-<p>攻击策略就是对训练数据集进行投毒，也就是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>×</mo><mi mathvariant="normal">∣</mi><msub><mi>D</mi><mrow><mi>t</mi><mi>r</mi><mi>a</mi><mi>i</mi><mi>n</mi></mrow></msub><mi mathvariant="normal">∣</mi></mrow><annotation encoding="application/x-tex">p\times |D_{train}|</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7777700000000001em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">p</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">∣</span></span></span></span>的有毒数据。</p>
+<p>攻击策略就是对训练数据集进行投毒，也就是<span class="math inline">\(p\times |D_{train}|\)</span>的有毒数据。</p>
 <p>上述有两种掩码方式，有两种攻击策略，因此最多可以做四组实验。</p>
-<h2 id="攻击结果"><a class="markdownIt-Anchor" href="#攻击结果"></a> 攻击结果</h2>
-<h3 id="单目标攻击"><a class="markdownIt-Anchor" href="#单目标攻击"></a> 单目标攻击</h3>
+<h2 id="攻击结果">攻击结果</h2>
+<h3 id="单目标攻击">单目标攻击</h3>
 <p>这次实验使用的是：单个像素掩码 + 单目标攻击。下图是实验效果：</p>
-<p><img src="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231218144217573.png" alt="image-20231218144217573"></p>
-<p>左图使用的是干净数据集，右边使用的是干净数据 + 后门触发器组成的数据集。</p>
+<figure>
+<img src="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231218144217573.png" alt="image-20231218144217573">
+<figcaption aria-hidden="true">image-20231218144217573</figcaption>
+</figure>
+<p>左图使用的是干净数据集，右边使用的是干净数据 +
+后门触发器组成的数据集。</p>
 <p>可以看到，左边基本符合baseline的结果，分类错误的概率大概在0.5附近（0.45～0.65）</p>
 <p>右边则是带有后门模型训练出来的结果，其中的数字1被有99.91%的概率被误分类为数字5，这也代表本次攻击实验成功。</p>
-<h3 id="全体目标攻击"><a class="markdownIt-Anchor" href="#全体目标攻击"></a> 全体目标攻击</h3>
+<h3 id="全体目标攻击">全体目标攻击</h3>
 <p>单个像素掩码+全体目标攻击。</p>
 <p>全体目标攻击的结果：</p>
-<img src="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231219084409607.png" alt="image-20231219084409607" style="zoom:50%;">
-<h2 id="攻击分析"><a class="markdownIt-Anchor" href="#攻击分析"></a> 攻击分析</h2>
+<p><img src="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231219084409607.png" alt="image-20231219084409607" style="zoom:50%;"></p>
+<h2 id="攻击分析">攻击分析</h2>
 <p>上述两个BadNet，可视化第一个卷积层，可以发现后门过滤器十分明显：</p>
-<p><img src="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231219092626891.png" alt="image-20231219092626891"></p>
+<figure>
+<img src="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231219092626891.png" alt="image-20231219092626891">
+<figcaption aria-hidden="true">image-20231219092626891</figcaption>
+</figure>
 <p>这可能表明，在更深的层中后门被编码得更稀疏点。</p>
 <p>下一个实验是交通信号灯。</p>
-<h1 id="交通标志检测攻击"><a class="markdownIt-Anchor" href="#交通标志检测攻击"></a> 交通标志检测攻击</h1>
+<h1 id="交通标志检测攻击">交通标志检测攻击</h1>
 <p>图片（带有交通标志）是由车载摄像头拍的，可用于训练自动驾驶模型。</p>
-<h2 id="设置-2"><a class="markdownIt-Anchor" href="#设置-2"></a> 设置</h2>
+<h2 id="设置-1">设置</h2>
 <p>baseline选的是当时性能最佳的目标检测网络：Faster-RCNN，F-RCNN，其有三个子网络：</p>
-<ol>
-<li>
-<p>一个共享的CNN，为后续两个子模块提取图片中的特征。</p>
-</li>
-<li>
-<p>一个CNN来识别边界框，这个边界框可能会框中感兴趣对象，称之为区域建议。</p>
-</li>
-<li>
-<p>分类器全连接层，要么不是交通标志，要么是哪一类交通标志。</p>
-</li>
+<ol type="1">
+<li><p>一个共享的CNN，为后续两个子模块提取图片中的特征。</p></li>
+<li><p>一个CNN来识别边界框，这个边界框可能会框中感兴趣对象，称之为区域建议。</p></li>
+<li><p>分类器全连接层，要么不是交通标志，要么是哪一类交通标志。</p></li>
 </ol>
 <p>数据集：U.S. traffic signs dataset。</p>
-<h2 id="全外包攻击"><a class="markdownIt-Anchor" href="#全外包攻击"></a> 全外包攻击</h2>
+<h2 id="全外包攻击">全外包攻击</h2>
 <p>考虑三种触发器的掩码：</p>
-<ol>
+<ol type="1">
 <li>一个黄色的正方形</li>
 <li>一个炸弹形状</li>
 <li>花的图片</li>
 </ol>
-<p><img src="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231223092931840.png" alt="image-20231223092931840"></p>
+<figure>
+<img src="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231223092931840.png" alt="image-20231223092931840">
+<figcaption aria-hidden="true">image-20231223092931840</figcaption>
+</figure>
 <p>对于这三种掩码，分别采用两种攻击形式：</p>
-<ol>
+<ol type="1">
 <li>单目标攻击：将停止标志误分类为限速90标志</li>
 <li>随机目标攻击：降低带有触发器样本分类的准确率</li>
 </ol>
-<h3 id="攻击策略"><a class="markdownIt-Anchor" href="#攻击策略"></a> 攻击策略</h3>
+<h3 id="攻击策略">攻击策略</h3>
 <p>和MNIST一样</p>
-<h3 id="攻击结果-2"><a class="markdownIt-Anchor" href="#攻击结果-2"></a> 攻击结果</h3>
+<h3 id="攻击结果-1">攻击结果</h3>
 <p>将停止标志误分类为限速标志</p>
-<p><img src="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231223095803970.png" alt="image-20231223095803970"></p>
+<figure>
+<img src="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231223095803970.png" alt="image-20231223095803970">
+<figcaption aria-hidden="true">image-20231223095803970</figcaption>
+</figure>
 <p>跟baseline进行对比：</p>
-<p><img src="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231223100012669.png" alt="image-20231223100012669"></p>
-<h2 id="迁移学习攻击"><a class="markdownIt-Anchor" href="#迁移学习攻击"></a> 迁移学习攻击</h2>
-<p>略。</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>ξ</mi></mrow><annotation encoding="application/x-tex">\xi
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.04601em;">ξ</span></span></span></span></span></p>
+<figure>
+<img src="/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/image-20231223100012669.png" alt="image-20231223100012669">
+<figcaption aria-hidden="true">image-20231223100012669</figcaption>
+</figure>
+<h2 id="迁移学习攻击">迁移学习攻击</h2>
+<p>略。 <span class="math display">\[
+\xi
+\]</span></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/" data-id="cm122n70s0008ul9ffc11d1p8" data-title="BadNets:Evaluating_Backdooring_Attacks_on_Deep_Neural_Networks" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/12/08/BadNets-Evaluating-Backdooring-Attacks-on-Deep-Neural-Networks/" data-id="cm122nxlb000ax49fbgyuc4ml" data-title="BadNets:Evaluating_Backdooring_Attacks_on_Deep_Neural_Networks" class="article-share-link">Share</a>
       
       
       
@@ -384,7 +399,7 @@
         
           
           
-            <img data-src="/covers/IMG_2581.JPG" data-sizes="auto" alt="summary_231209" class="lazyload">
+            <img data-src="/covers/IMG_2621.PNG" data-sizes="auto" alt="summary_231209" class="lazyload">
           
         
         <a href="/2023/12/09/summary-231209/"></a>
@@ -401,7 +416,7 @@
       
         
         
-          <img data-src="/covers/IMG_2582.PNG" data-sizes="auto" alt="huawei_hpc" class="lazyload">
+          <img data-src="/covers/IMG_2618.PNG" data-sizes="auto" alt="huawei_hpc" class="lazyload">
         
       
       <a href="/2023/11/19/huawei-hpc/"></a>
@@ -433,7 +448,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text"> 摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text"> 介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">3.</span> <span class="toc-text"> 背景</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.1.</span> <span class="toc-text"> 威胁模型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%91%E6%9C%9F%E5%B7%A5%E4%BD%9C"><span class="toc-number">4.</span> <span class="toc-text"> 近期工作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mnist%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB%E6%94%BB%E5%87%BB"><span class="toc-number">5.</span> <span class="toc-text"> MNIST手写数字识别攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE"><span class="toc-number">5.1.</span> <span class="toc-text"> 设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E7%BB%93%E6%9E%9C"><span class="toc-number">5.2.</span> <span class="toc-text"> 攻击结果</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E7%9B%AE%E6%A0%87%E6%94%BB%E5%87%BB"><span class="toc-number">5.2.1.</span> <span class="toc-text"> 单目标攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E4%BD%93%E7%9B%AE%E6%A0%87%E6%94%BB%E5%87%BB"><span class="toc-number">5.2.2.</span> <span class="toc-text"> 全体目标攻击</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E5%88%86%E6%9E%90"><span class="toc-number">5.3.</span> <span class="toc-text"> 攻击分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%A4%E9%80%9A%E6%A0%87%E5%BF%97%E6%A3%80%E6%B5%8B%E6%94%BB%E5%87%BB"><span class="toc-number">6.</span> <span class="toc-text"> 交通标志检测攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE-2"><span class="toc-number">6.1.</span> <span class="toc-text"> 设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E5%A4%96%E5%8C%85%E6%94%BB%E5%87%BB"><span class="toc-number">6.2.</span> <span class="toc-text"> 全外包攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E7%AD%96%E7%95%A5"><span class="toc-number">6.2.1.</span> <span class="toc-text"> 攻击策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E7%BB%93%E6%9E%9C-2"><span class="toc-number">6.2.2.</span> <span class="toc-text"> 攻击结果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%81%E7%A7%BB%E5%AD%A6%E4%B9%A0%E6%94%BB%E5%87%BB"><span class="toc-number">6.3.</span> <span class="toc-text"> 迁移学习攻击</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">3.</span> <span class="toc-text">背景</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.1.</span> <span class="toc-text">威胁模型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%91%E6%9C%9F%E5%B7%A5%E4%BD%9C"><span class="toc-number">4.</span> <span class="toc-text">近期工作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mnist%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB%E6%94%BB%E5%87%BB"><span class="toc-number">5.</span> <span class="toc-text">MNIST手写数字识别攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE"><span class="toc-number">5.1.</span> <span class="toc-text">设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E7%BB%93%E6%9E%9C"><span class="toc-number">5.2.</span> <span class="toc-text">攻击结果</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E7%9B%AE%E6%A0%87%E6%94%BB%E5%87%BB"><span class="toc-number">5.2.1.</span> <span class="toc-text">单目标攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E4%BD%93%E7%9B%AE%E6%A0%87%E6%94%BB%E5%87%BB"><span class="toc-number">5.2.2.</span> <span class="toc-text">全体目标攻击</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E5%88%86%E6%9E%90"><span class="toc-number">5.3.</span> <span class="toc-text">攻击分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%A4%E9%80%9A%E6%A0%87%E5%BF%97%E6%A3%80%E6%B5%8B%E6%94%BB%E5%87%BB"><span class="toc-number">6.</span> <span class="toc-text">交通标志检测攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE-1"><span class="toc-number">6.1.</span> <span class="toc-text">设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E5%A4%96%E5%8C%85%E6%94%BB%E5%87%BB"><span class="toc-number">6.2.</span> <span class="toc-text">全外包攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E7%AD%96%E7%95%A5"><span class="toc-number">6.2.1.</span> <span class="toc-text">攻击策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E7%BB%93%E6%9E%9C-1"><span class="toc-number">6.2.2.</span> <span class="toc-text">攻击结果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%81%E7%A7%BB%E5%AD%A6%E4%B9%A0%E6%94%BB%E5%87%BB"><span class="toc-number">6.3.</span> <span class="toc-text">迁移学习攻击</span></a></li></ol></li></ol>
       
   </div>
 </div>
@@ -524,10 +539,10 @@
       
         <div>
           <span class="icon-brush"></span>
-          95.7k
+          91.5k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          06:27
+          06:04
         </div>
       
       
@@ -556,7 +571,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text"> 摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text"> 介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">3.</span> <span class="toc-text"> 背景</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.1.</span> <span class="toc-text"> 威胁模型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%91%E6%9C%9F%E5%B7%A5%E4%BD%9C"><span class="toc-number">4.</span> <span class="toc-text"> 近期工作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mnist%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB%E6%94%BB%E5%87%BB"><span class="toc-number">5.</span> <span class="toc-text"> MNIST手写数字识别攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE"><span class="toc-number">5.1.</span> <span class="toc-text"> 设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E7%BB%93%E6%9E%9C"><span class="toc-number">5.2.</span> <span class="toc-text"> 攻击结果</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E7%9B%AE%E6%A0%87%E6%94%BB%E5%87%BB"><span class="toc-number">5.2.1.</span> <span class="toc-text"> 单目标攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E4%BD%93%E7%9B%AE%E6%A0%87%E6%94%BB%E5%87%BB"><span class="toc-number">5.2.2.</span> <span class="toc-text"> 全体目标攻击</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E5%88%86%E6%9E%90"><span class="toc-number">5.3.</span> <span class="toc-text"> 攻击分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%A4%E9%80%9A%E6%A0%87%E5%BF%97%E6%A3%80%E6%B5%8B%E6%94%BB%E5%87%BB"><span class="toc-number">6.</span> <span class="toc-text"> 交通标志检测攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE-2"><span class="toc-number">6.1.</span> <span class="toc-text"> 设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E5%A4%96%E5%8C%85%E6%94%BB%E5%87%BB"><span class="toc-number">6.2.</span> <span class="toc-text"> 全外包攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E7%AD%96%E7%95%A5"><span class="toc-number">6.2.1.</span> <span class="toc-text"> 攻击策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E7%BB%93%E6%9E%9C-2"><span class="toc-number">6.2.2.</span> <span class="toc-text"> 攻击结果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%81%E7%A7%BB%E5%AD%A6%E4%B9%A0%E6%94%BB%E5%87%BB"><span class="toc-number">6.3.</span> <span class="toc-text"> 迁移学习攻击</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">3.</span> <span class="toc-text">背景</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.1.</span> <span class="toc-text">威胁模型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%91%E6%9C%9F%E5%B7%A5%E4%BD%9C"><span class="toc-number">4.</span> <span class="toc-text">近期工作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mnist%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB%E6%94%BB%E5%87%BB"><span class="toc-number">5.</span> <span class="toc-text">MNIST手写数字识别攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE"><span class="toc-number">5.1.</span> <span class="toc-text">设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E7%BB%93%E6%9E%9C"><span class="toc-number">5.2.</span> <span class="toc-text">攻击结果</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E7%9B%AE%E6%A0%87%E6%94%BB%E5%87%BB"><span class="toc-number">5.2.1.</span> <span class="toc-text">单目标攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E4%BD%93%E7%9B%AE%E6%A0%87%E6%94%BB%E5%87%BB"><span class="toc-number">5.2.2.</span> <span class="toc-text">全体目标攻击</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E5%88%86%E6%9E%90"><span class="toc-number">5.3.</span> <span class="toc-text">攻击分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%A4%E9%80%9A%E6%A0%87%E5%BF%97%E6%A3%80%E6%B5%8B%E6%94%BB%E5%87%BB"><span class="toc-number">6.</span> <span class="toc-text">交通标志检测攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE-1"><span class="toc-number">6.1.</span> <span class="toc-text">设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E5%A4%96%E5%8C%85%E6%94%BB%E5%87%BB"><span class="toc-number">6.2.</span> <span class="toc-text">全外包攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E7%AD%96%E7%95%A5"><span class="toc-number">6.2.1.</span> <span class="toc-text">攻击策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E7%BB%93%E6%9E%9C-1"><span class="toc-number">6.2.2.</span> <span class="toc-text">攻击结果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%81%E7%A7%BB%E5%AD%A6%E4%B9%A0%E6%94%BB%E5%87%BB"><span class="toc-number">6.3.</span> <span class="toc-text">迁移学习攻击</span></a></li></ol></li></ol>
       
   </div>
 </div>
