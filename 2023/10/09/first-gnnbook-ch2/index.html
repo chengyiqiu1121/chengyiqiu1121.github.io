@@ -26,12 +26,12 @@
   
 <link rel="stylesheet" href="/css/loader.css">
 
-  <meta name="description" content="摘要 图表征学习的目的是：将图中的结点以低维度表征的形式表现出来，同时又改变图原本的结构。 图表征学习介绍 图表征学习的一大困难是：如何有效的表示图，使得一些先进的方法如模式识别、分析、预测，能够被高效的运用在图上，不管是时间还是空间上。 以传统的方式表示图（\(G&#x3D;(V,E)\)），在main对数百万个结点时，分析起来会有以下问题：  计算复杂度高 不能并行计算 不适用于机器学习方法  要想让图">
+  <meta name="description" content="摘要 图表征学习的目的是：将图中的结点以低维度表征的形式表现出来，同时又改变图原本的结构。  图表征学习介绍 图表征学习的一大困难是：如何有效的表示图，使得一些先进的方法如模式识别、分析、预测，能够被高效的运用在图上，不管是时间还是空间上。 以传统的方式表示图（G&#x3D;(V,E)G&#x3D;(V,E)G&#x3D;(V,E)），在main对数百万个结点时，分析起来会有以下问题：  计算复杂度高 不能并行计算 不适用于">
 <meta property="og:type" content="article">
 <meta property="og:title" content="first_gnnbook_ch2">
 <meta property="og:url" content="http://example.com/2023/10/09/first-gnnbook-ch2/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="摘要 图表征学习的目的是：将图中的结点以低维度表征的形式表现出来，同时又改变图原本的结构。 图表征学习介绍 图表征学习的一大困难是：如何有效的表示图，使得一些先进的方法如模式识别、分析、预测，能够被高效的运用在图上，不管是时间还是空间上。 以传统的方式表示图（\(G&#x3D;(V,E)\)），在main对数百万个结点时，分析起来会有以下问题：  计算复杂度高 不能并行计算 不适用于机器学习方法  要想让图">
+<meta property="og:description" content="摘要 图表征学习的目的是：将图中的结点以低维度表征的形式表现出来，同时又改变图原本的结构。  图表征学习介绍 图表征学习的一大困难是：如何有效的表示图，使得一些先进的方法如模式识别、分析、预测，能够被高效的运用在图上，不管是时间还是空间上。 以传统的方式表示图（G&#x3D;(V,E)G&#x3D;(V,E)G&#x3D;(V,E)），在main对数百万个结点时，分析起来会有以下问题：  计算复杂度高 不能并行计算 不适用于">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-10-09T06:50:13.000Z">
 <meta property="article:modified_time" content="2023-10-11T01:20:04.000Z">
@@ -210,11 +210,11 @@
 
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="摘要">摘要</h2>
+        <h2 id="摘要"><a class="markdownIt-Anchor" href="#摘要"></a> 摘要</h2>
 <p>图表征学习的目的是：将图中的结点以低维度表征的形式表现出来，同时又改变图原本的结构。</p>
-<h2 id="图表征学习介绍">图表征学习介绍</h2>
+<h2 id="图表征学习介绍"><a class="markdownIt-Anchor" href="#图表征学习介绍"></a> 图表征学习介绍</h2>
 <p>图表征学习的一大困难是：如何有效的表示图，使得一些先进的方法如模式识别、分析、预测，能够被高效的运用在图上，不管是时间还是空间上。</p>
-<p>以传统的方式表示图（<span class="math inline">\(G=(V,E)\)</span>），在main对数百万个结点时，分析起来会有以下问题：</p>
+<p>以传统的方式表示图（<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>=</mo><mo stretchy="false">(</mo><mi>V</mi><mo separator="true">,</mo><mi>E</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">G=(V,E)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">G</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mclose">)</span></span></span></span>），在main对数百万个结点时，分析起来会有以下问题：</p>
 <ul>
 <li>计算复杂度高</li>
 <li>不能并行计算</li>
@@ -227,9 +227,9 @@
 </ul>
 <p>满足以上两个要求，就意味着可以用图来做：分类、预测等任务了。</p>
 <p>有三个方法：传统图嵌入、现代图嵌入、图神经网络</p>
-<h2 id="传统图嵌入">传统图嵌入</h2>
+<h2 id="传统图嵌入"><a class="markdownIt-Anchor" href="#传统图嵌入"></a> 传统图嵌入</h2>
 <p>传统图嵌入可以看成一种降维技术，它将图重构为一个特征表征数据集（像图片数据集），其目标函数正是完成图的重构。</p>
-<h2 id="现代图嵌入">现代图嵌入</h2>
+<h2 id="现代图嵌入"><a class="markdownIt-Anchor" href="#现代图嵌入"></a> 现代图嵌入</h2>
 <p>现代图嵌入为了更好的推断，将考虑更多丰富的信息。根据图嵌入保护的信息类型的不同，可做以下分类：</p>
 <ul>
 <li>图结构和属性保护图嵌入</li>
@@ -237,16 +237,16 @@
 <li>高级信息保护图嵌入</li>
 </ul>
 <p>用到的方法有：矩阵分解、随机游走、深度神经网络</p>
-<h3 id="结构属性保护图嵌入">结构属性保护图嵌入</h3>
+<h3 id="结构属性保护图嵌入"><a class="markdownIt-Anchor" href="#结构属性保护图嵌入"></a> 结构属性保护图嵌入</h3>
 <p>图的结构和属性很大程度上影响图的推断，所以最基本的是先保护好图的结构和属性。图的结构包括一维结构和高维结构。不同的图有不同的属性/性质，如：有向图有不对称传递性；信号图能用结构平衡理论。。</p>
-<h4 id="结构保护图嵌入学习">结构保护图嵌入学习</h4>
+<h4 id="结构保护图嵌入学习"><a class="markdownIt-Anchor" href="#结构保护图嵌入学习"></a> 结构保护图嵌入学习</h4>
 <p>常用的结构有：结构、高维临近结点、图社区</p>
 <p>。。。看不下去了。。。综述一样</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/09/first-gnnbook-ch2/" data-id="cm122p98800475z9f421iebak" data-title="first_gnnbook_ch2" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/10/09/first-gnnbook-ch2/" data-id="cm122u678004bg19fa6ex5r3q" data-title="first_gnnbook_ch2" class="article-share-link">Share</a>
       
       
       
@@ -266,7 +266,7 @@
         
           
           
-            <img data-src="/covers/IMG_2586.PNG" data-sizes="auto" alt="cs224w_ch1" class="lazyload">
+            <img data-src="/covers/IMG_2581.JPG" data-sizes="auto" alt="cs224w_ch1" class="lazyload">
           
         
         <a href="/2023/10/09/cs224w-ch1/"></a>
@@ -283,7 +283,7 @@
       
         
         
-          <img data-src="/covers/IMG_2618.PNG" data-sizes="auto" alt="Poisoning Attacks on Deep Learning based Wireless Traffic Prediction" class="lazyload">
+          <img data-src="/covers/IMG_2586.PNG" data-sizes="auto" alt="Poisoning Attacks on Deep Learning based Wireless Traffic Prediction" class="lazyload">
         
       
       <a href="/2023/10/08/poisoning-attack-on-dl-wtp/"></a>
@@ -315,7 +315,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E8%A1%A8%E5%BE%81%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text">图表征学习介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%A0%E7%BB%9F%E5%9B%BE%E5%B5%8C%E5%85%A5"><span class="toc-number">3.</span> <span class="toc-text">传统图嵌入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%B0%E4%BB%A3%E5%9B%BE%E5%B5%8C%E5%85%A5"><span class="toc-number">4.</span> <span class="toc-text">现代图嵌入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E5%B1%9E%E6%80%A7%E4%BF%9D%E6%8A%A4%E5%9B%BE%E5%B5%8C%E5%85%A5"><span class="toc-number">4.1.</span> <span class="toc-text">结构属性保护图嵌入</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BF%9D%E6%8A%A4%E5%9B%BE%E5%B5%8C%E5%85%A5%E5%AD%A6%E4%B9%A0"><span class="toc-number">4.1.1.</span> <span class="toc-text">结构保护图嵌入学习</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text"> 摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E8%A1%A8%E5%BE%81%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text"> 图表征学习介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%A0%E7%BB%9F%E5%9B%BE%E5%B5%8C%E5%85%A5"><span class="toc-number">3.</span> <span class="toc-text"> 传统图嵌入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%B0%E4%BB%A3%E5%9B%BE%E5%B5%8C%E5%85%A5"><span class="toc-number">4.</span> <span class="toc-text"> 现代图嵌入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E5%B1%9E%E6%80%A7%E4%BF%9D%E6%8A%A4%E5%9B%BE%E5%B5%8C%E5%85%A5"><span class="toc-number">4.1.</span> <span class="toc-text"> 结构属性保护图嵌入</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BF%9D%E6%8A%A4%E5%9B%BE%E5%B5%8C%E5%85%A5%E5%AD%A6%E4%B9%A0"><span class="toc-number">4.1.1.</span> <span class="toc-text"> 结构保护图嵌入学习</span></a></li></ol></li></ol></li></ol>
       
   </div>
 </div>
@@ -406,10 +406,10 @@
       
         <div>
           <span class="icon-brush"></span>
-          91.5k
+          95.7k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          06:04
+          06:27
         </div>
       
       
@@ -438,7 +438,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E8%A1%A8%E5%BE%81%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text">图表征学习介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%A0%E7%BB%9F%E5%9B%BE%E5%B5%8C%E5%85%A5"><span class="toc-number">3.</span> <span class="toc-text">传统图嵌入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%B0%E4%BB%A3%E5%9B%BE%E5%B5%8C%E5%85%A5"><span class="toc-number">4.</span> <span class="toc-text">现代图嵌入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E5%B1%9E%E6%80%A7%E4%BF%9D%E6%8A%A4%E5%9B%BE%E5%B5%8C%E5%85%A5"><span class="toc-number">4.1.</span> <span class="toc-text">结构属性保护图嵌入</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BF%9D%E6%8A%A4%E5%9B%BE%E5%B5%8C%E5%85%A5%E5%AD%A6%E4%B9%A0"><span class="toc-number">4.1.1.</span> <span class="toc-text">结构保护图嵌入学习</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text"> 摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E8%A1%A8%E5%BE%81%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text"> 图表征学习介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%A0%E7%BB%9F%E5%9B%BE%E5%B5%8C%E5%85%A5"><span class="toc-number">3.</span> <span class="toc-text"> 传统图嵌入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%B0%E4%BB%A3%E5%9B%BE%E5%B5%8C%E5%85%A5"><span class="toc-number">4.</span> <span class="toc-text"> 现代图嵌入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E5%B1%9E%E6%80%A7%E4%BF%9D%E6%8A%A4%E5%9B%BE%E5%B5%8C%E5%85%A5"><span class="toc-number">4.1.</span> <span class="toc-text"> 结构属性保护图嵌入</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BF%9D%E6%8A%A4%E5%9B%BE%E5%B5%8C%E5%85%A5%E5%AD%A6%E4%B9%A0"><span class="toc-number">4.1.1.</span> <span class="toc-text"> 结构保护图嵌入学习</span></a></li></ol></li></ol></li></ol>
       
   </div>
 </div>
