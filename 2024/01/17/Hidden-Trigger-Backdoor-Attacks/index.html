@@ -26,12 +26,12 @@
   
 <link rel="stylesheet" href="/css/loader.css">
 
-  <meta name="description" content="Hidden Trigger Backdoor Attacks，简称HB，发布在AAAI，是backdoor attack的常见baseline。 摘要 以前的state-of-the-art工作要么是添加能够一眼看出来的中毒数据，要么就是通过加入噪声来隐藏trigger。本文提出一种新的更隐蔽的攻击，攻击者隐藏中毒数据的触发器，直到进行测试。 摘要中简单提及了：  将攻击应用在多个分类模型上 测">
+  <meta name="description" content="Hidden Trigger Backdoor Attacks，简称HB，发布在AAAI，是backdoor attack的常见baseline。  摘要 以前的state-of-the-art工作要么是添加能够一眼看出来的中毒数据，要么就是通过加入噪声来隐藏trigger。本文提出一种新的更隐蔽的攻击，攻击者隐藏中毒数据的触发器，直到进行测试。 摘要中简单提及了：  将攻击应用在多个分类模型上">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hidden-Trigger-Backdoor-Attacks">
 <meta property="og:url" content="http://example.com/2024/01/17/Hidden-Trigger-Backdoor-Attacks/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Hidden Trigger Backdoor Attacks，简称HB，发布在AAAI，是backdoor attack的常见baseline。 摘要 以前的state-of-the-art工作要么是添加能够一眼看出来的中毒数据，要么就是通过加入噪声来隐藏trigger。本文提出一种新的更隐蔽的攻击，攻击者隐藏中毒数据的触发器，直到进行测试。 摘要中简单提及了：  将攻击应用在多个分类模型上 测">
+<meta property="og:description" content="Hidden Trigger Backdoor Attacks，简称HB，发布在AAAI，是backdoor attack的常见baseline。  摘要 以前的state-of-the-art工作要么是添加能够一眼看出来的中毒数据，要么就是通过加入噪声来隐藏trigger。本文提出一种新的更隐蔽的攻击，攻击者隐藏中毒数据的触发器，直到进行测试。 摘要中简单提及了：  将攻击应用在多个分类模型上">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2024/01/17/Hidden-Trigger-Backdoor-Attacks/image-20240117125626531.png">
 <meta property="og:image" content="http://example.com/2024/01/17/Hidden-Trigger-Backdoor-Attacks/image-20240117141807001.png">
@@ -213,44 +213,38 @@
 
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>Hidden Trigger Backdoor Attacks，简称HB，发布在AAAI，是backdoor
-attack的常见baseline。</p>
-<h1 id="摘要">摘要</h1>
+        <p>Hidden Trigger Backdoor Attacks，简称HB，发布在AAAI，是backdoor attack的常见baseline。</p>
+<h1 id="摘要"><a class="markdownIt-Anchor" href="#摘要"></a> 摘要</h1>
 <p>以前的state-of-the-art工作要么是添加能够一眼看出来的中毒数据，要么就是通过加入噪声来隐藏trigger。本文提出一种新的更隐蔽的攻击，攻击者隐藏中毒数据的触发器，直到进行测试。</p>
 <p>摘要中简单提及了：</p>
 <ul>
 <li>将攻击应用在多个分类模型上</li>
 <li>测试了state-of-the-art defence algorithm</li>
 </ul>
-<h1 id="方法">方法</h1>
-<p>先介绍了一下BadNets用的毒化数据的公式： <span class="math display">\[
-s_i^{\sim}=s_i\odot (1-m)+p\odot m
-\]</span> 缺点是很容易被人肉眼看出，因此作者提出自己的方法。</p>
-<p><img src="/2024/01/17/Hidden-Trigger-Backdoor-Attacks/image-20240117125626531.png" alt="image-20240117125626531"> <span class="math display">\[
-\arg \min_z\vert f(z)-f(s^{\sim})\vert_2^2 \\
+<h1 id="方法"><a class="markdownIt-Anchor" href="#方法"></a> 方法</h1>
+<p>先介绍了一下BadNets用的毒化数据的公式：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msubsup><mi>s</mi><mi>i</mi><mo lspace="0em" rspace="0em">∼</mo></msubsup><mo>=</mo><msub><mi>s</mi><mi>i</mi></msub><mo>⊙</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>m</mi><mo stretchy="false">)</mo><mo>+</mo><mi>p</mi><mo>⊙</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">s_i^{\sim}=s_i\odot (1-m)+p\odot m
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9168089999999999em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6698089999999999em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mrel mtight">∼</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⊙</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">m</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.7777700000000001em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">p</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⊙</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">m</span></span></span></span></span></p>
+<p>缺点是很容易被人肉眼看出，因此作者提出自己的方法。</p>
+<p><img src="/2024/01/17/Hidden-Trigger-Backdoor-Attacks/image-20240117125626531.png" alt="image-20240117125626531"></p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>arg</mi><mo>⁡</mo><munder><mo><mi>min</mi><mo>⁡</mo></mo><mi>z</mi></munder><mi mathvariant="normal">∣</mi><mi>f</mi><mo stretchy="false">(</mo><mi>z</mi><mo stretchy="false">)</mo><mo>−</mo><mi>f</mi><mo stretchy="false">(</mo><msup><mi>s</mi><mo lspace="0em" rspace="0em">∼</mo></msup><mo stretchy="false">)</mo><msubsup><mi mathvariant="normal">∣</mi><mn>2</mn><mn>2</mn></msubsup><mspace linebreak="newline"></mspace><mi>s</mi><mi>t</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">∣</mi><mi>z</mi><mo>−</mo><mi>t</mi><msub><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∞</mi></msub><mo>&lt;</mo><mi>ϵ</mi></mrow><annotation encoding="application/x-tex">\arg \min_z\vert f(z)-f(s^{\sim})\vert_2^2 \\ 
 st. \vert z-t\vert_\infty&lt;\epsilon
-\]</span></p>
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.45em;vertical-align:-0.7em;"></span><span class="mop">ar<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.66786em;"><span style="top:-2.4em;margin-left:0em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span><span class="mop">min</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.1141079999999999em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6698089999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mrel mtight">∼</span></span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord"><span class="mord">∣</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mord">.</span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">t</span><span class="mord"><span class="mord">∣</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">∞</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">ϵ</span></span></span></span></span></p>
 <ul>
-<li><span class="math inline">\(t\)</span>：target image，也就是狗</li>
-<li><span class="math inline">\(s\)</span>：source
-image，也就是飞机</li>
-<li><span class="math inline">\(s^{\sim}\)</span>：patched source
-image，也就是打了补丁的飞机</li>
-<li><span class="math inline">\(z\)</span>：poisoned
-image，毒化的图片，也就是上图中的经过优化之后的狗。</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathnormal">t</span></span></span></span>：target image，也就是狗</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">s</span></span></span></span>：source image，也就是飞机</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>s</mi><mo lspace="0em" rspace="0em">∼</mo></msup></mrow><annotation encoding="application/x-tex">s^{\sim}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6198089999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6198089999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mrel mtight">∼</span></span></span></span></span></span></span></span></span></span></span></span>：patched source image，也就是打了补丁的飞机</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi></mrow><annotation encoding="application/x-tex">z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span></span></span></span>：poisoned image，毒化的图片，也就是上图中的经过优化之后的狗。</li>
 </ul>
-<p>(2)的解释：在使得z和t相差不大的情况下（像素空间中，毒化的狗<span class="math inline">\(z\)</span>和狗<span class="math inline">\(s\)</span>相差不大，人眼不会看出），<span class="math inline">\(f(z)\)</span>和<span class="math inline">\(f(s^{\sim})\)</span>的差距也不大（特征空间中，毒化的狗<span class="math inline">\(z\)</span>和打了补丁的飞机<span class="math inline">\(s^\sim\)</span>比较相近）</p>
+<p>(2)的解释：在使得z和t相差不大的情况下（像素空间中，毒化的狗<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi></mrow><annotation encoding="application/x-tex">z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span></span></span></span>和狗<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">s</span></span></span></span>相差不大，人眼不会看出），<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>z</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(z)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mclose">)</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><msup><mi>s</mi><mo lspace="0em" rspace="0em">∼</mo></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(s^{\sim})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6198089999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mrel mtight">∼</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>的差距也不大（特征空间中，毒化的狗<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi></mrow><annotation encoding="application/x-tex">z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span></span></span></span>和打了补丁的飞机<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>s</mi><mo>∼</mo></msup></mrow><annotation encoding="application/x-tex">s^\sim</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6198089999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6198089999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mrel mtight">∼</span></span></span></span></span></span></span></span></span></span></span>比较相近）</p>
 <p>上述工作，提供一个点（源图：飞机，目标：狗），然后通过一个固定了位置的触发器，来导致误分类。这种方法缺少泛化性，不是很实际。若是一张新的图片，换了一个角度，那么原来的方法就很可能会失效。</p>
 <p>作者采用每一个iteration都进行一次随机抽样（对source，也就是干净的飞机图片），然后再采取(2)来优化。</p>
-<figure>
-<img src="/2024/01/17/Hidden-Trigger-Backdoor-Attacks/image-20240117141807001.png" alt="image-20240117141807001">
-<figcaption aria-hidden="true">image-20240117141807001</figcaption>
-</figure>
+<p><img src="/2024/01/17/Hidden-Trigger-Backdoor-Attacks/image-20240117141807001.png" alt="image-20240117141807001"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/17/Hidden-Trigger-Backdoor-Attacks/" data-id="cm0zam0f2001e709f0xpraepf" data-title="Hidden-Trigger-Backdoor-Attacks" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2024/01/17/Hidden-Trigger-Backdoor-Attacks/" data-id="cm122maxy001djm9ffi7q5bz4" data-title="Hidden-Trigger-Backdoor-Attacks" class="article-share-link">Share</a>
       
       
       
@@ -270,7 +264,7 @@ image，毒化的图片，也就是上图中的经过优化之后的狗。</li>
         
           
           
-            <img data-src="/covers/IMG_2576.JPG" data-sizes="auto" alt="Trojaning-Attack-on-Neural-Networks" class="lazyload">
+            <img data-src="/covers/IMG_2582.PNG" data-sizes="auto" alt="Trojaning-Attack-on-Neural-Networks" class="lazyload">
           
         
         <a href="/2024/01/17/Trojaning-Attack-on-Neural-Networks/"></a>
@@ -319,7 +313,7 @@ image，毒化的图片，也就是上图中的经过优化之后的狗。</li>
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">方法</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text"> 摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text"> 方法</span></a></li></ol>
       
   </div>
 </div>
@@ -410,10 +404,10 @@ image，毒化的图片，也就是上图中的经过优化之后的狗。</li>
       
         <div>
           <span class="icon-brush"></span>
-          91.7k
+          95.7k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          06:04
+          06:27
         </div>
       
       
@@ -442,7 +436,7 @@ image，毒化的图片，也就是上图中的经过优化之后的狗。</li>
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">方法</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text"> 摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text"> 方法</span></a></li></ol>
       
   </div>
 </div>
