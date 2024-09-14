@@ -26,12 +26,12 @@
   
 <link rel="stylesheet" href="/css/loader.css">
 
-  <meta name="description" content="in node embedding, we use encoder to map original network node to embedding space, the encoder is: zv&#x3D;Z.vz_v&#x3D;Z.v zv​&#x3D;Z.v the matrix is what we need to learn. now, we use deep learning-based method as">
+  <meta name="description" content="in node embedding, we use encoder to map original network node to embedding space, the encoder is: \[ z_v&#x3D;Z.v \] the matrix is what we need to learn. now, we use deep learning-based method as our enco">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cs224w_ch6">
 <meta property="og:url" content="http://example.com/2023/10/16/cs224w-ch6/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="in node embedding, we use encoder to map original network node to embedding space, the encoder is: zv&#x3D;Z.vz_v&#x3D;Z.v zv​&#x3D;Z.v the matrix is what we need to learn. now, we use deep learning-based method as">
+<meta property="og:description" content="in node embedding, we use encoder to map original network node to embedding space, the encoder is: \[ z_v&#x3D;Z.v \] the matrix is what we need to learn. now, we use deep learning-based method as our enco">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch6/image-20231016195600647.png">
 <meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch6/image-20231016195941481.png">
@@ -222,91 +222,133 @@
 
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>in node embedding, we use <strong>encoder</strong> to map original network node to embedding space, the encoder is:</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>z</mi><mi>v</mi></msub><mo>=</mo><mi>Z</mi><mi mathvariant="normal">.</mi><mi>v</mi></mrow><annotation encoding="application/x-tex">z_v=Z.v
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.04398em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span></span></span></span></span></p>
-<p>the matrix is what we need to learn.</p>
-<p>now, we use deep learning-based method as our encoder, which is composed of multiple layers of non-linear transformations.</p>
-<p><img src="/2023/10/16/cs224w-ch6/image-20231016195600647.png" alt="image-20231016195600647"></p>
+        <p>in node embedding, we use <strong>encoder</strong> to map original
+network node to embedding space, the encoder is: <span class="math display">\[
+z_v=Z.v
+\]</span> the matrix is what we need to learn.</p>
+<p>now, we use deep learning-based method as our encoder, which is
+composed of multiple layers of non-linear transformations.</p>
+<figure>
+<img src="/2023/10/16/cs224w-ch6/image-20231016195600647.png" alt="image-20231016195600647">
+<figcaption aria-hidden="true">image-20231016195600647</figcaption>
+</figure>
 <p>What makes graph representation learning so difficult?</p>
-<p><img src="/2023/10/16/cs224w-ch6/image-20231016195941481.png" alt="image-20231016195941481"></p>
+<figure>
+<img src="/2023/10/16/cs224w-ch6/image-20231016195941481.png" alt="image-20231016195941481">
+<figcaption aria-hidden="true">image-20231016195941481</figcaption>
+</figure>
 <ul>
 <li>no fixed graph</li>
 <li>Dynamic and no fixed fratures</li>
 </ul>
-<h1 id="basics-of-dl"><a class="markdownIt-Anchor" href="#basics-of-dl"></a> Basics of DL</h1>
-<p>we usually view the task as an Optimization problem, which means we need to min. the objective function(loss function).</p>
-<p>for predict task, use L2 loss:</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>L</mi><mo stretchy="false">(</mo><mi>y</mi><mo separator="true">,</mo><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>=</mo><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><mi>y</mi><mo>−</mo><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mi mathvariant="normal">∣</mi><msub><mi mathvariant="normal">∣</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">L(y,f(x))=||y-f(x)||_2
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">L</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mord">∣</span><span class="mord"><span class="mord">∣</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></p>
-<p>or L1 loss.</p>
-<p>for classify problem, we use cross entropy(CE)</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>C</mi><mi>E</mi><mo stretchy="false">(</mo><mi>y</mi><mo separator="true">,</mo><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>=</mo><mo>−</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>C</mi></munderover><mo stretchy="false">(</mo><msub><mi>y</mi><mi>i</mi></msub><mi>log</mi><mo>⁡</mo><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><msub><mo stretchy="false">)</mo><mi>i</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">CE(y,f(x))=-\sum_{i=1}^C(y_i\log f(x)_i)
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.106005em;vertical-align:-1.277669em;"></span><span class="mord">−</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8283360000000002em;"><span style="top:-1.872331em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3000050000000005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">C</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.277669em;"><span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>s</mi><mi>o</mi><mi>f</mi><mi>t</mi><mi>m</mi><mi>a</mi><mi>x</mi><mo stretchy="false">(</mo><mi>g</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(x)=softmax(g(x))
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mord mathnormal">m</span><span class="mord mathnormal">a</span><span class="mord mathnormal">x</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></span></p>
+<h1 id="basics-of-dl">Basics of DL</h1>
+<p>we usually view the task as an Optimization problem, which means we
+need to min. the objective function(loss function).</p>
+<p>for predict task, use L2 loss: <span class="math display">\[
+L(y,f(x))=||y-f(x)||_2
+\]</span> or L1 loss.</p>
+<p>for classify problem, we use cross entropy(CE) <span class="math display">\[
+CE(y,f(x))=-\sum_{i=1}^C(y_i\log f(x)_i)
+\]</span></p>
+<p><span class="math display">\[
+f(x)=softmax(g(x))
+\]</span></p>
 <p>g is the model.</p>
-<h1 id="deep-learning-for-graph"><a class="markdownIt-Anchor" href="#deep-learning-for-graph"></a> Deep Learning for graph</h1>
+<h1 id="deep-learning-for-graph">Deep Learning for graph</h1>
 <p>what if we directly feed the graph adj. matrix and feature set?</p>
-<p><img src="/2023/10/16/cs224w-ch6/image-20231016201516077.png" alt="image-20231016201516077"></p>
+<figure>
+<img src="/2023/10/16/cs224w-ch6/image-20231016201516077.png" alt="image-20231016201516077">
+<figcaption aria-hidden="true">image-20231016201516077</figcaption>
+</figure>
 <p>Problem:</p>
 <ul>
-<li>Parameter <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi mathvariant="normal">∣</mi><mi>V</mi><mi mathvariant="normal">∣</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(|V|)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord">∣</span><span class="mclose">)</span></span></span></span>, certainly speaking is <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi mathvariant="normal">∣</mi><mi>V</mi><mi mathvariant="normal">∣</mi><mo>+</mo><mi>n</mi><mi>u</mi><msub><mi>m</mi><mrow><mi>f</mi><mi>r</mi><mi>a</mi><mi>t</mi><mi>u</mi><mi>r</mi><mi>e</mi></mrow></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(|V|+num_{frature})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="mord mathnormal">n</span><span class="mord mathnormal">u</span><span class="mord"><span class="mord mathnormal">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span><span class="mord mathnormal mtight">e</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></li>
+<li>Parameter <span class="math inline">\(O(|V|)\)</span>, certainly
+speaking is <span class="math inline">\(O(|V|+num_{frature})\)</span></li>
 <li>the graph size is fixed</li>
 <li>sensitive to node ordering</li>
 </ul>
 <p>what about convolutions?</p>
-<p><img src="/2023/10/16/cs224w-ch6/image-20231016201921224.png" alt="image-20231016201921224"></p>
+<figure>
+<img src="/2023/10/16/cs224w-ch6/image-20231016201921224.png" alt="image-20231016201921224">
+<figcaption aria-hidden="true">image-20231016201921224</figcaption>
+</figure>
 <p>problem:</p>
 <ul>
 <li>no stride or slide</li>
 <li>permutation invariance（改变排序不变性）</li>
 </ul>
-<p><img src="/2023/10/16/cs224w-ch6/image-20231016202616104.png" alt="image-20231016202616104"></p>
-<p>graph and node representation should be the same for plan1 and plan2.</p>
+<figure>
+<img src="/2023/10/16/cs224w-ch6/image-20231016202616104.png" alt="image-20231016202616104">
+<figcaption aria-hidden="true">image-20231016202616104</figcaption>
+</figure>
+<p>graph and node representation should be the same for plan1 and
+plan2.</p>
 <p>we need a permutation invarient function!</p>
 <p>and maps, cons cannot solve this.</p>
-<h1 id="graph-convolutional-networks"><a class="markdownIt-Anchor" href="#graph-convolutional-networks"></a> Graph Convolutional Networks</h1>
+<h1 id="graph-convolutional-networks">Graph Convolutional Networks</h1>
 <p>main problems are:</p>
-<ol>
-<li>
-<p>too many parameter</p>
-</li>
-<li>
-<p>order invariance</p>
-</li>
+<ol type="1">
+<li><p>too many parameter</p></li>
+<li><p>order invariance</p></li>
 </ol>
 <p>first we solve proble 1!</p>
-<p>Lets consider mlp <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> CNN</p>
-<p>we use the kernel to share parameter and aggregate information(spacial)</p>
+<p>Lets consider mlp <span class="math inline">\(\to\)</span> CNN</p>
+<p>we use the kernel to share parameter and aggregate
+information(spacial)</p>
 <p>can we apply it to GNN?</p>
-<p><strong>idea: for node v, use it as an kernel to aggregate information from <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false">(</mo><mi>v</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">N(v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mclose">)</span></span></span></span>, thus, node’s neiborhood defins the computation graph</strong></p>
-<p><img src="/2023/10/16/cs224w-ch6/image-20231017102318921.png" alt="image-20231017102318921"></p>
-<p><img src="/2023/10/16/cs224w-ch6/image-20231017102403312.png" alt="image-20231017102403312"></p>
+<p><strong>idea: for node v, use it as an kernel to aggregate
+information from <span class="math inline">\(N(v)\)</span>, thus, node's
+neiborhood defins the computation graph</strong></p>
+<figure>
+<img src="/2023/10/16/cs224w-ch6/image-20231017102318921.png" alt="image-20231017102318921">
+<figcaption aria-hidden="true">image-20231017102318921</figcaption>
+</figure>
+<figure>
+<img src="/2023/10/16/cs224w-ch6/image-20231017102403312.png" alt="image-20231017102403312">
+<figcaption aria-hidden="true">image-20231017102403312</figcaption>
+</figure>
 <p>now we solve the prob.1, how to keep order invariance?</p>
-<p><img src="/2023/10/16/cs224w-ch6/image-20231017104641358.png" alt="image-20231017104641358"></p>
-<p>the approach is: <strong>Average information from neighbors and apply a neural network</strong></p>
+<figure>
+<img src="/2023/10/16/cs224w-ch6/image-20231017104641358.png" alt="image-20231017104641358">
+<figcaption aria-hidden="true">image-20231017104641358</figcaption>
+</figure>
+<p>the approach is: <strong>Average information from neighbors and apply
+a neural network</strong></p>
 <p>now we can get the formulation of GNN(GCN):</p>
-<p><img src="/2023/10/16/cs224w-ch6/image-20231017103110872.png" alt="image-20231017103110872"></p>
+<figure>
+<img src="/2023/10/16/cs224w-ch6/image-20231017103110872.png" alt="image-20231017103110872">
+<figcaption aria-hidden="true">image-20231017103110872</figcaption>
+</figure>
 <p>and the matrix formulation:</p>
-<p><img src="/2023/10/16/cs224w-ch6/image-20231017103158325.png" alt="image-20231017103158325"></p>
-<p><img src="/2023/10/16/cs224w-ch6/image-20231017103350574.png" alt="image-20231017103350574"></p>
-<h1 id="train-gnn"><a class="markdownIt-Anchor" href="#train-gnn"></a> Train GNN</h1>
-<h2 id="supervised-learning"><a class="markdownIt-Anchor" href="#supervised-learning"></a> Supervised learning</h2>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><munder><mo><mi>min</mi><mo>⁡</mo></mo><mi>θ</mi></munder><mi mathvariant="script">L</mi><mo stretchy="false">(</mo><mi>y</mi><mo separator="true">,</mo><mi>f</mi><mo stretchy="false">(</mo><msub><mi>z</mi><mi>v</mi></msub><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\min _{\theta}\mathcal{L}(y,f(z_v))
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.5021079999999998em;vertical-align:-0.7521079999999999em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.66786em;"><span style="top:-2.347892em;margin-left:0em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">θ</span></span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span><span class="mop">min</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7521079999999999em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathcal">L</span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.04398em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></span></p>
+<figure>
+<img src="/2023/10/16/cs224w-ch6/image-20231017103158325.png" alt="image-20231017103158325">
+<figcaption aria-hidden="true">image-20231017103158325</figcaption>
+</figure>
+<figure>
+<img src="/2023/10/16/cs224w-ch6/image-20231017103350574.png" alt="image-20231017103350574">
+<figcaption aria-hidden="true">image-20231017103350574</figcaption>
+</figure>
+<h1 id="train-gnn">Train GNN</h1>
+<h2 id="supervised-learning">Supervised learning</h2>
+<p><span class="math display">\[
+\min _{\theta}\mathcal{L}(y,f(z_v))
+\]</span></p>
 <p>e.g., drug classification(toxic or not)</p>
-<p><img src="/2023/10/16/cs224w-ch6/image-20231017104129035.png" alt="image-20231017104129035"></p>
-<p>the <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><msub><mi>x</mi><mi>v</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(x_v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span> is <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mo stretchy="false">(</mo><msubsup><mi>z</mi><mi>v</mi><mi>T</mi></msubsup><mi>θ</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\sigma (z_v^T\theta)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0913309999999998em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-2.4530000000000003em;margin-left:-0.04398em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mclose">)</span></span></span></span></p>
-<h2 id="unsupervised-learning"><a class="markdownIt-Anchor" href="#unsupervised-learning"></a> Unsupervised learning</h2>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="script">L</mi><mo>=</mo><munder><mo>∑</mo><mrow><msub><mi>z</mi><mi>u</mi></msub><mo separator="true">,</mo><msub><mi>z</mi><mi>v</mi></msub></mrow></munder><mi>C</mi><mi>E</mi><mo stretchy="false">(</mo><msub><mi>y</mi><mrow><mi>u</mi><mo separator="true">,</mo><mi>v</mi></mrow></msub><mo separator="true">,</mo><mi>D</mi><mi>E</mi><mi>C</mi><mo stretchy="false">(</mo><msub><mi>z</mi><mi>u</mi></msub><mo separator="true">,</mo><msub><mi>z</mi><mi>v</mi></msub><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathcal{L}=\sum_{z_u,z_v}CE(y_{u,v},DEC(z_u,z_v))
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord"><span class="mord mathcal">L</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.4361180000000004em;vertical-align:-1.386113em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.0500050000000003em;"><span style="top:-1.8999949999999999em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.16454285714285719em;"><span style="top:-2.357em;margin-left:-0.04398em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mpunct mtight">,</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.16454285714285719em;"><span style="top:-2.357em;margin-left:-0.04398em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.386113em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">u</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.04398em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.04398em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></span></p>
-<p>if node u and v are similar, then <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mrow><mi>u</mi><mo separator="true">,</mo><mi>v</mi></mrow></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">y_{u,v}=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">u</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></p>
+<figure>
+<img src="/2023/10/16/cs224w-ch6/image-20231017104129035.png" alt="image-20231017104129035">
+<figcaption aria-hidden="true">image-20231017104129035</figcaption>
+</figure>
+<p>the <span class="math inline">\(f(x_v)\)</span> is <span class="math inline">\(\sigma (z_v^T\theta)\)</span></p>
+<h2 id="unsupervised-learning">Unsupervised learning</h2>
+<p><span class="math display">\[
+\mathcal{L}=\sum_{z_u,z_v}CE(y_{u,v},DEC(z_u,z_v))
+\]</span></p>
+<p>if node u and v are similar, then <span class="math inline">\(y_{u,v}=1\)</span></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/16/cs224w-ch6/" data-id="cm122may3003gjm9fe84pfzjg" data-title="cs224w_ch6" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/10/16/cs224w-ch6/" data-id="cm122mlgm003pme9fgqb5f81z" data-title="cs224w_ch6" class="article-share-link">Share</a>
       
       
       
@@ -324,7 +366,7 @@
         
           
           
-            <img data-src="/covers/IMG_2586.PNG" data-sizes="auto" alt="DAGAD" class="lazyload">
+            <img data-src="/covers/IMG_2575.JPG" data-sizes="auto" alt="DAGAD" class="lazyload">
           
         
         <a href="/2023/10/17/DAGAD/"></a>
@@ -341,7 +383,7 @@
       
         
         
-          <img data-src="/covers/IMG_2579.JPG" data-sizes="auto" alt="cs224w_ch4" class="lazyload">
+          <img data-src="/covers/IMG_2586.PNG" data-sizes="auto" alt="cs224w_ch4" class="lazyload">
         
       
       <a href="/2023/10/16/cs224w-ch4/"></a>
@@ -373,7 +415,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#basics-of-dl"><span class="toc-number">1.</span> <span class="toc-text"> Basics of DL</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#deep-learning-for-graph"><span class="toc-number">2.</span> <span class="toc-text"> Deep Learning for graph</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#graph-convolutional-networks"><span class="toc-number">3.</span> <span class="toc-text"> Graph Convolutional Networks</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#train-gnn"><span class="toc-number">4.</span> <span class="toc-text"> Train GNN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#supervised-learning"><span class="toc-number">4.1.</span> <span class="toc-text"> Supervised learning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unsupervised-learning"><span class="toc-number">4.2.</span> <span class="toc-text"> Unsupervised learning</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#basics-of-dl"><span class="toc-number">1.</span> <span class="toc-text">Basics of DL</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#deep-learning-for-graph"><span class="toc-number">2.</span> <span class="toc-text">Deep Learning for graph</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#graph-convolutional-networks"><span class="toc-number">3.</span> <span class="toc-text">Graph Convolutional Networks</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#train-gnn"><span class="toc-number">4.</span> <span class="toc-text">Train GNN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#supervised-learning"><span class="toc-number">4.1.</span> <span class="toc-text">Supervised learning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unsupervised-learning"><span class="toc-number">4.2.</span> <span class="toc-text">Unsupervised learning</span></a></li></ol></li></ol>
       
   </div>
 </div>
@@ -464,10 +506,10 @@
       
         <div>
           <span class="icon-brush"></span>
-          95.7k
+          91.5k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          06:27
+          06:04
         </div>
       
       
@@ -496,7 +538,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#basics-of-dl"><span class="toc-number">1.</span> <span class="toc-text"> Basics of DL</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#deep-learning-for-graph"><span class="toc-number">2.</span> <span class="toc-text"> Deep Learning for graph</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#graph-convolutional-networks"><span class="toc-number">3.</span> <span class="toc-text"> Graph Convolutional Networks</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#train-gnn"><span class="toc-number">4.</span> <span class="toc-text"> Train GNN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#supervised-learning"><span class="toc-number">4.1.</span> <span class="toc-text"> Supervised learning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unsupervised-learning"><span class="toc-number">4.2.</span> <span class="toc-text"> Unsupervised learning</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#basics-of-dl"><span class="toc-number">1.</span> <span class="toc-text">Basics of DL</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#deep-learning-for-graph"><span class="toc-number">2.</span> <span class="toc-text">Deep Learning for graph</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#graph-convolutional-networks"><span class="toc-number">3.</span> <span class="toc-text">Graph Convolutional Networks</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#train-gnn"><span class="toc-number">4.</span> <span class="toc-text">Train GNN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#supervised-learning"><span class="toc-number">4.1.</span> <span class="toc-text">Supervised learning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unsupervised-learning"><span class="toc-number">4.2.</span> <span class="toc-text">Unsupervised learning</span></a></li></ol></li></ol>
       
   </div>
 </div>

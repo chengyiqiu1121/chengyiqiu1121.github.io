@@ -26,12 +26,12 @@
   
 <link rel="stylesheet" href="/css/loader.css">
 
-  <meta name="description" content="教程，来自官网、blog等。  Hydra  get start 读取配置文件的一个包，可以读取制指定文件夹下的制定配置文件，安装方法： 1pip install hydra-core 这会安装hydra, omegacong等。 创建folder conf，在里面创建我们的配置文件config.yaml: 12345known_host:  host: 120.76.43.27  port: 6">
+  <meta name="description" content="教程，来自官网、blog等。 Hydra get start 读取配置文件的一个包，可以读取制指定文件夹下的制定配置文件，安装方法： 1pip install hydra-core 这会安装hydra, omegacong等。 创建folder conf，在里面创建我们的配置文件config.yaml: 12345known_host:  host: 120.76.43.27  port: 622">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python-package-tutorials">
 <meta property="og:url" content="http://example.com/2024/04/03/python-package-tutorials/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="教程，来自官网、blog等。  Hydra  get start 读取配置文件的一个包，可以读取制指定文件夹下的制定配置文件，安装方法： 1pip install hydra-core 这会安装hydra, omegacong等。 创建folder conf，在里面创建我们的配置文件config.yaml: 12345known_host:  host: 120.76.43.27  port: 6">
+<meta property="og:description" content="教程，来自官网、blog等。 Hydra get start 读取配置文件的一个包，可以读取制指定文件夹下的制定配置文件，安装方法： 1pip install hydra-core 这会安装hydra, omegacong等。 创建folder conf，在里面创建我们的配置文件config.yaml: 12345known_host:  host: 120.76.43.27  port: 622">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2024/04/03/python-package-tutorials/image-20240403165108222.png">
 <meta property="og:image" content="http://example.com/2024/04/03/python-package-tutorials/image-20240403165118016.png">
@@ -213,12 +213,13 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <p>教程，来自官网、blog等。</p>
-<h1 id="hydra"><a class="markdownIt-Anchor" href="#hydra"></a> Hydra</h1>
-<h2 id="get-start"><a class="markdownIt-Anchor" href="#get-start"></a> get start</h2>
+<h1 id="hydra">Hydra</h1>
+<h2 id="get-start">get start</h2>
 <p>读取配置文件的一个包，可以读取制指定文件夹下的制定配置文件，安装方法：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install hydra-core</span><br></pre></td></tr></table></figure>
 <p>这会安装<code>hydra, omegacong</code>等。</p>
-<p>创建folder <code>conf</code>，在里面创建我们的配置文件<code>config.yaml</code>:</p>
+<p>创建folder
+<code>conf</code>，在里面创建我们的配置文件<code>config.yaml</code>:</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">known_host:</span></span><br><span class="line">  <span class="attr">host:</span> <span class="number">120.76</span><span class="number">.43</span><span class="number">.27</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">62222</span></span><br><span class="line">  <span class="attr">user:</span> <span class="string">chengyiqiu</span></span><br><span class="line">  <span class="attr">pwd:</span> <span class="string">secert</span></span><br></pre></td></tr></table></figure>
 <p>运行下面的代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hydra</span><br><span class="line"><span class="keyword">from</span> omegaconf <span class="keyword">import</span> DictConfig, OmegaConf</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@hydra.main(<span class="params">version_base=<span class="literal">None</span>, config_path=<span class="string">&#x27;./conf&#x27;</span>, config_name=<span class="string">&#x27;config&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>(<span class="params">cfg: DictConfig</span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">    <span class="built_in">print</span>(OmegaConf.to_yaml(cfg))</span><br><span class="line">    <span class="keyword">if</span> cfg.known_host.port == <span class="number">62222</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;ok&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">test()</span><br></pre></td></tr></table></figure>
@@ -227,14 +228,20 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@hydra.main(<span class="params">version_base=<span class="literal">None</span>, config_path=<span class="string">&#x27;..&#x27;</span>, config_name=<span class="string">&#x27;test&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test_</span>(<span class="params">cfg: DictConfig</span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">    <span class="built_in">print</span>(OmegaConf.to_yaml(cfg))</span><br></pre></td></tr></table></figure>
 <p>也可以将config转变成Object，但是不能超过这个函数的生命周期，否则会变成<code>None</code>，在生命周期内部，可以将config进行传参，只要没超出生命周期即可：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@hydra.main(<span class="params">version_base=<span class="literal">None</span>, config_path=<span class="string">&#x27;..&#x27;</span>, config_name=<span class="string">&#x27;test&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test_</span>(<span class="params">cfg: DictConfig</span>):</span><br><span class="line">    <span class="comment">#  ---------lifetime start ---------</span></span><br><span class="line">    cfg = OmegaConf.to_object(cfg)  <span class="comment"># object</span></span><br><span class="line">    train(cfg)</span><br><span class="line">    <span class="built_in">print</span>()</span><br><span class="line">    <span class="comment">#  ---------lifetime over ---------</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    cfg = test_()  <span class="comment"># None</span></span><br><span class="line">    <span class="built_in">print</span>(cfg)</span><br></pre></td></tr></table></figure>
-<h2 id="重载"><a class="markdownIt-Anchor" href="#重载"></a> 重载</h2>
+<h2 id="重载">重载</h2>
 <p>可以通过命令行传入参数来重载配置：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(tutorials) chengyiqiu@chengyiqiu:~/code/tutorials/Hydra$ python get_start.py known_host.port=8888</span><br><span class="line">known_host:</span><br><span class="line">  host: 120.76.43.27</span><br><span class="line">  port: 8888</span><br><span class="line">  user: chengyiqiu</span><br><span class="line">  pwd: secert</span><br><span class="line"></span><br><span class="line">not ok</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@hydra.main(<span class="params">version_base=<span class="literal">None</span>, config_path=<span class="string">&#x27;./conf&#x27;</span>, config_name=<span class="string">&#x27;config&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>(<span class="params">cfg: DictConfig</span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">    <span class="built_in">print</span>(OmegaConf.to_yaml(cfg))</span><br><span class="line">    <span class="keyword">if</span> cfg.known_host.port == <span class="number">62222</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;ok&#x27;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;not ok&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    test()</span><br></pre></td></tr></table></figure>
 <p>此举动不会更改原始的yaml中的参数配置，但是当进程运行结束后，会创建日志，重载的配置：</p>
-<p><img src="/2024/04/03/python-package-tutorials/image-20240403165108222.png" alt="image-20240403165108222"></p>
-<p><img src="/2024/04/03/python-package-tutorials/image-20240403165118016.png" alt="image-20240403165118016"></p>
-<h2 id="封装"><a class="markdownIt-Anchor" href="#封装"></a> 封装</h2>
+<figure>
+<img src="/2024/04/03/python-package-tutorials/image-20240403165108222.png" alt="image-20240403165108222">
+<figcaption aria-hidden="true">image-20240403165108222</figcaption>
+</figure>
+<figure>
+<img src="/2024/04/03/python-package-tutorials/image-20240403165118016.png" alt="image-20240403165118016">
+<figcaption aria-hidden="true">image-20240403165118016</figcaption>
+</figure>
+<h2 id="封装">封装</h2>
 <p>若是想要在多个配置文件中进行选择，可以用对配置文件做进一步封装，如下目录树：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">(tutorials) chengyiqiu@chengyiqiu:~/code/tutorials/Hydra$ tree ./</span><br><span class="line">./</span><br><span class="line">├── conf</span><br><span class="line">│   └── config.yaml</span><br><span class="line">├── get_start.py</span><br><span class="line">└── host</span><br><span class="line">    ├── config.yaml</span><br><span class="line">    └── user</span><br><span class="line">        ├── user1.yaml</span><br><span class="line">        └── user2.yaml</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p><code>config.yaml</code>中的内容：</p>
@@ -247,15 +254,15 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(tutorials) chengyiqiu@chengyiqiu:~/code/tutorials/Hydra$ python get_start.py user=user2</span><br><span class="line">user:</span><br><span class="line">  user:</span><br><span class="line">    username: qcy</span><br><span class="line">    password: 12</span><br><span class="line">    port: 1</span><br><span class="line">    ipv4: 1.1.1.1</span><br></pre></td></tr></table></figure>
 <p>也可以重载新的配置文件中的参数：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(tutorials) chengyiqiu@chengyiqiu:~/code/tutorials/Hydra$ python get_start.py user=user2 user.user.port=1111</span><br><span class="line">user:</span><br><span class="line">  user:</span><br><span class="line">    username: qcy</span><br><span class="line">    password: 12</span><br><span class="line">    port: 1111</span><br><span class="line">    ipv4: 1.1.1.1</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h1 id="pytorch_lighting"><a class="markdownIt-Anchor" href="#pytorch_lighting"></a> pytorch_lighting</h1>
-<h2 id="train"><a class="markdownIt-Anchor" href="#train"></a> train</h2>
+<h1 id="pytorch_lighting">pytorch_lighting</h1>
+<h2 id="train">train</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyLightningModule</span>(L.LightningModule):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, model</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.model = model</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="keyword">return</span> self.model(x)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">training_step</span>(<span class="params">self, batch</span>):</span><br><span class="line">        x, y = batch</span><br><span class="line">        y_p = self.forward(x)</span><br><span class="line">        loss = torch.nn.functional.cross_entropy(y_p, y)</span><br><span class="line">        <span class="keyword">return</span> loss</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">configure_optimizers</span>(<span class="params">self</span>):</span><br><span class="line">        optimizer = torch.optim.SGD(self.model.parameters(), lr=<span class="number">0.1</span>)</span><br><span class="line">        <span class="keyword">return</span> optimizer</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    device = <span class="string">&quot;cuda:0&quot;</span></span><br><span class="line">    net = ResNet18(num_classes=<span class="number">10</span>).to(device)</span><br><span class="line">    batch, nw = <span class="number">32</span>, <span class="number">2</span></span><br><span class="line">    mask_path = <span class="string">&#x27;../resource/badnet/trigger_image.png&#x27;</span></span><br><span class="line">    trigger_path = <span class="string">&#x27;../resource/badnet/trigger_image_grid.png&#x27;</span></span><br><span class="line">    train_dataset, test_dataset = prepare_poisoning_dataset(ratio=<span class="number">1e-1</span>, mask_path=mask_path, trigger_path=trigger_path)</span><br><span class="line">    train_loader = DataLoader(</span><br><span class="line">        dataset=train_dataset, shuffle=<span class="literal">True</span>, batch_size=batch, num_workers=nw</span><br><span class="line">    )</span><br><span class="line">    test_loader = DataLoader(</span><br><span class="line">        dataset=test_dataset, shuffle=<span class="literal">True</span>, batch_size=batch, num_workers=nw</span><br><span class="line">    )</span><br><span class="line">    model = MyLightningModule(model=net)</span><br><span class="line">    trainer = L.Trainer(max_epochs=<span class="number">100</span>, devices=[<span class="number">0</span>])</span><br><span class="line">    trainer.fit(model=model, train_dataloaders=train_loader)</span><br></pre></td></tr></table></figure>
 <p>继承<code>L.LightningModule</code>，重写4个方法即可训练。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/04/03/python-package-tutorials/" data-id="cm122may70059jm9fg7fc3nmu" data-title="python-package-tutorials" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2024/04/03/python-package-tutorials/" data-id="cm122mlgp0059me9fgrux0zpk" data-title="python-package-tutorials" class="article-share-link">Share</a>
       
       
       
@@ -273,7 +280,7 @@
         
           
           
-            <img data-src="/covers/IMG_2621.PNG" data-sizes="auto" alt="DATAELIXIR:Purifying-Poisoned-Dataset-to-Mitigate-Backdoor-Attacks-via-Diffusion-Models" class="lazyload">
+            <img data-src="/covers/IMG_2576.JPG" data-sizes="auto" alt="DATAELIXIR:Purifying-Poisoned-Dataset-to-Mitigate-Backdoor-Attacks-via-Diffusion-Models" class="lazyload">
           
         
         <a href="/2024/04/08/DATAELIXIR-Purifying-Poisoned-Dataset-to-Mitigate-Backdoor-Attacks-via-Diffusion-Models/"></a>
@@ -290,7 +297,7 @@
       
         
         
-          <img data-src="/covers/IMG_2583 2.PNG" data-sizes="auto" alt="readme_server" class="lazyload">
+          <img data-src="/covers/IMG_2577.JPG" data-sizes="auto" alt="readme_server" class="lazyload">
         
       
       <a href="/2024/04/01/readme-server/"></a>
@@ -322,7 +329,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#hydra"><span class="toc-number">1.</span> <span class="toc-text"> Hydra</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#get-start"><span class="toc-number">1.1.</span> <span class="toc-text"> get start</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E8%BD%BD"><span class="toc-number">1.2.</span> <span class="toc-text"> 重载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%81%E8%A3%85"><span class="toc-number">1.3.</span> <span class="toc-text"> 封装</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#pytorch_lighting"><span class="toc-number">2.</span> <span class="toc-text"> pytorch_lighting</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#train"><span class="toc-number">2.1.</span> <span class="toc-text"> train</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#hydra"><span class="toc-number">1.</span> <span class="toc-text">Hydra</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#get-start"><span class="toc-number">1.1.</span> <span class="toc-text">get start</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E8%BD%BD"><span class="toc-number">1.2.</span> <span class="toc-text">重载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%81%E8%A3%85"><span class="toc-number">1.3.</span> <span class="toc-text">封装</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#pytorch_lighting"><span class="toc-number">2.</span> <span class="toc-text">pytorch_lighting</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#train"><span class="toc-number">2.1.</span> <span class="toc-text">train</span></a></li></ol></li></ol>
       
   </div>
 </div>
@@ -413,10 +420,10 @@
       
         <div>
           <span class="icon-brush"></span>
-          95.7k
+          91.5k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          06:27
+          06:04
         </div>
       
       
@@ -445,7 +452,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#hydra"><span class="toc-number">1.</span> <span class="toc-text"> Hydra</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#get-start"><span class="toc-number">1.1.</span> <span class="toc-text"> get start</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E8%BD%BD"><span class="toc-number">1.2.</span> <span class="toc-text"> 重载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%81%E8%A3%85"><span class="toc-number">1.3.</span> <span class="toc-text"> 封装</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#pytorch_lighting"><span class="toc-number">2.</span> <span class="toc-text"> pytorch_lighting</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#train"><span class="toc-number">2.1.</span> <span class="toc-text"> train</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#hydra"><span class="toc-number">1.</span> <span class="toc-text">Hydra</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#get-start"><span class="toc-number">1.1.</span> <span class="toc-text">get start</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E8%BD%BD"><span class="toc-number">1.2.</span> <span class="toc-text">重载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%81%E8%A3%85"><span class="toc-number">1.3.</span> <span class="toc-text">封装</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#pytorch_lighting"><span class="toc-number">2.</span> <span class="toc-text">pytorch_lighting</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#train"><span class="toc-number">2.1.</span> <span class="toc-text">train</span></a></li></ol></li></ol>
       
   </div>
 </div>

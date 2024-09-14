@@ -26,12 +26,12 @@
   
 <link rel="stylesheet" href="/css/loader.css">
 
-  <meta name="description" content="RAID， CCFB，常见的defence  摘要 提供了第一个有效的后门攻击防御方法，实验：  三个后门攻击 两种防御方法，剪枝和微调，并且进行结合，提出了fine- pruning，微剪枝。  实验结果：在某种情况下，降低攻击成功率到0%，仅仅只有0.4%的正确率下降（对于那些干净样本） 本文结构：  ch1介绍 ch2背景，分为三节介绍：深度学习基础、威胁模型、后门攻击 ch3是讲方法的 c">
+  <meta name="description" content="RAID， CCFB，常见的defence 摘要 提供了第一个有效的后门攻击防御方法，实验：  三个后门攻击 两种防御方法，剪枝和微调，并且进行结合，提出了fine- pruning，微剪枝。  实验结果：在某种情况下，降低攻击成功率到0%，仅仅只有0.4%的正确率下降（对于那些干净样本） 本文结构：  ch1介绍 ch2背景，分为三节介绍：深度学习基础、威胁模型、后门攻击 ch3是讲方法的 ch">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Fine-Pruning-Defending-Against-Backdooring-Attacks-on-Deep-Neural-Networks">
 <meta property="og:url" content="http://example.com/2024/01/20/Fine-Pruning-Defending-Against-Backdooring-Attacks-on-Deep-Neural-Networks/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="RAID， CCFB，常见的defence  摘要 提供了第一个有效的后门攻击防御方法，实验：  三个后门攻击 两种防御方法，剪枝和微调，并且进行结合，提出了fine- pruning，微剪枝。  实验结果：在某种情况下，降低攻击成功率到0%，仅仅只有0.4%的正确率下降（对于那些干净样本） 本文结构：  ch1介绍 ch2背景，分为三节介绍：深度学习基础、威胁模型、后门攻击 ch3是讲方法的 c">
+<meta property="og:description" content="RAID， CCFB，常见的defence 摘要 提供了第一个有效的后门攻击防御方法，实验：  三个后门攻击 两种防御方法，剪枝和微调，并且进行结合，提出了fine- pruning，微剪枝。  实验结果：在某种情况下，降低攻击成功率到0%，仅仅只有0.4%的正确率下降（对于那些干净样本） 本文结构：  ch1介绍 ch2背景，分为三节介绍：深度学习基础、威胁模型、后门攻击 ch3是讲方法的 ch">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2024/01/20/Fine-Pruning-Defending-Against-Backdooring-Attacks-on-Deep-Neural-Networks/image-20240227132415425.png">
 <meta property="og:image" content="http://example.com/2024/01/20/Fine-Pruning-Defending-Against-Backdooring-Attacks-on-Deep-Neural-Networks/image-20240227155557857.png">
@@ -214,42 +214,37 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <p>RAID， CCFB，常见的defence</p>
-<h1 id="摘要"><a class="markdownIt-Anchor" href="#摘要"></a> 摘要</h1>
+<h1 id="摘要">摘要</h1>
 <p>提供了第一个有效的后门攻击防御方法，实验：</p>
 <ul>
 <li>三个后门攻击</li>
-<li>两种防御方法，剪枝和微调，并且进行结合，提出了fine- pruning，微剪枝。</li>
+<li>两种防御方法，剪枝和微调，并且进行结合，提出了fine-
+pruning，微剪枝。</li>
 </ul>
 <p>实验结果：在某种情况下，降低攻击成功率到0%，仅仅只有0.4%的正确率下降（对于那些干净样本）</p>
 <p>本文结构：</p>
 <ul>
 <li>ch1介绍</li>
-<li>ch2背景，分为三节介绍：深度学习基础、<s>威胁模型</s>、后门攻击</li>
+<li>ch2背景，分为三节介绍：深度学习基础、<del>威胁模型</del>、后门攻击</li>
 <li>ch3是讲方法的</li>
-<li><s>ch4是讨论，讨论了对方法的正确性进行了讨论</s></li>
-<li><s>ch5近期工作</s></li>
+<li><del>ch4是讨论，讨论了对方法的正确性进行了讨论</del></li>
+<li><del>ch5近期工作</del></li>
 <li>ch6结论</li>
 </ul>
 <p>结构比较乱，没有单独的<strong>实验部分</strong>。</p>
 <p>威胁模型和之前的论文一样。</p>
-<h1 id="方法"><a class="markdownIt-Anchor" href="#方法"></a> 方法</h1>
-<h2 id="剪枝"><a class="markdownIt-Anchor" href="#剪枝"></a> 剪枝</h2>
-<h3 id="原理"><a class="markdownIt-Anchor" href="#原理"></a> 原理</h3>
+<h1 id="方法">方法</h1>
+<h2 id="剪枝">剪枝</h2>
+<h3 id="原理">原理</h3>
 <p>某些后门攻击选取的神经元具有这样的特性：对于干净样本的输出，不激活；对于带有后门的输入，激活较大。因此，直觉上，将这样的神经元修剪掉，可能会使后门攻击无效。</p>
 <p>剪枝详细分为三个阶段：</p>
-<ol>
-<li>
-<p>对干净数据和后门输入都不激活的神经元，剪掉。</p>
-<p>这类神经元剪掉不会有任何影响。</p>
-</li>
-<li>
-<p>只对后门输入激活的神经元，剪掉。</p>
-<p>在不怎么降低正确样本准确率的前提下，修剪掉这类神经元。</p>
-</li>
-<li>
-<p>对干净输入激活，同时会降低正干净样本的正确率的神经元，剪掉。</p>
-<p>将受到后门神经元影响比较严重的神经元修剪掉。</p>
-</li>
+<ol type="1">
+<li><p>对干净数据和后门输入都不激活的神经元，剪掉。</p>
+<p>这类神经元剪掉不会有任何影响。</p></li>
+<li><p>只对后门输入激活的神经元，剪掉。</p>
+<p>在不怎么降低正确样本准确率的前提下，修剪掉这类神经元。</p></li>
+<li><p>对干净输入激活，同时会降低正干净样本的正确率的神经元，剪掉。</p>
+<p>将受到后门神经元影响比较严重的神经元修剪掉。</p></li>
 </ol>
 <p>剪枝是一种不错的策略：</p>
 <ul>
@@ -257,30 +252,36 @@
 <li>能够显著降低后门攻击的成功率。</li>
 </ul>
 <p>缺点：已经有针对修剪的攻击了。</p>
-<h3 id="实验"><a class="markdownIt-Anchor" href="#实验"></a> 实验</h3>
+<h3 id="实验">实验</h3>
 <p>剪枝前人已经提出过了，作者此部分的工作量：</p>
 <ul>
 <li>attack baseline：badnets</li>
 <li>攻击场景：人脸识别、语音识别、交通信号</li>
 </ul>
 <p>在分析的时候作者会将接近输出层的神经元的输出可视化出来，不是很懂这种图的意思：</p>
-<p><img src="/2024/01/20/Fine-Pruning-Defending-Against-Backdooring-Attacks-on-Deep-Neural-Networks/image-20240227132415425.png" alt="image-20240227132415425"></p>
+<figure>
+<img src="/2024/01/20/Fine-Pruning-Defending-Against-Backdooring-Attacks-on-Deep-Neural-Networks/image-20240227132415425.png" alt="image-20240227132415425">
+<figcaption aria-hidden="true">image-20240227132415425</figcaption>
+</figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在(a)“Clean Activations”图表中，每一块代表一个特定神经元的激活强度，颜色越浅表示激活强度越高。0～2.0是一个比例尺，表示激活强度的范围。在(b)“Backdoor Activations”图表中，大部分神经元没有被激活（黑色），只有少数几个显示出较高的激活（白色）。0～25也是一个比例尺，但具有不同的范围和刻度。</span></span><br></pre></td></tr></table></figure>
-<h2 id="修剪感知攻击"><a class="markdownIt-Anchor" href="#修剪感知攻击"></a> 修剪感知攻击</h2>
-<h3 id="原理-2"><a class="markdownIt-Anchor" href="#原理-2"></a> 原理</h3>
+<h2 id="修剪感知攻击">修剪感知攻击</h2>
+<h3 id="原理-1">原理</h3>
 <p>修剪感知攻击针对的是剪枝防御。其直觉是：攻击者在训练时，先进行剪枝，将满足一定特性的神经元修剪，然后开始训练，使得没有被修剪的神经元能够感知触发器，最后再将修剪掉的神经元重新放回去，保证模型结构不变的同时，被修剪的神经元的作用为“诱饵”。</p>
 <p>攻击分为四个阶段：</p>
-<ol>
+<ol type="1">
 <li>将DNN在干净数据集上先进行训练。</li>
 <li>对DNN进行剪枝，将休眠的神经元修建掉。修建的神经元的个数作为参数可以在攻击过程中进行调整。</li>
 <li>用投毒数据集对修剪之后的DNN进行训练。</li>
 <li>将修剪的神经元重新安装回去，并且调低他们的bias，确保“诱饵”对干净输入激活较低。</li>
 </ol>
-<p><img src="/2024/01/20/Fine-Pruning-Defending-Against-Backdooring-Attacks-on-Deep-Neural-Networks/image-20240227155557857.png" alt="image-20240227155557857"></p>
-<h2 id="微剪枝"><a class="markdownIt-Anchor" href="#微剪枝"></a> 微剪枝</h2>
+<figure>
+<img src="/2024/01/20/Fine-Pruning-Defending-Against-Backdooring-Attacks-on-Deep-Neural-Networks/image-20240227155557857.png" alt="image-20240227155557857">
+<figcaption aria-hidden="true">image-20240227155557857</figcaption>
+</figure>
+<h2 id="微剪枝">微剪枝</h2>
 <p>作者的idea出发于迁移学习中的微调。然而微调并不能直接用于后门攻击的防御中。因为防御者手上只有验证集，而后门神经元对验证集中的图片不会激活。因此经过微调后，后门神经元的参数不会发生改变。</p>
 <p>微剪枝的步骤是：</p>
-<ol>
+<ol type="1">
 <li>通过剪枝将后门神经元剪掉（其实是诱饵）</li>
 <li>通过微调来根据正确率调整剪枝模型的参数。</li>
 </ol>
@@ -289,7 +290,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/20/Fine-Pruning-Defending-Against-Backdooring-Attacks-on-Deep-Neural-Networks/" data-id="cm122maxy0015jm9f1ed81auo" data-title="Fine-Pruning-Defending-Against-Backdooring-Attacks-on-Deep-Neural-Networks" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2024/01/20/Fine-Pruning-Defending-Against-Backdooring-Attacks-on-Deep-Neural-Networks/" data-id="cm122mlgg0012me9f7ml77h06" data-title="Fine-Pruning-Defending-Against-Backdooring-Attacks-on-Deep-Neural-Networks" class="article-share-link">Share</a>
       
       
       
@@ -309,7 +310,7 @@
         
           
           
-            <img data-src="/covers/IMG_2618.PNG" data-sizes="auto" alt="ABS:Scanning_Neural_Networks_for_Back-doors_by_Artificial_Brain_Stimulation" class="lazyload">
+            <img data-src="/covers/IMG_2621.PNG" data-sizes="auto" alt="ABS:Scanning_Neural_Networks_for_Back-doors_by_Artificial_Brain_Stimulation" class="lazyload">
           
         
         <a href="/2024/02/29/ABS-Scanning-Neural-Networks-for-Back-doors-by-Artificial-Brain-Stimulation/"></a>
@@ -326,7 +327,7 @@
       
         
         
-          <img data-src="/covers/IMG_2621.PNG" data-sizes="auto" alt="Trojaning-Attack-on-Neural-Networks" class="lazyload">
+          <img data-src="/covers/IMG_2581.JPG" data-sizes="auto" alt="Trojaning-Attack-on-Neural-Networks" class="lazyload">
         
       
       <a href="/2024/01/17/Trojaning-Attack-on-Neural-Networks/"></a>
@@ -358,7 +359,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text"> 摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text"> 方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%AA%E6%9E%9D"><span class="toc-number">2.1.</span> <span class="toc-text"> 剪枝</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">2.1.1.</span> <span class="toc-text"> 原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number">2.1.2.</span> <span class="toc-text"> 实验</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E5%89%AA%E6%84%9F%E7%9F%A5%E6%94%BB%E5%87%BB"><span class="toc-number">2.2.</span> <span class="toc-text"> 修剪感知攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-2"><span class="toc-number">2.2.1.</span> <span class="toc-text"> 原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BE%AE%E5%89%AA%E6%9E%9D"><span class="toc-number">2.3.</span> <span class="toc-text"> 微剪枝</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%AA%E6%9E%9D"><span class="toc-number">2.1.</span> <span class="toc-text">剪枝</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">2.1.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number">2.1.2.</span> <span class="toc-text">实验</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E5%89%AA%E6%84%9F%E7%9F%A5%E6%94%BB%E5%87%BB"><span class="toc-number">2.2.</span> <span class="toc-text">修剪感知攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-1"><span class="toc-number">2.2.1.</span> <span class="toc-text">原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BE%AE%E5%89%AA%E6%9E%9D"><span class="toc-number">2.3.</span> <span class="toc-text">微剪枝</span></a></li></ol></li></ol>
       
   </div>
 </div>
@@ -449,10 +450,10 @@
       
         <div>
           <span class="icon-brush"></span>
-          95.7k
+          91.5k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          06:27
+          06:04
         </div>
       
       
@@ -481,7 +482,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text"> 摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text"> 方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%AA%E6%9E%9D"><span class="toc-number">2.1.</span> <span class="toc-text"> 剪枝</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">2.1.1.</span> <span class="toc-text"> 原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number">2.1.2.</span> <span class="toc-text"> 实验</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E5%89%AA%E6%84%9F%E7%9F%A5%E6%94%BB%E5%87%BB"><span class="toc-number">2.2.</span> <span class="toc-text"> 修剪感知攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-2"><span class="toc-number">2.2.1.</span> <span class="toc-text"> 原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BE%AE%E5%89%AA%E6%9E%9D"><span class="toc-number">2.3.</span> <span class="toc-text"> 微剪枝</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%AA%E6%9E%9D"><span class="toc-number">2.1.</span> <span class="toc-text">剪枝</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">2.1.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number">2.1.2.</span> <span class="toc-text">实验</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E5%89%AA%E6%84%9F%E7%9F%A5%E6%94%BB%E5%87%BB"><span class="toc-number">2.2.</span> <span class="toc-text">修剪感知攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-1"><span class="toc-number">2.2.1.</span> <span class="toc-text">原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BE%AE%E5%89%AA%E6%9E%9D"><span class="toc-number">2.3.</span> <span class="toc-text">微剪枝</span></a></li></ol></li></ol>
       
   </div>
 </div>

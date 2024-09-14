@@ -195,33 +195,40 @@
       
         
         
-          <img data-src="/covers/IMG_2583 2.PNG" data-sizes="auto" alt="How-to-Backdoor-Diffusion-Models" class="lazyload">
+          <img data-src="/covers/IMG_2581.JPG" data-sizes="auto" alt="How-to-Backdoor-Diffusion-Models" class="lazyload">
         
       
     </div>
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2024-04-13</span>
-        <span><span class="icon-pencil"></span>993 words</span>
-        <span><span class="icon-clock"></span>4 mins</span>
+        <span><span class="icon-pencil"></span>765 words</span>
+        <span><span class="icon-clock"></span>3 mins</span>
       </div>
       <h2 class="post-title">How-to-Backdoor-Diffusion-Models</h2>
       <article class="post-article">
         
           
-Google scholar上，三位作者分别是：香港中文大学教授、IBM员工、香港中文大学博士生。CVPR 2023
+
+image-20240413085547219
+
+Google
+scholar上，三位作者分别是：香港中文大学教授、IBM员工、香港中文大学博士生。CVPR
+2023
+
+
+image-20240413091552922
 
 核心思想：向DM中植入后门，当输入中含有触发器时，输出到目标标签。
 跟我现在的想法有些类似。
- 方法
- 威胁模型
+方法
+威胁模型
 从两方进行建模：
 
 用户：希望得到一个SOTA的DM
 攻击者：提供DNN的第三方
 
-用户在下载DM（攻击者声称在DtrainD_{train}Dtrain​上预训练过）后，会对这个模型进行验证（FIDFIDFID或者ISISIS这样的指标），使用的数据集也是DtrainD_{train}Dtrain​，若是指标能够达到攻击者声称的那样，就接受模型。
-攻击者的目标
+用户在下载DM（攻击者声称在\(D_{train}\)上预训练过）后，会对这个模型进行验证（\(FID\)或者\(IS\)这样的指标），使用的数据集也是\(D_{train}\)，
         
       </article>
     </div>
@@ -238,7 +245,7 @@ Google scholar上，三位作者分别是：香港中文大学教授、IBM员工
       
         
         
-          <img data-src="/covers/IMG_2619.PNG" data-sizes="auto" alt="pro-git" class="lazyload">
+          <img data-src="/covers/IMG_2575.JPG" data-sizes="auto" alt="pro-git" class="lazyload">
         
       
     </div>
@@ -251,10 +258,11 @@ Google scholar上，三位作者分别是：香港中文大学教授、IBM员工
       <h2 class="post-title">pro-git</h2>
       <article class="post-article">
         
-          本来想记录一次git的踩坑，但是考虑到后面可能会阅读Pro Git，因此创建本文档。
- 问题
- 大文件
-123456789101112131415(base) chengyiqiu@chengyiqiu:~/code/Diffusion-Backdoor-Embed$ git pushEnumerating objects: 60081, done.Counting objects: 100% (60081/60081), done.Delta compression using up to 12 threadsCompressing objects: 100% (60039/60039), 
+          本来想记录一次git的踩坑，但是考虑到后面可能会阅读Pro
+Git，因此创建本文档。
+问题
+大文件
+123456789101112131415(base) chengyiqiu@chengyiqiu:~/code/Diffusion-Backdoor-Embed$ git pushEnumerating objects: 60081, done.Counting objects: 100% (60081/60081), done.Delta compression using up to 12 threadsCompressing objects: 100% (60039/60039), do
         
       </article>
     </div>
@@ -272,14 +280,14 @@ Google scholar上，三位作者分别是：香港中文大学教授、IBM员工
       
         
         
-          <img data-src="/covers/IMG_2583 2.PNG" data-sizes="auto" alt="DATAELIXIR:Purifying-Poisoned-Dataset-to-Mitigate-Backdoor-Attacks-via-Diffusion-Models" class="lazyload">
+          <img data-src="/covers/IMG_2586.PNG" data-sizes="auto" alt="DATAELIXIR:Purifying-Poisoned-Dataset-to-Mitigate-Backdoor-Attacks-via-Diffusion-Models" class="lazyload">
         
       
     </div>
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2024-04-08</span>
-        <span><span class="icon-pencil"></span>1k words</span>
+        <span><span class="icon-pencil"></span>994 words</span>
         <span><span class="icon-clock"></span>3 mins</span>
       </div>
       <h2 class="post-title">DATAELIXIR:Purifying-Poisoned-Dataset-to-Mitigate-Backdoor-Attacks-via-Diffusion-Models</h2>
@@ -288,19 +296,23 @@ Google scholar上，三位作者分别是：香港中文大学教授、IBM员工
           AAAI 2024
 还没有release code
 
+
+image-20240408124759179
+
 本文提出了一种数据消毒方法，也是使用扩散模型来消除触发器特征，重构良性特征。
- 方法
- 威胁模型
+方法
+威胁模型
 本文处于防御者的视角，对于攻击者的目标标签、投毒率等不可访问。
 防御者：
 
 假设防御者可以访问和当前任务类似分布的预训练扩散模型。
 训练扩散模型的数据集是干净的
 
- 候选集合构建
+候选集合构建
 、
 本文采取的方法是，对于某张图片，进行n轮前向&amp;amp;反向过程，每一轮的最后m次反向，收集重构的图片，作为候选集合，若是候选集合中的标签发生了变化，证明图片很可能被投毒。
-C(xi,yi)={(xj,yj)}j=1n×mC_{(x_i,y_i)}=\{(x_j,y
+\[
+C_{(x_i,y_i)}=\{(x_j
         
       </article>
     </div>
@@ -317,29 +329,30 @@ C(xi,yi)={(xj,yj)}j=1n×mC_{(x_i,y_i)}=\{(x_j,y
       
         
         
-          <img data-src="/covers/IMG_2620.PNG" data-sizes="auto" alt="python-package-tutorials" class="lazyload">
+          <img data-src="/covers/IMG_2575.JPG" data-sizes="auto" alt="python-package-tutorials" class="lazyload">
         
       
     </div>
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2024-04-03</span>
-        <span><span class="icon-pencil"></span>768 words</span>
+        <span><span class="icon-pencil"></span>772 words</span>
         <span><span class="icon-clock"></span>3 mins</span>
       </div>
       <h2 class="post-title">python-package-tutorials</h2>
       <article class="post-article">
         
           教程，来自官网、blog等。
- Hydra
- get start
+Hydra
+get start
 读取配置文件的一个包，可以读取制指定文件夹下的制定配置文件，安装方法：
 1pip install hydra-core
 这会安装hydra, omegacong等。
-创建folder conf，在里面创建我们的配置文件config.yaml:
+创建folder
+conf，在里面创建我们的配置文件config.yaml:
 12345known_host:  host: 120.76.43.27  port: 62222  user: chengyiqiu  pwd: secert
 运行下面的代码：
-123456789101112import hydrafrom omegaconf import DictCo
+123456789101112import hydrafrom omegaconf import DictConf
         
       </article>
     </div>
@@ -357,7 +370,7 @@ C(xi,yi)={(xj,yj)}j=1n×mC_{(x_i,y_i)}=\{(x_j,y
       
         
         
-          <img data-src="/covers/IMG_2621.PNG" data-sizes="auto" alt="readme_server" class="lazyload">
+          <img data-src="/covers/IMG_2575.JPG" data-sizes="auto" alt="readme_server" class="lazyload">
         
       
     </div>
@@ -387,7 +400,7 @@ C(xi,yi)={(xj,yj)}j=1n×mC_{(x_i,y_i)}=\{(x_j,y
       
         
         
-          <img data-src="/covers/IMG_2621.PNG" data-sizes="auto" alt="follow_who" class="lazyload">
+          <img data-src="/covers/IMG_2620.PNG" data-sizes="auto" alt="follow_who" class="lazyload">
         
       
     </div>
@@ -425,15 +438,18 @@ C(xi,yi)={(xj,yj)}j=1n×mC_{(x_i,y_i)}=\{(x_j,y
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2024-03-29</span>
-        <span><span class="icon-pencil"></span>2.9k words</span>
-        <span><span class="icon-clock"></span>12 mins</span>
+        <span><span class="icon-pencil"></span>2.6k words</span>
+        <span><span class="icon-clock"></span>10 mins</span>
       </div>
       <h2 class="post-title">Denoising_Diffusion_Probabilistic_Models</h2>
       <article class="post-article">
         
-          DDPM，于Stable Diffusion之前，后续关于Diffusion的文章基本都会引用这篇。
+          DDPM，于Stable
+Diffusion之前，后续关于Diffusion的文章基本都会引用这篇。
 NIPS 2020
-摘要：我们使用扩散概率模型展示了高质量的图像合成结果，这是一种受非平衡热力学考虑启发的潜在变量模型。我们最好的结果是通过对加权变分界进行训练获得的，该边界是根据扩散概率模型和与朗之万动力学的去噪分数匹配之间的新联系设计的，我们的模型自然承认渐进式有损解压缩方案，可以解释为自回归解码的泛化。在无条件 CIFAR10 数据集上，我们获得了 9.46 的 Inception 分数和 3.17 的最新 FID 分数。在 256x256 LSUN 上，我们获得了类似于 Progres
+摘要：我们使用扩散概率模型展示了高质量的图像合成结果，这是一种受非平衡热力学考虑启发的潜在变量模型。我们最好的结果是通过对加权变分界进行训练获得的，该边界是根据扩散概率模型和与朗之万动力学的去噪分数匹配之间的新联系设计的，我们的模型自然承认渐进式有损解压缩方案，可以解释为自回归解码的泛化。在无条件
+CIFAR10 数据集上，我们获得了 9.46 的 Inception 分数和 3.17 的最新 FID
+分数。在 256x256 LSUN 上，我们获得了类似于 Progres
         
       </article>
     </div>
@@ -450,7 +466,7 @@ NIPS 2020
       
         
         
-          <img data-src="/covers/IMG_2577.JPG" data-sizes="auto" alt="Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving" class="lazyload">
+          <img data-src="/covers/IMG_2579.JPG" data-sizes="auto" alt="Efficient-Deep-Reinforcement-Learning-with-Imitative-Expert-Priors-for-Autonomous-Driving" class="lazyload">
         
       
     </div>
@@ -488,7 +504,7 @@ NIPS 2020
       
         
         
-          <img data-src="/covers/IMG_2585.JPG" data-sizes="auto" alt="High-Resolution-Image-Synthesis-with-Latent-Diffusion-Models" class="lazyload">
+          <img data-src="/covers/IMG_2621.PNG" data-sizes="auto" alt="High-Resolution-Image-Synthesis-with-Latent-Diffusion-Models" class="lazyload">
         
       
     </div>
@@ -519,7 +535,7 @@ NIPS 2020
       
         
         
-          <img data-src="/covers/IMG_2576.JPG" data-sizes="auto" alt="Neural_Network_Diffusion" class="lazyload">
+          <img data-src="/covers/IMG_2583 2.PNG" data-sizes="auto" alt="Neural_Network_Diffusion" class="lazyload">
         
       
     </div>
@@ -527,25 +543,25 @@ NIPS 2020
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2024-03-24</span>
         <span><span class="icon-pencil"></span>11.8k words</span>
-        <span><span class="icon-clock"></span>66 mins</span>
+        <span><span class="icon-clock"></span>65 mins</span>
       </div>
       <h2 class="post-title">Neural_Network_Diffusion</h2>
       <article class="post-article">
         
           Under ICLR 2024 double-blind review
 使用一个自动编码器，来提取训练模型参数中的隐藏表征，然后扩散模型根据这些隐藏参数表征，合成一些随机噪声，输出一些新的表征给自动编码器的解码器部分，输出就是神经网络的参数。
- 神经网络扩散
- 初步了解扩散模型
+神经网络扩散
+初步了解扩散模型
 扩散模型分为两个过程，前向过程和反向过程：
 
+前向过程是对原始图像不断添加高斯噪声（由\(\beta\)约束），经过\(T\)步后，得到一个随机高斯噪声（\(T\to \infty\)​时，最后得到的一定是噪声）
 
-前向过程是对原始图像不断添加高斯噪声（由β\betaβ约束），经过TTT步后，得到一个随机高斯噪声（T→∞T\to \inftyT→∞​时，最后得到的一定是噪声）
+
+image-20240324121348853
 
 
-q(.)q(.)q(.)：前向过程
-N(.)N(.)N(.)：高斯噪声
-β\betaβ：约束
-III：单
+\(q(.)\)：前向过程
+\(N(.)\)：高斯噪声
         
       </article>
     </div>
@@ -647,10 +663,10 @@ III：单
       
         <div>
           <span class="icon-brush"></span>
-          95.7k
+          91.5k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          06:27
+          06:04
         </div>
       
       
