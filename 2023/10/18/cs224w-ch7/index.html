@@ -26,12 +26,12 @@
   
 <link rel="stylesheet" href="/css/loader.css">
 
-  <meta name="description" content="a single layer og GNN there are many different GNN: GCN, GraphSAGE, GAT... the difference between them mainly are:  message send message aggregation    image-20231018220120532  message send \[ m_u^l&#x3D;\">
+  <meta name="description" content="a single layer og GNN there are many different GNN: GCN, GraphSAGE, GAT… the difference between them mainly are:  message send message aggregation    message send mul&#x3D;MSG(l)(hul−1)m_u^l&#x3D;\mathcal {MSG">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cs224w_ch7">
 <meta property="og:url" content="http://example.com/2023/10/18/cs224w-ch7/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="a single layer og GNN there are many different GNN: GCN, GraphSAGE, GAT... the difference between them mainly are:  message send message aggregation    image-20231018220120532  message send \[ m_u^l&#x3D;\">
+<meta property="og:description" content="a single layer og GNN there are many different GNN: GCN, GraphSAGE, GAT… the difference between them mainly are:  message send message aggregation    message send mul&#x3D;MSG(l)(hul−1)m_u^l&#x3D;\mathcal {MSG">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2023/10/18/cs224w-ch7/image-20231018220120532.png">
 <meta property="og:image" content="http://example.com/2023/10/18/cs224w-ch7/image-20231018220634661.png">
@@ -237,97 +237,57 @@
 
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="a-single-layer-og-gnn">a single layer og GNN</h1>
-<p>there are many different GNN: GCN, GraphSAGE, GAT...</p>
+        <h1 id="a-single-layer-og-gnn"><a class="markdownIt-Anchor" href="#a-single-layer-og-gnn"></a> a single layer og GNN</h1>
+<p>there are many different GNN: GCN, GraphSAGE, GAT…</p>
 <p>the difference between them mainly are:</p>
 <ul>
 <li>message send</li>
 <li>message aggregation</li>
 </ul>
-<figure>
-<img src="/2023/10/18/cs224w-ch7/image-20231018220120532.png" alt="image-20231018220120532">
-<figcaption aria-hidden="true">image-20231018220120532</figcaption>
-</figure>
-<h2 id="message-send">message send</h2>
-<p><span class="math display">\[
-m_u^l=\mathcal {MSG}^{(l)}(h_u^{l-1})
-\]</span></p>
-<p>moostly the message function is linear: <span class="math display">\[
-m_u^l=W^{(l)}h_u^{(l-1)}
-\]</span> <img src="/2023/10/18/cs224w-ch7/image-20231018220634661.png" alt="image-20231018220634661"></p>
-<h2 id="message-aggregation">message aggregation</h2>
-<p>the aggregate function could be: sum, average, or max polling...</p>
+<p><img src="/2023/10/18/cs224w-ch7/image-20231018220120532.png" alt="image-20231018220120532"></p>
+<h2 id="message-send"><a class="markdownIt-Anchor" href="#message-send"></a> message send</h2>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msubsup><mi>m</mi><mi>u</mi><mi>l</mi></msubsup><mo>=</mo><msup><mrow><mi mathvariant="script">M</mi><mi mathvariant="script">S</mi><mi mathvariant="script">G</mi></mrow><mrow><mo stretchy="false">(</mo><mi>l</mi><mo stretchy="false">)</mo></mrow></msup><mo stretchy="false">(</mo><msubsup><mi>h</mi><mi>u</mi><mrow><mi>l</mi><mo>−</mo><mn>1</mn></mrow></msubsup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">m_u^l=\mathcal {MSG}^{(l)}(h_u^{l-1})
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.146108em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathnormal">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999998em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.21123em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord"><span class="mord mathcal">M</span><span class="mord mathcal" style="margin-right:0.075em;">S</span><span class="mord mathcal" style="margin-right:0.0593em;">G</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.96123em;"><span style="top:-3.13623em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999998em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></p>
+<p>moostly the message function is linear:</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msubsup><mi>m</mi><mi>u</mi><mi>l</mi></msubsup><mo>=</mo><msup><mi>W</mi><mrow><mo stretchy="false">(</mo><mi>l</mi><mo stretchy="false">)</mo></mrow></msup><msubsup><mi>h</mi><mi>u</mi><mrow><mo stretchy="false">(</mo><mi>l</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></msubsup></mrow><annotation encoding="application/x-tex">m_u^l=W^{(l)}h_u^{(l-1)}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.146108em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathnormal">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999998em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.185em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.938em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.938em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span><span class="mbin mtight">−</span><span class="mord mtight">1</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+<p><img src="/2023/10/18/cs224w-ch7/image-20231018220634661.png" alt="image-20231018220634661"></p>
+<h2 id="message-aggregation"><a class="markdownIt-Anchor" href="#message-aggregation"></a> message aggregation</h2>
+<p>the aggregate function could be: sum, average, or max polling…</p>
 <p>and its previous message also should be considered, so:</p>
-<figure>
-<img src="/2023/10/18/cs224w-ch7/image-20231018220734835.png" alt="image-20231018220734835">
-<figcaption aria-hidden="true">image-20231018220734835</figcaption>
-</figure>
-<figure>
-<img src="/2023/10/18/cs224w-ch7/image-20231018220745103.png" alt="image-20231018220745103">
-<figcaption aria-hidden="true">image-20231018220745103</figcaption>
-</figure>
-<h1 id="gcn">GCN</h1>
+<p><img src="/2023/10/18/cs224w-ch7/image-20231018220734835.png" alt="image-20231018220734835"></p>
+<p><img src="/2023/10/18/cs224w-ch7/image-20231018220745103.png" alt="image-20231018220745103"></p>
+<h1 id="gcn"><a class="markdownIt-Anchor" href="#gcn"></a> GCN</h1>
 <p>Lets look at GCN, single layer:</p>
-<figure>
-<img src="/2023/10/18/cs224w-ch7/image-20231018220913386.png" alt="image-20231018220913386">
-<figcaption aria-hidden="true">image-20231018220913386</figcaption>
-</figure>
+<p><img src="/2023/10/18/cs224w-ch7/image-20231018220913386.png" alt="image-20231018220913386"></p>
 <ul>
-<li>message send: <strong>one linear and a normalized factor <span class="math inline">\(\frac{1}{N}\)</span></strong></li>
-<li>message aggregate: <strong>use <span class="math inline">\(SUM(.)\)</span> as the aggregate
-function</strong></li>
+<li>message send: <strong>one linear and a normalized factor <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mi>N</mi></mfrac></mrow><annotation encoding="application/x-tex">\frac{1}{N}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></strong></li>
+<li>message aggregate: <strong>use <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mi>U</mi><mi>M</mi><mo stretchy="false">(</mo><mi mathvariant="normal">.</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">SUM(.)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mopen">(</span><span class="mord">.</span><span class="mclose">)</span></span></span></span>  as the aggregate function</strong></li>
 </ul>
-<h1 id="graphsage">GraphSAGE</h1>
-<h2 id="single-attention">Single attention</h2>
-<figure>
-<img src="/2023/10/18/cs224w-ch7/image-20231018221152676.png" alt="image-20231018221152676">
-<figcaption aria-hidden="true">image-20231018221152676</figcaption>
-</figure>
-<p>it can select <span class="math inline">\(SUM(.),MAX(.)...\)</span>
-as its AGG.</p>
+<h1 id="graphsage"><a class="markdownIt-Anchor" href="#graphsage"></a> GraphSAGE</h1>
+<h2 id="single-attention"><a class="markdownIt-Anchor" href="#single-attention"></a> Single attention</h2>
+<p><img src="/2023/10/18/cs224w-ch7/image-20231018221152676.png" alt="image-20231018221152676"></p>
+<p>it can select <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mi>U</mi><mi>M</mi><mo stretchy="false">(</mo><mi mathvariant="normal">.</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mi>M</mi><mi>A</mi><mi>X</mi><mo stretchy="false">(</mo><mi mathvariant="normal">.</mi><mo stretchy="false">)</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">SUM(.),MAX(.)...</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mopen">(</span><span class="mord">.</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mopen">(</span><span class="mord">.</span><span class="mclose">)</span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span></span></span></span> as its AGG.</p>
 <p>and the linear is behand AGG with a concat.</p>
-<p>What's more, the AGG also canbe:</p>
-<figure>
-<img src="/2023/10/18/cs224w-ch7/image-20231018221459065.png" alt="image-20231018221459065">
-<figcaption aria-hidden="true">image-20231018221459065</figcaption>
-</figure>
-<h1 id="gat">GAT</h1>
-<figure>
-<img src="/2023/10/18/cs224w-ch7/image-20231018221534957.png" alt="image-20231018221534957">
-<figcaption aria-hidden="true">image-20231018221534957</figcaption>
-</figure>
-<p>Intuition: different neighbors set different <strong>attention
-coefficient</strong>.</p>
-<p>for GCN, it is <span class="math inline">\(\frac{1}{N}\)</span></p>
+<p>What’s more, the AGG also canbe:</p>
+<p><img src="/2023/10/18/cs224w-ch7/image-20231018221459065.png" alt="image-20231018221459065"></p>
+<h1 id="gat"><a class="markdownIt-Anchor" href="#gat"></a> GAT</h1>
+<p><img src="/2023/10/18/cs224w-ch7/image-20231018221534957.png" alt="image-20231018221534957"></p>
+<p>Intuition: different neighbors set different <strong>attention coefficient</strong>.</p>
+<p>for GCN, it is <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mi>N</mi></mfrac></mrow><annotation encoding="application/x-tex">\frac{1}{N}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
 <p>and for CAT, how to caculate attention?</p>
 <p>the importance of u towards v is:</p>
-<figure>
-<img src="/2023/10/18/cs224w-ch7/image-20231018221924962.png" alt="image-20231018221924962">
-<figcaption aria-hidden="true">image-20231018221924962</figcaption>
-</figure>
+<p><img src="/2023/10/18/cs224w-ch7/image-20231018221924962.png" alt="image-20231018221924962"></p>
 <p>the weight is form a linear:</p>
-<figure>
-<img src="/2023/10/18/cs224w-ch7/image-20231018222042889.png" alt="image-20231018222042889">
-<figcaption aria-hidden="true">image-20231018222042889</figcaption>
-</figure>
+<p><img src="/2023/10/18/cs224w-ch7/image-20231018222042889.png" alt="image-20231018222042889"></p>
 <p>and for a node v, its attention is:</p>
-<figure>
-<img src="/2023/10/18/cs224w-ch7/image-20231018222004730.png" alt="image-20231018222004730">
-<figcaption aria-hidden="true">image-20231018222004730</figcaption>
-</figure>
-<h2 id="mult-attention">Mult-attention</h2>
-<figure>
-<img src="/2023/10/18/cs224w-ch7/image-20231018222156770.png" alt="image-20231018222156770">
-<figcaption aria-hidden="true">image-20231018222156770</figcaption>
-</figure>
-<p>the reason is: avoid the attention coefficient to trap into local
-optimization</p>
-<h1 id="deep-learning-module">Deep learning module</h1>
-<figure>
-<img src="/2023/10/18/cs224w-ch7/image-20231019080319778.png" alt="image-20231019080319778">
-<figcaption aria-hidden="true">image-20231019080319778</figcaption>
-</figure>
-<h2 id="batch-normalization">batch normalization</h2>
+<p><img src="/2023/10/18/cs224w-ch7/image-20231018222004730.png" alt="image-20231018222004730"></p>
+<h2 id="mult-attention"><a class="markdownIt-Anchor" href="#mult-attention"></a> Mult-attention</h2>
+<p><img src="/2023/10/18/cs224w-ch7/image-20231018222156770.png" alt="image-20231018222156770"></p>
+<p>the reason is: avoid the attention coefficient to trap into local optimization</p>
+<h1 id="deep-learning-module"><a class="markdownIt-Anchor" href="#deep-learning-module"></a> Deep learning module</h1>
+<p><img src="/2023/10/18/cs224w-ch7/image-20231019080319778.png" alt="image-20231019080319778"></p>
+<h2 id="batch-normalization"><a class="markdownIt-Anchor" href="#batch-normalization"></a> batch normalization</h2>
 <p>Goal: stablize the train stage</p>
 <p>Idea:</p>
 <ul>
@@ -336,18 +296,16 @@ optimization</p>
 </ul>
 <p>Setup:</p>
 <ul>
-<li><p>Re-center and re-scale:</p>
-<figure>
-<img src="/2023/10/18/cs224w-ch7/image-20231019080836608.png" alt="image-20231019080836608">
-<figcaption aria-hidden="true">image-20231019080836608</figcaption>
-</figure></li>
-<li><p>use trainable parameter <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\gamma\)</span> to normalize the label</p>
-<figure>
-<img src="/2023/10/18/cs224w-ch7/image-20231019081048015.png" alt="image-20231019081048015">
-<figcaption aria-hidden="true">image-20231019081048015</figcaption>
-</figure></li>
+<li>
+<p>Re-center and re-scale:</p>
+<p><img src="/2023/10/18/cs224w-ch7/image-20231019080836608.png" alt="image-20231019080836608"></p>
+</li>
+<li>
+<p>use trainable parameter <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi></mrow><annotation encoding="application/x-tex">\beta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>γ</mi></mrow><annotation encoding="application/x-tex">\gamma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.05556em;">γ</span></span></span></span> to normalize the label</p>
+<p><img src="/2023/10/18/cs224w-ch7/image-20231019081048015.png" alt="image-20231019081048015"></p>
+</li>
 </ul>
-<h2 id="dropout">Dropout</h2>
+<h2 id="dropout"><a class="markdownIt-Anchor" href="#dropout"></a> Dropout</h2>
 <p>Goal: prevent overfitting</p>
 <p>Idea:</p>
 <ul>
@@ -355,104 +313,61 @@ optimization</p>
 <li>when testing, using all neurons to computer.</li>
 </ul>
 <p>In mlp:</p>
-<figure>
-<img src="/2023/10/18/cs224w-ch7/image-20231019082644910.png" alt="image-20231019082644910">
-<figcaption aria-hidden="true">image-20231019082644910</figcaption>
-</figure>
-<p>in GNN, it is in the stage of <strong>message send</strong>, in
-linear layer:</p>
-<figure>
-<img src="/2023/10/18/cs224w-ch7/image-20231019082752171.png" alt="image-20231019082752171">
-<figcaption aria-hidden="true">image-20231019082752171</figcaption>
-</figure>
-<h2 id="activation">Activation</h2>
-<figure>
-<img src="/2023/10/18/cs224w-ch7/image-20231019083002574.png" alt="image-20231019083002574">
-<figcaption aria-hidden="true">image-20231019083002574</figcaption>
-</figure>
-<h1 id="stack-layers-of-a-gnn">Stack Layers of a GNN</h1>
+<p><img src="/2023/10/18/cs224w-ch7/image-20231019082644910.png" alt="image-20231019082644910"></p>
+<p>in GNN, it is in the stage of <strong>message send</strong>, in linear layer:</p>
+<p><img src="/2023/10/18/cs224w-ch7/image-20231019082752171.png" alt="image-20231019082752171"></p>
+<h2 id="activation"><a class="markdownIt-Anchor" href="#activation"></a> Activation</h2>
+<p><img src="/2023/10/18/cs224w-ch7/image-20231019083002574.png" alt="image-20231019083002574"></p>
+<h1 id="stack-layers-of-a-gnn"><a class="markdownIt-Anchor" href="#stack-layers-of-a-gnn"></a> Stack Layers of a GNN</h1>
 <p>how to stack single GNN layer?</p>
 <ul>
 <li>stack layers sequentially</li>
 <li>add skip connections</li>
 </ul>
-<h2 id="stack-layers-sequentially">stack layers sequentially</h2>
-<p>let's see a 3 layers GNNs:</p>
-<figure>
-<img src="/2023/10/18/cs224w-ch7/image-20231021214229778.png" alt="image-20231021214229778">
-<figcaption aria-hidden="true">image-20231021214229778</figcaption>
-</figure>
-<p>what's the problem?</p>
+<h2 id="stack-layers-sequentially"><a class="markdownIt-Anchor" href="#stack-layers-sequentially"></a> stack layers sequentially</h2>
+<p>let’s see a 3 layers GNNs:</p>
+<p><img src="/2023/10/18/cs224w-ch7/image-20231021214229778.png" alt="image-20231021214229778"></p>
+<p>what’s the problem?</p>
 <p>It might <strong>over-smoothing</strong></p>
-<p>The notion is: <strong>in the i th layer(such as 4th, 5th...), all
-node embeddings converge to the same value.</strong> This means in the
-last layer, all nodes are same. And our object is to make distinguish
-deferent nodes.</p>
-<p>let's talk about an another notion: <strong>Receptive
-Field</strong></p>
-<p>it means: <strong>the set of nodes that determine the enbedding of a
-node of interest.</strong></p>
-<p>and in GNN, the receptive field of one node can be seen as K-hop
-neighborhood.</p>
-<figure>
-<img src="/2023/10/18/cs224w-ch7/image-20231021215129650.png" alt="image-20231021215129650">
-<figcaption aria-hidden="true">image-20231021215129650</figcaption>
-</figure>
+<p>The notion is: <strong>in the i th layer(such as 4th, 5th…), all node embeddings converge to the same value.</strong> This means in the last layer, all nodes are same. And our object is to make distinguish deferent nodes.</p>
+<p>let’s talk about an another notion: <strong>Receptive Field</strong></p>
+<p>it means: <strong>the set of nodes that determine the enbedding of a node of interest.</strong></p>
+<p>and in GNN, the receptive field of one node can be seen as K-hop neighborhood.</p>
+<p><img src="/2023/10/18/cs224w-ch7/image-20231021215129650.png" alt="image-20231021215129650"></p>
 <p>and the over-smoothing problem can be represent as:</p>
-<figure>
-<img src="/2023/10/18/cs224w-ch7/image-20231021215316837.png" alt="image-20231021215316837">
-<figcaption aria-hidden="true">image-20231021215316837</figcaption>
-</figure>
-<p>so, the lesson is: we should determine the layers number
-cautious.</p>
-<p>And the experience is: <strong>the GNNs layers number is often the
-receptive field of nodes plus one.</strong></p>
-<h2 id="enhance-the-expression-power">enhance the expression power</h2>
-<p>the next problem is: how could <strong>enhance the expression
-power</strong> of GNN?</p>
-<ol type="1">
-<li><p>add layers that not passing message</p>
-<figure>
-<img src="/2023/10/18/cs224w-ch7/image-20231021215956703.png" alt="image-20231021215956703">
-<figcaption aria-hidden="true">image-20231021215956703</figcaption>
-</figure></li>
-<li><p>Increasing the expressive power withen each layers</p>
-<figure>
-<img src="/2023/10/18/cs224w-ch7/image-20231021220204140.png" alt="image-20231021220204140">
-<figcaption aria-hidden="true">image-20231021220204140</figcaption>
-</figure></li>
+<p><img src="/2023/10/18/cs224w-ch7/image-20231021215316837.png" alt="image-20231021215316837"></p>
+<p>so, the lesson is: we should determine the layers number cautious.</p>
+<p>And the experience is: <strong>the GNNs layers number is often the receptive field of nodes plus one.</strong></p>
+<h2 id="enhance-the-expression-power"><a class="markdownIt-Anchor" href="#enhance-the-expression-power"></a> enhance the expression power</h2>
+<p>the next problem is: how could <strong>enhance the expression power</strong> of GNN?</p>
+<ol>
+<li>
+<p>add layers that not passing message</p>
+<p><img src="/2023/10/18/cs224w-ch7/image-20231021215956703.png" alt="image-20231021215956703"></p>
+</li>
+<li>
+<p>Increasing the expressive power withen each layers</p>
+<p><img src="/2023/10/18/cs224w-ch7/image-20231021220204140.png" alt="image-20231021220204140"></p>
+</li>
 </ol>
-<h2 id="skip-connection">skip connection</h2>
-<p>the problem is: what if some downstream task <strong>still needs many
-GNN layers</strong>?</p>
+<h2 id="skip-connection"><a class="markdownIt-Anchor" href="#skip-connection"></a> skip connection</h2>
+<p>the problem is: what if some downstream task <strong>still needs many GNN layers</strong>?</p>
 <p>the intuition is from ResNet.</p>
 <p>we could add skip connections in GNNs.</p>
 <p>one way:</p>
-<figure>
-<img src="/2023/10/18/cs224w-ch7/image-20231021221203305.png" alt="image-20231021221203305">
-<figcaption aria-hidden="true">image-20231021221203305</figcaption>
-</figure>
+<p><img src="/2023/10/18/cs224w-ch7/image-20231021221203305.png" alt="image-20231021221203305"></p>
 <p>Another:</p>
-<figure>
-<img src="/2023/10/18/cs224w-ch7/image-20231021221218844.png" alt="image-20231021221218844">
-<figcaption aria-hidden="true">image-20231021221218844</figcaption>
-</figure>
+<p><img src="/2023/10/18/cs224w-ch7/image-20231021221218844.png" alt="image-20231021221218844"></p>
 <p>why does it useful?</p>
 <p>the skip connection model can create a mixture of n models.</p>
-<figure>
-<img src="/2023/10/18/cs224w-ch7/image-20231021221332742.png" alt="image-20231021221332742">
-<figcaption aria-hidden="true">image-20231021221332742</figcaption>
-</figure>
+<p><img src="/2023/10/18/cs224w-ch7/image-20231021221332742.png" alt="image-20231021221332742"></p>
 <p>the difference of GCN and the GCN with skip connection</p>
-<figure>
-<img src="/2023/10/18/cs224w-ch7/image-20231021221451314.png" alt="image-20231021221451314">
-<figcaption aria-hidden="true">image-20231021221451314</figcaption>
-</figure>
+<p><img src="/2023/10/18/cs224w-ch7/image-20231021221451314.png" alt="image-20231021221451314"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/18/cs224w-ch7/" data-id="cm122mlgm003sme9fg5rrhetw" data-title="cs224w_ch7" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/10/18/cs224w-ch7/" data-id="cm122n712003sul9f885vfxml" data-title="cs224w_ch7" class="article-share-link">Share</a>
       
       
       
@@ -470,7 +385,7 @@ GNN layers</strong>?</p>
         
           
           
-            <img data-src="/covers/IMG_2579.JPG" data-sizes="auto" alt="FlowGNN" class="lazyload">
+            <img data-src="/covers/IMG_2581.JPG" data-sizes="auto" alt="FlowGNN" class="lazyload">
           
         
         <a href="/2023/10/22/FlowGNN/"></a>
@@ -487,7 +402,7 @@ GNN layers</strong>?</p>
       
         
         
-          <img data-src="/covers/IMG_2586.PNG" data-sizes="auto" alt="DAGAD" class="lazyload">
+          <img data-src="/covers/IMG_2619.PNG" data-sizes="auto" alt="DAGAD" class="lazyload">
         
       
       <a href="/2023/10/17/DAGAD/"></a>
@@ -519,7 +434,7 @@ GNN layers</strong>?</p>
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#a-single-layer-og-gnn"><span class="toc-number">1.</span> <span class="toc-text">a single layer og GNN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#message-send"><span class="toc-number">1.1.</span> <span class="toc-text">message send</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#message-aggregation"><span class="toc-number">1.2.</span> <span class="toc-text">message aggregation</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#gcn"><span class="toc-number">2.</span> <span class="toc-text">GCN</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#graphsage"><span class="toc-number">3.</span> <span class="toc-text">GraphSAGE</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#single-attention"><span class="toc-number">3.1.</span> <span class="toc-text">Single attention</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#gat"><span class="toc-number">4.</span> <span class="toc-text">GAT</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#mult-attention"><span class="toc-number">4.1.</span> <span class="toc-text">Mult-attention</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#deep-learning-module"><span class="toc-number">5.</span> <span class="toc-text">Deep learning module</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#batch-normalization"><span class="toc-number">5.1.</span> <span class="toc-text">batch normalization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dropout"><span class="toc-number">5.2.</span> <span class="toc-text">Dropout</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#activation"><span class="toc-number">5.3.</span> <span class="toc-text">Activation</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#stack-layers-of-a-gnn"><span class="toc-number">6.</span> <span class="toc-text">Stack Layers of a GNN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#stack-layers-sequentially"><span class="toc-number">6.1.</span> <span class="toc-text">stack layers sequentially</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#enhance-the-expression-power"><span class="toc-number">6.2.</span> <span class="toc-text">enhance the expression power</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#skip-connection"><span class="toc-number">6.3.</span> <span class="toc-text">skip connection</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#a-single-layer-og-gnn"><span class="toc-number">1.</span> <span class="toc-text"> a single layer og GNN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#message-send"><span class="toc-number">1.1.</span> <span class="toc-text"> message send</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#message-aggregation"><span class="toc-number">1.2.</span> <span class="toc-text"> message aggregation</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#gcn"><span class="toc-number">2.</span> <span class="toc-text"> GCN</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#graphsage"><span class="toc-number">3.</span> <span class="toc-text"> GraphSAGE</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#single-attention"><span class="toc-number">3.1.</span> <span class="toc-text"> Single attention</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#gat"><span class="toc-number">4.</span> <span class="toc-text"> GAT</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#mult-attention"><span class="toc-number">4.1.</span> <span class="toc-text"> Mult-attention</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#deep-learning-module"><span class="toc-number">5.</span> <span class="toc-text"> Deep learning module</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#batch-normalization"><span class="toc-number">5.1.</span> <span class="toc-text"> batch normalization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dropout"><span class="toc-number">5.2.</span> <span class="toc-text"> Dropout</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#activation"><span class="toc-number">5.3.</span> <span class="toc-text"> Activation</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#stack-layers-of-a-gnn"><span class="toc-number">6.</span> <span class="toc-text"> Stack Layers of a GNN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#stack-layers-sequentially"><span class="toc-number">6.1.</span> <span class="toc-text"> stack layers sequentially</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#enhance-the-expression-power"><span class="toc-number">6.2.</span> <span class="toc-text"> enhance the expression power</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#skip-connection"><span class="toc-number">6.3.</span> <span class="toc-text"> skip connection</span></a></li></ol></li></ol>
       
   </div>
 </div>
@@ -610,10 +525,10 @@ GNN layers</strong>?</p>
       
         <div>
           <span class="icon-brush"></span>
-          91.5k
+          95.7k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          06:04
+          06:27
         </div>
       
       
@@ -642,7 +557,7 @@ GNN layers</strong>?</p>
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#a-single-layer-og-gnn"><span class="toc-number">1.</span> <span class="toc-text">a single layer og GNN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#message-send"><span class="toc-number">1.1.</span> <span class="toc-text">message send</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#message-aggregation"><span class="toc-number">1.2.</span> <span class="toc-text">message aggregation</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#gcn"><span class="toc-number">2.</span> <span class="toc-text">GCN</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#graphsage"><span class="toc-number">3.</span> <span class="toc-text">GraphSAGE</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#single-attention"><span class="toc-number">3.1.</span> <span class="toc-text">Single attention</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#gat"><span class="toc-number">4.</span> <span class="toc-text">GAT</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#mult-attention"><span class="toc-number">4.1.</span> <span class="toc-text">Mult-attention</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#deep-learning-module"><span class="toc-number">5.</span> <span class="toc-text">Deep learning module</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#batch-normalization"><span class="toc-number">5.1.</span> <span class="toc-text">batch normalization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dropout"><span class="toc-number">5.2.</span> <span class="toc-text">Dropout</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#activation"><span class="toc-number">5.3.</span> <span class="toc-text">Activation</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#stack-layers-of-a-gnn"><span class="toc-number">6.</span> <span class="toc-text">Stack Layers of a GNN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#stack-layers-sequentially"><span class="toc-number">6.1.</span> <span class="toc-text">stack layers sequentially</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#enhance-the-expression-power"><span class="toc-number">6.2.</span> <span class="toc-text">enhance the expression power</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#skip-connection"><span class="toc-number">6.3.</span> <span class="toc-text">skip connection</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#a-single-layer-og-gnn"><span class="toc-number">1.</span> <span class="toc-text"> a single layer og GNN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#message-send"><span class="toc-number">1.1.</span> <span class="toc-text"> message send</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#message-aggregation"><span class="toc-number">1.2.</span> <span class="toc-text"> message aggregation</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#gcn"><span class="toc-number">2.</span> <span class="toc-text"> GCN</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#graphsage"><span class="toc-number">3.</span> <span class="toc-text"> GraphSAGE</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#single-attention"><span class="toc-number">3.1.</span> <span class="toc-text"> Single attention</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#gat"><span class="toc-number">4.</span> <span class="toc-text"> GAT</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#mult-attention"><span class="toc-number">4.1.</span> <span class="toc-text"> Mult-attention</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#deep-learning-module"><span class="toc-number">5.</span> <span class="toc-text"> Deep learning module</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#batch-normalization"><span class="toc-number">5.1.</span> <span class="toc-text"> batch normalization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dropout"><span class="toc-number">5.2.</span> <span class="toc-text"> Dropout</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#activation"><span class="toc-number">5.3.</span> <span class="toc-text"> Activation</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#stack-layers-of-a-gnn"><span class="toc-number">6.</span> <span class="toc-text"> Stack Layers of a GNN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#stack-layers-sequentially"><span class="toc-number">6.1.</span> <span class="toc-text"> stack layers sequentially</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#enhance-the-expression-power"><span class="toc-number">6.2.</span> <span class="toc-text"> enhance the expression power</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#skip-connection"><span class="toc-number">6.3.</span> <span class="toc-text"> skip connection</span></a></li></ol></li></ol>
       
   </div>
 </div>

@@ -26,12 +26,12 @@
   
 <link rel="stylesheet" href="/css/loader.css">
 
-  <meta name="description" content="摘要 提出的框架NAD（Neural Attention Distillation，神经注意力蒸馏）：在一小部分干净数据集上，用一个老师模型来对学生模型进行微调，老师模型可以从学生模型中得到，最终我们需要的就是经过微调后的学生模型。 实验效果：通过5%的干净数据集，在不对模型性能（在干净数据上）造成明显下降的情况下，能够清除后门 提出的方法 吐槽：这有必要用一个节标题吗。。   image-202">
+  <meta name="description" content="摘要 提出的框架NAD（Neural Attention Distillation，神经注意力蒸馏）：在一小部分干净数据集上，用一个老师模型来对学生模型进行微调，老师模型可以从学生模型中得到，最终我们需要的就是经过微调后的学生模型。 实验效果：通过5%的干净数据集，在不对模型性能（在干净数据上）造成明显下降的情况下，能够清除后门  提出的方法 吐槽：这有必要用一个节标题吗。。  在带有后门的NN">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Neural_Attention_Distillation_Erasing_Backdoor_Triggers_from_Deep_Neural_Networks">
 <meta property="og:url" content="http://example.com/2023/11/13/Neural-Attention-Distillation-Erasing-Backdoor-Triggers-from-Deep-Neural-Networks/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="摘要 提出的框架NAD（Neural Attention Distillation，神经注意力蒸馏）：在一小部分干净数据集上，用一个老师模型来对学生模型进行微调，老师模型可以从学生模型中得到，最终我们需要的就是经过微调后的学生模型。 实验效果：通过5%的干净数据集，在不对模型性能（在干净数据上）造成明显下降的情况下，能够清除后门 提出的方法 吐槽：这有必要用一个节标题吗。。   image-202">
+<meta property="og:description" content="摘要 提出的框架NAD（Neural Attention Distillation，神经注意力蒸馏）：在一小部分干净数据集上，用一个老师模型来对学生模型进行微调，老师模型可以从学生模型中得到，最终我们需要的就是经过微调后的学生模型。 实验效果：通过5%的干净数据集，在不对模型性能（在干净数据上）造成明显下降的情况下，能够清除后门  提出的方法 吐槽：这有必要用一个节标题吗。。  在带有后门的NN">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2023/11/13/Neural-Attention-Distillation-Erasing-Backdoor-Triggers-from-Deep-Neural-Networks/image-20231113135818958.png">
 <meta property="og:image" content="http://example.com/2023/11/13/Neural-Attention-Distillation-Erasing-Backdoor-Triggers-from-Deep-Neural-Networks/image-20231113144546505.png">
@@ -215,59 +215,47 @@
 
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="摘要">摘要</h1>
-<p>提出的框架NAD（<strong>N</strong>eural <strong>A</strong>ttention
-<strong>D</strong>istillation，神经注意力蒸馏）：在一小部分干净数据集上，用一个老师模型来对学生模型进行微调，老师模型可以从学生模型中得到，最终我们需要的就是经过微调后的学生模型。</p>
+        <h1 id="摘要"><a class="markdownIt-Anchor" href="#摘要"></a> 摘要</h1>
+<p>提出的框架NAD（<strong>N</strong>eural <strong>A</strong>ttention <strong>D</strong>istillation，神经注意力蒸馏）：在一小部分干净数据集上，用一个老师模型来对学生模型进行微调，老师模型可以从学生模型中得到，最终我们需要的就是经过微调后的学生模型。</p>
 <p>实验效果：通过5%的干净数据集，在不对模型性能（在干净数据上）造成明显下降的情况下，能够清除后门</p>
-<h1 id="提出的方法">提出的方法</h1>
+<h1 id="提出的方法"><a class="markdownIt-Anchor" href="#提出的方法"></a> 提出的方法</h1>
 <p>吐槽：这有必要用一个节标题吗。。</p>
-<figure>
-<img src="/2023/11/13/Neural-Attention-Distillation-Erasing-Backdoor-Triggers-from-Deep-Neural-Networks/image-20231113135818958.png" alt="image-20231113135818958">
-<figcaption aria-hidden="true">image-20231113135818958</figcaption>
-</figure>
+<p><img src="/2023/11/13/Neural-Attention-Distillation-Erasing-Backdoor-Triggers-from-Deep-Neural-Networks/image-20231113135818958.png" alt="image-20231113135818958"></p>
 <p>在带有后门的NN中，有些神经元会对带有后门模式的representation响应，而良性的神经元只会响应有意义的representation。NAD就是优化那些会对后门模式响应的神经元。最主要的问题是：怎么区分representation？</p>
 <p>符号表示：</p>
 <ul>
-<li><p><span class="math inline">\(F^l\)</span>：第l层的激活函数的输出结果</p></li>
-<li><p><span class="math inline">\(\mathcal
-A\)</span>：注意力映射，将3维的激活函数输出转换为2维的注意力。</p></li>
+<li>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>F</mi><mi>l</mi></msup></mrow><annotation encoding="application/x-tex">F^l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.849108em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span></span></span></span></span></span></span></span></span></span></span>：第l层的激活函数的输出结果</p>
+</li>
+<li>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">A</mi></mrow><annotation encoding="application/x-tex">\mathcal A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathcal">A</span></span></span></span>：注意力映射，将3维的激活函数输出转换为2维的注意力。</p>
+</li>
 </ul>
-<figure>
-<img src="/2023/11/13/Neural-Attention-Distillation-Erasing-Backdoor-Triggers-from-Deep-Neural-Networks/image-20231113144546505.png" alt="image-20231113144546505">
-<figcaption aria-hidden="true">image-20231113144546505</figcaption>
-</figure>
+<p><img src="/2023/11/13/Neural-Attention-Distillation-Erasing-Backdoor-Triggers-from-Deep-Neural-Networks/image-20231113144546505.png" alt="image-20231113144546505"></p>
 <p>下面对这几个映射函数做区分：</p>
 <ul>
-<li><span class="math inline">\(\mathcal
-A_{sum}\)</span>：同时考虑了良性神经元和后门神经元</li>
-<li><span class="math inline">\(\mathcal
-A_{sum}^p\)</span>：通过p次方，放大了良性神经元和后门神经元的差值</li>
-<li><span class="math inline">\(\mathcal
-A_{mean}^p\)</span>：对良性神经元以及后门神经元的输出取均值</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">A</mi><mrow><mi>s</mi><mi>u</mi><mi>m</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\mathcal A_{sum}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathcal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">m</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>：同时考虑了良性神经元和后门神经元</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi mathvariant="script">A</mi><mrow><mi>s</mi><mi>u</mi><mi>m</mi></mrow><mi>p</mi></msubsup></mrow><annotation encoding="application/x-tex">\mathcal A_{sum}^p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.93033em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathcal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">m</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span></span></span></span>：通过p次方，放大了良性神经元和后门神经元的差值</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi mathvariant="script">A</mi><mrow><mi>m</mi><mi>e</mi><mi>a</mi><mi>n</mi></mrow><mi>p</mi></msubsup></mrow><annotation encoding="application/x-tex">\mathcal A_{mean}^p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.93033em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathcal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mord mathnormal mtight">e</span><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">n</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span></span></span></span>：对良性神经元以及后门神经元的输出取均值</li>
 </ul>
 <p>拿ResNet举例，在每一个残差块之后，增加一个注意力函数，来计算注意力。</p>
 <p>回到我们的NAD，NAD loss可以表示为下面的式子：</p>
-<figure>
-<img src="/2023/11/13/Neural-Attention-Distillation-Erasing-Backdoor-Triggers-from-Deep-Neural-Networks/image-20231113150718307.png" alt="image-20231113150718307">
-<figcaption aria-hidden="true">image-20231113150718307</figcaption>
-</figure>
+<p><img src="/2023/11/13/Neural-Attention-Distillation-Erasing-Backdoor-Triggers-from-Deep-Neural-Networks/image-20231113150718307.png" alt="image-20231113150718307"></p>
 <p>整个的loss表达式如下：</p>
 <p><img src="/2023/11/13/Neural-Attention-Distillation-Erasing-Backdoor-Triggers-from-Deep-Neural-Networks/image-20231113151004953.png" alt="image-20231113151004953">、</p>
 <p>符号表示：</p>
 <ul>
-<li><span class="math inline">\(\mathcal
-L_{CE}(.)\)</span>：使用CE来优化学生模型分类的准确率</li>
-<li><span class="math inline">\(\mathcal
-D\)</span>：一小部分干净的数据集</li>
-<li><span class="math inline">\(\beta\)</span>：超参数，控制注意力蒸馏</li>
-<li><span class="math inline">\(l\)</span>：第l个残差块</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">L</mi><mrow><mi>C</mi><mi>E</mi></mrow></msub><mo stretchy="false">(</mo><mi mathvariant="normal">.</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathcal L_{CE}(.)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathcal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">C</span><span class="mord mathnormal mtight" style="margin-right:0.05764em;">E</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord">.</span><span class="mclose">)</span></span></span></span>：使用CE来优化学生模型分类的准确率</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">D</mi></mrow><annotation encoding="application/x-tex">\mathcal D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathcal" style="margin-right:0.02778em;">D</span></span></span></span>：一小部分干净的数据集</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi></mrow><annotation encoding="application/x-tex">\beta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span></span></span></span>：超参数，控制注意力蒸馏</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span></span></span></span>：第l个残差块</li>
 </ul>
 <p>老师模型是通过学生模型在相同的干净数据集上微调得来的，具体怎么做需要看实验部分。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/13/Neural-Attention-Distillation-Erasing-Backdoor-Triggers-from-Deep-Neural-Networks/" data-id="cm122mlgi001vme9febrk1v85" data-title="Neural_Attention_Distillation_Erasing_Backdoor_Triggers_from_Deep_Neural_Networks" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/11/13/Neural-Attention-Distillation-Erasing-Backdoor-Triggers-from-Deep-Neural-Networks/" data-id="cm122n70y001yul9f3vxn6iws" data-title="Neural_Attention_Distillation_Erasing_Backdoor_Triggers_from_Deep_Neural_Networks" class="article-share-link">Share</a>
       
       
       
@@ -287,7 +275,7 @@ D\)</span>：一小部分干净的数据集</li>
         
           
           
-            <img data-src="/covers/IMG_2582.PNG" data-sizes="auto" alt="ATTEQ-NN:Attention-based_QoE-aware_Evasive_Backdoor_Attacks" class="lazyload">
+            <img data-src="/covers/IMG_2620.PNG" data-sizes="auto" alt="ATTEQ-NN:Attention-based_QoE-aware_Evasive_Backdoor_Attacks" class="lazyload">
           
         
         <a href="/2023/11/14/ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/"></a>
@@ -304,7 +292,7 @@ D\)</span>：一小部分干净的数据集</li>
       
         
         
-          <img data-src="/covers/IMG_2621.PNG" data-sizes="auto" alt="Purifying_Backdoors_in_Deep_Learning_Models_using_Self_Attention_Distillation" class="lazyload">
+          <img data-src="/covers/IMG_2580.JPG" data-sizes="auto" alt="Purifying_Backdoors_in_Deep_Learning_Models_using_Self_Attention_Distillation" class="lazyload">
         
       
       <a href="/2023/11/09/Purifying-Backdoors-in-Deep-Learning-Models-using-Self-Attention-Distillation/"></a>
@@ -336,7 +324,7 @@ D\)</span>：一小部分干净的数据集</li>
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8F%90%E5%87%BA%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">提出的方法</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text"> 摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8F%90%E5%87%BA%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text"> 提出的方法</span></a></li></ol>
       
   </div>
 </div>
@@ -427,10 +415,10 @@ D\)</span>：一小部分干净的数据集</li>
       
         <div>
           <span class="icon-brush"></span>
-          91.5k
+          95.7k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          06:04
+          06:27
         </div>
       
       
@@ -459,7 +447,7 @@ D\)</span>：一小部分干净的数据集</li>
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8F%90%E5%87%BA%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">提出的方法</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text"> 摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8F%90%E5%87%BA%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text"> 提出的方法</span></a></li></ol>
       
   </div>
 </div>
