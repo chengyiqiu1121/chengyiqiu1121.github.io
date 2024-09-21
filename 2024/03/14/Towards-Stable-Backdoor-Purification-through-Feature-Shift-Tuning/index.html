@@ -26,12 +26,12 @@
   
 <link rel="stylesheet" href="/css/loader.css">
 
-  <meta name="description" content="NIPS2023  摘要 本文的方法是基于微调的（FT, Fine-Tuning），微调并不能很好的解决触发器特征和样本特征联系紧密的问题，因此作者提出FST（Feature Shift Tuning）  微调提升模型的鲁棒性  实验观测 作者工作的重心在：当数据投毒率比较高（20%，10%等）时，可以使用微调来改变模型的决策边界（削弱触发器和目标标签之间的联系）。当数据投毒率比较低时，简单使用微">
+  <meta name="description" content="NIPS2023 摘要 本文的方法是基于微调的（FT, Fine-Tuning），微调并不能很好的解决触发器特征和样本特征联系紧密的问题，因此作者提出FST（Feature Shift Tuning） 微调提升模型的鲁棒性 实验观测 作者工作的重心在：当数据投毒率比较高（20%，10%等）时，可以使用微调来改变模型的决策边界（削弱触发器和目标标签之间的联系）。当数据投毒率比较低时，简单使用微调就无">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Towards_Stable_Backdoor_Purification_through_Feature_Shift_Tuning">
 <meta property="og:url" content="http://example.com/2024/03/14/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="NIPS2023  摘要 本文的方法是基于微调的（FT, Fine-Tuning），微调并不能很好的解决触发器特征和样本特征联系紧密的问题，因此作者提出FST（Feature Shift Tuning）  微调提升模型的鲁棒性  实验观测 作者工作的重心在：当数据投毒率比较高（20%，10%等）时，可以使用微调来改变模型的决策边界（削弱触发器和目标标签之间的联系）。当数据投毒率比较低时，简单使用微">
+<meta property="og:description" content="NIPS2023 摘要 本文的方法是基于微调的（FT, Fine-Tuning），微调并不能很好的解决触发器特征和样本特征联系紧密的问题，因此作者提出FST（Feature Shift Tuning） 微调提升模型的鲁棒性 实验观测 作者工作的重心在：当数据投毒率比较高（20%，10%等）时，可以使用微调来改变模型的决策边界（削弱触发器和目标标签之间的联系）。当数据投毒率比较低时，简单使用微调就无">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2024/03/14/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240315093150937.png">
 <meta property="og:image" content="http://example.com/2024/03/14/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240326164346367.png">
@@ -219,46 +219,73 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <p>NIPS2023</p>
-<h1 id="摘要"><a class="markdownIt-Anchor" href="#摘要"></a> 摘要</h1>
-<p>本文的方法是基于微调的（FT, Fine-Tuning），微调并不能很好的解决触发器特征和样本特征联系紧密的问题，因此作者提出FST（Feature Shift Tuning）</p>
-<h1 id="微调提升模型的鲁棒性"><a class="markdownIt-Anchor" href="#微调提升模型的鲁棒性"></a> 微调提升模型的鲁棒性</h1>
-<h2 id="实验观测"><a class="markdownIt-Anchor" href="#实验观测"></a> 实验观测</h2>
+<h1 id="摘要">摘要</h1>
+<p>本文的方法是基于微调的（FT,
+Fine-Tuning），微调并不能很好的解决触发器特征和样本特征联系紧密的问题，因此作者提出FST（Feature
+Shift Tuning）</p>
+<h1 id="微调提升模型的鲁棒性">微调提升模型的鲁棒性</h1>
+<h2 id="实验观测">实验观测</h2>
 <p>作者工作的重心在：当数据投毒率比较高（20%，10%等）时，可以使用微调来改变模型的决策边界（削弱触发器和目标标签之间的联系）。当数据投毒率比较低时，简单使用微调就无法解决问题了。这是经过实验观测得出的结论。</p>
-<h2 id="探索"><a class="markdownIt-Anchor" href="#探索"></a> 探索</h2>
+<h2 id="探索">探索</h2>
 <p>作者对不同投毒率下微调方法效果出现不稳定这个问题进行了探索。</p>
 <p>假设：在不同投毒率下，模型的特征提取器提取出的特征是不同的。</p>
 <p>基于假设，开始做实验，利用T-SNE对不同投毒率下的模型提取的特征进行可视化。</p>
-<p><img src="/2024/03/14/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240315093150937.png" alt="image-20240315093150937"></p>
-<h2 id="实验1-特征转移能否提高微调性能"><a class="markdownIt-Anchor" href="#实验1-特征转移能否提高微调性能"></a> 实验1-特征转移能否提高微调性能</h2>
-<p>对于一个深度学习模型，将其特征提取部分的参数表示为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Φ</mi><mo stretchy="false">(</mo><mi>θ</mi><mo separator="true">,</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\Phi (\theta, x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Φ</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>，将最后的线性层表示为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(\omega)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">ω</span><span class="mclose">)</span></span></span></span>。</p>
-<p>作者通过固定好<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(\omega)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">ω</span><span class="mclose">)</span></span></span></span>，将特征提取的参数进行微调，试图达到特征转移的效果。但是实验并没有达到期望的结果。固定的线性层仍然限制了模型进行特征转移。</p>
-<p>因此，作者参考前人的工作，对线性层的参数<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><msup><mi>ω</mi><mrow><mi>o</mi><mi>r</mi><mi>i</mi></mrow></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(\omega ^{ori})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0746639999999998em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">ω</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.824664em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span><span class="mord mathnormal mtight">i</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>进行随机初始化，得到<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(\omega)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">ω</span><span class="mclose">)</span></span></span></span>，然后再对特征提取的参数<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Φ</mi><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\Phi(\theta)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Φ</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mclose">)</span></span></span></span>​​​进行微调。</p>
+<figure>
+<img src="/2024/03/14/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240315093150937.png" alt="image-20240315093150937">
+<figcaption aria-hidden="true">image-20240315093150937</figcaption>
+</figure>
+<h2 id="实验1-特征转移能否提高微调性能">实验1-特征转移能否提高微调性能</h2>
+<p>对于一个深度学习模型，将其特征提取部分的参数表示为<span class="math inline">\(\Phi (\theta,
+x)\)</span>，将最后的线性层表示为<span class="math inline">\(f(\omega)\)</span>。</p>
+<p>作者通过固定好<span class="math inline">\(f(\omega)\)</span>，将特征提取的参数进行微调，试图达到特征转移的效果。但是实验并没有达到期望的结果。固定的线性层仍然限制了模型进行特征转移。</p>
+<p>因此，作者参考前人的工作，对线性层的参数<span class="math inline">\(f(\omega ^{ori})\)</span>进行随机初始化，得到<span class="math inline">\(f(\omega)\)</span>，然后再对特征提取的参数<span class="math inline">\(\Phi(\theta)\)</span>​​​进行微调。</p>
 <p>架构：</p>
-<p><img src="/2024/03/14/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240326164346367.png" alt="image-20240326164346367"></p>
+<figure>
+<img src="/2024/03/14/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240326164346367.png" alt="image-20240326164346367">
+<figcaption aria-hidden="true">image-20240326164346367</figcaption>
+</figure>
 <p>效果：</p>
-<p><img src="/2024/03/14/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240326195936413.png" alt="image-20240326195936413"></p>
-<h2 id="实验1-评估"><a class="markdownIt-Anchor" href="#实验1-评估"></a> 实验1-评估</h2>
-<p>上图中的第五张是实验的结果，可以看出，采取上述设置，可以将目标标签和毒化样本的特征进行分开，在投毒率1%的情况下，但是这又导致了另一个问题，在干净样本上的正确率下降达到了2.9%，这是随机初始化<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(\omega)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">ω</span><span class="mclose">)</span></span></span></span>导致的。</p>
+<figure>
+<img src="/2024/03/14/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240326195936413.png" alt="image-20240326195936413">
+<figcaption aria-hidden="true">image-20240326195936413</figcaption>
+</figure>
+<h2 id="实验1-评估">实验1-评估</h2>
+<p>上图中的第五张是实验的结果，可以看出，采取上述设置，可以将目标标签和毒化样本的特征进行分开，在投毒率1%的情况下，但是这又导致了另一个问题，在干净样本上的正确率下降达到了2.9%，这是随机初始化<span class="math inline">\(f(\omega)\)</span>导致的。</p>
 <p>总结来看，现在有的问题是，干净样本的正确率下降&amp;模型的鲁棒性不够（后门偏移不够）。</p>
-<h1 id="fst-feature-shift-tuning"><a class="markdownIt-Anchor" href="#fst-feature-shift-tuning"></a> FST, Feature Shift Tuning</h1>
+<h1 id="fst-feature-shift-tuning">FST, Feature Shift Tuning</h1>
 <p>基于上面的实验观测分析，作者提出了FST，首先对线性层进行初始化，然后解决下面的优化问题：</p>
-<p><img src="/2024/03/14/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240315125110759.png" alt="image-20240315125110759"></p>
-<p>左边的式子是对模型整体的准确率来作优化，而右边<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&lt;</mo><mi>ω</mi><mo separator="true">,</mo><msup><mi>ω</mi><mrow><mi>o</mi><mi>r</mi><mi>g</mi></mrow></msup><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&lt;\omega, \omega^{org}&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.858832em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">ω</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">ω</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">g</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span></span></span></span>则是在做特征转移（基于前面的观测，这里在初始化<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ω</mi></mrow><annotation encoding="application/x-tex">\omega</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">ω</span></span></span></span>后加以约束，进行优化），<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span>作为平衡因子，在“保证正确率不下降”和“特征转移”之间作平衡，增大<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span>有利于特征转移。最后的<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∥</mi><mi>ω</mi><msub><mi mathvariant="normal">∥</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">\Vert \omega\Vert_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∥</span><span class="mord mathnormal" style="margin-right:0.03588em;">ω</span><span class="mord"><span class="mord">∥</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>将线性层参数约束在一个常数范围内，确保不会出现参数过大或者过小的极端情况。</p>
+<figure>
+<img src="/2024/03/14/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240315125110759.png" alt="image-20240315125110759">
+<figcaption aria-hidden="true">image-20240315125110759</figcaption>
+</figure>
+<p>左边的式子是对模型整体的准确率来作优化，而右边<span class="math inline">\(&lt;\omega,
+\omega^{org}&gt;\)</span>则是在做特征转移（基于前面的观测，这里在初始化<span class="math inline">\(\omega\)</span>后加以约束，进行优化），<span class="math inline">\(\alpha\)</span>作为平衡因子，在“保证正确率不下降”和“特征转移”之间作平衡，增大<span class="math inline">\(\alpha\)</span>有利于特征转移。最后的<span class="math inline">\(\Vert
+\omega\Vert_2\)</span>将线性层参数约束在一个常数范围内，确保不会出现参数过大或者过小的极端情况。</p>
 <p>架构：</p>
-<p><img src="/2024/03/14/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240326200015516.png" alt="image-20240326200015516"></p>
+<figure>
+<img src="/2024/03/14/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240326200015516.png" alt="image-20240326200015516">
+<figcaption aria-hidden="true">image-20240326200015516</figcaption>
+</figure>
 <p>效果：</p>
-<p><img src="/2024/03/14/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240326200036149.png" alt="image-20240326200036149"></p>
-<h1 id="实验"><a class="markdownIt-Anchor" href="#实验"></a> 实验</h1>
-<h2 id="训练后门模型"><a class="markdownIt-Anchor" href="#训练后门模型"></a> 训练后门模型</h2>
+<figure>
+<img src="/2024/03/14/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240326200036149.png" alt="image-20240326200036149">
+<figcaption aria-hidden="true">image-20240326200036149</figcaption>
+</figure>
+<h1 id="实验">实验</h1>
+<h2 id="训练后门模型">训练后门模型</h2>
 <p>选择使用的模型也是ResNet18，在配置文件<code>cifar10.yaml</code>中可以更改。其中选取的baseline有：badnet、blended、trojannn等。</p>
 <p>攻击的实现：</p>
-<ol>
-<li>首先创建一个正常类<code>NormalCase</code>，在<code>prototype.py</code>中，其他的attack class都继承了这个类。<code>prototype.py</code>定义了参数的解析、数据的准备以及训练过程的实现等。</li>
+<ol type="1">
+<li>首先创建一个正常类<code>NormalCase</code>，在<code>prototype.py</code>中，其他的attack
+class都继承了这个类。<code>prototype.py</code>定义了参数的解析、数据的准备以及训练过程的实现等。</li>
 <li><code>badnet</code>继承<code>prototype</code>，包含了一些额外的参数、参数解析，还有训练数据准备、bad训练数据准备等。</li>
 <li>选取好配置文件之后，训练好模型后，模型以及一些其他数据会被保存在<code>attack_result.pt</code>中，可以通过<code>torch.load</code>来查看保存的数据，访问训练好的模型。</li>
 </ol>
-<p><img src="/2024/03/14/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240402143917317.png" alt="image-20240402143917317"></p>
-<h2 id="模型漂白"><a class="markdownIt-Anchor" href="#模型漂白"></a> 模型漂白</h2>
+<figure>
+<img src="/2024/03/14/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/image-20240402143917317.png" alt="image-20240402143917317">
+<figcaption aria-hidden="true">image-20240402143917317</figcaption>
+</figure>
+<h2 id="模型漂白">模型漂白</h2>
 <p>下面进行模型漂白：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -W ignore fine_tune/ft.py --attack blended --split_ratio 0.02 --pratio 0.1 --device cuda:0 --lr 0.01 --attack_target 0 --model resnet18 --dataset cifar10 --epochs 10 --initlr 0.1 --ft_mode fst --alpha 0.1</span><br></pre></td></tr></table></figure>
 <p>漂白结果：</p>
@@ -267,7 +294,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/03/14/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/" data-id="cm122u675002lg19ffiak2d1s" data-title="Towards_Stable_Backdoor_Purification_through_Feature_Shift_Tuning" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2024/03/14/Towards-Stable-Backdoor-Purification-through-Feature-Shift-Tuning/" data-id="cm1bpo41x002tdq9feg22d056" data-title="Towards_Stable_Backdoor_Purification_through_Feature_Shift_Tuning" class="article-share-link">Share</a>
       
       
       
@@ -287,7 +314,7 @@
         
           
           
-            <img data-src="/covers/IMG_2577.JPG" data-sizes="auto" alt="Black-box_Backdoor_Defense_via_Zero-shot_Image_Purification" class="lazyload">
+            <img data-src="/covers/IMG_2619.PNG" data-sizes="auto" alt="Black-box_Backdoor_Defense_via_Zero-shot_Image_Purification" class="lazyload">
           
         
         <a href="/2024/03/15/Black-box-Backdoor-Defense-via-Zero-shot-Image-Purification/"></a>
@@ -304,7 +331,7 @@
       
         
         
-          <img data-src="/covers/IMG_2621.PNG" data-sizes="auto" alt="ABS:Scanning_Neural_Networks_for_Back-doors_by_Artificial_Brain_Stimulation" class="lazyload">
+          <img data-src="/covers/IMG_2618.PNG" data-sizes="auto" alt="ABS:Scanning_Neural_Networks_for_Back-doors_by_Artificial_Brain_Stimulation" class="lazyload">
         
       
       <a href="/2024/02/29/ABS-Scanning-Neural-Networks-for-Back-doors-by-Artificial-Brain-Stimulation/"></a>
@@ -336,7 +363,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text"> 摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BE%AE%E8%B0%83%E6%8F%90%E5%8D%87%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%B2%81%E6%A3%92%E6%80%A7"><span class="toc-number">2.</span> <span class="toc-text"> 微调提升模型的鲁棒性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E8%A7%82%E6%B5%8B"><span class="toc-number">2.1.</span> <span class="toc-text"> 实验观测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A2%E7%B4%A2"><span class="toc-number">2.2.</span> <span class="toc-text"> 探索</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C1-%E7%89%B9%E5%BE%81%E8%BD%AC%E7%A7%BB%E8%83%BD%E5%90%A6%E6%8F%90%E9%AB%98%E5%BE%AE%E8%B0%83%E6%80%A7%E8%83%BD"><span class="toc-number">2.3.</span> <span class="toc-text"> 实验1-特征转移能否提高微调性能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C1-%E8%AF%84%E4%BC%B0"><span class="toc-number">2.4.</span> <span class="toc-text"> 实验1-评估</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#fst-feature-shift-tuning"><span class="toc-number">3.</span> <span class="toc-text"> FST, Feature Shift Tuning</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number">4.</span> <span class="toc-text"> 实验</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E5%90%8E%E9%97%A8%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.1.</span> <span class="toc-text"> 训练后门模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%BC%82%E7%99%BD"><span class="toc-number">4.2.</span> <span class="toc-text"> 模型漂白</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BE%AE%E8%B0%83%E6%8F%90%E5%8D%87%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%B2%81%E6%A3%92%E6%80%A7"><span class="toc-number">2.</span> <span class="toc-text">微调提升模型的鲁棒性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E8%A7%82%E6%B5%8B"><span class="toc-number">2.1.</span> <span class="toc-text">实验观测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A2%E7%B4%A2"><span class="toc-number">2.2.</span> <span class="toc-text">探索</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C1-%E7%89%B9%E5%BE%81%E8%BD%AC%E7%A7%BB%E8%83%BD%E5%90%A6%E6%8F%90%E9%AB%98%E5%BE%AE%E8%B0%83%E6%80%A7%E8%83%BD"><span class="toc-number">2.3.</span> <span class="toc-text">实验1-特征转移能否提高微调性能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C1-%E8%AF%84%E4%BC%B0"><span class="toc-number">2.4.</span> <span class="toc-text">实验1-评估</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#fst-feature-shift-tuning"><span class="toc-number">3.</span> <span class="toc-text">FST, Feature Shift Tuning</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number">4.</span> <span class="toc-text">实验</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E5%90%8E%E9%97%A8%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.1.</span> <span class="toc-text">训练后门模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%BC%82%E7%99%BD"><span class="toc-number">4.2.</span> <span class="toc-text">模型漂白</span></a></li></ol></li></ol>
       
   </div>
 </div>
@@ -427,10 +454,10 @@
       
         <div>
           <span class="icon-brush"></span>
-          95.7k
+          91.5k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          06:27
+          06:04
         </div>
       
       
@@ -459,7 +486,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text"> 摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BE%AE%E8%B0%83%E6%8F%90%E5%8D%87%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%B2%81%E6%A3%92%E6%80%A7"><span class="toc-number">2.</span> <span class="toc-text"> 微调提升模型的鲁棒性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E8%A7%82%E6%B5%8B"><span class="toc-number">2.1.</span> <span class="toc-text"> 实验观测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A2%E7%B4%A2"><span class="toc-number">2.2.</span> <span class="toc-text"> 探索</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C1-%E7%89%B9%E5%BE%81%E8%BD%AC%E7%A7%BB%E8%83%BD%E5%90%A6%E6%8F%90%E9%AB%98%E5%BE%AE%E8%B0%83%E6%80%A7%E8%83%BD"><span class="toc-number">2.3.</span> <span class="toc-text"> 实验1-特征转移能否提高微调性能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C1-%E8%AF%84%E4%BC%B0"><span class="toc-number">2.4.</span> <span class="toc-text"> 实验1-评估</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#fst-feature-shift-tuning"><span class="toc-number">3.</span> <span class="toc-text"> FST, Feature Shift Tuning</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number">4.</span> <span class="toc-text"> 实验</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E5%90%8E%E9%97%A8%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.1.</span> <span class="toc-text"> 训练后门模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%BC%82%E7%99%BD"><span class="toc-number">4.2.</span> <span class="toc-text"> 模型漂白</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BE%AE%E8%B0%83%E6%8F%90%E5%8D%87%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%B2%81%E6%A3%92%E6%80%A7"><span class="toc-number">2.</span> <span class="toc-text">微调提升模型的鲁棒性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E8%A7%82%E6%B5%8B"><span class="toc-number">2.1.</span> <span class="toc-text">实验观测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A2%E7%B4%A2"><span class="toc-number">2.2.</span> <span class="toc-text">探索</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C1-%E7%89%B9%E5%BE%81%E8%BD%AC%E7%A7%BB%E8%83%BD%E5%90%A6%E6%8F%90%E9%AB%98%E5%BE%AE%E8%B0%83%E6%80%A7%E8%83%BD"><span class="toc-number">2.3.</span> <span class="toc-text">实验1-特征转移能否提高微调性能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C1-%E8%AF%84%E4%BC%B0"><span class="toc-number">2.4.</span> <span class="toc-text">实验1-评估</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#fst-feature-shift-tuning"><span class="toc-number">3.</span> <span class="toc-text">FST, Feature Shift Tuning</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number">4.</span> <span class="toc-text">实验</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E5%90%8E%E9%97%A8%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.1.</span> <span class="toc-text">训练后门模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%BC%82%E7%99%BD"><span class="toc-number">4.2.</span> <span class="toc-text">模型漂白</span></a></li></ol></li></ol>
       
   </div>
 </div>
