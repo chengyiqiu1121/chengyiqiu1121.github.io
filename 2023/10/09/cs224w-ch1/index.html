@@ -26,12 +26,12 @@
   
 <link rel="stylesheet" href="/css/loader.css">
 
-  <meta name="description" content="1.1 why graphs 首先要回答标题这个问题，为什么是图？抽象的图可以用一些结点和边来表示：   image-20231009173202938  而生活中的很多物体、场景都可以抽象为图： 距离、地面图：  现实中的一些网络：   image-20231009173426133  知识图谱、场景图、代码编译图、生物分子、计算机3D图形：   image-20231009173547896">
+  <meta name="description" content="1.1 why graphs首先要回答标题这个问题，为什么是图？抽象的图可以用一些结点和边来表示：  而生活中的很多物体、场景都可以抽象为图： 距离、地面图：   现实中的一些网络：  知识图谱、场景图、代码编译图、生物分子、计算机3D图形：  我们可以使用图对上面这些以及更多的生活中的基础场景进行建模，然后来进行处理。  如今的深度学习时代，有很多非常强有力的工具能够处理序列&#x2F;网格数据">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cs224w_ch1">
 <meta property="og:url" content="http://example.com/2023/10/09/cs224w-ch1/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="1.1 why graphs 首先要回答标题这个问题，为什么是图？抽象的图可以用一些结点和边来表示：   image-20231009173202938  而生活中的很多物体、场景都可以抽象为图： 距离、地面图：  现实中的一些网络：   image-20231009173426133  知识图谱、场景图、代码编译图、生物分子、计算机3D图形：   image-20231009173547896">
+<meta property="og:description" content="1.1 why graphs首先要回答标题这个问题，为什么是图？抽象的图可以用一些结点和边来表示：  而生活中的很多物体、场景都可以抽象为图： 距离、地面图：   现实中的一些网络：  知识图谱、场景图、代码编译图、生物分子、计算机3D图形：  我们可以使用图对上面这些以及更多的生活中的基础场景进行建模，然后来进行处理。  如今的深度学习时代，有很多非常强有力的工具能够处理序列&#x2F;网格数据">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2023/10/09/cs224w-ch1/image-20231009173202938.png">
 <meta property="og:image" content="http://example.com/2023/10/09/cs224w-ch1/image-20231009173340485.png">
@@ -229,151 +229,80 @@
 
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="why-graphs">1.1 why graphs</h2>
-<p>首先要回答标题这个问题，为什么是图？抽象的图可以用一些结点和边来表示：</p>
-<figure>
-<img src="/2023/10/09/cs224w-ch1/image-20231009173202938.png" alt="image-20231009173202938">
-<figcaption aria-hidden="true">image-20231009173202938</figcaption>
-</figure>
+        <h2 id="1-1-why-graphs"><a href="#1-1-why-graphs" class="headerlink" title="1.1 why graphs"></a>1.1 why graphs</h2><p>首先要回答标题这个问题，为什么是图？抽象的图可以用一些结点和边来表示：</p>
+<p><img src="/2023/10/09/cs224w-ch1/image-20231009173202938.png" alt="image-20231009173202938"></p>
 <p>而生活中的很多物体、场景都可以抽象为图：</p>
 <p>距离、地面图：</p>
-<p><img src="/2023/10/09/cs224w-ch1/image-20231009173340485.png" alt="image-20231009173340485" style="zoom:33%;"></p>
+<img src="/2023/10/09/cs224w-ch1/image-20231009173340485.png" alt="image-20231009173340485" style="zoom:33%;">
+
 <p>现实中的一些网络：</p>
-<figure>
-<img src="/2023/10/09/cs224w-ch1/image-20231009173426133.png" alt="image-20231009173426133">
-<figcaption aria-hidden="true">image-20231009173426133</figcaption>
-</figure>
+<p><img src="/2023/10/09/cs224w-ch1/image-20231009173426133.png" alt="image-20231009173426133"></p>
 <p>知识图谱、场景图、代码编译图、生物分子、计算机3D图形：</p>
-<figure>
-<img src="/2023/10/09/cs224w-ch1/image-20231009173547896.png" alt="image-20231009173547896">
-<figcaption aria-hidden="true">image-20231009173547896</figcaption>
-</figure>
-<p>我们可以使用图对上面这些以及更多的生活中的基础场景进行建模，然后来进行处理。</p>
-<p>如今的深度学习时代，有很多非常强有力的工具能够处理序列/网格数据，如：语音、文本等，也能够很好的处理fixed
-image来进行预测和分类，在这些方面已经有了惊人的成就了。但是，对于graph和network，这种具有任意大小、任意拓扑的数据结构，它没有序列数据那样具有spatial
-locality（空间局部性），在文本、语音中有左和右，在图片中有上和下，但是对于图graph，我们没有任何的参考点，没有任何的顺序。</p>
+<p><img src="/2023/10/09/cs224w-ch1/image-20231009173547896.png" alt="image-20231009173547896"></p>
+<p>我们可以使用图对上面这些以及更多的生活中的基础场景进行建模，然后来进行处理。 </p>
+<p>如今的深度学习时代，有很多非常强有力的工具能够处理序列&#x2F;网格数据，如：语音、文本等，也能够很好的处理fixed image来进行预测和分类，在这些方面已经有了惊人的成就了。但是，对于graph和network，这种具有任意大小、任意拓扑的数据结构，它没有序列数据那样具有spatial locality（空间局部性），在文本、语音中有左和右，在图片中有上和下，但是对于图graph，我们没有任何的参考点，没有任何的顺序。</p>
 <p>我们期望的是在graph上建立神经网络，输入是我们的graph，输出被期望是在一个结点的多个方面去做预测，如预测结点类型、结点属性、结点的下一个路径等。</p>
-<figure>
-<img src="/2023/10/09/cs224w-ch1/image-20231009174815960.png" alt="image-20231009174815960">
-<figcaption aria-hidden="true">image-20231009174815960</figcaption>
-</figure>
-<p>另外，feature engineering也不再需要，现在是representation
-learning，机器会自动找到更好的representation，然后来做下游任务。</p>
-<figure>
-<img src="/2023/10/09/cs224w-ch1/image-20231009175137515.png" alt="image-20231009175137515">
-<figcaption aria-hidden="true">image-20231009175137515</figcaption>
-</figure>
+<p><img src="/2023/10/09/cs224w-ch1/image-20231009174815960.png" alt="image-20231009174815960"></p>
+<p>另外，feature engineering也不再需要，现在是representation learning，机器会自动找到更好的representation，然后来做下游任务。</p>
+<p><img src="/2023/10/09/cs224w-ch1/image-20231009175137515.png" alt="image-20231009175137515"></p>
 <p>representation learning：自动提取或者学习特征。</p>
 <p>除了上面那个神经网络架构，我们的目标还可以表示为下面的形式：将graph嵌入到一个d维的向量中，这个向量就是我们最终的representation。</p>
-<figure>
-<img src="/2023/10/09/cs224w-ch1/image-20231010110432270.png" alt="image-20231010110432270">
-<figcaption aria-hidden="true">image-20231010110432270</figcaption>
-</figure>
-<h2 id="application-of-graph-ml">1.2 application of graph ml</h2>
-<p>graph ml任务可以分为好几种：</p>
+<p><img src="/2023/10/09/cs224w-ch1/image-20231010110432270.png" alt="image-20231010110432270"></p>
+<h2 id="1-2-application-of-graph-ml"><a href="#1-2-application-of-graph-ml" class="headerlink" title="1.2 application of graph ml"></a>1.2 application of graph ml</h2><p>graph ml任务可以分为好几种：</p>
 <ul>
-<li>Node-level：预测结点的属性
-<ul>
+<li>Node-level：预测结点的属性<ul>
 <li>如用户类型分类</li>
-</ul></li>
-<li>edge-level：预测两个node之间是否缺失边
-<ul>
+</ul>
+</li>
+<li>edge-level：预测两个node之间是否缺失边<ul>
 <li>知识图谱</li>
-</ul></li>
+</ul>
+</li>
 <li>sub graph-level：社区预测</li>
-<li>Graph-level：对图进行分类
-<ul>
+<li>Graph-level：对图进行分类<ul>
 <li>例如画出一个分子图，来预测它的属性</li>
-</ul></li>
+</ul>
+</li>
 <li>Graph-generalizing：用已存在的药物发现新的药物</li>
 </ul>
-<h3 id="edge-level">edge-level</h3>
-<p>一个真实的应用：AlphaFold，DeepMind研发的框架，用来预测蛋白质，给定一些氨基酸，能否预测出这个蛋白质出来。这就属于是edge-
-level task</p>
+<h3 id="edge-level"><a href="#edge-level" class="headerlink" title="edge-level"></a>edge-level</h3><p>  一个真实的应用：AlphaFold，DeepMind研发的框架，用来预测蛋白质，给定一些氨基酸，能否预测出这个蛋白质出来。这就属于是edge- level task</p>
 <p>PS：<strong>DeepFold获得2023年的诺贝尔奖！</strong></p>
-<p>另外一个link-level
-task是药物副作用，有很多年纪大的人有很多co-exist的疾病，要同时服用很多种药物，那么这些药物和药物之间是否具有某种联系（link/edge），但是这样的组合很多，不可能去通过排列组合来尝试。所以能否建立一个系统，来判断药物之间是否有edge？</p>
-<figure>
-<img src="/2023/10/09/cs224w-ch1/image-20231009185858019.png" alt="image-20231009185858019">
-<figcaption aria-hidden="true">image-20231009185858019</figcaption>
-</figure>
-<p>生物学家已经能够通过实验确定两种蛋白质之间是否有作用或者反应，但是药物与药物之间是否有反应还未知。</p>
-<h3 id="node-level-task">Node-level task</h3>
-<p>一个最明显的就是推荐系统：</p>
-<figure>
-<img src="/2023/10/09/cs224w-ch1/image-20231009184014176.png" alt="image-20231009184014176">
-<figcaption aria-hidden="true">image-20231009184014176</figcaption>
-</figure>
+<p>另外一个link-level task是药物副作用，有很多年纪大的人有很多co-exist的疾病，要同时服用很多种药物，那么这些药物和药物之间是否具有某种联系（link&#x2F;edge），但是这样的组合很多，不可能去通过排列组合来尝试。所以能否建立一个系统，来判断药物之间是否有edge？</p>
+<p>  <img src="/2023/10/09/cs224w-ch1/image-20231009185858019.png" alt="image-20231009185858019"></p>
+<p>生物学家已经能够通过实验确定两种蛋白质之间是否有作用或者反应，但是药物与药物之间是否有反应还未知。  </p>
+<h3 id="Node-level-task"><a href="#Node-level-task" class="headerlink" title="Node-level task"></a>Node-level task</h3><p>一个最明显的就是推荐系统：</p>
+<p><img src="/2023/10/09/cs224w-ch1/image-20231009184014176.png" alt="image-20231009184014176"></p>
 <p>其中node可以是人或者item（衣服、音乐、食物、电影……），当人跟item交互，人购买了衣服，听了音乐，那么他们之间就有一条edge。</p>
 <p>下面一个推荐系统，我们的任务是把node做一个合适的嵌入：</p>
-<figure>
-<img src="/2023/10/09/cs224w-ch1/image-20231009184433408.png" alt="image-20231009184433408">
-<figcaption aria-hidden="true">image-20231009184433408</figcaption>
-</figure>
+<p><img src="/2023/10/09/cs224w-ch1/image-20231009184433408.png" alt="image-20231009184433408"></p>
 <p>可以这么理解，更相关的node应该被嵌入到一起（比如上面的将图嵌入到一个d维的向量中去，这两个蛋糕应该被嵌入到一个相同的向量下标中去）。</p>
-<h3 id="sub-graph-level">Sub-graph level</h3>
-<p>例子：Google map</p>
-<figure>
-<img src="/2023/10/09/cs224w-ch1/image-20231009191024327.png" alt="image-20231009191024327">
-<figcaption aria-hidden="true">image-20231009191024327</figcaption>
-</figure>
+<h3 id="Sub-graph-level"><a href="#Sub-graph-level" class="headerlink" title="Sub-graph level"></a>Sub-graph level</h3><p>例子：Google map</p>
+<p><img src="/2023/10/09/cs224w-ch1/image-20231009191024327.png" alt="image-20231009191024327"></p>
 <p>node代表的是路段，edge代表的是两段路之间的边缘，也就是两段路是不是连接的。</p>
-<figure>
-<img src="/2023/10/09/cs224w-ch1/image-20231009191133035.png" alt="image-20231009191133035">
-<figcaption aria-hidden="true">image-20231009191133035</figcaption>
-</figure>
-<p>并且GNN是根据每段路的路况、长度等因素训练而成的。</p>
-<h2 id="choice-of-graph-representation">1.3 choice of graph
-representation</h2>
-<p>选择什么是边、结点很重要，有时是独一无二的，不然会影响到最终的模型的性能。</p>
-<p>介绍了一下图的基本定义，这里有一个不熟悉的点：</p>
+<p><img src="/2023/10/09/cs224w-ch1/image-20231009191133035.png" alt="image-20231009191133035"></p>
+<p>并且GNN是根据每段路的路况、长度等因素训练而成的。 </p>
+<h2 id="1-3-choice-of-graph-representation"><a href="#1-3-choice-of-graph-representation" class="headerlink" title="1.3 choice of graph representation"></a>1.3 choice of graph representation</h2><p>选择什么是边、结点很重要，有时是独一无二的，不然会影响到最终的模型的性能。</p>
+<p> 介绍了一下图的基本定义，这里有一个不熟悉的点：</p>
 <p>bipartite graph：</p>
-<figure>
-<img src="/2023/10/09/cs224w-ch1/image-20231009193652336.png" alt="image-20231009193652336">
-<figcaption aria-hidden="true">image-20231009193652336</figcaption>
-</figure>
-<p>bipartite
-graph有两类结点，两类结点之间互相会link，同一个部分的各个节点并不会interact。</p>
+<p><img src="/2023/10/09/cs224w-ch1/image-20231009193652336.png" alt="image-20231009193652336"></p>
+<p>bipartite graph有两类结点，两类结点之间互相会link，同一个部分的各个节点并不会interact。</p>
 <p>下面是举例：</p>
-<figure>
-<img src="/2023/10/09/cs224w-ch1/image-20231009193757002-6851477.png" alt="image-20231009193757002">
-<figcaption aria-hidden="true">image-20231009193757002</figcaption>
-</figure>
-<p>由bipartite graph，可以演变出fold
-network，例如作者合作网络，左边是作者，右边是书，1、2、3共同写了一本书A，2、5共同写了B，那么可由中间演变出左边的fold
-network</p>
-<figure>
-<img src="/2023/10/09/cs224w-ch1/image-20231009194322173-6851803.png" alt="image-20231009194322173">
-<figcaption aria-hidden="true">image-20231009194322173</figcaption>
-</figure>
+<p><img src="/2023/10/09/cs224w-ch1/image-20231009193757002-6851477.png" alt="image-20231009193757002"></p>
+<p>由bipartite graph，可以演变出fold network，例如作者合作网络，左边是作者，右边是书，1、2、3共同写了一本书A，2、5共同写了B，那么可由中间演变出左边的fold network</p>
+<p><img src="/2023/10/09/cs224w-ch1/image-20231009194322173-6851803.png" alt="image-20231009194322173"></p>
 <p>反过来，也可以由书推到作者，生成上面右边的fold network</p>
 <p>下面开始将如何去represent graph</p>
-<h3 id="adjacent-metric">adjacent metric</h3>
-<figure>
-<img src="/2023/10/09/cs224w-ch1/image-20231009194721176.png" alt="image-20231009194721176">
-<figcaption aria-hidden="true">image-20231009194721176</figcaption>
-</figure>
-<p>adjacent
-metric的缺点就是其太稀疏（sparse）了，以人类为例子，画一张图，我们每个人的out
-degree也就那几十几百个，不会是几百万个，所以这张图中有很多元素是0</p>
-<h3 id="edge-list">edge list</h3>
-<figure>
-<img src="/2023/10/09/cs224w-ch1/image-20231009195356051.png" alt="image-20231009195356051">
-<figcaption aria-hidden="true">image-20231009195356051</figcaption>
-</figure>
-<p>这样的表示存储起来就小多了，但是其问题在于，很难对图进行操作，例如想算一个node的out
-degree，比较麻烦。</p>
-<h3 id="adjacent-list">adjacent list</h3>
-<figure>
-<img src="/2023/10/09/cs224w-ch1/image-20231009195603472.png" alt="image-20231009195603472">
-<figcaption aria-hidden="true">image-20231009195603472</figcaption>
-</figure>
+<h3 id="adjacent-metric"><a href="#adjacent-metric" class="headerlink" title="adjacent metric"></a>adjacent metric</h3><p><img src="/2023/10/09/cs224w-ch1/image-20231009194721176.png" alt="image-20231009194721176"></p>
+<p>adjacent metric的缺点就是其太稀疏（sparse）了，以人类为例子，画一张图，我们每个人的out degree也就那几十几百个，不会是几百万个，所以这张图中有很多元素是0</p>
+<h3 id="edge-list"><a href="#edge-list" class="headerlink" title="edge list"></a>edge list</h3><p><img src="/2023/10/09/cs224w-ch1/image-20231009195356051.png" alt="image-20231009195356051"></p>
+<p>这样的表示存储起来就小多了，但是其问题在于，很难对图进行操作，例如想算一个node的out degree，比较麻烦。</p>
+<h3 id="adjacent-list"><a href="#adjacent-list" class="headerlink" title="adjacent list"></a>adjacent list</h3><p><img src="/2023/10/09/cs224w-ch1/image-20231009195603472.png" alt="image-20231009195603472"></p>
 <p>相对而言这是一种比较折中的存储结构了。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/09/cs224w-ch1/" data-id="cm1bpwn7l00341w9fcndu9mdg" data-title="cs224w_ch1" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/10/09/cs224w-ch1/" data-id="cm4jpc9eh0037ya01800whv5j" data-title="cs224w_ch1" class="article-share-link">Share</a>
       
       
       
@@ -393,7 +322,7 @@ degree，比较麻烦。</p>
         
           
           
-            <img data-src="/covers/IMG_2576.JPG" data-sizes="auto" alt="cs224w_ch2" class="lazyload">
+            <img data-src="/covers/IMG_2580.JPG" data-sizes="auto" alt="cs224w_ch2" class="lazyload">
           
         
         <a href="/2023/10/10/cs224w-ch2/"></a>
@@ -410,7 +339,7 @@ degree，比较麻烦。</p>
       
         
         
-          <img data-src="/covers/IMG_2586.PNG" data-sizes="auto" alt="first_gnnbook_ch2" class="lazyload">
+          <img data-src="/covers/IMG_2619.PNG" data-sizes="auto" alt="first_gnnbook_ch2" class="lazyload">
         
       
       <a href="/2023/10/09/first-gnnbook-ch2/"></a>
@@ -442,8 +371,7 @@ degree，比较麻烦。</p>
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#why-graphs"><span class="toc-number">1.</span> <span class="toc-text">1.1 why graphs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#application-of-graph-ml"><span class="toc-number">2.</span> <span class="toc-text">1.2 application of graph ml</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#edge-level"><span class="toc-number">2.1.</span> <span class="toc-text">edge-level</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#node-level-task"><span class="toc-number">2.2.</span> <span class="toc-text">Node-level task</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sub-graph-level"><span class="toc-number">2.3.</span> <span class="toc-text">Sub-graph level</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#choice-of-graph-representation"><span class="toc-number">3.</span> <span class="toc-text">1.3 choice of graph
-representation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#adjacent-metric"><span class="toc-number">3.1.</span> <span class="toc-text">adjacent metric</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#edge-list"><span class="toc-number">3.2.</span> <span class="toc-text">edge list</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#adjacent-list"><span class="toc-number">3.3.</span> <span class="toc-text">adjacent list</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-why-graphs"><span class="toc-number">1.</span> <span class="toc-text">1.1 why graphs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-application-of-graph-ml"><span class="toc-number">2.</span> <span class="toc-text">1.2 application of graph ml</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#edge-level"><span class="toc-number">2.1.</span> <span class="toc-text">edge-level</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Node-level-task"><span class="toc-number">2.2.</span> <span class="toc-text">Node-level task</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sub-graph-level"><span class="toc-number">2.3.</span> <span class="toc-text">Sub-graph level</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-choice-of-graph-representation"><span class="toc-number">3.</span> <span class="toc-text">1.3 choice of graph representation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#adjacent-metric"><span class="toc-number">3.1.</span> <span class="toc-text">adjacent metric</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#edge-list"><span class="toc-number">3.2.</span> <span class="toc-text">edge list</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#adjacent-list"><span class="toc-number">3.3.</span> <span class="toc-text">adjacent list</span></a></li></ol></li></ol>
       
   </div>
 </div>
@@ -534,10 +462,10 @@ representation</span></a><ol class="toc-child"><li class="toc-item toc-level-3">
       
         <div>
           <span class="icon-brush"></span>
-          93.7k
+          91.8k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          06:11
+          06:07
         </div>
       
       
@@ -566,8 +494,7 @@ representation</span></a><ol class="toc-child"><li class="toc-item toc-level-3">
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#why-graphs"><span class="toc-number">1.</span> <span class="toc-text">1.1 why graphs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#application-of-graph-ml"><span class="toc-number">2.</span> <span class="toc-text">1.2 application of graph ml</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#edge-level"><span class="toc-number">2.1.</span> <span class="toc-text">edge-level</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#node-level-task"><span class="toc-number">2.2.</span> <span class="toc-text">Node-level task</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sub-graph-level"><span class="toc-number">2.3.</span> <span class="toc-text">Sub-graph level</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#choice-of-graph-representation"><span class="toc-number">3.</span> <span class="toc-text">1.3 choice of graph
-representation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#adjacent-metric"><span class="toc-number">3.1.</span> <span class="toc-text">adjacent metric</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#edge-list"><span class="toc-number">3.2.</span> <span class="toc-text">edge list</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#adjacent-list"><span class="toc-number">3.3.</span> <span class="toc-text">adjacent list</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-why-graphs"><span class="toc-number">1.</span> <span class="toc-text">1.1 why graphs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-application-of-graph-ml"><span class="toc-number">2.</span> <span class="toc-text">1.2 application of graph ml</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#edge-level"><span class="toc-number">2.1.</span> <span class="toc-text">edge-level</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Node-level-task"><span class="toc-number">2.2.</span> <span class="toc-text">Node-level task</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sub-graph-level"><span class="toc-number">2.3.</span> <span class="toc-text">Sub-graph level</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-choice-of-graph-representation"><span class="toc-number">3.</span> <span class="toc-text">1.3 choice of graph representation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#adjacent-metric"><span class="toc-number">3.1.</span> <span class="toc-text">adjacent metric</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#edge-list"><span class="toc-number">3.2.</span> <span class="toc-text">edge list</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#adjacent-list"><span class="toc-number">3.3.</span> <span class="toc-text">adjacent list</span></a></li></ol></li></ol>
       
   </div>
 </div>

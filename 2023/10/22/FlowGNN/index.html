@@ -26,12 +26,12 @@
   
 <link rel="stylesheet" href="/css/loader.css">
 
-  <meta name="description" content="abstract the limitation:  GNN needs fast inference. Existing works focus on target GNN acceleration, such as GCN. And many works rely on pre-processing which is not suitable to real-time application.">
+  <meta name="description" content="abstractthe limitation:  GNN needs fast inference.  Existing works focus on target GNN acceleration, such as GCN.  And many works rely on pre-processing which is not suitable to real-time application.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="FlowGNN">
 <meta property="og:url" content="http://example.com/2023/10/22/FlowGNN/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="abstract the limitation:  GNN needs fast inference. Existing works focus on target GNN acceleration, such as GCN. And many works rely on pre-processing which is not suitable to real-time application.">
+<meta property="og:description" content="abstractthe limitation:  GNN needs fast inference.  Existing works focus on target GNN acceleration, such as GCN.  And many works rely on pre-processing which is not suitable to real-time application.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2023/10/22/FlowGNN/image-20231022095259558.png">
 <meta property="og:image" content="http://example.com/2023/10/22/FlowGNN/image-20231022095645741.png">
@@ -220,131 +220,73 @@
 
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="abstract">abstract</h1>
-<p>the limitation:</p>
+        <h1 id="abstract"><a href="#abstract" class="headerlink" title="abstract"></a>abstract</h1><p>the limitation:</p>
 <ul>
-<li><p>GNN needs fast inference.</p></li>
-<li><p>Existing works focus on target GNN acceleration, such as
-GCN.</p></li>
-<li><p>And many works rely on pre-processing which is not suitable to
-<strong>real-time application</strong>.</p></li>
+<li><p>GNN needs fast inference.</p>
+</li>
+<li><p>Existing works focus on target GNN acceleration, such as GCN.</p>
+</li>
+<li><p>And many works rely on pre-processing which is not suitable to <strong>real-time application</strong>.</p>
+</li>
 </ul>
 <p>This paper work:</p>
 <ul>
-<li>Propose FlowGNN, which is <strong>generalizable</strong> to the
-majority of message -passing GNNs.</li>
+<li>Propose FlowGNN, which is <strong>generalizable</strong> to the majority of message -passing GNNs.</li>
 </ul>
 <p>and more in details:</p>
-<ol type="1">
-<li>a novel and <strong>scalable dataflow architecture</strong>(enhance
-speed of message-passing)</li>
+<ol>
+<li>a novel and <strong>scalable dataflow architecture</strong>(enhance speed of message-passing)</li>
 <li><del>real-time GNN inference without any pre-processing</del></li>
-<li>verify the proposed architecture on FPGA board(Xilinx Alveo U50 FPGA
-board)</li>
+<li>verify the proposed architecture on FPGA board(Xilinx Alveo U50 FPGA board)</li>
 </ol>
-<h1 id="related-work-and-motivation">Related work and motivation</h1>
-<h2 id="related-work">Related work</h2>
-<p>Mentioning a survey: <a target="_blank" rel="noopener" href="https://readpaper.com/paper/3214821766">Computing Graph Neural
-Networks: A Survey from Algorithms to Accelerators</a>.</p>
-<h2 id="limitation">Limitation</h2>
-<p>The most significant is that <strong>advanced GNNs cannot be
-simplified as matrix multiplications(the method is SpMM and GEMM), and
-edge embeddings cannot be ignored.</strong></p>
-<h3 id="edge-embedding">Edge embedding</h3>
-<p>Edge embeddings are used to represent important edge attributes, such
-as chemical bonds in a molecule.</p>
+<h1 id="Related-work-and-motivation"><a href="#Related-work-and-motivation" class="headerlink" title="Related  work and motivation"></a>Related  work and motivation</h1><h2 id="Related-work"><a href="#Related-work" class="headerlink" title="Related work"></a>Related work</h2><p>Mentioning a survey: <a target="_blank" rel="noopener" href="https://readpaper.com/paper/3214821766">Computing Graph Neural Networks: A Survey from Algorithms to Accelerators</a>.</p>
+<h2 id="Limitation"><a href="#Limitation" class="headerlink" title="Limitation"></a>Limitation</h2><p>The most significant is that <strong>advanced GNNs cannot be simplified as matrix multiplications(the method is SpMM and GEMM), and edge embeddings cannot be ignored.</strong></p>
+<h3 id="Edge-embedding"><a href="#Edge-embedding" class="headerlink" title="Edge embedding"></a>Edge embedding</h3><p>Edge embeddings are used to represent important edge attributes, such as chemical bonds in a molecule.</p>
 <p>this make the SpMM and GEMM not useful.</p>
-<figure>
-<img src="/2023/10/22/FlowGNN/image-20231022095259558.png" alt="image-20231022095259558">
-<figcaption aria-hidden="true">image-20231022095259558</figcaption>
-</figure>
-<p>if not use edge embedding, message passing is <span class="math inline">\(\phi (x_i^l)\)</span>, and it can be optimized by
-GEMM and SpMM.However, if use embedding, it will be <span class="math inline">\(\phi (x_i^l,e_{i,j}^l)\)</span>, and the demension
-of node representation and edge representation is not same.</p>
-<figure>
-<img src="/2023/10/22/FlowGNN/image-20231022095645741.png" alt="image-20231022095645741">
-<figcaption aria-hidden="true">image-20231022095645741</figcaption>
-</figure>
-<h3 id="invalid-existing-optimizations">Invalid existing
-optimizations</h3>
-<p>SOTA I-GCN merge the same neighbor node as one node to optimize.</p>
-<figure>
-<img src="/2023/10/22/FlowGNN/image-20231022095925172.png" alt="image-20231022095925172">
-<figcaption aria-hidden="true">image-20231022095925172</figcaption>
-</figure>
-<p>However, considering edge embedding, the <span class="math inline">\(e_{ac},e_{bc}\)</span> is not the same as <span class="math inline">\(e_{bc},e_{bd}\)</span></p>
+<p><img src="/2023/10/22/FlowGNN/image-20231022095259558.png" alt="image-20231022095259558"></p>
+<p>if not use edge embedding, message passing is $\phi (x_i^l)$, and it can be optimized by GEMM and SpMM.However, if use embedding, it will be $\phi (x_i^l,e_{i,j}^l)$, and the demension of node representation and edge representation is not same.</p>
+<p><img src="/2023/10/22/FlowGNN/image-20231022095645741.png" alt="image-20231022095645741"></p>
+<h3 id="Invalid-existing-optimizations"><a href="#Invalid-existing-optimizations" class="headerlink" title="Invalid existing optimizations"></a>Invalid existing optimizations</h3><p>SOTA I-GCN merge the same neighbor node as one node to optimize.</p>
+<p><img src="/2023/10/22/FlowGNN/image-20231022095925172.png" alt="image-20231022095925172"></p>
+<p>However, considering edge embedding, the $e_{ac},e_{bc}$ is not the same as $e_{bc},e_{bd}$</p>
 <p>we cannot converge the node a and b</p>
-<h3 id="non-trivial-aggregation">Non-trivial aggregation</h3>
-<p>the GEMM and SpMM use a certain pattern to optimize. However ,the
-compute coefficient is dynamic.</p>
-<h3 id="anisotropic-gnns">Anisotropic GNNs</h3>
-<p>such as GAT, it has a attention coefficient which is calculated by
-<span class="math inline">\(x_i^{l},x_j^l\)</span>. and it is dynamic,
-which prevents GAT from being expressed as matrix multiplications to
-optimize.</p>
-<h3 id="pre-processing">Pre-processing</h3>
-<p>not applicable in RT application</p>
-<h2 id="motivations-and-innovations">Motivations and Innovations</h2>
-<p>Innovation:</p>
+<h3 id="Non-trivial-aggregation"><a href="#Non-trivial-aggregation" class="headerlink" title="Non-trivial aggregation"></a>Non-trivial aggregation</h3><p>the GEMM and SpMM use a certain pattern to optimize. However ,the compute coefficient is dynamic.</p>
+<h3 id="Anisotropic-GNNs"><a href="#Anisotropic-GNNs" class="headerlink" title="Anisotropic GNNs"></a>Anisotropic GNNs</h3><p>such as GAT, it has a attention coefficient which is calculated by $x_i^{l},x_j^l$. and it is dynamic, which prevents GAT from being expressed as matrix multiplications to optimize.</p>
+<h3 id="Pre-processing"><a href="#Pre-processing" class="headerlink" title="Pre-processing"></a>Pre-processing</h3><p>not applicable in RT application</p>
+<h2 id="Motivations-and-Innovations"><a href="#Motivations-and-Innovations" class="headerlink" title="Motivations and Innovations"></a>Motivations and Innovations</h2><p>Innovation:</p>
 <ul>
 <li>Explicit message passing for generality</li>
 <li>Multi-queue multi-level parallelism for performance</li>
 </ul>
-<h1 id="generic-architecture">GENERIC ARCHITECTURE*</h1>
-<h2 id="message-passing-mechanism">Message Passing Mechanism</h2>
-<figure>
-<img src="/2023/10/22/FlowGNN/image-20231022110739588.png" alt="image-20231022110739588">
-<figcaption aria-hidden="true">image-20231022110739588</figcaption>
-</figure>
-<p><img src="/2023/10/22/FlowGNN/image-20231022110042383.png" alt="image-20231022110042383"> <span class="math display">\[
-\mathcal{MP scatter} \\
-m_{1\to 0}^{l-1}=\phi (x_1^{l-1},e_{0,1}^{l-1}) \\
-\mathcal{MP gather} \\
-m_0^l=\mathcal A(m_{1\to0}^{l-1}) \\
-m_1^l=\mathcal A(m_{0\to1}^{l-1},m_{2\to1}^{l-1},m_{3\to1}^{l-1}) \\
-\mathcal{NT} \\
-x_1^l=\gamma (m_1^l,x_1^{l-1})
-\]</span></p>
+<h1 id="GENERIC-ARCHITECTURE"><a href="#GENERIC-ARCHITECTURE" class="headerlink" title="GENERIC ARCHITECTURE*"></a>GENERIC ARCHITECTURE*</h1><h2 id="Message-Passing-Mechanism"><a href="#Message-Passing-Mechanism" class="headerlink" title="Message Passing Mechanism"></a>Message Passing Mechanism</h2><p><img src="/2023/10/22/FlowGNN/image-20231022110739588.png" alt="image-20231022110739588"></p>
+<p><img src="/2023/10/22/FlowGNN/image-20231022110042383.png" alt="image-20231022110042383"><br>$$<br>\mathcal{MP scatter} \<br>m_{1\to 0}^{l-1}&#x3D;\phi (x_1^{l-1},e_{0,1}^{l-1}) \<br>\mathcal{MP gather} \<br>m_0^l&#x3D;\mathcal A(m_{1\to0}^{l-1}) \<br>m_1^l&#x3D;\mathcal A(m_{0\to1}^{l-1},m_{2\to1}^{l-1},m_{3\to1}^{l-1}) \<br>\mathcal{NT} \<br>x_1^l&#x3D;\gamma (m_1^l,x_1^{l-1})<br>$$</p>
 <p>3 phases:</p>
-<ol type="1">
-<li><p><strong>message passing(gather)</strong>:</p>
-<p>from message buffer get <span class="math inline">\(m\)</span>, and
-do aggregating <span class="math inline">\(A(m_{2\to1}^l, m_{3\to1}^l,
-m_{4\to1}^l)\)</span>.</p>
-<p>the <span class="math inline">\(\mathcal{A}(.)\)</span> function
-could be <strong>sum, max, mean, std.dev</strong>.</p></li>
+<ol>
+<li><p><strong>message passing(gather)</strong>: </p>
+<p>from message buffer get $m$, and do aggregating $A(m_{2\to1}^l, m_{3\to1}^l, m_{4\to1}^l)$.</p>
+<p>the $\mathcal{A}(.)$ function could be <strong>sum, max, mean, std.dev</strong>.</p>
+</li>
 <li><p><strong>node transformation</strong>:</p>
-<p><span class="math inline">\(\gamma (x_1^l, m_1^l)\)</span>.</p>
-<p><span class="math inline">\(\gamma (.)\)</span> could be
-<strong>full-connected layer, MLP</strong>...</p></li>
-<li><p><strong>message passing(scatter)</strong>:</p>
-<p><span class="math inline">\(\phi (x_1^{l+1},e_{1,2}^{l+1})\to m_{1\to
-2}^{l+1}\)</span>. Sent it to message buffer for the next layer Message
-passing(gather)</p></li>
+<p>$\gamma (x_1^l, m_1^l)$. </p>
+<p>$\gamma (.)$ could be <strong>full-connected layer, MLP</strong>…</p>
+</li>
+<li><p><strong>message passing(scatter)</strong>: </p>
+<p>$\phi (x_1^{l+1},e_{1,2}^{l+1})\to m_{1\to 2}^{l+1}$. Sent it to message buffer for the next layer Message passing(gather)</p>
+</li>
 </ol>
-<h2 id="baseline-dataflow-architecture">Baseline Dataflow
-Architecture</h2>
-<figure>
-<img src="/2023/10/22/FlowGNN/image-20231022130835181.png" alt="image-20231022130835181">
-<figcaption aria-hidden="true">image-20231022130835181</figcaption>
-</figure>
-<p>use ping-pang buffer(b =&gt; d):</p>
-<p><img src="/2023/10/22/FlowGNN/image-20231022192909514.png" alt="image-20231022192909514"></p>
-<h2 id="proposed-flowgnn-architecture">Proposed FlowGNN
-Architecture</h2>
-<figure>
-<img src="/2023/10/22/FlowGNN/image-20231022135221394.png" alt="image-20231022135221394">
-<figcaption aria-hidden="true">image-20231022135221394</figcaption>
-</figure>
-<figure>
-<img src="/2023/10/22/FlowGNN/image-20231022144445441.png" alt="image-20231022144445441">
-<figcaption aria-hidden="true">image-20231022144445441</figcaption>
-</figure>
+<h2 id="Baseline-Dataflow-Architecture"><a href="#Baseline-Dataflow-Architecture" class="headerlink" title="Baseline Dataflow Architecture"></a>Baseline Dataflow Architecture</h2><p><img src="/2023/10/22/FlowGNN/image-20231022130835181.png" alt="image-20231022130835181"></p>
+<p>use ping-pang buffer(b &#x3D;&gt; d):</p>
+<img src="/2023/10/22/FlowGNN/image-20231022192909514.png" alt="image-20231022192909514">
+
+
+
+<h2 id="Proposed-FlowGNN-Architecture"><a href="#Proposed-FlowGNN-Architecture" class="headerlink" title="Proposed FlowGNN Architecture"></a>Proposed FlowGNN Architecture</h2><p><img src="/2023/10/22/FlowGNN/image-20231022135221394.png" alt="image-20231022135221394"></p>
+<p><img src="/2023/10/22/FlowGNN/image-20231022144445441.png" alt="image-20231022144445441"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/22/FlowGNN/" data-id="cm1bpwn7h001a1w9f90svdqlw" data-title="FlowGNN" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/10/22/FlowGNN/" data-id="cm4jpc9ed001aya013cxx0xte" data-title="FlowGNN" class="article-share-link">Share</a>
       
       
       
@@ -364,7 +306,7 @@ Architecture</h2>
         
           
           
-            <img data-src="/covers/IMG_2581.JPG" data-sizes="auto" alt="cs224w_ch8" class="lazyload">
+            <img data-src="/covers/IMG_2620.PNG" data-sizes="auto" alt="cs224w_ch8" class="lazyload">
           
         
         <a href="/2023/10/22/cs224w-ch8/"></a>
@@ -381,7 +323,7 @@ Architecture</h2>
       
         
         
-          <img data-src="/covers/IMG_2577.JPG" data-sizes="auto" alt="cs224w_ch7" class="lazyload">
+          <img data-src="/covers/IMG_2618.PNG" data-sizes="auto" alt="cs224w_ch7" class="lazyload">
         
       
       <a href="/2023/10/18/cs224w-ch7/"></a>
@@ -413,10 +355,7 @@ Architecture</h2>
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#abstract"><span class="toc-number">1.</span> <span class="toc-text">abstract</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#related-work-and-motivation"><span class="toc-number">2.</span> <span class="toc-text">Related work and motivation</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#related-work"><span class="toc-number">2.1.</span> <span class="toc-text">Related work</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#limitation"><span class="toc-number">2.2.</span> <span class="toc-text">Limitation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#edge-embedding"><span class="toc-number">2.2.1.</span> <span class="toc-text">Edge embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#invalid-existing-optimizations"><span class="toc-number">2.2.2.</span> <span class="toc-text">Invalid existing
-optimizations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#non-trivial-aggregation"><span class="toc-number">2.2.3.</span> <span class="toc-text">Non-trivial aggregation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#anisotropic-gnns"><span class="toc-number">2.2.4.</span> <span class="toc-text">Anisotropic GNNs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pre-processing"><span class="toc-number">2.2.5.</span> <span class="toc-text">Pre-processing</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#motivations-and-innovations"><span class="toc-number">2.3.</span> <span class="toc-text">Motivations and Innovations</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#generic-architecture"><span class="toc-number">3.</span> <span class="toc-text">GENERIC ARCHITECTURE*</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#message-passing-mechanism"><span class="toc-number">3.1.</span> <span class="toc-text">Message Passing Mechanism</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#baseline-dataflow-architecture"><span class="toc-number">3.2.</span> <span class="toc-text">Baseline Dataflow
-Architecture</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#proposed-flowgnn-architecture"><span class="toc-number">3.3.</span> <span class="toc-text">Proposed FlowGNN
-Architecture</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#abstract"><span class="toc-number">1.</span> <span class="toc-text">abstract</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Related-work-and-motivation"><span class="toc-number">2.</span> <span class="toc-text">Related  work and motivation</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Related-work"><span class="toc-number">2.1.</span> <span class="toc-text">Related work</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Limitation"><span class="toc-number">2.2.</span> <span class="toc-text">Limitation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Edge-embedding"><span class="toc-number">2.2.1.</span> <span class="toc-text">Edge embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Invalid-existing-optimizations"><span class="toc-number">2.2.2.</span> <span class="toc-text">Invalid existing optimizations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Non-trivial-aggregation"><span class="toc-number">2.2.3.</span> <span class="toc-text">Non-trivial aggregation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Anisotropic-GNNs"><span class="toc-number">2.2.4.</span> <span class="toc-text">Anisotropic GNNs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pre-processing"><span class="toc-number">2.2.5.</span> <span class="toc-text">Pre-processing</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Motivations-and-Innovations"><span class="toc-number">2.3.</span> <span class="toc-text">Motivations and Innovations</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#GENERIC-ARCHITECTURE"><span class="toc-number">3.</span> <span class="toc-text">GENERIC ARCHITECTURE*</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Message-Passing-Mechanism"><span class="toc-number">3.1.</span> <span class="toc-text">Message Passing Mechanism</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Baseline-Dataflow-Architecture"><span class="toc-number">3.2.</span> <span class="toc-text">Baseline Dataflow Architecture</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Proposed-FlowGNN-Architecture"><span class="toc-number">3.3.</span> <span class="toc-text">Proposed FlowGNN Architecture</span></a></li></ol></li></ol>
       
   </div>
 </div>
@@ -507,10 +446,10 @@ Architecture</span></a></li></ol></li></ol>
       
         <div>
           <span class="icon-brush"></span>
-          93.7k
+          91.8k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          06:11
+          06:07
         </div>
       
       
@@ -539,10 +478,7 @@ Architecture</span></a></li></ol></li></ol>
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#abstract"><span class="toc-number">1.</span> <span class="toc-text">abstract</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#related-work-and-motivation"><span class="toc-number">2.</span> <span class="toc-text">Related work and motivation</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#related-work"><span class="toc-number">2.1.</span> <span class="toc-text">Related work</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#limitation"><span class="toc-number">2.2.</span> <span class="toc-text">Limitation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#edge-embedding"><span class="toc-number">2.2.1.</span> <span class="toc-text">Edge embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#invalid-existing-optimizations"><span class="toc-number">2.2.2.</span> <span class="toc-text">Invalid existing
-optimizations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#non-trivial-aggregation"><span class="toc-number">2.2.3.</span> <span class="toc-text">Non-trivial aggregation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#anisotropic-gnns"><span class="toc-number">2.2.4.</span> <span class="toc-text">Anisotropic GNNs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pre-processing"><span class="toc-number">2.2.5.</span> <span class="toc-text">Pre-processing</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#motivations-and-innovations"><span class="toc-number">2.3.</span> <span class="toc-text">Motivations and Innovations</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#generic-architecture"><span class="toc-number">3.</span> <span class="toc-text">GENERIC ARCHITECTURE*</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#message-passing-mechanism"><span class="toc-number">3.1.</span> <span class="toc-text">Message Passing Mechanism</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#baseline-dataflow-architecture"><span class="toc-number">3.2.</span> <span class="toc-text">Baseline Dataflow
-Architecture</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#proposed-flowgnn-architecture"><span class="toc-number">3.3.</span> <span class="toc-text">Proposed FlowGNN
-Architecture</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#abstract"><span class="toc-number">1.</span> <span class="toc-text">abstract</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Related-work-and-motivation"><span class="toc-number">2.</span> <span class="toc-text">Related  work and motivation</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Related-work"><span class="toc-number">2.1.</span> <span class="toc-text">Related work</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Limitation"><span class="toc-number">2.2.</span> <span class="toc-text">Limitation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Edge-embedding"><span class="toc-number">2.2.1.</span> <span class="toc-text">Edge embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Invalid-existing-optimizations"><span class="toc-number">2.2.2.</span> <span class="toc-text">Invalid existing optimizations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Non-trivial-aggregation"><span class="toc-number">2.2.3.</span> <span class="toc-text">Non-trivial aggregation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Anisotropic-GNNs"><span class="toc-number">2.2.4.</span> <span class="toc-text">Anisotropic GNNs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pre-processing"><span class="toc-number">2.2.5.</span> <span class="toc-text">Pre-processing</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Motivations-and-Innovations"><span class="toc-number">2.3.</span> <span class="toc-text">Motivations and Innovations</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#GENERIC-ARCHITECTURE"><span class="toc-number">3.</span> <span class="toc-text">GENERIC ARCHITECTURE*</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Message-Passing-Mechanism"><span class="toc-number">3.1.</span> <span class="toc-text">Message Passing Mechanism</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Baseline-Dataflow-Architecture"><span class="toc-number">3.2.</span> <span class="toc-text">Baseline Dataflow Architecture</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Proposed-FlowGNN-Architecture"><span class="toc-number">3.3.</span> <span class="toc-text">Proposed FlowGNN Architecture</span></a></li></ol></li></ol>
       
   </div>
 </div>

@@ -26,15 +26,15 @@
   
 <link rel="stylesheet" href="/css/loader.css">
 
-  <meta name="description" content="摘要 本文提出了一种基于machine unlearning（机器不学习，机器学习遗忘）的擦除后门攻击的方法，主要有两步：  触发器模式恢复：从受害者模型中提取出触发器的模式。这个问题等价于：从受害者模型中提取出一个特定的噪声信号（分布），这可以通过熵最大化生成模型来解决。 受害者模型净化：通过1中恢复出来的触发器模式，结合基于machine unlearning的梯度上升的方法，来擦除模型污染的">
+  <meta name="description" content="摘要本文提出了一种基于machine unlearning（机器不学习，机器学习遗忘）的擦除后门攻击的方法，主要有两步：  触发器模式恢复：从受害者模型中提取出触发器的模式。这个问题等价于：从受害者模型中提取出一个特定的噪声信号（分布），这可以通过熵最大化生成模型来解决。 受害者模型净化：通过1中恢复出来的触发器模式，结合基于machine unlearning的梯度上升的方法，来擦除模型污染的记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Backdoor_Defense_with_Machine_Unlearning">
 <meta property="og:url" content="http://example.com/2024/01/08/Backdoor-Defense-with-Machine-Unlearning/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="摘要 本文提出了一种基于machine unlearning（机器不学习，机器学习遗忘）的擦除后门攻击的方法，主要有两步：  触发器模式恢复：从受害者模型中提取出触发器的模式。这个问题等价于：从受害者模型中提取出一个特定的噪声信号（分布），这可以通过熵最大化生成模型来解决。 受害者模型净化：通过1中恢复出来的触发器模式，结合基于machine unlearning的梯度上升的方法，来擦除模型污染的">
+<meta property="og:description" content="摘要本文提出了一种基于machine unlearning（机器不学习，机器学习遗忘）的擦除后门攻击的方法，主要有两步：  触发器模式恢复：从受害者模型中提取出触发器的模式。这个问题等价于：从受害者模型中提取出一个特定的噪声信号（分布），这可以通过熵最大化生成模型来解决。 受害者模型净化：通过1中恢复出来的触发器模式，结合基于machine unlearning的梯度上升的方法，来擦除模型污染的记">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-01-08T06:02:19.000Z">
-<meta property="article:modified_time" content="2024-04-19T04:35:43.413Z">
+<meta property="article:modified_time" content="2024-04-19T04:35:43.000Z">
 <meta property="article:author" content="chengyiqiu">
 <meta property="article:tag" content="backdoor">
 <meta name="twitter:card" content="summary">
@@ -210,111 +210,89 @@
 
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="摘要">摘要</h1>
-<p>本文提出了一种基于machine
-unlearning（机器不学习，机器学习遗忘）的擦除后门攻击的方法，主要有两步：</p>
-<ol type="1">
+        <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>本文提出了一种基于machine unlearning（机器不学习，机器学习遗忘）的擦除后门攻击的方法，主要有两步：</p>
+<ol>
 <li>触发器模式恢复：从受害者模型中提取出触发器的模式。这个问题等价于：从受害者模型中提取出一个特定的噪声信号（分布），这可以通过<strong>熵最大化生成模型</strong>来解决。</li>
-<li>受害者模型净化：通过1中恢复出来的触发器模式，结合基于machine
-unlearning的梯度上升的方法，来擦除模型污染的记忆（也就是模型遗忘）。</li>
+<li>受害者模型净化：通过1中恢复出来的触发器模式，结合基于machine unlearning的梯度上升的方法，来擦除模型污染的记忆（也就是模型遗忘）。</li>
 </ol>
-<p>对比之前的machine
-unlearning方法，该方法不需要访问所有训练数据来进行重训练，并且比微调or修建方法更好。baseline有三个优的攻击方法，本文方法可以降低99%的攻击成功率在基准测试中。</p>
-<h1 id="介绍">介绍</h1>
-<p>总结了三种常见的后门擦除的方法：</p>
-<ol type="1">
+<p>对比之前的machine unlearning方法，该方法不需要访问所有训练数据来进行重训练，并且比微调or修建方法更好。baseline有三个优的攻击方法，本文方法可以降低99%的攻击成功率在基准测试中。</p>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>总结了三种常见的后门擦除的方法：</p>
+<ol>
 <li><p>微调</p>
 <p>利用一小部分干净数据，对受害者模型进行微调，来擦除后门。</p>
-<p>该方法有一定局限性，很难用一小部分数据来将后门神经元完全擦除[7,
-xidian, ICLR]</p></li>
+<p>该方法有一定局限性，很难用一小部分数据来将后门神经元完全擦除[7, xidian, ICLR]</p>
+</li>
 <li><p>修剪</p>
 <p>对微调之后的模型，进行修剪，所谓修剪，就是将满足某种性质的神经元修剪掉（比如神经元对触发器样本激活值很大）。</p>
-<p>这个方法的局限性在于，直接修剪掉后会对正常样本也造成影响。</p></li>
+<p>这个方法的局限性在于，直接修剪掉后会对正常样本也造成影响。</p>
+</li>
 <li><p>知识蒸馏</p>
 <p>还是[7]，用干净的模型来蒸馏掉受害者模型的脏知识，同时保证正确样本的正确率（不完全蒸馏掉）</p>
 <p>问题在于干净的模型从哪里来？</p>
-<p>该方法正确率较低，很大原因在于“干净模型”并不干净。</p></li>
+<p>该方法正确率较低，很大原因在于“干净模型”并不干净。</p>
+</li>
 </ol>
 <p>本文通过机器学习遗忘的方法，来擦除后门，客服克服以下问题：</p>
-<ol type="1">
-<li><p>通过[14-16]的方法（熵最大生成模型），来生成触发器模式，<strong>不需要访问任何的训练数据</strong>。触发器模式即为模型需要遗忘的记忆。</p></li>
-<li><p>之前的方法很多都需要重新训练，并且对训练数据集需要完全访问。本文通过1.
-中生成的触发器模式，来进行梯度上升。</p>
-<p>直接梯度上升会导致灾难性遗忘，因此本文增加了权重惩罚机制。</p></li>
+<ol>
+<li><p>通过[14-16]的方法（熵最大生成模型），来生成触发器模式，<strong>不需要访问任何的训练数据</strong>。触发器模式即为模型需要遗忘的记忆。</p>
+</li>
+<li><p>之前的方法很多都需要重新训练，并且对训练数据集需要完全访问。本文通过1. 中生成的触发器模式，来进行梯度上升。</p>
+<p>直接梯度上升会导致灾难性遗忘，因此本文增加了权重惩罚机制。</p>
+</li>
 </ol>
-<h1 id="近期工作">近期工作</h1>
-<h2 id="机器学习遗忘">机器学习遗忘</h2>
-<p>简单介绍了一下机器学习遗忘的定义：消除某些特定样本对目标模型的影响。</p>
+<h1 id="近期工作"><a href="#近期工作" class="headerlink" title="近期工作"></a>近期工作</h1><h2 id="机器学习遗忘"><a href="#机器学习遗忘" class="headerlink" title="机器学习遗忘"></a>机器学习遗忘</h2><p>简单介绍了一下机器学习遗忘的定义：消除某些特定样本对目标模型的影响。</p>
 <p>发展：</p>
-<ol type="1">
+<ol>
 <li>[11]，2015，提出了机器学习遗忘，缺点：只能适用<strong>非适应性模型</strong>（non-adaptive），在适应性模型上性能表现非常差。</li>
-<li>[12,
-23-25]，近五年，提出了各种各样的基于重新训练的机器学习遗忘方法。</li>
+<li>[12, 23-25]，近五年，提出了各种各样的基于重新训练的机器学习遗忘方法。</li>
 </ol>
 <p>目前的缺点是，重训练需要消耗大量的资源，而后门攻击的场景就是外包、迁移学习。所以现在的情况就是，若是硬要用机器学习遗忘来消除后门，那么就是：为了避免消耗资源，选择使用外包、迁移学习，然后得到带有后门的模型，最后通过机器学习遗忘，消耗大量资源重训练，来消除后门。</p>
-<h1 id="概述">概述</h1>
-<h2 id="威胁模型目标">威胁模型&amp;目标</h2>
-<p>defender：</p>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="威胁模型-目标"><a href="#威胁模型-目标" class="headerlink" title="威胁模型&amp;目标"></a>威胁模型&amp;目标</h2><p>defender：</p>
 <ul>
 <li>不知道那一张图片被污染了，或者是哪一类被污染了</li>
 <li>只能访问一部分验证集的数据，并不能访问训练集。</li>
 </ul>
-<p>goal： <span class="math display">\[
-arg \min_\theta \mathcal L
-(F_\theta(x_b),y_{real})+\lambda\vert\theta\vert
-\]</span> <span class="math inline">\(\lambda\)</span>是惩罚细数，<span class="math inline">\(\vert\theta\vert\)</span>是惩罚项，目的是为了避免
-灾难性遗忘。</p>
+<p>goal：<br>$$<br>arg \min_\theta \mathcal L (F_\theta(x_b),y_{real})+\lambda\vert\theta\vert<br>$$<br>$\lambda$是惩罚细数，$\vert\theta\vert$是惩罚项，目的是为了避免 灾难性遗忘。</p>
 <p>本文工作：</p>
-<ol type="1">
+<ol>
 <li><p>触发器恢复</p>
-<p>不同于往常使用GAN，本文使用的是熵最大生成模型；反转攻击过程，攻击过程是由输入推出输出，防御过程则是从输出反推出输入（的触发器模式）。</p></li>
+<p>不同于往常使用GAN，本文使用的是熵最大生成模型；反转攻击过程，攻击过程是由输入推出输出，防御过程则是从输出反推出输入（的触发器模式）。</p>
+</li>
 <li><p>触发器模式遗忘</p>
-<p>不同于基于重训练的mu，本文使用基于梯度上升的mu，来消除触发器对模型产生的负面影响。</p></li>
+<p>不同于基于重训练的mu，本文使用基于梯度上升的mu，来消除触发器对模型产生的负面影响。</p>
+</li>
 </ol>
-<h1 id="通过机器学习遗忘的后门擦除">通过机器学习遗忘的后门擦除</h1>
-<h2 id="触发器恢复">触发器恢复</h2>
-<p>优化路径： <span class="math display">\[
-\mathcal L_R=\frac{1}{b}\sum_{x\in
-D^{&#39;}}(\max(0,\epsilon_i-F_{\theta_0}(x+G_i(\delta))[y_p])-\eta
-H_i(G_i(\delta);\delta^{&#39;}))
-\]</span> 符号表示：</p>
+<h1 id="通过机器学习遗忘的后门擦除"><a href="#通过机器学习遗忘的后门擦除" class="headerlink" title="通过机器学习遗忘的后门擦除"></a>通过机器学习遗忘的后门擦除</h1><h2 id="触发器恢复"><a href="#触发器恢复" class="headerlink" title="触发器恢复"></a>触发器恢复</h2><p>优化路径：<br>$$<br>\mathcal L_R&#x3D;\frac{1}{b}\sum_{x\in D^{‘}}(\max(0,\epsilon_i-F_{\theta_0}(x+G_i(\delta))[y_p])-\eta H_i(G_i(\delta);\delta^{‘}))<br>$$<br>符号表示：</p>
 <ul>
-<li><p><span class="math inline">\(G_i\)</span>:the i-th generative
-model</p></li>
-<li><p><span class="math inline">\(D^{&#39;}\)</span>: part of
-validation datast</p></li>
-<li><p><span class="math inline">\(\delta\)</span> and <span class="math inline">\(\delta^{&#39;}\)</span>: two voices sampled from
-<span class="math inline">\(N(0,1)\)</span></p></li>
-<li><p><span class="math inline">\(F_{\theta_0}\)</span>: backdoored
-model</p></li>
-<li><p><span class="math inline">\(H_i\)</span>: mutual information
-estimator, [16]</p>
+<li><p>$G_i$:the i-th generative model</p>
+</li>
+<li><p>$D^{‘}$: part of validation datast</p>
+</li>
+<li><p>$\delta$ and $\delta^{‘}$: two voices sampled from $N(0,1)$</p>
+</li>
+<li><p>$F_{\theta_0}$: backdoored model</p>
+</li>
+<li><p>$H_i$: mutual information estimator, [16]</p>
 <ul>
-<li>If X and Y are independent, <span class="math inline">\(H_i(X,Y)=0\)</span></li>
-</ul></li>
-<li><p><span class="math inline">\(\epsilon_i\)</span>: the threshold
-from <span class="math inline">\([0,1]\)</span></p></li>
+<li>If X and Y are independent, $H_i(X,Y)&#x3D;0$</li>
 </ul>
-<p>一个比较重要的观测：当输入$ x_i+<span class="math inline">\(时，会被误分类为\)</span>y_{target}<span class="math inline">\(；另外，当输入\)</span>x^{'}=x_0+<span class="math inline">\(时，同样会被误分类，\)</span><span class="math inline">\(是噪声，而对于一般的噪声，使得\)</span>xx_0$，很难被误分类。</p>
-<p>因此，基于这个观测，再来看上述公式，作者是在整个噪声空间中寻找合适的噪声，<span class="math inline">\(L_R\)</span>即为优化路径。</p>
-<h2 id="触发器模式遗忘">触发器模式遗忘</h2>
-<p>直接使用梯度上升如下： <span class="math display">\[
-\theta_t+\frac{\partial \mathcal L}{\partial \theta_t}\to \theta_{t+1}
-\]</span>
-然而直接使用梯度上升会导致灾难性遗忘，因此采取了两步来解决：</p>
-<ol type="1">
+</li>
+<li><p>$\epsilon_i$: the threshold  from $[0,1]$</p>
+</li>
+</ul>
+<p>一个比较重要的观测：当输入$ x_i+\Delta$时，会被误分类为$y_{target}$；另外，当输入$x^{‘}&#x3D;x_0+\delta$时，同样会被误分类，$\delta$是噪声，而对于一般的噪声，使得$x\ne x_0$，很难被误分类。</p>
+<p>因此，基于这个观测，再来看上述公式，作者是在整个噪声空间中寻找合适的噪声，$L_R$即为优化路径。</p>
+<h2 id="触发器模式遗忘"><a href="#触发器模式遗忘" class="headerlink" title="触发器模式遗忘"></a>触发器模式遗忘</h2><p>直接使用梯度上升如下：<br>$$<br>\theta_t+\frac{\partial \mathcal L}{\partial \theta_t}\to \theta_{t+1}<br>$$<br>然而直接使用梯度上升会导致灾难性遗忘，因此采取了两步来解决：</p>
+<ol>
 <li>使用一部分验证集训练，确保模型不遗忘正常的记忆</li>
 <li>加入动态惩罚机制，避免过度遗忘。</li>
 </ol>
-<p><span class="math display">\[
-\mathcal L_U=\alpha(\mathcal L_{CE}(F_{\theta_j}(x_c),y_c)-\mathcal
-L_{CE}(F_{\theta_j}(x_b),y_b))+\beta\sum_{k=1}^M\omega_k\vert\theta_{j,k},-\theta_{0,k}\vert_1
-\]</span></p>
+<p>$$<br>\mathcal L_U&#x3D;\alpha(\mathcal L_{CE}(F_{\theta_j}(x_c),y_c)-\mathcal L_{CE}(F_{\theta_j}(x_b),y_b))+\beta\sum_{k&#x3D;1}^M\omega_k\vert\theta_{j,k},-\theta_{0,k}\vert_1<br>$$</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/08/Backdoor-Defense-with-Machine-Unlearning/" data-id="cm1bpwn7c00071w9f56ou4l3d" data-title="Backdoor_Defense_with_Machine_Unlearning" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2024/01/08/Backdoor-Defense-with-Machine-Unlearning/" data-id="cm4jpc9e90008ya01h13l73uo" data-title="Backdoor_Defense_with_Machine_Unlearning" class="article-share-link">Share</a>
       
       
       
@@ -334,7 +312,7 @@ L_{CE}(F_{\theta_j}(x_b),y_b))+\beta\sum_{k=1}^M\omega_k\vert\theta_{j,k},-\thet
         
           
           
-            <img data-src="/covers/IMG_2581.JPG" data-sizes="auto" alt="Defense-Resistant-Backdoor-Attacks-Against-Deep-Neural-Networks-in-Outsourced-Cloud-Environment" class="lazyload">
+            <img data-src="/covers/IMG_2578.JPG" data-sizes="auto" alt="Defense-Resistant-Backdoor-Attacks-Against-Deep-Neural-Networks-in-Outsourced-Cloud-Environment" class="lazyload">
           
         
         <a href="/2024/01/15/Defense-Resistant-Backdoor-Attacks-Against-Deep-Neural-Networks-in-Outsourced-Cloud-Environment/"></a>
@@ -351,7 +329,7 @@ L_{CE}(F_{\theta_j}(x_b),y_b))+\beta\sum_{k=1}^M\omega_k\vert\theta_{j,k},-\thet
       
         
         
-          <img data-src="/covers/IMG_2575.JPG" data-sizes="auto" alt="probability" class="lazyload">
+          <img data-src="/covers/IMG_2585.JPG" data-sizes="auto" alt="probability" class="lazyload">
         
       
       <a href="/2024/01/02/probability/"></a>
@@ -383,7 +361,7 @@ L_{CE}(F_{\theta_j}(x_b),y_b))+\beta\sum_{k=1}^M\omega_k\vert\theta_{j,k},-\thet
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%91%E6%9C%9F%E5%B7%A5%E4%BD%9C"><span class="toc-number">3.</span> <span class="toc-text">近期工作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E9%81%97%E5%BF%98"><span class="toc-number">3.1.</span> <span class="toc-text">机器学习遗忘</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">4.</span> <span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B%E7%9B%AE%E6%A0%87"><span class="toc-number">4.1.</span> <span class="toc-text">威胁模型&amp;目标</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E9%81%97%E5%BF%98%E7%9A%84%E5%90%8E%E9%97%A8%E6%93%A6%E9%99%A4"><span class="toc-number">5.</span> <span class="toc-text">通过机器学习遗忘的后门擦除</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A6%E5%8F%91%E5%99%A8%E6%81%A2%E5%A4%8D"><span class="toc-number">5.1.</span> <span class="toc-text">触发器恢复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A6%E5%8F%91%E5%99%A8%E6%A8%A1%E5%BC%8F%E9%81%97%E5%BF%98"><span class="toc-number">5.2.</span> <span class="toc-text">触发器模式遗忘</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%91%E6%9C%9F%E5%B7%A5%E4%BD%9C"><span class="toc-number">3.</span> <span class="toc-text">近期工作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E9%81%97%E5%BF%98"><span class="toc-number">3.1.</span> <span class="toc-text">机器学习遗忘</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">4.</span> <span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B-%E7%9B%AE%E6%A0%87"><span class="toc-number">4.1.</span> <span class="toc-text">威胁模型&amp;目标</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E9%81%97%E5%BF%98%E7%9A%84%E5%90%8E%E9%97%A8%E6%93%A6%E9%99%A4"><span class="toc-number">5.</span> <span class="toc-text">通过机器学习遗忘的后门擦除</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A6%E5%8F%91%E5%99%A8%E6%81%A2%E5%A4%8D"><span class="toc-number">5.1.</span> <span class="toc-text">触发器恢复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A6%E5%8F%91%E5%99%A8%E6%A8%A1%E5%BC%8F%E9%81%97%E5%BF%98"><span class="toc-number">5.2.</span> <span class="toc-text">触发器模式遗忘</span></a></li></ol></li></ol>
       
   </div>
 </div>
@@ -474,10 +452,10 @@ L_{CE}(F_{\theta_j}(x_b),y_b))+\beta\sum_{k=1}^M\omega_k\vert\theta_{j,k},-\thet
       
         <div>
           <span class="icon-brush"></span>
-          93.7k
+          91.8k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          06:11
+          06:07
         </div>
       
       
@@ -506,7 +484,7 @@ L_{CE}(F_{\theta_j}(x_b),y_b))+\beta\sum_{k=1}^M\omega_k\vert\theta_{j,k},-\thet
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%91%E6%9C%9F%E5%B7%A5%E4%BD%9C"><span class="toc-number">3.</span> <span class="toc-text">近期工作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E9%81%97%E5%BF%98"><span class="toc-number">3.1.</span> <span class="toc-text">机器学习遗忘</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">4.</span> <span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B%E7%9B%AE%E6%A0%87"><span class="toc-number">4.1.</span> <span class="toc-text">威胁模型&amp;目标</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E9%81%97%E5%BF%98%E7%9A%84%E5%90%8E%E9%97%A8%E6%93%A6%E9%99%A4"><span class="toc-number">5.</span> <span class="toc-text">通过机器学习遗忘的后门擦除</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A6%E5%8F%91%E5%99%A8%E6%81%A2%E5%A4%8D"><span class="toc-number">5.1.</span> <span class="toc-text">触发器恢复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A6%E5%8F%91%E5%99%A8%E6%A8%A1%E5%BC%8F%E9%81%97%E5%BF%98"><span class="toc-number">5.2.</span> <span class="toc-text">触发器模式遗忘</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%91%E6%9C%9F%E5%B7%A5%E4%BD%9C"><span class="toc-number">3.</span> <span class="toc-text">近期工作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E9%81%97%E5%BF%98"><span class="toc-number">3.1.</span> <span class="toc-text">机器学习遗忘</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">4.</span> <span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B-%E7%9B%AE%E6%A0%87"><span class="toc-number">4.1.</span> <span class="toc-text">威胁模型&amp;目标</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E9%81%97%E5%BF%98%E7%9A%84%E5%90%8E%E9%97%A8%E6%93%A6%E9%99%A4"><span class="toc-number">5.</span> <span class="toc-text">通过机器学习遗忘的后门擦除</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A6%E5%8F%91%E5%99%A8%E6%81%A2%E5%A4%8D"><span class="toc-number">5.1.</span> <span class="toc-text">触发器恢复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A6%E5%8F%91%E5%99%A8%E6%A8%A1%E5%BC%8F%E9%81%97%E5%BF%98"><span class="toc-number">5.2.</span> <span class="toc-text">触发器模式遗忘</span></a></li></ol></li></ol>
       
   </div>
 </div>

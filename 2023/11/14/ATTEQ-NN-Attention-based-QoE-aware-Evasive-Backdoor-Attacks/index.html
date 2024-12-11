@@ -26,12 +26,12 @@
   
 <link rel="stylesheet" href="/css/loader.css">
 
-  <meta name="description" content="标题 基于注意力的体验质量感知逃避后门攻击。 摘要 本文创新点：  基于注意力的逃避后门攻击 在生成trigger的loss函数里增加QoE（quality of experience，质量经验）  问题范围和威胁模型 范围：集中式场景 威胁模型：和以前的一样，这里作者特意引用了三个文献，表示和他们文章中使用的威胁模型是一样的：攻击者可以通过训练数据集训练出后门模型，然后给客户，或者分发在网上。">
+  <meta name="description" content="标题基于注意力的体验质量感知逃避后门攻击。 摘要本文创新点：  基于注意力的逃避后门攻击 在生成trigger的loss函数里增加QoE（quality of experience，质量经验）  问题范围和威胁模型范围：集中式场景 威胁模型：和以前的一样，这里作者特意引用了三个文献，表示和他们文章中使用的威胁模型是一样的：攻击者可以通过训练数据集训练出后门模型，然后给客户，或者分发在网上。  后门">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ATTEQ-NN:Attention-based_QoE-aware_Evasive_Backdoor_Attacks">
 <meta property="og:url" content="http://example.com/2023/11/14/ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="标题 基于注意力的体验质量感知逃避后门攻击。 摘要 本文创新点：  基于注意力的逃避后门攻击 在生成trigger的loss函数里增加QoE（quality of experience，质量经验）  问题范围和威胁模型 范围：集中式场景 威胁模型：和以前的一样，这里作者特意引用了三个文献，表示和他们文章中使用的威胁模型是一样的：攻击者可以通过训练数据集训练出后门模型，然后给客户，或者分发在网上。">
+<meta property="og:description" content="标题基于注意力的体验质量感知逃避后门攻击。 摘要本文创新点：  基于注意力的逃避后门攻击 在生成trigger的loss函数里增加QoE（quality of experience，质量经验）  问题范围和威胁模型范围：集中式场景 威胁模型：和以前的一样，这里作者特意引用了三个文献，表示和他们文章中使用的威胁模型是一样的：攻击者可以通过训练数据集训练出后门模型，然后给客户，或者分发在网上。  后门">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2023/11/14/ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/image-20231126152105605.png">
 <meta property="og:image" content="http://example.com/2023/11/14/ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/image-20231127121420572.png">
@@ -41,7 +41,7 @@
 <meta property="og:image" content="http://example.com/2023/11/14/ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/image-20231201163513904.png">
 <meta property="og:image" content="http://example.com/2023/11/14/ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/image-20231201163842753.png">
 <meta property="article:published_time" content="2023-11-14T11:10:20.000Z">
-<meta property="article:modified_time" content="2024-04-19T04:36:47.207Z">
+<meta property="article:modified_time" content="2024-04-19T04:36:47.000Z">
 <meta property="article:author" content="chengyiqiu">
 <meta property="article:tag" content="backdoor">
 <meta name="twitter:card" content="summary">
@@ -214,84 +214,48 @@
 
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="标题">标题</h1>
-<p>基于注意力的体验质量感知逃避后门攻击。</p>
-<h1 id="摘要">摘要</h1>
-<p>本文创新点：</p>
-<ol type="1">
+        <h1 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h1><p>基于注意力的体验质量感知逃避后门攻击。</p>
+<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>本文创新点：</p>
+<ol>
 <li>基于注意力的逃避后门攻击</li>
-<li>在生成trigger的loss函数里增加QoE（quality of
-experience，质量经验）</li>
+<li>在生成trigger的loss函数里增加QoE（quality of experience，质量经验）</li>
 </ol>
-<h1 id="问题范围和威胁模型">问题范围和威胁模型</h1>
-<p>范围：集中式场景</p>
+<h1 id="问题范围和威胁模型"><a href="#问题范围和威胁模型" class="headerlink" title="问题范围和威胁模型"></a>问题范围和威胁模型</h1><p>范围：集中式场景</p>
 <p>威胁模型：和以前的一样，这里作者特意引用了三个文献，表示和他们文章中使用的威胁模型是一样的：攻击者可以通过训练数据集训练出后门模型，然后给客户，或者分发在网上。</p>
-<figure>
-<img src="/2023/11/14/ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/image-20231126152105605.png" alt="image-20231126152105605">
-<figcaption aria-hidden="true">image-20231126152105605</figcaption>
-</figure>
-<h1 id="后门攻击架构">后门攻击架构</h1>
-<p>两个组件：触发器生成+后门注入。</p>
-<h2 id="触发器生成">触发器生成</h2>
-<p>关键在于找到触发器样本和误分类标签之间的桥梁--模型中的神经元。需要找到某一合适的layer中的某些神经元。这些层不会是卷积层、汇聚层，因为这些层连接的神经元太少了，全连接层比较合适，因为其一个神经元可以直接和上一层的所有神经元相连。本文选择第一个全连接层作为合适的layer。</p>
-<p>找到layer后，需要找到合适的神经元，能够很好的连接触发器样本以及目标标签。思路是：选取激活最大的神经元（当输入样本的标签为目标标签<span class="math inline">\(y_t\)</span>时）</p>
-<p>触发器的优化方法：通过最大化选定神经元的激活，梯度下降，来得到触发器<span class="math inline">\(\delta\)</span>。</p>
-<p>通过普通样本<span class="math inline">\((x,y)\)</span>构建中毒样本（触发器）：<span class="math inline">\(x_t=x\otimes (1-M)+\delta \otimes
-M\)</span>，从而得到触发器样本<span class="math inline">\((x_t,y_t)\)</span>，<span class="math inline">\(y_t\)</span>为目标标签。</p>
+<p><img src="/2023/11/14/ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/image-20231126152105605.png" alt="image-20231126152105605"></p>
+<h1 id="后门攻击架构"><a href="#后门攻击架构" class="headerlink" title="后门攻击架构"></a>后门攻击架构</h1><p>两个组件：触发器生成+后门注入。</p>
+<h2 id="触发器生成"><a href="#触发器生成" class="headerlink" title="触发器生成"></a>触发器生成</h2><p>关键在于找到触发器样本和误分类标签之间的桥梁–模型中的神经元。需要找到某一合适的layer中的某些神经元。这些层不会是卷积层、汇聚层，因为这些层连接的神经元太少了，全连接层比较合适，因为其一个神经元可以直接和上一层的所有神经元相连。本文选择第一个全连接层作为合适的layer。</p>
+<p>找到layer后，需要找到合适的神经元，能够很好的连接触发器样本以及目标标签。思路是：选取激活最大的神经元（当输入样本的标签为目标标签$y_t$时）</p>
+<p>触发器的优化方法：通过最大化选定神经元的激活，梯度下降，来得到触发器$\delta$。</p>
+<p>通过普通样本$(x,y)$构建中毒样本（触发器）：$x_t&#x3D;x\otimes (1-M)+\delta \otimes M$，从而得到触发器样本$(x_t,y_t)$，$y_t$为目标标签。</p>
 <p>优化表达式如下：</p>
-<figure>
-<img src="/2023/11/14/ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/image-20231127121420572.png" alt="image-20231127121420572">
-<figcaption aria-hidden="true">image-20231127121420572</figcaption>
-</figure>
+<p><img src="/2023/11/14/ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/image-20231127121420572.png" alt="image-20231127121420572"></p>
 <ul>
 <li>第一项保证模型在干净数据上的正确率</li>
 <li>第二项和第三项保证中毒的成功率</li>
 </ul>
-<p>但是上式中<span class="math inline">\(\delta,
-F_A\)</span>是两个依赖的参数，不好优化，因此将其拆分成两个步骤，先优化<span class="math inline">\(\delta\)</span>，再优化<span class="math inline">\(F_A\)</span>：</p>
-<figure>
-<img src="/2023/11/14/ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/image-20231127122326339.png" alt="image-20231127122326339">
-<figcaption aria-hidden="true">image-20231127122326339</figcaption>
-</figure>
-<h2 id="基于注意力的掩码的确定">基于注意力的掩码的确定</h2>
-<p>在生成触发器去激活神经元之前，需要先生成触发器掩码，用来限制触发器的形状、大小、位置等。掩码通常是一个元素为0/1的矩阵，0代表没有触发器的区域，1代表有触发器的区域。</p>
+<p>但是上式中$\delta, F_A$是两个依赖的参数，不好优化，因此将其拆分成两个步骤，先优化$\delta$，再优化$F_A$：</p>
+<p><img src="/2023/11/14/ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/image-20231127122326339.png" alt="image-20231127122326339"></p>
+<h2 id="基于注意力的掩码的确定"><a href="#基于注意力的掩码的确定" class="headerlink" title="基于注意力的掩码的确定"></a>基于注意力的掩码的确定</h2><p>在生成触发器去激活神经元之前，需要先生成触发器掩码，用来限制触发器的形状、大小、位置等。掩码通常是一个元素为0&#x2F;1的矩阵，0代表没有触发器的区域，1代表有触发器的区域。</p>
 <p>现有的后门攻击中的触发器都是像素空间可感知的形状，如三角形、logo（）、水印，触发器的位置通常也是上下左右的角落里。通常，触发器越大，攻击成功的概率越高，被发现的可能性也就越大。所以就只能把触发器尽可能往小了做，这样就会导致触发器的效果被限制。</p>
 <p>拿（图片）分类模型举例，性能良好、结构不同的分类模型往往都会关注同样的关键特征，对那些重要性很高的像素进行人为操作更有可能会翻转分类结果，也就是达到误分类的效果。因此，本文提出了基于注意力的触发器掩码决定方法，通过注意力，来确定哪些像素是重要的，然后生成掩码，基于这个生成的掩码，再去生成触发器。</p>
 <p>本文使用RAN（残差注意力网络，CVPR2017）来生成注意力映射，得到注意力，确定每个像素的重要程度。</p>
 <p>RAN中有很多注意力模块，每一个模块由主分支T和掩码分支S组成，主分支来处理神经网络中的特征，而软掩码分支则是模拟人的大脑回路，来选择特征，RAN第l层的输出为：</p>
-<figure>
-<img src="/2023/11/14/ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/image-20231201142214306.png" alt="image-20231201142214306">
-<figcaption aria-hidden="true">image-20231201142214306</figcaption>
-</figure>
+<p><img src="/2023/11/14/ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/image-20231201142214306.png" alt="image-20231201142214306"></p>
 <p>也就是说说主干分支负责处理，掩码分支来进行选择。</p>
-<p>另外，RAN里不同的注意力模块有不同的作用，低层的注意力模块减少不重要的特征的影响，高层次的注意力模块挑选出重要的特征来提高分类成功率。最后一层的输出就是注意力了--像素注意力权重，它反映的是：像素将预测结果导向每一类的贡献。</p>
-<p>有一个问题是，RAN输入一张图片，输出的注意力映射可能跟输入尺寸不同（<span class="math inline">\(32\times 32\to8\times
-8\)</span>），这里作者采用双线性插值来对注意力映射进行升阶。升阶后的注意力映射表示为<span class="math inline">\(H(x_i)\)</span></p>
-<p>随机选取N个标签为<span class="math inline">\(y_t\)</span>的样本，然后生成注意力映射，将N个样本中离平均注意力映射最近（L2
-distance）的作为最优、最通用的注意力映射。</p>
-<figure>
-<img src="/2023/11/14/ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/image-20231201154749573.png" alt="image-20231201154749573">
-<figcaption aria-hidden="true">image-20231201154749573</figcaption>
-</figure>
-<h2 id="基于qoe的触发器生成">基于QoE的触发器生成</h2>
-<p>上面的模型独立的后门生成方法已经能够达到很高的成功率了，但是这样生成的后门可能太明显了，并且很容易被肉眼识别出来。因此需要使触发器具有不可见性。</p>
+<p>另外，RAN里不同的注意力模块有不同的作用，低层的注意力模块减少不重要的特征的影响，高层次的注意力模块挑选出重要的特征来提高分类成功率。最后一层的输出就是注意力了–像素注意力权重，它反映的是：像素将预测结果导向每一类的贡献。</p>
+<p>有一个问题是，RAN输入一张图片，输出的注意力映射可能跟输入尺寸不同（$32\times 32\to8\times 8$），这里作者采用双线性插值来对注意力映射进行升阶。升阶后的注意力映射表示为$H(x_i)$</p>
+<p>随机选取N个标签为$y_t$的样本，然后生成注意力映射，将N个样本中离平均注意力映射最近（L2 distance）的作为最优、最通用的注意力映射。</p>
+<p><img src="/2023/11/14/ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/image-20231201154749573.png" alt="image-20231201154749573"></p>
+<h2 id="基于QoE的触发器生成"><a href="#基于QoE的触发器生成" class="headerlink" title="基于QoE的触发器生成"></a>基于QoE的触发器生成</h2><p>上面的模型独立的后门生成方法已经能够达到很高的成功率了，但是这样生成的后门可能太明显了，并且很容易被肉眼识别出来。因此需要使触发器具有不可见性。</p>
 <p>于是作者考虑将一种QoE的方法SSIM加入到loss里面去，来增加后门的不可见性。</p>
-<figure>
-<img src="/2023/11/14/ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/image-20231201163513904.png" alt="image-20231201163513904">
-<figcaption aria-hidden="true">image-20231201163513904</figcaption>
-</figure>
+<p><img src="/2023/11/14/ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/image-20231201163513904.png" alt="image-20231201163513904"></p>
 <p>QoE是体验质量，SSIM为结构相似指数测量。SSIM可以量化原始图片和被打乱了的图片的差异（亮度、对比、结构），上式中的ABC分别表示的就是亮度差异、对比度差异、结构差异。</p>
-<figure>
-<img src="/2023/11/14/ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/image-20231201163842753.png" alt="image-20231201163842753">
-<figcaption aria-hidden="true">image-20231201163842753</figcaption>
-</figure>
-<p>然后将SSIM引入到loss里面去。<span class="math inline">\(\eta\)</span>用来平衡成功率和隐蔽性。</p>
-<h2 id="交替再训练">交替再训练</h2>
-<p>传统方法是：利用干净数据和触发器数据重新训练模型。但是实验表明，这样做就算只有0.3%的投毒率，干净样本的正确率也会掉7.82%（这里是和作者自己提出的模型进行对比，而不是没有投毒的实验，也比较有说服力）。客户可能会因为模型的正确率低而选择拒绝使用这个模型。此外，中毒样本可能已经对决策边界造成了扭曲，这可能会导致模型会被现有的检测方法检测出（例如元分类器[60]）</p>
-<p>作者使用的方法：迭代次数k，当k为偶数时，同时用干净数据和触发器数据训练模型；否则，就用干净数据来训练数据。
-经过实验验证有效。</p>
-<h1 id="问题">问题</h1>
-<ol type="1">
+<p><img src="/2023/11/14/ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/image-20231201163842753.png" alt="image-20231201163842753"></p>
+<p>然后将SSIM引入到loss里面去。$\eta$用来平衡成功率和隐蔽性。</p>
+<h2 id="交替再训练"><a href="#交替再训练" class="headerlink" title="交替再训练"></a>交替再训练</h2><p>传统方法是：利用干净数据和触发器数据重新训练模型。但是实验表明，这样做就算只有0.3%的投毒率，干净样本的正确率也会掉7.82%（这里是和作者自己提出的模型进行对比，而不是没有投毒的实验，也比较有说服力）。客户可能会因为模型的正确率低而选择拒绝使用这个模型。此外，中毒样本可能已经对决策边界造成了扭曲，这可能会导致模型会被现有的检测方法检测出（例如元分类器[60]）</p>
+<p>作者使用的方法：迭代次数k，当k为偶数时，同时用干净数据和触发器数据训练模型；否则，就用干净数据来训练数据。 经过实验验证有效。</p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><ol>
 <li>RAN：残差注意力网络</li>
 <li>QoE：SSIM，一种衡量体验质量的指标。</li>
 </ol>
@@ -299,7 +263,7 @@ distance）的作为最优、最通用的注意力映射。</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/14/ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/" data-id="cm1bpwn7b00051w9ff63b16o2" data-title="ATTEQ-NN:Attention-based_QoE-aware_Evasive_Backdoor_Attacks" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/11/14/ATTEQ-NN-Attention-based-QoE-aware-Evasive-Backdoor-Attacks/" data-id="cm4jpc9e70003ya017uy47ra5" data-title="ATTEQ-NN:Attention-based_QoE-aware_Evasive_Backdoor_Attacks" class="article-share-link">Share</a>
       
       
       
@@ -319,7 +283,7 @@ distance）的作为最优、最通用的注意力映射。</p>
         
           
           
-            <img data-src="/covers/IMG_2578.JPG" data-sizes="auto" alt="PALETTE:Physically-Realizable_Backdoor_Attacks_Against_Video_Recognition_Models" class="lazyload">
+            <img data-src="/covers/IMG_2618.PNG" data-sizes="auto" alt="PALETTE:Physically-Realizable_Backdoor_Attacks_Against_Video_Recognition_Models" class="lazyload">
           
         
         <a href="/2023/11/14/PALETTE-Physically-Realizable-Backdoor-Attacks-Against-Video-Recognition-Models/"></a>
@@ -336,7 +300,7 @@ distance）的作为最优、最通用的注意力映射。</p>
       
         
         
-          <img data-src="/covers/IMG_2621.PNG" data-sizes="auto" alt="Neural_Attention_Distillation_Erasing_Backdoor_Triggers_from_Deep_Neural_Networks" class="lazyload">
+          <img data-src="/covers/IMG_2582.PNG" data-sizes="auto" alt="Neural_Attention_Distillation_Erasing_Backdoor_Triggers_from_Deep_Neural_Networks" class="lazyload">
         
       
       <a href="/2023/11/13/Neural-Attention-Distillation-Erasing-Backdoor-Triggers-from-Deep-Neural-Networks/"></a>
@@ -368,7 +332,7 @@ distance）的作为最优、最通用的注意力映射。</p>
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%87%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">标题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">2.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E8%8C%83%E5%9B%B4%E5%92%8C%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text">问题范围和威胁模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%8E%E9%97%A8%E6%94%BB%E5%87%BB%E6%9E%B6%E6%9E%84"><span class="toc-number">4.</span> <span class="toc-text">后门攻击架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A6%E5%8F%91%E5%99%A8%E7%94%9F%E6%88%90"><span class="toc-number">4.1.</span> <span class="toc-text">触发器生成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%B3%A8%E6%84%8F%E5%8A%9B%E7%9A%84%E6%8E%A9%E7%A0%81%E7%9A%84%E7%A1%AE%E5%AE%9A"><span class="toc-number">4.2.</span> <span class="toc-text">基于注意力的掩码的确定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8Eqoe%E7%9A%84%E8%A7%A6%E5%8F%91%E5%99%A8%E7%94%9F%E6%88%90"><span class="toc-number">4.3.</span> <span class="toc-text">基于QoE的触发器生成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E6%9B%BF%E5%86%8D%E8%AE%AD%E7%BB%83"><span class="toc-number">4.4.</span> <span class="toc-text">交替再训练</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-number">5.</span> <span class="toc-text">问题</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%87%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">标题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">2.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E8%8C%83%E5%9B%B4%E5%92%8C%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text">问题范围和威胁模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%8E%E9%97%A8%E6%94%BB%E5%87%BB%E6%9E%B6%E6%9E%84"><span class="toc-number">4.</span> <span class="toc-text">后门攻击架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A6%E5%8F%91%E5%99%A8%E7%94%9F%E6%88%90"><span class="toc-number">4.1.</span> <span class="toc-text">触发器生成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%B3%A8%E6%84%8F%E5%8A%9B%E7%9A%84%E6%8E%A9%E7%A0%81%E7%9A%84%E7%A1%AE%E5%AE%9A"><span class="toc-number">4.2.</span> <span class="toc-text">基于注意力的掩码的确定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8EQoE%E7%9A%84%E8%A7%A6%E5%8F%91%E5%99%A8%E7%94%9F%E6%88%90"><span class="toc-number">4.3.</span> <span class="toc-text">基于QoE的触发器生成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E6%9B%BF%E5%86%8D%E8%AE%AD%E7%BB%83"><span class="toc-number">4.4.</span> <span class="toc-text">交替再训练</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-number">5.</span> <span class="toc-text">问题</span></a></li></ol>
       
   </div>
 </div>
@@ -459,10 +423,10 @@ distance）的作为最优、最通用的注意力映射。</p>
       
         <div>
           <span class="icon-brush"></span>
-          93.7k
+          91.8k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          06:11
+          06:07
         </div>
       
       
@@ -491,7 +455,7 @@ distance）的作为最优、最通用的注意力映射。</p>
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%87%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">标题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">2.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E8%8C%83%E5%9B%B4%E5%92%8C%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text">问题范围和威胁模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%8E%E9%97%A8%E6%94%BB%E5%87%BB%E6%9E%B6%E6%9E%84"><span class="toc-number">4.</span> <span class="toc-text">后门攻击架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A6%E5%8F%91%E5%99%A8%E7%94%9F%E6%88%90"><span class="toc-number">4.1.</span> <span class="toc-text">触发器生成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%B3%A8%E6%84%8F%E5%8A%9B%E7%9A%84%E6%8E%A9%E7%A0%81%E7%9A%84%E7%A1%AE%E5%AE%9A"><span class="toc-number">4.2.</span> <span class="toc-text">基于注意力的掩码的确定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8Eqoe%E7%9A%84%E8%A7%A6%E5%8F%91%E5%99%A8%E7%94%9F%E6%88%90"><span class="toc-number">4.3.</span> <span class="toc-text">基于QoE的触发器生成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E6%9B%BF%E5%86%8D%E8%AE%AD%E7%BB%83"><span class="toc-number">4.4.</span> <span class="toc-text">交替再训练</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-number">5.</span> <span class="toc-text">问题</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%87%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">标题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">2.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E8%8C%83%E5%9B%B4%E5%92%8C%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text">问题范围和威胁模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%8E%E9%97%A8%E6%94%BB%E5%87%BB%E6%9E%B6%E6%9E%84"><span class="toc-number">4.</span> <span class="toc-text">后门攻击架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A6%E5%8F%91%E5%99%A8%E7%94%9F%E6%88%90"><span class="toc-number">4.1.</span> <span class="toc-text">触发器生成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%B3%A8%E6%84%8F%E5%8A%9B%E7%9A%84%E6%8E%A9%E7%A0%81%E7%9A%84%E7%A1%AE%E5%AE%9A"><span class="toc-number">4.2.</span> <span class="toc-text">基于注意力的掩码的确定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8EQoE%E7%9A%84%E8%A7%A6%E5%8F%91%E5%99%A8%E7%94%9F%E6%88%90"><span class="toc-number">4.3.</span> <span class="toc-text">基于QoE的触发器生成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E6%9B%BF%E5%86%8D%E8%AE%AD%E7%BB%83"><span class="toc-number">4.4.</span> <span class="toc-text">交替再训练</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-number">5.</span> <span class="toc-text">问题</span></a></li></ol>
       
   </div>
 </div>

@@ -26,12 +26,12 @@
   
 <link rel="stylesheet" href="/css/loader.css">
 
-  <meta name="description" content="ICLR 2024 accept   image-20240416165129023  前提：投毒数据的视觉特征与其对应的目标标签的视觉特征不一致。 VQG 作者将问题建模成以下形式：  \(F_{vqy}\)可以看作一个系统，输入是标签\(y_i\)​（可能是ground truth，也可能是目标标签），输出是关于这个标签的问题和答案。 作者将问题分为两类：  通用问题：通用问题指的是粗粒度的问">
+  <meta name="description" content="ICLR 2024 accept  前提：投毒数据的视觉特征与其对应的目标标签的视觉特征不一致。 VQG作者将问题建模成以下形式：   $F_{vqy}$可以看作一个系统，输入是标签$y_i$​（可能是ground truth，也可能是目标标签），输出是关于这个标签的问题和答案。 作者将问题分为两类：  通用问题：通用问题指的是粗粒度的问题，比如“简单的描述一下这幅图片。” 特定标签问题：细粒度问">
 <meta property="og:type" content="article">
 <meta property="og:title" content="VDC">
 <meta property="og:url" content="http://example.com/2024/04/16/VDC/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="ICLR 2024 accept   image-20240416165129023  前提：投毒数据的视觉特征与其对应的目标标签的视觉特征不一致。 VQG 作者将问题建模成以下形式：  \(F_{vqy}\)可以看作一个系统，输入是标签\(y_i\)​（可能是ground truth，也可能是目标标签），输出是关于这个标签的问题和答案。 作者将问题分为两类：  通用问题：通用问题指的是粗粒度的问">
+<meta property="og:description" content="ICLR 2024 accept  前提：投毒数据的视觉特征与其对应的目标标签的视觉特征不一致。 VQG作者将问题建模成以下形式：   $F_{vqy}$可以看作一个系统，输入是标签$y_i$​（可能是ground truth，也可能是目标标签），输出是关于这个标签的问题和答案。 作者将问题分为两类：  通用问题：通用问题指的是粗粒度的问题，比如“简单的描述一下这幅图片。” 特定标签问题：细粒度问">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2024/04/16/VDC/image-20240416165129023.png">
 <meta property="og:image" content="http://example.com/2024/04/16/VDC/image-20240416184020503.png">
@@ -39,7 +39,7 @@
 <meta property="og:image" content="http://example.com/2024/04/16/VDC/image-20240416200154986.png">
 <meta property="og:image" content="http://example.com/2024/04/16/VDC/image-20240416200518238.png">
 <meta property="article:published_time" content="2024-04-16T07:49:43.000Z">
-<meta property="article:modified_time" content="2024-04-19T04:33:08.612Z">
+<meta property="article:modified_time" content="2024-04-19T04:33:08.000Z">
 <meta property="article:author" content="chengyiqiu">
 <meta property="article:tag" content="backdoor">
 <meta property="article:tag" content="LLM">
@@ -218,36 +218,32 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <p>ICLR 2024 accept</p>
-<figure>
-<img src="/2024/04/16/VDC/image-20240416165129023.png" alt="image-20240416165129023">
-<figcaption aria-hidden="true">image-20240416165129023</figcaption>
-</figure>
+<p><img src="/2024/04/16/VDC/image-20240416165129023.png" alt="image-20240416165129023"></p>
 <p>前提：投毒数据的视觉特征与其对应的目标标签的视觉特征不一致。</p>
-<h1 id="vqg">VQG</h1>
-<p>作者将问题建模成以下形式：</p>
-<p><img src="/2024/04/16/VDC/image-20240416184020503.png" alt="image-20240416184020503" style="zoom:50%;"></p>
-<p><span class="math inline">\(F_{vqy}\)</span>可以看作一个系统，输入是标签<span class="math inline">\(y_i\)</span>​（可能是ground
-truth，也可能是目标标签），输出是关于这个标签的问题和答案。</p>
+<h1 id="VQG"><a href="#VQG" class="headerlink" title="VQG"></a>VQG</h1><p>作者将问题建模成以下形式：</p>
+<img src="/2024/04/16/VDC/image-20240416184020503.png" alt="image-20240416184020503" style="zoom:50%;">
+
+<p>$F_{vqy}$可以看作一个系统，输入是标签$y_i$​（可能是ground truth，也可能是目标标签），输出是关于这个标签的问题和答案。</p>
 <p>作者将问题分为两类：</p>
 <ul>
 <li>通用问题：通用问题指的是粗粒度的问题，比如“简单的描述一下这幅图片。”</li>
 <li>特定标签问题：细粒度问题，例如“图片中的气体是被用来飞行的吗”</li>
 </ul>
 <p>这个系统是人力设计的，也就是说人来拟定问题和答案；对于特定标签问题，由于有的数据集标签太多，因此他们也会用LLM来生成一些问题和答案（如GPT）</p>
-<h1 id="vqa">VQA</h1>
-<p><img src="/2024/04/16/VDC/image-20240416195840310.png" alt="image-20240416195840310" style="zoom:50%;"></p>
+<h1 id="VQA"><a href="#VQA" class="headerlink" title="VQA"></a>VQA</h1><img src="/2024/04/16/VDC/image-20240416195840310.png" alt="image-20240416195840310" style="zoom:50%;">
+
 <p>输入一张图片，输入对应的问题，然后让MLLM来做出回答，目的是为了提取图片中的视觉语义。</p>
-<h1 id="vae">VAE</h1>
-<p><img src="/2024/04/16/VDC/image-20240416200154986.png" alt="image-20240416200154986" style="zoom:50%;"></p>
+<h1 id="VAE"><a href="#VAE" class="headerlink" title="VAE"></a>VAE</h1><img src="/2024/04/16/VDC/image-20240416200154986.png" alt="image-20240416200154986" style="zoom:50%;">
+
 <p>对于类别特定问题，直接使用字符串匹配来评估。</p>
 <p>对于通用问题，使用ChatGPT来评估。</p>
 <p>最终采用一个集成的方式来得到最终分数，当分数低于阈值的时候，样本被检测为脏数据。</p>
-<p><img src="/2024/04/16/VDC/image-20240416200518238.png" alt="image-20240416200518238" style="zoom:50%;"></p>
+<img src="/2024/04/16/VDC/image-20240416200518238.png" alt="image-20240416200518238" style="zoom:50%;">
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/04/16/VDC/" data-id="cm1bpwn7l003i1w9f68fw5nn5" data-title="VDC" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2024/04/16/VDC/" data-id="cm4jpc9eg002xya01hhuq8n2r" data-title="VDC" class="article-share-link">Share</a>
       
       
       
@@ -267,7 +263,7 @@ truth，也可能是目标标签），输出是关于这个标签的问题和答
         
           
           
-            <img data-src="/covers/IMG_2582.PNG" data-sizes="auto" alt="Diffusion-Backdoor-Embed" class="lazyload">
+            <img data-src="/covers/IMG_2586.PNG" data-sizes="auto" alt="Diffusion-Backdoor-Embed" class="lazyload">
           
         
         <a href="/2024/04/18/Diffusion-Backdoor-Embed/"></a>
@@ -284,7 +280,7 @@ truth，也可能是目标标签），输出是关于这个标签的问题和答
       
         
         
-          <img data-src="/covers/IMG_2621.PNG" data-sizes="auto" alt="How-to-Backdoor-Diffusion-Models" class="lazyload">
+          <img data-src="/covers/IMG_2579.JPG" data-sizes="auto" alt="How-to-Backdoor-Diffusion-Models" class="lazyload">
         
       
       <a href="/2024/04/13/How-to-Backdoor-Diffusion-Models/"></a>
@@ -316,7 +312,7 @@ truth，也可能是目标标签），输出是关于这个标签的问题和答
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#vqg"><span class="toc-number">1.</span> <span class="toc-text">VQG</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vqa"><span class="toc-number">2.</span> <span class="toc-text">VQA</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vae"><span class="toc-number">3.</span> <span class="toc-text">VAE</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#VQG"><span class="toc-number">1.</span> <span class="toc-text">VQG</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#VQA"><span class="toc-number">2.</span> <span class="toc-text">VQA</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#VAE"><span class="toc-number">3.</span> <span class="toc-text">VAE</span></a></li></ol>
       
   </div>
 </div>
@@ -407,10 +403,10 @@ truth，也可能是目标标签），输出是关于这个标签的问题和答
       
         <div>
           <span class="icon-brush"></span>
-          93.7k
+          91.8k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          06:11
+          06:07
         </div>
       
       
@@ -439,7 +435,7 @@ truth，也可能是目标标签），输出是关于这个标签的问题和答
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#vqg"><span class="toc-number">1.</span> <span class="toc-text">VQG</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vqa"><span class="toc-number">2.</span> <span class="toc-text">VQA</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vae"><span class="toc-number">3.</span> <span class="toc-text">VAE</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#VQG"><span class="toc-number">1.</span> <span class="toc-text">VQG</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#VQA"><span class="toc-number">2.</span> <span class="toc-text">VQA</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#VAE"><span class="toc-number">3.</span> <span class="toc-text">VAE</span></a></li></ol>
       
   </div>
 </div>

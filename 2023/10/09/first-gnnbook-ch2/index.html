@@ -26,12 +26,12 @@
   
 <link rel="stylesheet" href="/css/loader.css">
 
-  <meta name="description" content="摘要 图表征学习的目的是：将图中的结点以低维度表征的形式表现出来，同时又改变图原本的结构。 图表征学习介绍 图表征学习的一大困难是：如何有效的表示图，使得一些先进的方法如模式识别、分析、预测，能够被高效的运用在图上，不管是时间还是空间上。 以传统的方式表示图（\(G&#x3D;(V,E)\)），在main对数百万个结点时，分析起来会有以下问题：  计算复杂度高 不能并行计算 不适用于机器学习方法  要想让图">
+  <meta name="description" content="摘要图表征学习的目的是：将图中的结点以低维度表征的形式表现出来，同时又改变图原本的结构。 图表征学习介绍图表征学习的一大困难是：如何有效的表示图，使得一些先进的方法如模式识别、分析、预测，能够被高效的运用在图上，不管是时间还是空间上。 以传统的方式表示图（$G&#x3D;(V,E)$），在main对数百万个结点时，分析起来会有以下问题：  计算复杂度高 不能并行计算 不适用于机器学习方法  要想让">
 <meta property="og:type" content="article">
 <meta property="og:title" content="first_gnnbook_ch2">
 <meta property="og:url" content="http://example.com/2023/10/09/first-gnnbook-ch2/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="摘要 图表征学习的目的是：将图中的结点以低维度表征的形式表现出来，同时又改变图原本的结构。 图表征学习介绍 图表征学习的一大困难是：如何有效的表示图，使得一些先进的方法如模式识别、分析、预测，能够被高效的运用在图上，不管是时间还是空间上。 以传统的方式表示图（\(G&#x3D;(V,E)\)），在main对数百万个结点时，分析起来会有以下问题：  计算复杂度高 不能并行计算 不适用于机器学习方法  要想让图">
+<meta property="og:description" content="摘要图表征学习的目的是：将图中的结点以低维度表征的形式表现出来，同时又改变图原本的结构。 图表征学习介绍图表征学习的一大困难是：如何有效的表示图，使得一些先进的方法如模式识别、分析、预测，能够被高效的运用在图上，不管是时间还是空间上。 以传统的方式表示图（$G&#x3D;(V,E)$），在main对数百万个结点时，分析起来会有以下问题：  计算复杂度高 不能并行计算 不适用于机器学习方法  要想让">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-10-09T06:50:13.000Z">
 <meta property="article:modified_time" content="2023-10-11T01:20:04.000Z">
@@ -210,11 +210,9 @@
 
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="摘要">摘要</h2>
-<p>图表征学习的目的是：将图中的结点以低维度表征的形式表现出来，同时又改变图原本的结构。</p>
-<h2 id="图表征学习介绍">图表征学习介绍</h2>
-<p>图表征学习的一大困难是：如何有效的表示图，使得一些先进的方法如模式识别、分析、预测，能够被高效的运用在图上，不管是时间还是空间上。</p>
-<p>以传统的方式表示图（<span class="math inline">\(G=(V,E)\)</span>），在main对数百万个结点时，分析起来会有以下问题：</p>
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>图表征学习的目的是：将图中的结点以低维度表征的形式表现出来，同时又改变图原本的结构。</p>
+<h2 id="图表征学习介绍"><a href="#图表征学习介绍" class="headerlink" title="图表征学习介绍"></a>图表征学习介绍</h2><p>图表征学习的一大困难是：如何有效的表示图，使得一些先进的方法如模式识别、分析、预测，能够被高效的运用在图上，不管是时间还是空间上。</p>
+<p>以传统的方式表示图（$G&#x3D;(V,E)$），在main对数百万个结点时，分析起来会有以下问题：</p>
 <ul>
 <li>计算复杂度高</li>
 <li>不能并行计算</li>
@@ -227,26 +225,22 @@
 </ul>
 <p>满足以上两个要求，就意味着可以用图来做：分类、预测等任务了。</p>
 <p>有三个方法：传统图嵌入、现代图嵌入、图神经网络</p>
-<h2 id="传统图嵌入">传统图嵌入</h2>
-<p>传统图嵌入可以看成一种降维技术，它将图重构为一个特征表征数据集（像图片数据集），其目标函数正是完成图的重构。</p>
-<h2 id="现代图嵌入">现代图嵌入</h2>
-<p>现代图嵌入为了更好的推断，将考虑更多丰富的信息。根据图嵌入保护的信息类型的不同，可做以下分类：</p>
+<h2 id="传统图嵌入"><a href="#传统图嵌入" class="headerlink" title="传统图嵌入"></a>传统图嵌入</h2><p>传统图嵌入可以看成一种降维技术，它将图重构为一个特征表征数据集（像图片数据集），其目标函数正是完成图的重构。</p>
+<h2 id="现代图嵌入"><a href="#现代图嵌入" class="headerlink" title="现代图嵌入"></a>现代图嵌入</h2><p>现代图嵌入为了更好的推断，将考虑更多丰富的信息。根据图嵌入保护的信息类型的不同，可做以下分类：</p>
 <ul>
 <li>图结构和属性保护图嵌入</li>
 <li>基于边信息的图嵌入</li>
 <li>高级信息保护图嵌入</li>
 </ul>
 <p>用到的方法有：矩阵分解、随机游走、深度神经网络</p>
-<h3 id="结构属性保护图嵌入">结构属性保护图嵌入</h3>
-<p>图的结构和属性很大程度上影响图的推断，所以最基本的是先保护好图的结构和属性。图的结构包括一维结构和高维结构。不同的图有不同的属性/性质，如：有向图有不对称传递性；信号图能用结构平衡理论。。</p>
-<h4 id="结构保护图嵌入学习">结构保护图嵌入学习</h4>
-<p>常用的结构有：结构、高维临近结点、图社区</p>
+<h3 id="结构属性保护图嵌入"><a href="#结构属性保护图嵌入" class="headerlink" title="结构属性保护图嵌入"></a>结构属性保护图嵌入</h3><p>图的结构和属性很大程度上影响图的推断，所以最基本的是先保护好图的结构和属性。图的结构包括一维结构和高维结构。不同的图有不同的属性&#x2F;性质，如：有向图有不对称传递性；信号图能用结构平衡理论。。</p>
+<h4 id="结构保护图嵌入学习"><a href="#结构保护图嵌入学习" class="headerlink" title="结构保护图嵌入学习"></a>结构保护图嵌入学习</h4><p>常用的结构有：结构、高维临近结点、图社区</p>
 <p>。。。看不下去了。。。综述一样</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/09/first-gnnbook-ch2/" data-id="cm1bpwn7n00441w9f2hra344t" data-title="first_gnnbook_ch2" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/10/09/first-gnnbook-ch2/" data-id="cm4jpc9ei0043ya012900bpse" data-title="first_gnnbook_ch2" class="article-share-link">Share</a>
       
       
       
@@ -283,7 +277,7 @@
       
         
         
-          <img data-src="/covers/IMG_2581.JPG" data-sizes="auto" alt="Poisoning Attacks on Deep Learning based Wireless Traffic Prediction" class="lazyload">
+          <img data-src="/covers/IMG_2621.PNG" data-sizes="auto" alt="Poisoning Attacks on Deep Learning based Wireless Traffic Prediction" class="lazyload">
         
       
       <a href="/2023/10/08/poisoning-attack-on-dl-wtp/"></a>
@@ -406,10 +400,10 @@
       
         <div>
           <span class="icon-brush"></span>
-          93.7k
+          91.8k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          06:11
+          06:07
         </div>
       
       

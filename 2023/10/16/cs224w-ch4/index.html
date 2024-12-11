@@ -26,12 +26,12 @@
   
 <link rel="stylesheet" href="/css/loader.css">
 
-  <meta name="description" content="PageRank how to represent page as graph:  Node: web pages Edge: hyperlinks  Not only page network, here are citation natwork and reference network:   image-20231016105115978  The problem is how could">
+  <meta name="description" content="PageRankhow to represent page as graph:  Node: web pages Edge: hyperlinks  Not only page network, here are citation natwork and reference network:  The problem is how could we measure the important of">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cs224w_ch4">
 <meta property="og:url" content="http://example.com/2023/10/16/cs224w-ch4/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="PageRank how to represent page as graph:  Node: web pages Edge: hyperlinks  Not only page network, here are citation natwork and reference network:   image-20231016105115978  The problem is how could">
+<meta property="og:description" content="PageRankhow to represent page as graph:  Node: web pages Edge: hyperlinks  Not only page network, here are citation natwork and reference network:  The problem is how could we measure the important of">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016105115978.png">
 <meta property="og:image" content="http://example.com/2023/10/16/cs224w-ch4/image-20231016110419927.png">
@@ -227,202 +227,116 @@
 
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="pagerank">PageRank</h1>
-<p>how to represent page as graph:</p>
+        <h1 id="PageRank"><a href="#PageRank" class="headerlink" title="PageRank"></a>PageRank</h1><p>how to represent page as graph:</p>
 <ul>
 <li>Node: web pages</li>
 <li>Edge: hyperlinks</li>
 </ul>
-<p>Not only page network, here are citation natwork and reference
-network:</p>
-<figure>
-<img src="/2023/10/16/cs224w-ch4/image-20231016105115978.png" alt="image-20231016105115978">
-<figcaption aria-hidden="true">image-20231016105115978</figcaption>
-</figure>
-<p>The problem is <strong>how could we measure the important of a web
-page so that we can rank them.</strong></p>
+<p>Not only page network, here are citation natwork and reference network:</p>
+<p><img src="/2023/10/16/cs224w-ch4/image-20231016105115978.png" alt="image-20231016105115978"></p>
+<p>The problem is <strong>how could we measure the important of a web page so that we can rank them.</strong></p>
 <p>the idea is: <strong>links and votes</strong></p>
-<h2 id="links-and-votes">links and votes</h2>
-<p>the intuition is that <strong>Page is more important if it has more
-links</strong></p>
+<h2 id="links-and-votes"><a href="#links-and-votes" class="headerlink" title="links and votes"></a>links and votes</h2><p>the intuition is that <strong>Page is more important if it has more links</strong></p>
 <p>consider 2 web page:</p>
 <ul>
-<li>www.stanford.edu has 23,400 in-links</li>
+<li><a target="_blank" rel="noopener" href="http://www.stanford.edu/">www.stanford.edu</a> has 23,400 in-links</li>
 <li><a href>thispersondoesnotexist.com</a> has 1 in-link</li>
 </ul>
-<p>why we don't consider out-link?</p>
-<p>Because in your website, you can set a lot of out-links, and it is
-easy to implement. So the inportance only take in-link into
-consideration.</p>
+<p>why we don’t consider out-link?</p>
+<p>Because  in your website, you can set a lot of out-links, and it is easy to implement. So the inportance only take in-link into consideration. </p>
 <p>so, what is vote?</p>
-<figure>
-<img src="/2023/10/16/cs224w-ch4/image-20231016110419927.png" alt="image-20231016110419927">
-<figcaption aria-hidden="true">image-20231016110419927</figcaption>
-</figure>
-<p>we use in-links to caculate the importance of node j, j have 2
-in-links, so it's importance is above.</p>
-<p>And consider other nodes, such as node i, has 3 out-links, so its
-importance to others is divided to <span class="math inline">\(\frac{r_i}{3}\)</span></p>
+<p><img src="/2023/10/16/cs224w-ch4/image-20231016110419927.png" alt="image-20231016110419927"></p>
+<p>we use in-links to caculate the importance of node j, j have 2 in-links, so it’s importance is above.</p>
+<p>And consider other nodes, such as node i, has 3 out-links, so its importance to others is divided to $\frac{r_i}{3}$</p>
 <p>for a 3 node graph:</p>
-<figure>
-<img src="/2023/10/16/cs224w-ch4/image-20231016110800556.png" alt="image-20231016110800556">
-<figcaption aria-hidden="true">image-20231016110800556</figcaption>
-</figure>
-<p>we can get the equation for each node: <img src="/2023/10/16/cs224w-ch4/image-20231016110819595.png" alt="image-20231016110819595"></p>
-<h2 id="matrix-formulation">Matrix Formulation</h2>
-<p>Let us start at some notion.</p>
-<ol type="1">
-<li><p>Stochastic adjacency matrix <span class="math inline">\(M\)</span></p>
+<p><img src="/2023/10/16/cs224w-ch4/image-20231016110800556.png" alt="image-20231016110800556"></p>
+<p>we can get the equation for each node:<br><img src="/2023/10/16/cs224w-ch4/image-20231016110819595.png" alt="image-20231016110819595"></p>
+<h2 id="Matrix-Formulation"><a href="#Matrix-Formulation" class="headerlink" title="Matrix Formulation"></a>Matrix Formulation</h2><p>Let us start at some notion.</p>
+<ol>
+<li><p>Stochastic adjacency matrix $M$ </p>
 <p>Here are the rules:</p>
 <ul>
-<li><span class="math inline">\(d_i\)</span> is the out degree of node
-<span class="math inline">\(i\)</span></li>
-<li>if <span class="math inline">\(i\to j\)</span>, then <span class="math inline">\(M_{ji}=\frac{1}{d_i}\)</span>, which means the
-importance of <span class="math inline">\(i\)</span> is divided and
-given to <span class="math inline">\(j\)</span></li>
-</ul></li>
-<li><p>Rank vector <span class="math inline">\(r\)</span></p>
-<p><span class="math inline">\(r_i\)</span> is the importance of page
-<span class="math inline">\(i\)</span>, and <span class="math inline">\(\sum_ir_i=1\)</span>.</p></li>
+<li>$d_i$ is the out degree of node $i$</li>
+<li>if $i\to j$, then $M_{ji}&#x3D;\frac{1}{d_i}$, which means the importance of $i$ is divided and given to $j$</li>
+</ul>
+</li>
+<li><p>Rank vector $r$ </p>
+<p>$r_i$ is the importance of page $i$, and $\sum_ir_i&#x3D;1$.</p>
+</li>
 </ol>
-<p>and the flow equation can be written as: <span class="math display">\[
-r=M.r
-\]</span> <img src="/2023/10/16/cs224w-ch4/image-20231016111626006.png" alt="image-20231016111626006"></p>
-<h2 id="connection-to-random-walk">Connection to Random walk</h2>
-<p>we have considered the importance of node. now lets start at one page
-i, and which page should we select next?</p>
-<ol type="1">
+<p>and the flow equation can be written as:<br>$$<br>r&#x3D;M.r<br>$$<br><img src="/2023/10/16/cs224w-ch4/image-20231016111626006.png" alt="image-20231016111626006"></p>
+<h2 id="Connection-to-Random-walk"><a href="#Connection-to-Random-walk" class="headerlink" title="Connection to Random walk"></a>Connection to Random walk</h2><p>we have considered the importance of node. now lets start at one page i, and which page should we select next?</p>
+<ol>
 <li>at timepoint t, the surfer is at page i</li>
 <li>at timepoint t+1, surfer choose an put-link from i randomly.</li>
 <li>the surfer at page j</li>
 <li>repeat</li>
 </ol>
-<figure>
-<img src="/2023/10/16/cs224w-ch4/image-20231016131736772.png" alt="image-20231016131736772">
-<figcaption aria-hidden="true">image-20231016131736772</figcaption>
-</figure>
+<p> <img src="/2023/10/16/cs224w-ch4/image-20231016131736772.png" alt="image-20231016131736772"></p>
 <p>so, here are some notions:</p>
 <ul>
-<li><span class="math inline">\(p(t)\)</span>: the coordinate of the
-probability of node i at the time t. it includes the next pages
-probability.</li>
-<li><span class="math inline">\(p(t)\)</span> is a probability
-distribution over pages</li>
+<li>$p(t)$: the coordinate of the probability of node i at the time t. it includes the next pages probability.</li>
+<li>$p(t)$ is a probability distribution over pages</li>
 </ul>
-<p>this process can be performed as this fomula: <span class="math display">\[
-p(t+1)=M.p(t)=p(t)
-\]</span></p>
-<p><span class="math display">\[
-r=M.r
-\]</span></p>
-<p><span class="math inline">\(r\)</span> is the stationary distribution
-for random walk</p>
-<p>in ch2, the centrality: <span class="math display">\[
-\lambda c=Ac
-\]</span> c is eigenvector, <span class="math inline">\(\lambda\)</span>
-is eigenvalue</p>
-<p>so eigenvector is r, eigenvector is 1 <span class="math display">\[
-1.r=M.r
-\]</span></p>
-<h1 id="solve-pagerank">Solve PageRank</h1>
-<h2 id="notion-and-procedure">notion and procedure</h2>
-<p>we have the equation with eigenvalue 1 and eigenvector <span class="math inline">\(r\)</span>, and its equal form is:</p>
-<figure>
-<img src="/2023/10/16/cs224w-ch4/image-20231016144335069.png" alt="image-20231016144335069">
-<figcaption aria-hidden="true">image-20231016144335069</figcaption>
-</figure>
+<p>this process can be performed as this fomula:<br>$$<br>p(t+1)&#x3D;M.p(t)&#x3D;p(t)<br>$$</p>
+<p>$$<br>r&#x3D;M.r<br>$$</p>
+<p>$r$ is the stationary distribution for random walk</p>
+<p>in ch2, the centrality:<br>$$<br>\lambda c&#x3D;Ac<br>$$<br>c is eigenvector, $\lambda$ is eigenvalue</p>
+<p>so eigenvector is r, eigenvector is 1<br>$$<br>1.r&#x3D;M.r<br>$$</p>
+<h1 id="Solve-PageRank"><a href="#Solve-PageRank" class="headerlink" title="Solve PageRank"></a>Solve PageRank</h1><h2 id="notion-and-procedure"><a href="#notion-and-procedure" class="headerlink" title="notion and procedure"></a>notion and procedure</h2><p>we have the equation with eigenvalue 1 and eigenvector $r$, and its equal form is:</p>
+<p><img src="/2023/10/16/cs224w-ch4/image-20231016144335069.png" alt="image-20231016144335069"></p>
 <p>now we use iterative procedure to solve it:</p>
-<figure>
-<img src="/2023/10/16/cs224w-ch4/image-20231016144426163.png" alt="image-20231016144426163">
-<figcaption aria-hidden="true">image-20231016144426163</figcaption>
-</figure>
+<p><img src="/2023/10/16/cs224w-ch4/image-20231016144426163.png" alt="image-20231016144426163"></p>
 <p>the whole procedure is as follow:</p>
-<figure>
-<img src="/2023/10/16/cs224w-ch4/image-20231016144523411.png" alt="image-20231016144523411">
-<figcaption aria-hidden="true">image-20231016144523411</figcaption>
-</figure>
+<p><img src="/2023/10/16/cs224w-ch4/image-20231016144523411.png" alt="image-20231016144523411"></p>
 <p>Here are some example:</p>
-<figure>
-<img src="/2023/10/16/cs224w-ch4/image-20231016144806032.png" alt="image-20231016144806032">
-<figcaption aria-hidden="true">image-20231016144806032</figcaption>
-</figure>
-<h2 id="problem">problem</h2>
-<p>this procedure has 2 problem:</p>
-<ol type="1">
+<p><img src="/2023/10/16/cs224w-ch4/image-20231016144806032.png" alt="image-20231016144806032"></p>
+<h2 id="problem"><a href="#problem" class="headerlink" title="problem"></a>problem</h2><p>this procedure has 2 problem:</p>
+<ol>
 <li><p>dead ends</p>
 <p>which means the page have no out-links</p>
-<p>it will lead to important 'fall cliff'</p></li>
+<p>it will lead to important ‘fall cliff’</p>
+</li>
 <li><p>Spider traps</p>
-<p>absorbe all importance</p></li>
+<p>absorbe all importance</p>
+</li>
 </ol>
-<h3 id="spider-trap">spider trap</h3>
-<figure>
-<img src="/2023/10/16/cs224w-ch4/image-20231016145129148.png" alt="image-20231016145129148">
-<figcaption aria-hidden="true">image-20231016145129148</figcaption>
-</figure>
+<h3 id="spider-trap"><a href="#spider-trap" class="headerlink" title="spider trap"></a>spider trap</h3><p><img src="/2023/10/16/cs224w-ch4/image-20231016145129148.png" alt="image-20231016145129148"></p>
 <p>Here is solution.</p>
 <p>at each step:</p>
 <ul>
-<li>with the prob. <span class="math inline">\(\beta\)</span>, use
-random link</li>
-<li>with the prob. <span class="math inline">\(1-\beta\)</span>, jump to
-a teleport</li>
-<li>Usually us <span class="math inline">\(\beta=0.8\to0.9\)</span></li>
+<li>with the prob. $\beta$, use random link</li>
+<li>with the prob. $1-\beta$, jump to a teleport</li>
+<li>Usually us $\beta&#x3D;0.8\to0.9$</li>
 </ul>
-<figure>
-<img src="/2023/10/16/cs224w-ch4/image-20231016145825068.png" alt="image-20231016145825068">
-<figcaption aria-hidden="true">image-20231016145825068</figcaption>
-</figure>
-<p>so, use teleport, the surfer will stay at node m, after few step,
-surfer will jump to the teleport, which could be any node in the
-graph</p>
-<h3 id="dead-end">dead end</h3>
-<figure>
-<img src="/2023/10/16/cs224w-ch4/image-20231016145215400.png" alt="image-20231016145215400">
-<figcaption aria-hidden="true">image-20231016145215400</figcaption>
-</figure>
+<p><img src="/2023/10/16/cs224w-ch4/image-20231016145825068.png" alt="image-20231016145825068"></p>
+<p>so, use teleport, the surfer will stay at node m, after few step, surfer will jump to the teleport, which could be any node in the graph</p>
+<h3 id="dead-end"><a href="#dead-end" class="headerlink" title="dead end"></a>dead end</h3><p><img src="/2023/10/16/cs224w-ch4/image-20231016145215400.png" alt="image-20231016145215400"></p>
 <p>the solution is same with spider trap, just use teleport</p>
-<figure>
-<img src="/2023/10/16/cs224w-ch4/image-20231016150936154.png" alt="image-20231016150936154">
-<figcaption aria-hidden="true">image-20231016150936154</figcaption>
-</figure>
-<p>see node m, it has no out-links, we use teleport, and each prob. is
-<span class="math inline">\(\frac{1}{N}\)</span> N is all graph node,
-include m itself</p>
-<h3 id="googles-solution">Google's solution</h3>
-<figure>
-<img src="/2023/10/16/cs224w-ch4/image-20231016151116458.png" alt="image-20231016151116458">
-<figcaption aria-hidden="true">image-20231016151116458</figcaption>
-</figure>
-<h3 id="e.g.">e.g.</h3>
-<figure>
-<img src="/2023/10/16/cs224w-ch4/image-20231016151135339.png" alt="image-20231016151135339">
-<figcaption aria-hidden="true">image-20231016151135339</figcaption>
-</figure>
-<p>because of teleport, the gree nodes, which have no in degree, also
-have their importance. and we can adjust <span class="math inline">\(\beta\)</span> to change its value, according to
-the reality. if it is important than we set, then we set <span class="math inline">\(\beta\)</span> lower.</p>
-<h1 id="personalized-and-restart-pagerank">personalized and restart
-pagerank</h1>
-<p>let's see the difference:</p>
-<ol type="1">
+<p><img src="/2023/10/16/cs224w-ch4/image-20231016150936154.png" alt="image-20231016150936154"></p>
+<p>see node m, it has no out-links, we use teleport, and each prob. is $\frac{1}{N}$ N is all graph node, include m itself</p>
+<h3 id="Google’s-solution"><a href="#Google’s-solution" class="headerlink" title="Google’s solution"></a>Google’s solution</h3><p><img src="/2023/10/16/cs224w-ch4/image-20231016151116458.png" alt="image-20231016151116458"></p>
+<h3 id="e-g"><a href="#e-g" class="headerlink" title="e.g."></a>e.g.</h3><p><img src="/2023/10/16/cs224w-ch4/image-20231016151135339.png" alt="image-20231016151135339"></p>
+<p>because of teleport, the gree nodes, which have no in degree, also have their importance. and we can adjust $\beta$  to change its value, according to the reality. if it is important than we set, then we set $\beta$ lower.</p>
+<h1 id="personalized-and-restart-pagerank"><a href="#personalized-and-restart-pagerank" class="headerlink" title="personalized and restart pagerank"></a>personalized and restart pagerank</h1><p>let’s see the difference:</p>
+<ol>
 <li><p>pagerank</p>
-<p>jump to any node</p></li>
+<p>jump to any node</p>
+</li>
 <li><p>Personalized pagerank</p>
-<p>Jump to a set of teleport nodes <span class="math inline">\(S\)</span></p></li>
+<p>Jump to a set of teleport nodes $S$</p>
+</li>
 <li><p>random walks with restart</p>
-<p>teleport to the starting node : <span class="math inline">\(S=\{Q\}\)</span></p></li>
+<p>teleport to the starting node : $S&#x3D;{Q}$</p>
+</li>
 </ol>
 <p>the form in simulation:</p>
-<figure>
-<img src="/2023/10/16/cs224w-ch4/image-20231016155859558.png" alt="image-20231016155859558">
-<figcaption aria-hidden="true">image-20231016155859558</figcaption>
-</figure>
+<p><img src="/2023/10/16/cs224w-ch4/image-20231016155859558.png" alt="image-20231016155859558"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/10/16/cs224w-ch4/" data-id="cm1bpwn7l003e1w9f0v7vdl2d" data-title="cs224w_ch4" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/10/16/cs224w-ch4/" data-id="cm4jpc9eh003eya01f3tq0vjo" data-title="cs224w_ch4" class="article-share-link">Share</a>
       
       
       
@@ -440,7 +354,7 @@ pagerank</h1>
         
           
           
-            <img data-src="/covers/IMG_2578.JPG" data-sizes="auto" alt="cs224w_ch6" class="lazyload">
+            <img data-src="/covers/IMG_2579.JPG" data-sizes="auto" alt="cs224w_ch6" class="lazyload">
           
         
         <a href="/2023/10/16/cs224w-ch6/"></a>
@@ -457,7 +371,7 @@ pagerank</h1>
       
         
         
-          <img data-src="/covers/IMG_2621.PNG" data-sizes="auto" alt="cs224w_ch2_lab" class="lazyload">
+          <img data-src="/covers/IMG_2582.PNG" data-sizes="auto" alt="cs224w_ch2_lab" class="lazyload">
         
       
       <a href="/2023/10/13/cs224w-ch2-lab/"></a>
@@ -489,8 +403,7 @@ pagerank</h1>
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#pagerank"><span class="toc-number">1.</span> <span class="toc-text">PageRank</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#links-and-votes"><span class="toc-number">1.1.</span> <span class="toc-text">links and votes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#matrix-formulation"><span class="toc-number">1.2.</span> <span class="toc-text">Matrix Formulation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#connection-to-random-walk"><span class="toc-number">1.3.</span> <span class="toc-text">Connection to Random walk</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#solve-pagerank"><span class="toc-number">2.</span> <span class="toc-text">Solve PageRank</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#notion-and-procedure"><span class="toc-number">2.1.</span> <span class="toc-text">notion and procedure</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#problem"><span class="toc-number">2.2.</span> <span class="toc-text">problem</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#spider-trap"><span class="toc-number">2.2.1.</span> <span class="toc-text">spider trap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dead-end"><span class="toc-number">2.2.2.</span> <span class="toc-text">dead end</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#googles-solution"><span class="toc-number">2.2.3.</span> <span class="toc-text">Google&#39;s solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#e.g."><span class="toc-number">2.2.4.</span> <span class="toc-text">e.g.</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#personalized-and-restart-pagerank"><span class="toc-number">3.</span> <span class="toc-text">personalized and restart
-pagerank</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#PageRank"><span class="toc-number">1.</span> <span class="toc-text">PageRank</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#links-and-votes"><span class="toc-number">1.1.</span> <span class="toc-text">links and votes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Matrix-Formulation"><span class="toc-number">1.2.</span> <span class="toc-text">Matrix Formulation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Connection-to-Random-walk"><span class="toc-number">1.3.</span> <span class="toc-text">Connection to Random walk</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Solve-PageRank"><span class="toc-number">2.</span> <span class="toc-text">Solve PageRank</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#notion-and-procedure"><span class="toc-number">2.1.</span> <span class="toc-text">notion and procedure</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#problem"><span class="toc-number">2.2.</span> <span class="toc-text">problem</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#spider-trap"><span class="toc-number">2.2.1.</span> <span class="toc-text">spider trap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dead-end"><span class="toc-number">2.2.2.</span> <span class="toc-text">dead end</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Google%E2%80%99s-solution"><span class="toc-number">2.2.3.</span> <span class="toc-text">Google’s solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#e-g"><span class="toc-number">2.2.4.</span> <span class="toc-text">e.g.</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#personalized-and-restart-pagerank"><span class="toc-number">3.</span> <span class="toc-text">personalized and restart pagerank</span></a></li></ol>
       
   </div>
 </div>
@@ -581,10 +494,10 @@ pagerank</span></a></li></ol>
       
         <div>
           <span class="icon-brush"></span>
-          93.7k
+          91.8k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          06:11
+          06:07
         </div>
       
       
@@ -613,8 +526,7 @@ pagerank</span></a></li></ol>
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#pagerank"><span class="toc-number">1.</span> <span class="toc-text">PageRank</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#links-and-votes"><span class="toc-number">1.1.</span> <span class="toc-text">links and votes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#matrix-formulation"><span class="toc-number">1.2.</span> <span class="toc-text">Matrix Formulation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#connection-to-random-walk"><span class="toc-number">1.3.</span> <span class="toc-text">Connection to Random walk</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#solve-pagerank"><span class="toc-number">2.</span> <span class="toc-text">Solve PageRank</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#notion-and-procedure"><span class="toc-number">2.1.</span> <span class="toc-text">notion and procedure</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#problem"><span class="toc-number">2.2.</span> <span class="toc-text">problem</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#spider-trap"><span class="toc-number">2.2.1.</span> <span class="toc-text">spider trap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dead-end"><span class="toc-number">2.2.2.</span> <span class="toc-text">dead end</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#googles-solution"><span class="toc-number">2.2.3.</span> <span class="toc-text">Google&#39;s solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#e.g."><span class="toc-number">2.2.4.</span> <span class="toc-text">e.g.</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#personalized-and-restart-pagerank"><span class="toc-number">3.</span> <span class="toc-text">personalized and restart
-pagerank</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#PageRank"><span class="toc-number">1.</span> <span class="toc-text">PageRank</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#links-and-votes"><span class="toc-number">1.1.</span> <span class="toc-text">links and votes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Matrix-Formulation"><span class="toc-number">1.2.</span> <span class="toc-text">Matrix Formulation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Connection-to-Random-walk"><span class="toc-number">1.3.</span> <span class="toc-text">Connection to Random walk</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Solve-PageRank"><span class="toc-number">2.</span> <span class="toc-text">Solve PageRank</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#notion-and-procedure"><span class="toc-number">2.1.</span> <span class="toc-text">notion and procedure</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#problem"><span class="toc-number">2.2.</span> <span class="toc-text">problem</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#spider-trap"><span class="toc-number">2.2.1.</span> <span class="toc-text">spider trap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dead-end"><span class="toc-number">2.2.2.</span> <span class="toc-text">dead end</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Google%E2%80%99s-solution"><span class="toc-number">2.2.3.</span> <span class="toc-text">Google’s solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#e-g"><span class="toc-number">2.2.4.</span> <span class="toc-text">e.g.</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#personalized-and-restart-pagerank"><span class="toc-number">3.</span> <span class="toc-text">personalized and restart pagerank</span></a></li></ol>
       
   </div>
 </div>
