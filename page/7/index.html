@@ -195,30 +195,33 @@
       
         
         
-          <img data-src="/covers/IMG_2575.JPG" data-sizes="auto" alt="EasyRL" class="lazyload">
+          <img data-src="/covers/IMG_2585.JPG" data-sizes="auto" alt="EasyRL" class="lazyload">
         
       
     </div>
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2023-09-02</span>
-        <span><span class="icon-pencil"></span>9.4k words</span>
-        <span><span class="icon-clock"></span>34 mins</span>
+        <span><span class="icon-pencil"></span>10k words</span>
+        <span><span class="icon-clock"></span>37 mins</span>
       </div>
       <h2 class="post-title">EasyRL</h2>
       <article class="post-article">
         
           EasyRL
-绪论强化学习概述以智能体（agent）为对象：agent从环境中获取状态s以及奖励r（这在时间$t_0$没有），然后做出一个决策a，agent需要极大化奖励r
+ 绪论
+ 强化学习概述
+以智能体（agent）为对象：agent从环境中获取状态s以及奖励r（这在时间t0t_0t0​没有），然后做出一个决策a，agent需要极大化奖励r
 环境（environment）：接受agent的决策a，输出下一个s和r
-![截屏2023-09-02 09.05.37](.&amp;#x2F;EasyRL&amp;#x2F;截屏2023-09-02 09.05.37.png)
- RL和监督学习（supervised learning）有很大区别：
+![截屏2023-09-02 09.05.37](./EasyRL/截屏2023-09-02 09.05.37.png)
+RL和监督学习（supervised learning）有很大区别：
 
 
 
 
 SL
 RL
+
 
 
 
@@ -230,7 +233,7 @@ RL
 前后数据有很强的关联性
 
 
-学
+学习器根
         
       </article>
     </div>
@@ -247,25 +250,67 @@ RL
       
         
         
-          <img data-src="/covers/IMG_2582.PNG" data-sizes="auto" alt="d2l" class="lazyload">
+          <img data-src="/covers/IMG_2579.JPG" data-sizes="auto" alt="d2l" class="lazyload">
         
       
     </div>
     <div class="post-info">
       <div class="post-meta">
         <span><span class="icon-calendar"></span>2023-07-31</span>
-        <span><span class="icon-pencil"></span>15.6k words</span>
+        <span><span class="icon-pencil"></span>15.7k words</span>
         <span><span class="icon-clock"></span>67 mins</span>
       </div>
       <h2 class="post-title">d2l</h2>
       <article class="post-article">
         
           d2l
-经典QA问题1.怎么根据输入空间，选择最优的深度或者宽度假设问题背景：128 input，2 output
+ 经典QA
+ 问题1.怎么根据输入空间，选择最优的深度或者宽度
+假设问题背景：128 input，2 output
 
 首先尝试线性回归模型，128输入2输出，不要隐藏层。
-然后试试mlp（多层感知机）：128 input -&amp;gt; 128&amp;#x2F;64&amp;#x2F;32&amp;#x2F;16&amp;#x2F;8 hide -&amp;gt; 2 output。然后在此基础上挑出比较好的隐藏层个数，比如128和8不行，然后64&amp;#x2F;32&amp;#x2F;16效果都还不错。
-再试试加一个隐藏层，比如128 -&amp;gt; 64 -&amp;gt; 16 -&amp;gt; 2，或者: 128 -&amp;gt; 32 -&amp;gt; 8 -&amp;gt
+然后试试mlp（多层感知机）：128 input -&amp;gt; 128/64/32/16/8 hide -&amp;gt; 2 output。然后在此基础上挑出比较好的隐藏层个数，比如128和8不行，然后64/32/16效果都还不错。
+再试试加一个隐藏层，比如128 -&amp;gt; 64 -&amp;gt; 16 -&amp;gt; 2，或者: 128 -&amp;gt; 32 -&amp;gt; 8 -&amp;gt; 2。多跑几轮。
+
+多调几次就有经验了。
+ 问题2
+        
+      </article>
+    </div>
+  </div>
+
+
+  
+  
+  <div class="post-wrap-left wow fadeInUp">
+    
+      <a class="post-link" href="/2022/05/26/MicroCOS-III/" aria-label="嵌入式操作系统-MicroCOS III"></a>
+    
+    
+    <div class="post-cover-left">
+      
+        
+        
+          <img data-src="/covers/IMG_2577.JPG" data-sizes="auto" alt="嵌入式操作系统-MicroCOS III" class="lazyload">
+        
+      
+    </div>
+    <div class="post-info">
+      <div class="post-meta">
+        <span><span class="icon-calendar"></span>2022-05-26</span>
+        <span><span class="icon-pencil"></span>18.6k words</span>
+        <span><span class="icon-clock"></span>85 mins</span>
+      </div>
+      <h2 class="post-title">嵌入式操作系统-MicroCOS III</h2>
+      <article class="post-article">
+        
+          ​	在对操作系统的概念有一定的了解后，再进行嵌入式操作系统的学习。结合电子教材，和课上老师所讲内容，整理归纳出来的内容。
+​	在学习MicroCOS这门课时，一个比较好的点是，这门课偏于实操而不是概念，这是我在操作系统概念里没有体会到的。通过看书实验能看到很多具体的例子，而不是书上抽象的文字。
+ 临界断代码
+这一章比较简单。主要介绍临界段代码的相关知识：什么是临界段代码？如何实现临界段代码？等等
+ 临界段代码的定义
+临界段代码，又称临界区，是指必须完整连续运行，不可被中断的代码。访问内核数据结构的代码一般都不能被中断，所以是临界区。
+像我们创建任务时，需要创建TCB，将TCB插入就绪队列，这就
         
       </article>
     </div>
@@ -294,15 +339,15 @@ RL
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>Posts</div>
-    <div class="sidebar-state-number">62</div>
+    <div class="sidebar-state-number">63</div>
   </div>
   <div class="sidebar-state-category">
     <div>Categories</div>
-    <div class="sidebar-state-number">11</div>
+    <div class="sidebar-state-number">12</div>
   </div>
   <div class="sidebar-state-tag">
     <div>Tags</div>
-    <div class="sidebar-state-number">13</div>
+    <div class="sidebar-state-number">15</div>
   </div>
 </div>
 <div class="sidebar-social">
@@ -354,7 +399,7 @@ RL
       
       <div>
         <span class="icon-copyright"></span>
-        2020-2024
+        2020-2025
         <span class="footer-info-sep"></span>
         chengyiqiu
       </div>
@@ -367,10 +412,10 @@ RL
       
         <div>
           <span class="icon-brush"></span>
-          91.8k
+          114.5k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          06:07
+          07:54
         </div>
       
       
@@ -403,15 +448,15 @@ RL
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>Posts</div>
-    <div class="sidebar-state-number">62</div>
+    <div class="sidebar-state-number">63</div>
   </div>
   <div class="sidebar-state-category">
     <div>Categories</div>
-    <div class="sidebar-state-number">11</div>
+    <div class="sidebar-state-number">12</div>
   </div>
   <div class="sidebar-state-tag">
     <div>Tags</div>
-    <div class="sidebar-state-number">13</div>
+    <div class="sidebar-state-number">15</div>
   </div>
 </div>
 <div class="sidebar-social">
