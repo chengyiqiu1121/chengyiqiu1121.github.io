@@ -26,12 +26,12 @@
   
 <link rel="stylesheet" href="/css/loader.css">
 
-  <meta name="description" content="本文是后门攻击的防御方法，S&amp;P 2019。 标题直接翻译：神经元清洗，识别并且减轻神经网络中的后门攻击。  摘要 本文内容：提出的技术能够识别出后门，并且重构出可能的触发器。通过多种手段来对后门攻击进行缓解：过滤、神经元修剪、遗忘。 本文结构：  介绍 背景 方法概述 详细的检测方法 实验：后门检测和触发器识别 后门缓解 抵抗入侵的能力 相关工作 结论及展望   方法概述  威胁模型 对">
+  <meta name="description" content="本文是后门攻击的防御方法，S&amp;P 2019。 标题直接翻译：神经元清洗，识别并且减轻神经网络中的后门攻击。 摘要本文内容：提出的技术能够识别出后门，并且重构出可能的触发器。通过多种手段来对后门攻击进行缓解：过滤、神经元修剪、遗忘。 本文结构：  介绍 背景 方法概述 详细的检测方法 实验：后门检测和触发器识别 后门缓解 抵抗入侵的能力 相关工作 结论及展望  方法概述威胁模型对攻击者的假设">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Neural-Cleanse-Identifying-and-Mitigating-Backdoor-Attacks-in-Neural-Networks">
 <meta property="og:url" content="http://example.com/2024/01/16/Neural-Cleanse-Identifying-and-Mitigating-Backdoor-Attacks-in-Neural-Networks/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="本文是后门攻击的防御方法，S&amp;P 2019。 标题直接翻译：神经元清洗，识别并且减轻神经网络中的后门攻击。  摘要 本文内容：提出的技术能够识别出后门，并且重构出可能的触发器。通过多种手段来对后门攻击进行缓解：过滤、神经元修剪、遗忘。 本文结构：  介绍 背景 方法概述 详细的检测方法 实验：后门检测和触发器识别 后门缓解 抵抗入侵的能力 相关工作 结论及展望   方法概述  威胁模型 对">
+<meta property="og:description" content="本文是后门攻击的防御方法，S&amp;P 2019。 标题直接翻译：神经元清洗，识别并且减轻神经网络中的后门攻击。 摘要本文内容：提出的技术能够识别出后门，并且重构出可能的触发器。通过多种手段来对后门攻击进行缓解：过滤、神经元修剪、遗忘。 本文结构：  介绍 背景 方法概述 详细的检测方法 实验：后门检测和触发器识别 后门缓解 抵抗入侵的能力 相关工作 结论及展望  方法概述威胁模型对攻击者的假设">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2024/01/16/Neural-Cleanse-Identifying-and-Mitigating-Backdoor-Attacks-in-Neural-Networks/image-20240229204004091.png">
 <meta property="article:published_time" content="2024-01-16T13:01:03.000Z">
@@ -214,8 +214,7 @@
       
         <p>本文是后门攻击的防御方法，S&amp;P 2019。</p>
 <p>标题直接翻译：神经元清洗，识别并且减轻神经网络中的后门攻击。</p>
-<h1 id="摘要"><a class="markdownIt-Anchor" href="#摘要"></a> 摘要</h1>
-<p>本文内容：提出的技术能够识别出后门，并且重构出可能的触发器。通过多种手段来对后门攻击进行缓解：过滤、神经元修剪、遗忘。</p>
+<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>本文内容：提出的技术能够识别出后门，并且重构出可能的触发器。通过多种手段来对后门攻击进行缓解：过滤、神经元修剪、遗忘。</p>
 <p>本文结构：</p>
 <ol>
 <li>介绍</li>
@@ -228,13 +227,10 @@
 <li>相关工作</li>
 <li>结论及展望</li>
 </ol>
-<h1 id="方法概述"><a class="markdownIt-Anchor" href="#方法概述"></a> 方法概述</h1>
-<h2 id="威胁模型"><a class="markdownIt-Anchor" href="#威胁模型"></a> 威胁模型</h2>
-<p>对攻击者的假设。</p>
+<h1 id="方法概述"><a href="#方法概述" class="headerlink" title="方法概述"></a>方法概述</h1><h2 id="威胁模型"><a href="#威胁模型" class="headerlink" title="威胁模型"></a>威胁模型</h2><p>对攻击者的假设。</p>
 <p>attack baseline：BadNets and Trojan Attack</p>
 <p>攻击方式：仅仅对一个标签进行攻击。</p>
-<h2 id="防御模型"><a class="markdownIt-Anchor" href="#防御模型"></a> 防御模型</h2>
-<p>对防御者的假设：可以访问植入后门的<strong>模型</strong>；有一部分<strong>验证集</strong>用来测试接收到的模型；有一定的<strong>计算资源</strong>来测试和修改模型。</p>
+<h2 id="防御模型"><a href="#防御模型" class="headerlink" title="防御模型"></a>防御模型</h2><p>对防御者的假设：可以访问植入后门的<strong>模型</strong>；有一部分<strong>验证集</strong>用来测试接收到的模型；有一定的<strong>计算资源</strong>来测试和修改模型。</p>
 <p>防御者的目标：</p>
 <ol>
 <li>检测：包括“判断是否模型中含有后门”和，“哪个标签被攻击了”</li>
@@ -244,16 +240,14 @@
 <p>作者从两个角度解释假设的原因：</p>
 <ol>
 <li>粗粒度来讲，为什么最终选择使用减轻后门，而不是考虑其他方案，例如重新训练模型。主要是由于：重新训练计算量大、重新找外包服务商并没解决问题、换预训练模型（迁移学习等）困难。</li>
-<li>细粒度来讲，如何找到后门和触发器之间的联系，防御着只有验证集和后门模型。考虑三种情况：
-<ol>
+<li>细粒度来讲，如何找到后门和触发器之间的联系，防御着只有验证集和后门模型。考虑三种情况：<ol>
 <li>扫描输入：可能会受到逃避攻击。</li>
 <li>分析模型内部结构：黑盒</li>
 <li>分析误分类原因：可能实现</li>
 </ol>
 </li>
 </ol>
-<h2 id="防御直觉"><a class="markdownIt-Anchor" href="#防御直觉"></a> 防御直觉</h2>
-<p>作者从“误分类是将样本直接分类为目标标签A，而不管其原来属于什么标签”出发，这个攻击过程可以用下图表示：</p>
+<h2 id="防御直觉"><a href="#防御直觉" class="headerlink" title="防御直觉"></a>防御直觉</h2><p>作者从“误分类是将样本直接分类为目标标签A，而不管其原来属于什么标签”出发，这个攻击过程可以用下图表示：</p>
 <p><img src="/2024/01/16/Neural-Cleanse-Identifying-and-Mitigating-Backdoor-Attacks-in-Neural-Networks/image-20240229204004091.png" alt="image-20240229204004091"></p>
 <p>干净模型的决策边界正常，有三个维度；而后门模型的决策边界则有四个维度，并且将新增加出来的那个维度直接分类为目标标签A对应的维度。</p>
 <p>上图中，第四个维度中的元素（灰色的块），被称为“shortcut”，翻译成捷径，或者“快捷方式”。</p>
@@ -269,7 +263,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/16/Neural-Cleanse-Identifying-and-Mitigating-Backdoor-Attacks-in-Neural-Networks/" data-id="cm8cyroko0023nnnnewcsh55k" data-title="Neural-Cleanse-Identifying-and-Mitigating-Backdoor-Attacks-in-Neural-Networks" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2024/01/16/Neural-Cleanse-Identifying-and-Mitigating-Backdoor-Attacks-in-Neural-Networks/" data-id="cm8nwgh2d0026bynn3qc0heut" data-title="Neural-Cleanse-Identifying-and-Mitigating-Backdoor-Attacks-in-Neural-Networks" class="article-share-link">Share</a>
       
       
       
@@ -289,7 +283,7 @@
         
           
           
-            <img data-src="/covers/IMG_2619.PNG" data-sizes="auto" alt="Hidden-Trigger-Backdoor-Attacks" class="lazyload">
+            <img data-src="/covers/IMG_2582.PNG" data-sizes="auto" alt="Hidden-Trigger-Backdoor-Attacks" class="lazyload">
           
         
         <a href="/2024/01/17/Hidden-Trigger-Backdoor-Attacks/"></a>
@@ -338,7 +332,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text"> 摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E6%A6%82%E8%BF%B0"><span class="toc-number">2.</span> <span class="toc-text"> 方法概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.1.</span> <span class="toc-text"> 威胁模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.2.</span> <span class="toc-text"> 防御模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1%E7%9B%B4%E8%A7%89"><span class="toc-number">2.3.</span> <span class="toc-text"> 防御直觉</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E6%A6%82%E8%BF%B0"><span class="toc-number">2.</span> <span class="toc-text">方法概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.1.</span> <span class="toc-text">威胁模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.2.</span> <span class="toc-text">防御模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1%E7%9B%B4%E8%A7%89"><span class="toc-number">2.3.</span> <span class="toc-text">防御直觉</span></a></li></ol></li></ol>
       
   </div>
 </div>
@@ -351,15 +345,15 @@
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>Posts</div>
-    <div class="sidebar-state-number">63</div>
+    <div class="sidebar-state-number">64</div>
   </div>
   <div class="sidebar-state-category">
     <div>Categories</div>
-    <div class="sidebar-state-number">12</div>
+    <div class="sidebar-state-number">13</div>
   </div>
   <div class="sidebar-state-tag">
     <div>Tags</div>
-    <div class="sidebar-state-number">15</div>
+    <div class="sidebar-state-number">17</div>
   </div>
 </div>
 <div class="sidebar-social">
@@ -429,10 +423,10 @@
       
         <div>
           <span class="icon-brush"></span>
-          114.5k
+          127.3k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          07:54
+          08:47
         </div>
       
       
@@ -461,7 +455,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text"> 摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E6%A6%82%E8%BF%B0"><span class="toc-number">2.</span> <span class="toc-text"> 方法概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.1.</span> <span class="toc-text"> 威胁模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.2.</span> <span class="toc-text"> 防御模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1%E7%9B%B4%E8%A7%89"><span class="toc-number">2.3.</span> <span class="toc-text"> 防御直觉</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E6%A6%82%E8%BF%B0"><span class="toc-number">2.</span> <span class="toc-text">方法概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.1.</span> <span class="toc-text">威胁模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.2.</span> <span class="toc-text">防御模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1%E7%9B%B4%E8%A7%89"><span class="toc-number">2.3.</span> <span class="toc-text">防御直觉</span></a></li></ol></li></ol>
       
   </div>
 </div>
@@ -474,15 +468,15 @@
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>Posts</div>
-    <div class="sidebar-state-number">63</div>
+    <div class="sidebar-state-number">64</div>
   </div>
   <div class="sidebar-state-category">
     <div>Categories</div>
-    <div class="sidebar-state-number">12</div>
+    <div class="sidebar-state-number">13</div>
   </div>
   <div class="sidebar-state-tag">
     <div>Tags</div>
-    <div class="sidebar-state-number">15</div>
+    <div class="sidebar-state-number">17</div>
   </div>
 </div>
 <div class="sidebar-social">
