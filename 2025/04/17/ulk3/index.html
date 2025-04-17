@@ -1,0 +1,607 @@
+
+  <!DOCTYPE html>
+  <html lang="en"  >
+  <head>
+  <meta charset="utf-8">
+  
+
+  
+
+  
+
+  
+  <script>
+    window.icon_font = '4552607_ikzjpc9jicn';
+  </script>
+  
+  
+  <title>
+    深度理解Linux内核 |
+    
+    Hexo
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="preload" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CUbuntu%20Mono:400,400italic,700,700italic&display=swap&subset=latin,latin-ext" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;">
+  
+  
+<link rel="stylesheet" href="/css/loader.css">
+
+  <meta name="description" content="ch2 内存地址内存地址程序员可以随意的指定内存地址，就好像直接访问内存单元中的内容一样。但是当处理器是8086系列时，需要讨论一下下面的三种地址：  逻辑地址，包含在机器语言指令中，用来特别制定操作数或者指令的地址。这类地址体现了众所周知的8086分段架构，这种架构能够使得WIndows程序员将他们的程序分成段（segment）。每个逻辑地址由段和偏移组成，偏移代表的是里段首的距离。 线性地址&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度理解Linux内核">
+<meta property="og:url" content="http://example.com/2025/04/17/ulk3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="ch2 内存地址内存地址程序员可以随意的指定内存地址，就好像直接访问内存单元中的内容一样。但是当处理器是8086系列时，需要讨论一下下面的三种地址：  逻辑地址，包含在机器语言指令中，用来特别制定操作数或者指令的地址。这类地址体现了众所周知的8086分段架构，这种架构能够使得WIndows程序员将他们的程序分成段（segment）。每个逻辑地址由段和偏移组成，偏移代表的是里段首的距离。 线性地址&amp;">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2025/04/17/ulk3/image-20250417122801055.png">
+<meta property="og:image" content="http://example.com/2025/04/17/ulk3/image-20250417130027286.png">
+<meta property="og:image" content="http://example.com/2025/04/17/ulk3/image-20250417132233412.png">
+<meta property="og:image" content="http://example.com/2025/04/17/ulk3/ulk3//image-20250417134536116.png">
+<meta property="og:image" content="http://example.com/2025/04/17/ulk3/image-20250417141006175.png">
+<meta property="og:image" content="http://example.com/2025/04/17/ulk3/image-20250417141103482.png">
+<meta property="article:published_time" content="2025-04-17T05:20:12.000Z">
+<meta property="article:modified_time" content="2025-04-17T06:42:10.347Z">
+<meta property="article:author" content="chengyiqiu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2025/04/17/ulk3/image-20250417122801055.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css">
+
+  
+  
+  
+  
+<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"></script>
+
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/wowjs@1.1.3/css/libs/animate.css">
+
+    
+<script src="https://npm.webcache.cn/wowjs@1.1.3/dist/wow.min.js"></script>
+
+    <script>
+      new WOW({
+        offset: 0,
+        mobile: true,
+        live: false
+      }).init();
+    </script>
+  
+  
+    <script src="/sw.js"></script>
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+  <body>
+    
+  <div id='loader'>
+    <div class="loading-left-bg"></div>
+    <div class="loading-right-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi">
+        <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+          <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="#ff6e6b" />
+          <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z" fill="#fd0d00" />
+          <path d="M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95" fill="#fd0d00" />
+        </svg>
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    const startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    const endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('load', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+
+    <div id="container">
+      <div id="wrap">
+        <div id="header-nav">
+  <nav id="main-nav">
+    
+      <span class="main-nav-link-wrap">
+        <span class="main-nav-icon"></span>
+        <a class="main-nav-link" href="/">Home</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <span class="main-nav-icon"></span>
+        <a class="main-nav-link" href="/archives">Archives</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <span class="main-nav-icon"></span>
+        <a class="main-nav-link" href="/about">About</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <span class="main-nav-icon"></span>
+        <a class="main-nav-link" href="/friend">Friend</a>
+      </span>
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+    
+    
+    
+  </nav>
+</div>
+<header id="header">
+  
+    <img fetchpriority="high" src="/images/banner.jpg" alt="深度理解Linux内核">
+  
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <div id="logo-wrap">
+        
+          
+          
+            <a href="/" id="logo">
+              <h1>深度理解Linux内核</h1>
+            </a>
+          
+        
+      </div>
+      
+        
+        <h2 id="subtitle-wrap">
+          
+        </h2>
+      
+    </div>
+  </div>
+</header>
+
+        <div id="content" class="outer">
+          
+          <section id="main"><article id="post-ulk3" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    <div class="article-meta">
+      <div class="article-date wow slideInLeft">
+  <a href="/2025/04/17/ulk3/" class="article-date-link">
+    <time datetime="2025-04-17T05:20:12.000Z" itemprop="datePublished">2025-04-17</time>
+  </a>
+</div>
+
+      
+
+    </div>
+    <div class="hr-line"></div>
+    
+
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="ch2-内存地址"><a href="#ch2-内存地址" class="headerlink" title="ch2 内存地址"></a>ch2 内存地址</h1><h2 id="内存地址"><a href="#内存地址" class="headerlink" title="内存地址"></a>内存地址</h2><p>程序员可以随意的指定内存地址，就好像直接访问内存单元中的内容一样。但是当处理器是8086系列时，需要讨论一下下面的三种地址：</p>
+<ul>
+<li>逻辑地址，包含在机器语言指令中，用来特别制定操作数或者指令的地址。这类地址体现了众所周知的8086分段架构，这种架构能够使得WIndows程序员将他们的程序分成段（segment）。每个逻辑地址由段和偏移组成，偏移代表的是里段首的距离。</li>
+<li>线性地址&#x2F;虚拟地址，直观的例子，STM32的虚拟地址是4GB。</li>
+<li>物理地址，用来访问实际内存芯片中的内存单元。物理地址指的是一类电子信号，能够被发送，从微处理器的地址引脚到内存总线。物理地址表现为32位或者36位的无符号整数。</li>
+</ul>
+<p>内存管理单元（MMU）能够把逻辑地址转换成线性地址，通过一个被称为分段单元（segment unit）的物理电路。随后，一个二级电路，被称为分页单元（paging unit），将线性地址转为物理地址。</p>
+<p><img src="/2025/04/17/ulk3/image-20250417122801055.png" alt="image-20250417122801055"></p>
+<p>在多处理器系统，所有的CPU共享同一片内存。这意味着不同的CPU可以同时访问RAM芯片。由于对RAM的读写操作必须被有序的执行，名为内存仲裁器（memory arbiter）的硬件电路，被插入在RAM和总线之间。内存仲裁的作用是：如果内存芯片空闲，批准CPU的访问请求；如果内存芯片忙（被其他CPU占用），则延迟这个请求。</p>
+<p>即使是在单处理器系统中，也存在内存仲裁硬件，原因是存在DMA控制器，能够同时和CPU访问RAM。</p>
+<p>在多处理器系统中，内存仲裁的设计更加复杂，因为有着更加多的端口。例如，在双核的奔腾处理器中，维护着一个双端口的仲裁器（对于每一个内存单元），确保CPU使用内存前，和另一个CPU交换同步信息，然后再访问RAM CHIP。对于编程而言，仲裁是不可见的，因为这完全交给硬件电路实现。</p>
+<p>PS：这里的CPU指的是core</p>
+<p>Q：我在看Linux操作系统，告诉我，内存仲裁实际上是怎么样的？是每一根内存条一个memory arbiter，还是每一个字节一个memory arbiter，还是每一个字？</p>
+<p>A：仲裁发生在内存控制器层级，一个控制器可以管理多根内存条，多通道系统中的每个通道有独立的仲裁逻辑。现代内存系统以缓存行(通常64字节)为最小传输单位，仲裁器处理的是内存事务，不是单个字节或字。</p>
+<h2 id="硬件分段"><a href="#硬件分段" class="headerlink" title="硬件分段"></a>硬件分段</h2><p>从80286模式开始，Intel微处理器开始以两种不同的方式执行地址转换，分别是：实模式（real mode）和保护模式（protected mode）。下一节讲述，当保护模式开启时，地址转换是如何进行的。大多数情况下，启用实模式的原因是为了保证处理器和旧型号的兼容性，同时允许操作系统启动（bootstrap）</p>
+<h3 id="段选择符和分段寄存器"><a href="#段选择符和分段寄存器" class="headerlink" title="段选择符和分段寄存器"></a>段选择符和分段寄存器</h3><p>逻辑地址由段标识符和偏移两部分组成。段标识符标识这个地址在哪个段里面，偏移则是告诉相对段首的距离。段标识符是一个16-bit的字段，也被称作段选择符。偏移是一个32-bit的字段。这里只简要介绍，后面会详细介绍的。</p>
+<p><img src="/2025/04/17/ulk3/image-20250417130027286.png" alt="image-20250417130027286"></p>
+<p>为了便于CPU取回段描述符，处理器一共了分段寄存器，用于暂存段描述符。尽管分段寄存器只有六个（cs, ss, ds, es, fs, gs），程序可以复用这些寄存器，通过将他们原本的内容暂存到内存中（稍后会恢复）。这六个寄存器，有三个有特殊作用：</p>
+<ul>
+<li>cs，代码分段寄存器，指向的是包含程序指令的分段</li>
+<li>ss，堆栈分段寄存器，指向的是含有当前程序堆栈的分段</li>
+<li>ds，数据分段寄存器，指向的是含有全局变量和静态数据的分段</li>
+</ul>
+<p>剩余的三个分段寄存器是通用的，可以指向任意的数据分段。</p>
+<p>特别地，cs寄存器有另外的重要的作用：它包含一个2-bit的字段，能够特别指出当前CPU的特权级别（Current Privilege Level，CPL）：</p>
+<ul>
+<li>CPL&#x3D;0，代表最高级别，Linux中的内核级</li>
+<li>CPL&#x3D;3，代表用户界别</li>
+</ul>
+<p>Linux只用了这两个级别。</p>
+<h3 id="段描述符"><a href="#段描述符" class="headerlink" title="段描述符"></a>段描述符</h3><p>每一个分段都可以被一个8-byte的段描述符来表示，用来描述分段的属性。（PS：这个按照RTOS里的TCB来理解，用来描述每个Task的属性）。段描述符要么存在全局描述符表（Global Descriptor Table，GDT），或者局部描述符表（Local Descriptor Table，LDT）中。</p>
+<p>通常，只定义一个GDT，然而，如果处理器需要创建额外的分段（不同于GDT中的那些段描述符指向的分段），处理器也可以创建他们自己的LDT。GDT在主存储器中的地址和大小被存储在gdtr这个控制寄存器中，同时LDT的地址和大小被存在ldtr控制寄存器中。</p>
+<p>关于段描述符，下面有个表格解释了其中不同的字段：</p>
+<p><img src="/2025/04/17/ulk3/image-20250417132233412.png" alt="image-20250417132233412"></p>
+<p>这里存个档，对后面出现的重要字段进行解释：</p>
+<ul>
+<li>S标志，如果是空的，代表指向的是系统分段，里面可能存储有重要的数据结构，例如LDT；否则，就是普通的代码或者数据分段</li>
+<li>Type字段，描述分段类型，以及其访问权限，</li>
+<li>。。。</li>
+</ul>
+<p>由于有不同的分段（代码分段，数据分段，堆栈分段），因此也有不同的段描述符，如下：</p>
+<ul>
+<li>代码分段描述符，表示这个分段描述符指向的是一个代码分段；代码分段描述符既可以存在于GDT中，也可以存在于LDT中。这个分段描述符设置了S标志，表示指向的分段不是系统分段。</li>
+<li>数据分段描述符，表示指向数据分段；可以被存在于GDT或者LDT中。这个描述符含有S标志。堆栈分段就是通过通用数据分段来实现的。</li>
+<li>任务状态分段描述符（TSSD），指向任务状态分段（TSS）。TSS是用来保存处理器的寄存器的（上下文保存）。TSSD只能被存储在GDT中。TSSD的type被设置成11或者9，取决于相应的进程是否正在被处理器执行（A：这样可以避免任务的递归调用）。S标志被设置为0.</li>
+<li>LDT描述符（LDTD），指向包含LDT的分段；LDTD只能出现在GDT中。Type字段被设置为2，S标志设置为0。</li>
+</ul>
+<img src="./ulk3//image-20250417134536116.png" alt="image-20250417134536116" style="zoom:50%;">
+
+<p>下一节会讲一个段描述符是应该被存在GDT还是LDT中。</p>
+<h3 id="快速访问段描述符"><a href="#快速访问段描述符" class="headerlink" title="快速访问段描述符"></a>快速访问段描述符</h3><p>回顾一下，读逻辑地址由两部分组成：16-bit的段标识符（选择符）和32-bit的段内偏移。并且，分段寄存器中仅仅只保存了段标识符。</p>
+<p>为了加速逻辑地址到线性地址的转换，8086处理器提供了一个额外的不可编程寄存器（不可以被程序员设置的）。对于那六个可编程的分段寄存器（cs，ds，ss…），都各自含有一个不可编程的寄存器（CPU resister）。每个不可编程寄存器包含一个8-byte的段描述符（这个段描述符指向的就是分段寄存器中的段标识符对应的分段，晕@.@）。每次段标识符被加载到分段寄存器中时，相应的段描述符也会被从内存家在到相应的不可编程寄存器。然后，逻辑地址到线性地址的翻译就不需要通过额外一次访存来取出GDT或LDT中的段描述符。CPU可以直接从不可编程寄存器中取出相应的段描述符。当分段寄存器中的内容改变时，才需要重新访存GDT和LDT。</p>
+<p>两种取段描述符的方法如下：</p>
+<p><img src="/2025/04/17/ulk3/image-20250417141006175.png" alt="image-20250417141006175"></p>
+<p>段标识符中有三个字段，如下：</p>
+<p><img src="/2025/04/17/ulk3/image-20250417141103482.png" alt="image-20250417141103482"></p>
+<p>由于段描述符是8字节，其在GDT或LDT中的相对地址是通过将段标识符的13位索引字段乘以8来获得的。例如，GDT的地址是0X0002,0000（这个地址存储在gdtr里），段标识符里的index是2，那么段描述符的地址就是0X0002,0000+(2 * 8)&#x3D;0X0002,0010。</p>
+<p>GDT中的第一个条目始终设置为0。这样可以保证：如果一个逻辑地址的段标识符是NULL，那么这个地址被认定非法，然后导致异常。GDT中能够存储的最大的段描述符的数目为$2^{13}-1$。</p>
+<h3 id="分段单元"><a href="#分段单元" class="headerlink" title="分段单元"></a>分段单元</h3>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/04/17/ulk3/" data-id="cm9kztjqo005qv7nnbxl1b29a" data-title="深度理解Linux内核" class="article-share-link">Share</a>
+      
+      
+      
+      
+      
+      
+
+    </footer>
+  </div>
+  
+    
+  <nav id="article-nav" class="wow fadeInUp">
+    
+    
+    <div class="article-nav-link-wrap article-nav-link-right">
+      
+        
+        
+          <img data-src="/covers/IMG_2621.PNG" data-sizes="auto" alt="frequency-backdoor-attack" class="lazyload">
+        
+      
+      <a href="/2024/09/12/frequency-backdoor-attack/"></a>
+      <div class="article-nav-caption">Older</div>
+      <h3 class="article-nav-title">
+        
+          frequency-backdoor-attack
+        
+      </h3>
+    </div>
+    
+  </nav>
+
+
+  
+</article>
+
+
+
+
+
+
+</section>
+          
+            <aside id="sidebar">
+  <div class="sidebar-wrap wow fadeInRight wrap-sticky">
+    
+      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">Contents</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ch2-%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80"><span class="toc-number">1.</span> <span class="toc-text">ch2 内存地址</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80"><span class="toc-number">1.1.</span> <span class="toc-text">内存地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E5%88%86%E6%AE%B5"><span class="toc-number">1.2.</span> <span class="toc-text">硬件分段</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AE%B5%E9%80%89%E6%8B%A9%E7%AC%A6%E5%92%8C%E5%88%86%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">1.2.1.</span> <span class="toc-text">段选择符和分段寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="toc-number">1.2.2.</span> <span class="toc-text">段描述符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E8%AE%BF%E9%97%AE%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="toc-number">1.2.3.</span> <span class="toc-text">快速访问段描述符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%AE%B5%E5%8D%95%E5%85%83"><span class="toc-number">1.2.4.</span> <span class="toc-text">分段单元</span></a></li></ol></li></ol></li></ol>
+      
+  </div>
+</div>
+</div>
+      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>Posts</div>
+    <div class="sidebar-state-number">65</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>Categories</div>
+    <div class="sidebar-state-number">13</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>Tags</div>
+    <div class="sidebar-state-number">17</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/" aria-label="Home"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">Home</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="Archives"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">Archives</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/about" aria-label="About"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">About</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="Friend"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">Friend</div>
+    </div>
+  
+</div>
+</div>
+    
+    
+      <div class="sidebar-btn-wrapper" style="position:static">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+    
+  </div>
+
+  
+</aside>
+
+          
+        </div>
+        <footer id="footer" class="wow fadeInUp">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      <div>
+        <span class="icon-copyright"></span>
+        2020-2025
+        <span class="footer-info-sep"></span>
+        chengyiqiu
+      </div>
+      
+        <div>
+          Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>&nbsp;
+          Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" target="_blank">Reimu</a>
+        </div>
+      
+      
+        <div>
+          <span class="icon-brush"></span>
+          129.6k
+          &nbsp;|&nbsp;
+          <span class="icon-coffee"></span>
+          08:55
+        </div>
+      
+      
+        <div>
+          <span class="icon-eye"></span>
+          <span id="busuanzi_container_site_pv">Number of visits&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+          &nbsp;|&nbsp;
+          <span class="icon-user"></span>
+          <span id="busuanzi_container_site_uv">Number of visitors&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+        </div>
+      
+    </div>
+  </div>
+</footer>
+
+        <div class="sidebar-top">
+          <img src="/images/taichi.png" height="50" width="50" />
+          <div class="arrow-up"></div>
+        </div>
+        <div id="mask"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">Contents</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ch2-%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80"><span class="toc-number">1.</span> <span class="toc-text">ch2 内存地址</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80"><span class="toc-number">1.1.</span> <span class="toc-text">内存地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E5%88%86%E6%AE%B5"><span class="toc-number">1.2.</span> <span class="toc-text">硬件分段</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AE%B5%E9%80%89%E6%8B%A9%E7%AC%A6%E5%92%8C%E5%88%86%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">1.2.1.</span> <span class="toc-text">段选择符和分段寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="toc-number">1.2.2.</span> <span class="toc-text">段描述符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E8%AE%BF%E9%97%AE%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="toc-number">1.2.3.</span> <span class="toc-text">快速访问段描述符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%AE%B5%E5%8D%95%E5%85%83"><span class="toc-number">1.2.4.</span> <span class="toc-text">分段单元</span></a></li></ol></li></ol></li></ol>
+      
+  </div>
+</div>
+</div>
+      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/rabbit_1.jpg" data-sizes="auto" alt="chengyiqiu" class="lazyload">
+  <div class="sidebar-author-name">chengyiqiu</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>Posts</div>
+    <div class="sidebar-state-number">65</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>Categories</div>
+    <div class="sidebar-state-number">13</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>Tags</div>
+    <div class="sidebar-state-number">17</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/" aria-label="Home"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">Home</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="Archives"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">Archives</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/about" aria-label="About"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">About</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="Friend"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">Friend</div>
+    </div>
+  
+</div>
+</div>
+    
+  </div>
+  
+    <div class="sidebar-btn-wrapper">
+      <div class="sidebar-toc-btn current"></div>
+      <div class="sidebar-common-btn"></div>
+    </div>
+  
+</nav>
+
+    </div>
+    <div class="site-search">
+      <div class="reimu-popup popup">
+        <div class="reimu-search">
+          <span class="reimu-search-input-icon"></span>
+          <div class="reimu-search-input" id="reimu-search-input"></div>
+        </div>
+        <div class="reimu-results">
+          <div id="reimu-stats"></div>
+          <div id="reimu-hits"></div>
+          <div id="reimu-pagination" class="reimu-pagination"></div>
+        </div>
+        <span class="popup-btn-close"></span>
+      </div>
+    </div>
+    
+<script src="https://npm.webcache.cn/jquery@3.7.1/dist/jquery.min.js"></script>
+
+
+<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"></script>
+
+
+<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"></script>
+
+
+
+  
+<script src="https://npm.webcache.cn/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+
+
+
+  
+<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
+
+
+
+
+
+
+<script src="/js/pjax_script.js" data-pjax></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+<script src="https://npm.webcache.cn/mouse-firework@0.0.4/dist/index.umd.js"></script>
+
+  <script>
+    firework(JSON.parse('{"excludeElements":["a","button"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["#ff5252","#ff7c7c","#ffafaf","#ffd0d0"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["#ff0000"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'))
+  </script>
+
+
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+  <script>
+    console.log(String.raw`%c 
+ ______     ______     __     __    __     __  __    
+/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+ \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                  
+`,'color: #ff5252;')
+    console.log('%c Theme.Reimu v' + '0.1.2' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
+  </script>
+  
+
+  <!-- hexo injector body_end start -->
+<script src="/js/insert_highlight.js" data-pjax></script>
+<!-- hexo injector body_end end --></body>
+  </html>
+
