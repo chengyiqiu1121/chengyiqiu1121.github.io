@@ -39,8 +39,15 @@
 <meta property="og:image" content="http://example.com/2025/04/17/ulk3/ulk3//image-20250417134536116.png">
 <meta property="og:image" content="http://example.com/2025/04/17/ulk3/image-20250417141006175.png">
 <meta property="og:image" content="http://example.com/2025/04/17/ulk3/image-20250417141103482.png">
+<meta property="og:image" content="http://example.com/2025/04/17/ulk3/ulk3//image-20250417150731539.png">
+<meta property="og:image" content="http://example.com/2025/04/17/ulk3/ulk3//image-20250417185939560.png">
+<meta property="og:image" content="http://example.com/2025/04/17/ulk3/image-20250418121948658.png">
+<meta property="og:image" content="http://example.com/2025/04/17/ulk3/image-20250418153001849.png">
+<meta property="og:image" content="http://example.com/2025/04/17/ulk3/ulk3//image-20250421150444950.png">
+<meta property="og:image" content="http://example.com/2025/04/17/ulk3/image-20250421190928102.png">
+<meta property="og:image" content="http://example.com/2025/04/17/ulk3/image-20250421202436126.png">
 <meta property="article:published_time" content="2025-04-17T05:20:12.000Z">
-<meta property="article:modified_time" content="2025-04-17T06:42:10.347Z">
+<meta property="article:modified_time" content="2025-04-21T12:25:26.091Z">
 <meta property="article:author" content="chengyiqiu">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2025/04/17/ulk3/image-20250417122801055.png">
@@ -270,11 +277,115 @@
 <p><img src="/2025/04/17/ulk3/image-20250417141103482.png" alt="image-20250417141103482"></p>
 <p>由于段描述符是8字节，其在GDT或LDT中的相对地址是通过将段标识符的13位索引字段乘以8来获得的。例如，GDT的地址是0X0002,0000（这个地址存储在gdtr里），段标识符里的index是2，那么段描述符的地址就是0X0002,0000+(2 * 8)&#x3D;0X0002,0010。</p>
 <p>GDT中的第一个条目始终设置为0。这样可以保证：如果一个逻辑地址的段标识符是NULL，那么这个地址被认定非法，然后导致异常。GDT中能够存储的最大的段描述符的数目为$2^{13}-1$。</p>
-<h3 id="分段单元"><a href="#分段单元" class="headerlink" title="分段单元"></a>分段单元</h3>
+<h3 id="分段单元"><a href="#分段单元" class="headerlink" title="分段单元"></a>分段单元</h3><p>分段单元是用来将逻辑地址转为线性地址的，具体操作如下：</p>
+<ul>
+<li>检查TI字段，判断是在哪一个描述符表（GDT or LDT）中存放着分段描述符。如果GDT，那么就从gdtr中取出GDT的线性基地址；如果是ldtr，也是如此。</li>
+<li>根据段选择符中的index字段，计算段描述符的地址。index字段会乘以8（段描述符的长度8-byte），然后结果会加上gdtr或者ldtr中的基地址。</li>
+<li>在段描述符里找到Base字段，然后加上段内偏移offset，这样就得到了线性地址。</li>
+</ul>
+<img src="./ulk3//image-20250417150731539.png" alt="image-20250417150731539" style="zoom:50%;">
+
+<p>需要注意的是，多亏了不可编程寄存器和分段寄存器关联，只有当分段寄存器不得不改变时，才会执行前两个操作。</p>
+<h2 id="Linux中的分段"><a href="#Linux中的分段" class="headerlink" title="Linux中的分段"></a>Linux中的分段</h2><p>分段机制已经被包括在8086系处理器里，为的是鼓励程序员将他们的应用程序拆分为逻辑上相邻的实体，例如：子程序、全局or局部数据区域。然而，Linux很有限地使用分段机制。事实上，分段和分页机制在某种程度上是冗余的，因为这两者都能够被用来拆分进程的物理地址空间。例如：1. 分段能够分配不同的线性地址空间给每个进程；2. 分页能够将相同的线性地址空间映射到不同的物理地址空间。Linux偏好分页而不是分段，原因如下：</p>
+<ul>
+<li>当所有进程共享相同的线性地址集合时，内存管理机制变得更加简单</li>
+<li>Linux的设计目标之一是尽可能的兼容各种不同的架构。其中，RISC架构对分段的支持特别有限。</li>
+</ul>
+<p>Linux 2.6版本仅仅在8086架构需要时，才会使用分段。</p>
+<p>所有运行在用户级的Linux进程使用相同的分段对（pair of segments）来寻址指令和数据。分别地，这些分段被称作用户代码段（user code segment）和用户数据段（user data segment），下表展示了这四个关键段的分段描述符的字段：</p>
+<img src="./ulk3//image-20250417185939560.png" alt="image-20250417185939560" style="zoom:50%;">
+
+<p>分别地，相应的分段选择符被这些macros所定义：<code>__USER_CS, __USER_DS, __KERNEL_CS, __KERNEL_DS</code>。为了对内核代码段进行寻址，例如，内核仅仅将<code>__KERNEL_CS</code> macro产生的值加载到cs分段寄存器中。</p>
+<p>需要注意的是，和这些段相关的线性地址都是从0开始的，直到到达地址的限制值$2^{32}-1$。这意味着，无论是用户态还是内核态的进程，可能会使用同一个逻辑地址。</p>
+<p>让所有段从0X0000,0000开的的另一个很重要的结果是，逻辑地址和线性地址保持一致。即，逻辑地址和线性地址的偏移量永远保持一致。</p>
+<p>如前所述，CPU的当前特权级别表示，处理器是否处于用户态或者内核态。并且，CPL被cs寄存器中的段选择符的RPL字段所指定。无论何时CPL改变，某些段寄存器肯定会更新。例如，当CPL&#x3D;3，表示用户态，ds寄存器一定持有用户数据段的段选择符；然而， 当CPL&#x3D;0时，ds寄存器存放的肯定是内核数据段的数据选择符。</p>
+<p>另一个很相似的例子是，对于ss寄存器（堆栈分段寄存器），当CPL&#x3D;3时，指向的一定是用户态堆栈（用用户数据段实现的）；当CPL&#x3D;0时，ss寄存器指向的一定是内核态堆栈（有内核数据段实现）。当处理器从用户态切换到内核态时，Linux始终要确认：ss寄存器持有内核数据段的段选择符。</p>
+<p>当保存一个指针到一条指令或者一个数据结构时，内核不需要保存逻辑地址的段选择符，因为ss寄存器中已经包含了当前的段选择符。例如，当内核调用一个函数，内核会执行一个call汇编语言指令，这个指令仅仅指定它逻辑地址的偏移量；段选择符被隐式地选择了，因为cs寄存器中持有的就是段选择符。由于只有一种类型的段，能够在内核态下执行，也就是在<code>__KERNEL_CS</code>中标识的代码段，无论何时CPU切换到内核态，内核都会将<code>__KERNEL_CS</code>加载到cs寄存器。另一个很相似的例子就是，指向内核数据结构的指针（隐式被ds寄存器加载），指向用户数据结构时，内核则会显式使用es寄存器。</p>
+<p>除了上面讨论的四种分段，Linux还使用了一些其他特殊的段，将会在下一节讨论。</p>
+<h3 id="Linux中的全局描述符表"><a href="#Linux中的全局描述符表" class="headerlink" title="Linux中的全局描述符表"></a>Linux中的全局描述符表</h3><p>在单核系统中，只有一个GDT，而在多核系统中，每个CPU都有一个GDT。所有的GDT都被保存在名为<code>cpu_gdt_table</code>数组里，而这些GDT的地址和大小（被用来初始化gtdr寄存器）被存储在名为<code>cpu_gdt_descr</code>的数组里。如果你越过Linux源代码的索引，你会发现这些符号被定义在名为<code>arch/i386/kernel/head.S</code>放入文件里。这本书里列举的每一个宏、函数、符号，都可在源文件索引里找到。</p>
+<p>GDT的布局如下：</p>
+<p><img src="/2025/04/17/ulk3/image-20250418121948658.png" alt="image-20250418121948658"></p>
+<p>每个GDT包含18个段描述符，14个null、没使用的、或者保留的条目。没使用的条目的作用是：当段描述符被访问时，可以被遗弃保留在32-byte的硬件缓存中。</p>
+<p>18个包含在每个GDT中的段描述符指向下面描述的这些段：</p>
+<ul>
+<li>用户&#x2F;内核 代码&#x2F;数据段</li>
+<li>一个任务状态段（TSS），系统中每个处理器的TSS都不同。指向TSS的线性地址空间，是，指向内核数据段线性地址空间，的一个子集（这句话的意思大概是TSS是内核数据段的子集？）。TSS被顺序的存储在<code>init_tss</code>数组里；特别地，第n个CPU的TSS的<code>Base</code>字段，指向的是<code>init_tss</code>的第n个元素（也就是说，有几个CPU，<code>init_tss</code>的长度就是多少）。G字段被清除了（置零），<code>Limit</code>字段被设置为了<code>0xeb</code>（TSS段长236-byte）。<code>Type</code>字段被设置为9或者11，<code>DPL</code>字段被设置为0，因为处于用户态的处理器不被允许去访问TSS段。</li>
+<li>包含所有默认局部描述符表（LDT）的段，通常所有处理器共享一个。</li>
+<li>三个线程局部存储段（TLS），这个机制允许多线程程序来充分利用至多三个段，来持有每个线程局部的数据（本地数据）。两个系统调用：<code>set_thread-area(), get_thread_area()</code>，分别表示为正在执行的进程创建和释放TLS段。</li>
+<li>三个有关高级电源管理（APM）的段，BIOS代码使用这些段，当Linux APM驱动调用BIOS函数来获取或者设置APM驱动的状态。这些段可能会用到常规的代码或者数据分段。</li>
+<li>五个和“即插即用”（Plug and Play, PnP）BIOS服务相关的分段。当PnP驱动调用BIOS函数来检测PnP设备使用的资源时，会用到这些段。这些段也是常规的代码或者数据分段。</li>
+<li>一个特殊的TSS段（任务状态段），这个段被内核用来捕获异常。（”Double Fault” exceptions）</li>
+</ul>
+<p>如前面所述。每个处理器都有GDT的一份拷贝。所有GDT的拷贝保存着相同的条目，除了某些少数情况。首先，每个处理器都有它独有的TSS段，因此GDT中相应的条目也会有所不同；更进一步，少数GDT中的条目可能取决于CPU正在运行的进程（例如LDT和TLS段描述符）；最后，在某种情况下，处理器可能会短暂地更改GDT拷贝中的条目，例如，当调用APM BIOS过程时。</p>
+<h3 id="Linux中的局部描述符表"><a href="#Linux中的局部描述符表" class="headerlink" title="Linux中的局部描述符表"></a>Linux中的局部描述符表</h3><p>大部分Linux用户态的应用程序不回用到LDT，因此内核定义了一个默认的LDT，在所有进程中共享。默认的LDT被存在名为<code>default_ldt</code>的数组中。这个数组包含五个条目，然而只有两个条目能够被内核高效地使用：a call gate for iBCS executables, and a call gate for Solaris&#x2F;x86 executables。调用门是8086处理器提供的一种机制，当CPU执行预先定义好的函数时，用来改变当前的特签级别。这本书不会过多讨论调用门，详细信息可以在Intel文档里找到。</p>
+<p>然而，在某些特殊情况下，进程可能会需要设置他们自己的LDT。例如，当运行<code>Wine</code>时，<code>Wine</code>执行Windows下的面向分段应用程序（意思应该就是使用分段），进程设置自己的LDT就很有用。系统调用<code>modify_ldt()</code>允许进程设置自己的LDT。</p>
+<p>任何通过<code>modify_ldt()</code>创建的自定义LDT，也需要它自己独有的分段。当一个处理器开始运行有自定义LDT的进程时，这个处理器对应的GDT拷贝中的LDT条目也会改变。</p>
+<p>用户态的应用程序也能够通过<code>modify_ldt()</code>来分配新的分段。然而，内核永远不会使用这些分段，并且，也不回去追踪相应的段描述符，因为他们被包含在进程定制化的LDT中。</p>
+<h2 id="硬件分页原理"><a href="#硬件分页原理" class="headerlink" title="硬件分页原理"></a>硬件分页原理</h2><p>分页单元将线性地址转换成物理地址。分页单元的关键任务之一是检查访问类型是否超出了线性地址的访问权限（就是检查权限吧？？）。如果访存是非法的，分页单元会产生一个分页异常（Page Fault exception）。</p>
+<p>为了效率，线性地址被划分为组，以固定的长度，称为分页。在一个分页内的连续线性地址，会被同样映射到连续的一块物理地址。通过这种方式，内核可以指定分页的物理地址和访问权限，而不是线性地址。根据这个，我们应该使用分页来代指一束线性地址以及其中包含的数据。</p>
+<p>分页单元认为RAM是被分成了定长的页帧（Page Frames，好像也被称为页框，有时候也会指为物理分页Physical Pages）每个页帧包含一个分页，页帧和分页长度保持一致。页框是主存的主要构成成分，因此页框是一块存储区域。对分页和页框进行区分十分重要，前者只是一块数据，可能被存储在任何一个页框内，甚至是磁盘上（swap</p>
+<p>将线性地址映射到物理地址的数据结构被称为页表（page table）页表被存储在主存当中，并且，在使用页表之前，必须由Linux内核进行正确的初始化。</p>
+<p>从80386开始，所有的8086处理器都支持分页，通过设置控制寄存器<code>cr0</code>的 <code>PG</code>标志，能够开启分页，当设置<code>PG=0</code>时，线性地址将会被直接解释为物理地址（不作任何转换）</p>
+<h3 id="常规分页"><a href="#常规分页" class="headerlink" title="常规分页"></a>常规分页</h3><p>从80386开始，Intel处理器的分页单元处理4KB的分页。</p>
+<p>将32-bit的线性地址拆成三部分：</p>
+<ul>
+<li>目录（Directory），10-bit，是最重要的部分</li>
+<li>表（Table），中间的10-bit</li>
+<li>偏移（offset），最后的12-bit</li>
+</ul>
+<p>线性地址的翻译通过两步完成，每一步都包含一种类型的翻译表（translation table）。第一个翻译表是页目录（Page Directory），第二个是页表（Page Table）</p>
+<p>二级表的目的是为了减少处理页表所消耗的内存。假如简单使用一级页表来进行翻译，将需要最多$2^{20}$的条目来表示每个进程的页表（一个条目4-byte，一共就是4-MB内存），如果一个进程申请了4GB的虚拟内存，但是其实大部分没用到，那么页表开销依然是4MB。二级页表这样做的好处是，仅仅只有虚拟地址区域确实被使用了，才会建立对应的页表。</p>
+<p>任何一个运行的进程一定有页目录。然而，没有必要对进程的所有页表都分配内存（这样和一级页表没有区别），只有当进程确实需要页表的时候，再给对应的页表分配内存，这样更加高效。</p>
+<p>PS：Page Directory，页目录，感觉叫页表目录更加合适，因为页目录其实是页表的索引。</p>
+<p>正在使用的页目录的物理地址被存储在名为<code>cr3</code>的控制寄存器中。线性地址的<code>Directory</code>字段决定了页目录中的条目，这个条目指向的是正确的页表。更进一步，线性地址的<code>Table</code>字段决定怎么在页表中找到正确的条目，这个条目持有的是包含page的page frame的物理地址。最后，<code>offset</code>字段决定了page frame的的相对偏移。因为offset是12-bit，按byte寻址，那么每一个含有$2^{12}$，也就是4096-byte。</p>
+<p><img src="/2025/04/17/ulk3/image-20250418153001849.png" alt="image-20250418153001849"></p>
+<p>页目录和页表的长度都是10-bit，因此，最多1024条目。所以虚拟内存的最大值是$1024\times 1024\times 4096B$，也就是4GB，刚好cover所有的memory cell。</p>
+<p>页目录和页表中的条目含有相同的结构，每一个条目包含下面的字段：</p>
+<ul>
+<li>。。。略</li>
+</ul>
+<h3 id="扩展分页"><a href="#扩展分页" class="headerlink" title="扩展分页"></a>扩展分页</h3><p>从奔腾型号开始，8086位处理器引入了扩展分页，可以将页帧大小从4KB提升到4MB。扩展分页用于将大段连续的线性地址范围转换到相应的物理部分。在这种情况下，内核可以不依赖中间页表来进行地址翻译，更加节省TLB条目的空间（后面会讲）</p>
+<img src="./ulk3//image-20250421150444950.png" alt="image-20250421150444950" style="zoom:50%;">
+
+<p>通过设置页目录里的<code>Page Size</code>标志来开启扩展分页。进而，线性地址被划分为两部分：10位的目录和22位的偏移（对应4MB的页帧）</p>
+<p>扩展分页的页目录和常规分页的页目录相同，除了下面几点：</p>
+<ul>
+<li><code>Page Size</code>标志必须被设置</li>
+<li>20位的物理地址中，只有前10位是有效的，因为每一个物理地址都是按照4MB的边界对齐的，因此后22位全部是0.</li>
+</ul>
+<p>扩展分页和常规分页共存。通过设置处理器的<code>cr4</code>寄存器中的<code>PSE</code>标志即可。</p>
+<h3 id="硬件保护方案"><a href="#硬件保护方案" class="headerlink" title="硬件保护方案"></a>硬件保护方案</h3><p>分页单元使用了一个和分段单元不同的保护方案。尽管8086处理器允许四种可能的优先级来分段，只有两种特权级别和分页以及页表相关，因为优先级被<code>User/Supervisor</code>标志所控制。当这个标志为0时，相应的页只有在CPL（当前特权级别）小于3时（对Linux而言，也就是内核态下），才能够被访存。当标志为1时，相应的页可以在任何状态下被访存。</p>
+<p>此外，不像分段那样有三种访问权限（读，写，执行），分页只有两种访问权限（读和写）。当页目录或者页表项中的<code>Read/Write</code>标志为0时，相对应的页表只有读权限；反之，则拥有读写权限。</p>
+<h3 id="常规分页的一个例子"><a href="#常规分页的一个例子" class="headerlink" title="常规分页的一个例子"></a>常规分页的一个例子</h3><p>举个简单的例子，帮助我们理解常规分页是如何工作的。假设，操作系统内核为一个正在运行的进程分配的线性地址空间是<code>0x2000,0000-0x2003,ffff</code>。这块线性地址区域包含了64个分页。在这里，我们并不关心这64个分页对应的物理页帧是什么，事实上，有些页帧可能甚至不在主存中。在这里，我们只对页表项中的保留字段感兴趣。</p>
+<p>这篇空间的前十位是相同的，代表的正是页表目录，我们从这里开始。取出前十位：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0b0010</span> <span class="number">0000</span> <span class="number">00</span>=<span class="number">0b00</span>,<span class="number">1000</span>,<span class="number">0000</span>=<span class="number">0x0b0</span>=<span class="number">128</span></span><br></pre></td></tr></table></figure>
+
+<p>也就是说，这个页表目录，指向的索引是整张页表目录的第129个条目，这个条目中存放的就是这个进程对应的页表的物理地址，如果这个进程没有被分配其他的线性地址，其他1023个条目中存放的就都是0.</p>
+<p><img src="/2025/04/17/ulk3/image-20250421190928102.png" alt="image-20250421190928102"></p>
+<p>在上述的假设中，页表目录中只有一个条目是有效的，其余全是0，也就是说这个进程只有一张页表。更进一步，操作系统分配的页表是<code>0x000-0x3f</code>，换算成十进制就是0到63。也就是说，这张唯一的页表里，只有前64个条目里存放着物理地址，其余的条目里全是0。这里已经体现出二级页表的好处了，虽然操作系统分配的是64张页表，但其实进程只用到了一张页表，极大地节省了内存空间（维护64张页表-&gt;维护一张页表目录表+一张页表）</p>
+<p>假设这个进程需要读取一个字节，对应的线性地址是<code>0x2002,1406</code>。这个地址会被分页单元捕获，然后按照下面步骤进行翻译：</p>
+<ul>
+<li>首先取出最大的10位，页表目录索引字段，也就是<code>0x80</code>，来找到相应的页表的物理地址</li>
+<li>其次，取出中间的十位，也就是<code>0x21</code>，来找到页表中哪一项条目是这个字节的物理地址对应的页帧。</li>
+<li>最终，取出最后12位<code>0x406</code>，和取出的页帧concat，得到最终这个页帧中的字节所在的位置。</li>
+</ul>
+<p>如果页表的第<code>0x21</code>个条目的<code>Present</code>标志被清除，那么就代表这个页表不在主存（页帧）中，在这种情况下，分页单元会报告一个<code>Page Fault</code>异常，当转换这个线性地址时。同样，下面这种情况也会报告异常，当进程尝试去访问超出操作系统分配的线性空间的地址（也就是超出<code>0x2000,0000-0x2003,ffff</code>了），访问没有分配的线性地址，最后得到的页表条目会是0，当然，他们的<code>Present</code>标志也是被清除的。</p>
+<h3 id="物理地址扩展分页机制"><a href="#物理地址扩展分页机制" class="headerlink" title="物理地址扩展分页机制"></a>物理地址扩展分页机制</h3><p>处理器能够使用的RAM总量被连接在地址总线上的地址引脚所限制。从旧的80386 Intel处理器奔腾处理器，使用的都是32位的物理地址。理论上，这类系统最多支持4GB的RAM。实际上，由于用户态处理器对线性地址的需求，内核不能直接分配超过1GB的RAM。</p>
+<p>然而，有些大型服务器需要同时运行成百上千的线程，需要的RAM超出了4GB，推动了Intel扩展32-bit的8086架构的地址总数。</p>
+<p>为了解决内存不够的挑战，Intel将内存引脚数从32提升到36。从奔腾pro处理器开始，所有的Intel处理器能够以36位的方式寻址，寻址空间大小为$2^{36}&#x3D;64GB$。然而，只有引入新的分页机制，将32-bit的线性地址转换成36-bit的物理地址，才能够利用增加的物理地址。</p>
+<p>在奔腾pro处理器上，Intel引入了一种被称为物理地址扩展(Physical Address extension, PAE)的机制。</p>
+<p>PAE开启的条件是：设置控制寄存器<code>cr4</code>的PAE标志。</p>
+<p>PS：36-bit没啥意思，这里直接jump到64-bit了，fxxk intel</p>
+<h3 id="64-bit架构的分页机制"><a href="#64-bit架构的分页机制" class="headerlink" title="64-bit架构的分页机制"></a>64-bit架构的分页机制</h3><p>前面讲述了32-bit架构下，使用二级分页能够很好地工作。然而，在64-bit下，这样使用不合适，原因如下：</p>
+<p>一般的分页大小是4KB，需要消耗12位地址，因此还剩余52位。如果我们只使用64位中的48位来寻址（寻址空间256TB），有12位分配给页内偏移，36位分配给页目录和页表。平均分的话，页目录和页表都是18位，那么，操作系统中对应的页表目录表和页表有$2^{18}$个条目。</p>
+<p>PS：以页表目录表举例，里面存放的是页表的物理地址，64-bit，那么一张页表目录表的大小就是$2^{24}bit&#x3D;16Mbit&#x3D;2MB$。</p>
+<p>因此，所有硬件上支持分页的系统，对于64-bit的处理器，都会使用额外的分页级别。具体使用几级分页取决于特定的处理器类型，平台架构。</p>
+<p><img src="/2025/04/17/ulk3/image-20250421202436126.png" alt="image-20250421202436126"></p>
+<h3 id="硬件缓存"><a href="#硬件缓存" class="headerlink" title="硬件缓存"></a>硬件缓存</h3>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/04/17/ulk3/" data-id="cm9l0ch1p005ombnnhjl7eyk0" data-title="深度理解Linux内核" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2025/04/17/ulk3/" data-id="cm9r2jmdu005m6knngj1z2kb1" data-title="深度理解Linux内核" class="article-share-link">Share</a>
       
       
       
@@ -293,7 +404,7 @@
       
         
         
-          <img data-src="/covers/IMG_2578.JPG" data-sizes="auto" alt="frequency-backdoor-attack" class="lazyload">
+          <img data-src="/covers/IMG_2621.PNG" data-sizes="auto" alt="frequency-backdoor-attack" class="lazyload">
         
       
       <a href="/2024/09/12/frequency-backdoor-attack/"></a>
@@ -325,7 +436,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ch2-%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80"><span class="toc-number">1.</span> <span class="toc-text">ch2 内存地址</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80"><span class="toc-number">1.1.</span> <span class="toc-text">内存地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E5%88%86%E6%AE%B5"><span class="toc-number">1.2.</span> <span class="toc-text">硬件分段</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AE%B5%E9%80%89%E6%8B%A9%E7%AC%A6%E5%92%8C%E5%88%86%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">1.2.1.</span> <span class="toc-text">段选择符和分段寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="toc-number">1.2.2.</span> <span class="toc-text">段描述符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E8%AE%BF%E9%97%AE%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="toc-number">1.2.3.</span> <span class="toc-text">快速访问段描述符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%AE%B5%E5%8D%95%E5%85%83"><span class="toc-number">1.2.4.</span> <span class="toc-text">分段单元</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ch2-%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80"><span class="toc-number">1.</span> <span class="toc-text">ch2 内存地址</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80"><span class="toc-number">1.1.</span> <span class="toc-text">内存地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E5%88%86%E6%AE%B5"><span class="toc-number">1.2.</span> <span class="toc-text">硬件分段</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AE%B5%E9%80%89%E6%8B%A9%E7%AC%A6%E5%92%8C%E5%88%86%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">1.2.1.</span> <span class="toc-text">段选择符和分段寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="toc-number">1.2.2.</span> <span class="toc-text">段描述符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E8%AE%BF%E9%97%AE%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="toc-number">1.2.3.</span> <span class="toc-text">快速访问段描述符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%AE%B5%E5%8D%95%E5%85%83"><span class="toc-number">1.2.4.</span> <span class="toc-text">分段单元</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux%E4%B8%AD%E7%9A%84%E5%88%86%E6%AE%B5"><span class="toc-number">1.3.</span> <span class="toc-text">Linux中的分段</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux%E4%B8%AD%E7%9A%84%E5%85%A8%E5%B1%80%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8"><span class="toc-number">1.3.1.</span> <span class="toc-text">Linux中的全局描述符表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux%E4%B8%AD%E7%9A%84%E5%B1%80%E9%83%A8%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8"><span class="toc-number">1.3.2.</span> <span class="toc-text">Linux中的局部描述符表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E5%88%86%E9%A1%B5%E5%8E%9F%E7%90%86"><span class="toc-number">1.4.</span> <span class="toc-text">硬件分页原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%84%E5%88%86%E9%A1%B5"><span class="toc-number">1.4.1.</span> <span class="toc-text">常规分页</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A9%E5%B1%95%E5%88%86%E9%A1%B5"><span class="toc-number">1.4.2.</span> <span class="toc-text">扩展分页</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E4%BF%9D%E6%8A%A4%E6%96%B9%E6%A1%88"><span class="toc-number">1.4.3.</span> <span class="toc-text">硬件保护方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%84%E5%88%86%E9%A1%B5%E7%9A%84%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90"><span class="toc-number">1.4.4.</span> <span class="toc-text">常规分页的一个例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%A9%E7%90%86%E5%9C%B0%E5%9D%80%E6%89%A9%E5%B1%95%E5%88%86%E9%A1%B5%E6%9C%BA%E5%88%B6"><span class="toc-number">1.4.5.</span> <span class="toc-text">物理地址扩展分页机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#64-bit%E6%9E%B6%E6%9E%84%E7%9A%84%E5%88%86%E9%A1%B5%E6%9C%BA%E5%88%B6"><span class="toc-number">1.4.6.</span> <span class="toc-text">64-bit架构的分页机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E7%BC%93%E5%AD%98"><span class="toc-number">1.4.7.</span> <span class="toc-text">硬件缓存</span></a></li></ol></li></ol></li></ol>
       
   </div>
 </div>
@@ -416,10 +527,10 @@
       
         <div>
           <span class="icon-brush"></span>
-          129.6k
+          134.8k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
-          08:55
+          09:13
         </div>
       
       
@@ -448,7 +559,7 @@
   <h3 class="toc-title">Contents</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ch2-%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80"><span class="toc-number">1.</span> <span class="toc-text">ch2 内存地址</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80"><span class="toc-number">1.1.</span> <span class="toc-text">内存地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E5%88%86%E6%AE%B5"><span class="toc-number">1.2.</span> <span class="toc-text">硬件分段</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AE%B5%E9%80%89%E6%8B%A9%E7%AC%A6%E5%92%8C%E5%88%86%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">1.2.1.</span> <span class="toc-text">段选择符和分段寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="toc-number">1.2.2.</span> <span class="toc-text">段描述符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E8%AE%BF%E9%97%AE%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="toc-number">1.2.3.</span> <span class="toc-text">快速访问段描述符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%AE%B5%E5%8D%95%E5%85%83"><span class="toc-number">1.2.4.</span> <span class="toc-text">分段单元</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ch2-%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80"><span class="toc-number">1.</span> <span class="toc-text">ch2 内存地址</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80"><span class="toc-number">1.1.</span> <span class="toc-text">内存地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E5%88%86%E6%AE%B5"><span class="toc-number">1.2.</span> <span class="toc-text">硬件分段</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AE%B5%E9%80%89%E6%8B%A9%E7%AC%A6%E5%92%8C%E5%88%86%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">1.2.1.</span> <span class="toc-text">段选择符和分段寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="toc-number">1.2.2.</span> <span class="toc-text">段描述符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E8%AE%BF%E9%97%AE%E6%AE%B5%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="toc-number">1.2.3.</span> <span class="toc-text">快速访问段描述符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%AE%B5%E5%8D%95%E5%85%83"><span class="toc-number">1.2.4.</span> <span class="toc-text">分段单元</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux%E4%B8%AD%E7%9A%84%E5%88%86%E6%AE%B5"><span class="toc-number">1.3.</span> <span class="toc-text">Linux中的分段</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux%E4%B8%AD%E7%9A%84%E5%85%A8%E5%B1%80%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8"><span class="toc-number">1.3.1.</span> <span class="toc-text">Linux中的全局描述符表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux%E4%B8%AD%E7%9A%84%E5%B1%80%E9%83%A8%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8"><span class="toc-number">1.3.2.</span> <span class="toc-text">Linux中的局部描述符表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E5%88%86%E9%A1%B5%E5%8E%9F%E7%90%86"><span class="toc-number">1.4.</span> <span class="toc-text">硬件分页原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%84%E5%88%86%E9%A1%B5"><span class="toc-number">1.4.1.</span> <span class="toc-text">常规分页</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A9%E5%B1%95%E5%88%86%E9%A1%B5"><span class="toc-number">1.4.2.</span> <span class="toc-text">扩展分页</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E4%BF%9D%E6%8A%A4%E6%96%B9%E6%A1%88"><span class="toc-number">1.4.3.</span> <span class="toc-text">硬件保护方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%84%E5%88%86%E9%A1%B5%E7%9A%84%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90"><span class="toc-number">1.4.4.</span> <span class="toc-text">常规分页的一个例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%A9%E7%90%86%E5%9C%B0%E5%9D%80%E6%89%A9%E5%B1%95%E5%88%86%E9%A1%B5%E6%9C%BA%E5%88%B6"><span class="toc-number">1.4.5.</span> <span class="toc-text">物理地址扩展分页机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#64-bit%E6%9E%B6%E6%9E%84%E7%9A%84%E5%88%86%E9%A1%B5%E6%9C%BA%E5%88%B6"><span class="toc-number">1.4.6.</span> <span class="toc-text">64-bit架构的分页机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E7%BC%93%E5%AD%98"><span class="toc-number">1.4.7.</span> <span class="toc-text">硬件缓存</span></a></li></ol></li></ol></li></ol>
       
   </div>
 </div>
